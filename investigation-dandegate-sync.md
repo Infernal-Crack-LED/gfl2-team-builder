@@ -170,16 +170,19 @@ effects; null = generic) · `buffLinks` · `regionTag` · `preview` · timestamp
 - HTML → text conversion and `[effect:uuid]` resolution can be deferred to
   read-time; sync just stores what the API gives.
 
-## Open questions
+## Decisions (2026-08-15)
 
-1. Track EN-only, or EN + CN (CN is ahead on releases)?
-2. Are the `/dolls/{name}/recommendations` endpoints (community builds) worth
-   pulling for tier/builder suggestions later?
-3. Where will this live — a new `packages/gfl2` + db tables in bakery-bot's
-   monorepo, or a fresh repo under `~/gfl2-team-builder`?
-4. Terms: site footer says game assets belong to Sunborn/MICA Team; dandegate
-   is a fan DB. Fine for private sync, but worth noting if the website goes
-   public.
+1. **Both EN and CN**, keeping `regionTag` on every row — no canonical pick.
+2. **Fresh repo** at `~/gfl2-team-builder`.
+3. **No recommendations endpoints** — just the four core sources.
+4. **Strip HTML at sync time** to plain text (nikke keeps raw because colored
+   spans carry semantic in-game values for Discord embeds; GFL2 team-builder
+   has no comparable need). Keep `[effect:<uuid>]` markers as-is — they're not
+   HTML so they survive stripping. Raw HTML lives only in sync-run logs for
+   debugging.
+5. **Postgres + Drizzle**; schema includes `gfl2_sync_runs` audit table.
+6. **Full refresh MVP** — every row has `updatedAt` so incremental sync can be
+   added later.
 
 ## Verified artifacts (this investigation)
 
