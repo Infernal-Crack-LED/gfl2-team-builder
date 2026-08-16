@@ -3,8 +3,11 @@
  * (96px .unit-portrait + name + identity pills), then stacked .unit-panel
  * sections. Everything derived from data/*.json. Degrades, never vanishes:
  * a section without data shows one muted line instead of disappearing.
- * [effect:<uuid>] markers resolve to effect names via the shared data.ts
- * helper.
+ *
+ * No section renders a raw blob: game text goes through <RichText> (tags
+ * stripped, `[<kind>:<uuid>]` markers swapped for names), and the two fields
+ * the sync pipeline stores verbatim — vertebrae and the remolding pattern —
+ * come in already distilled from getVertebraeForDoll/getRemoldingPattern.
  *
  * Sets its own document head (title/description/canonical) so the full
  * dataset doesn't land in the eager entry chunk.
@@ -12,14 +15,17 @@
 import { useEffect, useState } from 'react';
 import {
   getDollBySlug,
+  getEffectDetails,
   getEffectsForDoll,
   getKeysForDoll,
+  getRemoldingPattern,
+  getVertebraeForDoll,
   getWeaponForDoll,
-  resolveEffectMarkers,
   PHASE_COLORS,
+  type Effect,
   type Skill,
-  type TextSegment,
 } from './data';
+import { RichText } from './components/RichText';
 import {
   hrefFor,
   hrefForBuilder,
@@ -28,23 +34,6 @@ import {
 } from './router';
 import { escapeJsonLd } from './jsonLd';
 import { setDetailMeta } from './useDocumentHead';
-
-/** Render text segments with effect references as <span title>. */
-function RenderText({ segments }: { segments: TextSegment[] }) {
-  return (
-    <>
-      {segments.map((seg, i) =>
-        typeof seg === 'string' ? (
-          <span key={i}>{seg}</span>
-        ) : (
-          <span key={i} className="effect-ref" title={seg.name}>
-            {seg.name}
-          </span>
-        )
-      )}
-    </>
-  );
-}
 
 /** Render a skill with level-variant tabs. */
 function SkillSection({ skill }: { skill: Skill }) {
@@ -95,9 +84,7 @@ function SkillSection({ skill }: { skill: Skill }) {
         </div>
       )}
 
-      <div className="unit-skill-desc">
-        <RenderText segments={resolveEffectMarkers(currentDesc)} />
-      </div>
+      <RichText text={currentDesc} className="unit-skill-desc" />
 
       {/* Skill metadata */}
       <div className="unit-skill-meta">
@@ -113,6 +100,47 @@ function SkillSection({ skill }: { skill: Skill }) {
         )}
       </div>
     </div>
+  );
+}
+
+/**
+ * One exclusive effect: its base text, plus the V3/V6 rewrites when the
+ * effect has them. The rewrites restate the whole effect rather than
+ * describing a delta, so they're tabbed, not stacked.
+ */
+function EffectEntry({ effect }: { effect: Effect }) {
+  const { main, upgrades } = getEffectDetails(effect);
+  const [upgrade, setUpgrade] = useState<number>(-1);
+  const shown = upgrade === -1 ? main : (upgrades[upgrade]?.details ?? main);
+
+  return (
+    <li>
+      <strong>{effect.effectName ?? 'Unknown'}</strong>
+      {upgrades.length > 0 && (
+        <div className="pills small unit-skill-tabs">
+          <button
+            type="button"
+            className={upgrade === -1 ? 'on' : ''}
+            aria-pressed={upgrade === -1}
+            onClick={() => setUpgrade(-1)}
+          >
+            Base
+          </button>
+          {upgrades.map((u, i) => (
+            <button
+              key={i}
+              type="button"
+              className={upgrade === i ? 'on' : ''}
+              aria-pressed={upgrade === i}
+              onClick={() => setUpgrade(i)}
+            >
+              {u.name ?? `Upgrade ${i + 1}`}
+            </button>
+          ))}
+        </div>
+      )}
+      <RichText text={shown} className="muted" />
+    </li>
   );
 }
 
@@ -170,6 +198,8 @@ export function DollPage({ slug }: { slug: string | null }) {
   const dollKeys = getKeysForDoll(doll.id);
   const dollEffects = getEffectsForDoll(doll.id);
   const imprintWeapon = getWeaponForDoll(doll.id);
+  const vertebrae = getVertebraeForDoll(doll);
+  const remolding = getRemoldingPattern(doll);
   const phaseColor = PHASE_COLORS[doll.phase ?? ''] ?? 'var(--border)';
 
   return (
@@ -289,11 +319,7 @@ export function DollPage({ slug }: { slug: string | null }) {
                     ))}
                   </ul>
                 )}
-                {key.effect && (
-                  <p>
-                    <RenderText segments={resolveEffectMarkers(key.effect)} />
-                  </p>
-                )}
+                <RichText text={key.effect} />
               </div>
             ))}
           </div>
@@ -308,12 +334,7 @@ export function DollPage({ slug }: { slug: string | null }) {
         {dollEffects.length > 0 ? (
           <ul className="unit-effects">
             {dollEffects.map((eff) => (
-              <li key={eff.id}>
-                <strong>{eff.effectName ?? 'Unknown'}</strong>
-                {eff.effectDetails && (
-                  <p className="muted">{eff.effectDetails}</p>
-                )}
-              </li>
+              <EffectEntry key={eff.id} effect={eff} />
             ))}
           </ul>
         ) : (
@@ -348,10 +369,52 @@ export function DollPage({ slug }: { slug: string | null }) {
       {/* Remolding pattern */}
       <section className="unit-section unit-panel">
         <h2>Remolding Pattern</h2>
-        {doll.remoldingPattern ? (
-          <pre className="unit-pre">
-            {JSON.stringify(doll.remoldingPattern, null, 2)}
-          </pre>
+        {remolding ? (
+          <>
+            <div className="unit-idents unit-remold-summary">
+              {remolding.dollCore && (
+                <span className="unit-ident">{remolding.dollCore}</span>
+              )}
+              {remolding.coreSlots
+                .filter((slot) => slot.value > 0)
+                .map((slot) => (
+                  <span key={slot.label} className="unit-ident">
+                    {slot.label} ×{slot.value}
+                  </span>
+                ))}
+              {remolding.statBoosts.map((boost) => (
+                <span key={boost.level} className="unit-ident">
+                  Lv{boost.level}:{' '}
+                  {boost.stats.map((s) => `${s.label} +${s.value}`).join(' / ')}
+                </span>
+              ))}
+            </div>
+            {remolding.imagoforms.length > 0 && (
+              <ol className="unit-imagoforms">
+                {remolding.imagoforms.map((form) => (
+                  <li key={form.id}>
+                    <div className="unit-imago-head">
+                      <strong>{form.stage ?? 'Stage'}</strong>
+                      {form.coreLevel != null && (
+                        <span className="muted">Core Lv{form.coreLevel}</span>
+                      )}
+                      {form.factors.length > 0 && (
+                        <span className="muted">
+                          {form.factors
+                            .map((f) => `${f.label} ${f.value}`)
+                            .join(' · ')}
+                        </span>
+                      )}
+                    </div>
+                    <RichText
+                      text={form.effect}
+                      className="unit-imago-effect"
+                    />
+                  </li>
+                ))}
+              </ol>
+            )}
+          </>
         ) : (
           <p className="muted">No remolding pattern data.</p>
         )}
@@ -360,14 +423,18 @@ export function DollPage({ slug }: { slug: string | null }) {
       {/* Vertebrae */}
       <section className="unit-section unit-panel">
         <h2>Vertebrae</h2>
-        {doll.vertebrae && doll.vertebrae.length > 0 ? (
-          <ul className="unit-effects">
-            {doll.vertebrae.map((v, i) => (
-              <li key={i}>
-                <pre className="unit-pre">{JSON.stringify(v, null, 2)}</pre>
-              </li>
+        {vertebrae.length > 0 ? (
+          <div className="unit-keys-grid">
+            {vertebrae.map((v) => (
+              <div key={v.id} className="unit-key-card">
+                <h3>
+                  {v.segment != null ? `V${v.segment}` : 'Vertebra'}
+                  {v.name ? ` — ${v.name}` : ''}
+                </h3>
+                <RichText text={v.effect} />
+              </div>
             ))}
-          </ul>
+          </div>
         ) : (
           <p className="muted">No vertebrae data.</p>
         )}
@@ -377,9 +444,7 @@ export function DollPage({ slug }: { slug: string | null }) {
       <section className="unit-section unit-panel">
         <h2>Bio</h2>
         {doll.bio ? (
-          <p>
-            <RenderText segments={resolveEffectMarkers(doll.bio)} />
-          </p>
+          <RichText text={doll.bio} className="unit-bio" />
         ) : (
           <p className="muted">No bio available.</p>
         )}

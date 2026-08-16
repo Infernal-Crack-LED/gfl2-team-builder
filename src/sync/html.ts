@@ -1,32 +1,5 @@
-/**
- * Strip Tiptap HTML to plain text. Preserves `[effect:<uuid>]` markers (they
- * are not HTML tags, so the regex ignores them).
- */
-export function stripHtml(html: string | null | undefined): string | null {
-  if (html == null) {
-    return null;
-  }
-  if (html === '') {
-    return null;
-  }
-
-  const text = html
-    .replace(/<\/p>/gi, '\n')
-    .replace(/<br\s*\/?>/gi, '\n')
-    .replace(/<\/li>/gi, '\n')
-    .replace(/<li[^>]*>/gi, '• ')
-    .replace(/<[^>]+>/g, '')
-    .replace(/&lt;/g, '<')
-    .replace(/&gt;/g, '>')
-    .replace(/&quot;/g, '"')
-    .replace(/&#39;/g, "'")
-    .replace(/&nbsp;/g, ' ')
-    .replace(/&amp;/g, '&')
-    .replace(/\n{3,}/g, '\n\n')
-    .trim();
-
-  return text || null;
-}
+// These live in share/ so the web bundle can reuse them (see share/html.ts).
+export { stripHtml, stripDetailsHtml } from '../share/html.js';
 
 /**
  * Parse a field that may be a stringified JSON array, a real array, or null.

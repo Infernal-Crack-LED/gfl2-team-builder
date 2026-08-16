@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { allDolls, resolveEffectMarkers } from './data';
+import { allDolls } from './data';
 import { computeTeamEffects } from './effectMatrix';
 
 function dollByName(name: string) {
@@ -68,27 +68,4 @@ describe('computeTeamEffects', () => {
   });
 });
 
-describe('resolveEffectMarkers', () => {
-  it('resolves pipe-form markers (UUID|doll:slug) by UUID', () => {
-    // Helen's Skill 1 applies a doll-variant effect via the pipe form
-    const helen = dollByName('Helen');
-    const skill1 = helen.skills.find((s) => s.skillType === 'Skill 1')!;
-    const text = [
-      skill1.description,
-      skill1.descriptionLevel2,
-      skill1.descriptionLevel3,
-      skill1.descriptionLevel4,
-    ].find((d) => d?.includes('|doll:'));
-    expect(text).toBeDefined();
-
-    const segments = resolveEffectMarkers(text!);
-    // Every marker resolves — no raw "[effect:...]" text may survive
-    for (const seg of segments) {
-      if (typeof seg !== 'string') {
-        continue;
-      }
-      expect(seg).not.toContain('[effect:');
-    }
-    expect(segments.some((seg) => typeof seg !== 'string')).toBe(true);
-  });
-});
+// Marker resolution is covered in data.test.ts.

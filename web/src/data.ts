@@ -1,8 +1,9 @@
 /**
  * Typed data layer — imports the committed JSON artifacts produced by
- * `npm run sync` and exports typed arrays, slug/id lookups, and the
- * [effect:<uuid>] marker resolver. The web app NEVER fetches game data
- * at runtime; everything flows through this module.
+ * `npm run sync` and exports typed arrays, slug/id lookups, readers for the
+ * blobs the sync pipeline stores verbatim, and the `[<kind>:<uuid>]` marker
+ * resolver. The web app NEVER fetches game data at runtime; everything flows
+ * through this module.
  *
  * JSON import uses a two-step cast (`as unknown as T`) because Vite's
  * JSON import types are loose. This is the one sanctioned `as any` site.
@@ -12,6 +13,12 @@ import dollsJson from '../../data/dolls.json';
 import weaponsJson from '../../data/weapons.json';
 import keysJson from '../../data/keys.json';
 import effectsJson from '../../data/effects.json';
+import {
+  parseEffectDetails,
+  stripHtml,
+  type EffectDetails,
+} from '../../src/share/html';
+export type { EffectDetails, EffectUpgrade } from '../../src/share/html';
 
 // --- Type definitions ---
 
@@ -40,6 +47,54 @@ export interface Skill {
 export interface KeyAttribute {
   name: string;
   value: string;
+}
+
+/**
+ * One vertebra (fortification segment V1–V6). The sync pipeline passes
+ * `doll.vertebrae` through raw — it arrives as an API row carrying a nested
+ * copy of the doll, timestamps, and Tiptap HTML — so the shape below is what
+ * `getVertebraeForDoll` distills out of it.
+ */
+export interface Vertebra {
+  id: string;
+  /**
+   * Fortification segment, 1–6 (rendered as V1…V6). Also the vertebra's
+   * identity in share codes, so rows without one are dropped entirely.
+   */
+  segment: number;
+  /** Skill level this vertebra raises the named skill to. */
+  level: number | null;
+  /** e.g. "Frosted Echo Lv.2" */
+  name: string | null;
+  /** Plain text, `[<kind>:<uuid>]` markers intact. */
+  effect: string | null;
+  imageUrl: string | null;
+}
+
+/** One imago stage of a remolding pattern (Embryo → Blossom). */
+export interface Imagoform {
+  id: string;
+  stage: string | null;
+  /** Core level the stage unlocks at (1, 10, 20, 30, 45, 60). */
+  coreLevel: number | null;
+  /** Plain text, `[effect:<uuid>]` markers intact. */
+  effect: string | null;
+  /** Cumulative class factors required, in fixed display order. */
+  factors: { label: string; value: number }[];
+}
+
+/** Doll level → flat stat bonus granted by the remolding pattern. */
+export interface StatBoost {
+  level: number;
+  stats: { label: string; value: number }[];
+}
+
+export interface RemoldingPattern {
+  dollCore: string | null;
+  /** Core slots by class, in fixed display order; zero-count slots included. */
+  coreSlots: { label: string; value: number }[];
+  statBoosts: StatBoost[];
+  imagoforms: Imagoform[];
 }
 
 export interface Doll {
@@ -187,6 +242,10 @@ export function getWeaponById(id: string): Weapon | undefined {
   return weaponById.get(id);
 }
 
+export function getEffectById(id: string): Effect | undefined {
+  return effectById.get(id);
+}
+
 /** All keys belonging to a given doll (by dollId). */
 export function getKeysForDoll(dollId: string): Key[] {
   return allKeys.filter((k) => k.dollId === dollId);
@@ -197,29 +256,267 @@ export function getEffectsForDoll(dollId: string): Effect[] {
   return allEffects.filter((e) => e.dollId === dollId);
 }
 
+/**
+ * An effect's description, split into its base text and V-level rewrites.
+ * `effectDetails` is a JSON blob for roughly a quarter of effects, so this is
+ * the only supported way to read it — see parseEffectDetails.
+ */
+export function getEffectDetails(effect: Effect): EffectDetails {
+  return parseEffectDetails(effect.effectDetails);
+}
+
+// --- Raw-blob accessors ---
+// `vertebrae` and `remoldingPattern` are the two fields the sync pipeline
+// stores verbatim (nested doll copies, timestamps, Tiptap HTML and all).
+// These readers pull out the fields worth showing and strip the HTML, so no
+// page has to reach into `Record<string, unknown>` — or dump JSON at the user.
+
+function num(value: unknown): number | null {
+  return typeof value === 'number' && Number.isFinite(value) ? value : null;
+}
+
+function str(value: unknown): string | null {
+  return typeof value === 'string' && value !== '' ? value : null;
+}
+
+/** Stat keys in display order; anything else in the blob is passed through. */
+const STAT_LABELS: Record<string, string> = {
+  hp: 'HP',
+  atk: 'ATK',
+  def: 'DEF',
+};
+const STAT_ORDER = Object.keys(STAT_LABELS);
+
+/**
+ * The doll's vertebrae, ordered by segment (V1 → V6). Effect HTML is stripped
+ * to plain text; `[effect:<uuid>]` markers survive for the caller to resolve.
+ */
+export function getVertebraeForDoll(doll: Doll): Vertebra[] {
+  return (doll.vertebrae ?? [])
+    .map((raw) => {
+      const segment = num(raw.segment);
+      if (segment == null || !Number.isInteger(segment)) {
+        return null;
+      }
+      return {
+        id: str(raw.id) ?? `${doll.id}-v${segment}`,
+        segment,
+        level: num(raw.level),
+        name: str(raw.vertebraeName),
+        effect: stripHtml(str(raw.effect)),
+        imageUrl: str(raw.imageUrl),
+      };
+    })
+    .filter((v): v is Vertebra => v !== null)
+    .sort((a, b) => a.segment - b.segment);
+}
+
+/**
+ * The doll's remolding pattern — core, slot counts, level-60 stat boosts, and
+ * the six imago stages ordered by core level. Returns null when the doll has
+ * no pattern (or an empty one).
+ */
+export function getRemoldingPattern(doll: Doll): RemoldingPattern | null {
+  const raw = doll.remoldingPattern;
+  if (!raw) {
+    return null;
+  }
+
+  const slots = (raw.coreSlots ?? {}) as Record<string, unknown>;
+  const coreSlots = CLASS_OPTIONS.map((c) => ({
+    label: c.label,
+    value: num(slots[c.id]) ?? 0,
+  }));
+
+  const boosts = (raw.statBoosts ?? {}) as Record<string, unknown>;
+  const statBoosts: StatBoost[] = Object.entries(boosts)
+    .map(([level, stats]) => ({
+      level: Number(level),
+      stats: Object.entries((stats ?? {}) as Record<string, unknown>)
+        .map(([key, value]) => ({
+          label: STAT_LABELS[key] ?? key.toUpperCase(),
+          value: num(value) ?? 0,
+        }))
+        .sort((a, b) => statRank(a.label) - statRank(b.label)),
+    }))
+    .filter((b) => Number.isFinite(b.level) && b.stats.length > 0)
+    .sort((a, b) => a.level - b.level);
+
+  const imagoforms: Imagoform[] = (
+    (raw.imagoforms ?? []) as Record<string, unknown>[]
+  )
+    .map((form, i) => ({
+      id: str(form.id) ?? `${doll.id}-imago-${i}`,
+      stage: str(form.stage),
+      coreLevel: num(form.coreLevel),
+      effect: stripHtml(str(form.effect)),
+      // Zero-cost classes are dropped — every pattern leaves at least one at 0
+      // and listing them is noise.
+      factors: CLASS_OPTIONS.map((c) => ({
+        label: c.label,
+        value: num(form[`${c.id}Factors`]) ?? 0,
+      })).filter((f) => f.value > 0),
+    }))
+    .sort((a, b) => (a.coreLevel ?? 99) - (b.coreLevel ?? 99));
+
+  if (
+    !raw.dollCore &&
+    statBoosts.length === 0 &&
+    imagoforms.length === 0 &&
+    coreSlots.every((s) => s.value === 0)
+  ) {
+    return null;
+  }
+
+  return { dollCore: str(raw.dollCore), coreSlots, statBoosts, imagoforms };
+}
+
+/** Sort index for a stat label; unknown stats sort after the known ones. */
+function statRank(label: string): number {
+  const i = STAT_ORDER.findIndex((k) => STAT_LABELS[k] === label);
+  return i === -1 ? STAT_ORDER.length : i;
+}
+
 /** The weapon that imprints on a given doll (by dollId). */
 export function getWeaponForDoll(dollId: string): Weapon | undefined {
   return allWeapons.find((w) => w.imprintDollId === dollId);
 }
 
-// --- Effect marker resolver ---
+// --- Marker resolver ---
 
 /**
- * Resolve `[effect:<uuid>]` markers in skill/weapon text into effect names.
- * Returns an array of text segments — plain strings and `{ id, name }` links —
- * so the renderer can wrap effect references in `<span title>` or `<a>` tags.
- *
- * The marker format is `[effect:UUID]` where UUID is the dandegate effect id.
- * Markers that don't resolve (unknown UUID) are kept as-is so nothing vanishes.
+ * Marker kinds that appear in game text. Every one of them is a bare UUID in
+ * the raw data, so an unresolved marker reads as gibberish on the page.
+ * `effect` is by far the most common; the rest point at summons, other
+ * skills, summon skills, and keys.
  */
-export type TextSegment = string | { id: string; name: string };
+export type MarkerKind =
+  'effect' | 'summon' | 'dollSkill' | 'skillsummon' | 'key';
+
+/**
+ * Resolve `[<kind>:<uuid>]` markers in skill/weapon/vertebra text into names.
+ * Returns an array of text segments — plain strings and reference objects —
+ * so the renderer can wrap references in `<span title>` or `<a>`.
+ *
+ * A reference always carries a readable `name`, even when the id misses:
+ * a raw marker in the middle of a sentence is the one thing we never emit.
+ * `resolved: false` says the name is a best effort, so the renderer can
+ * present it without the confident styling a real lookup earns.
+ */
+export interface TextRef {
+  kind: MarkerKind;
+  id: string;
+  name: string;
+  resolved: boolean;
+}
+
+export type TextSegment = string | TextRef;
+
+/** Human-readable noun per kind, for the unresolved fallback. */
+const KIND_NOUN: Record<MarkerKind, string> = {
+  effect: 'effect',
+  summon: 'summon',
+  dollSkill: 'skill',
+  skillsummon: 'summon skill',
+  key: 'key',
+};
+
+const UUID_RE =
+  /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+
+/** "humiliation-mark" → "Humiliation Mark". */
+function humanizeSlug(slug: string): string {
+  return slug
+    .split(/[-_]+/)
+    .filter(Boolean)
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ');
+}
+
+/**
+ * Best-effort name for a marker whose id isn't in the dataset. Some markers
+ * are slug-form (`[effect:humiliation-mark|doll:florence]`) and the slug is
+ * itself the name; the rest are UUIDs that carry nothing readable, so they
+ * degrade to "unlisted effect" rather than a hex dump.
+ */
+function fallbackName(kind: MarkerKind, id: string): string {
+  return UUID_RE.test(id) ? `unlisted ${KIND_NOUN[kind]}` : humanizeSlug(id);
+}
+
+/** id → display name, per marker kind. Built once below. */
+const summonNameById = new Map<string, string>();
+const skillNameById = new Map<string, string>();
+const summonSkillNameById = new Map<string, string>();
+
+function indexNamed(
+  target: Map<string, string>,
+  rows: unknown
+): Record<string, unknown>[] {
+  const list = Array.isArray(rows) ? (rows as Record<string, unknown>[]) : [];
+  for (const row of list) {
+    const id = str(row?.id);
+    const name = str(row?.name);
+    if (id && name) {
+      target.set(id, name);
+    }
+  }
+  return list;
+}
+
+for (const doll of allDolls) {
+  indexNamed(skillNameById, doll.skills);
+  for (const summon of indexNamed(summonNameById, doll.summons)) {
+    indexNamed(summonSkillNameById, summon.skills);
+  }
+  // Vertebrae carry the upgraded copies of skills and summons — those upgraded
+  // rows have their own ids, and text refers to them by those ids.
+  for (const vert of doll.vertebrae ?? []) {
+    indexNamed(skillNameById, vert.skillsLevel2);
+    indexNamed(skillNameById, vert.skillsLevel3);
+    for (const summon of [
+      ...indexNamed(summonNameById, vert.summonsLevel2),
+      ...indexNamed(summonNameById, vert.summonsLevel3),
+    ]) {
+      indexNamed(summonSkillNameById, summon.skills);
+    }
+  }
+}
+
+/** Look up a marker's display name, or null when the id is unknown. */
+function markerName(kind: MarkerKind, id: string): string | null {
+  switch (kind) {
+    case 'effect':
+      return effectById.get(id)?.effectName ?? null;
+    case 'summon':
+      return summonNameById.get(id) ?? null;
+    case 'dollSkill':
+      return skillNameById.get(id) ?? null;
+    case 'skillsummon':
+      return summonSkillNameById.get(id) ?? null;
+    case 'key': {
+      const key = allKeys.find((k) => k.id === id);
+      return key?.displayTitle ?? key?.keyTitle ?? null;
+    }
+  }
+}
+
+const MARKER_RE = /\[(effect|summon|dollSkill|skillsummon|key):([^\]]+)\]/gi;
+
+/** Canonical casing for a marker kind matched case-insensitively. */
+const MARKER_KINDS: MarkerKind[] = [
+  'effect',
+  'summon',
+  'dollSkill',
+  'skillsummon',
+  'key',
+];
 
 export function resolveEffectMarkers(text: string | null): TextSegment[] {
   if (!text) {
     return [];
   }
   const parts: TextSegment[] = [];
-  const re = /\[effect:([^\]]+)\]/g;
+  const re = new RegExp(MARKER_RE.source, MARKER_RE.flags);
   let lastIndex = 0;
   let match: RegExpExecArray | null;
 
@@ -227,17 +524,18 @@ export function resolveEffectMarkers(text: string | null): TextSegment[] {
     if (match.index > lastIndex) {
       parts.push(text.slice(lastIndex, match.index));
     }
-    const rawId = match[1]!;
+    const rawKind = match[1]!.toLowerCase();
+    const kind =
+      MARKER_KINDS.find((k) => k.toLowerCase() === rawKind) ?? 'effect';
     // Doll-variant markers use `[effect:UUID|doll:slug]` — only the UUID
-    // part keys into the effects table.
-    const id = rawId.split('|')[0]!;
-    const effect = effectById.get(id);
-    if (effect?.effectName) {
-      parts.push({ id, name: effect.effectName });
-    } else {
-      // Unknown effect — keep the raw marker so it's visible, not silently dropped
-      parts.push(match[0]);
-    }
+    // part keys into the lookup tables.
+    const id = match[2]!.split('|')[0]!;
+    const name = markerName(kind, id);
+    parts.push(
+      name
+        ? { kind, id, name, resolved: true }
+        : { kind, id, name: fallbackName(kind, id), resolved: false }
+    );
     lastIndex = re.lastIndex;
   }
 

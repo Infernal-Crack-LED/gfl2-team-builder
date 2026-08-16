@@ -24,7 +24,12 @@ import {
   type KeyEntry,
   type WeaponEntry,
 } from './client.js';
-import { parseJsonField, parseOptionalInt, stripHtml } from './html.js';
+import {
+  parseJsonField,
+  parseOptionalInt,
+  stripDetailsHtml,
+  stripHtml,
+} from './html.js';
 import { DATA_DIR, exportJson } from './export.js';
 import { deriveEffectMatrix } from '../derive/effectMatrix.js';
 import { deriveEffectTags } from '../derive/effectTags.js';
@@ -182,7 +187,9 @@ function normalizeEffect(e: EffectEntry) {
   return {
     id: e.id,
     effectName: e.effectName,
-    effectDetails: stripHtml(e.effectDetails),
+    // Some effectDetails are a JSON blob ({mainDetails, upgrades}) — strip
+    // inside it, or the newlines and unescaped quotes break the JSON.
+    effectDetails: stripDetailsHtml(e.effectDetails),
     effectTags: e.effectTags ?? [],
     dollId: e.dollId,
     regionTag: e.regionTag,
