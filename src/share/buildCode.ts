@@ -12,7 +12,7 @@
  * canvas renderer.
  */
 
-export const BUILD_VERSION = 1;
+export const BUILD_VERSION = 2;
 
 // --- Isomorphic base64url ---------------------------------------------------
 
@@ -66,13 +66,23 @@ export interface DollBuild {
   v: typeof BUILD_VERSION;
   doll: string; // doll slug
   weapon: string | null; // weapon id, null = no weapon picked
-  keys: string[]; // unlocked key ids
-  vert: number[]; // active vertebra segments (1-6)
+  keys: string[]; // unlocked fixed key ids (up to 3)
+  vert: number[]; // active vertebra segment (0 or 1 entry — single select)
+  /** Weapon refinement level 1–6, null = not specified. */
+  cal?: number | null;
+  /** Ordered stat preferences, highest priority first (up to 4). */
+  stats?: string[];
+  /** Selected common key ids (up to 3). */
+  ck?: string[];
+  /** Selected expansion key id — separate from `keys`, not capped by it. */
+  exp?: string | null;
 }
 
 const MAX_SLUG = 64;
 const MAX_KEYS = 12;
 const MAX_VERT = 6;
+const MAX_STAT_PREFS = 4;
+const MAX_STAT_LABEL = 32;
 
 export function encodeDollBuild(build: DollBuild): string {
   return b64urlEncode(JSON.stringify(build));
@@ -104,13 +114,36 @@ export function decodeDollBuild(code: string): DollBuild | null {
     if (keys.length > MAX_KEYS || b.keys.length !== keys.length) {
       return null;
     }
-    return {
+    const result: DollBuild = {
       v: BUILD_VERSION,
       doll: b.doll,
       weapon: b.weapon as string | null,
       keys,
       vert,
     };
+    // Optional fields — silently dropped from old codes.
+    if (typeof b.cal === 'number' && Number.isInteger(b.cal) && b.cal >= 1 && b.cal <= 6) {
+      result.cal = b.cal;
+    }
+    if (Array.isArray(b.stats)) {
+      const stats = b.stats.filter(
+        (s): s is string =>
+          typeof s === 'string' && s.length > 0 && s.length <= MAX_STAT_LABEL
+      );
+      if (stats.length <= MAX_STAT_PREFS && stats.length === b.stats.length) {
+        result.stats = stats;
+      }
+    }
+    if (Array.isArray(b.ck)) {
+      const ck = b.ck.filter((x): x is string => typeof x === 'string');
+      if (ck.length <= 3 && ck.length === b.ck.length) {
+        result.ck = ck;
+      }
+    }
+    if (typeof b.exp === 'string' || b.exp === null) {
+      result.exp = b.exp;
+    }
+    return result;
   } catch {
     return null;
   }

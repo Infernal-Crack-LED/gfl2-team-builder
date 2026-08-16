@@ -1,6 +1,7 @@
 /**
- * Per-doll builder page (/builder/<slug>) — pick a weapon, keys, and
- * vertebrae for one character, then save (login-gated) or share via URL.
+ * Per-doll builder page (/builder/<slug>) — pick a weapon, keys, vertebrae,
+ * refinement, stat preferences, and common keys for one character, then
+ * save (login-gated) or share via URL.
  *
  * State is a single DollBuild-derived object; encodeDollBuild serializes it
  * for both the save control and the share links. Boot order on load:
@@ -14,17 +15,21 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import {
   allWeapons,
+  getAllCommonKeys,
   getDollBySlug,
   getKeysForDoll,
   getVertebraeForDoll,
   getWeaponById,
   getWeaponForDoll,
   PHASE_COLORS,
+  STAT_PREF_OPTIONS,
+  REFINEMENT_LEVELS,
   type Doll,
   type Key,
   type Weapon,
 } from './data';
 import { RichText } from './components/RichText';
+import { BuildCardPreview } from './components/BuildCardPreview';
 import {
   BUILD_VERSION,
   decodeDollBuild,
@@ -42,25 +47,27 @@ import {
   fetchSharedBuild,
 } from './buildShare';
 
+/** Max fixed keys a doll can equip. */
+const MAX_FIXED_KEYS = 3;
+/** Max common keys a doll can equip. */
+const MAX_COMMON_KEYS = 3;
+
 /** Editable slice of a DollBuild — the doll slug is fixed by the route. */
 interface BuildState {
   weapon: string | null;
   keys: string[];
+  /** Selected expansion key id — separate from `keys`, outside its cap. */
+  expansionKey: string | null;
   vert: number[];
+  refinement: number | null;
+  statPrefs: string[];
+  commonKeys: string[];
 }
 
 /** Resolved, stripped effect text for card bodies. */
 function EffectText({ text }: { text: string | null }) {
   return <RichText text={text} className="dollbuilder-effect" />;
 }
-
-// Fixed display order for key groups; unknown future types append after.
-const KEY_TYPE_ORDER = [
-  'Affinity Key',
-  'Common Key',
-  'Expansion Key',
-  'Fixed Key',
-] as const;
 
 /**
  * Clipboard write with a textarea fallback — navigator.clipboard requires a
@@ -116,10 +123,7 @@ function DollBuilder({ doll }: { doll: Doll }) {
 
   // The doll's imprint weapon is the sensible default selection. The
   // imprintDollId lookup is authoritative; doll.weaponImprint is a denormalized
-  // copy ({ id, name, trait, effect }) used as a fallback. NOTE:
-  // doll.weaponImprintType is currently empty across the dataset, so no
-  // type-based filtering of the weapon list is possible yet — the picker
-  // lists every weapon.
+  // copy ({ id, name, trait, effect }) used as a fallback.
   const imprintWeapon = useMemo(
     () =>
       getWeaponForDoll(doll.id) ??
@@ -131,6 +135,15 @@ function DollBuilder({ doll }: { doll: Doll }) {
 
   const dollKeys = useMemo(() => getKeysForDoll(doll.id), [doll]);
   const vertebrae = useMemo(() => getVertebraeForDoll(doll), [doll]);
+  const commonKeys = useMemo(
+    () =>
+      getAllCommonKeys().sort((a, b) =>
+        (a.displayTitle ?? a.keyTitle ?? '').localeCompare(
+          b.displayTitle ?? b.keyTitle ?? ''
+        )
+      ),
+    []
+  );
 
   /**
    * Drop ids that don't resolve against this doll's data — a hand-edited or
@@ -141,17 +154,47 @@ function DollBuilder({ doll }: { doll: Doll }) {
       weapon: string | null;
       keys: string[];
       vert: number[];
+      cal?: number | null;
+      stats?: string[];
+      ck?: string[];
+      exp?: string | null;
     }): BuildState => {
-      const validKeys = new Set(dollKeys.map((k) => k.id));
+      const validFixedKeys = new Set(
+        dollKeys.filter((k) => k.keyType === 'Fixed Key').map((k) => k.id)
+      );
+      const validExpansionKeys = new Set(
+        dollKeys.filter((k) => k.keyType === 'Expansion Key').map((k) => k.id)
+      );
       const validVerts = new Set(vertebrae.map((v) => v.segment));
+      const validCommonKeys = new Set(commonKeys.map((k) => k.id));
       return {
         weapon:
           build.weapon && getWeaponById(build.weapon) ? build.weapon : null,
-        keys: build.keys.filter((id) => validKeys.has(id)),
-        vert: build.vert.filter((s) => validVerts.has(s)),
+        // Only fixed keys go in the keys array; capped at MAX_FIXED_KEYS.
+        keys: build.keys
+          .filter((id) => validFixedKeys.has(id))
+          .slice(0, MAX_FIXED_KEYS),
+        // Expansion key lives outside the fixed-key cap.
+        expansionKey:
+          build.exp && validExpansionKeys.has(build.exp) ? build.exp : null,
+        // Single-select vertebrae — keep at most the first valid one.
+        vert: build.vert.filter((s) => validVerts.has(s)).slice(0, 1),
+        refinement:
+          typeof build.cal === 'number' &&
+          Number.isInteger(build.cal) &&
+          build.cal >= 1 &&
+          build.cal <= 6
+            ? build.cal
+            : null,
+        statPrefs: (build.stats ?? []).filter((s) =>
+          (STAT_PREF_OPTIONS as readonly string[]).includes(s)
+        ).slice(0, 4),
+        commonKeys: (build.ck ?? [])
+          .filter((id) => validCommonKeys.has(id))
+          .slice(0, MAX_COMMON_KEYS),
       };
     },
-    [dollKeys, vertebrae]
+    [dollKeys, vertebrae, commonKeys]
   );
 
   // ?b= boot happens synchronously in the initializer so the shared build is
@@ -160,7 +203,15 @@ function DollBuilder({ doll }: { doll: Doll }) {
     const boot = bootBuildFromCodeParam(window.location.search, doll.slug);
     return boot
       ? sanitize(boot)
-      : { weapon: imprintWeapon?.id ?? null, keys: [], vert: [] };
+      : {
+          weapon: imprintWeapon?.id ?? null,
+          keys: [],
+          expansionKey: null,
+          vert: [],
+          refinement: 1,
+          statPrefs: [],
+          commonKeys: [],
+        };
   });
 
   const [notice, setNotice] = useState<string | null>(null);
@@ -225,7 +276,18 @@ function DollBuilder({ doll }: { doll: Doll }) {
   );
 
   const getCode = useCallback(
-    () => encodeDollBuild({ v: BUILD_VERSION, doll: doll.slug, ...build }),
+    () =>
+      encodeDollBuild({
+        v: BUILD_VERSION,
+        doll: doll.slug,
+        weapon: build.weapon,
+        keys: build.keys,
+        vert: build.vert,
+        cal: build.refinement,
+        stats: build.statPrefs,
+        ck: build.commonKeys,
+        exp: build.expansionKey,
+      }),
     [doll, build]
   );
 
@@ -271,26 +333,108 @@ function DollBuilder({ doll }: { doll: Doll }) {
     }
   }, [doll, getCode, flashCopied]);
 
+  // Toggle a fixed key on/off; respects the 3-key cap.
   const toggleKey = useCallback((id: string) => {
+    setBuild((prev) => {
+      if (prev.keys.includes(id)) {
+        return { ...prev, keys: prev.keys.filter((k) => k !== id) };
+      }
+      if (prev.keys.length >= MAX_FIXED_KEYS) {
+        return prev;
+      }
+      return { ...prev, keys: [...prev.keys, id] };
+    });
+  }, []);
+
+  // Toggle the expansion key — single-select, outside the fixed-key cap.
+  const toggleExpansionKey = useCallback((id: string) => {
     setBuild((prev) => ({
       ...prev,
-      keys: prev.keys.includes(id)
-        ? prev.keys.filter((k) => k !== id)
-        : [...prev.keys, id],
+      expansionKey: prev.expansionKey === id ? null : id,
     }));
   }, []);
 
-  const toggleVert = useCallback((segment: number) => {
+  // Single-select vertebrae: clicking the active one deselects it; clicking
+  // a different one swaps to it.
+  const selectVert = useCallback((segment: number) => {
     setBuild((prev) => ({
       ...prev,
-      vert: prev.vert.includes(segment)
-        ? prev.vert.filter((s) => s !== segment)
-        : [...prev.vert, segment].sort((a, b) => a - b),
+      vert: prev.vert.includes(segment) ? [] : [segment],
     }));
+  }, []);
+
+  const toggleCommonKey = useCallback((id: string) => {
+    setBuild((prev) => {
+      if (prev.commonKeys.includes(id)) {
+        return { ...prev, commonKeys: prev.commonKeys.filter((k) => k !== id) };
+      }
+      if (prev.commonKeys.length >= MAX_COMMON_KEYS) {
+        return prev;
+      }
+      return { ...prev, commonKeys: [...prev.commonKeys, id] };
+    });
+  }, []);
+
+  const toggleStatPref = useCallback((stat: string) => {
+    setBuild((prev) => {
+      if (prev.statPrefs.includes(stat)) {
+        return {
+          ...prev,
+          statPrefs: prev.statPrefs.filter((s) => s !== stat),
+        };
+      }
+      if (prev.statPrefs.length >= 4) {
+        return prev;
+      }
+      return { ...prev, statPrefs: [...prev.statPrefs, stat] };
+    });
   }, []);
 
   const phaseColor = PHASE_COLORS[doll.phase ?? ''] ?? 'var(--border)';
   const selectedWeapon = build.weapon ? getWeaponById(build.weapon) : undefined;
+
+  // Build card preview data — derived from current build state.
+  const [showPreview, setShowPreview] = useState(false);
+  const cardPreviewData = useMemo(() => {
+    const keyNames = [
+      ...build.keys
+        .map((id) => {
+          const k = dollKeys.find((dk) => dk.id === id);
+          return k?.displayTitle ?? k?.keyTitle ?? null;
+        })
+        .filter((n): n is string => n != null),
+    ];
+    if (build.expansionKey) {
+      const ek = dollKeys.find((dk) => dk.id === build.expansionKey);
+      const name = ek?.displayTitle ?? ek?.keyTitle ?? null;
+      if (name) {
+        keyNames.push(name);
+      }
+    }
+    const commonKeyNames = build.commonKeys
+      .map((id) => {
+        const k = commonKeys.find((ck) => ck.id === id);
+        return k?.displayTitle ?? k?.keyTitle ?? null;
+      })
+      .filter((n): n is string => n != null);
+    return {
+      dollName: doll.name,
+      dollClass: doll.class,
+      dollPhase: doll.phase,
+      dollRarity: doll.rarity,
+      weaponName: selectedWeapon?.name ?? null,
+      keyNames,
+      vert: build.vert,
+      portraitUrl: doll.avatarUrl,
+      refinement: build.refinement,
+      statPrefs: build.statPrefs,
+      commonKeyNames,
+    };
+  }, [doll, build, dollKeys, commonKeys, selectedWeapon]);
+
+  // Partition keys by type for the builder sections.
+  const fixedKeys = dollKeys.filter((k) => k.keyType === 'Fixed Key');
+  const expansionKeys = dollKeys.filter((k) => k.keyType === 'Expansion Key');
 
   return (
     <div className="app dollbuilder-page">
@@ -429,47 +573,215 @@ function DollBuilder({ doll }: { doll: Doll }) {
         />
       </section>
 
-      {/* Keys — multi-select, no hard cap (the codec caps at 12; the dataset
-          maxes at 6 per doll today) */}
+      {/* Weapon Refinement */}
+      <section className="unit-section unit-panel">
+        <h2>Refinement</h2>
+        <div className="dollbuilder-refinement">
+          {REFINEMENT_LEVELS.map((r) => (
+            <button
+              key={r}
+              type="button"
+              className={
+                'dollbuilder-ref-btn' + (build.refinement === r ? ' on' : '')
+              }
+              aria-pressed={build.refinement === r}
+              onClick={() =>
+                setBuild((prev) => ({
+                  ...prev,
+                  refinement: prev.refinement === r ? null : r,
+                }))
+              }
+            >
+              R{r}
+            </button>
+          ))}
+        </div>
+      </section>
+
+      {/* Stat Preferences */}
+      <section className="unit-section unit-panel">
+        <h2>
+          Stat Preferences
+          {build.statPrefs.length > 0 && (
+            <span className="dollbuilder-count">
+              {build.statPrefs.length}/4
+            </span>
+          )}
+        </h2>
+        <p className="muted dollbuilder-hint">
+          Click stats in priority order (1 → 2 → 3 → 4). Click again to
+          remove.
+        </p>
+        {build.statPrefs.length > 0 && (
+          <div className="dollbuilder-stat-summary">
+            {build.statPrefs.map((stat, i) => (
+              <span key={stat} className="dollbuilder-stat-chosen">
+                <span className="dollbuilder-stat-rank">{i + 1}</span>
+                {stat}
+                <button
+                  type="button"
+                  className="dollbuilder-stat-remove"
+                  aria-label={`Remove ${stat}`}
+                  onClick={() => toggleStatPref(stat)}
+                >
+                  ×
+                </button>
+              </span>
+            ))}
+          </div>
+        )}
+        <div className="dollbuilder-stat-options">
+          {STAT_PREF_OPTIONS.map((stat) => {
+            const chosen = build.statPrefs.includes(stat);
+            const rank = chosen
+              ? build.statPrefs.indexOf(stat) + 1
+              : null;
+            const full = build.statPrefs.length >= 4 && !chosen;
+            return (
+              <button
+                key={stat}
+                type="button"
+                className={
+                  'dollbuilder-stat-btn' +
+                  (chosen ? ' on' : '') +
+                  (full ? ' disabled' : '')
+                }
+                aria-pressed={chosen}
+                disabled={full}
+                onClick={() => toggleStatPref(stat)}
+              >
+                {stat}
+                {rank != null && (
+                  <span className="dollbuilder-stat-badge">{rank}</span>
+                )}
+              </button>
+            );
+          })}
+        </div>
+      </section>
+
+      {/* Keys — Fixed (3×2 grid, left) + Expansion (right) */}
       <section className="unit-section unit-panel">
         <h2>
           Keys
           <span className="dollbuilder-count">
-            {build.keys.length} selected
+            {build.keys.length}/{MAX_FIXED_KEYS} fixed
           </span>
         </h2>
-        {dollKeys.length > 0 ? (
-          KEY_TYPE_ORDER.map((type) => {
-            const group = dollKeys.filter((k) => k.keyType === type);
-            return group.length > 0 ? (
-              <div key={type} className="dollbuilder-key-group">
-                <h3>{type}</h3>
-                <div className="dollbuilder-key-grid">
-                  {group.map((key) => (
+        <div className="dollbuilder-key-layout">
+          <div className="dollbuilder-key-fixed-col">
+            <h3>Fixed Keys</h3>
+            {fixedKeys.length > 0 ? (
+              <div className="dollbuilder-key-grid">
+                {fixedKeys.map((key) => {
+                  const on = build.keys.includes(key.id);
+                  const atCap =
+                    build.keys.length >= MAX_FIXED_KEYS && !on;
+                  return (
                     <KeyCard
                       key={key.id}
                       keyData={key}
-                      on={build.keys.includes(key.id)}
+                      on={on}
+                      disabled={atCap}
                       onToggle={() => toggleKey(key.id)}
                     />
-                  ))}
-                </div>
+                  );
+                })}
               </div>
-            ) : null;
-          })
-        ) : (
-          <p className="muted">No key data available.</p>
-        )}
+            ) : (
+              <p className="muted">No fixed key data.</p>
+            )}
+          </div>
+          {expansionKeys.length > 0 && (
+            <div className="dollbuilder-key-expansion-col">
+              <h3>Expansion</h3>
+              <div className="dollbuilder-key-grid">
+                {expansionKeys.map((key) => (
+                  <KeyCard
+                    key={key.id}
+                    keyData={key}
+                    on={build.expansionKey === key.id}
+                    onToggle={() => toggleExpansionKey(key.id)}
+                  />
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
       </section>
 
-      {/* Vertebrae */}
+      {/* Common Keys — searchable picker, up to 3 selections */}
+      <section className="unit-section unit-panel">
+        <h2>
+          Common Keys
+          <span className="dollbuilder-count">
+            {build.commonKeys.length}/{MAX_COMMON_KEYS}
+          </span>
+        </h2>
+        {build.commonKeys.length > 0 && (
+          <div className="dollbuilder-ck-chosen">
+            {build.commonKeys.map((id) => {
+              const ck = commonKeys.find((k) => k.id === id);
+              if (!ck) {
+                return null;
+              }
+              return (
+                <div
+                  key={id}
+                  className="dollbuilder-selected dollbuilder-ck-selected"
+                >
+                  <div className="dollbuilder-selected-body">
+                    <div className="dollbuilder-selected-head">
+                      {ck.imageUrl ? (
+                        <img
+                          className="dollbuilder-key-icon"
+                          src={ck.imageUrl}
+                          alt=""
+                          loading="lazy"
+                        />
+                      ) : null}
+                      <strong>
+                        {ck.displayTitle ?? ck.keyTitle ?? 'Common Key'}
+                      </strong>
+                      {ck.attributes && ck.attributes.length > 0 && (
+                        <span className="muted">
+                          {ck.attributes
+                            .map((a) => `${a.name}: ${a.value}`)
+                            .join(' · ')}
+                        </span>
+                      )}
+                      <button
+                        type="button"
+                        className="chip"
+                        onClick={() => toggleCommonKey(ck.id)}
+                      >
+                        Remove
+                      </button>
+                    </div>
+                    <EffectText text={ck.effect} />
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        )}
+        <CommonKeyPicker
+          selectedIds={build.commonKeys}
+          commonKeys={commonKeys}
+          onSelect={toggleCommonKey}
+          atCap={build.commonKeys.length >= MAX_COMMON_KEYS}
+        />
+      </section>
+
+      {/* Vertebrae — single select */}
       <section className="unit-section unit-panel">
         <h2>
           Vertebrae
           <span className="dollbuilder-count">
-            {build.vert.length}/{vertebrae.length} active
+            {build.vert.length > 0 ? `V${build.vert[0]}` : 'none'}
           </span>
         </h2>
+        <p className="muted dollbuilder-hint">Select one vertebra segment.</p>
         {vertebrae.length > 0 ? (
           <div className="dollbuilder-vert-grid">
             {vertebrae.map((v) => {
@@ -480,7 +792,7 @@ function DollBuilder({ doll }: { doll: Doll }) {
                   type="button"
                   className={'dollbuilder-vert-card' + (on ? ' on' : '')}
                   aria-pressed={on}
-                  onClick={() => toggleVert(v.segment)}
+                  onClick={() => selectVert(v.segment)}
                 >
                   <span className="dollbuilder-vert-head">
                     <span className="dollbuilder-vert-num">V{v.segment}</span>
@@ -497,6 +809,24 @@ function DollBuilder({ doll }: { doll: Doll }) {
         ) : (
           <p className="muted">No vertebrae data available.</p>
         )}
+      </section>
+
+      {/* Build card preview */}
+      <section className="unit-section unit-panel">
+        <h2>
+          <button
+            type="button"
+            className="dollbuilder-preview-toggle"
+            onClick={() => setShowPreview((v) => !v)}
+            aria-expanded={showPreview}
+          >
+            Share Card Preview
+            <span className="dollbuilder-preview-arrow">
+              {showPreview ? '▾' : '▸'}
+            </span>
+          </button>
+        </h2>
+        {showPreview && <BuildCardPreview data={cardPreviewData} />}
       </section>
     </div>
   );
@@ -547,7 +877,7 @@ function WeaponPicker({
           />
         ))}
         {weapons.length === 0 && (
-          <p className="muted">No weapons match “{query}”.</p>
+          <p className="muted">No weapons match "{query}".</p>
         )}
       </div>
     </div>
@@ -599,17 +929,24 @@ function WeaponRow({
 function KeyCard({
   keyData,
   on,
+  disabled,
   onToggle,
 }: {
   keyData: Key;
   on: boolean;
+  disabled?: boolean;
   onToggle: () => void;
 }) {
   return (
     <button
       type="button"
-      className={'dollbuilder-key-card' + (on ? ' on' : '')}
+      className={
+        'dollbuilder-key-card' +
+        (on ? ' on' : '') +
+        (disabled ? ' disabled' : '')
+      }
       aria-pressed={on}
+      disabled={disabled}
       onClick={onToggle}
     >
       <span className="dollbuilder-key-head">
@@ -644,5 +981,93 @@ function KeyCard({
       )}
       <EffectText text={keyData.effect} />
     </button>
+  );
+}
+
+/** Searchable common key picker — all common keys, name-sorted, multi-select. */
+function CommonKeyPicker({
+  selectedIds,
+  commonKeys,
+  onSelect,
+  atCap,
+}: {
+  selectedIds: string[];
+  commonKeys: Key[];
+  onSelect: (id: string) => void;
+  atCap: boolean;
+}) {
+  const [query, setQuery] = useState('');
+  const selectedSet = useMemo(() => new Set(selectedIds), [selectedIds]);
+
+  const filtered = useMemo(() => {
+    const q = query.trim().toLowerCase();
+    if (!q) {
+      return commonKeys;
+    }
+    return commonKeys.filter(
+      (k) =>
+        (k.displayTitle ?? k.keyTitle ?? '').toLowerCase().includes(q)
+    );
+  }, [query, commonKeys]);
+
+  return (
+    <div className="dollbuilder-picker">
+      <input
+        type="search"
+        placeholder="Search common keys…"
+        value={query}
+        onChange={(e) => setQuery(e.target.value)}
+        aria-label="Search common keys"
+      />
+      <div className="dollbuilder-picker-list dollbuilder-ck-list">
+        {filtered.map((k) => {
+          const on = selectedSet.has(k.id);
+          const disabled = atCap && !on;
+          return (
+            <button
+              key={k.id}
+              type="button"
+              className={
+                'dollbuilder-weapon-row' +
+                (on ? ' on' : '') +
+                (disabled ? ' disabled' : '')
+              }
+              aria-pressed={on}
+              disabled={disabled}
+              onClick={() => onSelect(k.id)}
+            >
+              {k.imageUrl ? (
+                <img
+                  className="dollbuilder-key-icon"
+                  src={k.imageUrl}
+                  alt=""
+                  loading="lazy"
+                />
+              ) : (
+                <span
+                  className="dollbuilder-key-icon dollbuilder-key-icon-empty"
+                  aria-hidden="true"
+                >
+                  ?
+                </span>
+              )}
+              <span className="dollbuilder-weapon-name">
+                {k.displayTitle ?? k.keyTitle ?? 'Common Key'}
+              </span>
+              {k.attributes && k.attributes.length > 0 && (
+                <span className="muted">
+                  {k.attributes
+                    .map((a) => `${a.name}: ${a.value}`)
+                    .join(' · ')}
+                </span>
+              )}
+            </button>
+          );
+        })}
+        {filtered.length === 0 && (
+          <p className="muted">No common keys match "{query}".</p>
+        )}
+      </div>
+    </div>
   );
 }

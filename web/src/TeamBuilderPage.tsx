@@ -10,10 +10,11 @@
  * only. The page still earns its place as a filter-driven squad planner.
  */
 import { useState, useMemo, useCallback } from 'react';
-import type { Doll } from './data';
+import { getWeaponForDoll, type Doll } from './data';
 import { DollCards, DollFilters, useDollFilter } from './components/DollGrid';
 import { hrefForDoll, onSpaLinkClick } from './router';
 import { TeamEffectsPanel } from './components/TeamEffectsPanel';
+import { TeamCardPreview } from './components/TeamCardPreview';
 
 type SquadSize = 4 | 5;
 
@@ -171,6 +172,22 @@ export function TeamBuilderPage() {
           </div>
         ))}
       </div>
+
+      {/* Team card preview */}
+      {filledCount > 0 && (
+        <section className="unit-section unit-panel">
+          <h2>Share Card Preview</h2>
+          <TeamCardPreview
+            slots={squad
+              .filter((d): d is Doll => d != null)
+              .map((d) => ({
+                dollName: d.name,
+                weaponName: getWeaponForDoll(d.id)?.name ?? null,
+                portraitUrl: d.avatarUrl,
+              }))}
+          />
+        </section>
+      )}
 
       {/* Effect matrix for the current squad */}
       <TeamEffectsPanel squad={squad} />

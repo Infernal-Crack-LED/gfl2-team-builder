@@ -111,6 +111,9 @@ function validateBuild(build: DollBuild): void {
       throw new BadRequest(`unknown key: ${k}`);
     }
   }
+  if (build.exp != null && !getKey(build.exp)) {
+    throw new BadRequest(`unknown key: ${build.exp}`);
+  }
 }
 
 function validateTeam(team: TeamBuild): void {
@@ -141,17 +144,32 @@ async function renderPayload(
     const doll = getDoll(b.doll); // validated before render
     const weapon = b.weapon !== null ? getWeapon(b.weapon) : undefined;
     const portrait = await loadPortrait(doll?.avatarUrl);
+    const commonKeyNames = (b.ck ?? [])
+      .map((id) => getKey(id))
+      .filter((k) => k !== undefined)
+      .map(keyDisplayName);
+    const keyNames = b.keys
+      .map((id) => getKey(id))
+      .filter((k) => k !== undefined)
+      .map(keyDisplayName);
+    // Expansion key is stored separately (outside the fixed-key cap).
+    if (b.exp) {
+      const expKey = getKey(b.exp);
+      if (expKey) {
+        keyNames.push(keyDisplayName(expKey));
+      }
+    }
     return renderBuildCardPng({
       dollName: doll?.name ?? null,
       dollClass: doll?.class ?? null,
       dollPhase: doll?.phase ?? null,
       dollRarity: doll?.rarity ?? null,
       weaponName: weapon?.name ?? null,
-      keyNames: b.keys
-        .map((id) => getKey(id))
-        .filter((k) => k !== undefined)
-        .map(keyDisplayName),
+      keyNames,
       vert: b.vert,
+      refinement: b.cal ?? null,
+      statPrefs: b.stats ?? [],
+      commonKeyNames,
       portrait,
     });
   }

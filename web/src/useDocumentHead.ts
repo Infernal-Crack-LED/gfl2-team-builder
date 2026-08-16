@@ -7,7 +7,7 @@
 import { useEffect } from 'react';
 
 // TODO: replace with the real domain when known (phase 2 — canonical host)
-const SITE = '';
+const SITE = 'https://refittingroom.app';
 
 interface HeadMeta {
   title: string;
@@ -46,6 +46,16 @@ export const META: Record<string, HeadMeta> = {
   credits: {
     title: 'Credits — GFL2 Team Builder',
     description: 'The data sources and tools behind the GFL2 Team Builder.',
+  },
+  privacy: {
+    title: 'Privacy Policy — GFL2 Team Builder',
+    description:
+      'What data Helen and the Refitting Room website collect, how it is used, and your choices.',
+  },
+  terms: {
+    title: 'Terms of Service — GFL2 Team Builder',
+    description:
+      'The terms governing use of the Helen Discord bot and the Refitting Room website.',
   },
 };
 

@@ -20,10 +20,12 @@ import {
   getKeysForDoll,
   getRemoldingPattern,
   getVertebraeForDoll,
+  getWeaponById,
   getWeaponForDoll,
   PHASE_COLORS,
   type Effect,
   type Skill,
+  type Weapon,
 } from './data';
 import { RichText } from './components/RichText';
 import {
@@ -141,6 +143,85 @@ function EffectEntry({ effect }: { effect: Effect }) {
       )}
       <RichText text={shown} className="muted" />
     </li>
+  );
+}
+
+/** Renders the elite counterpart card for a weapon. */
+function SigWeaponCounterparts({ weapon }: { weapon: Weapon }) {
+  const counterparts: {
+    label: string;
+    blob: Record<string, unknown> | null;
+  }[] = [
+    { label: 'Elite', blob: weapon.eliteCounterpart },
+  ].filter((c) => c.blob != null);
+
+  if (counterparts.length === 0) {
+    return null;
+  }
+
+  return (
+    <div className="dollpage-counterparts">
+      <span className="label">Counterparts</span>
+      <div className="dollpage-counterparts-grid">
+        {counterparts.map((c) => {
+          const id = c.blob!.id as string | undefined;
+          const resolved = id ? getWeaponById(id) : undefined;
+          const slug = resolved?.slug;
+          const name =
+            (c.blob!.name as string | undefined) ?? c.label;
+          const rarity =
+            (c.blob!.rarity as string | undefined) ?? null;
+          const imageUrl =
+            (c.blob!.imageUrl as string | undefined) ?? null;
+
+          const inner = (
+            <div className="dollpage-counterpart-card">
+              {imageUrl ? (
+                <img
+                  className="portrait portrait-contain dollpage-counterpart-img"
+                  src={imageUrl}
+                  alt={name}
+                  loading="lazy"
+                />
+              ) : (
+                <div
+                  className="portrait portrait-empty dollpage-counterpart-img"
+                  aria-hidden="true"
+                >
+                  ?
+                </div>
+              )}
+              <div className="dollpage-counterpart-info">
+                <strong>{name}</strong>
+                {rarity && (
+                  <span
+                    className={
+                      'unit-ident' +
+                      (rarity === 'Elite' ? ' elite' : '')
+                    }
+                  >
+                    {rarity}
+                  </span>
+                )}
+              </div>
+            </div>
+          );
+
+          return slug ? (
+            <a
+              key={c.label}
+              href={hrefForWeapon(slug)}
+              onClick={onSpaLinkClick(hrefForWeapon(slug))}
+              className="dollpage-counterpart-link"
+            >
+              {inner}
+            </a>
+          ) : (
+            <div key={c.label}>{inner}</div>
+          );
+        })}
+      </div>
+    </div>
   );
 }
 
@@ -342,24 +423,85 @@ export function DollPage({ slug }: { slug: string | null }) {
         )}
       </section>
 
-      {/* Weapon imprint */}
+      {/* Weapon imprint + sig weapon counterparts */}
       <section className="unit-section unit-panel">
         <h2>Weapon Imprint</h2>
         {imprintWeapon ? (
-          <div>
-            <a
-              href={hrefForWeapon(imprintWeapon.slug)}
-              onClick={onSpaLinkClick(hrefForWeapon(imprintWeapon.slug))}
-            >
-              {imprintWeapon.name}
-            </a>
-            {imprintWeapon.primaryAttribute && (
-              <span className="muted">
-                {' '}
-                — {imprintWeapon.primaryAttribute}{' '}
-                {imprintWeapon.primaryAttributeStat}
-              </span>
-            )}
+          <div className="dollpage-imprint">
+            <div className="dollpage-imprint-weapon">
+              {imprintWeapon.imageUrl && (
+                <img
+                  className="portrait portrait-contain dollpage-imprint-img"
+                  src={imprintWeapon.imageUrl}
+                  alt={imprintWeapon.name}
+                  loading="lazy"
+                />
+              )}
+              <div className="dollpage-imprint-body">
+                <div className="dollpage-imprint-head">
+                  <a
+                    href={hrefForWeapon(imprintWeapon.slug)}
+                    onClick={onSpaLinkClick(
+                      hrefForWeapon(imprintWeapon.slug)
+                    )}
+                  >
+                    <strong>{imprintWeapon.name}</strong>
+                  </a>
+                  <span className="muted">
+                    {[
+                      imprintWeapon.rarity,
+                      imprintWeapon.weaponType,
+                    ]
+                      .filter(Boolean)
+                      .join(' · ')}
+                  </span>
+                </div>
+                <div className="dollpage-imprint-stats">
+                  {imprintWeapon.primaryAttribute && (
+                    <span className="unit-ident">
+                      {imprintWeapon.primaryAttribute}:{' '}
+                      {imprintWeapon.primaryAttributeStat}
+                    </span>
+                  )}
+                  {imprintWeapon.secondaryAttribute && (
+                    <span className="unit-ident">
+                      {imprintWeapon.secondaryAttribute}:{' '}
+                      {imprintWeapon.secondaryAttributeStat}
+                    </span>
+                  )}
+                </div>
+                {imprintWeapon.trait && (
+                  <div className="dollpage-imprint-section">
+                    <span className="label">Trait</span>
+                    <RichText
+                      text={imprintWeapon.trait}
+                      className="dollpage-imprint-text"
+                    />
+                  </div>
+                )}
+                {imprintWeapon.effect && (
+                  <div className="dollpage-imprint-section">
+                    <span className="label">Effect</span>
+                    <RichText
+                      text={imprintWeapon.effect}
+                      className="dollpage-imprint-text"
+                    />
+                  </div>
+                )}
+                {imprintWeapon.imprintDescription && (
+                  <div className="dollpage-imprint-section">
+                    <span className="label">Imprint Bonus</span>
+                    <RichText
+                      text={imprintWeapon.imprintDescription}
+                      className="dollpage-imprint-text"
+                    />
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* Sig weapon counterparts */}
+            <SigWeaponCounterparts weapon={imprintWeapon} />
           </div>
         ) : (
           <p className="muted">No weapon imprint data.</p>

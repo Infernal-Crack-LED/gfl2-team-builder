@@ -63,6 +63,9 @@ describe.skipIf(!FONTS_PRESENT)('card renderers (fonts present)', () => {
       weaponName: '6P33',
       keyNames: ['Affinity Key - The Blessed One', "Common Key - Mind's Eye"],
       vert: [1, 2, 3],
+      refinement: 4,
+      statPrefs: ['ATK', 'Crit DMG', 'Crit Rate', 'HP'],
+      commonKeyNames: [],
       portrait: null,
     });
     const ctx2d = ctx as never as Parameters<typeof inkInRegion>[0];
@@ -88,6 +91,9 @@ describe.skipIf(!FONTS_PRESENT)('card renderers (fonts present)', () => {
         weaponName: null,
         keyNames: [],
         vert: [],
+        refinement: null,
+        statPrefs: [],
+        commonKeyNames: [],
         portrait: null,
       })
     ).not.toThrow();

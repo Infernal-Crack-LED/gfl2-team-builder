@@ -9,6 +9,7 @@
  */
 import { readFileSync } from 'node:fs';
 import path from 'node:path';
+import { GENERIC_COMMON_KEYS } from '../share/genericKeys.js';
 
 export interface DollEntry {
   id: string;
@@ -43,7 +44,12 @@ const keysFile = loadJson<{ keys: KeyEntry[] }>('keys.json');
 
 const dollBySlug = new Map(dollsFile.dolls.map((d) => [d.slug, d]));
 const weaponById = new Map(weaponsFile.weapons.map((w) => [w.id, w]));
-const keyById = new Map(keysFile.keys.map((k) => [k.id, k]));
+// Generic common keys live in code (Dandegate doesn't carry them) — merged so
+// share codes referencing them validate and resolve on the image API.
+const keyById = new Map<string, KeyEntry>([
+  ...keysFile.keys.map((k) => [k.id, k] as const),
+  ...GENERIC_COMMON_KEYS.map((k) => [k.id, k] as const),
+]);
 
 export function getDoll(slug: string): DollEntry | undefined {
   return dollBySlug.get(slug);

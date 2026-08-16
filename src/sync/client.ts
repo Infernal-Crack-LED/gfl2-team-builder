@@ -172,6 +172,6 @@ export const client = {
   fetchDollDetail: (name: string) =>
     request<DollDetail>(`/dolls/${encodeURIComponent(name)}`),
   fetchWeapons: () => request<WeaponEntry[]>('/weapons'),
-  fetchKeys: () => request<KeyEntry[]>('/keys'),
+  fetchKeys: () => requestAll<KeyEntry>('/keys', 1000),
   fetchEffects: () => requestAll<EffectEntry>('/effects', 1000),
 };

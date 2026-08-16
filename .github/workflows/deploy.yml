@@ -10,9 +10,9 @@ name: Deploy
 #   2. GitHub → repo Settings → Secrets and variables → Actions → add
 #      `RAILWAY_TOKEN` = that token.
 #   3. Create the `gfl2-team-builder-web` and `gfl2-team-builder-bot` services
-#      in the same Railway project. The service names must match the keys in
-#      railway.json. Disconnect the repo from the services so only this drives
-#      deploys.
+#      in the same Railway project, pointing each at its config file
+#      (railway.web.json / railway.bot.json). Disconnect the repo from the
+#      services so only this drives deploys.
 on:
   push:
     branches: [main]

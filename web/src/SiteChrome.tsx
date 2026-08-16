@@ -18,6 +18,8 @@ const NAV: { route: Route; label: string }[] = [
 // Secondary links — collapse into hamburger on all sizes
 const MENU: { route: Route; label: string }[] = [
   { route: 'credits', label: 'Credits' },
+  { route: 'privacy', label: 'Privacy' },
+  { route: 'terms', label: 'Terms' },
 ];
 
 function useMediaQuery(query: string): boolean {
@@ -265,6 +267,14 @@ export function SiteFooter() {
         {' · '}
         <a href={hrefFor('credits')} onClick={(e) => navClick(e, 'credits')}>
           Credits
+        </a>
+        {' · '}
+        <a href={hrefFor('privacy')} onClick={(e) => navClick(e, 'privacy')}>
+          Privacy
+        </a>
+        {' · '}
+        <a href={hrefFor('terms')} onClick={(e) => navClick(e, 'terms')}>
+          Terms
         </a>
         {' · '}GFL2 Team Builder
       </div>

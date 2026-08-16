@@ -21,7 +21,7 @@ import {
 } from '../share/buildCode.js';
 
 const BUILD: DollBuild = {
-  v: 1,
+  v: 2,
   doll: 'alva',
   weapon: '6d890f29-636c-4f04-bb2d-f91e3ff014fa',
   keys: ['a', 'b'],
@@ -70,7 +70,7 @@ describe('renderCacheKey', () => {
         keys: ['a', 'b'],
         weapon: '6d890f29-636c-4f04-bb2d-f91e3ff014fa',
         doll: 'alva',
-        v: 1,
+        v: 2,
       })
     ).toString('base64url');
     const a = decodeDollBuild(encodeDollBuild(BUILD));

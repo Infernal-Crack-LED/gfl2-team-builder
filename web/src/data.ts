@@ -19,6 +19,7 @@ import {
   type EffectDetails,
 } from '../../src/share/html';
 export type { EffectDetails, EffectUpgrade } from '../../src/share/html';
+import { GENERIC_COMMON_KEYS } from '../../src/share/genericKeys';
 
 // --- Type definitions ---
 
@@ -197,7 +198,9 @@ const effectsData = effectsJson as unknown as EffectsFile;
 
 export const allDolls: Doll[] = dollsData.dolls;
 export const allWeapons: Weapon[] = weaponsData.weapons;
-export const allKeys: Key[] = keysData.keys;
+// Generic common keys are maintained in code (Dandegate doesn't carry them),
+// merged here so a re-sync never drops them from the builder's picker.
+export const allKeys: Key[] = [...keysData.keys, ...GENERIC_COMMON_KEYS];
 export const allEffects: Effect[] = effectsData.effects;
 
 // --- Lookups ---
@@ -249,6 +252,11 @@ export function getEffectById(id: string): Effect | undefined {
 /** All keys belonging to a given doll (by dollId). */
 export function getKeysForDoll(dollId: string): Key[] {
   return allKeys.filter((k) => k.dollId === dollId);
+}
+
+/** All common keys in the dataset (every doll can equip any of them). */
+export function getAllCommonKeys(): Key[] {
+  return allKeys.filter((k) => k.keyType === 'Common Key');
 }
 
 /** All effects exclusively linked to a given doll (by dollId). */
@@ -590,6 +598,21 @@ export const RARITY_OPTIONS = [
   { id: 'elite', label: 'Elite' },
   { id: 'standard', label: 'Standard' },
 ] as const;
+
+/** Stats available for preference ordering in the builder. */
+export const STAT_PREF_OPTIONS = [
+  'ATK',
+  'ATK%',
+  'DEF',
+  'DEF%',
+  'HP',
+  'HP%',
+  'Crit Rate',
+  'Crit DMG',
+] as const;
+
+/** Weapon refinement levels (R1–R6). */
+export const REFINEMENT_LEVELS = [1, 2, 3, 4, 5, 6] as const;
 
 /** Game-phase accent colors for card tinting / badges. */
 export const PHASE_COLORS: Record<string, string> = {

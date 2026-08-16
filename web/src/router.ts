@@ -16,7 +16,9 @@ export type Route =
   | 'weapon'
   | 'team-builder'
   | 'builder'
-  | 'credits';
+  | 'credits'
+  | 'privacy'
+  | 'terms';
 
 // Flat list of nav/analytics routes. Parameterized routes (/characters/<slug>,
 // /weapons/<slug>, /builder/<slug>) are excluded — hrefFor('character') would
@@ -28,6 +30,8 @@ export const ROUTES: Route[] = [
   'weapons',
   'team-builder',
   'credits',
+  'privacy',
+  'terms',
 ];
 
 // Map the first path segment to a Route. Unknown segments → home.
@@ -60,6 +64,12 @@ export function routeFromPath(pathname: string): Route {
   }
   if (seg === 'credits') {
     return 'credits';
+  }
+  if (seg === 'privacy') {
+    return 'privacy';
+  }
+  if (seg === 'terms') {
+    return 'terms';
   }
   return 'home';
 }

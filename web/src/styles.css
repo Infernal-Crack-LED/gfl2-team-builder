@@ -1326,6 +1326,32 @@ td {
   margin-bottom: 6px;
 }
 
+/* ---- Legal Pages (Privacy / Terms) ---- */
+.legal-page {
+  max-width: 720px;
+}
+
+.legal-page section {
+  margin-top: 24px;
+}
+
+.legal-page section h2 {
+  margin-bottom: 8px;
+}
+
+.legal-page ul {
+  padding-left: 20px;
+}
+
+.legal-page li {
+  margin-bottom: 6px;
+}
+
+.legal-caps {
+  text-transform: uppercase;
+  font-size: 0.85em;
+}
+
 /* ---- Page Fallback (Loading) ---- */
 .page-fallback {
   display: flex;
@@ -1373,7 +1399,12 @@ td {
   .unit-skills-grid,
   .unit-keys-grid,
   .dollbuilder-key-grid,
-  .dollbuilder-vert-grid {
+  .dollbuilder-vert-grid,
+  .dollbuilder-key-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .dollbuilder-key-fixed-col .dollbuilder-key-grid {
     grid-template-columns: 1fr;
   }
 
@@ -1720,6 +1751,683 @@ td {
   background: var(--accent);
   border-color: var(--accent);
   color: var(--accent-ink);
+}
+
+/* ---- CSS Tooltips ---- */
+/* Replaces native title tooltips — shows instantly on hover with proper
+   styling. Uses data-tooltip so it coexists with screen-reader semantics. */
+[data-tooltip] {
+  position: relative;
+}
+
+[data-tooltip]::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: calc(100% + 6px);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 200;
+  max-width: 340px;
+  min-width: 120px;
+  padding: 6px 10px;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.4;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  color: var(--text);
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.15s;
+}
+
+[data-tooltip]:hover::after {
+  opacity: 1;
+}
+
+/* Rows with tooltips get cursor help. */
+.teameffect-row[data-tooltip] {
+  cursor: help;
+}
+
+/* ---- DollPage: Weapon Imprint ---- */
+.dollpage-imprint-weapon {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+.dollpage-imprint-img {
+  width: 140px;
+  height: 70px;
+  flex-shrink: 0;
+}
+
+.dollpage-imprint-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.dollpage-imprint-head {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 6px;
+}
+
+.dollpage-imprint-head a {
+  font-size: 15px;
+}
+
+.dollpage-imprint-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+
+.dollpage-imprint-section {
+  margin-top: 8px;
+}
+
+.dollpage-imprint-section .label {
+  display: block;
+  margin-bottom: 2px;
+}
+
+.dollpage-imprint-text {
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.dollpage-imprint-text p + p {
+  margin-top: 4px;
+}
+
+/* Sig weapon counterpart cards. */
+.dollpage-counterparts {
+  margin-top: 16px;
+  padding-top: 12px;
+  border-top: 1px solid var(--border);
+}
+
+.dollpage-counterparts .label {
+  display: block;
+  margin-bottom: 8px;
+}
+
+.dollpage-counterparts-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.dollpage-counterpart-link {
+  text-decoration: none;
+}
+
+.dollpage-counterpart-link:hover .dollpage-counterpart-card {
+  border-color: var(--accent);
+}
+
+.dollpage-counterpart-card {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  background: var(--panel2);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  transition: border-color 0.15s;
+  min-width: 200px;
+}
+
+.dollpage-counterpart-img {
+  width: 64px;
+  height: 32px;
+  flex-shrink: 0;
+}
+
+.dollpage-counterpart-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.dollpage-counterpart-info strong {
+  font-size: 13px;
+}
+
+/* ---- Builder: Refinement (R1–R6) ---- */
+.dollbuilder-refinement {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.dollbuilder-ref-btn {
+  min-width: 44px;
+  padding: 6px 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--panel2);
+  color: var(--fg);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.dollbuilder-ref-btn:hover {
+  border-color: var(--muted);
+}
+
+.dollbuilder-ref-btn.on {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 1px var(--accent);
+  background: var(--accent-ink);
+  color: var(--accent);
+}
+
+/* ---- Builder: Stat Preferences ---- */
+.dollbuilder-hint {
+  font-size: 12px;
+  margin-bottom: 8px;
+}
+
+.dollbuilder-stat-summary {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+
+.dollbuilder-stat-chosen {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  font-size: 13px;
+  font-weight: 600;
+  border-radius: 999px;
+  background: var(--accent);
+  color: var(--accent-ink);
+}
+
+.dollbuilder-stat-rank {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  font-size: 11px;
+  font-weight: 700;
+  border-radius: 999px;
+  background: var(--accent-ink);
+  color: var(--accent);
+}
+
+.dollbuilder-stat-remove {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  font-size: 14px;
+  line-height: 1;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.15);
+  color: var(--accent-ink);
+  margin-left: 2px;
+}
+
+.dollbuilder-stat-remove:hover {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.dollbuilder-stat-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.dollbuilder-stat-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 14px;
+  font-size: 13px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--panel2);
+  color: var(--muted);
+  transition:
+    background 0.15s,
+    color 0.15s,
+    border-color 0.15s;
+}
+
+.dollbuilder-stat-btn:hover:not(.disabled) {
+  color: var(--text);
+  border-color: var(--muted);
+}
+
+.dollbuilder-stat-btn.on {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--accent-ink);
+}
+
+.dollbuilder-stat-btn.disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.dollbuilder-stat-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  font-size: 11px;
+  font-weight: 700;
+  border-radius: 999px;
+  background: var(--accent-ink);
+  color: var(--accent);
+}
+
+/* ---- Builder: Key layout (Fixed 2×3 left + Expansion right) ---- */
+.dollbuilder-key-layout {
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+  gap: 16px;
+  align-items: start;
+}
+
+.dollbuilder-key-fixed-col h3,
+.dollbuilder-key-expansion-col h3 {
+  margin: 0 0 8px;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+}
+
+.dollbuilder-key-fixed-col .dollbuilder-key-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+}
+
+.dollbuilder-key-expansion-col .dollbuilder-key-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
+}
+
+/* ---- Builder: Key card disabled state (at fixed-key cap) ---- */
+.dollbuilder-key-card.disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* ---- Builder: Common key picker list ---- */
+.dollbuilder-ck-list {
+  max-height: 220px;
+}
+
+.dollbuilder-ck-chosen {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.dollbuilder-ck-selected {
+  margin-bottom: 0;
+}
+
+/* ---- Builder: Preview toggle ---- */
+.dollbuilder-preview-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text);
+  text-align: left;
+}
+
+.dollbuilder-preview-arrow {
+  font-size: 14px;
+  color: var(--muted);
+}
+
+/* ---- Card Preview Wrapper ---- */
+.card-preview-wrapper {
+  margin-top: 12px;
+}
+
+.card-preview-download {
+  margin-top: 10px;
+}
+
+/* Scale the full-size card down to fit the page. The card element stays
+   at its logical pixel size (1200×630 / 1040×dynamic) so html-to-image
+   captures it at full resolution. */
+.card-preview-scale {
+  overflow: hidden;
+  max-width: 100%;
+}
+
+/* ---- Build Card Preview (1200×630 logical) ---- */
+.build-card {
+  position: relative;
+  width: 1200px;
+  height: 630px;
+  background: #101216;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    sans-serif;
+  color: #e7eaf0;
+  overflow: hidden;
+  /* Scale down for display — the element stays 1200×630 for PNG capture. */
+  transform: scale(0.55);
+  transform-origin: top left;
+}
+
+.card-preview-scale:has(.build-card) {
+  height: 347px;
+}
+
+.build-card-stripe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 6px;
+  background: #5b9dff;
+}
+
+.build-card-brand {
+  position: absolute;
+  top: 30px;
+  right: 40px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #8b93a3;
+}
+
+.build-card-portrait-frame {
+  position: absolute;
+  left: 60px;
+  top: 95px;
+  width: 440px;
+  height: 440px;
+  border-radius: 16px;
+  border: 2px solid #2a2f3b;
+  background: #1f232d;
+  overflow: hidden;
+}
+
+.build-card-portrait {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 16%;
+  display: block;
+}
+
+.build-card-portrait-empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  font-size: 160px;
+  font-weight: 700;
+  color: #8b93a3;
+}
+
+.build-card-info {
+  position: absolute;
+  left: 560px;
+  right: 60px;
+  top: 95px;
+}
+
+.build-card-name {
+  font-size: 56px;
+  font-weight: 700;
+  line-height: 1.1;
+  color: #e7eaf0;
+  margin: 0 0 8px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.build-card-subtitle {
+  font-size: 22px;
+  font-weight: 500;
+  color: #8b93a3;
+  margin: 0 0 36px;
+}
+
+.build-card-section {
+  margin-bottom: 18px;
+}
+
+.build-card-label {
+  display: block;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: #8b93a3;
+  margin-bottom: 6px;
+}
+
+.build-card-panel {
+  background: #181b22;
+  border: 2px solid #2a2f3b;
+  border-radius: 10px;
+  padding: 14px 20px;
+}
+
+.build-card-value {
+  font-size: 24px;
+  font-weight: 500;
+  color: #e7eaf0;
+}
+
+.build-card-keys {
+  font-size: 20px;
+  font-weight: 400;
+  color: #e7eaf0;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.build-card-chips {
+  display: flex;
+  gap: 10px;
+}
+
+.build-card-chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 36px;
+  font-size: 18px;
+  font-weight: 700;
+  border-radius: 8px;
+  background: #1f232d;
+  color: #8b93a3;
+}
+
+.build-card-chip.on {
+  background: #5b9dff;
+  color: #0b1220;
+}
+
+.build-card-extras {
+  font-size: 16px;
+  font-weight: 400;
+  color: #8b93a3;
+  margin: 4px 0 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.build-card-footer {
+  position: absolute;
+  left: 60px;
+  bottom: 20px;
+  font-size: 13px;
+  color: #8b93a3;
+  opacity: 0.8;
+}
+
+/* ---- Team Card Preview (1040×dynamic logical) ---- */
+.team-card {
+  position: relative;
+  width: 1040px;
+  background: #101216;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    sans-serif;
+  color: #e7eaf0;
+  overflow: hidden;
+  transform: scale(0.55);
+  transform-origin: top left;
+}
+
+.card-preview-scale:has(.team-card) {
+  height: 310px;
+}
+
+.team-card-stripe {
+  height: 6px;
+  background: #5b9dff;
+}
+
+.team-card-header {
+  padding: 40px 60px 20px;
+  position: relative;
+}
+
+.team-card-title {
+  font-size: 44px;
+  font-weight: 700;
+  color: #e7eaf0;
+  margin: 0;
+}
+
+.team-card-brand {
+  position: absolute;
+  top: 36px;
+  right: 40px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #8b93a3;
+}
+
+.team-card-divider {
+  height: 2px;
+  background: #2a2f3b;
+  margin-top: 20px;
+}
+
+.team-card-body {
+  padding: 0 40px;
+}
+
+.team-card-empty {
+  padding: 24px 20px;
+  font-size: 20px;
+  color: #8b93a3;
+}
+
+.team-card-row {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding: 10px 20px;
+  min-height: 84px;
+}
+
+.team-card-row.alt {
+  background: #181b22;
+  border-radius: 4px;
+}
+
+.team-card-portrait-frame {
+  width: 64px;
+  height: 64px;
+  flex-shrink: 0;
+  border-radius: 8px;
+  border: 2px solid #2a2f3b;
+  background: #1f232d;
+  overflow: hidden;
+}
+
+.team-card-portrait {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 16%;
+  display: block;
+}
+
+.team-card-portrait-empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  font-size: 28px;
+  font-weight: 700;
+  color: #8b93a3;
+}
+
+.team-card-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.team-card-name {
+  font-size: 26px;
+  font-weight: 700;
+  color: #e7eaf0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.team-card-weapon {
+  font-size: 18px;
+  font-weight: 400;
+  color: #8b93a3;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.team-card-footer {
+  display: block;
+  padding: 8px 60px 12px;
+  font-size: 13px;
+  color: #8b93a3;
+  opacity: 0.8;
 }
 
 /* ---- Accessibility: Reduced Motion ---- */

@@ -15,7 +15,7 @@ import {
 import type { ShareFetcher } from './buildShare';
 
 const ALVA_BUILD: DollBuild = {
-  v: 1,
+  v: 2,
   doll: 'alva',
   weapon: '6d890f29-636c-4f04-bb2d-f91e3ff014fa',
   keys: ['k1', 'k2'],

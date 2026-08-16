@@ -39,6 +39,12 @@ const DollBuilderPage = lazy(() =>
 const CreditsPage = lazy(() =>
   import('./CreditsPage').then((m) => ({ default: m.CreditsPage }))
 );
+const PrivacyPage = lazy(() =>
+  import('./PrivacyPage').then((m) => ({ default: m.PrivacyPage }))
+);
+const TermsPage = lazy(() =>
+  import('./TermsPage').then((m) => ({ default: m.TermsPage }))
+);
 
 function PageFallback() {
   return (
@@ -73,6 +79,10 @@ function Root() {
           <DollBuilderPage slug={slug} />
         ) : route === 'credits' ? (
           <CreditsPage />
+        ) : route === 'privacy' ? (
+          <PrivacyPage />
+        ) : route === 'terms' ? (
+          <TermsPage />
         ) : (
           <HomePage />
         )}

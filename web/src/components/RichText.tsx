@@ -44,7 +44,7 @@ function refTitle(ref: TextRef): string {
   return `${KIND_LABEL[ref.kind]}: ${ref.name}`;
 }
 
-/** Render pre-resolved segments inline, references as <span title>. */
+/** Render pre-resolved segments inline, references as <span data-tooltip>. */
 export function RenderText({ segments }: { segments: TextSegment[] }) {
   return (
     <>
@@ -59,7 +59,7 @@ export function RenderText({ segments }: { segments: TextSegment[] }) {
                 ? `effect-ref ref-${seg.kind}`
                 : 'effect-ref ref-unresolved'
             }
-            title={refTitle(seg)}
+            data-tooltip={refTitle(seg)}
           >
             {seg.name}
           </span>

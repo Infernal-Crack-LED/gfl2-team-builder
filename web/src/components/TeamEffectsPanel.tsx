@@ -100,7 +100,7 @@ function EffectCard({ entry }: { entry: TeamEffectEntry }) {
               <div
                 key={i}
                 className="teameffect-row"
-                title={snippetText(s.snippet)}
+                data-tooltip={snippetText(s.snippet)}
               >
                 <span className="teameffect-member">{s.member.name}</span>
                 <span
@@ -127,7 +127,7 @@ function EffectCard({ entry }: { entry: TeamEffectEntry }) {
               <div
                 key={i}
                 className="teameffect-row"
-                title={snippetText(a.snippet)}
+                data-tooltip={snippetText(a.snippet)}
               >
                 <span className="teameffect-member">{a.member.name}</span>
                 <span

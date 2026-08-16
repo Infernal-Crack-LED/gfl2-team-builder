@@ -11,7 +11,7 @@ import {
 } from './buildCode';
 
 const dollBuild = {
-  v: 1 as const,
+  v: 2 as const,
   doll: 'alva',
   weapon: '6d890f29-636c-4f04-bb2d-f91e3ff014fa',
   keys: ['6d402750-28ac-497f-9dcc-7e9c774a01fb'],
@@ -42,14 +42,14 @@ describe('doll build codec', () => {
 
   it('returns null on wrong version', () => {
     expect(
-      decodeDollBuild(b64urlEncode(JSON.stringify({ ...dollBuild, v: 2 })))
+      decodeDollBuild(b64urlEncode(JSON.stringify({ ...dollBuild, v: 99 })))
     ).toBeNull();
   });
 
   it('returns null when required fields are missing or mistyped', () => {
     expect(
       decodeDollBuild(
-        b64urlEncode(JSON.stringify({ v: 1, keys: [], vert: [] }))
+        b64urlEncode(JSON.stringify({ v: 2, keys: [], vert: [] }))
       )
     ).toBeNull();
     expect(
@@ -65,7 +65,7 @@ describe('doll build codec', () => {
 
 describe('team build codec', () => {
   const team = {
-    v: 1 as const,
+    v: 2 as const,
     s: [{ d: 'alva', w: 'x', k: ['y'], t: [1] }, null, { d: 'tololo' }],
   };
 
@@ -80,14 +80,14 @@ describe('team build codec', () => {
     ).toBeNull();
     expect(
       decodeTeamBuild(
-        b64urlEncode(JSON.stringify({ v: 1, s: Array(6).fill(null) }))
+        b64urlEncode(JSON.stringify({ v: 2, s: Array(6).fill(null) }))
       )
     ).toBeNull();
   });
 
   it('returns null on a slot with a bad doll slug', () => {
     expect(
-      decodeTeamBuild(b64urlEncode(JSON.stringify({ v: 1, s: [{ d: 5 }] })))
+      decodeTeamBuild(b64urlEncode(JSON.stringify({ v: 2, s: [{ d: 5 }] })))
     ).toBeNull();
   });
 });
@@ -96,7 +96,7 @@ describe('decodeAnyBuild', () => {
   it('distinguishes doll builds from team builds', () => {
     expect(decodeAnyBuild(encodeDollBuild(dollBuild))?.kind).toBe('build');
     expect(
-      decodeAnyBuild(encodeTeamBuild({ v: 1, s: [{ d: 'alva' }] }))?.kind
+      decodeAnyBuild(encodeTeamBuild({ v: 2, s: [{ d: 'alva' }] }))?.kind
     ).toBe('team');
     expect(decodeAnyBuild('junk')).toBeNull();
   });

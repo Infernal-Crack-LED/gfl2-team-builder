@@ -21,6 +21,12 @@ export interface BuildCardData {
   weaponName: string | null;
   keyNames: string[]; // up to 6 shown
   vert: number[]; // active vertebra segments (1-6) → "V1 V2 …" chips
+  /** Weapon refinement level 1–6, or null. */
+  refinement: number | null;
+  /** Ordered stat preference labels (up to 4), or empty. */
+  statPrefs: string[];
+  /** Common key display names (up to 3), or empty. */
+  commonKeyNames: string[];
   /** Square-cropped portrait canvas (opaque to the core), or null. */
   portrait: unknown | null;
 }
@@ -182,6 +188,26 @@ export function drawBuildCard(ctx: Canvas2DLike, data: BuildCardData): void {
     ctx.fillText(`V${seg}`, cx + chipW / 2, chipY + chipH / 2 + 1);
     ctx.textAlign = 'left';
     ctx.textBaseline = 'alphabetic';
+  }
+
+  // ---- Refinement / Stat Prefs / Common Keys (compact line) ----
+  const extras: string[] = [];
+  if (data.refinement) {
+    extras.push(`Ref: R${data.refinement}`);
+  }
+  if (data.statPrefs.length > 0) {
+    extras.push(`Stats: ${data.statPrefs.join(' > ')}`);
+  }
+  if (data.commonKeyNames.length > 0) {
+    extras.push(`CK: ${data.commonKeyNames.join(', ')}`);
+  }
+  if (extras.length > 0) {
+    ctx.fillStyle = COLORS.muted;
+    ctx.font = `400 16px ${FONT}`;
+    ctx.textAlign = 'left';
+    ctx.textBaseline = 'alphabetic';
+    const line = extras.join('  ·  ');
+    ctx.fillText(line, rx, 594);
   }
 
   // ---- Footer ----

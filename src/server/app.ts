@@ -41,6 +41,11 @@ const ALLOWED_ORIGINS = (
 const OAUTH_CLIENT_ID = process.env.OAUTH_CLIENT_ID ?? '';
 const OAUTH_CLIENT_SECRET = process.env.OAUTH_CLIENT_SECRET ?? '';
 
+// Umami analytics (self-hosted) — injected server-side so the URL/ID can
+// change without a rebuild. Omit either to disable (e.g. dev).
+const UMAMI_URL = process.env.UMAMI_URL ?? '';
+const UMAMI_WEBSITE_ID = process.env.UMAMI_WEBSITE_ID ?? '';
+
 const DISCORD_AUTHORIZE_URL = 'https://discord.com/oauth2/authorize';
 const DISCORD_TOKEN_URL = 'https://discord.com/api/oauth2/token';
 const DISCORD_ME_URL = 'https://discord.com/api/users/@me';
@@ -55,6 +60,20 @@ const KIND_RE = /^[a-z0-9-]+$/;
 const CODE_RE = /^[A-Za-z0-9_-]+$/;
 
 const DIST = path.resolve('dist');
+
+/** Inject the Umami analytics script into the HTML <head>, if configured.
+ * Idempotent: never injects the tag twice. */
+function injectUmami(html: string): string {
+  if (!UMAMI_URL || !UMAMI_WEBSITE_ID) {
+    return html;
+  }
+  const src = `${UMAMI_URL}/script.js`;
+  if (html.includes(src)) {
+    return html;
+  }
+  const tag = `<script defer src="${src}" data-website-id="${UMAMI_WEBSITE_ID}"></script>`;
+  return html.replace('</head>', `  ${tag}\n  </head>`);
+}
 
 function redirectUri(requestUrl: string): string {
   // OAUTH_REDIRECT_URI overrides; otherwise derive from the request origin so
@@ -398,8 +417,11 @@ export function createServer(): Hono {
     // SPA fallback: extension-less path → the client router decides. Share
     // URLs (/builder/<slug>?b=|id=, /team-builder?b=|id=) get their OG/Twitter
     // head tags rewritten to the content-addressed card image (ogInject.ts).
+    // Umami analytics is injected server-side so the URL/ID can change without
+    // a rebuild.
     const indexHtml = await readFile(path.join(DIST, 'index.html'), 'utf8');
-    const html = await injectShareMeta(indexHtml, new URL(c.req.url));
+    let html = await injectShareMeta(indexHtml, new URL(c.req.url));
+    html = injectUmami(html);
     return c.html(html, 200, { 'Cache-Control': 'no-cache' });
   });
 
