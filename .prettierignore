@@ -1,0 +1,17 @@
+# build output
+dist/
+dist-server/
+build/
+*.tsbuildinfo
+
+# deps
+node_modules/
+
+# generated migrations (drizzle owns the formatting)
+drizzle/
+
+# lockfiles & generated
+package-lock.json
+
+# curated / generated data
+data/

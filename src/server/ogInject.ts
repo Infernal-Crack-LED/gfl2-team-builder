@@ -38,7 +38,12 @@ function escapeHtml(s: string): string {
 
 /** Replace (or, if absent, insert before </head>) a single <meta> tag.
  * Regex-based and tolerant of multi-line tag formatting in index.html. */
-function setMeta(html: string, attr: 'property' | 'name', key: string, content: string): string {
+function setMeta(
+  html: string,
+  attr: 'property' | 'name',
+  key: string,
+  content: string
+): string {
   const re = new RegExp(`<meta\\s[^>]*${attr}=["']${key}["'][^>]*>`, 'i');
   const tag = `<meta ${attr}="${key}" content="${escapeHtml(content)}" />`;
   if (re.test(html)) {
@@ -107,7 +112,10 @@ export async function shareMetaForUrl(url: URL): Promise<ShareMeta | null> {
     .from(userProfiles)
     .where(and(eq(userProfiles.id, id), eq(userProfiles.kind, PUBLIC_KINDS[0])))
     .limit(1);
-  if (!row || !PUBLIC_KINDS.includes(row.kind as (typeof PUBLIC_KINDS)[number])) {
+  if (
+    !row ||
+    !PUBLIC_KINDS.includes(row.kind as (typeof PUBLIC_KINDS)[number])
+  ) {
     return null;
   }
   const decoded = decodeAnyBuild(row.code);

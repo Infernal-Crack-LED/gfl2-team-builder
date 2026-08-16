@@ -41,11 +41,17 @@ describe('doll build codec', () => {
   });
 
   it('returns null on wrong version', () => {
-    expect(decodeDollBuild(b64urlEncode(JSON.stringify({ ...dollBuild, v: 2 })))).toBeNull();
+    expect(
+      decodeDollBuild(b64urlEncode(JSON.stringify({ ...dollBuild, v: 2 })))
+    ).toBeNull();
   });
 
   it('returns null when required fields are missing or mistyped', () => {
-    expect(decodeDollBuild(b64urlEncode(JSON.stringify({ v: 1, keys: [], vert: [] })))).toBeNull();
+    expect(
+      decodeDollBuild(
+        b64urlEncode(JSON.stringify({ v: 1, keys: [], vert: [] }))
+      )
+    ).toBeNull();
     expect(
       decodeDollBuild(b64urlEncode(JSON.stringify({ ...dollBuild, keys: [1] })))
     ).toBeNull();
@@ -60,11 +66,7 @@ describe('doll build codec', () => {
 describe('team build codec', () => {
   const team = {
     v: 1 as const,
-    s: [
-      { d: 'alva', w: 'x', k: ['y'], t: [1] },
-      null,
-      { d: 'tololo' },
-    ],
+    s: [{ d: 'alva', w: 'x', k: ['y'], t: [1] }, null, { d: 'tololo' }],
   };
 
   it('roundtrips', () => {
@@ -73,7 +75,9 @@ describe('team build codec', () => {
 
   it('returns null on garbage / wrong version / too many slots', () => {
     expect(decodeTeamBuild('junk')).toBeNull();
-    expect(decodeTeamBuild(b64urlEncode(JSON.stringify({ v: 9, s: [] })))).toBeNull();
+    expect(
+      decodeTeamBuild(b64urlEncode(JSON.stringify({ v: 9, s: [] })))
+    ).toBeNull();
     expect(
       decodeTeamBuild(
         b64urlEncode(JSON.stringify({ v: 1, s: Array(6).fill(null) }))

@@ -50,9 +50,9 @@ describe('computeTeamEffects', () => {
     const entries = computeTeamEffects([suomi]);
     const frostBarrier = entries.find((e) => e.effectName === 'Frost Barrier');
     expect(frostBarrier).toBeDefined();
-    expect(
-      frostBarrier!.sources.some((s) => s.label.startsWith('Key —'))
-    ).toBe(true);
+    expect(frostBarrier!.sources.some((s) => s.label.startsWith('Key —'))).toBe(
+      true
+    );
   });
 
   it('follows effect→effect conferral chains', () => {

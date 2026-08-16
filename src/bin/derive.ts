@@ -56,14 +56,18 @@ async function main() {
   }
 
   if (file.unresolvedRefs.length > 0) {
-    console.log(`\n--- Unresolved effect refs (${file.unresolvedRefs.length}) ---`);
+    console.log(
+      `\n--- Unresolved effect refs (${file.unresolvedRefs.length}) ---`
+    );
     for (const ref of file.unresolvedRefs) {
       console.log(`  ${ref.effectId}  in ${ref.foundIn}`);
     }
   }
 
   if (stats.mentions.length > 0) {
-    console.log(`\n--- Unclassified "mentions" edges (${stats.mentions.length}) ---`);
+    console.log(
+      `\n--- Unclassified "mentions" edges (${stats.mentions.length}) ---`
+    );
     for (const m of stats.mentions) {
       console.log(`  [${m.effectName ?? '?'}] ${m.source}`);
       console.log(`      ${m.snippet}`);

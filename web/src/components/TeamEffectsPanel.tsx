@@ -50,7 +50,8 @@ function EffectCard({ entry }: { entry: TeamEffectEntry }) {
   const upstreamLower = new Set(entry.effectTags.map((t) => t.toLowerCase()));
   const derivedTags = getEffectTags(entry.effectId).filter(
     (id) =>
-      !upstreamLower.has(id) && !upstreamLower.has(effectTagLabel(id).toLowerCase())
+      !upstreamLower.has(id) &&
+      !upstreamLower.has(effectTagLabel(id).toLowerCase())
   );
 
   return (
@@ -102,7 +103,9 @@ function EffectCard({ entry }: { entry: TeamEffectEntry }) {
                 title={snippetText(s.snippet)}
               >
                 <span className="teameffect-member">{s.member.name}</span>
-                <span className={'teameffect-relation teameffect-rel-' + s.relation}>
+                <span
+                  className={'teameffect-relation teameffect-rel-' + s.relation}
+                >
                   {RELATION_LABEL[s.relation]}
                 </span>
                 <span className="teameffect-label">{s.label}</span>
@@ -114,9 +117,7 @@ function EffectCard({ entry }: { entry: TeamEffectEntry }) {
           </div>
 
           <div className="teameffect-section">
-            <div className="teameffect-section-title">
-              Affected teammates
-            </div>
+            <div className="teameffect-section-title">Affected teammates</div>
             {entry.affected.length === 0 && (
               <div className="teameffect-row teameffect-row-muted">
                 Nobody on this team interacts with it.
@@ -129,7 +130,9 @@ function EffectCard({ entry }: { entry: TeamEffectEntry }) {
                 title={snippetText(a.snippet)}
               >
                 <span className="teameffect-member">{a.member.name}</span>
-                <span className={'teameffect-relation teameffect-rel-' + a.relation}>
+                <span
+                  className={'teameffect-relation teameffect-rel-' + a.relation}
+                >
                   {RELATION_LABEL[a.relation]}
                 </span>
                 {a.viaEffectName ? (

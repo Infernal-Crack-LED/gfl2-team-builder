@@ -39,20 +39,20 @@ User-Agent: <browser-ish UA>
 
 ### The four requested
 
-| Endpoint | Rows (2026-08-15) | Notes |
-|---|---|---|
-| `GET /dolls` | 64 | full list, no pagination needed |
-| `GET /weapons` | 185 | full list |
-| `GET /keys` | 560 | full list |
+| Endpoint       | Rows (2026-08-15)     | Notes                                                                   |
+| -------------- | --------------------- | ----------------------------------------------------------------------- |
+| `GET /dolls`   | 64                    | full list, no pagination needed                                         |
+| `GET /weapons` | 185                   | full list                                                               |
+| `GET /keys`    | 560                   | full list                                                               |
 | `GET /effects` | 566 (456 en / 110 cn) | **paginated, default limit 24** — must pass `?limit=1000` or walk pages |
 
 ### Detail routes (verified)
 
-| Endpoint | Keyed by | Payload |
-|---|---|---|
-| `GET /dolls/{name}` | **doll name** (URL-encoded), NOT uuid — uuid 404s | ~90 KB: everything below |
-| `GET /weapons/{uuid}` | uuid | single weapon row |
-| `GET /effects/{slug}` | lowercase-hyphen slug (e.g. `absolute-defense`) | single effect row |
+| Endpoint              | Keyed by                                          | Payload                  |
+| --------------------- | ------------------------------------------------- | ------------------------ |
+| `GET /dolls/{name}`   | **doll name** (URL-encoded), NOT uuid — uuid 404s | ~90 KB: everything below |
+| `GET /weapons/{uuid}` | uuid                                              | single weapon row        |
+| `GET /effects/{slug}` | lowercase-hyphen slug (e.g. `absolute-defense`)   | single effect row        |
 
 ### Pagination
 
@@ -99,7 +99,7 @@ Everything in the list plus:
 - `vertebrae[]` — vertebrae (dupe) upgrades: `segment`, `level`,
   `vertebraeName`, `effect` HTML.
 - `remoldingPattern` — `{coreSlots: {bulwark, support, sentinel, vanguard},
-  statBoosts: {"60": {hp, atk, def}}, dollCore}`.
+statBoosts: {"60": {hp, atk, def}}, dollCore}`.
 - `keys[]` — that doll's keys (full key rows).
 - `dollEffects[]` — the doll's exclusive effects (full effect rows).
 - `movement` (int), `stabilityGauge` (int).

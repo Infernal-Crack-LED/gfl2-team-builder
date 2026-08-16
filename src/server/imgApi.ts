@@ -36,7 +36,10 @@ import {
   renderCacheFilename,
   type RenderKind,
 } from '../infographics/cacheKey.js';
-import { renderBuildCardPng, renderTeamCardPng } from '../infographics/node/render.js';
+import {
+  renderBuildCardPng,
+  renderTeamCardPng,
+} from '../infographics/node/render.js';
 import { loadPortrait } from '../infographics/node/portraits.js';
 import { getDoll, getKey, getWeapon, keyDisplayName } from './gameData.js';
 import { PUBLIC_KINDS, PUBLIC_PROFILE_ID_RE } from './publicShare.js';
@@ -59,9 +62,14 @@ async function resolvePayload(
     const [row] = await db
       .select({ kind: userProfiles.kind, code: userProfiles.code })
       .from(userProfiles)
-      .where(and(eq(userProfiles.id, id), eq(userProfiles.kind, PUBLIC_KINDS[0])))
+      .where(
+        and(eq(userProfiles.id, id), eq(userProfiles.kind, PUBLIC_KINDS[0]))
+      )
       .limit(1);
-    if (!row || !PUBLIC_KINDS.includes(row.kind as (typeof PUBLIC_KINDS)[number])) {
+    if (
+      !row ||
+      !PUBLIC_KINDS.includes(row.kind as (typeof PUBLIC_KINDS)[number])
+    ) {
       throw new BadRequest('invalid id');
     }
     const decoded = decodeAnyBuild(row.code);
@@ -166,7 +174,10 @@ async function renderPayload(
 /** Single-flight: concurrent misses for the same filename share ONE render. */
 const inFlight = new Map<string, Promise<Buffer>>();
 
-function renderSingleFlight(filename: string, render: () => Promise<Buffer>): Promise<Buffer> {
+function renderSingleFlight(
+  filename: string,
+  render: () => Promise<Buffer>
+): Promise<Buffer> {
   const existing = inFlight.get(filename);
   if (existing) {
     return existing;
@@ -179,7 +190,10 @@ function renderSingleFlight(filename: string, render: () => Promise<Buffer>): Pr
 /** tmp + rename so a concurrent reader never sees a partial PNG. */
 async function writeAtomic(filename: string, png: Buffer): Promise<void> {
   await mkdir(CACHE_DIR, { recursive: true });
-  const tmp = path.join(CACHE_DIR, `.${filename}.${randomBytes(6).toString('hex')}.tmp`);
+  const tmp = path.join(
+    CACHE_DIR,
+    `.${filename}.${randomBytes(6).toString('hex')}.tmp`
+  );
   await writeFile(tmp, png);
   await rename(tmp, path.join(CACHE_DIR, filename));
 }

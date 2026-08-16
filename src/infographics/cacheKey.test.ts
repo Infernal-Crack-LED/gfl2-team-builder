@@ -77,7 +77,9 @@ describe('renderCacheKey', () => {
     const b = decodeDollBuild(shuffled);
     expect(a).not.toBeNull();
     expect(b).not.toBeNull();
-    expect(renderCacheFilename('build', a)).toBe(renderCacheFilename('build', b));
+    expect(renderCacheFilename('build', a)).toBe(
+      renderCacheFilename('build', b)
+    );
   });
 
   it('changes when RENDERER_VERSION changes', () => {

@@ -17,20 +17,20 @@
 
 ## 2. What carries over from nikke-sim (unchanged in spirit)
 
-| Pattern | nikke-sim | gfl2 |
-|---|---|---|
-| Stack | React 18 + Vite 5 + TS strict | same |
-| Styling | one `styles.css`, design tokens | same tokens, verbatim (§6) |
-| Routing | custom path router, `pushState`, real `<a href>` interception | same, new route set (§4) |
-| Code splitting | every page `lazy()` | same |
-| Data | JSON imported at build time; no runtime fetch for game data | same — DB → committed `data/*.json` at sync time (§3) |
-| Filter system | `useCharacterFilter` + `CharacterFilters` + `CharacterCards`, shared by `/characters` and `/teambuilder` | `useDollFilter` + `DollFilters` + `DollCards`, shared by `/characters` and `/team-builder` (§5) |
-| Per-entity pages | everything derived from artifacts; **degrades, never vanishes** | same (§7) |
-| Chrome | `SiteChrome.tsx` nav + footer, mobile dropdown at ≤640px | same, same logo (§8) |
+| Pattern          | nikke-sim                                                                                                | gfl2                                                                                            |
+| ---------------- | -------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- |
+| Stack            | React 18 + Vite 5 + TS strict                                                                            | same                                                                                            |
+| Styling          | one `styles.css`, design tokens                                                                          | same tokens, verbatim (§6)                                                                      |
+| Routing          | custom path router, `pushState`, real `<a href>` interception                                            | same, new route set (§4)                                                                        |
+| Code splitting   | every page `lazy()`                                                                                      | same                                                                                            |
+| Data             | JSON imported at build time; no runtime fetch for game data                                              | same — DB → committed `data/*.json` at sync time (§3)                                           |
+| Filter system    | `useCharacterFilter` + `CharacterFilters` + `CharacterCards`, shared by `/characters` and `/teambuilder` | `useDollFilter` + `DollFilters` + `DollCards`, shared by `/characters` and `/team-builder` (§5) |
+| Per-entity pages | everything derived from artifacts; **degrades, never vanishes**                                          | same (§7)                                                                                       |
+| Chrome           | `SiteChrome.tsx` nav + footer, mobile dropdown at ≤640px                                                 | same, same logo (§8)                                                                            |
 
 ## 3. Data flow — DB to build-time JSON
 
-nikke-sim's rule (§8.1): *never fetch sim or game data at runtime*. GFL2 keeps
+nikke-sim's rule (§8.1): _never fetch sim or game data at runtime_. GFL2 keeps
 the rule with one extra hop: the game data lives in Postgres (dandegate sync),
 so **the sync step also exports committed JSON artifacts** that the web app
 imports at build time — exactly how nikke-sim's `src/data/sync.ts` writes
@@ -70,13 +70,13 @@ builds from them alone (same as nikke-sim's committed artifacts).
 
 ```ts
 type Route =
-  | 'home'          // '/' — landing, content TBD (for now: hero + links)
-  | 'characters'    // '/characters'
-  | 'character'     // '/characters/<slug>'   (parameterized — excluded from ROUTES)
-  | 'weapons'       // '/weapons'
-  | 'weapon'        // '/weapons/<slug>'      (parameterized — excluded from ROUTES)
-  | 'team-builder'  // '/team-builder'
-  | 'credits';      // '/credits'
+  | 'home' // '/' — landing, content TBD (for now: hero + links)
+  | 'characters' // '/characters'
+  | 'character' // '/characters/<slug>'   (parameterized — excluded from ROUTES)
+  | 'weapons' // '/weapons'
+  | 'weapon' // '/weapons/<slug>'      (parameterized — excluded from ROUTES)
+  | 'team-builder' // '/team-builder'
+  | 'credits'; // '/credits'
 ```
 
 Same mechanics as nikke-sim's router: `routeFromPath` maps the first segment,
@@ -118,14 +118,14 @@ never drift:
 
 ### Filter axes (from dandegate's own filter vocabulary)
 
-| Row | Values | Source field |
-|---|---|---|
-| Class | Bulwark · Vanguard · Support · Sentinel | `class` |
-| Phase | Physical · Burn · Hydro · Electric · Freeze · Corrosion · Omni | `phase` |
-| Ammo | Light · Medium · Heavy · Shotgun · Melee | `ammoTypes` (array — a doll passes if ANY of its ammo types is selected) |
-| Weapon type | AR · SMG · SG · MG · RF · HG · Blade | `weaponImprintType` |
-| Rarity | Elite · Standard | `rarity` (text pills — no icons needed) |
-| Search | name + `searchTags` aliases (e.g. "OTs-14" → Groza) | free text |
+| Row         | Values                                                         | Source field                                                             |
+| ----------- | -------------------------------------------------------------- | ------------------------------------------------------------------------ |
+| Class       | Bulwark · Vanguard · Support · Sentinel                        | `class`                                                                  |
+| Phase       | Physical · Burn · Hydro · Electric · Freeze · Corrosion · Omni | `phase`                                                                  |
+| Ammo        | Light · Medium · Heavy · Shotgun · Melee                       | `ammoTypes` (array — a doll passes if ANY of its ammo types is selected) |
+| Weapon type | AR · SMG · SG · MG · RF · HG · Blade                           | `weaponImprintType`                                                      |
+| Rarity      | Elite · Standard                                               | `rarity` (text pills — no icons needed)                                  |
+| Search      | name + `searchTags` aliases (e.g. "OTs-14" → Groza)            | free text                                                                |
 
 ### Icons vs pills — asset-ready from day one
 
@@ -150,8 +150,14 @@ same palette as nikke-sim:
 ```css
 :root {
   color-scheme: dark;
-  --bg: #101216; --panel: #181b22; --panel2: #1f232d; --border: #2a2f3b;
-  --text: #e7eaf0; --muted: #8b93a3; --accent: #5b9dff; --warn: #e0b04b;
+  --bg: #101216;
+  --panel: #181b22;
+  --panel2: #1f232d;
+  --border: #2a2f3b;
+  --text: #e7eaf0;
+  --muted: #8b93a3;
+  --accent: #5b9dff;
+  --warn: #e0b04b;
 }
 ```
 
@@ -166,8 +172,12 @@ eyeballed against game UI:
 
 ```ts
 export const PHASE_COLORS: Record<string, string> = {
-  Physical: '#b0b7c3', Burn: '#d92d38', Hydro: '#0075f8',
-  Electric: '#bc1eb1', Freeze: '#00c8e0', Corrosion: '#00e554',
+  Physical: '#b0b7c3',
+  Burn: '#d92d38',
+  Hydro: '#0075f8',
+  Electric: '#bc1eb1',
+  Freeze: '#00c8e0',
+  Corrosion: '#00e554',
   Omni: '#e0b04b',
 };
 ```
@@ -201,7 +211,7 @@ cross-links). Sections, in order:
 5. **Exclusive effects** — from `effects.json` where `dollId` matches.
 6. **Weapon imprint** — the imprint weapon's stats + link to its page.
 7. **Remolding pattern** — core-slot table (bulwark/support/sentinel/vanguard)
-   + stat boosts.
+   - stat boosts.
 8. **Vertebrae** — segment/level upgrade list.
 9. **Bio** — the lore text (doll detail `effects` field — misnamed upstream).
 10. **Tools** — links to /team-builder, /characters, /weapons.
@@ -272,6 +282,7 @@ aliasing on large reductions, and placeholder URLs have nothing to alias.
 ## 10. Phases
 
 **Phase 1 — scaffold (this effort)**
+
 1. `package.json` + `vite.config.ts` + `web/tsconfig.json` (root `web/`,
    outDir repo-root `dist/`, react manualChunk)
 2. Sync export step → `data/*.json` (committed); type module for the shapes
@@ -285,12 +296,14 @@ aliasing on large reductions, and placeholder URLs have nothing to alias.
    every route
 
 **Phase 2 — assets + SEO surface**
+
 - Filter/card icon set; portrait thumb tiers + manifest (nikke-sim §10)
 - Hono static server: per-route meta injection, no-JS bodies for
   `/characters` + detail pages (same-source rule), 404/cache policy,
   robots.txt + generated sitemap + llms.txt (nikke-sim §6–7)
 
 **Phase 3 — deferred by owner**
+
 - Infographics/share cards (unknown approach — owner decision pending)
 - Squad save/share (needs the user-data backend decision)
 - Discord bot integration

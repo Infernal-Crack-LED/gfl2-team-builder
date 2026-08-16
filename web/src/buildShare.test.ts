@@ -70,8 +70,10 @@ describe('bootIdFromSearch', () => {
 });
 
 describe('fetchSharedBuild', () => {
-  const okFetcher = (body: unknown): ShareFetcher => () =>
-    Promise.resolve({ ok: true, json: () => Promise.resolve(body) });
+  const okFetcher =
+    (body: unknown): ShareFetcher =>
+    () =>
+      Promise.resolve({ ok: true, json: () => Promise.resolve(body) });
 
   it('fetches the /public endpoint and decodes the stored code', async () => {
     let calledWith = '';
@@ -89,7 +91,9 @@ describe('fetchSharedBuild', () => {
 
   it('returns null for a code belonging to a different doll', async () => {
     const code = encodeDollBuild({ ...ALVA_BUILD, doll: 'qiongjiu' });
-    expect(await fetchSharedBuild(VALID_ID, 'alva', okFetcher({ code }))).toBeNull();
+    expect(
+      await fetchSharedBuild(VALID_ID, 'alva', okFetcher({ code }))
+    ).toBeNull();
   });
 
   it('returns null on non-OK responses (e.g. deleted share row)', async () => {
@@ -103,7 +107,9 @@ describe('fetchSharedBuild', () => {
     expect(
       await fetchSharedBuild(VALID_ID, 'alva', okFetcher({ code: 42 }))
     ).toBeNull();
-    expect(await fetchSharedBuild(VALID_ID, 'alva', okFetcher(null))).toBeNull();
+    expect(
+      await fetchSharedBuild(VALID_ID, 'alva', okFetcher(null))
+    ).toBeNull();
   });
 
   it('returns null when the stored code is undecodable', async () => {
@@ -113,7 +119,8 @@ describe('fetchSharedBuild', () => {
   });
 
   it('returns null when the fetch itself throws (offline, endpoint down)', async () => {
-    const fetcher: ShareFetcher = () => Promise.reject(new Error('network down'));
+    const fetcher: ShareFetcher = () =>
+      Promise.reject(new Error('network down'));
     expect(await fetchSharedBuild(VALID_ID, 'alva', fetcher)).toBeNull();
   });
 });

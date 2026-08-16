@@ -17,13 +17,22 @@ const FONT_DIR = path.join(
   path.dirname(fileURLToPath(import.meta.url)),
   'assets/fonts'
 );
-const FONTS_PRESENT = ['Roboto-Regular.ttf', 'Roboto-Medium.ttf', 'Roboto-Bold.ttf'].every(
-  (f) => existsSync(path.join(FONT_DIR, f))
-);
+const FONTS_PRESENT = [
+  'Roboto-Regular.ttf',
+  'Roboto-Medium.ttf',
+  'Roboto-Bold.ttf',
+].every((f) => existsSync(path.join(FONT_DIR, f)));
 
 /** Count pixels brighter than `threshold` in a region (bg is #101216). */
 function inkInRegion(
-  ctx: { getImageData(x: number, y: number, w: number, h: number): { data: Uint8ClampedArray } },
+  ctx: {
+    getImageData(
+      x: number,
+      y: number,
+      w: number,
+      h: number
+    ): { data: Uint8ClampedArray };
+  },
   x: number,
   y: number,
   w: number,
@@ -42,9 +51,8 @@ function inkInRegion(
 
 describe.skipIf(!FONTS_PRESENT)('card renderers (fonts present)', () => {
   it('build card renders with ink in the doll-name region', async () => {
-    const { createCanvas, drawBuildCard, BUILD_CARD_W, BUILD_CARD_H } = await import(
-      './node/render.js'
-    );
+    const { createCanvas, drawBuildCard, BUILD_CARD_W, BUILD_CARD_H } =
+      await import('./node/render.js');
     const canvas = createCanvas(BUILD_CARD_W, BUILD_CARD_H);
     const ctx = canvas.getContext('2d');
     drawBuildCard(ctx as never, {
@@ -67,9 +75,8 @@ describe.skipIf(!FONTS_PRESENT)('card renderers (fonts present)', () => {
   });
 
   it('build card degrades on all-null data without throwing', async () => {
-    const { createCanvas, drawBuildCard, BUILD_CARD_W, BUILD_CARD_H } = await import(
-      './node/render.js'
-    );
+    const { createCanvas, drawBuildCard, BUILD_CARD_W, BUILD_CARD_H } =
+      await import('./node/render.js');
     const canvas = createCanvas(BUILD_CARD_W, BUILD_CARD_H);
     const ctx = canvas.getContext('2d');
     expect(() =>
@@ -87,9 +94,8 @@ describe.skipIf(!FONTS_PRESENT)('card renderers (fonts present)', () => {
   });
 
   it('team card renders with ink in the Squad title region', async () => {
-    const { createCanvas, drawTeamCard, TEAM_CARD_W, cardHeight } = await import(
-      './node/render.js'
-    );
+    const { createCanvas, drawTeamCard, TEAM_CARD_W, cardHeight } =
+      await import('./node/render.js');
     const canvas = createCanvas(TEAM_CARD_W, cardHeight(2));
     const ctx = canvas.getContext('2d');
     drawTeamCard(ctx as never, [

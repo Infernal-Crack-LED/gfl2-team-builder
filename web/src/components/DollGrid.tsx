@@ -88,10 +88,7 @@ export function useDollFilter(opts?: UseDollFilterOpts): DollFilterResult {
   const pool = opts?.restrict ?? allDolls;
   const exclude = opts?.exclude;
 
-  const toggleFilter = (
-    row: keyof Omit<FilterState, 'search'>,
-    id: string
-  ) => {
+  const toggleFilter = (row: keyof Omit<FilterState, 'search'>, id: string) => {
     setFilter((prev) => {
       const next = { ...prev };
       const set = new Set(prev[row]);
@@ -162,9 +159,7 @@ export function useDollFilter(opts?: UseDollFilterOpts): DollFilterResult {
 
       // Ammo filter (OR within row — a doll passes if ANY of its ammo types matches)
       if (filter.ammo.size > 0) {
-        const dollAmmo = (doll.ammoTypes ?? []).map((a) =>
-          a.toLowerCase()
-        );
+        const dollAmmo = (doll.ammoTypes ?? []).map((a) => a.toLowerCase());
         let match = false;
         for (const id of filter.ammo) {
           if (dollAmmo.includes(id)) {
@@ -252,9 +247,7 @@ function FilterRow({ label, options, selected, onToggle }: FilterRowProps) {
           <button
             key={opt.id}
             type="button"
-            className={
-              'pill-toggle' + (selected.has(opt.id) ? ' on' : '')
-            }
+            className={'pill-toggle' + (selected.has(opt.id) ? ' on' : '')}
             aria-pressed={selected.has(opt.id)}
             onClick={() => onToggle(opt.id)}
           >
@@ -283,14 +276,18 @@ export function DollFilters({
   filterResult: DollFilterResult;
   defaultOpen?: boolean;
 }) {
-  const { filter, toggleFilter, setSearch, clearAll, anyActive, filteredCount, totalCount } =
-    filterResult;
+  const {
+    filter,
+    toggleFilter,
+    setSearch,
+    clearAll,
+    anyActive,
+    filteredCount,
+    totalCount,
+  } = filterResult;
 
   return (
-    <details
-      className="dollfilter-panel"
-      open={defaultOpen}
-    >
+    <details className="dollfilter-panel" open={defaultOpen}>
       <summary className="dollfilter-summary">
         Filters
         <span className="dollfilter-count">
@@ -342,11 +339,7 @@ export function DollFilters({
         />
 
         {anyActive && (
-          <button
-            type="button"
-            className="dollfilter-clear"
-            onClick={clearAll}
-          >
+          <button type="button" className="dollfilter-clear" onClick={clearAll}>
             Clear all
           </button>
         )}
@@ -416,8 +409,7 @@ export function DollCards({
               {doll.rarity && (
                 <span
                   className={
-                    'dollcard-badge' +
-                    (doll.rarity === 'Elite' ? ' elite' : '')
+                    'dollcard-badge' + (doll.rarity === 'Elite' ? ' elite' : '')
                   }
                 >
                   {doll.rarity}
@@ -475,8 +467,7 @@ export function DollCards({
             {doll.rarity && (
               <span
                 className={
-                  'dollcard-badge' +
-                  (doll.rarity === 'Elite' ? ' elite' : '')
+                  'dollcard-badge' + (doll.rarity === 'Elite' ? ' elite' : '')
                 }
               >
                 {doll.rarity}

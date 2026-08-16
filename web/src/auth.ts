@@ -90,7 +90,7 @@ export function logout(): void {
   }
 }
 
-async function apiFetch(path: string, init?: RequestInit): Promise<Response> {
+function apiFetch(path: string, init?: RequestInit): Promise<Response> {
   const token = getToken();
   return fetch(path, {
     ...init,

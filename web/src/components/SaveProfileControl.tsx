@@ -9,12 +9,7 @@
  * with load-on-click rows and per-row delete buttons.
  */
 import { useEffect, useRef, useState } from 'react';
-import {
-  deleteProfile,
-  listProfiles,
-  saveProfile,
-  useAuth,
-} from '../auth';
+import { deleteProfile, listProfiles, saveProfile, useAuth } from '../auth';
 import type { SavedProfile } from '../auth';
 import { InlineNameField } from './InlineNameField';
 

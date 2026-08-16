@@ -128,7 +128,9 @@ export function WeaponPage({ slug }: { slug: string | null }) {
               loading="lazy"
             />
           ) : (
-            <div className="portrait portrait-empty" aria-hidden="true">?</div>
+            <div className="portrait portrait-empty" aria-hidden="true">
+              ?
+            </div>
           )}
         </div>
         <div className="weaponpage-info">
@@ -137,17 +139,14 @@ export function WeaponPage({ slug }: { slug: string | null }) {
             {weapon.rarity && (
               <span
                 className={
-                  'unit-ident' +
-                  (weapon.rarity === 'Elite' ? ' elite' : '')
+                  'unit-ident' + (weapon.rarity === 'Elite' ? ' elite' : '')
                 }
               >
                 {weapon.rarity}
               </span>
             )}
             {weapon.weaponType && (
-              <span className="unit-ident">
-                {weapon.weaponType}
-              </span>
+              <span className="unit-ident">{weapon.weaponType}</span>
             )}
             {weapon.primaryAttribute && (
               <span className="unit-ident">

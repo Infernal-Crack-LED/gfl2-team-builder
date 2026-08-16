@@ -93,7 +93,9 @@ async function fetchAndDecode(imageUrl: string): Promise<unknown | null> {
  * Load a doll portrait for rendering. Returns null on ANY failure (network,
  * decode, bad URL) — never throws.
  */
-export function loadPortrait(imageUrl: string | null | undefined): Promise<unknown | null> {
+export function loadPortrait(
+  imageUrl: string | null | undefined
+): Promise<unknown | null> {
   if (!imageUrl) {
     return Promise.resolve(null);
   }

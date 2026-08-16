@@ -22,7 +22,10 @@ export const BUILD_VERSION = 1;
 // pulling node globals into the browser project.
 interface BufferLike {
   from(data: Uint8Array): { toString(encoding: 'base64'): string };
-  from(data: string, encoding: 'base64'): { toString(encoding: 'utf8'): string };
+  from(
+    data: string,
+    encoding: 'base64'
+  ): { toString(encoding: 'utf8'): string };
 }
 const nodeBuffer = (globalThis as { Buffer?: BufferLike }).Buffer;
 
@@ -32,7 +35,9 @@ export function b64urlEncode(str: string): string {
   for (const b of bytes) {
     bin += String.fromCharCode(b);
   }
-  const b64 = nodeBuffer ? nodeBuffer.from(bytes).toString('base64') : btoa(bin);
+  const b64 = nodeBuffer
+    ? nodeBuffer.from(bytes).toString('base64')
+    : btoa(bin);
   return b64.replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
 }
 
@@ -99,7 +104,13 @@ export function decodeDollBuild(code: string): DollBuild | null {
     if (keys.length > MAX_KEYS || b.keys.length !== keys.length) {
       return null;
     }
-    return { v: BUILD_VERSION, doll: b.doll, weapon: b.weapon as string | null, keys, vert };
+    return {
+      v: BUILD_VERSION,
+      doll: b.doll,
+      weapon: b.weapon as string | null,
+      keys,
+      vert,
+    };
   } catch {
     return null;
   }
@@ -191,7 +202,10 @@ export function decodeTeamBuild(code: string): TeamBuild | null {
 /** Try both codecs — used on public share links where the kind isn't known. */
 export function decodeAnyBuild(
   code: string
-): { kind: 'build'; build: DollBuild } | { kind: 'team'; build: TeamBuild } | null {
+):
+  | { kind: 'build'; build: DollBuild }
+  | { kind: 'team'; build: TeamBuild }
+  | null {
   const d = decodeDollBuild(code);
   if (d) {
     return { kind: 'build', build: d };

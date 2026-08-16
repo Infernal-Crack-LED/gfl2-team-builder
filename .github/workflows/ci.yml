@@ -1,0 +1,43 @@
+name: CI
+
+# Runs the safety checks on every PR into main and on pushes to main.
+# Make these checks "required" in the branch ruleset so nothing merges red.
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+# If new commits are pushed to a PR, cancel the in-progress run for that PR.
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  checks:
+    name: typecheck · test · lint · format
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      - name: Test
+        run: npm test
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Format check
+        run: npm run format:check

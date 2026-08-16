@@ -52,7 +52,10 @@ export function verify<T = SessionPayload>(
   const presented = Buffer.from(token.slice(dot + 1), 'base64url');
   const expected = hmac(body, secret);
   // timingSafeEqual throws on length mismatch — check length first.
-  if (presented.length !== expected.length || !timingSafeEqual(presented, expected)) {
+  if (
+    presented.length !== expected.length ||
+    !timingSafeEqual(presented, expected)
+  ) {
     return null;
   }
   let payload: SessionPayload;

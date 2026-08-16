@@ -231,10 +231,7 @@ export function createServer(): Hono {
       })
       .from(userProfiles)
       .where(
-        and(
-          eq(userProfiles.discordId, user.sub),
-          eq(userProfiles.kind, kind)
-        )
+        and(eq(userProfiles.discordId, user.sub), eq(userProfiles.kind, kind))
       )
       .orderBy(desc(userProfiles.updatedAt));
     return c.json(rows);
@@ -281,10 +278,7 @@ export function createServer(): Hono {
         .select({ count: sql<number>`count(*)` })
         .from(userProfiles)
         .where(
-          and(
-            eq(userProfiles.discordId, user.sub),
-            eq(userProfiles.kind, kind)
-          )
+          and(eq(userProfiles.discordId, user.sub), eq(userProfiles.kind, kind))
         );
       if (Number(countRows[0]?.count ?? 0) >= PROFILE_CAP_PER_KIND) {
         return c.json({ error: 'limit_reached' }, 400);
@@ -328,7 +322,9 @@ export function createServer(): Hono {
         updatedAt: userProfiles.updatedAt,
       })
       .from(userProfiles)
-      .where(and(eq(userProfiles.id, id), eq(userProfiles.kind, PUBLIC_KINDS[0])))
+      .where(
+        and(eq(userProfiles.id, id), eq(userProfiles.kind, PUBLIC_KINDS[0]))
+      )
       .limit(1);
     if (
       !row ||
@@ -389,8 +385,7 @@ export function createServer(): Hono {
       if (existsSync(filePath) && statSync(filePath).isFile()) {
         const body = await readFile(filePath);
         return c.body(body, 200, {
-          'Content-Type':
-            getMimeType(filePath) ?? 'application/octet-stream',
+          'Content-Type': getMimeType(filePath) ?? 'application/octet-stream',
           'Cache-Control': urlPath.startsWith('/assets/')
             ? 'public, max-age=31536000, immutable'
             : 'no-cache',

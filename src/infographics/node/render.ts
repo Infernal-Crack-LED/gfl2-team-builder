@@ -40,7 +40,9 @@ export function assertFontsLive(): void {
   const ctx = cv.getContext('2d');
   ctx.font = `700 24px ${FONT}`;
   if (ctx.measureText('Ag').width <= 0) {
-    throw new Error('[infographics] Roboto measures zero width — fonts not registered');
+    throw new Error(
+      '[infographics] Roboto measures zero width — fonts not registered'
+    );
   }
   ctx.fillStyle = '#ffffff';
   ctx.fillText('Ag', 2, 26);
@@ -65,14 +67,14 @@ function makeCard(w: number, h: number) {
   return { canvas, ctx: ctx as unknown as Canvas2DLike };
 }
 
-export async function renderBuildCardPng(data: BuildCardData): Promise<Buffer> {
+export function renderBuildCardPng(data: BuildCardData): Promise<Buffer> {
   assertFontsLive();
   const { canvas, ctx } = makeCard(BUILD_CARD_W, BUILD_CARD_H);
   drawBuildCard(ctx, data);
   return canvas.encode('png');
 }
 
-export async function renderTeamCardPng(slots: TeamCardSlot[]): Promise<Buffer> {
+export function renderTeamCardPng(slots: TeamCardSlot[]): Promise<Buffer> {
   assertFontsLive();
   const { canvas, ctx } = makeCard(TEAM_CARD_W, cardHeight(slots.length));
   drawTeamCard(ctx, slots);
