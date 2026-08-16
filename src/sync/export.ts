@@ -24,18 +24,25 @@ function slugify(name: string): string {
     .replace(/[^a-z0-9-]/g, '');
 }
 
-/** Ensure slugs are unique — append regionTag on collision. */
+/**
+ * Ensure slugs are unique — append regionTag on the first collision, then
+ * fall back to a numeric suffix (covers null regionTags, 3+ rows sharing a
+ * name, and region-suffixed slugs colliding with a real name).
+ */
 function assignSlugs<T extends { name: string; slug?: string; regionTag: string | null }>(
   rows: T[]
 ): (T & { slug: string })[] {
-  const seen = new Map<string, number>();
+  const used = new Set<string>();
   return rows.map((row) => {
-    let slug = slugify(row.name);
-    const count = seen.get(slug) ?? 0;
-    if (count > 0 && row.regionTag) {
-      slug = `${slug}-${row.regionTag}`;
+    const base = slugify(row.name);
+    let slug = base;
+    if (used.has(slug) && row.regionTag) {
+      slug = `${base}-${row.regionTag}`;
     }
-    seen.set(slugify(row.name), count + 1);
+    for (let n = 2; used.has(slug); n++) {
+      slug = `${base}-${n}`;
+    }
+    used.add(slug);
     return { ...row, slug };
   });
 }

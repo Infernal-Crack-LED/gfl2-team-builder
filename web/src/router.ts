@@ -15,11 +15,13 @@ export type Route =
   | 'weapons'
   | 'weapon'
   | 'team-builder'
+  | 'builder'
   | 'credits';
 
 // Flat list of nav/analytics routes. Parameterized routes (/characters/<slug>,
-// /weapons/<slug>) are excluded — hrefFor('character') would produce a dead
-// slug-less path. Detail routes are detected by a present second segment.
+// /weapons/<slug>, /builder/<slug>) are excluded — hrefFor('character') would
+// produce a dead slug-less path. Detail routes are detected by a present
+// second segment.
 export const ROUTES: Route[] = [
   'home',
   'characters',
@@ -54,6 +56,14 @@ export function routeFromPath(pathname: string): Route {
   if (seg === 'team-builder' || seg === 'teambuilder') {
     return 'team-builder';
   }
+  if (seg === 'builder') {
+    // A builder without a doll slug is meaningless — /builder alone lands on
+    // the character roster instead of a dead page.
+    const parts = pathname
+      .replace(/^\/+|\/+$/g, '')
+      .split('/');
+    return parts.length > 1 ? 'builder' : 'characters';
+  }
   if (seg === 'credits') {
     return 'credits';
   }
@@ -66,7 +76,11 @@ export function slugFromPath(pathname: string): string | null {
     .replace(/\/{2,}/g, '/')
     .replace(/^\/+|\/+$/g, '')
     .split('/');
-  if (segs[0] !== 'characters' && segs[0] !== 'weapons') {
+  if (
+    segs[0] !== 'characters' &&
+    segs[0] !== 'weapons' &&
+    segs[0] !== 'builder'
+  ) {
     return null;
   }
   return segs[1] ?? null;
@@ -86,6 +100,7 @@ export const hrefFor = (route: Route): string => {
 /** Build a detail-page href from a slug. */
 export const hrefForDoll = (slug: string): string => `/characters/${slug}`;
 export const hrefForWeapon = (slug: string): string => `/weapons/${slug}`;
+export const hrefForBuilder = (slug: string): string => `/builder/${slug}`;
 
 // SPA navigation: update the URL via pushState (no full reload), then notify
 // every listener with a popstate event.

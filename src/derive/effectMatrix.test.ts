@@ -31,6 +31,12 @@ describe('extractRefs', () => {
     expect(refs[0]!.dollSlug).toBe('helen');
   });
 
+  it('normalizes uppercase hex in markers', () => {
+    const refs = extractRefs(`applies [effect:${UUID_A.toUpperCase()}]`);
+    expect(refs).toHaveLength(1);
+    expect(refs[0]!.effectId).toBe(UUID_A);
+  });
+
   it('extracts multiple markers', () => {
     const refs = extractRefs(`[effect:${UUID_A}] and [effect:${UUID_B}]`);
     expect(refs.map((r) => r.effectId)).toEqual([UUID_A, UUID_B]);
@@ -205,6 +211,14 @@ describe('buildEffectMatrix', () => {
           name: 'Test Weapon',
           effect: `<p>If they have a [effect:${UUID_C}], damage is increased. Also applies [effect:${UUID_D}].</p>`,
         },
+        remoldingPattern: {
+          imagoforms: [
+            {
+              stage: 'Embryo',
+              effect: `<p>Applies [effect:${UUID_D}] to the target.</p>`,
+            },
+          ],
+        },
       },
     ],
     weapons: [
@@ -307,6 +321,13 @@ describe('buildEffectMatrix', () => {
     const imprintOnly = findEffect(file, UUID_D)!;
     expect(imprintOnly.sources.some(
       (e) => e.kind === 'weapon-imprint' && e.dollId === 'doll-1'
+    )).toBe(true);
+  });
+
+  it('extracts the imagoform stage name for remolding edges', () => {
+    const imprintOnly = findEffect(file, UUID_D)!;
+    expect(imprintOnly.sources.some(
+      (e) => e.kind === 'remolding' && e.stage === 'Embryo'
     )).toBe(true);
   });
 

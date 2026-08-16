@@ -1,6 +1,6 @@
 {
   "generator": "effect-matrix/1",
-  "syncedAt": "2026-08-15T23:14:30.777Z",
+  "syncedAt": "2026-08-15T23:13:28.312Z",
   "effects": [
     {
       "effectId": "22ae7ba7-93e8-4bad-8476-debb40fa628e",
@@ -21043,7 +21043,7 @@
           "snippet": "When this unit's [effect:d149d223-ac66-4556-ba25-5d4fef2504e9] are on the field, allied units' defense is increased by 5%",
           "dollId": "168d645f-6fc8-4be8-bacb-92706509fa80",
           "dollName": "Balthilde",
-          "stage": null,
+          "stage": "Embryo",
           "path": "remolding.imagoforms[0].effect"
         },
         {
@@ -21085,7 +21085,7 @@
           "snippet": "Damage dealt by this unit's [effect:d149d223-ac66-4556-ba25-5d4fef2504e9] is increased by 8%",
           "dollId": "1505ba90-8b03-4247-ac9c-98d9d224e66d",
           "dollName": "Lainie",
-          "stage": null,
+          "stage": "Embryo",
           "path": "remolding.imagoforms[0].effect"
         },
         {
@@ -21094,7 +21094,7 @@
           "snippet": "Damage dealt by this unit's [effect:d149d223-ac66-4556-ba25-5d4fef2504e9] is increased by 8%",
           "dollId": "9a197d8d-25bb-45c4-a2e5-1c7d3ef06830",
           "dollName": "Koleda",
-          "stage": null,
+          "stage": "Embryo",
           "path": "remolding.imagoforms[0].effect"
         },
         {

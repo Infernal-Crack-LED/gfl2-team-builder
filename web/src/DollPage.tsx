@@ -1,8 +1,10 @@
 /**
- * Doll detail page — everything derived from data/*.json. Degrades, never
- * vanishes: a section without data shows one muted line instead of
- * disappearing. [effect:<uuid>] markers resolve to effect names via the
- * shared data.ts helper.
+ * Doll detail page — nikke-sim UnitPage structure: breadcrumbs, a header
+ * (96px .unit-portrait + name + identity pills), then stacked .unit-panel
+ * sections. Everything derived from data/*.json. Degrades, never vanishes:
+ * a section without data shows one muted line instead of disappearing.
+ * [effect:<uuid>] markers resolve to effect names via the shared data.ts
+ * helper.
  *
  * Sets its own document head (title/description/canonical) so the full
  * dataset doesn't land in the eager entry chunk.
@@ -18,7 +20,7 @@ import {
   type Skill,
   type TextSegment,
 } from './data';
-import { hrefFor, hrefForWeapon, onSpaLinkClick } from './router';
+import { hrefFor, hrefForBuilder, hrefForWeapon, onSpaLinkClick } from './router';
 import { escapeJsonLd } from './jsonLd';
 import { setDetailMeta } from './useDocumentHead';
 
@@ -56,12 +58,12 @@ function SkillSection({ skill }: { skill: Skill }) {
   const currentDesc = descriptions[level - 1] ?? skill.description;
 
   return (
-    <div className="dollpage-skill">
+    <div className="unit-skill">
       <h3>{skill.name ?? 'Skill'}</h3>
       {skill.skillTags && skill.skillTags.length > 0 && (
-        <div className="dollpage-skill-tags">
+        <div className="unit-skill-tags">
           {skill.skillTags.map((tag, i) => (
-            <span key={i} className="dollpage-tag">
+            <span key={i} className="unit-ident">
               {tag}
             </span>
           ))}
@@ -73,16 +75,14 @@ function SkillSection({ skill }: { skill: Skill }) {
           (e.g. base + Lv3 only), and a tab for a missing level would
           silently re-show the base text. */}
       {(skill.descriptionLevel2 || skill.descriptionLevel3 || skill.descriptionLevel4) && (
-        <div className="dollpage-skill-tabs">
+        <div className="pills small unit-skill-tabs">
           {[1, 2, 3, 4]
             .filter((lv) => descriptions[lv - 1])
             .map((lv) => (
               <button
                 key={lv}
                 type="button"
-                className={
-                  'pill-toggle' + (level === lv ? ' on' : '')
-                }
+                className={level === lv ? 'on' : ''}
                 aria-pressed={level === lv}
                 onClick={() => setLevel(lv)}
               >
@@ -92,12 +92,12 @@ function SkillSection({ skill }: { skill: Skill }) {
         </div>
       )}
 
-      <div className="dollpage-skill-desc">
+      <div className="unit-skill-desc">
         <RenderText segments={resolveEffectMarkers(currentDesc)} />
       </div>
 
       {/* Skill metadata */}
-      <div className="dollpage-skill-meta">
+      <div className="unit-skill-meta">
         {skill.stabilityDamage != null && (
           <span>Stability: {skill.stabilityDamage}</span>
         )}
@@ -170,85 +170,101 @@ export function DollPage({ slug }: { slug: string | null }) {
 
   return (
     <div className="app dollpage">
-      {/* Breadcrumb */}
-      <nav className="dollpage-breadcrumb">
+      {/* Breadcrumbs */}
+      <nav className="unit-crumbs">
         <a href={hrefFor('characters')} onClick={onSpaLinkClick(hrefFor('characters'))}>
           Characters
         </a>
-        {' › '}
+        {' / '}
         {doll.name}
       </nav>
 
-      {/* Header */}
-      <div className="dollpage-header">
-        <div className="dollpage-portrait">
-          {doll.avatarUrl ? (
-            <img src={doll.avatarUrl} alt={doll.name} loading="lazy" />
-          ) : (
-            <div className="portrait-empty" aria-hidden="true">?</div>
-          )}
-        </div>
-        <div className="dollpage-info">
+      {/* Header: 96px portrait + name + identity pills */}
+      <div className="unit-header">
+        {doll.avatarUrl ? (
+          <img
+            className="portrait unit-portrait"
+            src={doll.avatarUrl}
+            alt={doll.name}
+            loading="lazy"
+          />
+        ) : (
+          <div
+            className="portrait portrait-empty unit-portrait"
+            aria-hidden="true"
+          >
+            ?
+          </div>
+        )}
+        <div className="unit-meta">
           <h1>{doll.name}</h1>
-          <div className="dollpage-ident">
+          <div className="unit-idents">
+            {doll.class && (
+              <span className="unit-ident">{doll.class}</span>
+            )}
             {doll.phase && (
               <span
-                className="dollpage-ident-pill"
-                style={{ borderColor: phaseColor }}
+                className="unit-ident"
+                style={{ borderColor: phaseColor, color: phaseColor }}
               >
                 {doll.phase}
-              </span>
-            )}
-            {doll.class && (
-              <span className="dollpage-ident-pill">{doll.class}</span>
-            )}
-            {doll.weaponImprintType && (
-              <span className="dollpage-ident-pill">
-                {doll.weaponImprintType}
-              </span>
-            )}
-            {doll.ammoTypes && doll.ammoTypes.length > 0 && (
-              <span className="dollpage-ident-pill">
-                {doll.ammoTypes.join(', ')}
               </span>
             )}
             {doll.rarity && (
               <span
                 className={
-                  'dollpage-ident-pill' +
-                  (doll.rarity === 'Elite' ? ' elite' : '')
+                  'unit-ident' + (doll.rarity === 'Elite' ? ' elite' : '')
                 }
               >
                 {doll.rarity}
               </span>
             )}
+            {doll.ammoTypes && doll.ammoTypes.length > 0 && (
+              <span className="unit-ident">
+                {doll.ammoTypes.join(', ')}
+              </span>
+            )}
+            {doll.weaponImprintType && (
+              <span className="unit-ident">
+                {doll.weaponImprintType}
+              </span>
+            )}
             {doll.movement != null && (
-              <span className="dollpage-ident-pill">
+              <span className="unit-ident">
                 Move: {doll.movement}
               </span>
             )}
             {doll.stabilityGauge != null && (
-              <span className="dollpage-ident-pill">
+              <span className="unit-ident">
                 Stability: {doll.stabilityGauge}
               </span>
             )}
             {doll.regionTag === 'cn' && (
-              <span className="dollpage-ident-pill cn">CN</span>
+              <span className="unit-ident cn">CN</span>
             )}
             {doll.preview && (
-              <span className="dollpage-ident-pill preview">
+              <span className="unit-ident preview">
                 Unreleased
               </span>
             )}
+          </div>
+          <div className="unit-actions">
+            <a
+              className="btn-primary"
+              href={hrefForBuilder(doll.slug)}
+              onClick={onSpaLinkClick(hrefForBuilder(doll.slug))}
+            >
+              Open in builder
+            </a>
           </div>
         </div>
       </div>
 
       {/* Skills */}
-      <section className="dollpage-section">
+      <section className="unit-section unit-panel">
         <h2>Skills</h2>
         {doll.skills && doll.skills.length > 0 ? (
-          <div className="dollpage-skills">
+          <div className="unit-skills-grid">
             {doll.skills.map((skill, i) => (
               <SkillSection key={i} skill={skill} />
             ))}
@@ -259,12 +275,12 @@ export function DollPage({ slug }: { slug: string | null }) {
       </section>
 
       {/* Keys */}
-      <section className="dollpage-section">
+      <section className="unit-section unit-panel">
         <h2>Keys</h2>
         {dollKeys.length > 0 ? (
-          <div className="dollpage-keys">
+          <div className="unit-keys-grid">
             {dollKeys.map((key) => (
-              <div key={key.id} className="dollpage-key-card">
+              <div key={key.id} className="unit-key-card">
                 <h3>{key.displayTitle ?? key.keyTitle ?? 'Key'}</h3>
                 {key.keyType && (
                   <span className="muted">{key.keyType}</span>
@@ -294,10 +310,10 @@ export function DollPage({ slug }: { slug: string | null }) {
       </section>
 
       {/* Exclusive effects */}
-      <section className="dollpage-section">
+      <section className="unit-section unit-panel">
         <h2>Exclusive Effects</h2>
         {dollEffects.length > 0 ? (
-          <ul>
+          <ul className="unit-effects">
             {dollEffects.map((eff) => (
               <li key={eff.id}>
                 <strong>{eff.effectName ?? 'Unknown'}</strong>
@@ -313,7 +329,7 @@ export function DollPage({ slug }: { slug: string | null }) {
       </section>
 
       {/* Weapon imprint */}
-      <section className="dollpage-section">
+      <section className="unit-section unit-panel">
         <h2>Weapon Imprint</h2>
         {imprintWeapon ? (
           <div>
@@ -337,10 +353,10 @@ export function DollPage({ slug }: { slug: string | null }) {
       </section>
 
       {/* Remolding pattern */}
-      <section className="dollpage-section">
+      <section className="unit-section unit-panel">
         <h2>Remolding Pattern</h2>
         {doll.remoldingPattern ? (
-          <pre className="dollpage-remolding-table">
+          <pre className="unit-pre">
             {JSON.stringify(doll.remoldingPattern, null, 2)}
           </pre>
         ) : (
@@ -349,13 +365,13 @@ export function DollPage({ slug }: { slug: string | null }) {
       </section>
 
       {/* Vertebrae */}
-      <section className="dollpage-section">
+      <section className="unit-section unit-panel">
         <h2>Vertebrae</h2>
         {doll.vertebrae && doll.vertebrae.length > 0 ? (
-          <ul className="dollpage-vertebrae">
+          <ul className="unit-effects">
             {doll.vertebrae.map((v, i) => (
               <li key={i}>
-                <pre>{JSON.stringify(v, null, 2)}</pre>
+                <pre className="unit-pre">{JSON.stringify(v, null, 2)}</pre>
               </li>
             ))}
           </ul>
@@ -365,7 +381,7 @@ export function DollPage({ slug }: { slug: string | null }) {
       </section>
 
       {/* Bio */}
-      <section className="dollpage-section">
+      <section className="unit-section unit-panel">
         <h2>Bio</h2>
         {doll.bio ? (
           <p>
@@ -377,22 +393,25 @@ export function DollPage({ slug }: { slug: string | null }) {
       </section>
 
       {/* Tools */}
-      <section className="dollpage-section">
+      <section className="unit-section unit-panel">
         <h2>Tools</h2>
-        <div className="dollpage-tools">
+        <div className="unit-tools">
           <a
+            className="chip"
             href={hrefFor('team-builder')}
             onClick={onSpaLinkClick(hrefFor('team-builder'))}
           >
             Team Builder
           </a>
           <a
+            className="chip"
             href={hrefFor('characters')}
             onClick={onSpaLinkClick(hrefFor('characters'))}
           >
             All Characters
           </a>
           <a
+            className="chip"
             href={hrefFor('weapons')}
             onClick={onSpaLinkClick(hrefFor('weapons'))}
           >

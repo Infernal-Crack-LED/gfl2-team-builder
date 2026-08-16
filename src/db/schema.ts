@@ -1,11 +1,13 @@
 import {
   boolean,
+  index,
   integer,
   jsonb,
   pgTable,
   serial,
   text,
   timestamp,
+  uniqueIndex,
   uuid,
 } from 'drizzle-orm/pg-core';
 
@@ -127,3 +129,31 @@ export const gfl2SyncRuns = pgTable('gfl2_sync_runs', {
   trigger: text('trigger'),
   sources: jsonb('sources'),
 });
+
+/**
+ * User profiles — saved client blobs (e.g. team-builder squads) keyed by
+ * Discord user + kind + name. `code` is an opaque base64url payload; the DB
+ * never interprets it. The (discordId, kind, name) unique index backs the
+ * save-by-name upsert in src/server/app.ts.
+ */
+export const userProfiles = pgTable(
+  'user_profiles',
+  {
+    id: uuid('id').primaryKey().defaultRandom(),
+    discordId: text('discord_id').notNull(),
+    kind: text('kind').notNull(),
+    name: text('name').notNull(),
+    code: text('code').notNull(),
+    updatedAt: timestamp('updated_at', { withTimezone: true })
+      .notNull()
+      .defaultNow(),
+  },
+  (t) => [
+    index('user_profiles_discord_id_idx').on(t.discordId),
+    uniqueIndex('user_profiles_discord_id_kind_name_uq').on(
+      t.discordId,
+      t.kind,
+      t.name
+    ),
+  ]
+);

@@ -6,6 +6,14 @@ export default defineConfig({
   root: 'web',
   publicDir: fileURLToPath(new URL('./web/public', import.meta.url)),
   plugins: [react()],
+  server: {
+    // Dev proxy: /auth and /api go to the Hono server (npm run dev:server)
+    // so the SPA and API stay same-origin and CORS never bites in dev.
+    proxy: {
+      '/auth': 'http://localhost:4173',
+      '/api': 'http://localhost:4173',
+    },
+  },
   build: {
     outDir: fileURLToPath(new URL('./dist', import.meta.url)),
     emptyOutDir: true,

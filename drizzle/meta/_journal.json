@@ -15,6 +15,13 @@
       "when": 1786825411252,
       "tag": "0001_add-attachment-sets",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1786853496724,
+      "tag": "0002_cheerful_chat",
+      "breakpoints": true
     }
   ]
 }

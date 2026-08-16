@@ -54,7 +54,9 @@ export function extractRefs(text: string): EffectRef[] {
   let m: RegExpExecArray | null;
   while ((m = MARKER_RE.exec(text)) !== null) {
     refs.push({
-      effectId: m[1]!,
+      // The marker regex is case-insensitive; normalize so lookups against
+      // the (lowercase) effects table don't miss uppercase hex.
+      effectId: m[1]!.toLowerCase(),
       dollSlug: m[2] ?? null,
       start: m.index,
       end: m.index + m[0].length,
@@ -392,7 +394,8 @@ export interface MatrixRemoldingEdge extends EdgeBase {
   kind: 'remolding';
   dollId: string;
   dollName: string;
-  stage: number | null;
+  /** Imagoform stage name ("Embryo", "Seedling", ...) — a string in the API. */
+  stage: string | null;
   path: string;
 }
 
@@ -757,9 +760,12 @@ export function buildEffectMatrix(input: DeriveInput): {
         if (!text) {
           continue;
         }
-        const imatch = /^imagoforms\[(\d+)\]/.exec(f.path);
+        // Paths are rooted at 'remolding' (the walkStrings base), e.g.
+        // 'remolding.imagoforms[0].effect'. Stage names are strings
+        // ("Embryo", "Seedling", ...) in the API payload.
+        const imatch = /^remolding\.imagoforms\[(\d+)\]/.exec(f.path);
         const stage = imatch
-          ? num(asRecord(imagoforms[Number(imatch[1])])?.stage)
+          ? str(asRecord(imagoforms[Number(imatch[1])])?.stage)
           : null;
         recordRefs(text, `${name}/remolding:${f.path}`, (ref, relation, snippet) => {
           addEdge(ref.effectId, `remolding:${dollId}:${f.path}:${ref.effectId}:${relation}`, {

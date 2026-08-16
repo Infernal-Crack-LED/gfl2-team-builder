@@ -76,7 +76,7 @@ export interface MatrixRemoldingEdge extends MatrixEdgeBase {
   kind: 'remolding';
   dollId: string;
   dollName: string;
-  stage: number | null;
+  stage: string | null;
   path: string;
 }
 

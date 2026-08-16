@@ -10,8 +10,23 @@ API investigation and design notes.
 
 ```bash
 npm install
-cp .env.example .env   # set DATABASE_URL
+cp .env.example .env   # set DATABASE_URL; OAuth vars for the auth server
 npm run db:push         # push schema to Postgres
+```
+
+### Auth / profiles server
+
+The site has one runtime API (Discord login + per-user saved builds), a Hono
+server in `src/server/`. It needs these env vars (see `.env.example`):
+`OAUTH_CLIENT_ID`, `OAUTH_CLIENT_SECRET`, `SESSION_SECRET`, and optionally
+`OAUTH_REDIRECT_URI`, `ALLOWED_ORIGINS`, `PORT`. Create a Discord app at
+<https://discord.com/developers/applications> and add
+`<origin>/auth/discord/callback` as a redirect URI.
+
+```bash
+npm run dev          # vite dev server (proxies /auth + /api to :4173)
+npm run dev:server   # Hono API/static server on :4173
+npm run serve        # build dist/ then serve it with the API (prod shape)
 ```
 
 ## Sync
@@ -43,6 +58,8 @@ Rebuild it standalone with `npm run derive` (add `--report` for a QA breakdown).
 | `npm run db:generate` | Generate a Drizzle migration |
 | `npm run db:migrate` | Run pending migrations |
 | `npm run db:studio` | Open Drizzle Studio |
+| `npm run dev:server` | Run the Hono auth/profiles server (watch mode, :4173) |
+| `npm run serve` | Build dist/ and serve it with the API server |
 | `npm run typecheck` | Type-check without emitting |
 | `npm run lint` | Run ESLint |
 | `npm run format` | Run Prettier |

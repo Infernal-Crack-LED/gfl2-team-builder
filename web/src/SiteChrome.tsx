@@ -7,6 +7,7 @@ import { useEffect, useRef, useState } from 'react';
 import type { MouseEvent } from 'react';
 import type { Route } from './router';
 import { hrefFor, navigate, onSpaLinkClick } from './router';
+import { useAuth } from './auth';
 
 const NAV: { route: Route; label: string }[] = [
   { route: 'characters', label: 'Characters' },
@@ -45,6 +46,45 @@ function navClick(e: MouseEvent<HTMLAnchorElement>, route: Route) {
   }
   e.preventDefault();
   navigate(hrefFor(route));
+}
+
+/**
+ * Right-side nav auth control. Logged out: a Discord login button that does
+ * a FULL page navigation (OAuth leaves the SPA). Logged in: avatar +
+ * username + logout. Lives in site-nav-right, which stays visible at the
+ * ≤640px breakpoint (only the page links collapse into the dropdown), so it
+ * works on mobile without extra handling.
+ */
+function AuthControl() {
+  const { user, loading, login, logout } = useAuth();
+  if (loading) {
+    // Avoid flashing "Log in" while the stored token is being validated.
+    return null;
+  }
+  if (!user) {
+    return (
+      <button type="button" className="nav-btn discord" onClick={login}>
+        Log in with Discord
+      </button>
+    );
+  }
+  return (
+    <div className="nav-user">
+      {user.avatar && (
+        <img
+          className="nav-user-avatar"
+          src={`https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png?size=64`}
+          alt=""
+          width={24}
+          height={24}
+        />
+      )}
+      <span className="nav-user-name">{user.username}</span>
+      <button type="button" className="nav-btn" onClick={logout}>
+        Log out
+      </button>
+    </div>
+  );
 }
 
 export function SiteNav({ current }: { current: Route }) {
@@ -181,6 +221,7 @@ export function SiteNav({ current }: { current: Route }) {
         </div>
 
         <div className="site-nav-right">
+          <AuthControl />
           {/* Hamburger menu for secondary links */}
           {MENU.length > 0 && (
             <div className="nav-menu" ref={menuRef}>

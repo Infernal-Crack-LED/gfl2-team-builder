@@ -6,6 +6,9 @@ dist/
 build/
 *.tsbuildinfo
 
+# server-rendered share-card cache (content-addressed, regenerable)
+render-cache/
+
 # env
 .env
 .env.local

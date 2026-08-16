@@ -11,5 +11,5 @@
     "allowImportingTsExtensions": false,
     "noEmit": true
   },
-  "include": ["src"]
+  "include": ["src", "../src/share/**/*.ts"]
 }

@@ -12,13 +12,15 @@ export interface WikiAttachmentSet {
 }
 
 function decodeHtmlEntities(text: string): string {
+  // `&amp;` must decode last — decoding it first double-decodes sequences
+  // like `&amp;lt;` (the escaped text "&lt;") into a real `<`.
   return text
-    .replace(/&amp;/g, '&')
     .replace(/&lt;/g, '<')
     .replace(/&gt;/g, '>')
     .replace(/&quot;/g, '"')
     .replace(/&#39;/g, "'")
-    .replace(/&nbsp;/g, ' ');
+    .replace(/&nbsp;/g, ' ')
+    .replace(/&amp;/g, '&');
 }
 
 function stripTags(html: string): string {

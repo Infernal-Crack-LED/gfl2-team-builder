@@ -36,6 +36,13 @@ export const META: Record<string, HeadMeta> = {
     description:
       'Build your GFL2 squad visually. Filter the full doll roster, place dolls in 4 or 5 slots, and plan your team composition.',
   },
+  // Fallback for /builder URLs — detail URLs set their own per-doll head via
+  // setDetailMeta (skipped in the sync below), this covers the slug-less edge.
+  builder: {
+    title: 'GFL2 Doll Builder — Weapons, Keys & Vertebrae Planner',
+    description:
+      'Plan a doll build in Girls\' Frontline 2: Exilium. Pick a weapon, unlock affinity and common keys, choose vertebra segments, then save or share the build.',
+  },
   credits: {
     title: 'Credits — GFL2 Team Builder',
     description:
@@ -106,7 +113,9 @@ export function useDocumentHead() {
       // Detail pages set their own head — skip here
       const segs = pathname.replace(/^\/+|\/+$/g, '').split('/');
       if (
-        (segs[0] === 'characters' || segs[0] === 'weapons') &&
+        (segs[0] === 'characters' ||
+          segs[0] === 'weapons' ||
+          segs[0] === 'builder') &&
         segs[1]
       ) {
         return;

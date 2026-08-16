@@ -102,6 +102,7 @@ export function TeamBuilderPage() {
             className={
               'pill-toggle' + (squadSize === 4 ? ' on' : '')
             }
+            aria-pressed={squadSize === 4}
             onClick={() => toggleSquadSize(4)}
           >
             4
@@ -111,6 +112,7 @@ export function TeamBuilderPage() {
             className={
               'pill-toggle' + (squadSize === 5 ? ' on' : '')
             }
+            aria-pressed={squadSize === 5}
             onClick={() => toggleSquadSize(5)}
           >
             5
@@ -144,6 +146,7 @@ export function TeamBuilderPage() {
                 <div className="teambuilder-portrait">
                   {doll.avatarUrl ? (
                     <img
+                      className="portrait"
                       src={doll.avatarUrl}
                       alt={doll.name}
                       loading="lazy"

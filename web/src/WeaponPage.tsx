@@ -104,14 +104,14 @@ export function WeaponPage({ slug }: { slug: string | null }) {
   return (
     <div className="app weaponpage">
       {/* Breadcrumb */}
-      <nav className="dollpage-breadcrumb">
+      <nav className="unit-crumbs">
         <a
           href={hrefFor('weapons')}
           onClick={onSpaLinkClick(hrefFor('weapons'))}
         >
           Weapons
         </a>
-        {' › '}
+        {' / '}
         {weapon.name}
       </nav>
 
@@ -119,22 +119,25 @@ export function WeaponPage({ slug }: { slug: string | null }) {
       <div className="weaponpage-header">
         <div className="weaponpage-image">
           {weapon.imageUrl ? (
+            // Weapon art is wide (512×256) with transparency —
+            // .portrait-contain letterboxes instead of cropping.
             <img
+              className="portrait portrait-contain"
               src={weapon.imageUrl}
               alt={weapon.name}
               loading="lazy"
             />
           ) : (
-            <div className="portrait-empty" aria-hidden="true">?</div>
+            <div className="portrait portrait-empty" aria-hidden="true">?</div>
           )}
         </div>
         <div className="weaponpage-info">
           <h1>{weapon.name}</h1>
-          <div className="dollpage-ident">
+          <div className="unit-idents">
             {weapon.rarity && (
               <span
                 className={
-                  'dollpage-ident-pill' +
+                  'unit-ident' +
                   (weapon.rarity === 'Elite' ? ' elite' : '')
                 }
               >
@@ -142,12 +145,12 @@ export function WeaponPage({ slug }: { slug: string | null }) {
               </span>
             )}
             {weapon.weaponType && (
-              <span className="dollpage-ident-pill">
+              <span className="unit-ident">
                 {weapon.weaponType}
               </span>
             )}
             {weapon.primaryAttribute && (
-              <span className="dollpage-ident-pill">
+              <span className="unit-ident">
                 {weapon.primaryAttribute}
                 {weapon.primaryAttributeStat != null
                   ? ` ${weapon.primaryAttributeStat}`
@@ -155,7 +158,7 @@ export function WeaponPage({ slug }: { slug: string | null }) {
               </span>
             )}
             {weapon.secondaryAttribute && (
-              <span className="dollpage-ident-pill">
+              <span className="unit-ident">
                 {weapon.secondaryAttribute}
                 {weapon.secondaryAttributeStat
                   ? ` ${weapon.secondaryAttributeStat}`
@@ -167,7 +170,7 @@ export function WeaponPage({ slug }: { slug: string | null }) {
       </div>
 
       {/* Trait */}
-      <section className="dollpage-section">
+      <section className="unit-section unit-panel">
         <h2>Trait</h2>
         {weapon.trait ? (
           <p>
@@ -179,7 +182,7 @@ export function WeaponPage({ slug }: { slug: string | null }) {
       </section>
 
       {/* Effect */}
-      <section className="dollpage-section">
+      <section className="unit-section unit-panel">
         <h2>Effect</h2>
         {weapon.effect ? (
           <p>
@@ -191,7 +194,7 @@ export function WeaponPage({ slug }: { slug: string | null }) {
       </section>
 
       {/* Imprint doll */}
-      <section className="dollpage-section">
+      <section className="unit-section unit-panel">
         <h2>Imprint Doll</h2>
         {imprintDoll ? (
           <div>
@@ -211,7 +214,7 @@ export function WeaponPage({ slug }: { slug: string | null }) {
       </section>
 
       {/* Counterparts */}
-      <section className="dollpage-section">
+      <section className="unit-section unit-panel">
         <h2>Counterparts</h2>
         {elite || standard || retired ? (
           <ul>
@@ -255,22 +258,25 @@ export function WeaponPage({ slug }: { slug: string | null }) {
       </section>
 
       {/* Tools */}
-      <section className="dollpage-section">
+      <section className="unit-section unit-panel">
         <h2>Tools</h2>
-        <div className="dollpage-tools">
+        <div className="unit-tools">
           <a
+            className="chip"
             href={hrefFor('weapons')}
             onClick={onSpaLinkClick(hrefFor('weapons'))}
           >
             All Weapons
           </a>
           <a
+            className="chip"
             href={hrefFor('characters')}
             onClick={onSpaLinkClick(hrefFor('characters'))}
           >
             All Characters
           </a>
           <a
+            className="chip"
             href={hrefFor('team-builder')}
             onClick={onSpaLinkClick(hrefFor('team-builder'))}
           >

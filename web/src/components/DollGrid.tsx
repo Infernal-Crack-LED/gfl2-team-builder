@@ -304,6 +304,7 @@ export function DollFilters({
           type="search"
           className="dollfilter-search"
           placeholder="Search dolls…"
+          aria-label="Search dolls"
           value={filter.search}
           onChange={(e) => setSearch(e.target.value)}
         />
@@ -394,6 +395,7 @@ export function DollCards({
               <div className="dollcard-img">
                 {doll.avatarUrl ? (
                   <img
+                    className="portrait"
                     src={doll.avatarUrl}
                     alt={doll.name}
                     loading="lazy"
@@ -438,6 +440,11 @@ export function DollCards({
             role="button"
             tabIndex={0}
             onKeyDown={(e) => {
+              // Ignore keys bubbling from the nested profile link — its own
+              // Enter must navigate, not also place the doll in the squad.
+              if (e.target !== e.currentTarget) {
+                return;
+              }
               if (e.key === 'Enter' || e.key === ' ') {
                 e.preventDefault();
                 onSelect?.(doll);
@@ -447,6 +454,7 @@ export function DollCards({
             <div className="dollcard-img">
               {doll.avatarUrl ? (
                 <img
+                  className="portrait"
                   src={doll.avatarUrl}
                   alt={doll.name}
                   loading="lazy"
@@ -474,10 +482,18 @@ export function DollCards({
                 {doll.rarity}
               </span>
             )}
+            {doll.regionTag === 'cn' && (
+              <span className="dollcard-region">CN</span>
+            )}
             <a
               href={href}
               className="dollcard-profile-link"
-              onClick={onSpaLinkClick(href)}
+              // stopPropagation: without it the click bubbles to the card's
+              // onSelect and ALSO navigates — placing the doll while leaving.
+              onClick={(e) => {
+                e.stopPropagation();
+                onSpaLinkClick(href)(e);
+              }}
               title={`View ${doll.name}'s profile`}
               aria-label={`View ${doll.name}'s profile`}
             >

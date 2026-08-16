@@ -7,7 +7,12 @@ import { createRoot } from 'react-dom/client';
 import { SiteNav, SiteFooter } from './SiteChrome';
 import { useRouteAndSlug } from './router';
 import { useDocumentHead } from './useDocumentHead';
+import { captureTokenFromUrl } from './auth';
 import './styles.css';
+
+// Pick up the OAuth token fragment BEFORE first render so the nav and any
+// save controls see the session immediately.
+captureTokenFromUrl();
 
 // Route-level code splitting: every page loads as its own chunk.
 const HomePage = lazy(() =>
@@ -27,6 +32,9 @@ const WeaponPage = lazy(() =>
 );
 const TeamBuilderPage = lazy(() =>
   import('./TeamBuilderPage').then((m) => ({ default: m.TeamBuilderPage }))
+);
+const DollBuilderPage = lazy(() =>
+  import('./DollBuilderPage').then((m) => ({ default: m.DollBuilderPage }))
 );
 const CreditsPage = lazy(() =>
   import('./CreditsPage').then((m) => ({ default: m.CreditsPage }))
@@ -61,6 +69,8 @@ function Root() {
           <WeaponPage slug={slug} />
         ) : route === 'team-builder' ? (
           <TeamBuilderPage />
+        ) : route === 'builder' ? (
+          <DollBuilderPage slug={slug} />
         ) : route === 'credits' ? (
           <CreditsPage />
         ) : (

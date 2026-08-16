@@ -337,11 +337,11 @@ export async function runSync(trigger?: string): Promise<SyncSummary> {
   console.log(`Fetching ${dollList.length} doll details...`);
   const dollDetails: DollDetail[] = [];
   for (const doll of dollList) {
-    const detail = await guarded(
+    const detail = await guarded<DollDetail | null>(
       `doll:${doll.name}`,
       errors,
       () => client.fetchDollDetail(doll.name),
-      null as unknown as DollDetail
+      null
     );
     if (detail) {
       dollDetails.push(detail);

@@ -294,7 +294,10 @@ export function WeaponCards({ weapons }: { weapons: Weapon[] }) {
           >
             <div className="weaponcard-img">
               {w.imageUrl ? (
+                // Weapon art is wide (512×256) with transparency —
+                // .portrait-contain letterboxes instead of cropping.
                 <img
+                  className="portrait portrait-contain"
                   src={w.imageUrl}
                   alt={w.name}
                   loading="lazy"
@@ -327,6 +330,9 @@ export function WeaponCards({ weapons }: { weapons: Weapon[] }) {
               >
                 {w.rarity}
               </span>
+            )}
+            {w.regionTag === 'cn' && (
+              <span className="dollcard-region">CN</span>
             )}
           </a>
         );
