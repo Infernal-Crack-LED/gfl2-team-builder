@@ -4,7 +4,12 @@
  * weapon type, primary attribute, imprint doll search.
  */
 import { useMemo, useState } from 'react';
-import { allWeapons, allDolls, type Weapon } from '../data';
+import {
+  allWeapons,
+  allDolls,
+  WEAPON_TYPE_OPTIONS,
+  type Weapon,
+} from '../data';
 import { hrefForWeapon } from '../router';
 import { onSpaLinkClick } from '../router';
 
@@ -14,16 +19,6 @@ const WEAPON_RARITY_OPTIONS = [
   { id: 'elite', label: 'Elite' },
   { id: 'standard', label: 'Standard' },
   { id: 'retired', label: 'Retired' },
-] as const;
-
-const WEAPON_TYPE_FILTER_OPTIONS = [
-  { id: 'ar', label: 'AR' },
-  { id: 'smg', label: 'SMG' },
-  { id: 'sg', label: 'SG' },
-  { id: 'mg', label: 'MG' },
-  { id: 'rf', label: 'RF' },
-  { id: 'hg', label: 'HG' },
-  { id: 'blade', label: 'Blade' },
 ] as const;
 
 const PRIMARY_ATTR_OPTIONS = [
@@ -237,6 +232,7 @@ export function WeaponFilters({
           type="search"
           className="dollfilter-search"
           placeholder="Search weapons…"
+          aria-label="Search weapons"
           value={filter.search}
           onChange={(e) => setSearch(e.target.value)}
         />
@@ -249,7 +245,7 @@ export function WeaponFilters({
         />
         <FilterRow
           label="Type"
-          options={WEAPON_TYPE_FILTER_OPTIONS}
+          options={WEAPON_TYPE_OPTIONS}
           selected={filter.weaponType}
           onToggle={(id) => toggleFilter('weaponType', id)}
         />

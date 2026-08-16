@@ -11,9 +11,11 @@
 import { writeFile, mkdir } from 'node:fs/promises';
 import { join } from 'node:path';
 import { db } from '../db/index.js';
-import { dolls, effects, keys, weapons } from '../db/schema.js';
+import { dolls, effects, keys, weapons, attachmentSets } from '../db/schema.js';
 
 const DATA_DIR = join(import.meta.dirname, '..', '..', 'data');
+
+export { DATA_DIR };
 
 function slugify(name: string): string {
   return name
@@ -45,6 +47,7 @@ export async function exportJson(): Promise<void> {
   const weaponRows = await db.select().from(weapons);
   const keyRows = await db.select().from(keys);
   const effectRows = await db.select().from(effects);
+  const attachmentSetRows = await db.select().from(attachmentSets);
 
   const now = new Date().toISOString();
 
@@ -68,6 +71,11 @@ export async function exportJson(): Promise<void> {
     ({ syncedAt: _s, apiUpdatedAt: _a, ...rest }) => rest
   );
 
+  // Attachment sets — strip internal timestamps
+  const attachmentSetsOut = attachmentSetRows.map(
+    ({ syncedAt: _s, ...rest }) => rest
+  );
+
   await Promise.all([
     writeFile(
       join(DATA_DIR, 'dolls.json'),
@@ -85,9 +93,13 @@ export async function exportJson(): Promise<void> {
       join(DATA_DIR, 'effects.json'),
       JSON.stringify({ syncedAt: now, effects: effectsOut }, null, 2) + '\n'
     ),
+    writeFile(
+      join(DATA_DIR, 'attachment-sets.json'),
+      JSON.stringify({ syncedAt: now, attachmentSets: attachmentSetsOut }, null, 2) + '\n'
+    ),
   ]);
 
   console.log(
-    `Exported JSON: ${dollsOut.length} dolls, ${weaponsOut.length} weapons, ${keysOut.length} keys, ${effectsOut.length} effects → data/`
+    `Exported JSON: ${dollsOut.length} dolls, ${weaponsOut.length} weapons, ${keysOut.length} keys, ${effectsOut.length} effects, ${attachmentSetsOut.length} attachment sets → data/`
   );
 }

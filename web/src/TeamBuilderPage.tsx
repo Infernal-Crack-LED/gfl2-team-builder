@@ -13,6 +13,7 @@ import { useState, useMemo, useCallback } from 'react';
 import type { Doll } from './data';
 import { DollCards, DollFilters, useDollFilter } from './components/DollGrid';
 import { hrefForDoll, onSpaLinkClick } from './router';
+import { TeamEffectsPanel } from './components/TeamEffectsPanel';
 
 type SquadSize = 4 | 5;
 
@@ -179,6 +180,9 @@ export function TeamBuilderPage() {
           </div>
         ))}
       </div>
+
+      {/* Effect matrix for the current squad */}
+      <TeamEffectsPanel squad={squad} />
 
       {/* Filters above grid (defaultOpen=true — filtering IS the task) */}
       <DollFilters filterResult={filterResult} defaultOpen={true} />

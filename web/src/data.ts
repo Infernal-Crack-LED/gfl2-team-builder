@@ -229,7 +229,10 @@ export function resolveEffectMarkers(text: string | null): TextSegment[] {
     if (match.index > lastIndex) {
       parts.push(text.slice(lastIndex, match.index));
     }
-    const id = match[1]!;
+    const rawId = match[1]!;
+    // Doll-variant markers use `[effect:UUID|doll:slug]` — only the UUID
+    // part keys into the effects table.
+    const id = rawId.split('|')[0]!;
     const effect = effectById.get(id);
     if (effect?.effectName) {
       parts.push({ id, name: effect.effectName });
@@ -266,21 +269,24 @@ export const PHASE_OPTIONS = [
   { id: 'omni', label: 'Omni' },
 ] as const;
 
+// Option ids MUST be the lowercased data values — the filters match by exact
+// equality against `(doll.field ?? '').toLowerCase()`. Short codes here
+// silently break the row (every selection filters to zero results).
 export const AMMO_OPTIONS = [
-  { id: 'light', label: 'Light' },
-  { id: 'medium', label: 'Medium' },
-  { id: 'heavy', label: 'Heavy' },
-  { id: 'shotgun', label: 'Shotgun' },
+  { id: 'light ammo', label: 'Light' },
+  { id: 'medium ammo', label: 'Medium' },
+  { id: 'heavy ammo', label: 'Heavy' },
+  { id: 'shotgun ammo', label: 'Shotgun' },
   { id: 'melee', label: 'Melee' },
 ] as const;
 
 export const WEAPON_TYPE_OPTIONS = [
-  { id: 'ar', label: 'AR' },
-  { id: 'smg', label: 'SMG' },
-  { id: 'sg', label: 'SG' },
-  { id: 'mg', label: 'MG' },
-  { id: 'rf', label: 'RF' },
-  { id: 'hg', label: 'HG' },
+  { id: 'assault rifle', label: 'AR' },
+  { id: 'submachine gun', label: 'SMG' },
+  { id: 'shotgun', label: 'SG' },
+  { id: 'machine gun', label: 'MG' },
+  { id: 'sniper rifle', label: 'RF' },
+  { id: 'handgun', label: 'HG' },
   { id: 'blade', label: 'Blade' },
 ] as const;
 

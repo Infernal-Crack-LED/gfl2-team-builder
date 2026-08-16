@@ -2,7 +2,7 @@
  * React root — lazy() page switch, Suspense fallback, head sync.
  * Every page is a separate chunk for code splitting.
  */
-import React, { Suspense, lazy } from 'react';
+import { StrictMode, Suspense, lazy } from 'react';
 import { createRoot } from 'react-dom/client';
 import { SiteNav, SiteFooter } from './SiteChrome';
 import { useRouteAndSlug } from './router';
@@ -73,7 +73,7 @@ function Root() {
 }
 
 createRoot(document.getElementById('root')!).render(
-  <React.StrictMode>
+  <StrictMode>
     <Root />
-  </React.StrictMode>
+  </StrictMode>
 );

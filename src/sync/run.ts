@@ -1,14 +1,15 @@
 /**
- * Dandegate data sync — fetches dolls (list + detail), weapons, keys, and
- * effects, normalizes them (strips HTML, parses double-encoded JSON), and
- * upserts into Postgres. Records every run in `gfl2_sync_runs`.
+ * Data sync — fetches dolls (list + detail), weapons, keys, and effects
+ * from Dandegate, plus attachment set bonuses from iopwiki. Normalizes
+ * (strips HTML, parses double-encoded JSON) and upserts into Postgres.
+ * Records every run in `gfl2_sync_runs`.
  *
  * Run with `npm run sync`.
  */
 
 import { sql } from 'drizzle-orm';
 import { db } from '../db/index.js';
-import { dolls, effects, gfl2SyncRuns, keys, weapons } from '../db/schema.js';
+import { attachmentSets, dolls, effects, gfl2SyncRuns, keys, weapons } from '../db/schema.js';
 import {
   client,
   type DollDetail,
@@ -17,7 +18,10 @@ import {
   type WeaponEntry,
 } from './client.js';
 import { parseJsonField, parseOptionalInt, stripHtml } from './html.js';
-import { exportJson } from './export.js';
+import { DATA_DIR, exportJson } from './export.js';
+import { deriveEffectMatrix } from '../derive/effectMatrix.js';
+import { deriveEffectTags } from '../derive/effectTags.js';
+import { fetchAttachmentSets, type WikiAttachmentSet } from './wiki.js';
 
 export interface SyncSummary {
   status: 'ok' | 'partial' | 'error';
@@ -25,6 +29,7 @@ export interface SyncSummary {
   weapons: number;
   keys: number;
   effects: number;
+  attachmentSets: number;
   errors: string[];
 }
 
@@ -304,6 +309,22 @@ async function upsertEffects(
   }
 }
 
+async function upsertAttachmentSets(rows: WikiAttachmentSet[]): Promise<void> {
+  for (const batch of chunk(rows, 500)) {
+    await db
+      .insert(attachmentSets)
+      .values(batch)
+      .onConflictDoUpdate({
+        target: attachmentSets.name,
+        set: {
+          piecesRequired: sql`excluded.pieces_required`,
+          description: sql`excluded.description`,
+          syncedAt: sql`now()`,
+        },
+      });
+  }
+}
+
 // --- Main sync ---
 
 export async function runSync(trigger?: string): Promise<SyncSummary> {
@@ -328,11 +349,12 @@ export async function runSync(trigger?: string): Promise<SyncSummary> {
     await sleep(50);
   }
 
-  console.log('Fetching weapons, keys, effects...');
-  const [weaponList, keyList, effectList] = await Promise.all([
+  console.log('Fetching weapons, keys, effects, attachment sets...');
+  const [weaponList, keyList, effectList, attachmentSetList] = await Promise.all([
     guarded('weapons', errors, () => client.fetchWeapons(), []),
     guarded('keys', errors, () => client.fetchKeys(), []),
     guarded('effects', errors, () => client.fetchEffects(), []),
+    guarded('attachment-sets', errors, () => fetchAttachmentSets(), []),
   ]);
 
   console.log('Normalizing...');
@@ -342,7 +364,7 @@ export async function runSync(trigger?: string): Promise<SyncSummary> {
   const normalizedEffects = effectList.map(normalizeEffect);
 
   console.log(
-    `Upserting: ${normalizedDolls.length} dolls, ${normalizedWeapons.length} weapons, ${normalizedKeys.length} keys, ${normalizedEffects.length} effects`
+    `Upserting: ${normalizedDolls.length} dolls, ${normalizedWeapons.length} weapons, ${normalizedKeys.length} keys, ${normalizedEffects.length} effects, ${attachmentSetList.length} attachment sets`
   );
 
   await guarded('upsert-dolls', errors, () => upsertDolls(normalizedDolls), undefined);
@@ -359,9 +381,26 @@ export async function runSync(trigger?: string): Promise<SyncSummary> {
     () => upsertEffects(normalizedEffects),
     undefined
   );
+  await guarded(
+    'upsert-attachment-sets',
+    errors,
+    () => upsertAttachmentSets(attachmentSetList),
+    undefined
+  );
 
   // Export committed JSON artifacts for the web app (build-time imports)
   await guarded('export-json', errors, () => exportJson(), undefined);
+
+  // Derive the effect matrix and effect tags from the exported artifacts
+  await guarded(
+    'derive-effect-matrix',
+    errors,
+    async () => {
+      await deriveEffectMatrix(DATA_DIR);
+      await deriveEffectTags(DATA_DIR);
+    },
+    undefined
+  );
 
   const status: SyncSummary['status'] = errors.length
     ? normalizedDolls.length > 0 || normalizedWeapons.length > 0
@@ -375,6 +414,7 @@ export async function runSync(trigger?: string): Promise<SyncSummary> {
       weapons: normalizedWeapons.length,
       keys: normalizedKeys.length,
       effects: normalizedEffects.length,
+      attachmentSets: attachmentSetList.length,
     },
     errors,
   };
@@ -393,6 +433,7 @@ export async function runSync(trigger?: string): Promise<SyncSummary> {
     weapons: normalizedWeapons.length,
     keys: normalizedKeys.length,
     effects: normalizedEffects.length,
+    attachmentSets: attachmentSetList.length,
     errors,
   };
 }

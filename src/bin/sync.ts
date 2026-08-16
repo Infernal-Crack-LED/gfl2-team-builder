@@ -9,11 +9,12 @@ async function main() {
   const summary = await runSync(trigger);
 
   console.log('\n--- Sync complete ---');
-  console.log(`Status:  ${summary.status}`);
-  console.log(`Dolls:   ${summary.dolls}`);
-  console.log(`Weapons: ${summary.weapons}`);
-  console.log(`Keys:    ${summary.keys}`);
-  console.log(`Effects: ${summary.effects}`);
+  console.log(`Status:          ${summary.status}`);
+  console.log(`Dolls:           ${summary.dolls}`);
+  console.log(`Weapons:         ${summary.weapons}`);
+  console.log(`Keys:            ${summary.keys}`);
+  console.log(`Effects:         ${summary.effects}`);
+  console.log(`Attachment sets: ${summary.attachmentSets}`);
 
   if (summary.errors.length > 0) {
     console.log(`\nErrors (${summary.errors.length}):`);

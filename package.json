@@ -8,6 +8,10 @@
     "build": "tsc",
     "typecheck": "tsc --noEmit && tsc --noEmit -p web/tsconfig.json",
     "sync": "tsx src/bin/sync.ts",
+    "derive": "tsx src/bin/derive.ts",
+    "derive:report": "tsx src/bin/derive.ts --report",
+    "analyze:mentions": "tsx src/bin/analyze-mentions.ts",
+    "test": "vitest run",
     "dev": "vite",
     "vite:build": "vite build",
     "preview": "vite preview",
@@ -44,6 +48,7 @@
     "tsx": "^4.19.2",
     "typescript": "^5.7.2",
     "typescript-eslint": "^8.62.1",
-    "vite": "^8.2.1"
+    "vite": "^8.2.1",
+    "vitest": "^4.1.10"
   }
 }

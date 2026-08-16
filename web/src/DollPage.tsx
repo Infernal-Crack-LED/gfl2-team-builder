@@ -68,21 +68,27 @@ function SkillSection({ skill }: { skill: Skill }) {
         </div>
       )}
 
-      {/* Level tabs (only if level variants exist) */}
+      {/* Level tabs (only if level variants exist). Only levels that
+          actually have a description get a tab — some skills skip levels
+          (e.g. base + Lv3 only), and a tab for a missing level would
+          silently re-show the base text. */}
       {(skill.descriptionLevel2 || skill.descriptionLevel3 || skill.descriptionLevel4) && (
         <div className="dollpage-skill-tabs">
-          {[1, 2, 3, 4].map((lv) => (
-            <button
-              key={lv}
-              type="button"
-              className={
-                'pill-toggle' + (level === lv ? ' on' : '')
-              }
-              onClick={() => setLevel(lv)}
-            >
-              Lv{lv}
-            </button>
-          ))}
+          {[1, 2, 3, 4]
+            .filter((lv) => descriptions[lv - 1])
+            .map((lv) => (
+              <button
+                key={lv}
+                type="button"
+                className={
+                  'pill-toggle' + (level === lv ? ' on' : '')
+                }
+                aria-pressed={level === lv}
+                onClick={() => setLevel(lv)}
+              >
+                Lv{lv}
+              </button>
+            ))}
         </div>
       )}
 

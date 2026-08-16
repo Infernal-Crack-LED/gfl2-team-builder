@@ -105,6 +105,17 @@ export const effects = pgTable('effects', {
 });
 
 /**
+ * Attachment set bonuses — scraped from iopwiki. `name` is the primary key
+ * (set names are unique on the wiki page).
+ */
+export const attachmentSets = pgTable('attachment_sets', {
+  name: text('name').primaryKey(),
+  piecesRequired: integer('pieces_required').notNull(),
+  description: text('description').notNull(),
+  syncedAt: timestamp('synced_at').defaultNow(),
+});
+
+/**
  * Sync audit log — one row per `npm run sync` invocation. `sources` carries
  * counts per entity type plus any errors encountered.
  */

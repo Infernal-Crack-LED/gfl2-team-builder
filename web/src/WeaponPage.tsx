@@ -10,7 +10,7 @@ import {
   resolveEffectMarkers,
   type TextSegment,
 } from './data';
-import { hrefFor, hrefForDoll, onSpaLinkClick } from './router';
+import { hrefFor, hrefForDoll, hrefForWeapon, onSpaLinkClick } from './router';
 import { escapeJsonLd } from './jsonLd';
 import { setDetailMeta } from './useDocumentHead';
 
@@ -80,10 +80,12 @@ export function WeaponPage({ slug }: { slug: string | null }) {
     ? getDollById(weapon.imprintDollId)
     : undefined;
 
-  // Resolve counterpart links
+  // Resolve counterpart links. Detail routes are keyed by slug (see
+  // router.slugFromPath), so return the counterpart's slug, not its id —
+  // an id-based href would land on "Weapon not found".
   const resolveCounterpart = (
     cp: Record<string, unknown> | null
-  ): { id: string; name: string } | null => {
+  ): { slug: string; name: string } | null => {
     if (!cp) {
       return null;
     }
@@ -92,7 +94,7 @@ export function WeaponPage({ slug }: { slug: string | null }) {
       return null;
     }
     const w = getWeaponById(id);
-    return w ? { id: w.id, name: w.name } : null;
+    return w ? { slug: w.slug, name: w.name } : null;
   };
 
   const elite = resolveCounterpart(weapon.eliteCounterpart);
@@ -217,8 +219,8 @@ export function WeaponPage({ slug }: { slug: string | null }) {
               <li>
                 Elite:{' '}
                 <a
-                  href={`/weapons/${elite.id}`}
-                  onClick={onSpaLinkClick(`/weapons/${elite.id}`)}
+                  href={hrefForWeapon(elite.slug)}
+                  onClick={onSpaLinkClick(hrefForWeapon(elite.slug))}
                 >
                   {elite.name}
                 </a>
@@ -228,8 +230,8 @@ export function WeaponPage({ slug }: { slug: string | null }) {
               <li>
                 Standard:{' '}
                 <a
-                  href={`/weapons/${standard.id}`}
-                  onClick={onSpaLinkClick(`/weapons/${standard.id}`)}
+                  href={hrefForWeapon(standard.slug)}
+                  onClick={onSpaLinkClick(hrefForWeapon(standard.slug))}
                 >
                   {standard.name}
                 </a>
@@ -239,8 +241,8 @@ export function WeaponPage({ slug }: { slug: string | null }) {
               <li>
                 Retired:{' '}
                 <a
-                  href={`/weapons/${retired.id}`}
-                  onClick={onSpaLinkClick(`/weapons/${retired.id}`)}
+                  href={hrefForWeapon(retired.slug)}
+                  onClick={onSpaLinkClick(hrefForWeapon(retired.slug))}
                 >
                   {retired.name}
                 </a>

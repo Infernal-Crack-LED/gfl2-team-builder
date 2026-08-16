@@ -441,26 +441,6 @@ td {
   margin-top: 4px;
 }
 
-.dollcard-phase {
-  border-left: 3px solid var(--muted);
-}
-
-.dollcard-phase[data-phase='fire'] {
-  border-left-color: #e05c5c;
-}
-
-.dollcard-phase[data-phase='wind'] {
-  border-left-color: #5ce0a0;
-}
-
-.dollcard-phase[data-phase='ice'] {
-  border-left-color: #5cb8e0;
-}
-
-.dollcard-phase[data-phase='thunder'] {
-  border-left-color: #e0c85c;
-}
-
 .portrait-empty {
   display: flex;
   align-items: center;
@@ -727,7 +707,8 @@ td {
   transition: opacity 0.15s;
 }
 
-.teambuilder-slot:hover .teambuilder-slot-remove {
+.teambuilder-slot:hover .teambuilder-slot-remove,
+.teambuilder-slot:focus-within .teambuilder-slot-remove {
   opacity: 1;
 }
 
@@ -747,6 +728,174 @@ td {
 
 .teambuilder-clear:hover {
   text-decoration: underline;
+}
+
+/* ---- Team Effects Panel ---- */
+.teambuilder-effects {
+  margin: 8px 0 20px;
+}
+
+.teambuilder-effects-head {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+}
+
+.teambuilder-effects-head h2 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.teambuilder-effects-filter {
+  margin-left: auto;
+  padding: 5px 10px;
+  font-size: 13px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--panel2);
+  color: var(--text);
+}
+
+.teambuilder-effects-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.teameffect-card {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--panel);
+  overflow: hidden;
+}
+
+.teameffect-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 8px 12px;
+  background: none;
+  border: none;
+  color: var(--text);
+  font-size: 14px;
+  cursor: pointer;
+  text-align: left;
+  flex-wrap: wrap;
+}
+
+.teameffect-head:hover {
+  background: var(--panel2);
+}
+
+.teameffect-name {
+  font-weight: 600;
+}
+
+.teameffect-tag {
+  font-size: 11px;
+  padding: 1px 7px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  color: var(--muted);
+}
+
+.teameffect-tag-debuff {
+  color: #d92d38;
+  border-color: #d92d38;
+}
+
+/* Derived buff/debuff tags (data/effect-tags.json), shown next to the
+   upstream tag chips — dashed border marks them as derived. */
+.teameffect-tag-derived {
+  border-style: dashed;
+}
+
+.teameffect-count {
+  margin-left: auto;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.teameffect-body {
+  border-top: 1px solid var(--border);
+  padding: 8px 12px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.teameffect-section-title {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+  margin-bottom: 4px;
+}
+
+.teameffect-row {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  font-size: 13px;
+  padding: 2px 0;
+  flex-wrap: wrap;
+}
+
+.teameffect-row-muted {
+  color: var(--muted);
+}
+
+.teameffect-member {
+  font-weight: 600;
+  min-width: 90px;
+}
+
+.teameffect-relation {
+  font-size: 11px;
+  padding: 1px 7px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+.teameffect-rel-applies,
+.teameffect-rel-gains {
+  color: #00e554;
+  border-color: #00e554;
+}
+
+.teameffect-rel-conditional {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+.teameffect-rel-removes {
+  color: #d92d38;
+  border-color: #d92d38;
+}
+
+.teameffect-rel-enhances {
+  color: var(--warn);
+  border-color: var(--warn);
+}
+
+.teameffect-rel-includes,
+.teameffect-rel-considered {
+  color: #bc1eb1;
+  border-color: #bc1eb1;
+}
+
+.teameffect-label {
+  color: var(--text);
+}
+
+.teameffect-via {
+  color: var(--muted);
+  font-style: italic;
 }
 
 /* ---- Home Page ---- */

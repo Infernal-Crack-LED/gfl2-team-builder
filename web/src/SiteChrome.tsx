@@ -32,7 +32,7 @@ function useMediaQuery(query: string): boolean {
   return matches;
 }
 
-function navClick(e: MouseEvent, route: Route) {
+function navClick(e: MouseEvent<HTMLAnchorElement>, route: Route) {
   if (
     e.defaultPrevented ||
     e.button !== 0 ||
@@ -106,12 +106,12 @@ export function SiteNav({ current }: { current: Route }) {
     };
   }, [menuOpen]);
 
-  const dropdownSelect = (e: MouseEvent, route: Route) => {
+  const dropdownSelect = (e: MouseEvent<HTMLAnchorElement>, route: Route) => {
     navClick(e, route);
     setDropdownOpen(false);
   };
 
-  const menuNav = (e: MouseEvent, route: Route) => {
+  const menuNav = (e: MouseEvent<HTMLAnchorElement>, route: Route) => {
     navClick(e, route);
     setMenuOpen(false);
   };
@@ -192,6 +192,7 @@ export function SiteNav({ current }: { current: Route }) {
                 onClick={() => setMenuOpen((o) => !o)}
               >
                 <span aria-hidden="true">☰</span>
+                <span className="sr-only">More</span>
               </button>
               {menuOpen && (
                 <div className="nav-menu-panel" role="menu">
