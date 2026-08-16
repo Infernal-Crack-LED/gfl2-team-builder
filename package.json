@@ -19,6 +19,9 @@
     "db:migrate": "drizzle-kit migrate",
     "db:push": "drizzle-kit push",
     "db:studio": "drizzle-kit studio",
+    "dev:bot": "tsx watch src/bot/index.ts",
+    "bot:start": "tsx src/bot/index.ts",
+    "bot:deploy-commands": "tsx src/bot/deploy-commands.ts",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "format": "prettier --write .",
@@ -28,6 +31,7 @@
     "node": ">=20"
   },
   "dependencies": {
+    "discord.js": "^14.27.0",
     "dotenv": "^16.4.7",
     "drizzle-orm": "^0.39.1",
     "pg": "^8.13.1",
