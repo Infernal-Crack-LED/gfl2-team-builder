@@ -6,12 +6,7 @@
  * degrades to a muted "—" in its slot and never reflows or throws, so a
  * half-known build still produces a well-formed card.
  */
-import {
-  fitText,
-  roundRect,
-  wrapText,
-  type Canvas2DLike,
-} from './canvas2d.js';
+import { fitText, roundRect, wrapText, type Canvas2DLike } from './canvas2d.js';
 import { COLORS, FONT, drawBrandMark, footerNote } from './theme.js';
 
 export const BUILD_CARD_W = 1200;
@@ -48,11 +43,23 @@ function borderedRoundRect(
   roundRect(ctx, x, y, w, h, r);
   ctx.fill();
   ctx.fillStyle = fill;
-  roundRect(ctx, x + borderWidth, y + borderWidth, w - 2 * borderWidth, h - 2 * borderWidth, r - borderWidth);
+  roundRect(
+    ctx,
+    x + borderWidth,
+    y + borderWidth,
+    w - 2 * borderWidth,
+    h - 2 * borderWidth,
+    r - borderWidth
+  );
   ctx.fill();
 }
 
-function groupLabel(ctx: Canvas2DLike, label: string, x: number, y: number): void {
+function groupLabel(
+  ctx: Canvas2DLike,
+  label: string,
+  x: number,
+  y: number
+): void {
   ctx.fillStyle = COLORS.muted;
   ctx.font = `700 13px ${FONT}`;
   ctx.textAlign = 'left';
@@ -101,7 +108,16 @@ export function drawBuildCard(ctx: Canvas2DLike, data: BuildCardData): void {
   ctx.fillStyle = COLORS.text;
   ctx.textAlign = 'left';
   ctx.textBaseline = 'alphabetic';
-  fitText(ctx, data.dollName ?? MUTED_PLACEHOLDER, rx, 140, rw, '700', 56, FONT);
+  fitText(
+    ctx,
+    data.dollName ?? MUTED_PLACEHOLDER,
+    rx,
+    140,
+    rw,
+    '700',
+    56,
+    FONT
+  );
 
   const subtitle = [data.dollClass, data.dollPhase, data.dollRarity]
     .filter((p): p is string => typeof p === 'string' && p.length > 0)

@@ -49,17 +49,23 @@ Rebuild it standalone with `npm run derive` (add `--report` for a QA breakdown).
 
 ## Scripts
 
-| Command | Description |
-|---|---|
-| `npm run sync` | Run the dandegate data sync |
-| `npm run derive` | Rebuild `data/effect-matrix.json` from the JSON artifacts |
-| `npm run derive:report` | Rebuild the matrix and print the QA classification report |
-| `npm run db:push` | Push schema to Postgres (no migration) |
-| `npm run db:generate` | Generate a Drizzle migration |
-| `npm run db:migrate` | Run pending migrations |
-| `npm run db:studio` | Open Drizzle Studio |
-| `npm run dev:server` | Run the Hono auth/profiles server (watch mode, :4173) |
-| `npm run serve` | Build dist/ and serve it with the API server |
-| `npm run typecheck` | Type-check without emitting |
-| `npm run lint` | Run ESLint |
-| `npm run format` | Run Prettier |
+| Command                       | Description                                                   |
+| ----------------------------- | ------------------------------------------------------------- |
+| `npm run sync`                | Run the dandegate data sync                                   |
+| `npm run derive`              | Rebuild `data/effect-matrix.json` from the JSON artifacts     |
+| `npm run derive:report`       | Rebuild the matrix and print the QA classification report     |
+| `npm run db:push`             | Push schema to Postgres (no migration)                        |
+| `npm run db:generate`         | Generate a Drizzle migration                                  |
+| `npm run db:migrate`          | Run pending migrations                                        |
+| `npm run db:studio`           | Open Drizzle Studio                                           |
+| `npm run dev:server`          | Run the Hono auth/profiles server (watch mode, :4173)         |
+| `npm run serve`               | Build dist/ and serve it with the API server                  |
+| `npm run dev:bot`             | Run the Discord bot (watch mode)                              |
+| `npm run bot:deploy-commands` | Register the bot's slash commands with Discord                |
+| `npm run build:web`           | Build the server (`dist-server/`) and the Vite web bundle     |
+| `npm run build:bot`           | Build the bot into `dist-server/`                             |
+| `npm run start:web`           | Start the built web service (Railway `gfl2-team-builder-web`) |
+| `npm run start:bot`           | Start the built bot service (Railway `gfl2-team-builder-bot`) |
+| `npm run typecheck`           | Type-check without emitting                                   |
+| `npm run lint`                | Run ESLint                                                    |
+| `npm run format`              | Run Prettier                                                  |

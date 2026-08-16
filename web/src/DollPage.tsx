@@ -20,7 +20,12 @@ import {
   type Skill,
   type TextSegment,
 } from './data';
-import { hrefFor, hrefForBuilder, hrefForWeapon, onSpaLinkClick } from './router';
+import {
+  hrefFor,
+  hrefForBuilder,
+  hrefForWeapon,
+  onSpaLinkClick,
+} from './router';
 import { escapeJsonLd } from './jsonLd';
 import { setDetailMeta } from './useDocumentHead';
 
@@ -32,11 +37,7 @@ function RenderText({ segments }: { segments: TextSegment[] }) {
         typeof seg === 'string' ? (
           <span key={i}>{seg}</span>
         ) : (
-          <span
-            key={i}
-            className="effect-ref"
-            title={seg.name}
-          >
+          <span key={i} className="effect-ref" title={seg.name}>
             {seg.name}
           </span>
         )
@@ -74,7 +75,9 @@ function SkillSection({ skill }: { skill: Skill }) {
           actually have a description get a tab — some skills skip levels
           (e.g. base + Lv3 only), and a tab for a missing level would
           silently re-show the base text. */}
-      {(skill.descriptionLevel2 || skill.descriptionLevel3 || skill.descriptionLevel4) && (
+      {(skill.descriptionLevel2 ||
+        skill.descriptionLevel3 ||
+        skill.descriptionLevel4) && (
         <div className="pills small unit-skill-tabs">
           {[1, 2, 3, 4]
             .filter((lv) => descriptions[lv - 1])
@@ -101,9 +104,7 @@ function SkillSection({ skill }: { skill: Skill }) {
         {skill.stabilityDamage != null && (
           <span>Stability: {skill.stabilityDamage}</span>
         )}
-        {skill.cooldown != null && (
-          <span>Cooldown: {skill.cooldown}</span>
-        )}
+        {skill.cooldown != null && <span>Cooldown: {skill.cooldown}</span>}
         {skill.rangeValue != null && (
           <span>
             Range: {skill.rangeValue}
@@ -155,7 +156,10 @@ export function DollPage({ slug }: { slug: string | null }) {
       <div className="app dollpage">
         <h1>Doll not found</h1>
         <p className="muted">
-          <a href={hrefFor('characters')} onClick={onSpaLinkClick(hrefFor('characters'))}>
+          <a
+            href={hrefFor('characters')}
+            onClick={onSpaLinkClick(hrefFor('characters'))}
+          >
             ← Back to characters
           </a>
         </p>
@@ -172,7 +176,10 @@ export function DollPage({ slug }: { slug: string | null }) {
     <div className="app dollpage">
       {/* Breadcrumbs */}
       <nav className="unit-crumbs">
-        <a href={hrefFor('characters')} onClick={onSpaLinkClick(hrefFor('characters'))}>
+        <a
+          href={hrefFor('characters')}
+          onClick={onSpaLinkClick(hrefFor('characters'))}
+        >
           Characters
         </a>
         {' / '}
@@ -199,9 +206,7 @@ export function DollPage({ slug }: { slug: string | null }) {
         <div className="unit-meta">
           <h1>{doll.name}</h1>
           <div className="unit-idents">
-            {doll.class && (
-              <span className="unit-ident">{doll.class}</span>
-            )}
+            {doll.class && <span className="unit-ident">{doll.class}</span>}
             {doll.phase && (
               <span
                 className="unit-ident"
@@ -220,19 +225,13 @@ export function DollPage({ slug }: { slug: string | null }) {
               </span>
             )}
             {doll.ammoTypes && doll.ammoTypes.length > 0 && (
-              <span className="unit-ident">
-                {doll.ammoTypes.join(', ')}
-              </span>
+              <span className="unit-ident">{doll.ammoTypes.join(', ')}</span>
             )}
             {doll.weaponImprintType && (
-              <span className="unit-ident">
-                {doll.weaponImprintType}
-              </span>
+              <span className="unit-ident">{doll.weaponImprintType}</span>
             )}
             {doll.movement != null && (
-              <span className="unit-ident">
-                Move: {doll.movement}
-              </span>
+              <span className="unit-ident">Move: {doll.movement}</span>
             )}
             {doll.stabilityGauge != null && (
               <span className="unit-ident">
@@ -243,9 +242,7 @@ export function DollPage({ slug }: { slug: string | null }) {
               <span className="unit-ident cn">CN</span>
             )}
             {doll.preview && (
-              <span className="unit-ident preview">
-                Unreleased
-              </span>
+              <span className="unit-ident preview">Unreleased</span>
             )}
           </div>
           <div className="unit-actions">
@@ -282,9 +279,7 @@ export function DollPage({ slug }: { slug: string | null }) {
             {dollKeys.map((key) => (
               <div key={key.id} className="unit-key-card">
                 <h3>{key.displayTitle ?? key.keyTitle ?? 'Key'}</h3>
-                {key.keyType && (
-                  <span className="muted">{key.keyType}</span>
-                )}
+                {key.keyType && <span className="muted">{key.keyType}</span>}
                 {key.attributes && key.attributes.length > 0 && (
                   <ul>
                     {key.attributes.map((attr, i) => (
@@ -296,9 +291,7 @@ export function DollPage({ slug }: { slug: string | null }) {
                 )}
                 {key.effect && (
                   <p>
-                    <RenderText
-                      segments={resolveEffectMarkers(key.effect)}
-                    />
+                    <RenderText segments={resolveEffectMarkers(key.effect)} />
                   </p>
                 )}
               </div>

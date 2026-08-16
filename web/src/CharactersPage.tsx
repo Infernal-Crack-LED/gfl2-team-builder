@@ -23,8 +23,7 @@ export function CharactersPage() {
       '@context': 'https://schema.org',
       '@type': 'CollectionPage',
       name: 'GFL2 Characters',
-      description:
-        'Browse every doll in Girls\' Frontline 2: Exilium.',
+      description: "Browse every doll in Girls' Frontline 2: Exilium.",
     });
     document.head.appendChild(script);
     return () => {

@@ -29,9 +29,9 @@ function slugify(name: string): string {
  * fall back to a numeric suffix (covers null regionTags, 3+ rows sharing a
  * name, and region-suffixed slugs colliding with a real name).
  */
-function assignSlugs<T extends { name: string; slug?: string; regionTag: string | null }>(
-  rows: T[]
-): (T & { slug: string })[] {
+function assignSlugs<
+  T extends { name: string; slug?: string; regionTag: string | null },
+>(rows: T[]): (T & { slug: string })[] {
   const used = new Set<string>();
   return rows.map((row) => {
     const base = slugify(row.name);
@@ -102,7 +102,11 @@ export async function exportJson(): Promise<void> {
     ),
     writeFile(
       join(DATA_DIR, 'attachment-sets.json'),
-      JSON.stringify({ syncedAt: now, attachmentSets: attachmentSetsOut }, null, 2) + '\n'
+      JSON.stringify(
+        { syncedAt: now, attachmentSets: attachmentSetsOut },
+        null,
+        2
+      ) + '\n'
     ),
   ]);
 

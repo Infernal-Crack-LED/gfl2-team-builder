@@ -33,12 +33,7 @@ import {
 } from '../../src/share/buildCode';
 import { BUILD_KIND, saveProfile, useAuth } from './auth';
 import { SaveProfileControl } from './components/SaveProfileControl';
-import {
-  hrefFor,
-  hrefForBuilder,
-  hrefForDoll,
-  onSpaLinkClick,
-} from './router';
+import { hrefFor, hrefForBuilder, hrefForDoll, onSpaLinkClick } from './router';
 import { setDetailMeta } from './useDocumentHead';
 import {
   SHARE_PROFILE_KIND,
@@ -205,7 +200,11 @@ function DollBuilder({ doll }: { doll: Doll }) {
    * stale share code must apply cleanly, never produce phantom selections.
    */
   const sanitize = useCallback(
-    (build: { weapon: string | null; keys: string[]; vert: number[] }): BuildState => {
+    (build: {
+      weapon: string | null;
+      keys: string[];
+      vert: number[];
+    }): BuildState => {
       const validKeys = new Set(dollKeys.map((k) => k.id));
       const validVerts = new Set(vertebrae.map((v) => v.segment));
       return {
@@ -277,7 +276,9 @@ function DollBuilder({ doll }: { doll: Doll }) {
       }
       if (decoded.doll !== doll.slug) {
         // A save from another doll's page — refuse rather than clobber state.
-        setNotice('That saved build is for a different doll — nothing changed.');
+        setNotice(
+          'That saved build is for a different doll — nothing changed.'
+        );
         return;
       }
       setBuild(sanitize(decoded));
@@ -287,8 +288,7 @@ function DollBuilder({ doll }: { doll: Doll }) {
   );
 
   const getCode = useCallback(
-    () =>
-      encodeDollBuild({ v: BUILD_VERSION, doll: doll.slug, ...build }),
+    () => encodeDollBuild({ v: BUILD_VERSION, doll: doll.slug, ...build }),
     [doll, build]
   );
 
@@ -386,7 +386,10 @@ function DollBuilder({ doll }: { doll: Doll }) {
             loading="lazy"
           />
         ) : (
-          <div className="portrait portrait-empty unit-portrait" aria-hidden="true">
+          <div
+            className="portrait portrait-empty unit-portrait"
+            aria-hidden="true"
+          >
             ?
           </div>
         )}
@@ -494,7 +497,9 @@ function DollBuilder({ doll }: { doll: Doll }) {
       <section className="unit-section unit-panel">
         <h2>
           Keys
-          <span className="dollbuilder-count">{build.keys.length} selected</span>
+          <span className="dollbuilder-count">
+            {build.keys.length} selected
+          </span>
         </h2>
         {dollKeys.length > 0 ? (
           KEY_TYPE_ORDER.map((type) => {
@@ -638,7 +643,10 @@ function WeaponRow({
           loading="lazy"
         />
       ) : (
-        <span className="portrait portrait-empty portrait-sm" aria-hidden="true">
+        <span
+          className="portrait portrait-empty portrait-sm"
+          aria-hidden="true"
+        >
           ?
         </span>
       )}
@@ -676,12 +684,17 @@ function KeyCard({
             loading="lazy"
           />
         ) : (
-          <span className="dollbuilder-key-icon dollbuilder-key-icon-empty" aria-hidden="true">
+          <span
+            className="dollbuilder-key-icon dollbuilder-key-icon-empty"
+            aria-hidden="true"
+          >
             ?
           </span>
         )}
         <strong>{keyData.displayTitle ?? keyData.keyTitle ?? 'Key'}</strong>
-        {keyData.level != null && <span className="muted">Lv{keyData.level}</span>}
+        {keyData.level != null && (
+          <span className="muted">Lv{keyData.level}</span>
+        )}
       </span>
       {keyData.attributes && keyData.attributes.length > 0 && (
         <span className="dollbuilder-key-attrs">

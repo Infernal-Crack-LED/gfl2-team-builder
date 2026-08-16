@@ -38,7 +38,10 @@ export function renderCacheKey(kind: RenderKind, payload: unknown): string {
     .slice(0, 16);
 }
 
-export function renderCacheFilename(kind: RenderKind, payload: unknown): string {
+export function renderCacheFilename(
+  kind: RenderKind,
+  payload: unknown
+): string {
   return `${kind}.${renderCacheKey(kind, payload)}.png`;
 }
 

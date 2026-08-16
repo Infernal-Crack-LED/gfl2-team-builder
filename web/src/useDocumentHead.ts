@@ -17,19 +17,19 @@ interface HeadMeta {
 // Per-route SEO metadata. Titles are keyword-rich and unique per page.
 export const META: Record<string, HeadMeta> = {
   home: {
-    title: 'GFL2 Team Builder — Girls\' Frontline 2: Exilium Squad Planner',
+    title: "GFL2 Team Builder — Girls' Frontline 2: Exilium Squad Planner",
     description:
-      'Build and plan your Girls\' Frontline 2: Exilium squad. Browse dolls and weapons, filter by class, phase, and weapon type, and assemble your team.',
+      "Build and plan your Girls' Frontline 2: Exilium squad. Browse dolls and weapons, filter by class, phase, and weapon type, and assemble your team.",
   },
   characters: {
-    title: 'GFL2 Characters — Every Doll\'s Kit, Skills & Stats',
+    title: "GFL2 Characters — Every Doll's Kit, Skills & Stats",
     description:
-      'Browse every doll in Girls\' Frontline 2: Exilium. Filter by class, phase, weapon type, ammo, and rarity, then open a doll for her full kit and stats.',
+      "Browse every doll in Girls' Frontline 2: Exilium. Filter by class, phase, weapon type, ammo, and rarity, then open a doll for her full kit and stats.",
   },
   weapons: {
     title: 'GFL2 Weapons — Traits, Effects & Imprint Stats',
     description:
-      'Browse every weapon in Girls\' Frontline 2: Exilium. Filter by rarity, weapon type, and primary attribute, then view traits and effects.',
+      "Browse every weapon in Girls' Frontline 2: Exilium. Filter by rarity, weapon type, and primary attribute, then view traits and effects.",
   },
   'team-builder': {
     title: 'GFL2 Team Builder — Visual Squad Planner',
@@ -41,12 +41,11 @@ export const META: Record<string, HeadMeta> = {
   builder: {
     title: 'GFL2 Doll Builder — Weapons, Keys & Vertebrae Planner',
     description:
-      'Plan a doll build in Girls\' Frontline 2: Exilium. Pick a weapon, unlock affinity and common keys, choose vertebra segments, then save or share the build.',
+      "Plan a doll build in Girls' Frontline 2: Exilium. Pick a weapon, unlock affinity and common keys, choose vertebra segments, then save or share the build.",
   },
   credits: {
     title: 'Credits — GFL2 Team Builder',
-    description:
-      'The data sources and tools behind the GFL2 Team Builder.',
+    description: 'The data sources and tools behind the GFL2 Team Builder.',
   },
 };
 

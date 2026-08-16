@@ -19,12 +19,7 @@ type SquadSize = 4 | 5;
 
 export function TeamBuilderPage() {
   const [squadSize, setSquadSize] = useState<SquadSize>(4);
-  const [squad, setSquad] = useState<(Doll | null)[]>([
-    null,
-    null,
-    null,
-    null,
-  ]);
+  const [squad, setSquad] = useState<(Doll | null)[]>([null, null, null, null]);
 
   // Set of placed doll IDs — passed to useDollFilter as exclude
   const excludedIds = useMemo(() => {
@@ -40,20 +35,17 @@ export function TeamBuilderPage() {
   const filterResult = useDollFilter({ exclude: excludedIds });
 
   // Place a doll in the first empty slot
-  const placeInSlot = useCallback(
-    (doll: Doll) => {
-      setSquad((prev) => {
-        const idx = prev.findIndex((s) => s === null);
-        if (idx === -1) {
-          return prev;
-        }
-        const next = [...prev];
-        next[idx] = doll;
-        return next;
-      });
-    },
-    []
-  );
+  const placeInSlot = useCallback((doll: Doll) => {
+    setSquad((prev) => {
+      const idx = prev.findIndex((s) => s === null);
+      if (idx === -1) {
+        return prev;
+      }
+      const next = [...prev];
+      next[idx] = doll;
+      return next;
+    });
+  }, []);
 
   // Remove a doll from a specific slot
   const removeFromSlot = useCallback((index: number) => {
@@ -99,9 +91,7 @@ export function TeamBuilderPage() {
         <div className="teambuilder-size-toggle">
           <button
             type="button"
-            className={
-              'pill-toggle' + (squadSize === 4 ? ' on' : '')
-            }
+            className={'pill-toggle' + (squadSize === 4 ? ' on' : '')}
             aria-pressed={squadSize === 4}
             onClick={() => toggleSquadSize(4)}
           >
@@ -109,9 +99,7 @@ export function TeamBuilderPage() {
           </button>
           <button
             type="button"
-            className={
-              'pill-toggle' + (squadSize === 5 ? ' on' : '')
-            }
+            className={'pill-toggle' + (squadSize === 5 ? ' on' : '')}
             aria-pressed={squadSize === 5}
             onClick={() => toggleSquadSize(5)}
           >

@@ -212,9 +212,7 @@ export function getWeaponForDoll(dollId: string): Weapon | undefined {
  * The marker format is `[effect:UUID]` where UUID is the dandegate effect id.
  * Markers that don't resolve (unknown UUID) are kept as-is so nothing vanishes.
  */
-export type TextSegment =
-  | string
-  | { id: string; name: string };
+export type TextSegment = string | { id: string; name: string };
 
 export function resolveEffectMarkers(text: string | null): TextSegment[] {
   if (!text) {

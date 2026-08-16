@@ -13,11 +13,7 @@ export function CreditsPage() {
         <ul>
           <li>
             Game data from{' '}
-            <a
-              href="https://dandegate.net"
-              target="_blank"
-              rel="noreferrer"
-            >
+            <a href="https://dandegate.net" target="_blank" rel="noreferrer">
               dandegate.net
             </a>{' '}
             — community-maintained GFL2 database.

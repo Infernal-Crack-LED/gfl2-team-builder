@@ -1,0 +1,63 @@
+name: Deploy
+
+# On every push to main: run the safety checks, then — only if they pass —
+# deploy the web + bot services to Railway via the CLI. Auth is a Railway
+# PROJECT TOKEN stored as the `RAILWAY_TOKEN` repo secret, so no Railway↔GitHub
+# connection is needed (works with a single Railway account).
+#
+# Setup (one-time):
+#   1. Railway → your project → Settings → Tokens → create a Project Token.
+#   2. GitHub → repo Settings → Secrets and variables → Actions → add
+#      `RAILWAY_TOKEN` = that token.
+#   3. Create the `gfl2-team-builder-web` and `gfl2-team-builder-bot` services
+#      in the same Railway project. The service names must match the keys in
+#      railway.json. Disconnect the repo from the services so only this drives
+#      deploys.
+on:
+  push:
+    branches: [main]
+
+# Never run two deploys at once; let an in-progress deploy finish.
+concurrency:
+  group: deploy-main
+  cancel-in-progress: false
+
+jobs:
+  test:
+    name: typecheck · test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - run: npm run typecheck
+      - run: npm test
+
+  deploy:
+    name: deploy to Railway
+    needs: test # a red build never deploys
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+      - name: Install Railway CLI
+        run: npm install -g @railway/cli
+      # Use the commit subject as the Railway deployment title (what a native
+      # GitHub↔Railway connection would show). Read via `git log` — NOT via
+      # ${{ github.event.head_commit.message }} — so a crafted commit message
+      # can't inject shell into the runner.
+      - name: Capture commit message
+        run: echo "DEPLOY_MSG=$(git log -1 --pretty=%s)" >> "$GITHUB_ENV"
+      - name: Deploy web
+        run: railway up --ci --service "gfl2-team-builder-web" --message "$DEPLOY_MSG"
+        env:
+          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
+      - name: Deploy bot
+        run: railway up --ci --service "gfl2-team-builder-bot" --message "$DEPLOY_MSG"
+        env:
+          RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
