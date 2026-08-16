@@ -1,6 +1,6 @@
 {
   "generator": "effect-matrix/1",
-  "syncedAt": "2026-08-15T23:13:28.312Z",
+  "syncedAt": "2026-08-16T19:56:03.758Z",
   "effects": [
     {
       "effectId": "22ae7ba7-93e8-4bad-8476-debb40fa628e",
@@ -1025,7 +1025,7 @@
         {
           "kind": "effect",
           "relation": "mentions",
-          "snippet": "\",\"upgrades\":[{\"id\":\"ebc3d513-aef1-4198-8365-6271dc3cba25\",\"upgradeName\":\"V3\",\"upgradeDetails\":\"When attacked by Cheyanne, defense is reduced by 100% and [effect:309ba122-5fe7-4d5e-bcc0-da725a066d9c] will not be expended",
+          "snippet": "When attacked by Cheyanne, defense is reduced by 100% and [effect:309ba122-5fe7-4d5e-bcc0-da725a066d9c] will not be expended",
           "effectId": "f2c128cd-652e-4fca-a084-778ab1a5cfcb",
           "effectName": "Bullseye",
           "ownerDollId": "a21690f6-cf54-4923-9b22-f13656090dfb",
@@ -2913,7 +2913,7 @@
         {
           "kind": "effect",
           "relation": "conditional",
-          "snippet": "{\"mainDetails\":\"Units with [effect:781b5542-732d-440f-a0ba-6bc852023252] gain attack equal to 20% of Asteria's initial attack, up to a maximum of 600 points",
+          "snippet": "Units with [effect:781b5542-732d-440f-a0ba-6bc852023252] gain attack equal to 20% of Asteria's initial attack, up to a maximum of 600 points",
           "effectId": "d950d356-1f32-45b4-9832-69821ffff69e",
           "effectName": "Sync",
           "ownerDollId": "db261202-359e-498c-a189-d7a01bd468ec",
@@ -3017,7 +3017,7 @@
         {
           "kind": "effect",
           "relation": "gains",
-          "snippet": "{\"mainDetails\":\"(Radiant Energy) When stacked to 3 stacks, if the target is a normal or elite unit, it transforms into [effect:3b97612c-c2cb-4f2a-bcb1-5e93ac6ad01a]",
+          "snippet": "(Radiant Energy) When stacked to 3 stacks, if the target is a normal or elite unit, it transforms into [effect:3b97612c-c2cb-4f2a-bcb1-5e93ac6ad01a]",
           "effectId": "a36cf865-ee13-4c4d-8c2b-8ee98a8aac99",
           "effectName": "Cognitive Disruption",
           "ownerDollId": null,
@@ -3260,7 +3260,7 @@
         {
           "kind": "effect",
           "relation": "applies",
-          "snippet": "{\"mainDetails\":\"Upon spawning, gains 8 stacks of [effect:9f893006-1231-4255-b5c9-9a373aa441a2] and applies [effect:20d3df91-9294-4d19-9321-de5f076bd69e] to all allied units for 3 rounds",
+          "snippet": "Upon spawning, gains 8 stacks of [effect:9f893006-1231-4255-b5c9-9a373aa441a2] and applies [effect:20d3df91-9294-4d19-9321-de5f076bd69e] to all allied units for 3 rounds",
           "effectId": "20602294-94fc-446a-b419-20843958e9f7",
           "effectName": "Ranger Mk.II",
           "ownerDollId": "a32d9966-d511-4433-938b-4022af67268b",
@@ -3656,7 +3656,7 @@
         {
           "kind": "effect",
           "relation": "applies",
-          "snippet": "{\"mainDetails\":\"Applies [effect:6c4e95e3-e6c0-443e-aef1-392b1677d5a2] to 3 enemy units who have [effect:6c4e95e3-e6c0-443e-aef1-392b1677d5a2] or who are standing on Electric tiles, then deals melee Electric damage equal to 60% of attack to them",
+          "snippet": "Applies [effect:6c4e95e3-e6c0-443e-aef1-392b1677d5a2] to 3 enemy units who have [effect:6c4e95e3-e6c0-443e-aef1-392b1677d5a2] or who are standing on Electric tiles, then deals melee Electric damage equal to 60% of attack to them",
           "effectId": "f89cf3a4-1f2a-4dd3-9e50-263f876d2d9e",
           "effectName": "Sanguine Emblem",
           "ownerDollId": "e93b8caf-00b3-4ec9-b1fa-18e047fd8b70",
@@ -3682,7 +3682,7 @@
         {
           "kind": "effect",
           "relation": "conditional",
-          "snippet": "{\"mainDetails\":\"Applies [effect:6c4e95e3-e6c0-443e-aef1-392b1677d5a2] to 3 enemy units who have [effect:6c4e95e3-e6c0-443e-aef1-392b1677d5a2] or who are standing on Electric tiles, then deals melee Electric damage equal to 60% of attack to them",
+          "snippet": "Applies [effect:6c4e95e3-e6c0-443e-aef1-392b1677d5a2] to 3 enemy units who have [effect:6c4e95e3-e6c0-443e-aef1-392b1677d5a2] or who are standing on Electric tiles, then deals melee Electric damage equal to 60% of attack to them",
           "effectId": "f89cf3a4-1f2a-4dd3-9e50-263f876d2d9e",
           "effectName": "Sanguine Emblem",
           "ownerDollId": "e93b8caf-00b3-4ec9-b1fa-18e047fd8b70",
@@ -4638,7 +4638,7 @@
         {
           "kind": "effect",
           "relation": "applies",
-          "snippet": "{\"mainDetails\":\"When an enemy within 5 tiles is attacked, apply [effect:d4fd8953-92c9-4830-ad8b-ac4d56d95b7d] to that enemy for 1 turn before damage is dealt",
+          "snippet": "When an enemy within 5 tiles is attacked, apply [effect:d4fd8953-92c9-4830-ad8b-ac4d56d95b7d] to that enemy for 1 turn before damage is dealt",
           "effectId": "60819a58-6e32-4440-9b36-1045701af14d",
           "effectName": "Electric Arc",
           "ownerDollId": "78f8df8a-c93c-4587-a3ca-37dde4dae5f4",
@@ -5388,7 +5388,7 @@
         {
           "kind": "effect",
           "relation": "gains",
-          "snippet": "{\"mainDetails\":\"At the end of the action, gains 1 stack of [effect:d2cc96c5-5bff-4a15-aaaf-98597cac4060] for 2 turns",
+          "snippet": "At the end of the action, gains 1 stack of [effect:d2cc96c5-5bff-4a15-aaaf-98597cac4060] for 2 turns",
           "effectId": "610dc13b-05b5-4d45-96ea-e295b85c1a6e",
           "effectName": "Toxic Infiltration",
           "ownerDollId": "20b28f61-f811-46f0-857d-a5a7c2f6a471",
@@ -7076,7 +7076,7 @@
         {
           "kind": "effect",
           "relation": "conditional",
-          "snippet": "{\"mainDetails\":\"When Yoohee applies [effect:dc536658-f405-4a52-bb74-3061134cf136] or [effect:111861b3-c5e8-49d2-bc9d-b4044ab5945e] to an allied unit (excluding Yoohee), Yoohee gains one stack of that effect",
+          "snippet": "When Yoohee applies [effect:dc536658-f405-4a52-bb74-3061134cf136] or [effect:111861b3-c5e8-49d2-bc9d-b4044ab5945e] to an allied unit (excluding Yoohee), Yoohee gains one stack of that effect",
           "effectId": "ddeb3124-75b2-409d-9f82-2c94a1011219",
           "effectName": "Troupe's Core",
           "ownerDollId": "c0868034-374c-45e6-9a48-4b617165fa08",
@@ -7278,7 +7278,7 @@
         {
           "kind": "effect",
           "relation": "applies",
-          "snippet": "\",\"upgrades\":[{\"id\":\"31799b56-bbfd-4f5b-b537-bfb15034a5db\",\"upgradeName\":\"V1\",\"upgradeDetails\":\"Deals Hydro damage equal to 60% of attack to all enemy units within 5 tiles and deals 1 point of stability damage to all targets and applies [effect:1403cc19-233b-4c0c-8335-83cda83c7a62] to all targets…",
+          "snippet": "Deals Hydro damage equal to 60% of attack to all enemy units within 5 tiles and deals 1 point of stability damage to all targets and applies [effect:1403cc19-233b-4c0c-8335-83cda83c7a62] to all targets for 2 turns",
           "effectId": "c9bfaae1-8aa9-417b-92dc-817d427b2a7f",
           "effectName": "Convergence Resonance",
           "ownerDollId": "2a98b6ae-6265-4724-9d97-d6cd0c150ef2",
@@ -7898,7 +7898,7 @@
         {
           "kind": "effect",
           "relation": "conditional",
-          "snippet": "{\"mainDetails\":\"While under [effect:e51eebc8-9891-4469-8bce-fd9cd2d0694a], attack is increased by 30%",
+          "snippet": "While under [effect:e51eebc8-9891-4469-8bce-fd9cd2d0694a], attack is increased by 30%",
           "effectId": "b013dadc-e2ff-4f96-8fee-fcd2898cf38b",
           "effectName": "Reconstruction: Zero",
           "ownerDollId": "2c2a9e47-086e-4bfc-b324-10e600c7f0af",
@@ -8005,7 +8005,7 @@
         {
           "kind": "effect",
           "relation": "gains",
-          "snippet": "{\"mainDetails\":\"Upon the application of this effect or at the end of the debuff holder's action, the applier deals AoE Corrosion damage equal to the sum of 25% of the accumulated damage value of [effect:c62abbc3-6779-4b76-a525-1e5b4e02bc69] and 15% of Welrod's max HP",
+          "snippet": "Upon the application of this effect or at the end of the debuff holder's action, the applier deals AoE Corrosion damage equal to the sum of 25% of the accumulated damage value of [effect:c62abbc3-6779-4b76-a525-1e5b4e02bc69] and 15% of Welrod's max HP",
           "effectId": "aa3cf940-31ac-4615-a298-99523f986331",
           "effectName": "Crime Backlash",
           "ownerDollId": "5c60db58-69e1-4562-bb35-3e392dca23cb",
@@ -8367,7 +8367,7 @@
         {
           "kind": "effect",
           "relation": "enhances",
-          "snippet": "{\"mainDetails\":\"The damage multiplier of the [effect:ab2e634f-d257-44e3-af90-ce66a6ac43f3] from [effect:34cb30eb-3598-4dbd-8524-1cdb6aab34ee] is increased by 30%",
+          "snippet": "The damage multiplier of the [effect:ab2e634f-d257-44e3-af90-ce66a6ac43f3] from [effect:34cb30eb-3598-4dbd-8524-1cdb6aab34ee] is increased by 30%",
           "effectId": "c1b60dd3-d015-4679-b882-0017693fa00b",
           "effectName": "Judicial Privilege",
           "ownerDollId": "d474bca4-5806-4020-997f-fd6a2ffc3420",
@@ -12113,7 +12113,7 @@
         {
           "kind": "effect",
           "relation": "gains",
-          "snippet": "{\"mainDetails\":\"Before dealing damage, generate [effect:3c3d2b25-6823-4ce4-a33e-cf69e0e759a5] tiles within 4 tiles around the target",
+          "snippet": "Before dealing damage, generate [effect:3c3d2b25-6823-4ce4-a33e-cf69e0e759a5] tiles within 4 tiles around the target",
           "effectId": "e99ba394-c447-4ce6-a0e8-509caff30eda",
           "effectName": "Feral Factor III",
           "ownerDollId": "6a001d4e-fdaa-4726-a6c8-9729dbcc44e9",
@@ -12122,7 +12122,7 @@
         {
           "kind": "effect",
           "relation": "gains",
-          "snippet": "\",\"upgrades\":[{\"id\":\"e858e36d-80bd-4edf-a23c-3fa6ae0fb122\",\"upgradeName\":\"V6\",\"upgradeDetails\":\"The active skill Total Suppression gains a new effect: Additionally generates [effect:3c3d2b25-6823-4ce4-a33e-cf69e0e759a5] tiles, lasting for 2 turns",
+          "snippet": "The active skill Total Suppression gains a new effect: Additionally generates [effect:3c3d2b25-6823-4ce4-a33e-cf69e0e759a5] tiles, lasting for 2 turns",
           "effectId": "5b9457f8-3280-46da-b81f-e531990d881a",
           "effectName": "Reconstruction: Freeze",
           "ownerDollId": "2c2a9e47-086e-4bfc-b324-10e600c7f0af",
@@ -12296,7 +12296,7 @@
         {
           "kind": "effect",
           "relation": "mentions",
-          "snippet": "{\"mainDetails\":\"Before attacking, general [effect:3c3d2b25-6823-4ce4-a33e-cf69e0e759a5] tiles within 2 tiles around the target, lasting for 2 turns",
+          "snippet": "Before attacking, general [effect:3c3d2b25-6823-4ce4-a33e-cf69e0e759a5] tiles within 2 tiles around the target, lasting for 2 turns",
           "effectId": "f2f9fbf4-47f5-44a7-b903-858ac7227b3e",
           "effectName": "Slaughter Trail",
           "ownerDollId": "6a001d4e-fdaa-4726-a6c8-9729dbcc44e9",
@@ -13929,7 +13929,7 @@
         {
           "kind": "effect",
           "relation": "conditional",
-          "snippet": "{\"mainDetails\":\"When [effect:07e12471-a5f5-4689-8a40-342ba9879a19] is triggered, Lind applies 3 random powerful debuff to the debuff holder, cleanses 1 buff, and performs [effect:ab2e634f-d257-44e3-af90-ce66a6ac43f3], dealing AoE Corrosion damage equal to 80% of attack and 1 point of stability da…",
+          "snippet": "When [effect:07e12471-a5f5-4689-8a40-342ba9879a19] is triggered, Lind applies 3 random powerful debuff to the debuff holder, cleanses 1 buff, and performs [effect:ab2e634f-d257-44e3-af90-ce66a6ac43f3], dealing AoE Corrosion damage equal to 80% of attack and 1 point of stability damage",
           "effectId": "07e12471-a5f5-4689-8a40-342ba9879a19",
           "effectName": "Honeytrap",
           "ownerDollId": "d9b45a84-2aeb-4b3c-9f3d-4aa46c52d526",
@@ -14657,7 +14657,7 @@
         {
           "kind": "effect",
           "relation": "applies",
-          "snippet": "{\"mainDetails\":\"Applies [effect:1bfc6e24-1df4-4f7e-96b1-e12a2e3b92ec] to enemy units within 4 tiles of it",
+          "snippet": "Applies [effect:1bfc6e24-1df4-4f7e-96b1-e12a2e3b92ec] to enemy units within 4 tiles of it",
           "effectId": "7b5ece77-97d4-418a-b212-367ca951af7e",
           "effectName": "Liquid N2 Fang",
           "ownerDollId": "e72f0929-209d-4df7-a7a2-f1684094a737",
@@ -15067,7 +15067,7 @@
         {
           "kind": "effect",
           "relation": "applies",
-          "snippet": "{\"mainDetails\":\"(Thunderpool I) Deals Electric damage equal to 30% of the caster's ATK to the target and inflicts [effect:601a0a9d-002d-4e86-9462-f0326661ad8e] for 2 rounds",
+          "snippet": "(Thunderpool I) Deals Electric damage equal to 30% of the caster's ATK to the target and inflicts [effect:601a0a9d-002d-4e86-9462-f0326661ad8e] for 2 rounds",
           "effectId": "765acdc6-5088-4c71-93f2-cb79b9661f51",
           "effectName": "Blitz Link",
           "ownerDollId": null,
@@ -15098,16 +15098,16 @@
         {
           "kind": "effect",
           "relation": "gains",
-          "snippet": "{\"mainDetails\":\"Upon taking Burn damage, generates [effect:f793ed02-a490-4ac2-849a-689c57001678] tiles within 3 tiles for 2 turns",
-          "effectId": "dddd43cc-bb58-46d0-9834-27523191d57a",
-          "effectName": "Smolder",
-          "ownerDollId": "3f0d59df-2617-48fb-a9f6-28169a5d66c5",
-          "ownerDollName": "Vector"
+          "snippet": "If in [effect:79a06a22-e4f8-4470-8c38-27d0ef1f1890], generate [effect:f793ed02-a490-4ac2-849a-689c57001678] tiles instead",
+          "effectId": "e99ba394-c447-4ce6-a0e8-509caff30eda",
+          "effectName": "Feral Factor III",
+          "ownerDollId": "6a001d4e-fdaa-4726-a6c8-9729dbcc44e9",
+          "ownerDollName": "Soppo"
         },
         {
           "kind": "effect",
           "relation": "gains",
-          "snippet": "\",\"upgrades\":[{\"id\":\"bb6a4d0b-d15e-4640-a6b8-f8289697f5fd\",\"upgradeName\":\"V6\",\"upgradeDetails\":\"The active skill Total Suppression gains a new effect: Additionally generates [effect:f793ed02-a490-4ac2-849a-689c57001678] tiles, lasting for 2 turns",
+          "snippet": "The active skill Total Suppression gains a new effect: Additionally generates [effect:f793ed02-a490-4ac2-849a-689c57001678] tiles, lasting for 2 turns",
           "effectId": "6548fcaa-7852-4083-92c8-1cfde81baae8",
           "effectName": "Reconstruction: Burn",
           "ownerDollId": "2c2a9e47-086e-4bfc-b324-10e600c7f0af",
@@ -15116,11 +15116,11 @@
         {
           "kind": "effect",
           "relation": "gains",
-          "snippet": "If in [effect:79a06a22-e4f8-4470-8c38-27d0ef1f1890], generate [effect:f793ed02-a490-4ac2-849a-689c57001678] tiles instead",
-          "effectId": "e99ba394-c447-4ce6-a0e8-509caff30eda",
-          "effectName": "Feral Factor III",
-          "ownerDollId": "6a001d4e-fdaa-4726-a6c8-9729dbcc44e9",
-          "ownerDollName": "Soppo"
+          "snippet": "Upon taking Burn damage, generates [effect:f793ed02-a490-4ac2-849a-689c57001678] tiles within 3 tiles for 2 turns",
+          "effectId": "dddd43cc-bb58-46d0-9834-27523191d57a",
+          "effectName": "Smolder",
+          "ownerDollId": "3f0d59df-2617-48fb-a9f6-28169a5d66c5",
+          "ownerDollName": "Vector"
         },
         {
           "kind": "effect",
@@ -17174,7 +17174,7 @@
         {
           "kind": "effect",
           "relation": "gains",
-          "snippet": "{\"mainDetails\":\"Performs 1 [effect:95a1f9fd-2e3a-4858-ba88-ddfd8ce92332] on the target, dealing melee Physical damage equal to 80% of the buff holder's attack that ignores cover reduction and 2 points of stability damage",
+          "snippet": "Performs 1 [effect:95a1f9fd-2e3a-4858-ba88-ddfd8ce92332] on the target, dealing melee Physical damage equal to 80% of the buff holder's attack that ignores cover reduction and 2 points of stability damage",
           "effectId": "d56b0dde-fa43-4277-bb12-4ce2ba9bd855",
           "effectName": "Blade of Sin",
           "ownerDollId": "db261202-359e-498c-a189-d7a01bd468ec",
@@ -18696,7 +18696,7 @@
         {
           "kind": "effect",
           "relation": "gains",
-          "snippet": "{\"mainDetails\":\"When the target's stability is at 0, excess stability damage is converted into Electric damage, dealing additional Electric damage to the target equal to (overflow stability damage amount) x 5% of attack (This will not trigger [effect:a9d5e1de-1be0-41d0-8970-2290e5ea4623])",
+          "snippet": "When the target's stability is at 0, excess stability damage is converted into Electric damage, dealing additional Electric damage to the target equal to (overflow stability damage amount) x 5% of attack (This will not trigger [effect:a9d5e1de-1be0-41d0-8970-2290e5ea4623])",
           "effectId": "885dbc3e-3004-43bd-ac86-f7c16d58e9c1",
           "effectName": "Overclocking Strike",
           "ownerDollId": "8c9d0543-55eb-456e-8ee9-95d116452123",
@@ -19187,7 +19187,7 @@
         {
           "kind": "effect",
           "relation": "gains",
-          "snippet": "{\"mainDetails\":\"Nemesis: Gnosis gains 1 stack of [effect:1ee78270-69ba-4c02-93d7-842e66ff68ed]",
+          "snippet": "Nemesis: Gnosis gains 1 stack of [effect:1ee78270-69ba-4c02-93d7-842e66ff68ed]",
           "effectId": "f4e799b0-6f27-478b-8323-2524fe3a7b2d",
           "effectName": "Second Prophecy: Solitude",
           "ownerDollId": "d474bca4-5806-4020-997f-fd6a2ffc3420",
@@ -19249,7 +19249,7 @@
         {
           "kind": "effect",
           "relation": "enhances",
-          "snippet": "{\"mainDetails\":\"Damage dealt by [effect:93f91944-fc00-410d-995a-74155802def7]'s attacks is further increased by 5%, maximum of 5 stacks",
+          "snippet": "Damage dealt by [effect:93f91944-fc00-410d-995a-74155802def7]'s attacks is further increased by 5%, maximum of 5 stacks",
           "effectId": "93c9cd3c-9579-4f5e-82d3-d0e7a18c9b6f",
           "effectName": "Clue",
           "ownerDollId": "abe6051b-a519-44c6-ada6-9fa46f45e7bf",
@@ -22375,7 +22375,7 @@
         {
           "kind": "effect",
           "relation": "gains",
-          "snippet": "\",\"upgrades\":[{\"id\":\"483b4456-4067-4dbf-a0e1-22013887986c\",\"upgradeName\":\"V3\",\"upgradeDetails\":\"Nemesis: Gnosis gains 1 stack of [effect:b181de3c-899a-4168-b4df-b28850410645]",
+          "snippet": "Nemesis: Gnosis gains 1 stack of [effect:b181de3c-899a-4168-b4df-b28850410645]",
           "effectId": "f4e799b0-6f27-478b-8323-2524fe3a7b2d",
           "effectName": "Second Prophecy: Solitude",
           "ownerDollId": "d474bca4-5806-4020-997f-fd6a2ffc3420",
@@ -23559,7 +23559,7 @@
         {
           "kind": "effect",
           "relation": "conditional",
-          "snippet": "{\"mainDetails\":\"When Yoohee applies [effect:dc536658-f405-4a52-bb74-3061134cf136] or [effect:111861b3-c5e8-49d2-bc9d-b4044ab5945e] to an allied unit (excluding Yoohee), Yoohee gains one stack of that effect",
+          "snippet": "When Yoohee applies [effect:dc536658-f405-4a52-bb74-3061134cf136] or [effect:111861b3-c5e8-49d2-bc9d-b4044ab5945e] to an allied unit (excluding Yoohee), Yoohee gains one stack of that effect",
           "effectId": "ddeb3124-75b2-409d-9f82-2c94a1011219",
           "effectName": "Troupe's Core",
           "ownerDollId": "c0868034-374c-45e6-9a48-4b617165fa08",
@@ -24108,7 +24108,7 @@
         {
           "kind": "effect",
           "relation": "applies",
-          "snippet": "{\"mainDetails\":\"Before making an active attack, applies 1 stack of [effect:633a31d3-52cd-4845-9247-e1c9ab33c922] to the target",
+          "snippet": "Before making an active attack, applies 1 stack of [effect:633a31d3-52cd-4845-9247-e1c9ab33c922] to the target",
           "effectId": "75fd2660-90d0-4026-9703-b80071294145",
           "effectName": "Good Luck",
           "ownerDollId": "10c70647-d31f-4edf-8b1d-79629b4e2eca",
@@ -24334,7 +24334,7 @@
         {
           "kind": "effect",
           "relation": "mentions",
-          "snippet": "{\"mainDetails\":\"Damage taken from [effect:633a31d3-52cd-4845-9247-e1c9ab33c922] is increased by 10%",
+          "snippet": "Damage taken from [effect:633a31d3-52cd-4845-9247-e1c9ab33c922] is increased by 10%",
           "effectId": "9223f1cf-7f46-4b8e-ab15-e263375cf18e",
           "effectName": "Bad Luck",
           "ownerDollId": "10c70647-d31f-4edf-8b1d-79629b4e2eca",
@@ -24830,18 +24830,9 @@
         {
           "kind": "effect",
           "relation": "applies",
-          "snippet": "{\"mainDetails\":\"Deals AoE Burn damage equal to 40% of attack to all enemy units within 5 tiles, cleanses 1 debuff from all allied units, restores 2 points of stability, and grants 3 points of [effect:9f893006-1231-4255-b5c9-9a373aa441a2] to them",
+          "snippet": "Deals AoE Burn damage equal to 40% of attack to all enemy units within 5 tiles, cleanses 1 debuff from all allied units, restores 2 points of stability, and grants 3 points of [effect:9f893006-1231-4255-b5c9-9a373aa441a2] to them",
           "effectId": "87ed26d0-abc6-4da1-a98e-7c555c32a6b8",
           "effectName": "Whippoorwill Pulse",
-          "ownerDollId": "a32d9966-d511-4433-938b-4022af67268b",
-          "ownerDollName": "Loreley"
-        },
-        {
-          "kind": "effect",
-          "relation": "gains",
-          "snippet": "{\"mainDetails\":\"Upon spawning, gains 8 stacks of [effect:9f893006-1231-4255-b5c9-9a373aa441a2] and applies [effect:20d3df91-9294-4d19-9321-de5f076bd69e] to all allied units for 3 rounds",
-          "effectId": "20602294-94fc-446a-b419-20843958e9f7",
-          "effectName": "Ranger Mk.II",
           "ownerDollId": "a32d9966-d511-4433-938b-4022af67268b",
           "ownerDollName": "Loreley"
         },
@@ -24862,6 +24853,15 @@
           "effectName": "Reconstruction: Burn",
           "ownerDollId": "2c2a9e47-086e-4bfc-b324-10e600c7f0af",
           "ownerDollName": "OTs-14"
+        },
+        {
+          "kind": "effect",
+          "relation": "gains",
+          "snippet": "Upon spawning, gains 8 stacks of [effect:9f893006-1231-4255-b5c9-9a373aa441a2] and applies [effect:20d3df91-9294-4d19-9321-de5f076bd69e] to all allied units for 3 rounds",
+          "effectId": "20602294-94fc-446a-b419-20843958e9f7",
+          "effectName": "Ranger Mk.II",
+          "ownerDollId": "a32d9966-d511-4433-938b-4022af67268b",
+          "ownerDollName": "Loreley"
         },
         {
           "kind": "skill",
@@ -26400,7 +26400,7 @@
         {
           "kind": "effect",
           "relation": "gains",
-          "snippet": "{\"mainDetails\":\"If a unit with this effect is within 8 tiles of Basti before it attacks, 1 stack of this effect is expended and Basti performs [effect:0bba4363-539e-46a0-b0be-4b5041c9a55a] against it, dealing AoE Corrosion damage equal to 100% of attack",
+          "snippet": "If a unit with this effect is within 8 tiles of Basti before it attacks, 1 stack of this effect is expended and Basti performs [effect:0bba4363-539e-46a0-b0be-4b5041c9a55a] against it, dealing AoE Corrosion damage equal to 100% of attack",
           "effectId": "710719e9-0d03-47d2-9e55-9f87e7d0fcc1",
           "effectName": "Grudge",
           "ownerDollId": "3c37955a-1a15-4f2d-9ba3-6e60f3217f18",
@@ -27998,24 +27998,6 @@
         {
           "kind": "effect",
           "relation": "gains",
-          "snippet": "{\"mainDetails\":\"When [effect:07e12471-a5f5-4689-8a40-342ba9879a19] is triggered, Lind applies 3 random powerful debuff to the debuff holder, cleanses 1 buff, and performs [effect:ab2e634f-d257-44e3-af90-ce66a6ac43f3], dealing AoE Corrosion damage equal to 80% of attack and 1 point of stability da…",
-          "effectId": "07e12471-a5f5-4689-8a40-342ba9879a19",
-          "effectName": "Honeytrap",
-          "ownerDollId": "d9b45a84-2aeb-4b3c-9f3d-4aa46c52d526",
-          "ownerDollName": "Lind"
-        },
-        {
-          "kind": "effect",
-          "relation": "gains",
-          "snippet": "{\"mainDetails\":\"When an enemy unit within 9 tiles receives targeted damage or AoE damage from an ally, performs 1 instance of [effect:ab2e634f-d257-44e3-af90-ce66a6ac43f3], dealing Corrosion damage equal to 60% of attack and 1 point of stability damage to it while gaining 1 point of Confectance I…",
-          "effectId": "34cb30eb-3598-4dbd-8524-1cdb6aab34ee",
-          "effectName": "Doom Mark",
-          "ownerDollId": "d474bca4-5806-4020-997f-fd6a2ffc3420",
-          "ownerDollName": "Nemesis Gnosis"
-        },
-        {
-          "kind": "effect",
-          "relation": "gains",
           "snippet": "If an allied unit deals Hydro damage to the target Taryz is following, Taryz performs [effect:ab2e634f-d257-44e3-af90-ce66a6ac43f3] and recovers HP for the allied unit",
           "effectId": "72babdbb-4889-4adb-a6f1-0ec11dbba1eb",
           "effectName": "Taryz",
@@ -28039,6 +28021,24 @@
           "effectName": "Prophecy of Mourning",
           "ownerDollId": "1adc199f-0ac1-45ec-8574-b1bad2391608",
           "ownerDollName": "Nemesis"
+        },
+        {
+          "kind": "effect",
+          "relation": "gains",
+          "snippet": "When [effect:07e12471-a5f5-4689-8a40-342ba9879a19] is triggered, Lind applies 3 random powerful debuff to the debuff holder, cleanses 1 buff, and performs [effect:ab2e634f-d257-44e3-af90-ce66a6ac43f3], dealing AoE Corrosion damage equal to 80% of attack and 1 point of stability damage",
+          "effectId": "07e12471-a5f5-4689-8a40-342ba9879a19",
+          "effectName": "Honeytrap",
+          "ownerDollId": "d9b45a84-2aeb-4b3c-9f3d-4aa46c52d526",
+          "ownerDollName": "Lind"
+        },
+        {
+          "kind": "effect",
+          "relation": "gains",
+          "snippet": "When an enemy unit within 9 tiles receives targeted damage or AoE damage from an ally, performs 1 instance of [effect:ab2e634f-d257-44e3-af90-ce66a6ac43f3], dealing Corrosion damage equal to 60% of attack and 1 point of stability damage to it while gaining 1 point of Confectance Index for each [e…",
+          "effectId": "34cb30eb-3598-4dbd-8524-1cdb6aab34ee",
+          "effectName": "Doom Mark",
+          "ownerDollId": "d474bca4-5806-4020-997f-fd6a2ffc3420",
+          "ownerDollName": "Nemesis Gnosis"
         },
         {
           "kind": "skill",
@@ -28329,15 +28329,6 @@
         {
           "kind": "effect",
           "relation": "conditional",
-          "snippet": "{\"mainDetails\":\"When an enemy unit within 9 tiles receives targeted damage or AoE damage from an ally, performs 1 instance of [effect:ab2e634f-d257-44e3-af90-ce66a6ac43f3], dealing Corrosion damage equal to 60% of attack and 1 point of stability damage to it while gaining 1 point of Confectance I…",
-          "effectId": "34cb30eb-3598-4dbd-8524-1cdb6aab34ee",
-          "effectName": "Doom Mark",
-          "ownerDollId": "d474bca4-5806-4020-997f-fd6a2ffc3420",
-          "ownerDollName": "Nemesis Gnosis"
-        },
-        {
-          "kind": "effect",
-          "relation": "conditional",
           "snippet": "Before launching [effect:ab2e634f-d257-44e3-af90-ce66a6ac43f3], Nemesis: Gnosis gains [effect:e7be566e-7c0c-4678-b329-2a7b15b46c39]",
           "effectId": "0208eebe-9788-463a-8342-33322cd386c0",
           "effectName": "First Prophecy: Resonance",
@@ -28361,6 +28352,15 @@
           "effectName": "Support Boost II",
           "ownerDollId": "768c75d8-3f1d-444e-af3d-c86c7b2a1d61",
           "ownerDollName": "Qiongjiu"
+        },
+        {
+          "kind": "effect",
+          "relation": "conditional",
+          "snippet": "When an enemy unit within 9 tiles receives targeted damage or AoE damage from an ally, performs 1 instance of [effect:ab2e634f-d257-44e3-af90-ce66a6ac43f3], dealing Corrosion damage equal to 60% of attack and 1 point of stability damage to it while gaining 1 point of Confectance Index for each [e…",
+          "effectId": "34cb30eb-3598-4dbd-8524-1cdb6aab34ee",
+          "effectName": "Doom Mark",
+          "ownerDollId": "d474bca4-5806-4020-997f-fd6a2ffc3420",
+          "ownerDollName": "Nemesis Gnosis"
         },
         {
           "kind": "key",
@@ -28602,18 +28602,18 @@
         {
           "kind": "effect",
           "relation": "enhances",
-          "snippet": "{\"mainDetails\":\"The damage multiplier of the [effect:ab2e634f-d257-44e3-af90-ce66a6ac43f3] from [effect:34cb30eb-3598-4dbd-8524-1cdb6aab34ee] is increased by 30%",
-          "effectId": "c1b60dd3-d015-4679-b882-0017693fa00b",
-          "effectName": "Judicial Privilege",
+          "snippet": "Damage dealt from [effect:ab2e634f-d257-44e3-af90-ce66a6ac43f3] is increased by 50%",
+          "effectId": "0208eebe-9788-463a-8342-33322cd386c0",
+          "effectName": "First Prophecy: Resonance",
           "ownerDollId": "d474bca4-5806-4020-997f-fd6a2ffc3420",
           "ownerDollName": "Nemesis Gnosis"
         },
         {
           "kind": "effect",
           "relation": "enhances",
-          "snippet": "Damage dealt from [effect:ab2e634f-d257-44e3-af90-ce66a6ac43f3] is increased by 50%",
-          "effectId": "0208eebe-9788-463a-8342-33322cd386c0",
-          "effectName": "First Prophecy: Resonance",
+          "snippet": "The damage multiplier of the [effect:ab2e634f-d257-44e3-af90-ce66a6ac43f3] from [effect:34cb30eb-3598-4dbd-8524-1cdb6aab34ee] is increased by 30%",
+          "effectId": "c1b60dd3-d015-4679-b882-0017693fa00b",
+          "effectName": "Judicial Privilege",
           "ownerDollId": "d474bca4-5806-4020-997f-fd6a2ffc3420",
           "ownerDollName": "Nemesis Gnosis"
         },
@@ -29863,7 +29863,7 @@
         {
           "kind": "effect",
           "relation": "gains",
-          "snippet": "{\"mainDetails\":\"At the start of battle, gains [effect:137fa391-c1aa-4777-bb43-278f788a6aac]",
+          "snippet": "At the start of battle, gains [effect:137fa391-c1aa-4777-bb43-278f788a6aac]",
           "effectId": "6548fcaa-7852-4083-92c8-1cfde81baae8",
           "effectName": "Reconstruction: Burn",
           "ownerDollId": "2c2a9e47-086e-4bfc-b324-10e600c7f0af",
@@ -30069,15 +30069,6 @@
         {
           "kind": "effect",
           "relation": "gains",
-          "snippet": "\",\"upgrades\":[{\"id\":\"aff61c7b-2fed-412a-ba80-65525fea2678\",\"upgradeName\":\"V6\",\"upgradeDetails\":\"The active skill Total Suppression gains a new effect: Additionally generates [effect:a7a2cc2b-3078-4d27-bafc-f20b389335c0] tiles, lasting for 2 turns",
-          "effectId": "5848c35f-2bb6-4a6b-bcaa-330cb1cfbd92",
-          "effectName": "Reconstruction: Hydro",
-          "ownerDollId": "2c2a9e47-086e-4bfc-b324-10e600c7f0af",
-          "ownerDollName": "OTs-14"
-        },
-        {
-          "kind": "effect",
-          "relation": "gains",
           "snippet": "After casting [dollSkill:111305a5-0407-44b4-a008-71be40565fd7], generate [effect:a7a2cc2b-3078-4d27-bafc-f20b389335c0] tiles with a 5-tile-wide area along the path for 2 turns",
           "effectId": "a485d8e2-033a-4474-983a-2db5fac82ddf",
           "effectName": "Saturation Overflow",
@@ -30110,6 +30101,15 @@
           "effectName": "Screen Title",
           "ownerDollId": "2a98b6ae-6265-4724-9d97-d6cd0c150ef2",
           "ownerDollName": "Mityl"
+        },
+        {
+          "kind": "effect",
+          "relation": "gains",
+          "snippet": "The active skill Total Suppression gains a new effect: Additionally generates [effect:a7a2cc2b-3078-4d27-bafc-f20b389335c0] tiles, lasting for 2 turns",
+          "effectId": "5848c35f-2bb6-4a6b-bcaa-330cb1cfbd92",
+          "effectName": "Reconstruction: Hydro",
+          "ownerDollId": "2c2a9e47-086e-4bfc-b324-10e600c7f0af",
+          "ownerDollName": "OTs-14"
         },
         {
           "kind": "key",
@@ -30282,7 +30282,7 @@
         {
           "kind": "effect",
           "relation": "mentions",
-          "snippet": "{\"mainDetails\":\"[effect:ef73e84e-716c-41c9-a227-85593b33970c|doll:lewis]s provide extra buffs to Lewis based on their Rank level (Higher ranks include all the effects of lower ranks)",
+          "snippet": "[effect:ef73e84e-716c-41c9-a227-85593b33970c|doll:lewis]s provide extra buffs to Lewis based on their Rank level (Higher ranks include all the effects of lower ranks)",
           "effectId": "8342fdb5-55bd-47b6-b2a1-04b184d2b289",
           "effectName": "Rank",
           "ownerDollId": "9f95347c-72a0-4b03-b6fa-2a2474a9f741",
@@ -30617,7 +30617,7 @@
         {
           "kind": "effect",
           "relation": "gains",
-          "snippet": "\",\"upgrades\":[{\"id\":\"6a672c48-7011-4764-a0ad-262f8f061aa3\",\"upgradeName\":\"V6\",\"upgradeDetails\":\"The active skill Total Suppression gains a new effect: Additionally generates [effect:1c5e2242-b8ce-41b6-934a-5779d82f6790] tiles, lasting for 2 turns",
+          "snippet": "The active skill Total Suppression gains a new effect: Additionally generates [effect:1c5e2242-b8ce-41b6-934a-5779d82f6790] tiles, lasting for 2 turns",
           "effectId": "4ea1e0c8-2501-4711-a28e-7d9f45263d86",
           "effectName": "Reconstruction: Corrosion",
           "ownerDollId": "2c2a9e47-086e-4bfc-b324-10e600c7f0af",
@@ -31557,7 +31557,7 @@
         {
           "kind": "effect",
           "relation": "conditional",
-          "snippet": "{\"mainDetails\":\"All stacks of [effect:90dff636-dae1-450d-81ac-d376a9105155] on all allied units are upgraded to [effect:94aa6093-db25-4628-b8fc-643d830de757]",
+          "snippet": "All stacks of [effect:90dff636-dae1-450d-81ac-d376a9105155] on all allied units are upgraded to [effect:94aa6093-db25-4628-b8fc-643d830de757]",
           "effectId": "ee3d831c-aafc-41e8-9534-81499f02153f",
           "effectName": "Radiant Rise",
           "ownerDollId": "56b0768f-a9f0-4e8d-b6b0-1739467297a6",
@@ -31611,7 +31611,7 @@
         {
           "kind": "effect",
           "relation": "gains",
-          "snippet": "{\"mainDetails\":\"All stacks of [effect:90dff636-dae1-450d-81ac-d376a9105155] on all allied units are upgraded to [effect:94aa6093-db25-4628-b8fc-643d830de757]",
+          "snippet": "All stacks of [effect:90dff636-dae1-450d-81ac-d376a9105155] on all allied units are upgraded to [effect:94aa6093-db25-4628-b8fc-643d830de757]",
           "effectId": "ee3d831c-aafc-41e8-9534-81499f02153f",
           "effectName": "Radiant Rise",
           "ownerDollId": "56b0768f-a9f0-4e8d-b6b0-1739467297a6",
@@ -32076,7 +32076,7 @@
         {
           "kind": "effect",
           "relation": "conditional",
-          "snippet": "{\"mainDetails\":\"When [effect:942a63fb-137d-43cb-8307-71645f9d79a4|doll:lewis] is triggered, consume 1 stack of this effect to increase the damage dealt by 30%",
+          "snippet": "When [effect:942a63fb-137d-43cb-8307-71645f9d79a4|doll:lewis] is triggered, consume 1 stack of this effect to increase the damage dealt by 30%",
           "effectId": "b41dd0eb-d3d4-400d-af35-b3a39f157c2e",
           "effectName": "Tin Soldier's Order",
           "ownerDollId": "9f95347c-72a0-4b03-b6fa-2a2474a9f741",
@@ -32141,7 +32141,7 @@
         {
           "kind": "effect",
           "relation": "gains",
-          "snippet": "\",\"upgrades\":[{\"id\":\"b2ff7feb-8d6a-4978-a744-7d6be0068958\",\"upgradeName\":\"V6\",\"upgradeDetails\":\"The active skill Total Suppression gains a new effect: Additionally generates [effect:d63f94c1-d638-4437-8196-f9cb9705c834] tiles, lasting for 2 turns",
+          "snippet": "The active skill Total Suppression gains a new effect: Additionally generates [effect:d63f94c1-d638-4437-8196-f9cb9705c834] tiles, lasting for 2 turns",
           "effectId": "355a0600-b456-4cde-8206-a2bc050b4fda",
           "effectName": "Reconstruction: Electric",
           "ownerDollId": "2c2a9e47-086e-4bfc-b324-10e600c7f0af",

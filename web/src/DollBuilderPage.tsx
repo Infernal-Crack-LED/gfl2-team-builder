@@ -16,15 +16,15 @@ import {
   allWeapons,
   getDollBySlug,
   getKeysForDoll,
+  getVertebraeForDoll,
   getWeaponById,
   getWeaponForDoll,
-  resolveEffectMarkers,
   PHASE_COLORS,
   type Doll,
   type Key,
-  type TextSegment,
   type Weapon,
 } from './data';
+import { RichText } from './components/RichText';
 import {
   BUILD_VERSION,
   decodeDollBuild,
@@ -49,65 +49,9 @@ interface BuildState {
   vert: number[];
 }
 
-/** Vertebrae entries arrive as Record<string, unknown> — narrow once here. */
-interface Vertebra {
-  segment: number;
-  level: number | null;
-  name: string | null;
-  effect: string | null;
-  imageUrl: string | null;
-}
-
-function toVertebra(raw: Record<string, unknown>): Vertebra | null {
-  const segment = raw.segment;
-  if (typeof segment !== 'number' || !Number.isInteger(segment)) {
-    return null;
-  }
-  return {
-    segment,
-    level: typeof raw.level === 'number' ? raw.level : null,
-    name: typeof raw.vertebraeName === 'string' ? raw.vertebraeName : null,
-    effect: typeof raw.effect === 'string' ? raw.effect : null,
-    imageUrl: typeof raw.imageUrl === 'string' ? raw.imageUrl : null,
-  };
-}
-
-/**
- * Effect text ships as HTML fragments (`<p>`, colored `<span>`s). We keep the
- * text and drop the tags — [effect:uuid] marker resolution runs AFTER
- * stripping, since markers live in the text content.
- */
-function stripHtml(text: string): string {
-  return text.replace(/<[^>]*>/g, '');
-}
-
-/** Render text segments with effect references as <span title> (DollPage pattern). */
-function RenderText({ segments }: { segments: TextSegment[] }) {
-  return (
-    <>
-      {segments.map((seg, i) =>
-        typeof seg === 'string' ? (
-          <span key={i}>{seg}</span>
-        ) : (
-          <span key={i} className="effect-ref" title={seg.name}>
-            {seg.name}
-          </span>
-        )
-      )}
-    </>
-  );
-}
-
 /** Resolved, stripped effect text for card bodies. */
 function EffectText({ text }: { text: string | null }) {
-  if (!text) {
-    return null;
-  }
-  return (
-    <p className="dollbuilder-effect">
-      <RenderText segments={resolveEffectMarkers(stripHtml(text))} />
-    </p>
-  );
+  return <RichText text={text} className="dollbuilder-effect" />;
 }
 
 // Fixed display order for key groups; unknown future types append after.
@@ -186,14 +130,7 @@ function DollBuilder({ doll }: { doll: Doll }) {
   );
 
   const dollKeys = useMemo(() => getKeysForDoll(doll.id), [doll]);
-  const vertebrae = useMemo(
-    () =>
-      doll.vertebrae
-        .map(toVertebra)
-        .filter((v): v is Vertebra => v !== null)
-        .sort((a, b) => a.segment - b.segment),
-    [doll]
-  );
+  const vertebrae = useMemo(() => getVertebraeForDoll(doll), [doll]);
 
   /**
    * Drop ids that don't resolve against this doll's data — a hand-edited or

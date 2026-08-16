@@ -24,6 +24,7 @@
 import { readFile, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { stripHtml } from '../sync/html.js';
+import { parseEffectDetails } from '../share/html.js';
 
 // --- Marker / relation primitives ---
 
@@ -949,7 +950,12 @@ export function buildEffectMatrix(input: DeriveInput): {
     if (!effectId) {
       continue;
     }
-    const text = str(eff.effectDetails);
+    // effectDetails may be a JSON blob — scan its prose, not its punctuation,
+    // or every snippet cut from it starts mid-`{"mainDetails":"`.
+    const details = parseEffectDetails(str(eff.effectDetails));
+    const text = [details.main, ...details.upgrades.map((u) => u.details)]
+      .filter((t): t is string => t != null)
+      .join('\n');
     if (!text) {
       continue;
     }

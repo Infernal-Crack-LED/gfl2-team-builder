@@ -2,6 +2,12 @@ import { EmbedBuilder, MessageFlags, SlashCommandBuilder } from 'discord.js';
 import type { Command } from '../../types.js';
 import { loadGfl2Data } from '../../lib/gfl2/data.js';
 import { searchEffects } from '../../lib/gfl2/search.js';
+import { parseEffectDetails } from '../../../share/html.js';
+
+/** Discord embed limits: 4096 for a description, 1024 for a field value. */
+function clamp(text: string, max: number): string {
+  return text.length > max ? `${text.slice(0, max - 1)}…` : text;
+}
 
 export const command: Command = {
   data: new SlashCommandBuilder()
@@ -51,12 +57,19 @@ export const command: Command = {
       });
     }
 
-    if (effect.effectDetails) {
-      const text =
-        effect.effectDetails.length > 800
-          ? `${effect.effectDetails.slice(0, 800)}…`
-          : effect.effectDetails;
-      embed.setDescription(text);
+    // effectDetails is a JSON blob for some effects — parse it, or the embed
+    // is a wall of `{"mainDetails":…}`.
+    const details = parseEffectDetails(effect.effectDetails);
+    if (details.main) {
+      embed.setDescription(clamp(details.main, 800));
+    }
+    for (const upgrade of details.upgrades) {
+      if (upgrade.details) {
+        embed.addFields({
+          name: upgrade.name ?? 'Upgrade',
+          value: clamp(upgrade.details, 1024),
+        });
+      }
     }
 
     if (effect.dollId) {

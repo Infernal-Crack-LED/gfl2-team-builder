@@ -122,11 +122,31 @@ label,
   color: var(--muted);
 }
 
-/* Resolved [effect:uuid] markers — dashed underline signals the tooltip. */
+/* Resolved [<kind>:uuid] markers — dashed underline signals the tooltip.
+   Accent is reserved for effects, the thing the site is actually about;
+   references to summons, skills and keys read as emphasis instead, so a
+   dense skill description doesn't turn solid blue. */
 .effect-ref {
   color: var(--accent);
   border-bottom: 1px dashed var(--accent);
   cursor: help;
+}
+
+.effect-ref.ref-summon,
+.effect-ref.ref-dollSkill,
+.effect-ref.ref-skillsummon,
+.effect-ref.ref-key {
+  color: var(--text);
+  font-weight: 600;
+  border-bottom-color: var(--border);
+}
+
+/* A marker whose id isn't in the synced dataset — the name is a best effort
+   (a humanized slug, or "unlisted effect"), so it gets no emphasis. */
+.effect-ref.ref-unresolved {
+  color: var(--muted);
+  border-bottom-style: dotted;
+  border-bottom-color: var(--muted);
 }
 
 /* ---- Layout ---- */
@@ -909,15 +929,46 @@ td {
   border-bottom: none;
 }
 
-/* Raw JSON blocks (remolding pattern, vertebrae) — readable, scrollable. */
-.unit-pre {
-  background: var(--panel2);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 10px;
+/* Remolding pattern: a pill row (core, slots, stat boosts) over the six
+   imago stages. Vertebrae reuse .unit-keys-grid / .unit-key-card. */
+.unit-remold-summary {
+  margin-bottom: 12px;
+}
+
+.unit-imagoforms {
+  list-style: none;
+}
+
+.unit-imagoforms li {
+  padding: 8px 0;
+  border-top: 1px solid var(--border);
+  font-size: 13px;
+}
+
+.unit-imago-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 12px;
+  margin-bottom: 4px;
+}
+
+.unit-imago-head .muted {
   font-size: 12px;
-  overflow-x: auto;
-  white-space: pre;
+}
+
+/* Multi-paragraph game text — space paragraphs without doubling the gap
+   against a section's own padding. */
+.unit-skill-desc p + p,
+.unit-key-card p + p,
+.unit-bio p + p,
+.unit-imago-effect p + p,
+.dollbuilder-effect p + p {
+  margin-top: 6px;
+}
+
+.unit-bio {
+  font-size: 13px;
 }
 
 .unit-tools {

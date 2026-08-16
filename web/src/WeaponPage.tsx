@@ -3,32 +3,11 @@
  * vanishes. Sets its own document head.
  */
 import { useEffect } from 'react';
-import {
-  getDollById,
-  getWeaponById,
-  getWeaponBySlug,
-  resolveEffectMarkers,
-  type TextSegment,
-} from './data';
+import { getDollById, getWeaponById, getWeaponBySlug } from './data';
+import { RichText } from './components/RichText';
 import { hrefFor, hrefForDoll, hrefForWeapon, onSpaLinkClick } from './router';
 import { escapeJsonLd } from './jsonLd';
 import { setDetailMeta } from './useDocumentHead';
-
-function RenderText({ segments }: { segments: TextSegment[] }) {
-  return (
-    <>
-      {segments.map((seg, i) =>
-        typeof seg === 'string' ? (
-          <span key={i}>{seg}</span>
-        ) : (
-          <span key={i} className="effect-ref" title={seg.name}>
-            {seg.name}
-          </span>
-        )
-      )}
-    </>
-  );
-}
 
 export function WeaponPage({ slug }: { slug: string | null }) {
   const weapon = slug ? getWeaponBySlug(slug) : undefined;
@@ -172,9 +151,7 @@ export function WeaponPage({ slug }: { slug: string | null }) {
       <section className="unit-section unit-panel">
         <h2>Trait</h2>
         {weapon.trait ? (
-          <p>
-            <RenderText segments={resolveEffectMarkers(weapon.trait)} />
-          </p>
+          <RichText text={weapon.trait} />
         ) : (
           <p className="muted">No trait data.</p>
         )}
@@ -184,9 +161,7 @@ export function WeaponPage({ slug }: { slug: string | null }) {
       <section className="unit-section unit-panel">
         <h2>Effect</h2>
         {weapon.effect ? (
-          <p>
-            <RenderText segments={resolveEffectMarkers(weapon.effect)} />
-          </p>
+          <RichText text={weapon.effect} />
         ) : (
           <p className="muted">No effect data.</p>
         )}
@@ -203,9 +178,7 @@ export function WeaponPage({ slug }: { slug: string | null }) {
             >
               {imprintDoll.name}
             </a>
-            {weapon.imprintDescription && (
-              <p className="muted">{weapon.imprintDescription}</p>
-            )}
+            <RichText text={weapon.imprintDescription} className="muted" />
           </div>
         ) : (
           <p className="muted">No imprint doll.</p>
