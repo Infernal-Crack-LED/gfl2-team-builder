@@ -34,15 +34,15 @@ Rebuild it standalone with `npm run derive` (add `--report` for a QA breakdown).
 
 ## Scripts
 
-| Command | Description |
-|---|---|
-| `npm run sync` | Run the dandegate data sync |
-| `npm run derive` | Rebuild `data/effect-matrix.json` from the JSON artifacts |
+| Command                 | Description                                               |
+| ----------------------- | --------------------------------------------------------- |
+| `npm run sync`          | Run the dandegate data sync                               |
+| `npm run derive`        | Rebuild `data/effect-matrix.json` from the JSON artifacts |
 | `npm run derive:report` | Rebuild the matrix and print the QA classification report |
-| `npm run db:push` | Push schema to Postgres (no migration) |
-| `npm run db:generate` | Generate a Drizzle migration |
-| `npm run db:migrate` | Run pending migrations |
-| `npm run db:studio` | Open Drizzle Studio |
-| `npm run typecheck` | Type-check without emitting |
-| `npm run lint` | Run ESLint |
-| `npm run format` | Run Prettier |
+| `npm run db:push`       | Push schema to Postgres (no migration)                    |
+| `npm run db:generate`   | Generate a Drizzle migration                              |
+| `npm run db:migrate`    | Run pending migrations                                    |
+| `npm run db:studio`     | Open Drizzle Studio                                       |
+| `npm run typecheck`     | Type-check without emitting                               |
+| `npm run lint`          | Run ESLint                                                |
+| `npm run format`        | Run Prettier                                              |

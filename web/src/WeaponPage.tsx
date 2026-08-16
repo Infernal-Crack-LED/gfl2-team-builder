@@ -119,13 +119,11 @@ export function WeaponPage({ slug }: { slug: string | null }) {
       <div className="weaponpage-header">
         <div className="weaponpage-image">
           {weapon.imageUrl ? (
-            <img
-              src={weapon.imageUrl}
-              alt={weapon.name}
-              loading="lazy"
-            />
+            <img src={weapon.imageUrl} alt={weapon.name} loading="lazy" />
           ) : (
-            <div className="portrait-empty" aria-hidden="true">?</div>
+            <div className="portrait-empty" aria-hidden="true">
+              ?
+            </div>
           )}
         </div>
         <div className="weaponpage-info">
@@ -142,9 +140,7 @@ export function WeaponPage({ slug }: { slug: string | null }) {
               </span>
             )}
             {weapon.weaponType && (
-              <span className="dollpage-ident-pill">
-                {weapon.weaponType}
-              </span>
+              <span className="dollpage-ident-pill">{weapon.weaponType}</span>
             )}
             {weapon.primaryAttribute && (
               <span className="dollpage-ident-pill">

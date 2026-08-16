@@ -40,15 +40,11 @@ export function routeFromPath(pathname: string): Route {
   }
   if (seg === 'characters') {
     // If a second segment exists, this is a detail page
-    const parts = pathname
-      .replace(/^\/+|\/+$/g, '')
-      .split('/');
+    const parts = pathname.replace(/^\/+|\/+$/g, '').split('/');
     return parts.length > 1 ? 'character' : 'characters';
   }
   if (seg === 'weapons') {
-    const parts = pathname
-      .replace(/^\/+|\/+$/g, '')
-      .split('/');
+    const parts = pathname.replace(/^\/+|\/+$/g, '').split('/');
     return parts.length > 1 ? 'weapon' : 'weapons';
   }
   if (seg === 'team-builder' || seg === 'teambuilder') {

@@ -19,20 +19,20 @@
 
 ## 1. Architecture
 
-| Concern | Approach |
-|---|---|
-| Framework | React 18, functional components only, hooks only **[playbook]** |
-| Build | Vite 5 (`@vitejs/plugin-react`), `root: 'web'`, output to repo-root `dist/` **[playbook]** |
-| Language | TypeScript strict (`web/tsconfig.json`); `npm run typecheck` checks web AND the sync/server code |
-| Routing | Custom SPA router (`web/src/router.ts`) — real URL **paths**, `pushState` + `popstate`. No React Router, never hash routing **[playbook]** |
-| State | `useState` / `useReducer` + prop drilling. No global store, no context for state **[playbook]** |
-| Styling | One CSS file (`web/src/styles.css`). No CSS modules, no Tailwind, no styled-components **[playbook]** |
-| Data | JSON imported directly at build time (`import dollsJson from '../../data/dolls.json'`). All game data runs **entirely client-side** — no data fetch **[playbook]** |
-| Data origin | Postgres, filled by the dandegate sync (`npm run sync`). The sync step **exports** the committed `data/*.json` artifacts the web imports — the DB is the source of truth, the JSONs are build inputs (see §8) |
-| Code splitting | Every page is a `lazy()` route chunk; React is its own `manualChunks` framework chunk **[playbook]** |
-| SEO / embeds | Phase 1: static `index.html` baseline + client head sync. Phase 2 adopts the playbook's server-injection surface (§6 below) |
-| Infographics | NONE yet — owner decision pending. When they arrive, port playbook §9 (platform-free renderers, fonts-before-draw, content-addressed URLs) before writing the first renderer |
-| Images | CDN URLs (`cdn.dandegate.net`) with `loading="lazy"` + `?` placeholder; the playbook's thumbnail-tier pipeline (§10) arrives with real assets |
+| Concern        | Approach                                                                                                                                                                                                      |
+| -------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Framework      | React 18, functional components only, hooks only **[playbook]**                                                                                                                                               |
+| Build          | Vite 5 (`@vitejs/plugin-react`), `root: 'web'`, output to repo-root `dist/` **[playbook]**                                                                                                                    |
+| Language       | TypeScript strict (`web/tsconfig.json`); `npm run typecheck` checks web AND the sync/server code                                                                                                              |
+| Routing        | Custom SPA router (`web/src/router.ts`) — real URL **paths**, `pushState` + `popstate`. No React Router, never hash routing **[playbook]**                                                                    |
+| State          | `useState` / `useReducer` + prop drilling. No global store, no context for state **[playbook]**                                                                                                               |
+| Styling        | One CSS file (`web/src/styles.css`). No CSS modules, no Tailwind, no styled-components **[playbook]**                                                                                                         |
+| Data           | JSON imported directly at build time (`import dollsJson from '../../data/dolls.json'`). All game data runs **entirely client-side** — no data fetch **[playbook]**                                            |
+| Data origin    | Postgres, filled by the dandegate sync (`npm run sync`). The sync step **exports** the committed `data/*.json` artifacts the web imports — the DB is the source of truth, the JSONs are build inputs (see §8) |
+| Code splitting | Every page is a `lazy()` route chunk; React is its own `manualChunks` framework chunk **[playbook]**                                                                                                          |
+| SEO / embeds   | Phase 1: static `index.html` baseline + client head sync. Phase 2 adopts the playbook's server-injection surface (§6 below)                                                                                   |
+| Infographics   | NONE yet — owner decision pending. When they arrive, port playbook §9 (platform-free renderers, fonts-before-draw, content-addressed URLs) before writing the first renderer                                  |
+| Images         | CDN URLs (`cdn.dandegate.net`) with `loading="lazy"` + `?` placeholder; the playbook's thumbnail-tier pipeline (§10) arrives with real assets                                                                 |
 
 ### File layout
 
@@ -128,14 +128,14 @@ modules, Tailwind, or styled-components. New feature styles go under a
 ```css
 :root {
   color-scheme: dark;
-  --bg: #101216;        /* page background */
-  --panel: #181b22;     /* card/panel background */
-  --panel2: #1f232d;    /* elevated/sunken surface (inputs, alternate rows) */
-  --border: #2a2f3b;    /* borders, dividers */
-  --text: #e7eaf0;      /* primary text */
-  --muted: #8b93a3;     /* secondary text, labels, placeholders */
-  --accent: #5b9dff;    /* interactive blue (buttons, active states, links) */
-  --warn: #e0b04b;      /* warning/caution yellow */
+  --bg: #101216; /* page background */
+  --panel: #181b22; /* card/panel background */
+  --panel2: #1f232d; /* elevated/sunken surface (inputs, alternate rows) */
+  --border: #2a2f3b; /* borders, dividers */
+  --text: #e7eaf0; /* primary text */
+  --muted: #8b93a3; /* secondary text, labels, placeholders */
+  --accent: #5b9dff; /* interactive blue (buttons, active states, links) */
+  --warn: #e0b04b; /* warning/caution yellow */
 }
 ```
 
@@ -177,8 +177,13 @@ breakpoints; never `window.addEventListener('resize')`.
 ### Accessibility baselines (site-wide, in styles.css) **[playbook]**
 
 ```css
-:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
-@media (prefers-reduced-motion: reduce) { /* kill animations/transitions */ }
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+@media (prefers-reduced-motion: reduce) {
+  /* kill animations/transitions */
+}
 ```
 
 Icon-only controls carry `aria-label` + `.sr-only` text twin; filter toggles
@@ -195,7 +200,7 @@ server and are independently crawlable.
 ### Route model (`web/src/router.ts`)
 
 - `Route` union: `home | characters | character | weapons | weapon |
-  team-builder | credits`.
+team-builder | credits`.
 - Parameterized routes (`/characters/<slug>`, `/weapons/<slug>`) are excluded
   from the flat `ROUTES` list — `hrefFor('character')` would produce a
   slug-less dead end. Detail routes are detected by a present second segment.
@@ -223,11 +228,11 @@ followable `<a>`.
 The central shared component, structurally identical to nikke-sim's
 `CharacterGrid.tsx` split:
 
-| Export | Role |
-|---|---|
+| Export                                   | Role                                                                                                                                                                                                     |
+| ---------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `useDollFilter({ exclude?, restrict? })` | owns ALL filter/search state + the derived doll list + any thumbnail maps. Split from rendering so a caller can place controls and grid separately (the Team Builder puts filters above the squad strip) |
-| `DollFilters` | `<details>` panel + search box + "Showing N of M" + Clear all. `defaultOpen`: true on `/team-builder`, false on `/characters` |
-| `DollCards` | the grid. **Navigation mode** (`linkFor` → whole card is an `<a>`) vs **badge mode** (click = place in squad; separate corner profile link) |
+| `DollFilters`                            | `<details>` panel + search box + "Showing N of M" + Clear all. `defaultOpen`: true on `/team-builder`, false on `/characters`                                                                            |
+| `DollCards`                              | the grid. **Navigation mode** (`linkFor` → whole card is an `<a>`) vs **badge mode** (click = place in squad; separate corner profile link)                                                              |
 
 Filter semantics (binding, from the playbook): **OR within a row, AND across
 rows**; an empty row is inactive (all values pass); text search matches name
@@ -345,15 +350,15 @@ with a new kind slug) — do not invent a second pattern.
 
 ## 8. Naming conventions **[playbook]**
 
-| Thing | Convention | Examples |
-|---|---|---|
-| Components | PascalCase, named export | `DollFilters`, `DollCards` |
-| Hooks | camelCase, `use` prefix | `useDollFilter`, `useWeaponFilter` |
-| CSS classes | kebab-case, semantic, shared prefix per feature | `.dollcard-*`, `.teambuilder-*` |
-| Constants | UPPER_SNAKE or camelCase const | `PHASE_COLORS`, `CLASS_OPTIONS` |
-| Types | PascalCase | `Route`, `Doll`, `FilterState` |
-| Data modules | kebab-case | `data.ts` (the typed JSON layer) |
-| Page files | PascalCase + `Page` suffix | `CharactersPage.tsx`, `DollPage.tsx` |
+| Thing        | Convention                                      | Examples                             |
+| ------------ | ----------------------------------------------- | ------------------------------------ |
+| Components   | PascalCase, named export                        | `DollFilters`, `DollCards`           |
+| Hooks        | camelCase, `use` prefix                         | `useDollFilter`, `useWeaponFilter`   |
+| CSS classes  | kebab-case, semantic, shared prefix per feature | `.dollcard-*`, `.teambuilder-*`      |
+| Constants    | UPPER_SNAKE or camelCase const                  | `PHASE_COLORS`, `CLASS_OPTIONS`      |
+| Types        | PascalCase                                      | `Route`, `Doll`, `FilterState`       |
+| Data modules | kebab-case                                      | `data.ts` (the typed JSON layer)     |
+| Page files   | PascalCase + `Page` suffix                      | `CharactersPage.tsx`, `DollPage.tsx` |
 
 ---
 
@@ -416,10 +421,10 @@ and (phase 2) sitemap entries pick new entities up at the next build.
 
 ## 11. Not yet adopted (port from the playbook when needed)
 
-| Playbook section | Adopt when |
-|---|---|
-| §6.3–6.6 server meta injection, 404/cache policy | first deploy of the static server |
-| §7 no-JS bodies | with the server |
-| §9 share images / infographics | owner decides the infographic approach |
-| §10 image pipeline (thumb tiers, stepped downscale, crop constant) | real portrait/icon assets land |
-| §8.2–8.4 auth client + worker pool | squad save/share or heavy client compute exists |
+| Playbook section                                                   | Adopt when                                      |
+| ------------------------------------------------------------------ | ----------------------------------------------- |
+| §6.3–6.6 server meta injection, 404/cache policy                   | first deploy of the static server               |
+| §7 no-JS bodies                                                    | with the server                                 |
+| §9 share images / infographics                                     | owner decides the infographic approach          |
+| §10 image pipeline (thumb tiers, stepped downscale, crop constant) | real portrait/icon assets land                  |
+| §8.2–8.4 auth client + worker pool                                 | squad save/share or heavy client compute exists |

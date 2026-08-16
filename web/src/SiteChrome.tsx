@@ -86,10 +86,7 @@ export function SiteNav({ current }: { current: Route }) {
       return;
     }
     const onDocDown = (e: globalThis.MouseEvent) => {
-      if (
-        menuRef.current &&
-        !menuRef.current.contains(e.target as Node)
-      ) {
+      if (menuRef.current && !menuRef.current.contains(e.target as Node)) {
         setMenuOpen(false);
       }
     };
@@ -137,9 +134,7 @@ export function SiteNav({ current }: { current: Route }) {
             <div className="nav-dropdown" ref={dropdownRef}>
               <button
                 type="button"
-                className={
-                  'nav-dropdown-btn' + (dropdownOpen ? ' on' : '')
-                }
+                className={'nav-dropdown-btn' + (dropdownOpen ? ' on' : '')}
                 onClick={() => setDropdownOpen((o) => !o)}
                 aria-haspopup="true"
                 aria-expanded={dropdownOpen}
@@ -152,8 +147,7 @@ export function SiteNav({ current }: { current: Route }) {
                     <a
                       key={n.route}
                       className={
-                        'nav-dropdown-item' +
-                        (current === n.route ? ' on' : '')
+                        'nav-dropdown-item' + (current === n.route ? ' on' : '')
                       }
                       role="menuitem"
                       href={hrefFor(n.route)}
@@ -200,8 +194,7 @@ export function SiteNav({ current }: { current: Route }) {
                     <a
                       key={n.route}
                       className={
-                        'nav-menu-item' +
-                        (current === n.route ? ' on' : '')
+                        'nav-menu-item' + (current === n.route ? ' on' : '')
                       }
                       role="menuitem"
                       href={hrefFor(n.route)}
@@ -225,17 +218,11 @@ export function SiteFooter() {
     <footer className="site-footer">
       <div className="site-footer-by">
         made by{' '}
-        <a
-          href={hrefFor('credits')}
-          onClick={(e) => navClick(e, 'credits')}
-        >
+        <a href={hrefFor('credits')} onClick={(e) => navClick(e, 'credits')}>
           Max
         </a>
         {' · '}
-        <a
-          href={hrefFor('credits')}
-          onClick={(e) => navClick(e, 'credits')}
-        >
+        <a href={hrefFor('credits')} onClick={(e) => navClick(e, 'credits')}>
           Credits
         </a>
         {' · '}GFL2 Team Builder

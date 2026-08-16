@@ -25,8 +25,7 @@ export function WeaponsPage() {
       '@context': 'https://schema.org',
       '@type': 'CollectionPage',
       name: 'GFL2 Weapons',
-      description:
-        'Browse every weapon in Girls\' Frontline 2: Exilium.',
+      description: "Browse every weapon in Girls' Frontline 2: Exilium.",
     });
     document.head.appendChild(script);
     return () => {

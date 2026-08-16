@@ -116,7 +116,8 @@ const EXTRA_CONDITIONAL_TAIL_RE =
 const SUFFIX_ENHANCES_RE =
   /^(?:is|are|was|were|has|have|gains?|gets?)\s+(?:enhanced|improved|strengthened|empowered|upgraded|a\s+new\s+effect|new\s+effects?|no\s+longer\s+(?:removed|expended|consumed)|a\s+stack\s+limit)/i;
 /** Suffix that upgrades/transforms the subject into the referenced effect. */
-const SUFFIX_UPGRADE_RE = /^(?:is|are|was|were)?\s*(?:upgraded?|changes?|switches?|converted)\s+(?:to|into)\b/i;
+const SUFFIX_UPGRADE_RE =
+  /^(?:is|are|was|were)?\s*(?:upgraded?|changes?|switches?|converted)\s+(?:to|into)\b/i;
 const TRAILING_JUNCTIONS = new Set(['and', 'or', ',', ';', '•', '']);
 /** Determiners dropped after junctions ("…has [A], the [B]" → lead-in "has"). */
 const TRAILING_DETERMINERS = new Set(['the', 'a', 'an', 'this', 'that']);
@@ -248,7 +249,8 @@ export function classifyRelation(prefix: string, suffix = ''): Relation {
   // belongs to a later clause with its own structure ("applies [A], and the
   // effect of [B] is increased").
   const verbGoverns =
-    best >= 0 && prefix.slice(best).split(/\s+/).filter(Boolean).length - 1 <= 4;
+    best >= 0 &&
+    prefix.slice(best).split(/\s+/).filter(Boolean).length - 1 <= 4;
   if (best >= 0 && verbGoverns) {
     if (best === ri) {
       return 'removes';
@@ -277,7 +279,10 @@ export function classifyRelation(prefix: string, suffix = ''): Relation {
   // suffix describes what happens to it ("[X] is enhanced", "[X] gains a new
   // effect", "[X] is upgraded to [Y]").
   const suffixClean = cleanSuffix(suffix);
-  if (SUFFIX_UPGRADE_RE.test(suffixClean) || SUFFIX_ENHANCES_RE.test(suffixClean)) {
+  if (
+    SUFFIX_UPGRADE_RE.test(suffixClean) ||
+    SUFFIX_ENHANCES_RE.test(suffixClean)
+  ) {
     return 'enhances';
   }
 
@@ -308,10 +313,7 @@ export function extractSentence(
   while (end < text.length && !SENTENCE_BOUNDARY.test(text[end]!)) {
     end++;
   }
-  const sentence = text
-    .slice(start, end)
-    .replace(/\s+/g, ' ')
-    .trim();
+  const sentence = text.slice(start, end).replace(/\s+/g, ' ').trim();
   return {
     sentence: sentence.length > 300 ? `${sentence.slice(0, 297)}…` : sentence,
     prefix: text.slice(start, markerStart),
@@ -535,7 +537,10 @@ export function buildEffectMatrix(input: DeriveInput): {
   const dollName = (id: string | null): string | null =>
     id ? (dollNameById.get(id) ?? null) : null;
 
-  const effectById = new Map<string, { name: string | null; dollId: string | null }>();
+  const effectById = new Map<
+    string,
+    { name: string | null; dollId: string | null }
+  >();
   for (const eff of input.effects) {
     const id = str(eff.id);
     if (id) {
@@ -551,7 +556,11 @@ export function buildEffectMatrix(input: DeriveInput): {
   const unresolvedRefs: UnresolvedRef[] = [];
   const seenUnresolved = new Set<string>();
 
-  const addEdge = (effectId: string, mergeKey: string, edge: MatrixEdge): void => {
+  const addEdge = (
+    effectId: string,
+    mergeKey: string,
+    edge: MatrixEdge
+  ): void => {
     let byKey = edgesByEffect.get(effectId);
     if (!byKey) {
       byKey = new Map();
@@ -590,7 +599,11 @@ export function buildEffectMatrix(input: DeriveInput): {
         }
         continue;
       }
-      const { sentence, prefix, suffix } = extractSentence(text, ref.start, ref.end);
+      const { sentence, prefix, suffix } = extractSentence(
+        text,
+        ref.start,
+        ref.end
+      );
       emit(ref, classifyRelation(prefix, suffix), sentence);
     }
   };
@@ -613,23 +626,30 @@ export function buildEffectMatrix(input: DeriveInput): {
       const skillId = str(s.id);
       const skillName = str(s.name);
       const skillType = str(s.skillType);
-      const groups = new Map<string, { relation: Relation; levels: number[]; snippet: string }>();
+      const groups = new Map<
+        string,
+        { relation: Relation; levels: number[]; snippet: string }
+      >();
       for (const [field, level] of SKILL_DESC_FIELDS) {
         const text = clean(str(s[field]));
         if (!text) {
           continue;
         }
-        recordRefs(text, `${name}/${skillName ?? 'skill'}:${field}`, (ref, relation, snippet) => {
-          const key = `${ref.effectId}:${relation}`;
-          const group = groups.get(key);
-          if (group) {
-            if (!group.levels.includes(level)) {
-              group.levels.push(level);
+        recordRefs(
+          text,
+          `${name}/${skillName ?? 'skill'}:${field}`,
+          (ref, relation, snippet) => {
+            const key = `${ref.effectId}:${relation}`;
+            const group = groups.get(key);
+            if (group) {
+              if (!group.levels.includes(level)) {
+                group.levels.push(level);
+              }
+            } else {
+              groups.set(key, { relation, levels: [level], snippet });
             }
-          } else {
-            groups.set(key, { relation, levels: [level], snippet });
           }
-        });
+        );
       }
       for (const [key, group] of groups) {
         const effectId = key.split(':')[0]!;
@@ -659,17 +679,25 @@ export function buildEffectMatrix(input: DeriveInput): {
       }
       const level = num(v.level);
       const segment = num(v.segment);
-      recordRefs(text, `${name}/vertebrae:${String(level)}`, (ref, relation, snippet) => {
-        addEdge(ref.effectId, `vertebrae:${dollId}:${String(v.id)}:${ref.effectId}:${relation}`, {
-          kind: 'vertebrae',
-          relation,
-          snippet,
-          dollId,
-          dollName: name,
-          level,
-          segment,
-        });
-      });
+      recordRefs(
+        text,
+        `${name}/vertebrae:${String(level)}`,
+        (ref, relation, snippet) => {
+          addEdge(
+            ref.effectId,
+            `vertebrae:${dollId}:${String(v.id)}:${ref.effectId}:${relation}`,
+            {
+              kind: 'vertebrae',
+              relation,
+              snippet,
+              dollId,
+              dollName: name,
+              level,
+              segment,
+            }
+          );
+        }
+      );
     }
 
     // Summons — skills explicitly (level merging), everything else by walk
@@ -687,7 +715,10 @@ export function buildEffectMatrix(input: DeriveInput): {
         }
         const skillName = str(s.name);
         const skillType = str(s.skillType);
-        const groups = new Map<string, { relation: Relation; levels: number[]; snippet: string }>();
+        const groups = new Map<
+          string,
+          { relation: Relation; levels: number[]; snippet: string }
+        >();
         for (const [field, level] of SKILL_DESC_FIELDS) {
           const text = clean(str(s[field]));
           if (!text) {
@@ -732,17 +763,25 @@ export function buildEffectMatrix(input: DeriveInput): {
         if (!text) {
           continue;
         }
-        recordRefs(text, `${name}/summon:${summonName}/${found.path}`, (ref, relation, snippet) => {
-          addEdge(ref.effectId, `summon:${dollId}:${found.path}:${ref.effectId}:${relation}`, {
-            kind: 'summon',
-            relation,
-            snippet,
-            dollId,
-            dollName: name,
-            summonName,
-            path: found.path,
-          });
-        });
+        recordRefs(
+          text,
+          `${name}/summon:${summonName}/${found.path}`,
+          (ref, relation, snippet) => {
+            addEdge(
+              ref.effectId,
+              `summon:${dollId}:${found.path}:${ref.effectId}:${relation}`,
+              {
+                kind: 'summon',
+                relation,
+                snippet,
+                dollId,
+                dollName: name,
+                summonName,
+                path: found.path,
+              }
+            );
+          }
+        );
       }
     }
 
@@ -761,17 +800,25 @@ export function buildEffectMatrix(input: DeriveInput): {
         const stage = imatch
           ? num(asRecord(imagoforms[Number(imatch[1])])?.stage)
           : null;
-        recordRefs(text, `${name}/remolding:${f.path}`, (ref, relation, snippet) => {
-          addEdge(ref.effectId, `remolding:${dollId}:${f.path}:${ref.effectId}:${relation}`, {
-            kind: 'remolding',
-            relation,
-            snippet,
-            dollId,
-            dollName: name,
-            stage,
-            path: f.path,
-          });
-        });
+        recordRefs(
+          text,
+          `${name}/remolding:${f.path}`,
+          (ref, relation, snippet) => {
+            addEdge(
+              ref.effectId,
+              `remolding:${dollId}:${f.path}:${ref.effectId}:${relation}`,
+              {
+                kind: 'remolding',
+                relation,
+                snippet,
+                dollId,
+                dollName: name,
+                stage,
+                path: f.path,
+              }
+            );
+          }
+        );
       }
     }
 
@@ -796,20 +843,28 @@ export function buildEffectMatrix(input: DeriveInput): {
         if (!text) {
           continue;
         }
-        recordRefs(text, `${name}/weaponImprint:${field}`, (ref, relation, snippet) => {
-          if (covered.has(ref.effectId)) {
-            return;
+        recordRefs(
+          text,
+          `${name}/weaponImprint:${field}`,
+          (ref, relation, snippet) => {
+            if (covered.has(ref.effectId)) {
+              return;
+            }
+            addEdge(
+              ref.effectId,
+              `weapon-imprint:${dollId}:${field}:${ref.effectId}:${relation}`,
+              {
+                kind: 'weapon-imprint',
+                relation,
+                snippet,
+                dollId,
+                dollName: name,
+                weaponName,
+                field,
+              }
+            );
           }
-          addEdge(ref.effectId, `weapon-imprint:${dollId}:${field}:${ref.effectId}:${relation}`, {
-            kind: 'weapon-imprint',
-            relation,
-            snippet,
-            dollId,
-            dollName: name,
-            weaponName,
-            field,
-          });
-        });
+        );
       }
     }
   }
@@ -828,18 +883,26 @@ export function buildEffectMatrix(input: DeriveInput): {
       if (!text) {
         continue;
       }
-      recordRefs(text, `weapon:${weaponName}:${field}`, (ref, relation, snippet) => {
-        addEdge(ref.effectId, `weapon:${weaponId}:${field}:${ref.effectId}:${relation}`, {
-          kind: 'weapon',
-          relation,
-          snippet,
-          weaponId,
-          weaponName,
-          imprintDollId,
-          imprintDollName: dollName(imprintDollId),
-          field,
-        });
-      });
+      recordRefs(
+        text,
+        `weapon:${weaponName}:${field}`,
+        (ref, relation, snippet) => {
+          addEdge(
+            ref.effectId,
+            `weapon:${weaponId}:${field}:${ref.effectId}:${relation}`,
+            {
+              kind: 'weapon',
+              relation,
+              snippet,
+              weaponId,
+              weaponName,
+              imprintDollId,
+              imprintDollName: dollName(imprintDollId),
+              field,
+            }
+          );
+        }
+      );
     }
   }
 
@@ -886,17 +949,25 @@ export function buildEffectMatrix(input: DeriveInput): {
     }
     const effectName = str(eff.effectName);
     const ownerDollId = str(eff.dollId);
-    recordRefs(text, `effect:${effectName ?? effectId}`, (ref, relation, snippet) => {
-      addEdge(ref.effectId, `effect:${effectId}:${ref.effectId}:${relation}`, {
-        kind: 'effect',
-        relation,
-        snippet,
-        effectId,
-        effectName,
-        ownerDollId,
-        ownerDollName: dollName(ownerDollId),
-      });
-    });
+    recordRefs(
+      text,
+      `effect:${effectName ?? effectId}`,
+      (ref, relation, snippet) => {
+        addEdge(
+          ref.effectId,
+          `effect:${effectId}:${ref.effectId}:${relation}`,
+          {
+            kind: 'effect',
+            relation,
+            snippet,
+            effectId,
+            effectName,
+            ownerDollId,
+            ownerDollName: dollName(ownerDollId),
+          }
+        );
+      }
+    );
   }
 
   // --- Assemble the matrix ---
@@ -1018,7 +1089,8 @@ export async function deriveEffectMatrix(dataDir: string): Promise<{
   ]);
 
   const input: DeriveInput = {
-    dolls: (JSON.parse(dollsJson) as { dolls: Record<string, unknown>[] }).dolls,
+    dolls: (JSON.parse(dollsJson) as { dolls: Record<string, unknown>[] })
+      .dolls,
     weapons: (JSON.parse(weaponsJson) as { weapons: Record<string, unknown>[] })
       .weapons,
     keys: (JSON.parse(keysJson) as { keys: Record<string, unknown>[] }).keys,

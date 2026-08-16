@@ -51,7 +51,11 @@ describe('extractSentence', () => {
 
   it('handles a marker at the start of the text', () => {
     const text = `[effect:${UUID_A}] gains a new effect`;
-    const { sentence, prefix } = extractSentence(text, 0, `[effect:${UUID_A}]`.length);
+    const { sentence, prefix } = extractSentence(
+      text,
+      0,
+      `[effect:${UUID_A}]`.length
+    );
     expect(sentence).toBe(`[effect:${UUID_A}] gains a new effect`);
     expect(prefix).toBe('');
   });
@@ -262,15 +266,24 @@ describe('buildEffectMatrix', () => {
 
   it('splits applies/gains into sources and the rest into interactions', () => {
     const barrier = findEffect(file, UUID_A)!;
-    expect(barrier.sources.some(
-      (e) => e.kind === 'skill' && e.relation === 'applies' && e.skillType === 'Skill 2'
-    )).toBe(true);
-    expect(barrier.interactions.some(
-      (e) => e.kind === 'key' && e.relation === 'conditional'
-    )).toBe(true);
-    expect(barrier.interactions.some(
-      (e) => e.kind === 'vertebrae' && e.relation === 'enhances'
-    )).toBe(true);
+    expect(
+      barrier.sources.some(
+        (e) =>
+          e.kind === 'skill' &&
+          e.relation === 'applies' &&
+          e.skillType === 'Skill 2'
+      )
+    ).toBe(true);
+    expect(
+      barrier.interactions.some(
+        (e) => e.kind === 'key' && e.relation === 'conditional'
+      )
+    ).toBe(true);
+    expect(
+      barrier.interactions.some(
+        (e) => e.kind === 'vertebrae' && e.relation === 'enhances'
+      )
+    ).toBe(true);
   });
 
   it('merges skill levels across description variants', () => {
@@ -281,9 +294,12 @@ describe('buildEffectMatrix', () => {
 
   it('classifies a self-gain from a level-2 description', () => {
     const alert = findEffect(file, UUID_B)!;
-    expect(alert.sources.some(
-      (e) => e.kind === 'skill' && e.relation === 'gains' && e.levels.includes(2)
-    )).toBe(true);
+    expect(
+      alert.sources.some(
+        (e) =>
+          e.kind === 'skill' && e.relation === 'gains' && e.levels.includes(2)
+      )
+    ).toBe(true);
     // exclusive ownership is denormalized
     expect(alert.exclusiveDollId).toBe('doll-1');
     expect(alert.exclusiveDollName).toBe('Test Doll');
@@ -291,9 +307,14 @@ describe('buildEffectMatrix', () => {
 
   it('records effect→effect interactions', () => {
     const alert = findEffect(file, UUID_B)!;
-    expect(alert.interactions.some(
-      (e) => e.kind === 'effect' && e.effectId === UUID_A && e.relation === 'conditional'
-    )).toBe(true);
+    expect(
+      alert.interactions.some(
+        (e) =>
+          e.kind === 'effect' &&
+          e.effectId === UUID_A &&
+          e.relation === 'conditional'
+      )
+    ).toBe(true);
   });
 
   it('dedupes weaponImprint refs already covered by the weapons table', () => {
@@ -305,15 +326,19 @@ describe('buildEffectMatrix', () => {
     expect(shieldEdges.some((e) => e.kind === 'weapon-imprint')).toBe(false);
     // UUID_D only exists on the doll weaponImprint — it must still be captured
     const imprintOnly = findEffect(file, UUID_D)!;
-    expect(imprintOnly.sources.some(
-      (e) => e.kind === 'weapon-imprint' && e.dollId === 'doll-1'
-    )).toBe(true);
+    expect(
+      imprintOnly.sources.some(
+        (e) => e.kind === 'weapon-imprint' && e.dollId === 'doll-1'
+      )
+    ).toBe(true);
   });
 
   it('collects unresolved refs instead of crashing', () => {
-    expect(file.unresolvedRefs.some(
-      (r) => r.effectId === UUID_MISSING && r.foundIn.includes('Barrier')
-    )).toBe(true);
+    expect(
+      file.unresolvedRefs.some(
+        (r) => r.effectId === UUID_MISSING && r.foundIn.includes('Barrier')
+      )
+    ).toBe(true);
     expect(findEffect(file, UUID_MISSING)).toBeUndefined();
   });
 

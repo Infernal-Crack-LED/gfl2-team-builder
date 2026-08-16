@@ -6,6 +6,11 @@
   "description": "Discord bot + team-building website for Girls' Frontline 2: Exilium",
   "scripts": {
     "build": "tsc",
+    "build:server": "tsc",
+    "build:web": "npm run build:server && npm run vite:build",
+    "build:bot": "npm run build:server",
+    "start:web": "node dist-server/server/index.js",
+    "start:bot": "node dist-server/bot/index.js",
     "typecheck": "tsc --noEmit && tsc --noEmit -p web/tsconfig.json",
     "sync": "tsx src/bin/sync.ts",
     "derive": "tsx src/bin/derive.ts",
@@ -13,8 +18,10 @@
     "analyze:mentions": "tsx src/bin/analyze-mentions.ts",
     "test": "vitest run",
     "dev": "vite",
+    "dev:server": "tsx watch src/server/index.ts",
     "vite:build": "vite build",
     "preview": "vite preview",
+    "serve": "npm run vite:build && tsx src/server/index.ts",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate",
     "db:push": "drizzle-kit push",
@@ -28,8 +35,10 @@
     "node": ">=20"
   },
   "dependencies": {
+    "@hono/node-server": "^2.1.1",
     "dotenv": "^16.4.7",
     "drizzle-orm": "^0.39.1",
+    "hono": "^4.13.2",
     "pg": "^8.13.1",
     "react": "^19.2.8",
     "react-dom": "^19.2.8"

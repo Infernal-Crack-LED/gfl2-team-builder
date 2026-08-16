@@ -30,11 +30,7 @@ function RenderText({ segments }: { segments: TextSegment[] }) {
         typeof seg === 'string' ? (
           <span key={i}>{seg}</span>
         ) : (
-          <span
-            key={i}
-            className="effect-ref"
-            title={seg.name}
-          >
+          <span key={i} className="effect-ref" title={seg.name}>
             {seg.name}
           </span>
         )
@@ -72,7 +68,9 @@ function SkillSection({ skill }: { skill: Skill }) {
           actually have a description get a tab — some skills skip levels
           (e.g. base + Lv3 only), and a tab for a missing level would
           silently re-show the base text. */}
-      {(skill.descriptionLevel2 || skill.descriptionLevel3 || skill.descriptionLevel4) && (
+      {(skill.descriptionLevel2 ||
+        skill.descriptionLevel3 ||
+        skill.descriptionLevel4) && (
         <div className="dollpage-skill-tabs">
           {[1, 2, 3, 4]
             .filter((lv) => descriptions[lv - 1])
@@ -80,9 +78,7 @@ function SkillSection({ skill }: { skill: Skill }) {
               <button
                 key={lv}
                 type="button"
-                className={
-                  'pill-toggle' + (level === lv ? ' on' : '')
-                }
+                className={'pill-toggle' + (level === lv ? ' on' : '')}
                 aria-pressed={level === lv}
                 onClick={() => setLevel(lv)}
               >
@@ -101,9 +97,7 @@ function SkillSection({ skill }: { skill: Skill }) {
         {skill.stabilityDamage != null && (
           <span>Stability: {skill.stabilityDamage}</span>
         )}
-        {skill.cooldown != null && (
-          <span>Cooldown: {skill.cooldown}</span>
-        )}
+        {skill.cooldown != null && <span>Cooldown: {skill.cooldown}</span>}
         {skill.rangeValue != null && (
           <span>
             Range: {skill.rangeValue}
@@ -155,7 +149,10 @@ export function DollPage({ slug }: { slug: string | null }) {
       <div className="app dollpage">
         <h1>Doll not found</h1>
         <p className="muted">
-          <a href={hrefFor('characters')} onClick={onSpaLinkClick(hrefFor('characters'))}>
+          <a
+            href={hrefFor('characters')}
+            onClick={onSpaLinkClick(hrefFor('characters'))}
+          >
             ← Back to characters
           </a>
         </p>
@@ -172,7 +169,10 @@ export function DollPage({ slug }: { slug: string | null }) {
     <div className="app dollpage">
       {/* Breadcrumb */}
       <nav className="dollpage-breadcrumb">
-        <a href={hrefFor('characters')} onClick={onSpaLinkClick(hrefFor('characters'))}>
+        <a
+          href={hrefFor('characters')}
+          onClick={onSpaLinkClick(hrefFor('characters'))}
+        >
           Characters
         </a>
         {' › '}
@@ -185,7 +185,9 @@ export function DollPage({ slug }: { slug: string | null }) {
           {doll.avatarUrl ? (
             <img src={doll.avatarUrl} alt={doll.name} loading="lazy" />
           ) : (
-            <div className="portrait-empty" aria-hidden="true">?</div>
+            <div className="portrait-empty" aria-hidden="true">
+              ?
+            </div>
           )}
         </div>
         <div className="dollpage-info">
@@ -223,9 +225,7 @@ export function DollPage({ slug }: { slug: string | null }) {
               </span>
             )}
             {doll.movement != null && (
-              <span className="dollpage-ident-pill">
-                Move: {doll.movement}
-              </span>
+              <span className="dollpage-ident-pill">Move: {doll.movement}</span>
             )}
             {doll.stabilityGauge != null && (
               <span className="dollpage-ident-pill">
@@ -236,9 +236,7 @@ export function DollPage({ slug }: { slug: string | null }) {
               <span className="dollpage-ident-pill cn">CN</span>
             )}
             {doll.preview && (
-              <span className="dollpage-ident-pill preview">
-                Unreleased
-              </span>
+              <span className="dollpage-ident-pill preview">Unreleased</span>
             )}
           </div>
         </div>
@@ -266,9 +264,7 @@ export function DollPage({ slug }: { slug: string | null }) {
             {dollKeys.map((key) => (
               <div key={key.id} className="dollpage-key-card">
                 <h3>{key.displayTitle ?? key.keyTitle ?? 'Key'}</h3>
-                {key.keyType && (
-                  <span className="muted">{key.keyType}</span>
-                )}
+                {key.keyType && <span className="muted">{key.keyType}</span>}
                 {key.attributes && key.attributes.length > 0 && (
                   <ul>
                     {key.attributes.map((attr, i) => (
@@ -280,9 +276,7 @@ export function DollPage({ slug }: { slug: string | null }) {
                 )}
                 {key.effect && (
                   <p>
-                    <RenderText
-                      segments={resolveEffectMarkers(key.effect)}
-                    />
+                    <RenderText segments={resolveEffectMarkers(key.effect)} />
                   </p>
                 )}
               </div>

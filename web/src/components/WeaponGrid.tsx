@@ -185,9 +185,7 @@ function FilterRow({ label, options, selected, onToggle }: FilterRowProps) {
           <button
             key={opt.id}
             type="button"
-            className={
-              'pill-toggle' + (selected.has(opt.id) ? ' on' : '')
-            }
+            className={'pill-toggle' + (selected.has(opt.id) ? ' on' : '')}
             aria-pressed={selected.has(opt.id)}
             onClick={() => onToggle(opt.id)}
           >
@@ -257,11 +255,7 @@ export function WeaponFilters({
         />
 
         {anyActive && (
-          <button
-            type="button"
-            className="dollfilter-clear"
-            onClick={clearAll}
-          >
+          <button type="button" className="dollfilter-clear" onClick={clearAll}>
             Clear all
           </button>
         )}
@@ -294,11 +288,7 @@ export function WeaponCards({ weapons }: { weapons: Weapon[] }) {
           >
             <div className="weaponcard-img">
               {w.imageUrl ? (
-                <img
-                  src={w.imageUrl}
-                  alt={w.name}
-                  loading="lazy"
-                />
+                <img src={w.imageUrl} alt={w.name} loading="lazy" />
               ) : (
                 <div className="portrait-empty" aria-hidden="true">
                   ?
@@ -321,8 +311,7 @@ export function WeaponCards({ weapons }: { weapons: Weapon[] }) {
             {w.rarity && (
               <span
                 className={
-                  'dollcard-badge' +
-                  (w.rarity === 'Elite' ? ' elite' : '')
+                  'dollcard-badge' + (w.rarity === 'Elite' ? ' elite' : '')
                 }
               >
                 {w.rarity}

@@ -5,7 +5,7 @@
     "module": "NodeNext",
     "moduleResolution": "NodeNext",
     "lib": ["ES2022"],
-    "outDir": "./dist",
+    "outDir": "./dist-server",
     "rootDir": "./src",
     "strict": true,
     "noUncheckedIndexedAccess": true,

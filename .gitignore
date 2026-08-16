@@ -3,6 +3,7 @@ node_modules/
 
 # builds
 dist/
+dist-server/
 build/
 *.tsbuildinfo
 

@@ -130,7 +130,9 @@ async function main(): Promise<void> {
       .slice(0, topN);
     console.log(`\n=== ${title} (top ${rows.length}) ===`);
     for (const [key, g] of rows) {
-      console.log(`  ${String(g.count).padStart(3)}× ${g.effects.size}eff  ${key || '(sentence starts with marker)'}`);
+      console.log(
+        `  ${String(g.count).padStart(3)}× ${g.effects.size}eff  ${key || '(sentence starts with marker)'}`
+      );
       console.log(`        e.g. ${g.example.slice(0, 120)}`);
     }
   };

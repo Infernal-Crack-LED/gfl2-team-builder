@@ -25,9 +25,9 @@ function slugify(name: string): string {
 }
 
 /** Ensure slugs are unique — append regionTag on collision. */
-function assignSlugs<T extends { name: string; slug?: string; regionTag: string | null }>(
-  rows: T[]
-): (T & { slug: string })[] {
+function assignSlugs<
+  T extends { name: string; slug?: string; regionTag: string | null },
+>(rows: T[]): (T & { slug: string })[] {
   const seen = new Map<string, number>();
   return rows.map((row) => {
     let slug = slugify(row.name);
@@ -95,7 +95,11 @@ export async function exportJson(): Promise<void> {
     ),
     writeFile(
       join(DATA_DIR, 'attachment-sets.json'),
-      JSON.stringify({ syncedAt: now, attachmentSets: attachmentSetsOut }, null, 2) + '\n'
+      JSON.stringify(
+        { syncedAt: now, attachmentSets: attachmentSetsOut },
+        null,
+        2
+      ) + '\n'
     ),
   ]);
 

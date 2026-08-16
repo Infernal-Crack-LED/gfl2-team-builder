@@ -73,7 +73,7 @@ function parseSetEffects(html: string): WikiAttachmentSet[] {
 
     const afterStrong = inner.slice(dashIdx + '</strong>'.length);
     const description = decodeHtmlEntities(
-      stripTags(afterStrong.replace(/^\s*-\s*/, '')),
+      stripTags(afterStrong.replace(/^\s*-\s*/, ''))
     ).trim();
 
     results.push({

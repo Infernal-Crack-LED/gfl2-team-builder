@@ -173,7 +173,9 @@ for (const entry of matrixEffects) {
   }
 }
 
-export function getMatrixEffect(effectId: string): MatrixEffectJson | undefined {
+export function getMatrixEffect(
+  effectId: string
+): MatrixEffectJson | undefined {
   return matrixByEffectId.get(effectId);
 }
 
@@ -400,7 +402,9 @@ export function computeTeamEffects(
           // An effect references this one — attribute to whoever carries it
           const carrierId = edge.effectId;
           const carrierName =
-            effectNameById.get(carrierId) ?? edge.effectName ?? 'unknown effect';
+            effectNameById.get(carrierId) ??
+            edge.effectName ??
+            'unknown effect';
           const carriers = members.filter(
             (m) =>
               (matrixByEffectId.get(carrierId)?.exclusiveDollId ?? null) ===

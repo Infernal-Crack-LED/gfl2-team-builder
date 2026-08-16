@@ -50,19 +50,15 @@ async function request<T>(
 }
 
 /** Fetch all paginated results from an endpoint (walks hasNext). */
-async function requestAll<T>(
-  path: string,
-  limit = 1000
-): Promise<T[]> {
+async function requestAll<T>(path: string, limit = 1000): Promise<T[]> {
   const all: T[] = [];
   let page = 1;
   let hasNext = true;
 
   while (hasNext) {
-    const res = await fetch(
-      `${BASE_URL}${path}?page=${page}&limit=${limit}`,
-      { headers: HEADERS }
-    );
+    const res = await fetch(`${BASE_URL}${path}?page=${page}&limit=${limit}`, {
+      headers: HEADERS,
+    });
     if (!res.ok) {
       const body = await res.text();
       throw new Error(`API ${res.status} ${path}: ${body}`);

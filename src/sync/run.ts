@@ -9,7 +9,14 @@
 
 import { sql } from 'drizzle-orm';
 import { db } from '../db/index.js';
-import { attachmentSets, dolls, effects, gfl2SyncRuns, keys, weapons } from '../db/schema.js';
+import {
+  attachmentSets,
+  dolls,
+  effects,
+  gfl2SyncRuns,
+  keys,
+  weapons,
+} from '../db/schema.js';
 import {
   client,
   type DollDetail,
@@ -332,7 +339,12 @@ export async function runSync(trigger?: string): Promise<SyncSummary> {
   const errors: string[] = [];
 
   console.log('Fetching dolls list...');
-  const dollList = await guarded('dolls-list', errors, () => client.fetchDolls(), []);
+  const dollList = await guarded(
+    'dolls-list',
+    errors,
+    () => client.fetchDolls(),
+    []
+  );
 
   console.log(`Fetching ${dollList.length} doll details...`);
   const dollDetails: DollDetail[] = [];
@@ -350,12 +362,13 @@ export async function runSync(trigger?: string): Promise<SyncSummary> {
   }
 
   console.log('Fetching weapons, keys, effects, attachment sets...');
-  const [weaponList, keyList, effectList, attachmentSetList] = await Promise.all([
-    guarded('weapons', errors, () => client.fetchWeapons(), []),
-    guarded('keys', errors, () => client.fetchKeys(), []),
-    guarded('effects', errors, () => client.fetchEffects(), []),
-    guarded('attachment-sets', errors, () => fetchAttachmentSets(), []),
-  ]);
+  const [weaponList, keyList, effectList, attachmentSetList] =
+    await Promise.all([
+      guarded('weapons', errors, () => client.fetchWeapons(), []),
+      guarded('keys', errors, () => client.fetchKeys(), []),
+      guarded('effects', errors, () => client.fetchEffects(), []),
+      guarded('attachment-sets', errors, () => fetchAttachmentSets(), []),
+    ]);
 
   console.log('Normalizing...');
   const normalizedDolls = dollDetails.map(normalizeDoll);
@@ -367,14 +380,24 @@ export async function runSync(trigger?: string): Promise<SyncSummary> {
     `Upserting: ${normalizedDolls.length} dolls, ${normalizedWeapons.length} weapons, ${normalizedKeys.length} keys, ${normalizedEffects.length} effects, ${attachmentSetList.length} attachment sets`
   );
 
-  await guarded('upsert-dolls', errors, () => upsertDolls(normalizedDolls), undefined);
+  await guarded(
+    'upsert-dolls',
+    errors,
+    () => upsertDolls(normalizedDolls),
+    undefined
+  );
   await guarded(
     'upsert-weapons',
     errors,
     () => upsertWeapons(normalizedWeapons),
     undefined
   );
-  await guarded('upsert-keys', errors, () => upsertKeys(normalizedKeys), undefined);
+  await guarded(
+    'upsert-keys',
+    errors,
+    () => upsertKeys(normalizedKeys),
+    undefined
+  );
   await guarded(
     'upsert-effects',
     errors,

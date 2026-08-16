@@ -44,6 +44,6 @@ export default tseslint.config(
     },
   },
   {
-    ignores: ['**/dist/**/*', '**/drizzle/**/*'],
+    ignores: ['**/dist/**/*', '**/dist-server/**/*', '**/drizzle/**/*'],
   }
 );
