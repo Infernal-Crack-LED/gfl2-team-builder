@@ -7,7 +7,13 @@
  * dpr 2 by node/render.ts.
  */
 import { fitText, roundRect, type Canvas2DLike } from './canvas2d.js';
-import { COLORS, FONT, drawBrandMark, footerNote } from './theme.js';
+import {
+  CARD_WORDMARK,
+  COLORS,
+  FONT,
+  drawBrandMark,
+  phaseAccent,
+} from './theme.js';
 
 export const TEAM_CARD_W = 1040;
 
@@ -20,6 +26,8 @@ const PORTRAIT = 64;
 export interface TeamCardSlot {
   dollName: string;
   weaponName: string | null;
+  /** Element, used to tint this doll's band of the top accent stripe. */
+  dollPhase?: string | null;
   /** Square-cropped portrait canvas (opaque to the core), or null. */
   portrait: unknown | null;
 }
@@ -38,8 +46,23 @@ export function drawTeamCard(
   const h = cardHeight(slots.length);
   ctx.fillStyle = COLORS.bg;
   ctx.fillRect(0, 0, TEAM_CARD_W, h);
-  ctx.fillStyle = COLORS.accent;
-  ctx.fillRect(0, 0, TEAM_CARD_W, 6);
+  // Accent stripe: one equal band per doll, in that doll's element color, so
+  // the squad's elemental spread reads off the top edge. An empty squad keeps
+  // a single site-accent bar.
+  if (slots.length === 0) {
+    ctx.fillStyle = COLORS.accent;
+    ctx.fillRect(0, 0, TEAM_CARD_W, 6);
+  } else {
+    const band = TEAM_CARD_W / slots.length;
+    slots.forEach((slot, i) => {
+      ctx.fillStyle = phaseAccent(slot.dollPhase);
+      // Last band runs to the edge — float division must not leave a seam.
+      const x = Math.round(i * band);
+      const end =
+        i === slots.length - 1 ? TEAM_CARD_W : Math.round((i + 1) * band);
+      ctx.fillRect(x, 0, end - x, 6);
+    });
+  }
 
   // Header
   ctx.fillStyle = COLORS.text;
@@ -100,6 +123,6 @@ export function drawTeamCard(
   ctx.fillStyle = COLORS.muted;
   ctx.font = `400 13px ${FONT}`;
   ctx.globalAlpha = 0.8;
-  ctx.fillText(footerNote(), 60, h - 12);
+  ctx.fillText(CARD_WORDMARK, 60, h - 12);
   ctx.globalAlpha = 1;
 }

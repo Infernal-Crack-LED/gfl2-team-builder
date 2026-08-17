@@ -9,7 +9,7 @@
  */
 import { useCallback, useRef, useState } from 'react';
 import { toPng } from 'html-to-image';
-import { assetUrl } from '../data';
+import { assetUrl, PHASE_COLORS } from '../data';
 
 export interface BuildCardPreviewData {
   dollName: string | null;
@@ -17,16 +17,24 @@ export interface BuildCardPreviewData {
   dollPhase: string | null;
   dollRarity: string | null;
   weaponName: string | null;
-  keyNames: string[];
+  /** Weapon art URL, drawn inline with the name. */
+  weaponImageUrl: string | null;
+  /** Fixed key SLOT numbers (1–6) — the card names slots, not titles. */
+  fixedKeySlots: number[];
+  /** Common keys, labelled by their source doll (see share/keyLabels.ts). */
+  commonKeySources: string[];
+  expansionKeyName: string | null;
   vert: number[];
   portraitUrl: string | null;
   refinement: number | null;
   statPrefs: string[];
-  commonKeyNames: string[];
 }
 
-const SITE_NAME = 'GFL2 Team Builder';
-const FOOTER_NOTE = 'GFL2 Team Builder';
+/** Cards are stamped with the DOMAIN — mirrors CARD_WORDMARK in core/theme.ts. */
+const CARD_WORDMARK = 'refittingroom.app';
+
+/** Site accent, the fallback tint for an unknown/missing element. */
+const SITE_ACCENT = '#5b9dff';
 
 export function BuildCardPreview({ data }: { data: BuildCardPreviewData }) {
   const cardRef = useRef<HTMLDivElement>(null);
@@ -57,17 +65,39 @@ export function BuildCardPreview({ data }: { data: BuildCardPreviewData }) {
     .filter((p): p is string => typeof p === 'string' && p.length > 0)
     .join(' · ');
 
+  // The card is tinted by the doll's element; the brand mark keeps the site
+  // accent, since it identifies the site rather than the build.
+  const accent = PHASE_COLORS[data.dollPhase ?? ''] ?? SITE_ACCENT;
+
+  const activeVert = data.vert
+    .filter((s) => s >= 1 && s <= 6)
+    .sort((a, b) => a - b);
+
+  const keyRows: { title: string; value: string }[] = [
+    {
+      title: 'Fixed',
+      value:
+        data.fixedKeySlots.length > 0 ? data.fixedKeySlots.join(', ') : '—',
+    },
+  ];
+  if (data.commonKeySources.length > 0) {
+    keyRows.push({ title: 'Common', value: data.commonKeySources.join(', ') });
+  }
+  if (data.expansionKeyName) {
+    keyRows.push({ title: 'Expansion Key', value: data.expansionKeyName });
+  }
+
   return (
     <div className="card-preview-wrapper">
       <div className="card-preview-scale">
         <div ref={cardRef} className="build-card">
-          {/* Accent stripe */}
-          <div className="build-card-stripe" />
+          {/* Accent stripe — the doll's element color */}
+          <div className="build-card-stripe" style={{ background: accent }} />
 
           {/* Brand mark — wordmark + the shared site icon, mirroring
               core/theme.ts drawBrandMark on the server side. */}
           <div className="build-card-mark">
-            <span className="build-card-brand">{SITE_NAME}</span>
+            <span className="build-card-brand">{CARD_WORDMARK}</span>
             <img
               className="card-mark-icon"
               src="/nikkesim-icon.png"
@@ -100,62 +130,83 @@ export function BuildCardPreview({ data }: { data: BuildCardPreviewData }) {
             <h2 className="build-card-name">{data.dollName ?? '—'}</h2>
             <p className="build-card-subtitle">{subtitle || '—'}</p>
 
-            {/* Weapon */}
+            {/* Weapon — art, name and refinement on one row */}
             <div className="build-card-section">
               <span className="build-card-label">WEAPON</span>
               <div className="build-card-panel">
+                {data.weaponImageUrl && (
+                  <img
+                    className="build-card-weapon-art"
+                    src={assetUrl(data.weaponImageUrl)}
+                    alt=""
+                    crossOrigin="anonymous"
+                  />
+                )}
                 <span className="build-card-value">
                   {data.weaponName ?? '—'}
                 </span>
+                {data.refinement != null && (
+                  <span
+                    className="build-card-refinement"
+                    style={{ color: accent }}
+                  >
+                    R{data.refinement}
+                  </span>
+                )}
               </div>
             </div>
 
-            {/* Keys */}
+            {/* Keys — title/value rows, title in the element accent */}
             <div className="build-card-section">
               <span className="build-card-label">KEYS</span>
-              <p className="build-card-keys">
-                {data.keyNames.length > 0 ? data.keyNames.join(' · ') : 'None'}
-              </p>
-            </div>
-
-            {/* Vertebrae */}
-            <div className="build-card-section">
-              <span className="build-card-label">VERTEBRAE</span>
-              <div className="build-card-chips">
-                {[1, 2, 3, 4, 5, 6].map((seg) => (
-                  <span
-                    key={seg}
-                    className={
-                      'build-card-chip' + (data.vert.includes(seg) ? ' on' : '')
-                    }
-                  >
-                    V{seg}
-                  </span>
+              <div className="build-card-keyrows">
+                {keyRows.map((row) => (
+                  <p key={row.title} className="build-card-keyrow">
+                    <span
+                      className="build-card-keyrow-title"
+                      style={{ color: accent }}
+                    >
+                      {row.title}
+                    </span>
+                    <span className="build-card-keyrow-value">{row.value}</span>
+                  </p>
                 ))}
               </div>
             </div>
 
-            {/* Extras line: refinement, stat prefs, common keys */}
-            {(() => {
-              const parts: string[] = [];
-              if (data.refinement) {
-                parts.push(`Ref: R${data.refinement}`);
-              }
-              if (data.statPrefs.length > 0) {
-                parts.push(`Stats: ${data.statPrefs.join(' > ')}`);
-              }
-              if (data.commonKeyNames.length > 0) {
-                parts.push(`CK: ${data.commonKeyNames.join(', ')}`);
-              }
-              if (parts.length === 0) {
-                return null;
-              }
-              return <p className="build-card-extras">{parts.join('  ·  ')}</p>;
-            })()}
-          </div>
+            {/* Vertebrae — only the selected segments */}
+            <div className="build-card-section">
+              <span className="build-card-label">VERTEBRAE</span>
+              {activeVert.length === 0 ? (
+                <p className="build-card-plain muted-value">—</p>
+              ) : (
+                <div className="build-card-chips">
+                  {activeVert.map((seg) => (
+                    <span
+                      key={seg}
+                      className="build-card-chip on"
+                      style={{ background: accent }}
+                    >
+                      V{seg}
+                    </span>
+                  ))}
+                </div>
+              )}
+            </div>
 
-          {/* Footer */}
-          <span className="build-card-footer">{FOOTER_NOTE}</span>
+            {/* Stats — priority order */}
+            <div className="build-card-section">
+              <span className="build-card-label">STATS</span>
+              <p
+                className={
+                  'build-card-plain' +
+                  (data.statPrefs.length === 0 ? ' muted-value' : '')
+                }
+              >
+                {data.statPrefs.length > 0 ? data.statPrefs.join(' > ') : '—'}
+              </p>
+            </div>
+          </div>
         </div>
       </div>
 

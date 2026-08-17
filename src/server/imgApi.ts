@@ -40,8 +40,15 @@ import {
   renderBuildCardPng,
   renderTeamCardPng,
 } from '../infographics/node/render.js';
-import { loadPortrait } from '../infographics/node/portraits.js';
-import { getDoll, getKey, getWeapon, keyDisplayName } from './gameData.js';
+import { loadArt, loadPortrait } from '../infographics/node/portraits.js';
+import { commonKeySource, fixedKeySlot } from '../share/keyLabels.js';
+import {
+  getDoll,
+  getDollById,
+  getKey,
+  getWeapon,
+  keyDisplayName,
+} from './gameData.js';
 import { PUBLIC_KINDS, PUBLIC_PROFILE_ID_RE } from './publicShare.js';
 
 const CACHE_DIR = path.resolve('render-cache');
@@ -150,33 +157,43 @@ async function renderPayload(
     const b = build as DollBuild;
     const doll = getDoll(b.doll); // validated before render
     const weapon = b.weapon !== null ? getWeapon(b.weapon) : undefined;
-    const portrait = await loadPortrait(doll?.avatarUrl);
-    const commonKeyNames = (b.ck ?? [])
+    const [portrait, weaponImage] = await Promise.all([
+      loadPortrait(doll?.avatarUrl),
+      loadArt(weapon?.imageUrl),
+    ]);
+    // Common keys are named by the doll they come from; the generics (no
+    // source doll) name themselves. See share/keyLabels.ts.
+    const commonKeySources = (b.ck ?? [])
       .map((id) => getKey(id))
       .filter((k) => k !== undefined)
-      .map(keyDisplayName);
-    const keyNames = b.keys
+      .map((k) => commonKeySource(k, getDollById(k.dollId)?.name ?? null));
+    // Fixed keys show as slot NUMBERS ("Fixed 1, 3, 5"); a key whose title
+    // carries no parseable slot is dropped rather than shown untitled.
+    const fixedKeySlots = b.keys
       .map((id) => getKey(id))
       .filter((k) => k !== undefined)
-      .map(keyDisplayName);
+      .map(fixedKeySlot)
+      .filter((n): n is number => n !== null)
+      .sort((x, y) => x - y);
     // Expansion key is stored separately (outside the fixed-key cap).
-    if (b.exp) {
-      const expKey = getKey(b.exp);
-      if (expKey) {
-        keyNames.push(keyDisplayName(expKey));
-      }
-    }
+    const expKey = b.exp ? getKey(b.exp) : undefined;
     return renderBuildCardPng({
       dollName: doll?.name ?? null,
       dollClass: doll?.class ?? null,
       dollPhase: doll?.phase ?? null,
       dollRarity: doll?.rarity ?? null,
       weaponName: weapon?.name ?? null,
-      keyNames,
+      weaponImage,
+      fixedKeySlots,
+      commonKeySources,
+      // keyTitle, not keyDisplayName: the row is already labelled "Expansion
+      // Key", so the value must not repeat it.
+      expansionKeyName: expKey
+        ? (expKey.keyTitle ?? keyDisplayName(expKey))
+        : null,
       vert: b.vert,
       refinement: b.cal ?? null,
       statPrefs: b.stats ?? [],
-      commonKeyNames,
       portrait,
     });
   }
@@ -189,6 +206,7 @@ async function renderPayload(
       return {
         dollName: doll?.name ?? s.d,
         weaponName: weapon?.name ?? null,
+        dollPhase: doll?.phase ?? null,
         portrait: await loadPortrait(doll?.avatarUrl),
       };
     })

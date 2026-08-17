@@ -19,7 +19,15 @@ import sharp from 'sharp';
 import { PORTRAIT_CROP_TOP } from '../core/canvas2d.js';
 
 const PORTRAIT_PX = 512; // decoded edge length (drawn down to 440/64)
+const ART_PX = 256; // longest edge for uncropped art (drawn down to ~52)
 const CACHE_MAX = 256;
+
+/**
+ * How a source image is fitted at decode time. `portrait` square-crops for the
+ * portrait boxes; `art` preserves the aspect ratio for images the renderer
+ * contain-fits (weapon banners).
+ */
+type DecodeMode = 'portrait' | 'art';
 const FETCH_UA =
   'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0 Safari/537.36';
 const FETCH_TIMEOUT_MS = 10_000;
@@ -41,7 +49,10 @@ function lruSet(key: string, value: Promise<unknown | null>): void {
   }
 }
 
-async function fetchAndDecode(imageUrl: string): Promise<unknown | null> {
+async function fetchAndDecode(
+  imageUrl: string,
+  mode: DecodeMode
+): Promise<unknown | null> {
   try {
     const res = await fetch(imageUrl, {
       headers: { 'User-Agent': FETCH_UA, Accept: 'image/*' },
@@ -58,16 +69,27 @@ async function fetchAndDecode(imageUrl: string): Promise<unknown | null> {
     if (w <= 0 || h <= 0) {
       return null;
     }
-    // Square crop, vertically anchored at PORTRAIT_CROP_TOP of the overflow —
-    // the canvas stand-in for CSS `object-fit: cover; object-position: center
-    // var(--portrait-crop-top)`. Landscape sources crop horizontally centered.
-    const side = Math.min(w, h);
-    const left = w > side ? Math.round((w - side) / 2) : 0;
-    const top = h > side ? Math.round((h - side) * PORTRAIT_CROP_TOP) : 0;
+    let pipeline = sharp(input);
+    if (mode === 'portrait') {
+      // Square crop, vertically anchored at PORTRAIT_CROP_TOP of the overflow —
+      // the canvas stand-in for CSS `object-fit: cover; object-position: center
+      // var(--portrait-crop-top)`. Landscape sources crop horizontally centered.
+      const side = Math.min(w, h);
+      const left = w > side ? Math.round((w - side) / 2) : 0;
+      const top = h > side ? Math.round((h - side) * PORTRAIT_CROP_TOP) : 0;
+      pipeline = pipeline
+        .extract({ left, top, width: side, height: side })
+        .resize(PORTRAIT_PX, PORTRAIT_PX);
+    } else {
+      // Art (weapon banners): no crop — the renderer contain-fits it, so the
+      // aspect ratio must survive the decode. `fit: inside` never upscales.
+      pipeline = pipeline.resize(ART_PX, ART_PX, {
+        fit: 'inside',
+        withoutEnlargement: true,
+      });
+    }
 
-    const { data, info } = await sharp(input)
-      .extract({ left, top, width: side, height: side })
-      .resize(PORTRAIT_PX, PORTRAIT_PX)
+    const { data, info } = await pipeline
       .ensureAlpha()
       .raw()
       .toBuffer({ resolveWithObject: true });
@@ -89,6 +111,28 @@ async function fetchAndDecode(imageUrl: string): Promise<unknown | null> {
   }
 }
 
+function load(
+  imageUrl: string | null | undefined,
+  mode: DecodeMode
+): Promise<unknown | null> {
+  if (!imageUrl) {
+    return Promise.resolve(null);
+  }
+  // Mode is part of the cache key: the same URL decoded two ways is two
+  // different images.
+  const cacheKey = `${mode}:${imageUrl}`;
+  const cached = cache.get(cacheKey);
+  if (cached) {
+    // Refresh recency.
+    cache.delete(cacheKey);
+    cache.set(cacheKey, cached);
+    return cached;
+  }
+  const pending = fetchAndDecode(imageUrl, mode);
+  lruSet(cacheKey, pending);
+  return pending;
+}
+
 /**
  * Load a doll portrait for rendering. Returns null on ANY failure (network,
  * decode, bad URL) — never throws.
@@ -96,17 +140,15 @@ async function fetchAndDecode(imageUrl: string): Promise<unknown | null> {
 export function loadPortrait(
   imageUrl: string | null | undefined
 ): Promise<unknown | null> {
-  if (!imageUrl) {
-    return Promise.resolve(null);
-  }
-  const cached = cache.get(imageUrl);
-  if (cached) {
-    // Refresh recency.
-    cache.delete(imageUrl);
-    cache.set(imageUrl, cached);
-    return cached;
-  }
-  const pending = fetchAndDecode(imageUrl);
-  lruSet(imageUrl, pending);
-  return pending;
+  return load(imageUrl, 'portrait');
+}
+
+/**
+ * Load uncropped art (weapon banners) for rendering. Same never-throws
+ * contract as loadPortrait — a dead URL just leaves the slot empty.
+ */
+export function loadArt(
+  imageUrl: string | null | undefined
+): Promise<unknown | null> {
+  return load(imageUrl, 'art');
 }

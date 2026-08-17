@@ -16,6 +16,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import {
   allWeapons,
   getAllCommonKeys,
+  getDollById,
   getDollBySlug,
   getKeysForDoll,
   getVertebraeForDoll,
@@ -41,6 +42,7 @@ import {
   shareProfileName,
   type DollBuild,
 } from '../../src/share/buildCode';
+import { commonKeySource, fixedKeySlot } from '../../src/share/keyLabels';
 import { BUILD_KIND, saveProfile, useAuth } from './auth';
 import { SaveProfileControl } from './components/SaveProfileControl';
 import {
@@ -456,39 +458,42 @@ export function DollBuilder({
   // Build card preview data — derived from current build state.
   const [showPreview, setShowPreview] = useState(false);
   const cardPreviewData = useMemo(() => {
-    const keyNames = [
-      ...build.keys
-        .map((id) => {
-          const k = dollKeys.find((dk) => dk.id === id);
-          return k?.displayTitle ?? k?.keyTitle ?? null;
-        })
-        .filter((n): n is string => n != null),
-    ];
-    if (build.expansionKey) {
-      const ek = dollKeys.find((dk) => dk.id === build.expansionKey);
-      const name = ek?.displayTitle ?? ek?.keyTitle ?? null;
-      if (name) {
-        keyNames.push(name);
-      }
-    }
-    const commonKeyNames = build.commonKeys
-      .map((id) => {
-        const k = commonKeys.find((ck) => ck.id === id);
-        return k?.displayTitle ?? k?.keyTitle ?? null;
-      })
-      .filter((n): n is string => n != null);
+    // Fixed keys read as slot NUMBERS on the card; a key whose title carries
+    // no parseable slot is dropped rather than shown untitled.
+    const fixedKeySlots = build.keys
+      .map((id) => dollKeys.find((dk) => dk.id === id))
+      .filter((k): k is Key => k !== undefined)
+      .map(fixedKeySlot)
+      .filter((n): n is number => n !== null)
+      .sort((a, b) => a - b);
+    const expKey = build.expansionKey
+      ? dollKeys.find((dk) => dk.id === build.expansionKey)
+      : undefined;
     return {
       dollName: doll.name,
       dollClass: doll.class,
       dollPhase: doll.phase,
       dollRarity: doll.rarity,
       weaponName: selectedWeapon?.name ?? null,
-      keyNames,
+      weaponImageUrl: selectedWeapon?.imageUrl ?? null,
+      fixedKeySlots,
+      // Common keys are named by the doll they come from; the generics (no
+      // source doll) name themselves.
+      commonKeySources: build.commonKeys
+        .map((id) => commonKeys.find((ck) => ck.id === id))
+        .filter((k): k is Key => k !== undefined)
+        .map((k) =>
+          commonKeySource(k, getDollById(k.dollId ?? '')?.name ?? null)
+        ),
+      // keyTitle, not the display title: the row is already labelled
+      // "Expansion Key", so the value must not repeat it.
+      expansionKeyName: expKey
+        ? (expKey.keyTitle ?? expKey.displayTitle ?? null)
+        : null,
       vert: build.vert,
       portraitUrl: doll.avatarUrl,
       refinement: build.refinement,
       statPrefs: build.statPrefs,
-      commonKeyNames,
     };
   }, [doll, build, dollKeys, commonKeys, selectedWeapon]);
 

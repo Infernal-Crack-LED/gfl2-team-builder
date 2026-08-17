@@ -11,7 +11,9 @@
  */
 import { createHash } from 'node:crypto';
 
-export const RENDERER_VERSION = 1;
+// 2: element-tinted accent, weapon art + R level, slot-numbered keys, stats
+//    header, no footer note, refittingroom.app wordmark.
+export const RENDERER_VERSION = 2;
 
 export type RenderKind = 'build' | 'team';
 

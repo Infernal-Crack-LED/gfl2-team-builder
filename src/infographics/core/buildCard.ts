@@ -5,9 +5,20 @@
  * dpr 2 (2400×1260 physical). ALL geometry is fixed constants: missing data
  * degrades to a muted "—" in its slot and never reflows or throws, so a
  * half-known build still produces a well-formed card.
+ *
+ * The card is tinted by the doll's ELEMENT (phase): the top stripe and the
+ * selected-vertebra chip take `phaseAccent(dollPhase)`, so a Burn doll reads
+ * red and a Freeze doll cyan at a glance. The brand mark keeps the site
+ * accent — it identifies the site, not the build.
  */
-import { fitText, roundRect, wrapText, type Canvas2DLike } from './canvas2d.js';
-import { COLORS, FONT, drawBrandMark, footerNote } from './theme.js';
+import {
+  fitText,
+  imageSize,
+  roundRect,
+  drawContained,
+  type Canvas2DLike,
+} from './canvas2d.js';
+import { COLORS, FONT, drawBrandMark, phaseAccent } from './theme.js';
 
 export const BUILD_CARD_W = 1200;
 export const BUILD_CARD_H = 630;
@@ -19,14 +30,20 @@ export interface BuildCardData {
   dollPhase: string | null;
   dollRarity: string | null;
   weaponName: string | null;
-  keyNames: string[]; // up to 6 shown
-  vert: number[]; // active vertebra segments (1-6) → "V1 V2 …" chips
+  /** Weapon art, drawn inline with the name (opaque to the core), or null. */
+  weaponImage?: unknown | null;
   /** Weapon refinement level 1–6, or null. */
   refinement: number | null;
+  /** Fixed key SLOT numbers (1–6) — cards name the slots, not the titles. */
+  fixedKeySlots: number[];
+  /** Common keys, labelled by their source doll (see share/keyLabels.ts). */
+  commonKeySources: string[];
+  /** Expansion key display name, or null when none is equipped. */
+  expansionKeyName: string | null;
+  /** Active vertebra segments (1-6); only these are drawn. */
+  vert: number[];
   /** Ordered stat preference labels (up to 4), or empty. */
   statPrefs: string[];
-  /** Common key display names (up to 3), or empty. */
-  commonKeyNames: string[];
   /** Square-cropped portrait canvas (opaque to the core), or null. */
   portrait: unknown | null;
   /** Shared site-icon image for the brand mark (opaque to the core), or null. */
@@ -34,7 +51,6 @@ export interface BuildCardData {
 }
 
 const MUTED_PLACEHOLDER = '—';
-const MAX_KEYS_SHOWN = 6;
 
 /** Two-fill border (no stroke API — see canvas2d.ts). */
 function borderedRoundRect(
@@ -75,12 +91,39 @@ function groupLabel(
   ctx.fillText(label.toUpperCase(), x, y);
 }
 
+/**
+ * A "<title> <value>" row inside a group: the title takes the card's element
+ * accent, the value the normal text color, so the two read apart without a
+ * second font size. The value shrinks to fit rather than overrunning the card.
+ */
+function labelledRow(
+  ctx: Canvas2DLike,
+  title: string,
+  value: string,
+  x: number,
+  y: number,
+  maxWidth: number,
+  accent: string
+): void {
+  ctx.textAlign = 'left';
+  ctx.textBaseline = 'alphabetic';
+  ctx.font = `700 20px ${FONT}`;
+  ctx.fillStyle = accent;
+  ctx.fillText(title, x, y);
+  const titleWidth = ctx.measureText(title).width;
+  const vx = x + titleWidth + 12;
+  ctx.fillStyle = COLORS.text;
+  fitText(ctx, value, vx, y, maxWidth - titleWidth - 12, '400', 20, FONT);
+}
+
 export function drawBuildCard(ctx: Canvas2DLike, data: BuildCardData): void {
+  const accent = phaseAccent(data.dollPhase);
+
   // Background
   ctx.fillStyle = COLORS.bg;
   ctx.fillRect(0, 0, BUILD_CARD_W, BUILD_CARD_H);
-  // Accent stripe along the top, matching the site's theme-color.
-  ctx.fillStyle = COLORS.accent;
+  // Accent stripe along the top, in the doll's element color.
+  ctx.fillStyle = accent;
   ctx.fillRect(0, 0, BUILD_CARD_W, 6);
 
   drawBrandMark(ctx, {
@@ -139,87 +182,124 @@ export function drawBuildCard(ctx: Canvas2DLike, data: BuildCardData): void {
     ctx,
     subtitle === '' ? MUTED_PLACEHOLDER : subtitle,
     rx,
-    180,
+    178,
     rw,
     '500',
     22,
     FONT
   );
 
-  // ---- Weapon ----
-  groupLabel(ctx, 'Weapon', rx, 250);
-  borderedRoundRect(ctx, rx, 266, rw, 64, 10, COLORS.panel);
+  // ---- Weapon: art + name + refinement, all on one row ----
+  groupLabel(ctx, 'Weapon', rx, 214);
+  const wpY = 228;
+  const wpH = 80;
+  borderedRoundRect(ctx, rx, wpY, rw, wpH, 10, COLORS.panel);
+  // Weapon art is a 2:1 banner — a square slot would shrink it to a sliver,
+  // so the slot is banner-shaped and the art contain-fits inside it.
+  const artW = 104;
+  const artH = 56;
+  const { w: aw, h: ah } = imageSize(data.weaponImage);
+  const hasArt = Boolean(data.weaponImage) && aw > 0 && ah > 0;
+  if (hasArt) {
+    drawContained(
+      ctx,
+      data.weaponImage,
+      aw,
+      ah,
+      rx + 14,
+      wpY + (wpH - artH) / 2,
+      artW,
+      artH
+    );
+  }
+  const nameX = rx + (hasArt ? 14 + artW + 14 : 20);
+  // The refinement badge is drawn AFTER the name (it hangs off its right
+  // edge), so the name's budget reserves room for it up front.
+  const refText = data.refinement ? `R${data.refinement}` : null;
+  const refBudget = refText ? 60 : 0;
   ctx.fillStyle = data.weaponName ? COLORS.text : COLORS.muted;
+  ctx.textAlign = 'left';
+  ctx.textBaseline = 'alphabetic';
+  const weaponText = data.weaponName ?? MUTED_PLACEHOLDER;
   fitText(
     ctx,
-    data.weaponName ?? MUTED_PLACEHOLDER,
-    rx + 20,
-    306,
-    rw - 40,
+    weaponText,
+    nameX,
+    wpY + 49,
+    rx + rw - 20 - refBudget - nameX,
     '500',
     24,
     FONT
   );
-
-  // ---- Keys (up to 6, one per line) ----
-  groupLabel(ctx, 'Keys', rx, 386);
-  const keys = data.keyNames.slice(0, MAX_KEYS_SHOWN);
-  ctx.font = `400 20px ${FONT}`;
-  if (keys.length === 0) {
-    ctx.fillStyle = COLORS.muted;
-    ctx.fillText('None', rx, 416);
-  } else {
-    ctx.fillStyle = COLORS.text;
-    const lines = wrapText(ctx, keys.join('   ·   '), rw, 3);
-    lines.forEach((line, i) => {
-      ctx.fillText(line, rx, 416 + i * 28);
-    });
+  if (refText) {
+    // fitText leaves ctx.font at the size it settled on, so measuring here
+    // gives the width actually drawn.
+    const drawn = ctx.measureText(weaponText).width;
+    ctx.fillStyle = accent;
+    ctx.font = `700 22px ${FONT}`;
+    ctx.fillText(refText, nameX + drawn + 14, wpY + 49);
   }
 
-  // ---- Vertebrae chips (V1..V6; active = accent, inactive = panel2) ----
-  groupLabel(ctx, 'Vertebrae', rx, 524);
-  const chipY = 540;
+  // ---- Keys: fixed slots, common sources, expansion key ----
+  groupLabel(ctx, 'Keys', rx, 340);
+  const keyRows: [string, string][] = [
+    [
+      'Fixed',
+      data.fixedKeySlots.length > 0
+        ? data.fixedKeySlots.join(', ')
+        : MUTED_PLACEHOLDER,
+    ],
+  ];
+  if (data.commonKeySources.length > 0) {
+    keyRows.push(['Common', data.commonKeySources.join(', ')]);
+  }
+  if (data.expansionKeyName) {
+    keyRows.push(['Expansion Key', data.expansionKeyName]);
+  }
+  keyRows.forEach(([title, value], i) => {
+    labelledRow(ctx, title, value, rx, 372 + i * 30, rw, accent);
+  });
+
+  // ---- Vertebrae: ONLY the selected segments ----
+  groupLabel(ctx, 'Vertebrae', rx, 476);
+  const chipY = 490;
   const chipW = 56;
   const chipH = 36;
-  for (let seg = 1; seg <= 6; seg++) {
-    const cx = rx + (seg - 1) * (chipW + 10);
-    const active = data.vert.includes(seg);
-    ctx.fillStyle = active ? COLORS.accent : COLORS.panel2;
-    roundRect(ctx, cx, chipY, chipW, chipH, 8);
-    ctx.fill();
-    ctx.fillStyle = active ? COLORS.bg : COLORS.muted;
-    ctx.font = `700 18px ${FONT}`;
-    ctx.textAlign = 'center';
-    ctx.textBaseline = 'middle';
-    ctx.fillText(`V${seg}`, cx + chipW / 2, chipY + chipH / 2 + 1);
-    ctx.textAlign = 'left';
-    ctx.textBaseline = 'alphabetic';
-  }
-
-  // ---- Refinement / Stat Prefs / Common Keys (compact line) ----
-  const extras: string[] = [];
-  if (data.refinement) {
-    extras.push(`Ref: R${data.refinement}`);
-  }
-  if (data.statPrefs.length > 0) {
-    extras.push(`Stats: ${data.statPrefs.join(' > ')}`);
-  }
-  if (data.commonKeyNames.length > 0) {
-    extras.push(`CK: ${data.commonKeyNames.join(', ')}`);
-  }
-  if (extras.length > 0) {
+  const active = data.vert
+    .filter((s) => s >= 1 && s <= 6)
+    .sort((a, b) => a - b);
+  if (active.length === 0) {
     ctx.fillStyle = COLORS.muted;
-    ctx.font = `400 16px ${FONT}`;
+    ctx.font = `400 20px ${FONT}`;
     ctx.textAlign = 'left';
     ctx.textBaseline = 'alphabetic';
-    const line = extras.join('  ·  ');
-    ctx.fillText(line, rx, 594);
+    ctx.fillText(MUTED_PLACEHOLDER, rx, chipY + 26);
+  } else {
+    active.forEach((seg, i) => {
+      const cx = rx + i * (chipW + 10);
+      ctx.fillStyle = accent;
+      roundRect(ctx, cx, chipY, chipW, chipH, 8);
+      ctx.fill();
+      ctx.fillStyle = COLORS.bg;
+      ctx.font = `700 18px ${FONT}`;
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(`V${seg}`, cx + chipW / 2, chipY + chipH / 2 + 1);
+    });
+    ctx.textAlign = 'left';
+    ctx.textBaseline = 'alphabetic';
   }
 
-  // ---- Footer ----
-  ctx.fillStyle = COLORS.muted;
-  ctx.font = `400 13px ${FONT}`;
-  ctx.globalAlpha = 0.8;
-  ctx.fillText(footerNote(), 60, BUILD_CARD_H - 24);
-  ctx.globalAlpha = 1;
+  // ---- Stats (priority order) ----
+  groupLabel(ctx, 'Stats', rx, 566);
+  ctx.textAlign = 'left';
+  ctx.textBaseline = 'alphabetic';
+  if (data.statPrefs.length === 0) {
+    ctx.fillStyle = COLORS.muted;
+    ctx.font = `400 20px ${FONT}`;
+    ctx.fillText(MUTED_PLACEHOLDER, rx, 596);
+  } else {
+    ctx.fillStyle = COLORS.text;
+    fitText(ctx, data.statPrefs.join(' > '), rx, 596, rw, '400', 20, FONT);
+  }
 }

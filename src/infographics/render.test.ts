@@ -61,11 +61,13 @@ describe.skipIf(!FONTS_PRESENT)('card renderers (fonts present)', () => {
       dollPhase: 'Freeze',
       dollRarity: 'Elite',
       weaponName: '6P33',
-      keyNames: ['Affinity Key - The Blessed One', "Common Key - Mind's Eye"],
+      weaponImage: null,
+      fixedKeySlots: [1, 3, 5],
+      commonKeySources: ['Suomi', 'Makiatto'],
+      expansionKeyName: 'White Reaper',
       vert: [1, 2, 3],
       refinement: 4,
       statPrefs: ['ATK', 'Crit DMG', 'Crit Rate', 'HP'],
-      commonKeyNames: [],
       portrait: null,
     });
     const ctx2d = ctx as never as Parameters<typeof inkInRegion>[0];
@@ -89,11 +91,13 @@ describe.skipIf(!FONTS_PRESENT)('card renderers (fonts present)', () => {
         dollPhase: null,
         dollRarity: null,
         weaponName: null,
-        keyNames: [],
+        weaponImage: null,
+        fixedKeySlots: [],
+        commonKeySources: [],
+        expansionKeyName: null,
         vert: [],
         refinement: null,
         statPrefs: [],
-        commonKeyNames: [],
         portrait: null,
       })
     ).not.toThrow();

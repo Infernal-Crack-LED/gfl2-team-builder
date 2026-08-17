@@ -657,6 +657,7 @@ export function TeamBuilderPage() {
                 weaponName: s.build.weapon
                   ? (getWeaponById(s.build.weapon)?.name ?? null)
                   : null,
+                dollPhase: s.doll.phase,
                 portraitUrl: s.doll.avatarUrl,
               }))}
           />

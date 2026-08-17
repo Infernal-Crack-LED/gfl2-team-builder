@@ -110,6 +110,31 @@ export function fitText(
 }
 
 /**
+ * Intrinsic size of an image that is OPAQUE to the core: it may be a node
+ * Canvas (width/height) or a browser HTMLImageElement (naturalWidth/Height),
+ * so both property pairs are probed. Returns 0×0 for null/undecoded images —
+ * every caller treats that as "nothing to draw".
+ */
+export function imageSize(image: unknown): { w: number; h: number } {
+  const im = image as
+    | {
+        naturalWidth?: number;
+        naturalHeight?: number;
+        width?: number;
+        height?: number;
+      }
+    | null
+    | undefined;
+  if (!im) {
+    return { w: 0, h: 0 };
+  }
+  return {
+    w: im.naturalWidth ?? im.width ?? 0,
+    h: im.naturalHeight ?? im.height ?? 0,
+  };
+}
+
+/**
  * Contain-fit `image` (iw×ih) inside the box (dx,dy,dw,dh), centered, and
  * draw it. Used for weapon art (wide transparent banners) — portraits are
  * pre-cropped square by node/portraits.ts and drawn directly.

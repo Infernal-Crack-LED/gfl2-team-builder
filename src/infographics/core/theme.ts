@@ -3,7 +3,7 @@
  * tokens in web/src/styles.css (`:root`) one-for-one — when a token changes,
  * change it here too, or the share images drift from the site they advertise.
  */
-import { drawContained, type Canvas2DLike } from './canvas2d.js';
+import { drawContained, imageSize, type Canvas2DLike } from './canvas2d.js';
 
 export const COLORS = {
   bg: '#101216', // --bg
@@ -24,10 +24,45 @@ export const FONT = 'Roboto';
 
 /**
  * Canonical site identity. index.html has no absolute canonical origin yet
- * (og:url is "/"), so the brand mark uses the site NAME from the static head
+ * (og:url is "/"), so page titles use the site NAME from the static head
  * (`og:site_name` / <title>). Keep it in sync with web/index.html.
  */
 export const SITE_NAME = 'GFL2 Team Builder';
+
+/**
+ * What cards are STAMPED with — the domain, not the site name: a card gets
+ * screenshotted and re-posted far from any link, so the mark has to be
+ * something a reader can type into a browser. Deliberately separate from
+ * SITE_NAME (which is <title> copy); mirrored by the HTML card previews in
+ * web/src/components/*CardPreview.tsx.
+ */
+export const CARD_WORDMARK = 'refittingroom.app';
+
+/**
+ * Per-element (game "phase") accent colors. MUST stay in sync with
+ * PHASE_COLORS in web/src/data.ts — the HTML preview and the rendered PNG
+ * tint the same card from these two copies.
+ */
+export const PHASE_COLORS: Record<string, string> = {
+  Physical: '#b0b7c3',
+  Burn: '#d92d38',
+  Hydro: '#0075f8',
+  Electric: '#e0b04b',
+  Freeze: '#00c8e0',
+  Corrosion: '#00e554',
+  Omni: '#bc1eb1',
+};
+
+/**
+ * The accent a card is tinted with: the doll's element, falling back to the
+ * site accent for an unknown/missing phase so a card is never un-accented.
+ */
+export function phaseAccent(phase: string | null | undefined): string {
+  if (!phase) {
+    return COLORS.accent;
+  }
+  return PHASE_COLORS[phase.trim()] ?? COLORS.accent;
+}
 
 /**
  * Mark geometry, mirroring nikke-sim's (src/infographics/core/theme.ts): the
@@ -63,18 +98,7 @@ export function drawBrandMark(
 ): number {
   ctx.save();
   let right = o.right;
-  // The icon is opaque to the core (a node Canvas or a browser HTMLImageElement),
-  // so its intrinsic size is read off whichever pair of properties it carries.
-  const im = o.icon as
-    | {
-        naturalWidth?: number;
-        naturalHeight?: number;
-        width?: number;
-        height?: number;
-      }
-    | undefined;
-  const iw = im ? (im.naturalWidth ?? im.width ?? 0) : 0;
-  const ih = im ? (im.naturalHeight ?? im.height ?? 0) : 0;
+  const { w: iw, h: ih } = imageSize(o.icon);
   if (o.icon && iw > 0 && ih > 0) {
     drawContained(
       ctx,
@@ -92,16 +116,8 @@ export function drawBrandMark(
   ctx.textAlign = 'left';
   ctx.textBaseline = 'alphabetic';
   ctx.fillStyle = COLORS.accent;
-  const left = right - ctx.measureText(SITE_NAME).width;
-  ctx.fillText(SITE_NAME, left, o.top + MARK_BASELINE);
+  const left = right - ctx.measureText(CARD_WORDMARK).width;
+  ctx.fillText(CARD_WORDMARK, left, o.top + MARK_BASELINE);
   ctx.restore();
   return left;
-}
-
-/**
- * One-line footer provenance note (e.g. render mode / link hint). Renderers
- * draw it muted, bottom-left.
- */
-export function footerNote(): string {
-  return 'Rendered server-side · content-addressed share image';
 }

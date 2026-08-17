@@ -917,6 +917,8 @@ td {
   align-items: center;
   gap: 7px;
   margin-right: 2px;
+  /* Two words — must not wrap between them in a tight nav row. */
+  white-space: nowrap;
 }
 
 .site-nav-left > a.site-nav-brand {
@@ -3140,6 +3142,7 @@ summary.teameffect-tier-title:hover {
   height: 347px;
 }
 
+/* Element-tinted; the inline `background` comes from PHASE_COLORS. */
 .build-card-stripe {
   position: absolute;
   top: 0;
@@ -3218,7 +3221,9 @@ summary.teameffect-tier-title:hover {
   top: 95px;
 }
 
-.build-card-name {
+/* Scoped to .build-card so `.unit-panel h2 { font-size: 16px }` — the panel
+   the preview is embedded in — can't win on specificity and shrink the name. */
+.build-card .build-card-name {
   font-size: 56px;
   font-weight: 700;
   line-height: 1.1;
@@ -3233,11 +3238,11 @@ summary.teameffect-tier-title:hover {
   font-size: 22px;
   font-weight: 500;
   color: #8b93a3;
-  margin: 0 0 36px;
+  margin: 0 0 22px;
 }
 
 .build-card-section {
-  margin-bottom: 18px;
+  margin-bottom: 16px;
 }
 
 .build-card-label {
@@ -3249,25 +3254,83 @@ summary.teameffect-tier-title:hover {
   margin-bottom: 6px;
 }
 
+/* Weapon row: art, name and refinement badge on one line. */
 .build-card-panel {
+  display: flex;
+  align-items: center;
   background: #181b22;
   border: 2px solid #2a2f3b;
   border-radius: 10px;
-  padding: 14px 20px;
+  padding: 10px 20px;
+}
+
+/* Banner-shaped, matching the canvas slot: the art is a 2:1 render, so a
+   square box would shrink it to a sliver. */
+.build-card-weapon-art {
+  width: 104px;
+  height: 56px;
+  object-fit: contain;
+  flex: 0 0 auto;
+  margin-right: 14px;
 }
 
 .build-card-value {
   font-size: 24px;
   font-weight: 500;
   color: #e7eaf0;
+  line-height: 56px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-.build-card-keys {
+/* Element-tinted; the inline `color` comes from PHASE_COLORS. */
+.build-card-refinement {
+  font-size: 22px;
+  font-weight: 700;
+  margin-left: 14px;
+  flex: 0 0 auto;
+}
+
+/* Keys: a fixed block height so the sections below sit where the canvas
+   renderer puts them regardless of how many key rows a build has. */
+.build-card-keyrows {
+  min-height: 90px;
+}
+
+.build-card-keyrow {
+  display: flex;
+  gap: 12px;
   font-size: 20px;
-  font-weight: 400;
+  line-height: 30px;
+  margin: 0;
+}
+
+/* Element-tinted; the inline `color` comes from PHASE_COLORS. */
+.build-card-keyrow-title {
+  font-weight: 700;
+  flex: 0 0 auto;
+}
+
+.build-card-keyrow-value {
+  color: #e7eaf0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.build-card-plain {
+  font-size: 20px;
+  line-height: 30px;
   color: #e7eaf0;
   margin: 0;
-  line-height: 1.5;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.build-card-plain.muted-value {
+  color: #8b93a3;
 }
 
 .build-card-chips {
@@ -3288,28 +3351,10 @@ summary.teameffect-tier-title:hover {
   color: #8b93a3;
 }
 
+/* Element-tinted; the inline `background` comes from PHASE_COLORS. */
 .build-card-chip.on {
   background: #5b9dff;
-  color: #0b1220;
-}
-
-.build-card-extras {
-  font-size: 16px;
-  font-weight: 400;
-  color: #8b93a3;
-  margin: 4px 0 0;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.build-card-footer {
-  position: absolute;
-  left: 60px;
-  bottom: 20px;
-  font-size: 13px;
-  color: #8b93a3;
-  opacity: 0.8;
+  color: #101216;
 }
 
 /* ---- Team Card Preview (1040×dynamic logical) ---- */
@@ -3329,9 +3374,16 @@ summary.teameffect-tier-title:hover {
   height: 310px;
 }
 
+/* One equal band per doll, each tinted with that doll's element (inline
+   `background` from PHASE_COLORS). An empty squad leaves the site accent. */
 .team-card-stripe {
+  display: flex;
   height: 6px;
   background: #5b9dff;
+}
+
+.team-card-stripe-band {
+  flex: 1 1 0;
 }
 
 .team-card-header {
@@ -3339,7 +3391,8 @@ summary.teameffect-tier-title:hover {
   position: relative;
 }
 
-.team-card-title {
+/* Scoped to .team-card for the same reason as .build-card .build-card-name. */
+.team-card .team-card-title {
   font-size: 44px;
   font-weight: 700;
   color: #e7eaf0;

@@ -7,15 +7,21 @@
  */
 import { useCallback, useRef, useState } from 'react';
 import { toPng } from 'html-to-image';
-import { assetUrl } from '../data';
+import { assetUrl, PHASE_COLORS } from '../data';
 
 export interface TeamCardSlotData {
   dollName: string;
   weaponName: string | null;
+  /** Element — tints this doll's band of the top accent stripe. */
+  dollPhase: string | null;
   portraitUrl: string | null;
 }
 
-const SITE_NAME = 'GFL2 Team Builder';
+/** Cards are stamped with the DOMAIN — mirrors CARD_WORDMARK in core/theme.ts. */
+const CARD_WORDMARK = 'refittingroom.app';
+
+/** Site accent, the fallback tint for an unknown/missing element. */
+const SITE_ACCENT = '#5b9dff';
 
 export function TeamCardPreview({ slots }: { slots: TeamCardSlotData[] }) {
   const cardRef = useRef<HTMLDivElement>(null);
@@ -46,14 +52,25 @@ export function TeamCardPreview({ slots }: { slots: TeamCardSlotData[] }) {
     <div className="card-preview-wrapper">
       <div className="card-preview-scale">
         <div ref={cardRef} className="team-card">
-          {/* Accent stripe */}
-          <div className="team-card-stripe" />
+          {/* Accent stripe — one equal band per doll, in that doll's element
+              color, so the squad's elemental spread reads off the top edge. */}
+          <div className="team-card-stripe">
+            {slots.map((slot, i) => (
+              <span
+                key={i}
+                className="team-card-stripe-band"
+                style={{
+                  background: PHASE_COLORS[slot.dollPhase ?? ''] ?? SITE_ACCENT,
+                }}
+              />
+            ))}
+          </div>
 
           {/* Header */}
           <div className="team-card-header">
             <h2 className="team-card-title">Squad</h2>
             <div className="team-card-mark">
-              <span className="team-card-brand">{SITE_NAME}</span>
+              <span className="team-card-brand">{CARD_WORDMARK}</span>
               <img
                 className="card-mark-icon"
                 src="/nikkesim-icon.png"
@@ -105,7 +122,7 @@ export function TeamCardPreview({ slots }: { slots: TeamCardSlotData[] }) {
           </div>
 
           {/* Footer */}
-          <span className="team-card-footer">{SITE_NAME}</span>
+          <span className="team-card-footer">{CARD_WORDMARK}</span>
         </div>
       </div>
 

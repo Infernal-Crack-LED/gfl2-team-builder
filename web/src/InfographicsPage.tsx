@@ -19,6 +19,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import {
   allWeapons,
   getAllCommonKeys,
+  getDollById,
   getDollBySlug,
   getKeysForDoll,
   getVertebraeForDoll,
@@ -39,6 +40,7 @@ import {
   TEAM_SLOTS,
   type DollBuild,
 } from '../../src/share/buildCode';
+import { commonKeySource, fixedKeySlot } from '../../src/share/keyLabels';
 import {
   BUILD_KIND,
   listProfiles,
@@ -384,31 +386,41 @@ function BuildCardTool({ onNotice }: { onNotice: (m: string | null) => void }) {
     if (!doll || !build) {
       return null;
     }
-    const keyNames = build.keys
-      .map((id) => keyName(dollKeys.find((k) => k.id === id)))
-      .filter((n): n is string => n != null);
-    const expName = build.expansionKey
-      ? keyName(dollKeys.find((k) => k.id === build.expansionKey))
-      : null;
-    if (expName) {
-      keyNames.push(expName);
-    }
+    // Fixed keys read as slot NUMBERS on the card; a key whose title carries
+    // no parseable slot is dropped rather than shown untitled.
+    const fixedKeySlots = build.keys
+      .map((id) => dollKeys.find((k) => k.id === id))
+      .filter((k): k is Key => k !== undefined)
+      .map(fixedKeySlot)
+      .filter((n): n is number => n !== null)
+      .sort((a, b) => a - b);
+    const expKey = build.expansionKey
+      ? dollKeys.find((k) => k.id === build.expansionKey)
+      : undefined;
+    const weapon = build.weapon ? getWeaponById(build.weapon) : undefined;
     return {
       dollName: doll.name,
       dollClass: doll.class,
       dollPhase: doll.phase,
       dollRarity: doll.rarity,
-      weaponName: build.weapon
-        ? (getWeaponById(build.weapon)?.name ?? null)
-        : null,
-      keyNames,
+      weaponName: weapon?.name ?? null,
+      weaponImageUrl: weapon?.imageUrl ?? null,
+      fixedKeySlots,
+      // Common keys are named by the doll they come from; the generics (no
+      // source doll) name themselves.
+      commonKeySources: build.commonKeys
+        .map((id) => commonKeys.find((k) => k.id === id))
+        .filter((k): k is Key => k !== undefined)
+        .map((k) =>
+          commonKeySource(k, getDollById(k.dollId ?? '')?.name ?? null)
+        ),
+      // keyTitle, not the display title: the row is already labelled
+      // "Expansion Key", so the value must not repeat it.
+      expansionKeyName: expKey ? (expKey.keyTitle ?? keyName(expKey)) : null,
       vert: build.vert,
       portraitUrl: doll.avatarUrl,
       refinement: build.refinement,
       statPrefs: build.statPrefs,
-      commonKeyNames: build.commonKeys
-        .map((id) => keyName(commonKeys.find((k) => k.id === id)))
-        .filter((n): n is string => n != null),
     };
   }, [doll, build, dollKeys, commonKeys]);
 
@@ -704,6 +716,7 @@ function TeamCardTool({ onNotice }: { onNotice: (m: string | null) => void }) {
             slots={squad.map((d) => ({
               dollName: d.name,
               weaponName: getWeaponForDoll(d.id)?.name ?? null,
+              dollPhase: d.phase,
               portraitUrl: d.avatarUrl,
             }))}
           />

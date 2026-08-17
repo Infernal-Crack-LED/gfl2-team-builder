@@ -742,7 +742,11 @@ export const STAT_PREF_OPTIONS = [
 /** Weapon refinement levels (R1–R6). */
 export const REFINEMENT_LEVELS = [1, 2, 3, 4, 5, 6] as const;
 
-/** Game-phase accent colors for card tinting / badges. */
+/**
+ * Game-phase accent colors for card tinting / badges. MUST stay in sync with
+ * PHASE_COLORS in src/infographics/core/theme.ts — the HTML card previews and
+ * the server-rendered PNGs tint the same card from these two copies.
+ */
 export const PHASE_COLORS: Record<string, string> = {
   Physical: '#b0b7c3',
   Burn: '#d92d38',

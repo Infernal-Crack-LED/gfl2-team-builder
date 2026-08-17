@@ -25,6 +25,7 @@ export interface WeaponEntry {
   id: string;
   name: string;
   slug: string;
+  imageUrl: string | null;
 }
 
 export interface KeyEntry {
@@ -43,6 +44,7 @@ const weaponsFile = loadJson<{ weapons: WeaponEntry[] }>('weapons.json');
 const keysFile = loadJson<{ keys: KeyEntry[] }>('keys.json');
 
 const dollBySlug = new Map(dollsFile.dolls.map((d) => [d.slug, d]));
+const dollById = new Map(dollsFile.dolls.map((d) => [d.id, d]));
 const weaponById = new Map(weaponsFile.weapons.map((w) => [w.id, w]));
 // Generic common keys live in code (Dandegate doesn't carry them) — merged so
 // share codes referencing them validate and resolve on the image API.
@@ -53,6 +55,11 @@ const keyById = new Map<string, KeyEntry>([
 
 export function getDoll(slug: string): DollEntry | undefined {
   return dollBySlug.get(slug);
+}
+
+/** By id, not slug — keys reference their source doll by id. */
+export function getDollById(id: string | null): DollEntry | undefined {
+  return id === null ? undefined : dollById.get(id);
 }
 
 export function getWeapon(id: string): WeaponEntry | undefined {

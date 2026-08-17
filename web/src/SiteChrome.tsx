@@ -179,7 +179,7 @@ export function SiteNav({ current }: { current: Route }) {
               width={22}
               height={22}
             />
-            GFL2
+            Refitting Room
           </a>
 
           {mobile ? (
