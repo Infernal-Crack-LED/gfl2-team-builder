@@ -784,6 +784,8 @@ function RecCardTool({ onNotice }: { onNotice: (m: string | null) => void }) {
   const [picking, setPicking] = useState(!boot);
   const { user } = useAuth();
   const filterResult = useDollFilter();
+  /** The current pick — a late defaults fetch for a superseded doll is dropped. */
+  const chosenSlug = useRef<string | null>(boot?.doll.slug ?? null);
 
   const dollKeys = useMemo(() => (doll ? getKeysForDoll(doll.id) : []), [doll]);
   const commonKeys = useMemo(
@@ -796,10 +798,30 @@ function RecCardTool({ onNotice }: { onNotice: (m: string | null) => void }) {
 
   const choose = useCallback(
     (next: Doll) => {
+      chosenSlug.current = next.slug;
       setDoll(next);
       setRec(emptyRec());
       setPicking(false);
       onNotice(null);
+      // Community defaults (imported from the info sheet, served from the
+      // DB). The row arrives as a rec CODE so the shared total decoder does
+      // the validation; a 404 or junk code just leaves the empty state.
+      void fetch(`/api/v1/rec-defaults/${next.slug}`)
+        .then((r) => (r.ok ? r.json() : null))
+        .then((data: { code?: string } | null) => {
+          const decoded =
+            typeof data?.code === 'string' ? decodeRecBuild(data.code) : null;
+          if (
+            decoded &&
+            decoded.doll === next.slug &&
+            chosenSlug.current === next.slug
+          ) {
+            setRec(recStateFromBuild(next, decoded));
+          }
+        })
+        .catch(() => {
+          // Defaults are a convenience — the tool works without them.
+        });
     },
     [onNotice]
   );
@@ -829,6 +851,8 @@ function RecCardTool({ onNotice }: { onNotice: (m: string | null) => void }) {
         ck: decoded.ck ?? [],
         stats: decoded.stats ?? [],
       });
+      // An explicit load wins over any in-flight defaults fetch.
+      chosenSlug.current = null;
       setDoll(target);
       setRec(seeded);
       setPicking(false);

@@ -1,8 +1,9 @@
 /**
  * Hono app factory — static dist/ hosting with SPA fallback, Discord OAuth,
- * and the per-user saved-profiles API. Ported from the nikke-sim server
- * shape. This is the ONLY runtime API the site has (conventions §7): game
- * data stays client-side as build-imported JSON.
+ * the per-user saved-profiles API, and the per-doll recommendation defaults.
+ * Ported from the nikke-sim server shape. GAME data stays client-side as
+ * build-imported JSON (conventions §7); the runtime API serves only mutable
+ * rows: user profiles and the community rec defaults.
  */
 import { existsSync, statSync } from 'node:fs';
 import { readFile } from 'node:fs/promises';
@@ -11,7 +12,13 @@ import { Hono } from 'hono';
 import { getMimeType } from 'hono/utils/mime';
 import { and, desc, eq, sql } from 'drizzle-orm';
 import { db } from '../db/index.js';
-import { userProfiles } from '../db/schema.js';
+import { dollRecommendations, userProfiles } from '../db/schema.js';
+import {
+  BUILD_VERSION,
+  decodeRecBuild,
+  encodeRecBuild,
+  type RecBuild,
+} from '../share/buildCode.js';
 import { registerImgApi } from './imgApi.js';
 import { injectShareMeta } from './ogInject.js';
 import { PUBLIC_KINDS, PUBLIC_PROFILE_ID_RE } from './publicShare.js';
@@ -370,6 +377,62 @@ export function createServer(): Hono {
         )
       );
     return c.body(null, 204);
+  });
+
+  // Community recommendation defaults for the infographics rec card, one row
+  // per doll (imported by src/bin/import-recommendations.ts). Served as a
+  // REC CODE rather than raw fields: the client then reuses its total
+  // decoder for validation, and a hand-edited DB row that breaks the shape
+  // degrades to "no defaults" on both ends instead of a broken tool.
+  app.get('/api/v1/rec-defaults/:slug', async (c) => {
+    const slug = c.req.param('slug');
+    if (!/^[a-z0-9-]{1,64}$/.test(slug)) {
+      return c.json({ error: 'not_found' }, 404);
+    }
+    const [row] = await db
+      .select()
+      .from(dollRecommendations)
+      .where(eq(dollRecommendations.dollSlug, slug))
+      .limit(1);
+    if (!row) {
+      return c.json({ error: 'not_found' }, 404);
+    }
+    const arr = (v: unknown): string[] =>
+      Array.isArray(v) ? v.filter((x): x is string => typeof x === 'string') : [];
+    const payload: RecBuild = {
+      v: BUILD_VERSION,
+      card: 'rec',
+      doll: slug,
+      bp: arr(row.breakpoints),
+      ws: arr(row.weaponIds),
+      sets: arr(row.setNames),
+      keys: arr(row.fixedKeyIds),
+    };
+    if (row.optimal) {
+      payload.opt = row.optimal;
+    }
+    if (row.expansionKeyId) {
+      payload.exp = row.expansionKeyId;
+    }
+    const ck = arr(row.commonKeyIds);
+    if (ck.length > 0) {
+      payload.ck = ck;
+    }
+    const stats = arr(row.statPrefs);
+    if (stats.length > 0) {
+      payload.stats = stats;
+    }
+    if (row.notes) {
+      payload.notes = row.notes;
+    }
+    const code = encodeRecBuild(payload);
+    if (!decodeRecBuild(code)) {
+      // A malformed row (bad token, over-cap list) is a data bug, not a
+      // client problem — hide it rather than serve an undecodable code.
+      return c.json({ error: 'not_found' }, 404);
+    }
+    c.header('Cache-Control', 'public, max-age=300');
+    return c.json({ code });
   });
 
   // Server-rendered share-card image API (/api/v1/img/*) — registered BEFORE

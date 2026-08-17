@@ -118,6 +118,35 @@ export const attachmentSets = pgTable('attachment_sets', {
 });
 
 /**
+ * Per-doll recommendation defaults for the infographics rec card — the
+ * COMMUNITY's advice (sourced from the official-Discord info sheet by
+ * src/bin/import-recommendations.ts), not user data. Keyed by doll SLUG (the
+ * rec codec addresses dolls by slug). Array columns are jsonb string arrays
+ * in PRIORITY order, matching the RecBuild fields they seed:
+ * breakpoints→bp, weaponIds→ws, setNames→sets, fixedKeyIds→keys, etc.
+ *
+ * `source` guards manual curation: the importer only writes rows whose
+ * source is 'sheet' (or absent), so hand-edited rows ('manual') survive
+ * re-imports unless --force is passed.
+ */
+export const dollRecommendations = pgTable('doll_recommendations', {
+  dollSlug: text('doll_slug').primaryKey(),
+  breakpoints: jsonb('breakpoints').notNull().default([]),
+  optimal: text('optimal'),
+  weaponIds: jsonb('weapon_ids').notNull().default([]),
+  setNames: jsonb('set_names').notNull().default([]),
+  fixedKeyIds: jsonb('fixed_key_ids').notNull().default([]),
+  expansionKeyId: text('expansion_key_id'),
+  commonKeyIds: jsonb('common_key_ids').notNull().default([]),
+  statPrefs: jsonb('stat_prefs').notNull().default([]),
+  notes: text('notes'),
+  source: text('source').notNull().default('sheet'),
+  updatedAt: timestamp('updated_at', { withTimezone: true })
+    .notNull()
+    .defaultNow(),
+});
+
+/**
  * Sync audit log — one row per `npm run sync` invocation. `sources` carries
  * counts per entity type plus any errors encountered.
  */

@@ -60,6 +60,21 @@
       "name": "Hydro Boost",
       "piecesRequired": 3,
       "description": "When dealing Hydro damage, the damage is increased by 20%."
+    },
+    {
+      "name": "Physical Boost",
+      "piecesRequired": 3,
+      "description": "When dealing Physical damage, the damage is increased by 20%."
+    },
+    {
+      "name": "Close Assault",
+      "piecesRequired": 3,
+      "description": "Damage dealt is increased by 12%. When dealing melee damage, damage is additionally increased by 24%."
+    },
+    {
+      "name": "Summon Boost",
+      "piecesRequired": 3,
+      "description": "When the user's summoned entity is on the battlefield, the damage dealt by both the user and their summon is increased by 20%."
     }
   ]
 }
