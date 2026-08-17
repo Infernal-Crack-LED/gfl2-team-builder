@@ -14,8 +14,9 @@ import { ANON_SHARE_RETENTION_DAYS } from '../../../src/share/shareRetention';
 export function ShortLinkExpiryHint() {
   return (
     <p className="muted shortlink-hint">
-      Short links expire after {ANON_SHARE_RETENTION_DAYS} days when you&apos;re not
-      logged in. Log in to keep them, or use the full link — it never expires.
+      Short links expire after {ANON_SHARE_RETENTION_DAYS} days when you&apos;re
+      not logged in. Log in to keep them, or use the full link — it never
+      expires.
     </p>
   );
 }

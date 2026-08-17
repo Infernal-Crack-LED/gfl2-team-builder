@@ -404,7 +404,7 @@ export function DollBuilder({
     } else {
       setNotice('Copy failed — select the URL and copy it manually.');
     }
-  }, [doll, getCode, flashCopied, user]);
+  }, [doll, getCode, flashCopied]);
 
   // Toggle a fixed key on/off; respects the 3-key cap.
   const toggleKey = useCallback((id: string) => {

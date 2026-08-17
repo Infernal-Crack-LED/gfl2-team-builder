@@ -194,7 +194,7 @@ export function TeamBuilderPage() {
     } else {
       setNotice('Copy failed — select the URL and copy it manually.');
     }
-  }, [getCode, flashCopied, user]);
+  }, [getCode, flashCopied]);
 
   // Set of placed doll IDs — passed to useDollFilter as exclude
   const excludedIds = useMemo(() => {
