@@ -64,7 +64,7 @@ interface DataStore {
 }
 
 const here = dirname(fileURLToPath(import.meta.url));
-const dataDir = join(here, '..', '..', '..', '..', '..', 'data');
+const dataDir = join(here, '..', '..', '..', '..', 'data');
 
 async function loadJson<T>(name: string): Promise<T> {
   const raw = await readFile(join(dataDir, name), 'utf-8');
