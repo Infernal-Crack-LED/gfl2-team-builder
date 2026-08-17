@@ -167,6 +167,158 @@ export function decodeDollBuild(code: string): DollBuild | null {
   }
 }
 
+// --- Recommendation card ----------------------------------------------------
+
+/**
+ * Investment-order tokens: vertebra depths V0–V6 and weapon refinements R1–R6.
+ * V0 is a real step ("works uninvested"), so V starts at 0 where R starts at 1.
+ */
+const BREAKPOINT_RE = /^(V[0-6]|R[1-6])$/;
+
+export function isBreakpointToken(token: string): boolean {
+  return BREAKPOINT_RE.test(token);
+}
+
+/**
+ * The OPTIMAL investment point: a combined V/R token ('V3R1'), or just one
+ * axis ('V6', 'R1') when the author only calls one out.
+ */
+const OPTIMAL_RE = /^(V[0-6](R[1-6])?|R[1-6])$/;
+
+export function isOptimalToken(token: string): boolean {
+  return OPTIMAL_RE.test(token);
+}
+
+export const MAX_BREAKPOINTS = 8;
+export const MAX_REC_WEAPONS = 3;
+export const MAX_REC_SETS = 3;
+/** Rec keys are PRIORITY lists — all six slots/picks, in unlock order. */
+export const MAX_REC_KEYS = 6;
+export const MAX_REC_NOTES = 280;
+
+/**
+ * A recommendation card's payload: not a snapshot of one build but ADVICE
+ * about a doll — the investment order to buy her in, ranked weapon and
+ * attachment-set alternatives, the keys/stats a build card would carry, and
+ * free-text notes. `card: 'rec'` is the discriminant that keeps this codec
+ * apart from DollBuild (which has no such field) in decodeAnyBuild.
+ */
+export interface RecBuild {
+  v: typeof BUILD_VERSION;
+  card: 'rec';
+  doll: string; // doll slug
+  /** Ordered investment breakpoints, e.g. ['V0','R1','V3','V6','R6']. */
+  bp: string[];
+  /** The optimal investment point, e.g. 'V3R1' (see isOptimalToken). */
+  opt?: string | null;
+  /** Recommended weapon ids, best first (up to 3). */
+  ws: string[];
+  /** Recommended attachment set names, best first (up to 3). */
+  sets: string[];
+  /** Fixed key ids in PRIORITY (unlock) order, up to 6 — not a slot cap. */
+  keys: string[];
+  /** Selected expansion key id. */
+  exp?: string | null;
+  /** Common key ids in priority order (up to 6). */
+  ck?: string[];
+  /** Ordered stat preferences, highest priority first (up to 4). */
+  stats?: string[];
+  /** Free-text author notes, drawn verbatim on the card. */
+  notes?: string;
+}
+
+export function encodeRecBuild(build: RecBuild): string {
+  return b64urlEncode(JSON.stringify(build));
+}
+
+export function decodeRecBuild(code: string): RecBuild | null {
+  try {
+    const o: unknown = JSON.parse(b64urlDecode(code.trim()));
+    if (!o || typeof o !== 'object') {
+      return null;
+    }
+    const b = o as Record<string, unknown>;
+    if (
+      b.v !== BUILD_VERSION ||
+      b.card !== 'rec' ||
+      typeof b.doll !== 'string' ||
+      b.doll.length === 0 ||
+      b.doll.length > MAX_SLUG ||
+      !Array.isArray(b.bp) ||
+      !Array.isArray(b.ws) ||
+      !Array.isArray(b.sets) ||
+      !Array.isArray(b.keys)
+    ) {
+      return null;
+    }
+    const bp = b.bp.filter(
+      (t): t is string => typeof t === 'string' && isBreakpointToken(t)
+    );
+    if (
+      bp.length !== b.bp.length ||
+      bp.length > MAX_BREAKPOINTS ||
+      new Set(bp).size !== bp.length
+    ) {
+      return null;
+    }
+    const ws = b.ws.filter((w): w is string => typeof w === 'string');
+    if (ws.length !== b.ws.length || ws.length > MAX_REC_WEAPONS) {
+      return null;
+    }
+    const sets = b.sets.filter(
+      (s): s is string =>
+        typeof s === 'string' && s.length > 0 && s.length <= MAX_SET_NAME
+    );
+    if (sets.length !== b.sets.length || sets.length > MAX_REC_SETS) {
+      return null;
+    }
+    const keys = b.keys.filter((k): k is string => typeof k === 'string');
+    if (keys.length !== b.keys.length || keys.length > MAX_REC_KEYS) {
+      return null;
+    }
+    const result: RecBuild = {
+      v: BUILD_VERSION,
+      card: 'rec',
+      doll: b.doll,
+      bp,
+      ws,
+      sets,
+      keys,
+    };
+    // Optional fields — same lenient contract as decodeDollBuild.
+    if (b.opt === null || (typeof b.opt === 'string' && isOptimalToken(b.opt))) {
+      result.opt = b.opt as string | null;
+    }
+    if (typeof b.exp === 'string' || b.exp === null) {
+      result.exp = b.exp;
+    }
+    if (Array.isArray(b.ck)) {
+      const ck = b.ck.filter((x): x is string => typeof x === 'string');
+      if (ck.length <= MAX_REC_KEYS && ck.length === b.ck.length) {
+        result.ck = ck;
+      }
+    }
+    if (Array.isArray(b.stats)) {
+      const stats = b.stats.filter(
+        (s): s is string =>
+          typeof s === 'string' && s.length > 0 && s.length <= MAX_STAT_LABEL
+      );
+      if (stats.length <= MAX_STAT_PREFS && stats.length === b.stats.length) {
+        result.stats = stats;
+      }
+    }
+    if (typeof b.notes === 'string' && b.notes.length > 0) {
+      // Trim rather than reject an over-long note: the cap is a layout
+      // budget, not a validity rule, and a hand-lengthened URL should still
+      // render the card it addressed.
+      result.notes = b.notes.slice(0, MAX_REC_NOTES);
+    }
+    return result;
+  } catch {
+    return null;
+  }
+}
+
 // --- Team build -------------------------------------------------------------
 
 /**
@@ -356,6 +508,7 @@ export function decodeAnyBuild(
 ):
   | { kind: 'build'; build: DollBuild }
   | { kind: 'team'; build: TeamBuild }
+  | { kind: 'rec'; build: RecBuild }
   | null {
   const d = decodeDollBuild(code);
   if (d) {
@@ -364,6 +517,10 @@ export function decodeAnyBuild(
   const t = decodeTeamBuild(code);
   if (t) {
     return { kind: 'team', build: t };
+  }
+  const r = decodeRecBuild(code);
+  if (r) {
+    return { kind: 'rec', build: r };
   }
   return null;
 }

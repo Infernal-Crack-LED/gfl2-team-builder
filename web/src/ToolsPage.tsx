@@ -1,7 +1,8 @@
 /**
  * Tools index (/tools) — the landing page for the infographics creator, whose
- * two card types each get their own tile and their own crawlable URL
- * (`?card=build` / `?card=team`, read by InfographicsPage on mount).
+ * card types each get their own tile and their own crawlable URL
+ * (`?card=build` / `?card=team` / `?card=rec`, read by InfographicsPage on
+ * mount).
  *
  * The builders and the key catalogue used to be repeated here; they live in
  * the top nav, so this page is the one place that owns the card maker rather
@@ -27,6 +28,12 @@ const TOOLS: Tool[] = [
     title: 'Squad Card Creator',
     blurb:
       'Compose a squad card from up to five dolls and their full builds, preview it live, then download the PNG or mint a hosted image link that embeds in Discord.',
+  },
+  {
+    href: `${hrefFor('infographics')}?card=rec`,
+    title: 'Recommendation Card Creator',
+    blurb:
+      'Publish investment advice for one doll: the V/R breakpoint order, an optimal stopping point, ranked weapons and attachment sets, key priorities and your own notes.',
   },
 ];
 

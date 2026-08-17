@@ -27,8 +27,10 @@ import { userProfiles } from '../db/schema.js';
 import {
   decodeAnyBuild,
   decodeDollBuild,
+  decodeRecBuild,
   decodeTeamBuild,
   type DollBuild,
+  type RecBuild,
   type TeamBuild,
 } from '../share/buildCode.js';
 import {
@@ -38,6 +40,7 @@ import {
 } from '../infographics/cacheKey.js';
 import {
   renderBuildCardPng,
+  renderRecCardPng,
   renderTeamCardPng,
 } from '../infographics/node/render.js';
 import { loadArt, loadPortrait } from '../infographics/node/portraits.js';
@@ -62,7 +65,7 @@ async function resolvePayload(
   routeKind: RenderKind,
   b: string | undefined,
   id: string | undefined
-): Promise<{ kind: RenderKind; build: DollBuild | TeamBuild }> {
+): Promise<{ kind: RenderKind; build: DollBuild | TeamBuild | RecBuild }> {
   if (id !== undefined) {
     if (!PUBLIC_PROFILE_ID_RE.test(id)) {
       throw new BadRequest('invalid id');
@@ -97,6 +100,13 @@ async function resolvePayload(
     }
     return { kind: 'build', build };
   }
+  if (routeKind === 'rec') {
+    const rec = decodeRecBuild(code);
+    if (!rec) {
+      throw new BadRequest('invalid build code');
+    }
+    return { kind: 'rec', build: rec };
+  }
   const team = decodeTeamBuild(code);
   if (!team) {
     throw new BadRequest('invalid build code');
@@ -129,6 +139,30 @@ function validateBuild(build: DollBuild): void {
   }
 }
 
+function validateRec(rec: RecBuild): void {
+  if (!getDoll(rec.doll)) {
+    throw new BadRequest(`unknown doll: ${rec.doll}`);
+  }
+  for (const w of rec.ws) {
+    if (!getWeapon(w)) {
+      throw new BadRequest(`unknown weapon: ${w}`);
+    }
+  }
+  for (const s of rec.sets) {
+    if (!getAttachmentSet(s)) {
+      throw new BadRequest(`unknown attachment set: ${s}`);
+    }
+  }
+  for (const k of [...rec.keys, ...(rec.ck ?? [])]) {
+    if (!getKey(k)) {
+      throw new BadRequest(`unknown key: ${k}`);
+    }
+  }
+  if (rec.exp != null && !getKey(rec.exp)) {
+    throw new BadRequest(`unknown key: ${rec.exp}`);
+  }
+}
+
 function validateTeam(team: TeamBuild): void {
   for (const slot of team.s) {
     if (!slot) {
@@ -158,8 +192,50 @@ function validateTeam(team: TeamBuild): void {
 
 async function renderPayload(
   kind: RenderKind,
-  build: DollBuild | TeamBuild
+  build: DollBuild | TeamBuild | RecBuild
 ): Promise<Buffer> {
+  if (kind === 'rec') {
+    const r = build as RecBuild;
+    const doll = getDoll(r.doll); // validated before render
+    const [portrait, ...weaponImages] = await Promise.all([
+      loadPortrait(doll?.avatarUrl),
+      ...r.ws.map((id) => loadArt(getWeapon(id)?.imageUrl)),
+    ]);
+    // Same label resolution as the build card below — fixed keys as slot
+    // numbers, common keys by source doll, expansion key as its short title —
+    // EXCEPT the order: rec lists are priority-ordered, so no sorting here.
+    const fixedKeySlots = r.keys
+      .map((id) => getKey(id))
+      .filter((k) => k !== undefined)
+      .map(fixedKeySlot)
+      .filter((n): n is number => n !== null);
+    const commonKeySources = (r.ck ?? [])
+      .map((id) => getKey(id))
+      .filter((k) => k !== undefined)
+      .map((k) => commonKeySource(k, getDollById(k.dollId)?.name ?? null));
+    const expKey = r.exp ? getKey(r.exp) : undefined;
+    return renderRecCardPng({
+      dollName: doll?.name ?? null,
+      dollClass: doll?.class ?? null,
+      dollPhase: doll?.phase ?? null,
+      dollRarity: doll?.rarity ?? null,
+      breakpoints: r.bp,
+      optimal: r.opt ?? null,
+      weapons: r.ws.map((id, i) => ({
+        name: getWeapon(id)?.name ?? id,
+        image: weaponImages[i] ?? null,
+      })),
+      attachmentSets: r.sets,
+      fixedKeySlots,
+      expansionKeyName: expKey
+        ? (expKey.keyTitle ?? keyDisplayName(expKey))
+        : null,
+      commonKeySources,
+      statPrefs: r.stats ?? [],
+      notes: r.notes ?? null,
+      portrait,
+    });
+  }
   if (kind === 'build') {
     const b = build as DollBuild;
     const doll = getDoll(b.doll); // validated before render
@@ -277,18 +353,23 @@ async function writeAtomic(filename: string, png: Buffer): Promise<void> {
 }
 
 export function registerImgApi(app: Hono): void {
-  for (const routeKind of ['build', 'team'] as const) {
+  for (const routeKind of ['build', 'team', 'rec'] as const) {
     app.get(`/api/v1/img/${routeKind}.png`, async (c) => {
       const b = c.req.query('b');
       const id = c.req.query('id');
       if (b !== undefined && id !== undefined) {
         return c.json({ error: 'invalid build code' }, 400);
       }
-      let payload: { kind: RenderKind; build: DollBuild | TeamBuild };
+      let payload: {
+        kind: RenderKind;
+        build: DollBuild | TeamBuild | RecBuild;
+      };
       try {
         payload = await resolvePayload(routeKind, b, id);
         if (payload.kind === 'build') {
           validateBuild(payload.build as DollBuild);
+        } else if (payload.kind === 'rec') {
+          validateRec(payload.build as RecBuild);
         } else {
           validateTeam(payload.build as TeamBuild);
         }

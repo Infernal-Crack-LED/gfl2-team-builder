@@ -20,6 +20,12 @@ import {
   drawTeamCard,
   type TeamCardSlot,
 } from '../core/teamCard.js';
+import {
+  REC_CARD_W,
+  drawRecCard,
+  recCardHeight,
+  type RecCardData,
+} from '../core/recCard.js';
 import { FONT } from '../core/theme.js';
 import { loadSiteIcon } from './icon.js';
 
@@ -28,6 +34,7 @@ export * from '../core/canvas2d.js';
 export * from '../core/theme.js';
 export * from '../core/buildCard.js';
 export * from '../core/teamCard.js';
+export * from '../core/recCard.js';
 export { loadSiteIcon };
 
 const DPR = 2;
@@ -88,5 +95,13 @@ export async function renderTeamCardPng(
   const siteIcon = await loadSiteIcon();
   const { canvas, ctx } = makeCard(TEAM_CARD_W, cardHeight(slots));
   drawTeamCard(ctx, slots, siteIcon);
+  return canvas.encode('png');
+}
+
+export async function renderRecCardPng(data: RecCardData): Promise<Buffer> {
+  assertFontsLive();
+  const siteIcon = await loadSiteIcon();
+  const { canvas, ctx } = makeCard(REC_CARD_W, recCardHeight(data));
+  drawRecCard(ctx, { ...data, siteIcon });
   return canvas.encode('png');
 }

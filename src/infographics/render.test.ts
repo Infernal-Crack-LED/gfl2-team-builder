@@ -249,6 +249,108 @@ describe.skipIf(!FONTS_PRESENT)('card renderers (fonts present)', () => {
     );
   });
 
+  it('rec card renders with ink in the title and roadmap regions', async () => {
+    const { createCanvas, drawRecCard, REC_CARD_W, recCardHeight } =
+      await import('./node/render.js');
+    const data = {
+      dollName: 'Alva',
+      dollClass: 'Support',
+      // Burn: its accent (#d92d38) has red ink the red-channel probe can see.
+      dollPhase: 'Burn',
+      dollRarity: 'Elite',
+      breakpoints: ['V0', 'R1', 'V3', 'V6', 'R6'],
+      optimal: 'V3R1',
+      weapons: [
+        { name: '6P33', image: null },
+        { name: 'Backup Gun', image: null },
+      ],
+      attachmentSets: ['Ultimate Pursuit', 'Phase Strike'],
+      fixedKeySlots: [1, 3, 5],
+      expansionKeyName: 'White Reaper',
+      commonKeySources: ['Suomi', 'Makiatto'],
+      statPrefs: ['ATK', 'Crit DMG', 'Crit Rate'],
+      notes: 'Works from V0; R1 is the first big jump, V6 is luxury.',
+      portrait: null,
+    };
+    const h = recCardHeight(data);
+    // The card is PORTRAIT: with a full payload it must be taller than wide.
+    expect(h).toBeGreaterThan(REC_CARD_W);
+    const canvas = createCanvas(REC_CARD_W, h);
+    const ctx = canvas.getContext('2d');
+    drawRecCard(ctx as never, data);
+    const ctx2d = ctx as never as Parameters<typeof inkInRegion>[0];
+    // "Recommendation" title at x=36, baseline y=74.
+    expect(inkInRegion(ctx2d, 36, 40, 360, 42)).toBeGreaterThan(100);
+    // Doll name right of the 148px portrait (x=206, baseline 198).
+    expect(inkInRegion(ctx2d, 206, 165, 400, 40)).toBeGreaterThan(100);
+    // Breakpoint chips (accent fill) in the roadmap band under the portrait.
+    expect(inkInRegion(ctx2d, 36, 290 + 46, 688, 34, 80)).toBeGreaterThan(200);
+    const png = await canvas.encode('png');
+    expect(png.length).toBeGreaterThan(1000);
+  });
+
+  it('rec card height grows with weapons, sets and notes', async () => {
+    const { recCardHeight } = await import('./node/render.js');
+    const base = {
+      dollName: 'Alva',
+      dollClass: null,
+      dollPhase: null,
+      dollRarity: null,
+      breakpoints: [],
+      optimal: null,
+      weapons: [],
+      attachmentSets: [],
+      fixedKeySlots: [],
+      expansionKeyName: null,
+      commonKeySources: [],
+      statPrefs: [],
+      notes: null,
+      portrait: null,
+    };
+    const h0 = recCardHeight(base);
+    const gun = { name: '6P33', image: null };
+    // One weapon/set replaces the muted "—" row, so height starts moving at 2.
+    expect(recCardHeight({ ...base, weapons: [gun, gun] })).toBeGreaterThan(h0);
+    expect(
+      recCardHeight({ ...base, attachmentSets: ['A', 'B'] })
+    ).toBeGreaterThan(h0);
+    expect(recCardHeight({ ...base, notes: 'Short note.' })).toBeGreaterThan(
+      h0
+    );
+    // A long note budgets more lines than a short one.
+    expect(
+      recCardHeight({ ...base, notes: 'x'.repeat(280) })
+    ).toBeGreaterThan(recCardHeight({ ...base, notes: 'Short note.' }));
+    // Expansion/common key lines are omitted, not dashed, when absent.
+    expect(
+      recCardHeight({ ...base, expansionKeyName: 'White Reaper' })
+    ).toBeGreaterThan(h0);
+  });
+
+  it('rec card degrades on an all-empty payload without throwing', async () => {
+    const { createCanvas, drawRecCard, REC_CARD_W, recCardHeight } =
+      await import('./node/render.js');
+    const data = {
+      dollName: null,
+      dollClass: null,
+      dollPhase: null,
+      dollRarity: null,
+      breakpoints: [],
+      optimal: null,
+      weapons: [],
+      attachmentSets: [],
+      fixedKeySlots: [],
+      expansionKeyName: null,
+      commonKeySources: [],
+      statPrefs: [],
+      notes: null,
+      portrait: null,
+    };
+    const canvas = createCanvas(REC_CARD_W, recCardHeight(data));
+    const ctx = canvas.getContext('2d');
+    expect(() => drawRecCard(ctx as never, data)).not.toThrow();
+  });
+
   it('team card degrades on an all-empty build without throwing', async () => {
     const { createCanvas, drawTeamCard, TEAM_CARD_W, cardHeight } =
       await import('./node/render.js');
