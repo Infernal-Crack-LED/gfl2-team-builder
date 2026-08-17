@@ -14,7 +14,13 @@
  * enforce the gesture window that strictly. If both fail the user is told to
  * use Download, which always works.
  */
-import { useCallback, useEffect, useRef, useState, type RefObject } from 'react';
+import {
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+  type RefObject,
+} from 'react';
 import { toBlob, toPng } from 'html-to-image';
 
 /** Matches the server renderer's DPR=2 and the card background. */

@@ -5,7 +5,9 @@
  *   ?b=<code>   — the full DollBuild code inlined in the URL. Self-contained,
  *                 works logged out, but long.
  *   ?id=<uuid>  — a saved-profiles row id (kind 'gfl2-share'); the code lives
- *                 server-side, so the URL stays short. Requires a fetch.
+ *                 server-side, so the URL stays short. Requires a fetch, and
+ *                 a row minted without a session is swept after three days —
+ *                 an expired id degrades to "no build" like any other miss.
  *
  * Both are best-effort by design: junk params, wrong-doll codes, and failed
  * fetches all degrade to "no build" — a bad share link must never break the

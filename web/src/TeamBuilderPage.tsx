@@ -31,21 +31,20 @@ import {
 } from './components/SquadStrip';
 import { TeamCardPreview, teamCardSlot } from './components/TeamCardPreview';
 import { SaveProfileControl } from './components/SaveProfileControl';
+import { ShortLinkExpiryHint } from './components/ShortLinkExpiryHint';
 import { copyText } from './clipboard';
-import { saveProfile, TEAM_KIND, useAuth } from './auth';
+import { mintShareId, TEAM_KIND, useAuth } from './auth';
 import {
   BUILD_VERSION,
   decodeTeamBuild,
   dollBuildFromTeamSlot,
   encodeTeamBuild,
-  shareProfileName,
   teamSlotFromDollBuild,
   TEAM_SLOTS,
   type DollBuild,
   type TeamBuild,
 } from '../../src/share/buildCode';
 import {
-  SHARE_PROFILE_KIND,
   bootIdFromSearch,
   bootTeamFromCodeParam,
   fetchSharedTeam,
@@ -182,12 +181,8 @@ export function TeamBuilderPage() {
     }
     const base = `${window.location.origin}${hrefFor('team-builder')}`;
     try {
-      const row = await saveProfile(
-        SHARE_PROFILE_KIND,
-        shareProfileName(code),
-        code
-      );
-      if (await copyText(`${base}?id=${row.id}`)) {
+      const id = await mintShareId(code);
+      if (await copyText(`${base}?id=${id}`)) {
         flashCopied('short');
         return;
       }
@@ -287,16 +282,15 @@ export function TeamBuilderPage() {
         >
           {copied === 'link' ? '✓ Copied' : 'Copy link'}
         </button>
-        {user && (
-          <button
-            type="button"
-            className="btn-outline"
-            onClick={() => void copyShortLink()}
-          >
-            {copied === 'short' ? '✓ Copied' : 'Copy short link'}
-          </button>
-        )}
+        <button
+          type="button"
+          className="btn-outline"
+          onClick={() => void copyShortLink()}
+        >
+          {copied === 'short' ? '✓ Copied' : 'Copy short link'}
+        </button>
       </div>
+      {!user && <ShortLinkExpiryHint />}
       {notice && (
         <p className="dollbuilder-notice" role="alert">
           {notice}

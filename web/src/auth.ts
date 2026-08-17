@@ -9,6 +9,8 @@
  * localhost:4173 — so CORS never enters the picture for the SPA itself.
  */
 import { useCallback, useEffect, useState } from 'react';
+import { shareProfileName } from '../../src/share/buildCode';
+import { SHARE_PROFILE_KIND } from './buildShare';
 
 export interface AuthUser {
   id: string;
@@ -129,6 +131,23 @@ export async function listProfiles(kind: string): Promise<SavedProfile[]> {
   return (await res.json()) as SavedProfile[];
 }
 
+/**
+ * An API call that came back !ok, carrying the HTTP status.
+ *
+ * The status is the point: "your token is dead" and "you have hit your
+ * profile cap" both surface as a rejected save, but only the first one should
+ * silently reroute a share to the anonymous bucket (see mintShareId).
+ */
+export class ApiError extends Error {
+  constructor(
+    message: string,
+    readonly status: number
+  ) {
+    super(message);
+    this.name = 'ApiError';
+  }
+}
+
 /** Upsert by (kind, name) — saving over an existing name replaces its code. */
 export async function saveProfile(
   kind: string,
@@ -144,9 +163,80 @@ export async function saveProfile(
     const body = (await res.json().catch(() => null)) as {
       error?: string;
     } | null;
-    throw new Error(body?.error ?? `save failed (${res.status})`);
+    throw new ApiError(
+      body?.error ?? `save failed (${res.status})`,
+      res.status
+    );
   }
   return (await res.json()) as SavedProfile;
+}
+
+/**
+ * Mint a public share row with NO session, returning its id. Deliberately
+ * bypasses apiFetch: this is the one write that must work logged out, and
+ * sending a stale/rejected token with it would only invite a 401.
+ *
+ * The server derives the row's dedup name from the code, so re-minting the
+ * same build returns the same id. Rows expire — see
+ * ANON_SHARE_RETENTION_DAYS.
+ */
+export async function createAnonShare(code: string): Promise<string> {
+  const res = await fetch('/api/share', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ code }),
+  });
+  if (!res.ok) {
+    const body = (await res.json().catch(() => null)) as {
+      error?: string;
+    } | null;
+    throw new ApiError(
+      body?.error ?? `share failed (${res.status})`,
+      res.status
+    );
+  }
+  const row = (await res.json()) as { id: string };
+  return row.id;
+}
+
+/**
+ * Mint the `?id=` row behind a short link and return its id.
+ *
+ * With a token the row is the user's own: owned, counted against their profile
+ * cap, and permanent. Without one it goes to the shared anonymous bucket and
+ * expires after ANON_SHARE_RETENTION_DAYS. Same URL either way, so callers
+ * need only this one function — but the UI should say which one they get.
+ *
+ * Keyed on the TOKEN, not on useAuth's `user`, which is null for the first
+ * moment of every page load while fetchMe is in flight. Keying on the resolved
+ * user would silently hand a signed-in user an expiring row if they clicked
+ * inside that window.
+ *
+ * A 401 — and ONLY a 401 — falls through to the anonymous mint: the token is
+ * dead, so this user is effectively logged out and an expiring short link
+ * beats no short link. Every other failure rethrows, because the caller's
+ * fallback is the permanent `?b=` link, and quietly handing a signed-in user
+ * an expiring row instead would be a downgrade they were never told about —
+ * the hint that warns about expiry is hidden precisely because they are
+ * logged in.
+ */
+export async function mintShareId(code: string): Promise<string> {
+  if (!getToken()) {
+    return createAnonShare(code);
+  }
+  try {
+    const row = await saveProfile(
+      SHARE_PROFILE_KIND,
+      shareProfileName(code),
+      code
+    );
+    return row.id;
+  } catch (err) {
+    if (err instanceof ApiError && err.status === 401) {
+      return createAnonShare(code);
+    }
+    throw err;
+  }
 }
 
 export async function deleteProfile(id: string): Promise<void> {
