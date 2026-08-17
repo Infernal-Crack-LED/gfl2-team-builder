@@ -286,7 +286,10 @@ export function decodeRecBuild(code: string): RecBuild | null {
       keys,
     };
     // Optional fields — same lenient contract as decodeDollBuild.
-    if (b.opt === null || (typeof b.opt === 'string' && isOptimalToken(b.opt))) {
+    if (
+      b.opt === null ||
+      (typeof b.opt === 'string' && isOptimalToken(b.opt))
+    ) {
       result.opt = b.opt as string | null;
     }
     if (typeof b.exp === 'string' || b.exp === null) {

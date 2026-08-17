@@ -110,7 +110,7 @@ const CARD_TYPES: { key: CardType; label: string; blurb: string }[] = [
     key: 'rec',
     label: 'Recommendation Card',
     blurb:
-      "Investment advice for one doll: V/R breakpoints, ranked weapons and sets, key priorities and your own notes.",
+      'Investment advice for one doll: V/R breakpoints, ranked weapons and sets, key priorities and your own notes.',
   },
 ];
 
@@ -1517,7 +1517,9 @@ export function InfographicsPage() {
 
       {/* key: switching card type resets the tool's state rather than
           carrying a half-composed card across two different renderers. */}
-      {cardType === 'build' && <BuildCardTool key="build" onNotice={setNotice} />}
+      {cardType === 'build' && (
+        <BuildCardTool key="build" onNotice={setNotice} />
+      )}
       {cardType === 'team' && <TeamCardTool key="team" onNotice={setNotice} />}
       {cardType === 'rec' && <RecCardTool key="rec" onNotice={setNotice} />}
     </div>

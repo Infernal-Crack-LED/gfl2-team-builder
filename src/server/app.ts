@@ -524,7 +524,9 @@ export function createServer(): Hono {
       return c.json({ error: 'not_found' }, 404);
     }
     const arr = (v: unknown): string[] =>
-      Array.isArray(v) ? v.filter((x): x is string => typeof x === 'string') : [];
+      Array.isArray(v)
+        ? v.filter((x): x is string => typeof x === 'string')
+        : [];
     const payload: RecBuild = {
       v: BUILD_VERSION,
       card: 'rec',

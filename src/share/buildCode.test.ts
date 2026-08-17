@@ -248,9 +248,7 @@ describe('rec build codec', () => {
 
   it('accepts six priority keys of each kind and rejects seven', () => {
     const six = ['a', 'b', 'c', 'd', 'e', 'f'];
-    const ok = decodeRecBuild(
-      encodeRecBuild({ ...rec, keys: six, ck: six })
-    );
+    const ok = decodeRecBuild(encodeRecBuild({ ...rec, keys: six, ck: six }));
     expect(ok?.keys).toEqual(six);
     expect(ok?.ck).toEqual(six);
     expect(
@@ -261,8 +259,9 @@ describe('rec build codec', () => {
     // An over-cap ck is DROPPED (optional field), not fatal — same contract
     // as DollBuild's optional fields.
     expect(
-      decodeRecBuild(b64urlEncode(JSON.stringify({ ...rec, ck: [...six, 'g'] })))
-        ?.ck
+      decodeRecBuild(
+        b64urlEncode(JSON.stringify({ ...rec, ck: [...six, 'g'] }))
+      )?.ck
     ).toBeUndefined();
   });
 

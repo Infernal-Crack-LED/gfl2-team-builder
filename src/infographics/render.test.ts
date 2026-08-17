@@ -318,9 +318,9 @@ describe.skipIf(!FONTS_PRESENT)('card renderers (fonts present)', () => {
       h0
     );
     // A long note budgets more lines than a short one.
-    expect(
-      recCardHeight({ ...base, notes: 'x'.repeat(280) })
-    ).toBeGreaterThan(recCardHeight({ ...base, notes: 'Short note.' }));
+    expect(recCardHeight({ ...base, notes: 'x'.repeat(280) })).toBeGreaterThan(
+      recCardHeight({ ...base, notes: 'Short note.' })
+    );
     // Expansion/common key lines are omitted, not dashed, when absent.
     expect(
       recCardHeight({ ...base, expansionKeyName: 'White Reaper' })

@@ -313,8 +313,7 @@ export function parseTab(csv: string): ParsedTab {
       // Walk the cell left-to-right, longest token first at each position.
       let rest = cell;
       while (rest.length > 0 && stats.length < MAX_STATS) {
-        let earliest: { idx: number; len: number; label: string } | null =
-          null;
+        let earliest: { idx: number; len: number; label: string } | null = null;
         for (const [re, label] of STAT_TOKENS) {
           const m = re.exec(rest);
           if (
