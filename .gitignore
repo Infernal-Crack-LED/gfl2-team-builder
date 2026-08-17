@@ -29,3 +29,9 @@ Thumbs.db
 
 # drizzle generated migrations (keep schema, not migrations)
 # drizzle/meta/_journal.json.bak
+
+# gate packets + reviewer verdicts (audit trail, regenerable, often large)
+scratchpad/
+
+# python bytecode
+__pycache__/
