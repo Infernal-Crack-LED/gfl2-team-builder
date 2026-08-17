@@ -21,6 +21,11 @@ import {
 } from '../../src/share/html';
 export type { EffectDetails, EffectUpgrade } from '../../src/share/html';
 import { GENERIC_COMMON_KEYS } from '../../src/share/genericKeys';
+import {
+  indexNamedRows,
+  splitMarkers,
+  type MarkerKind,
+} from '../../src/share/markers';
 /**
  * Rewrites Dandegate CDN URLs to our own mirror under /game-assets. Render
  * game art through <GameIcon> rather than calling this directly — it adds the
@@ -499,13 +504,11 @@ export function dollWeaponType(doll: Doll): string | null {
 // --- Marker resolver ---
 
 /**
- * Marker kinds that appear in game text. Every one of them is a bare UUID in
- * the raw data, so an unresolved marker reads as gibberish on the page.
- * `effect` is by far the most common; the rest point at summons, other
- * skills, summon skills, and keys.
+ * Marker kinds that appear in game text — the grammar and the unresolved-name
+ * fallback live in `src/share/markers.ts` so the server's no-JS bodies resolve
+ * markers exactly the way this page does.
  */
-export type MarkerKind =
-  'effect' | 'summon' | 'dollSkill' | 'skillsummon' | 'key';
+export type { MarkerKind };
 
 /**
  * Resolve `[<kind>:<uuid>]` markers in skill/weapon/vertebra text into names.
@@ -526,72 +529,26 @@ export interface TextRef {
 
 export type TextSegment = string | TextRef;
 
-/** Human-readable noun per kind, for the unresolved fallback. */
-const KIND_NOUN: Record<MarkerKind, string> = {
-  effect: 'effect',
-  summon: 'summon',
-  dollSkill: 'skill',
-  skillsummon: 'summon skill',
-  key: 'key',
-};
-
-const UUID_RE =
-  /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
-
-/** "humiliation-mark" → "Humiliation Mark". */
-function humanizeSlug(slug: string): string {
-  return slug
-    .split(/[-_]+/)
-    .filter(Boolean)
-    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-    .join(' ');
-}
-
-/**
- * Best-effort name for a marker whose id isn't in the dataset. Some markers
- * are slug-form (`[effect:humiliation-mark|doll:florence]`) and the slug is
- * itself the name; the rest are UUIDs that carry nothing readable, so they
- * degrade to "unlisted effect" rather than a hex dump.
- */
-function fallbackName(kind: MarkerKind, id: string): string {
-  return UUID_RE.test(id) ? `unlisted ${KIND_NOUN[kind]}` : humanizeSlug(id);
-}
-
 /** id → display name, per marker kind. Built once below. */
 const summonNameById = new Map<string, string>();
 const skillNameById = new Map<string, string>();
 const summonSkillNameById = new Map<string, string>();
 
-function indexNamed(
-  target: Map<string, string>,
-  rows: unknown
-): Record<string, unknown>[] {
-  const list = Array.isArray(rows) ? (rows as Record<string, unknown>[]) : [];
-  for (const row of list) {
-    const id = str(row?.id);
-    const name = str(row?.name);
-    if (id && name) {
-      target.set(id, name);
-    }
-  }
-  return list;
-}
-
 for (const doll of allDolls) {
-  indexNamed(skillNameById, doll.skills);
-  for (const summon of indexNamed(summonNameById, doll.summons)) {
-    indexNamed(summonSkillNameById, summon.skills);
+  indexNamedRows(skillNameById, doll.skills);
+  for (const summon of indexNamedRows(summonNameById, doll.summons)) {
+    indexNamedRows(summonSkillNameById, summon.skills);
   }
   // Vertebrae carry the upgraded copies of skills and summons — those upgraded
   // rows have their own ids, and text refers to them by those ids.
   for (const vert of doll.vertebrae ?? []) {
-    indexNamed(skillNameById, vert.skillsLevel2);
-    indexNamed(skillNameById, vert.skillsLevel3);
+    indexNamedRows(skillNameById, vert.skillsLevel2);
+    indexNamedRows(skillNameById, vert.skillsLevel3);
     for (const summon of [
-      ...indexNamed(summonNameById, vert.summonsLevel2),
-      ...indexNamed(summonNameById, vert.summonsLevel3),
+      ...indexNamedRows(summonNameById, vert.summonsLevel2),
+      ...indexNamedRows(summonNameById, vert.summonsLevel3),
     ]) {
-      indexNamed(summonSkillNameById, summon.skills);
+      indexNamedRows(summonSkillNameById, summon.skills);
     }
   }
 }
@@ -614,50 +571,13 @@ function markerName(kind: MarkerKind, id: string): string | null {
   }
 }
 
-const MARKER_RE = /\[(effect|summon|dollSkill|skillsummon|key):([^\]]+)\]/gi;
-
-/** Canonical casing for a marker kind matched case-insensitively. */
-const MARKER_KINDS: MarkerKind[] = [
-  'effect',
-  'summon',
-  'dollSkill',
-  'skillsummon',
-  'key',
-];
-
+/**
+ * Split game text into plain strings and marker refs. The grammar, the
+ * `|doll:<slug>` variant handling and the unresolved-name fallback come from
+ * `src/share/markers.ts`; only the id→name lookup is local to the client.
+ */
 export function resolveEffectMarkers(text: string | null): TextSegment[] {
-  if (!text) {
-    return [];
-  }
-  const parts: TextSegment[] = [];
-  const re = new RegExp(MARKER_RE.source, MARKER_RE.flags);
-  let lastIndex = 0;
-  let match: RegExpExecArray | null;
-
-  while ((match = re.exec(text)) !== null) {
-    if (match.index > lastIndex) {
-      parts.push(text.slice(lastIndex, match.index));
-    }
-    const rawKind = match[1]!.toLowerCase();
-    const kind =
-      MARKER_KINDS.find((k) => k.toLowerCase() === rawKind) ?? 'effect';
-    // Doll-variant markers use `[effect:UUID|doll:slug]` — only the UUID
-    // part keys into the lookup tables.
-    const id = match[2]!.split('|')[0]!;
-    const name = markerName(kind, id);
-    parts.push(
-      name
-        ? { kind, id, name, resolved: true }
-        : { kind, id, name: fallbackName(kind, id), resolved: false }
-    );
-    lastIndex = re.lastIndex;
-  }
-
-  if (lastIndex < text.length) {
-    parts.push(text.slice(lastIndex));
-  }
-
-  return parts;
+  return splitMarkers(text, markerName);
 }
 
 // --- Filter option constants ---

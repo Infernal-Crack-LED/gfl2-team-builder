@@ -25,34 +25,11 @@ import {
 } from '../share/buildCode.js';
 import { SITE_NAME } from '../infographics/core/theme.js';
 import { getDoll } from './gameData.js';
+import { removeMetaTag, setMetaTag } from './htmlHead.js';
 import { PUBLIC_KINDS, PUBLIC_PROFILE_ID_RE } from './publicShare.js';
 
 const BUILDER_PATH_RE = /^\/builder\/([a-z0-9-]+)$/;
 const MAX_CODE_LEN = 4096; // same cap as the image API
-
-function escapeHtml(s: string): string {
-  return s
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;');
-}
-
-/** Replace (or, if absent, insert before </head>) a single <meta> tag.
- * Regex-based and tolerant of multi-line tag formatting in index.html. */
-function setMeta(
-  html: string,
-  attr: 'property' | 'name',
-  key: string,
-  content: string
-): string {
-  const re = new RegExp(`<meta\\s[^>]*${attr}=["']${key}["'][^>]*>`, 'i');
-  const tag = `<meta ${attr}="${key}" content="${escapeHtml(content)}" />`;
-  if (re.test(html)) {
-    return html.replace(re, tag);
-  }
-  return html.replace('</head>', `    ${tag}\n  </head>`);
-}
 
 interface ShareMeta {
   title: string;
@@ -158,7 +135,12 @@ export async function shareMetaForUrl(url: URL): Promise<ShareMeta | null> {
   };
 }
 
-/** Serve index.html with share-specific head tags when the URL warrants it. */
+/**
+ * Serve index.html with share-specific head tags when the URL warrants it.
+ * Runs AFTER the per-URL page meta (pageMeta.ts), so a share code's card image
+ * wins over the page's own portrait image — a link to someone's build must
+ * unfurl as that build, not as the doll.
+ */
 export async function injectShareMeta(html: string, url: URL): Promise<string> {
   const meta = await shareMetaForUrl(url).catch(() => null);
   if (!meta) {
@@ -166,10 +148,16 @@ export async function injectShareMeta(html: string, url: URL): Promise<string> {
   }
   const imageUrl = `${url.origin}${meta.imagePath}`;
   let out = html;
-  out = setMeta(out, 'property', 'og:title', meta.title);
-  out = setMeta(out, 'property', 'og:image', imageUrl);
-  out = setMeta(out, 'name', 'twitter:title', meta.title);
-  out = setMeta(out, 'name', 'twitter:image', imageUrl);
-  out = setMeta(out, 'name', 'twitter:card', 'summary_large_image');
+  out = setMetaTag(out, 'property', 'og:title', meta.title);
+  out = setMetaTag(out, 'property', 'og:image', imageUrl);
+  out = setMetaTag(out, 'property', 'og:image:alt', meta.title);
+  out = setMetaTag(out, 'name', 'twitter:title', meta.title);
+  out = setMetaTag(out, 'name', 'twitter:image', imageUrl);
+  out = setMetaTag(out, 'name', 'twitter:card', 'summary_large_image');
+  // Cards are 1200 wide but NOT all 630 tall (a team card grows with each
+  // filled slot), and the baked dimensions describe og.png — drop them rather
+  // than assert a height this card may not have.
+  out = removeMetaTag(out, 'property', 'og:image:width');
+  out = removeMetaTag(out, 'property', 'og:image:height');
   return out;
 }

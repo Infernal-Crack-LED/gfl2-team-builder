@@ -28,8 +28,17 @@ import {
   anonExpiryCutoff,
   clientIpFromForwardedFor,
 } from './anonShare.js';
+import { cacheControlFor, etagFor, isNotModified } from './httpCache.js';
+import { injectRootBody } from './htmlHead.js';
 import { registerImgApi } from './imgApi.js';
+import { noJsBodyFor } from './noJsBody.js';
 import { injectShareMeta } from './ogInject.js';
+import {
+  injectBreadcrumbLd,
+  injectPageMeta,
+  redirectTargetFor,
+  resolvePage,
+} from './pageMeta.js';
 import { PUBLIC_KINDS, PUBLIC_PROFILE_ID_RE } from './publicShare.js';
 import { createRateLimiter } from './rateLimit.js';
 import { sign, verify } from './session.js';
@@ -573,14 +582,16 @@ export function createServer(): Hono {
   app.all('/auth/*', (c) => c.json({ error: 'not_found' }, 404));
 
   // ---- Static dist/ with SPA fallback ----
-  // Unknown extension-less paths serve index.html (client router owns them).
-  // Content-hashed assets under /assets/ are immutable forever; everything
-  // else is no-cache so a new deploy is picked up immediately.
+  // Unknown extension-less paths serve index.html (client router owns them),
+  // with this URL's embed metadata and no-JS body injected. Content-hashed
+  // assets are immutable forever; everything else is no-cache + an ETag so a
+  // new deploy is picked up immediately without refetching unchanged art.
   app.use('*', async (c, next) => {
     if (c.req.method !== 'GET' && c.req.method !== 'HEAD') {
       return next();
     }
-    const urlPath = new URL(c.req.url).pathname;
+    const url = new URL(c.req.url);
+    const urlPath = url.pathname;
     const lastSegment = urlPath.split('/').pop() ?? '';
     const hasExtension = lastSegment.includes('.');
 
@@ -591,29 +602,66 @@ export function createServer(): Hono {
       return c.text('Not found', 404);
     }
 
+    // 301 the non-canonical spellings (/teambuilder, /index.html, trailing
+    // slash, mixed case) so link equity lands on the canonical URL rather than
+    // only being hinted at by <link rel="canonical">. The query survives —
+    // share links carry their payload there. Checked BEFORE the static branch
+    // so /index.html redirects instead of being served as a file; asset paths
+    // are exempt inside redirectTargetFor (case-sensitive on disk).
+    const redirectTo = redirectTargetFor(urlPath);
+    if (redirectTo !== null) {
+      return c.redirect(redirectTo + url.search, 301);
+    }
+
     if (hasExtension) {
-      if (existsSync(filePath) && statSync(filePath).isFile()) {
+      const stat = existsSync(filePath) ? statSync(filePath) : null;
+      if (stat?.isFile()) {
+        const etag = etagFor(stat);
+        const cacheControl = cacheControlFor(urlPath);
+        if (
+          isNotModified(
+            etag,
+            stat.mtimeMs,
+            c.req.header('if-none-match'),
+            c.req.header('if-modified-since')
+          )
+        ) {
+          // last-modified rides the 304 so an IMS-driven client can re-anchor
+          // its next conditional request.
+          return c.body(null, 304, {
+            ETag: etag,
+            'Cache-Control': cacheControl,
+            'Last-Modified': stat.mtime.toUTCString(),
+          });
+        }
         const body = await readFile(filePath);
         return c.body(body, 200, {
           'Content-Type': getMimeType(filePath) ?? 'application/octet-stream',
-          'Cache-Control': urlPath.startsWith('/assets/')
-            ? 'public, max-age=31536000, immutable'
-            : 'no-cache',
+          'Cache-Control': cacheControl,
+          ETag: etag,
+          'Last-Modified': stat.mtime.toUTCString(),
         });
       }
       // Extension-ful 404: a real missing file, not an SPA route.
       return c.text('Not found', 404);
     }
 
-    // SPA fallback: extension-less path → the client router decides. Share
-    // URLs (/builder/<slug>?b=|id=, /team-builder?b=|id=) get their OG/Twitter
-    // head tags rewritten to the content-addressed card image (ogInject.ts).
-    // Umami analytics is injected server-side so the URL/ID can change without
-    // a rebuild.
+    // SPA fallback: extension-less path → the client router decides. Three
+    // layers of injection, outermost last:
+    //   1. per-URL page meta + breadcrumb + no-JS body (pageMeta/noJsBody) —
+    //      unknown paths resolve to a hard 404 instead of a soft-200 shell.
+    //   2. share-card meta for /builder/<slug>?b=|id= and /team-builder?b=|id=
+    //      (ogInject.ts), which must WIN over the page image.
+    //   3. Umami, injected server-side so the URL/ID can change without a
+    //      rebuild.
+    const page = resolvePage(url);
     const indexHtml = await readFile(path.join(DIST, 'index.html'), 'utf8');
-    let html = await injectShareMeta(indexHtml, new URL(c.req.url));
+    let html = injectPageMeta(indexHtml, page);
+    html = injectBreadcrumbLd(html, page);
+    html = injectRootBody(html, noJsBodyFor(page));
+    html = await injectShareMeta(html, url);
     html = injectUmami(html);
-    return c.html(html, 200, { 'Cache-Control': 'no-cache' });
+    return c.html(html, page.status, { 'Cache-Control': 'no-cache' });
   });
 
   return app;

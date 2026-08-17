@@ -3,83 +3,26 @@
  * tags, and <link rel="canonical"> on every SPA navigation. Detail pages
  * (DollPage, WeaponPage) set their own head so the full dataset doesn't land
  * in the eager entry chunk.
+ *
+ * The copy itself lives in src/share/pageMeta.ts — the same table the server
+ * injects for crawlers (src/server/pageMeta.ts), so a visitor and a crawler can
+ * never see a different title for the same URL.
  */
 import { useEffect } from 'react';
+import {
+  ROUTE_META,
+  SITE,
+  normalizeCanonicalPath,
+  routeMetaFor,
+} from '../../src/share/pageMeta';
 
-// TODO: replace with the real domain when known (phase 2 — canonical host)
-const SITE = 'https://refittingroom.app';
+export {
+  dollPageMeta,
+  weaponPageMeta,
+  builderPageMeta,
+} from '../../src/share/pageMeta';
 
-interface HeadMeta {
-  title: string;
-  description: string;
-}
-
-// Per-route SEO metadata. Titles are keyword-rich and unique per page.
-export const META: Record<string, HeadMeta> = {
-  home: {
-    title: "Refitting Room — Girls' Frontline 2: Exilium Squad Planner",
-    description:
-      "Build and plan your Girls' Frontline 2: Exilium squad. Browse dolls and weapons, filter by class, phase, and weapon type, and assemble your team.",
-  },
-  characters: {
-    title: "GFL2 Characters — Every Doll's Kit, Skills & Stats",
-    description:
-      "Browse every doll in Girls' Frontline 2: Exilium. Filter by class, phase, weapon type, ammo, and rarity, then open a doll for her full kit and stats.",
-  },
-  weapons: {
-    title: 'GFL2 Weapons — Traits, Effects & Imprint Stats',
-    description:
-      "Browse every weapon in Girls' Frontline 2: Exilium. Filter by rarity, weapon type, and primary attribute, then view traits and effects.",
-  },
-  'team-builder': {
-    title: 'Refitting Room — Visual Squad Planner',
-    description:
-      'Build your GFL2 squad visually. Filter the full doll roster, place dolls in 4 or 5 slots, and plan your team composition.',
-  },
-  // Fallback for /builder URLs — detail URLs set their own per-doll head via
-  // setDetailMeta (skipped in the sync below), this covers the slug-less edge.
-  builder: {
-    title: 'GFL2 Doll Builder — Weapons, Keys & Vertebrae Planner',
-    description:
-      "Plan a doll build in Girls' Frontline 2: Exilium. Pick a weapon, unlock affinity and common keys, choose vertebra segments, then save or share the build.",
-  },
-  keys: {
-    title: 'GFL2 Keys — Fixed, Expansion & Common Key Database',
-    description:
-      "Every fixed, expansion, and common key in Girls' Frontline 2: Exilium, with stats and effects. Filter by key type, stat bonus, and the class or phase of the doll they belong to.",
-  },
-  tools: {
-    title: 'GFL2 Tools — Builders, Key Database & Infographics Creator',
-    description:
-      "Every Girls' Frontline 2: Exilium tool on the site: the team builder, the character builder, the key catalogue, and the infographics creator.",
-  },
-  saved: {
-    title: 'Saved builds — Refitting Room',
-    description:
-      'Your saved GFL2 character builds and squads, tied to your Discord account.',
-  },
-  credits: {
-    title: 'Credits — Refitting Room',
-    description: 'The data sources and tools behind the Refitting Room.',
-  },
-  dev: {
-    title: 'Meet the dev — Refitting Room',
-    description:
-      'Who builds the Refitting Room and the Helen Discord bot, and where to find the rest of the projects.',
-  },
-  privacy: {
-    title: 'Privacy Policy — Refitting Room',
-    description:
-      'What data Helen and the Refitting Room website collect, how it is used, and your choices.',
-  },
-  terms: {
-    title: 'Terms of Service — Refitting Room',
-    description:
-      'The terms governing use of the Helen Discord bot and the Refitting Room website.',
-  },
-};
-
-const DEFAULT_META = META.home;
+const DEFAULT_META = ROUTE_META.home;
 
 function setMeta(name: string, content: string) {
   let el = document.querySelector(`meta[name="${name}"]`);
@@ -111,19 +54,11 @@ function setCanonical(href: string) {
   el.setAttribute('href', href);
 }
 
-// Canonical paths: lowercase, no trailing slash except root.
-function normalizeCanonicalPath(pathname: string): string {
-  if (!pathname || pathname === '/') {
-    return '/';
-  }
-  return pathname.replace(/\/{2,}/g, '/').replace(/\/+$/, '') || '/';
-}
-
 function tabKey(): string {
   const seg = normalizeCanonicalPath(window.location.pathname.toLowerCase())
     .replace(/^\/+|\/+$/g, '')
     .split('/')[0];
-  if (seg && Object.hasOwn(META, seg)) {
+  if (seg && Object.hasOwn(ROUTE_META, seg)) {
     return seg;
   }
   return 'home';
@@ -153,7 +88,7 @@ export function useDocumentHead() {
       }
 
       const key = tabKey();
-      const m = META[key] ?? DEFAULT_META;
+      const m = routeMetaFor(key) ?? DEFAULT_META;
       const canonicalPath = normalizeCanonicalPath(pathname);
       const canonical = SITE + canonicalPath;
 

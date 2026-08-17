@@ -8,17 +8,15 @@ import { GameIcon } from './components/GameIcon';
 import { RichText } from './components/RichText';
 import { hrefFor, hrefForDoll, hrefForWeapon, onSpaLinkClick } from './router';
 import { escapeJsonLd } from './jsonLd';
-import { setDetailMeta } from './useDocumentHead';
+import { setDetailMeta, weaponPageMeta } from './useDocumentHead';
 
 export function WeaponPage({ slug }: { slug: string | null }) {
   const weapon = slug ? getWeaponBySlug(slug) : undefined;
 
   useEffect(() => {
     if (weapon) {
-      setDetailMeta(
-        `${weapon.name} — GFL2 Weapon Stats & Trait`,
-        `${weapon.name}: ${weapon.weaponType ?? 'Unknown'} ${weapon.rarity ?? ''} weapon in Girls' Frontline 2: Exilium. View trait, effect, and stats.`
-      );
+      const meta = weaponPageMeta(weapon);
+      setDetailMeta(meta.title, meta.description);
 
       const existing = document.getElementById('jsonld-page');
       if (existing) {

@@ -297,10 +297,29 @@ aliasing on large reductions, and placeholder URLs have nothing to alias.
 
 **Phase 2 — assets + SEO surface**
 
-- Filter/card icon set; portrait thumb tiers + manifest (nikke-sim §10)
-- Hono static server: per-route meta injection, no-JS bodies for
+- Filter/card icon set; portrait thumb tiers + manifest (nikke-sim §10) —
+  still pending
+- ~~Hono static server: per-route meta injection, no-JS bodies for
   `/characters` + detail pages (same-source rule), 404/cache policy,
-  robots.txt + generated sitemap + llms.txt (nikke-sim §6–7)
+  robots.txt + generated sitemap + llms.txt (nikke-sim §6–7)~~ **DONE
+  2026-08-17** — see §12 for what shipped
+
+**Phase 2.1 — remaining SEO follow-ups**
+
+- No-JS body for `/keys` (the third database page; `/characters`,
+  `/weapons` and both detail pages have one)
+- Per-doll/per-weapon 1200×630 OG **cards** rendered through the
+  infographics stack, replacing the portrait tile currently used as the
+  per-URL embed image (§12)
+- **Fonts and the immutable cache class.** `src/server/httpCache.ts` marks
+  every `.woff/.woff2` immutable for a year, but no fonts ship today (the
+  Roboto subsets live in `src/infographics/assets/fonts/`, server-side only,
+  and `web/public` has no fonts dir). When web fonts do land, either
+  content-hash their filenames — then immutable is correct — or move them to
+  the `no-cache` + ETag class like the mirrored art, because a font replaced
+  in place at a fixed URL would otherwise be pinned stale for up to a year.
+  (Raised by the 2026-08-17 cross-family review as a NOTE; inert until fonts
+  exist.)
 
 **Phase 3 — deferred by owner**
 
@@ -313,9 +332,77 @@ aliasing on large reductions, and placeholder URLs have nothing to alias.
 1. Doll grid: show both region rows when a doll exists in en + cn, or one
    card per doll (region badge)? Export currently keeps both rows; the grid
    likely wants dedupe-by-name with a region badge. Decide at implementation.
-2. Domain/canonical host — needed before the SEO phase; unknown today.
-3. Do we want the dandegate `recommendations` data later? Excluded from sync
+2. Do we want the dandegate `recommendations` data later? Excluded from sync
    by owner decision; re-ask if the team builder wants community builds.
 
 Resolved: squad size — 4 or 5, user-selectable on `/team-builder`
-(2026-08-15).
+(2026-08-15). Domain/canonical host — `https://refittingroom.app`
+(2026-08-17); it is a single constant, `SITE` in `src/share/pageMeta.ts`.
+
+## 12. Per-URL embed system (nikke-sim §6–7, adopted 2026-08-17)
+
+The problem it solves: crawlers do not run JS, so before this every one of
+the ~325 crawlable URLs returned index.html's home-page title, description
+and canonical — 64 doll pages and 185 weapon pages all claiming to be the
+landing page. Ported from nikke-sim's `src/server/static.ts`
+TAB_META/UNIT_META layer, with one improvement.
+
+- **One table, both sides** — `src/share/pageMeta.ts` holds `ROUTE_META`
+  (title/description/breadcrumb label per route) plus `dollPageMeta`,
+  `weaponPageMeta`, `builderPageMeta` for detail pages. The client head sync
+  (`web/src/useDocumentHead.ts`) and the server injection
+  (`src/server/pageMeta.ts`) both read it, so nikke-sim's "route meta lives
+  in ALL tables at once" lockstep rule holds **by construction** instead of
+  by a parity test.
+- **Resolution** — `resolvePage(url)` maps a URL to a route key or a
+  doll/weapon/builder entity (looked up in the committed `data/*.json` via
+  `server/gameData.ts`), its meta, its canonical path, and a 200/404 status.
+  Unknown routes, unknown slugs and over-deep paths are **hard 404s**, not
+  soft-200 shells. 404s canonicalize to `/` and carry `noindex, follow`; so
+  does `/saved` (one visitor's own builds behind a session).
+- **Injection order** (`src/server/app.ts` SPA fallback): page meta →
+  BreadcrumbList JSON-LD → no-JS body → share-card meta (`ogInject.ts`) →
+  Umami. Share meta runs LAST so a `?b=`/`?id=` link unfurls as that build's
+  card while the canonical still points at the clean URL.
+- **Per-URL embed image** — nikke-sim resolves a per-tab image through a
+  build-time infographics manifest; here the self-hosted mirrored game art IS
+  the manifest: a doll/builder page embeds the doll's portrait, a weapon page
+  its art, and a missing file degrades to the generic `/og.png`. Because
+  those tiles are not 1200×630, the baked `og:image:width/height` are dropped
+  and `twitter:card` downgrades to `summary`.
+- **No-JS bodies** (`src/server/noJsBody.ts`) — `/characters` and `/weapons`
+  render every entity as a real `<a href>` (the crawl hubs); the two detail
+  pages render idents, kit text / trait + effect, bio and cross-links. Built
+  from the same `data/*.json` rows the React pages import (HTML stripped via
+  `share/html.ts`), injected into `#root`, and replaced wholesale by
+  `createRoot` on boot.
+- **Marker resolution is shared** (`src/share/markers.ts`) — game text refers
+  to effects, summons, skills and keys as `[<kind>:<id>]`, in five kinds with a
+  `|doll:<slug>` variant form. The grammar, the id normalization and the
+  unresolved-name fallback ("unlisted effect", or the humanized slug) live in
+  one module that both `web/src/data.ts` and `src/server/gameData.ts` read, and
+  each side builds its id→name index from the same artifacts. A server-only
+  resolver that knew fewer kinds leaked raw markers into the no-JS body — text
+  no visitor sees, which is precisely what the same-source rule forbids (caught
+  by the 2026-08-17 cross-family review; the regression test sweeps EVERY doll
+  and weapon body for raw markers and diffs the server's text against the
+  client resolver's).
+- **Redirects** — `/teambuilder`, `/index.html`, and every non-canonical
+  spelling (trailing slash, doubled slashes, uppercase) 301 to the canonical
+  path, query preserved. `redirectTargetFor` is idempotent (tested), so no
+  redirect can loop.
+- **Cache policy** (`src/server/httpCache.ts`) — content-hashed vite bundles
+  and fonts are immutable for a year; every other **static file** (mirrored
+  game art, og.png, robots/sitemap/llms) is `no-cache` **with a weak size+mtime
+  ETag**, so revalidation is a 304 instead of a refetch of ~900 art tiles. The
+  per-URL **HTML** is plain `no-cache` with no validator — deliberately: it is
+  built per request and varies by URL and by share query, so a path-keyed
+  ETag would be wrong.
+- **Sitemap** — `npm run sitemap` (`src/bin/build-sitemap.ts`) generates
+  `web/public/sitemap.xml` from `ROUTE_META` + every doll/weapon/builder slug
+  (325 URLs today) and runs as part of `npm run vite:build`. A drift test
+  fails if the committed file is stale, and a second test asserts every
+  `<loc>` resolves to a 200 at its own canonical URL.
+- **llms.txt** — `web/public/llms.txt`, hand-written: what the site is, the
+  database/tools/about link sets, and the URL rules answer engines need
+  (canonical shape, share-query behavior, real 404s).

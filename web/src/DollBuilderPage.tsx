@@ -59,7 +59,7 @@ import {
   navigate,
   onSpaLinkClick,
 } from './router';
-import { setDetailMeta } from './useDocumentHead';
+import { builderPageMeta, setDetailMeta } from './useDocumentHead';
 import {
   bootBuildFromCodeParam,
   bootIdFromSearch,
@@ -290,10 +290,8 @@ export function DollBuilder({
     if (embedded) {
       return;
     }
-    setDetailMeta(
-      `${doll.name} Builder — GFL2 Weapon, Keys & Vertebrae Planner`,
-      `Plan ${doll.name}'s build in Girls' Frontline 2: Exilium: pick a weapon, unlock keys, choose vertebra segments, and share the build with a link.`
-    );
+    const meta = builderPageMeta(doll);
+    setDetailMeta(meta.title, meta.description);
   }, [doll, embedded]);
 
   // ?id= boot — the async counterpart of the ?b= initializer above. Skipped
