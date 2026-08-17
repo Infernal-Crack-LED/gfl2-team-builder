@@ -4,9 +4,11 @@ import {
   b64urlEncode,
   decodeAnyBuild,
   decodeDollBuild,
+  decodeRecBuild,
   decodeTeamBuild,
   dollBuildFromTeamSlot,
   encodeDollBuild,
+  encodeRecBuild,
   encodeTeamBuild,
   shareProfileName,
   teamSlotFromDollBuild,
@@ -175,12 +177,122 @@ describe('team slot ↔ doll build', () => {
   });
 });
 
+describe('rec build codec', () => {
+  const rec = {
+    v: 2 as const,
+    card: 'rec' as const,
+    doll: 'alva',
+    bp: ['V0', 'R1', 'V3', 'V6', 'R6'],
+    opt: 'V3R1',
+    ws: ['w1', 'w2'],
+    sets: ['Ultimate Pursuit'],
+    keys: ['k1', 'k2'],
+    exp: 'exp-id',
+    ck: ['ck1'],
+    stats: ['ATK%', 'Crit DMG'],
+    notes: 'Works at V0; R1 is the first big jump.',
+  };
+
+  it('roundtrips', () => {
+    expect(decodeRecBuild(encodeRecBuild(rec))).toEqual(rec);
+  });
+
+  it('returns null on garbage / wrong version / missing discriminant', () => {
+    expect(decodeRecBuild('junk')).toBeNull();
+    expect(
+      decodeRecBuild(b64urlEncode(JSON.stringify({ ...rec, v: 9 })))
+    ).toBeNull();
+    // A DollBuild code is NOT a rec code — no `card: 'rec'`.
+    expect(decodeRecBuild(encodeDollBuild(dollBuild))).toBeNull();
+  });
+
+  it('rejects malformed breakpoint sequences', () => {
+    const bad = (bp: unknown[]) =>
+      decodeRecBuild(b64urlEncode(JSON.stringify({ ...rec, bp })));
+    expect(bad(['V7'])).toBeNull(); // out of range
+    expect(bad(['R0'])).toBeNull(); // refinement starts at 1
+    expect(bad(['v3'])).toBeNull(); // case-sensitive
+    expect(bad(['V1', 'V1'])).toBeNull(); // duplicates
+    expect(bad(['V0', 'R1', 'V1', 'R2', 'V2', 'R3', 'V3', 'R4', 'V4'])) // >8
+      .toBeNull();
+  });
+
+  it('rejects over-cap weapon / set lists', () => {
+    expect(
+      decodeRecBuild(
+        b64urlEncode(JSON.stringify({ ...rec, ws: ['a', 'b', 'c', 'd'] }))
+      )
+    ).toBeNull();
+    expect(
+      decodeRecBuild(
+        b64urlEncode(JSON.stringify({ ...rec, sets: ['a', 'b', 'c', 'd'] }))
+      )
+    ).toBeNull();
+    expect(
+      decodeRecBuild(
+        b64urlEncode(JSON.stringify({ ...rec, sets: ['x'.repeat(65)] }))
+      )
+    ).toBeNull();
+  });
+
+  it('drops a malformed optimal token and keeps single-axis ones', () => {
+    const opt = (o: unknown) =>
+      decodeRecBuild(b64urlEncode(JSON.stringify({ ...rec, opt: o })))?.opt;
+    expect(opt('V3R1')).toBe('V3R1');
+    expect(opt('V6')).toBe('V6');
+    expect(opt('R1')).toBe('R1');
+    expect(opt('R1V3')).toBeUndefined(); // V before R, always
+    expect(opt('V7R1')).toBeUndefined();
+    expect(opt('optimal')).toBeUndefined();
+  });
+
+  it('accepts six priority keys of each kind and rejects seven', () => {
+    const six = ['a', 'b', 'c', 'd', 'e', 'f'];
+    const ok = decodeRecBuild(
+      encodeRecBuild({ ...rec, keys: six, ck: six })
+    );
+    expect(ok?.keys).toEqual(six);
+    expect(ok?.ck).toEqual(six);
+    expect(
+      decodeRecBuild(
+        b64urlEncode(JSON.stringify({ ...rec, keys: [...six, 'g'] }))
+      )
+    ).toBeNull();
+    // An over-cap ck is DROPPED (optional field), not fatal — same contract
+    // as DollBuild's optional fields.
+    expect(
+      decodeRecBuild(b64urlEncode(JSON.stringify({ ...rec, ck: [...six, 'g'] })))
+        ?.ck
+    ).toBeUndefined();
+  });
+
+  it('trims an over-long note instead of rejecting it', () => {
+    const long = decodeRecBuild(
+      b64urlEncode(JSON.stringify({ ...rec, notes: 'x'.repeat(400) }))
+    );
+    expect(long?.notes).toHaveLength(280);
+  });
+});
+
 describe('decodeAnyBuild', () => {
-  it('distinguishes doll builds from team builds', () => {
+  it('distinguishes doll, team and rec builds', () => {
     expect(decodeAnyBuild(encodeDollBuild(dollBuild))?.kind).toBe('build');
     expect(
       decodeAnyBuild(encodeTeamBuild({ v: 2, s: [{ d: 'alva' }] }))?.kind
     ).toBe('team');
+    expect(
+      decodeAnyBuild(
+        encodeRecBuild({
+          v: 2,
+          card: 'rec',
+          doll: 'alva',
+          bp: ['V0'],
+          ws: [],
+          sets: [],
+          keys: [],
+        })
+      )?.kind
+    ).toBe('rec');
     expect(decodeAnyBuild('junk')).toBeNull();
   });
 });

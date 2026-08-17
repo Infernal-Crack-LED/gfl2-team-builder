@@ -2,7 +2,8 @@
  * OG/Twitter meta injection for share URLs.
  *
  * When the SPA fallback serves index.html for a shareable builder URL
- * (/builder/<slug>?b=…|?id=…, /team-builder?b=…|?id=…) with a WELL-FORMED
+ * (/builder/<slug>?b=…|?id=…, /team-builder?b=…|?id=…, or a rec-card link
+ * /tools/infographics?card=rec&b=…) with a WELL-FORMED
  * payload, the generic head tags are replaced with share-specific ones —
  * og:image pointing at the content-addressed image API — so Discord/Twitter
  * crawlers (which run no JS) embed the rendered card. EVERYONE gets the
@@ -19,6 +20,7 @@ import { userProfiles } from '../db/schema.js';
 import {
   decodeAnyBuild,
   decodeDollBuild,
+  decodeRecBuild,
   decodeTeamBuild,
 } from '../share/buildCode.js';
 import { SITE_NAME } from '../infographics/core/theme.js';
@@ -70,7 +72,10 @@ export async function shareMetaForUrl(url: URL): Promise<ShareMeta | null> {
   const builderMatch = BUILDER_PATH_RE.exec(url.pathname);
   const isBuilder = builderMatch !== null;
   const isTeam = url.pathname === '/team-builder';
-  if (!isBuilder && !isTeam) {
+  // The rec card's editor IS the infographics page, so its share links point
+  // there (?card=rec&b=…) and get the same og treatment as the builders.
+  const isInfog = url.pathname === '/tools/infographics';
+  if (!isBuilder && !isTeam && !isInfog) {
     return null;
   }
 
@@ -90,6 +95,20 @@ export async function shareMetaForUrl(url: URL): Promise<ShareMeta | null> {
       return {
         title: `${doll.name} build — ${SITE_NAME}`,
         imagePath: `/api/v1/img/build.png?b=${encodeURIComponent(b)}`,
+      };
+    }
+    if (isInfog) {
+      const rec = decodeRecBuild(b);
+      if (!rec) {
+        return null;
+      }
+      const doll = getDoll(rec.doll);
+      if (!doll) {
+        return null;
+      }
+      return {
+        title: `${doll.name} recommendation — ${SITE_NAME}`,
+        imagePath: `/api/v1/img/rec.png?b=${encodeURIComponent(b)}`,
       };
     }
     const team = decodeTeamBuild(b);
@@ -122,14 +141,15 @@ export async function shareMetaForUrl(url: URL): Promise<ShareMeta | null> {
   if (!decoded) {
     return null;
   }
-  if (decoded.kind === 'build') {
+  if (decoded.kind === 'build' || decoded.kind === 'rec') {
     const doll = getDoll(decoded.build.doll);
     if (!doll) {
       return null;
     }
+    const noun = decoded.kind === 'build' ? 'build' : 'recommendation';
     return {
-      title: `${doll.name} build — ${SITE_NAME}`,
-      imagePath: `/api/v1/img/build.png?id=${encodeURIComponent(id)}`,
+      title: `${doll.name} ${noun} — ${SITE_NAME}`,
+      imagePath: `/api/v1/img/${decoded.kind}.png?id=${encodeURIComponent(id)}`,
     };
   }
   return {

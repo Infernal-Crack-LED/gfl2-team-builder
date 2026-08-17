@@ -5,17 +5,25 @@
  * components the builders use, then either download the PNG or mint a hosted,
  * Discord-embeddable image URL.
  *
- * Two cards exist today because two renderers do (src/infographics/core):
- * the build card (one doll) and the squad card (up to five). Both encode to
- * the shared build codecs, so a card made here is the same artifact the
- * builders and the bot produce — the hosted URL is just /api/v1/img/<kind>.png
- * over that code.
+ * Three cards exist today because three renderers do (src/infographics/core):
+ * the build card (one doll), the squad card (up to five) and the
+ * recommendation card (one doll's investment advice). All encode to the
+ * shared build codecs, so a card made here is the same artifact the builders
+ * and the bot produce — the hosted URL is just /api/v1/img/<kind>.png over
+ * that code.
  *
  * Everything works logged out; a session only buys the SHORT hosted link
  * (the code is stored server-side under the public share kind) and the
  * "load a saved build" dropdowns.
  */
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+  type ReactNode,
+} from 'react';
 import {
   allAttachmentSets,
   allWeapons,
@@ -36,14 +44,22 @@ import {
 import {
   BUILD_VERSION,
   decodeDollBuild,
+  decodeRecBuild,
   decodeTeamBuild,
   dollBuildFromTeamSlot,
   encodeDollBuild,
+  encodeRecBuild,
   encodeTeamBuild,
+  MAX_BREAKPOINTS,
+  MAX_REC_KEYS,
+  MAX_REC_NOTES,
+  MAX_REC_SETS,
+  MAX_REC_WEAPONS,
   shareProfileName,
   teamSlotFromDollBuild,
   TEAM_SLOTS,
   type DollBuild,
+  type RecBuild,
 } from '../../src/share/buildCode';
 import { commonKeySource, fixedKeySlot } from '../../src/share/keyLabels';
 import {
@@ -57,6 +73,7 @@ import {
 import { SHARE_PROFILE_KIND } from './buildShare';
 import { copyText } from './clipboard';
 import { BuildCardPreview } from './components/BuildCardPreview';
+import { RecCardPreview } from './components/RecCardPreview';
 import { GameIcon } from './components/GameIcon';
 import { TeamCardPreview, teamCardSlot } from './components/TeamCardPreview';
 import {
@@ -72,7 +89,7 @@ const MAX_FIXED_KEYS = 3;
 const MAX_COMMON_KEYS = 3;
 const MAX_STAT_PREFS = 4;
 
-type CardType = 'build' | 'team';
+type CardType = 'build' | 'team' | 'rec';
 
 const CARD_TYPES: { key: CardType; label: string; blurb: string }[] = [
   {
@@ -84,6 +101,12 @@ const CARD_TYPES: { key: CardType; label: string; blurb: string }[] = [
     key: 'team',
     label: 'Squad Card',
     blurb: 'Up to five dolls, each with her full build inline.',
+  },
+  {
+    key: 'rec',
+    label: 'Recommendation Card',
+    blurb:
+      "Investment advice for one doll: V/R breakpoints, ranked weapons and sets, key priorities and your own notes.",
   },
 ];
 
@@ -158,6 +181,7 @@ function ChipRow({
   cap,
   empty,
   scroll,
+  footer,
 }: {
   label: string;
   options: { id: string; label: string }[];
@@ -167,6 +191,8 @@ function ChipRow({
   empty?: string;
   /** Long lists (common keys) get a fixed-height scroll box. */
   scroll?: boolean;
+  /** Rendered under the chips — the rec card uses it to show pick ORDER. */
+  footer?: ReactNode;
 }) {
   return (
     <div className="infog-field">
@@ -200,6 +226,7 @@ function ChipRow({
           })}
         </div>
       )}
+      {footer}
     </div>
   );
 }
@@ -643,6 +670,516 @@ function BuildCardTool({ onNotice }: { onNotice: (m: string | null) => void }) {
   );
 }
 
+// --- Recommendation card ---------------------------------------------------
+
+/** Pickable investment breakpoints, in option order: V0–V6, then R1–R6. */
+const BREAKPOINT_OPTIONS = [
+  ...Array.from({ length: 7 }, (_, n) => `V${n}`),
+  ...Array.from({ length: 6 }, (_, n) => `R${n + 1}`),
+];
+
+interface RecState {
+  /** Breakpoints in PICK order — the order IS the recommendation. */
+  bp: string[];
+  /** Optimal investment point, split by axis for the two single-select rows. */
+  optV: number | null;
+  optR: number | null;
+  /** Three ranked weapon slots; null slots are skipped on encode. */
+  weapons: (string | null)[];
+  sets: string[];
+  keys: string[];
+  expansionKey: string | null;
+  commonKeys: string[];
+  statPrefs: string[];
+  notes: string;
+}
+
+function emptyRec(): RecState {
+  return {
+    bp: [],
+    optV: null,
+    optR: null,
+    weapons: Array.from({ length: MAX_REC_WEAPONS }, () => null),
+    sets: [],
+    keys: [],
+    expansionKey: null,
+    commonKeys: [],
+    statPrefs: [...DEFAULT_STAT_PREFS],
+    notes: '',
+  };
+}
+
+/** 'V3R1' | 'V6' | 'R1' → its two axes; anything else → both null. */
+function splitOptimal(opt: string | null | undefined): {
+  optV: number | null;
+  optR: number | null;
+} {
+  const m = /^(?:V([0-6]))?(?:R([1-6]))?$/.exec(opt ?? '');
+  return {
+    optV: m?.[1] !== undefined ? Number(m[1]) : null,
+    optR: m?.[2] !== undefined ? Number(m[2]) : null,
+  };
+}
+
+/** The two axes back to the wire token — '' when neither is set. */
+function joinOptimal(optV: number | null, optR: number | null): string {
+  return (optV !== null ? `V${optV}` : '') + (optR !== null ? `R${optR}` : '');
+}
+
+/**
+ * A decoded rec code → tool state, dropping ids that don't resolve for this
+ * doll — same contract as BuildCardTool.applyCode.
+ */
+function recStateFromBuild(doll: Doll, decoded: RecBuild): RecState {
+  const validFixed = new Set(
+    getKeysForDoll(doll.id)
+      .filter((k) => k.keyType === 'Fixed Key')
+      .map((k) => k.id)
+  );
+  const validExpansion = new Set(
+    getKeysForDoll(doll.id)
+      .filter((k) => k.keyType === 'Expansion Key')
+      .map((k) => k.id)
+  );
+  const validCommon = new Set(getAllCommonKeys().map((k) => k.id));
+  const weapons = decoded.ws.filter((id) => getWeaponById(id));
+  return {
+    bp: decoded.bp,
+    ...splitOptimal(decoded.opt),
+    weapons: Array.from(
+      { length: MAX_REC_WEAPONS },
+      (_, i) => weapons[i] ?? null
+    ),
+    sets: decoded.sets.filter((s) => getAttachmentSet(s)),
+    keys: decoded.keys
+      .filter((id) => validFixed.has(id))
+      .slice(0, MAX_REC_KEYS),
+    expansionKey:
+      decoded.exp && validExpansion.has(decoded.exp) ? decoded.exp : null,
+    commonKeys: (decoded.ck ?? [])
+      .filter((id) => validCommon.has(id))
+      .slice(0, MAX_REC_KEYS),
+    statPrefs: (decoded.stats ?? [])
+      .filter((s) => (STAT_PREF_OPTIONS as readonly string[]).includes(s))
+      .slice(0, MAX_STAT_PREFS),
+    notes: decoded.notes ?? '',
+  };
+}
+
+/** ?b= on a ?card=rec URL — the rec card's editor IS this page. */
+function bootRec(): { doll: Doll; state: RecState } | null {
+  const code = new URLSearchParams(window.location.search).get('b');
+  const decoded = code ? decodeRecBuild(code) : null;
+  const doll = decoded ? getDollBySlug(decoded.doll) : undefined;
+  if (!decoded || !doll) {
+    return null;
+  }
+  return { doll, state: recStateFromBuild(doll, decoded) };
+}
+
+function RecCardTool({ onNotice }: { onNotice: (m: string | null) => void }) {
+  const [boot] = useState(bootRec);
+  const [doll, setDoll] = useState<Doll | null>(boot?.doll ?? null);
+  const [rec, setRec] = useState<RecState | null>(boot?.state ?? null);
+  const [picking, setPicking] = useState(!boot);
+  const { user } = useAuth();
+  const filterResult = useDollFilter();
+
+  const dollKeys = useMemo(() => (doll ? getKeysForDoll(doll.id) : []), [doll]);
+  const commonKeys = useMemo(
+    () =>
+      getAllCommonKeys().sort((a, b) =>
+        (keyName(a) ?? '').localeCompare(keyName(b) ?? '')
+      ),
+    []
+  );
+
+  const choose = useCallback(
+    (next: Doll) => {
+      setDoll(next);
+      setRec(emptyRec());
+      setPicking(false);
+      onNotice(null);
+    },
+    [onNotice]
+  );
+
+  /**
+   * Seed from a saved DOLL build: its single weapon/set become rank 1, the
+   * rest of the fields carry across. A rec card usually starts from "here is
+   * her build" and adds the investment advice on top.
+   */
+  const applyCode = useCallback(
+    (code: string) => {
+      const decoded = decodeDollBuild(code);
+      const target = decoded ? getDollBySlug(decoded.doll) : undefined;
+      if (!decoded || !target) {
+        onNotice('Could not read that saved build.');
+        return;
+      }
+      const seeded = recStateFromBuild(target, {
+        v: BUILD_VERSION,
+        card: 'rec',
+        doll: decoded.doll,
+        bp: [],
+        ws: decoded.weapon ? [decoded.weapon] : [],
+        sets: decoded.set ? [decoded.set] : [],
+        keys: decoded.keys,
+        exp: decoded.exp ?? null,
+        ck: decoded.ck ?? [],
+        stats: decoded.stats ?? [],
+      });
+      setDoll(target);
+      setRec(seeded);
+      setPicking(false);
+      onNotice(null);
+    },
+    [onNotice]
+  );
+
+  const code = useMemo(() => {
+    if (!doll || !rec) {
+      return null;
+    }
+    const payload: RecBuild = {
+      v: BUILD_VERSION,
+      card: 'rec',
+      doll: doll.slug,
+      bp: rec.bp,
+      ws: rec.weapons.filter((w): w is string => w !== null),
+      sets: rec.sets,
+      keys: rec.keys,
+    };
+    const opt = joinOptimal(rec.optV, rec.optR);
+    if (opt) {
+      payload.opt = opt;
+    }
+    if (rec.expansionKey) {
+      payload.exp = rec.expansionKey;
+    }
+    if (rec.commonKeys.length > 0) {
+      payload.ck = rec.commonKeys;
+    }
+    if (rec.statPrefs.length > 0) {
+      payload.stats = rec.statPrefs;
+    }
+    const notes = rec.notes.trim();
+    if (notes) {
+      payload.notes = notes.slice(0, MAX_REC_NOTES);
+    }
+    return encodeRecBuild(payload);
+  }, [doll, rec]);
+
+  const previewData = useMemo(() => {
+    if (!doll || !rec) {
+      return null;
+    }
+    // PRIORITY order throughout — no sorting, unlike the build card.
+    const fixedKeySlots = rec.keys
+      .map((id) => dollKeys.find((k) => k.id === id))
+      .filter((k): k is Key => k !== undefined)
+      .map(fixedKeySlot)
+      .filter((n): n is number => n !== null);
+    const expKey = rec.expansionKey
+      ? dollKeys.find((k) => k.id === rec.expansionKey)
+      : undefined;
+    return {
+      dollName: doll.name,
+      dollClass: doll.class,
+      dollPhase: doll.phase,
+      dollRarity: doll.rarity,
+      breakpoints: rec.bp,
+      optimal: joinOptimal(rec.optV, rec.optR) || null,
+      weapons: rec.weapons
+        .filter((id): id is string => id !== null)
+        .map((id) => getWeaponById(id))
+        .filter((w): w is NonNullable<typeof w> => w !== undefined)
+        .map((w) => ({ name: w.name, imageUrl: w.imageUrl ?? null })),
+      attachmentSets: rec.sets,
+      fixedKeySlots,
+      expansionKeyName: expKey ? (expKey.keyTitle ?? keyName(expKey)) : null,
+      commonKeySources: rec.commonKeys
+        .map((id) => commonKeys.find((k) => k.id === id))
+        .filter((k): k is Key => k !== undefined)
+        .map((k) =>
+          commonKeySource(k, getDollById(k.dollId ?? '')?.name ?? null)
+        ),
+      statPrefs: rec.statPrefs,
+      notes: rec.notes.trim() || null,
+      portraitUrl: doll.avatarUrl,
+    };
+  }, [doll, rec, dollKeys, commonKeys]);
+
+  if (!doll || !rec || picking) {
+    return (
+      <>
+        <LoadSavedControl
+          kind={BUILD_KIND}
+          label="Start from a saved build"
+          onLoad={applyCode}
+        />
+        {doll && (
+          <button
+            type="button"
+            className="btn-outline"
+            onClick={() => setPicking(false)}
+          >
+            ← Back to {doll.name}
+          </button>
+        )}
+        <p className="muted">Pick the doll this recommendation is about.</p>
+        <DollFilters filterResult={filterResult} defaultOpen={true} />
+        <DollCards dolls={filterResult.dolls} mode="badge" onSelect={choose} />
+      </>
+    );
+  }
+
+  const fixedKeys = dollKeys.filter((k) => k.keyType === 'Fixed Key');
+  const expansionKeys = dollKeys.filter((k) => k.keyType === 'Expansion Key');
+  const patch = (next: Partial<RecState>) =>
+    setRec((prev) => (prev ? { ...prev, ...next } : prev));
+
+  const toggleCapped = (list: string[], id: string, cap: number): string[] =>
+    list.includes(id)
+      ? list.filter((x) => x !== id)
+      : list.length >= cap
+        ? list
+        : [...list, id];
+
+  /** "Pick order: A › B › C" footer for the priority-ordered chip rows. */
+  const orderNote = (labels: string[], hint: string) => (
+    <p className="muted infog-order">
+      {labels.length > 0 ? `Pick order: ${labels.join(' › ')}` : hint}
+    </p>
+  );
+
+  return (
+    <>
+      <div className="infog-chosen">
+        {doll.avatarUrl ? (
+          <GameIcon className="portrait" src={doll.avatarUrl} />
+        ) : (
+          <div className="portrait portrait-empty" aria-hidden="true">
+            ?
+          </div>
+        )}
+        <div>
+          <strong>{doll.name}</strong>
+          <div className="muted">
+            {[doll.class, doll.phase, doll.rarity].filter(Boolean).join(' · ')}
+          </div>
+        </div>
+        <button type="button" className="chip" onClick={() => setPicking(true)}>
+          Change doll
+        </button>
+      </div>
+
+      <LoadSavedControl
+        kind={BUILD_KIND}
+        label="Seed from a saved build"
+        onLoad={applyCode}
+      />
+
+      <div className="infog-fields">
+        <ChipRow
+          label="Investment roadmap"
+          cap={MAX_BREAKPOINTS}
+          options={BREAKPOINT_OPTIONS.map((t) => ({ id: t, label: t }))}
+          selected={rec.bp}
+          onToggle={(id) =>
+            patch({ bp: toggleCapped(rec.bp, id, MAX_BREAKPOINTS) })
+          }
+          footer={orderNote(
+            rec.bp,
+            'Pick breakpoints in the order they should be bought.'
+          )}
+        />
+
+        <div className="infog-field">
+          <span className="infog-field-label">Optimal investment</span>
+          <div className="infog-chips">
+            {Array.from({ length: 7 }, (_, n) => n).map((n) => (
+              <button
+                key={n}
+                type="button"
+                className={'pill-toggle' + (rec.optV === n ? ' on' : '')}
+                aria-pressed={rec.optV === n}
+                onClick={() => patch({ optV: rec.optV === n ? null : n })}
+              >
+                V{n}
+              </button>
+            ))}
+          </div>
+          <div className="infog-chips">
+            {Array.from({ length: 6 }, (_, n) => n + 1).map((n) => (
+              <button
+                key={n}
+                type="button"
+                className={'pill-toggle' + (rec.optR === n ? ' on' : '')}
+                aria-pressed={rec.optR === n}
+                onClick={() => patch({ optR: rec.optR === n ? null : n })}
+              >
+                R{n}
+              </button>
+            ))}
+          </div>
+          <p className="muted infog-order">
+            {joinOptimal(rec.optV, rec.optR)
+              ? `Optimal ${joinOptimal(rec.optV, rec.optR)}`
+              : 'Optionally mark the sweet spot, e.g. V3 + R1.'}
+          </p>
+        </div>
+
+        <div className="infog-field">
+          <span className="infog-field-label">
+            Weapons
+            <span className="infog-field-cap">
+              {rec.weapons.filter((w) => w !== null).length}/{MAX_REC_WEAPONS}
+            </span>
+          </span>
+          {rec.weapons.map((picked, i) => (
+            <select
+              key={i}
+              value={picked ?? ''}
+              onChange={(e) => {
+                const weapons = [...rec.weapons];
+                weapons[i] = e.target.value || null;
+                patch({ weapons });
+              }}
+            >
+              <option value="">{`No. ${i + 1} — none`}</option>
+              {allWeapons
+                .slice()
+                .sort((a, b) => a.name.localeCompare(b.name))
+                .map((w) => (
+                  <option key={w.id} value={w.id}>
+                    {w.name}
+                  </option>
+                ))}
+            </select>
+          ))}
+        </div>
+
+        <ChipRow
+          label="Attachment sets"
+          cap={MAX_REC_SETS}
+          options={allAttachmentSets.map((s) => ({
+            id: s.name,
+            label: s.name,
+          }))}
+          selected={rec.sets}
+          onToggle={(id) =>
+            patch({ sets: toggleCapped(rec.sets, id, MAX_REC_SETS) })
+          }
+          footer={orderNote(rec.sets, 'Best set first.')}
+        />
+
+        <ChipRow
+          label="Fixed keys"
+          cap={MAX_REC_KEYS}
+          options={fixedKeys.map((k) => ({
+            id: k.id,
+            label: k.keyTitle ?? 'Key',
+          }))}
+          selected={rec.keys}
+          onToggle={(id) =>
+            patch({ keys: toggleCapped(rec.keys, id, MAX_REC_KEYS) })
+          }
+          empty="This doll has no fixed keys in the synced data."
+          footer={orderNote(
+            rec.keys
+              .map((id) => fixedKeys.find((k) => k.id === id))
+              .filter((k): k is Key => k !== undefined)
+              .map((k) => k.keyTitle ?? 'Key'),
+            'Pick keys in unlock-priority order.'
+          )}
+        />
+
+        <ChipRow
+          label="Expansion key"
+          options={expansionKeys.map((k) => ({
+            id: k.id,
+            label: k.keyTitle ?? 'Key',
+          }))}
+          selected={rec.expansionKey ? [rec.expansionKey] : []}
+          onToggle={(id) =>
+            patch({ expansionKey: rec.expansionKey === id ? null : id })
+          }
+          empty="This doll has no expansion key yet."
+        />
+
+        <ChipRow
+          label="Common keys"
+          cap={MAX_REC_KEYS}
+          scroll
+          options={commonKeys.map((k) => ({
+            id: k.id,
+            label: k.keyTitle ?? 'Key',
+          }))}
+          selected={rec.commonKeys}
+          onToggle={(id) =>
+            patch({
+              commonKeys: toggleCapped(rec.commonKeys, id, MAX_REC_KEYS),
+            })
+          }
+          footer={orderNote(
+            rec.commonKeys
+              .map((id) => commonKeys.find((k) => k.id === id))
+              .filter((k): k is Key => k !== undefined)
+              .map((k) => k.keyTitle ?? 'Key'),
+            'Pick keys in priority order.'
+          )}
+        />
+
+        <ChipRow
+          label="Stat priority"
+          cap={MAX_STAT_PREFS}
+          options={STAT_PREF_OPTIONS.map((s) => ({ id: s, label: s }))}
+          selected={rec.statPrefs}
+          onToggle={(id) =>
+            patch({
+              statPrefs: toggleCapped(rec.statPrefs, id, MAX_STAT_PREFS),
+            })
+          }
+        />
+
+        <label className="infog-field infog-notes">
+          <span className="infog-field-label">
+            Notes
+            <span className="infog-field-cap">
+              {rec.notes.length}/{MAX_REC_NOTES}
+            </span>
+          </span>
+          <textarea
+            value={rec.notes}
+            maxLength={MAX_REC_NOTES}
+            rows={4}
+            placeholder="Anything the numbers don't say — team fit, rotation notes, who she pairs with…"
+            onChange={(e) => patch({ notes: e.target.value })}
+          />
+        </label>
+      </div>
+
+      {previewData && (
+        <section className="unit-section unit-panel">
+          <h2>Preview</h2>
+          <RecCardPreview data={previewData} />
+        </section>
+      )}
+
+      {code && (
+        <ShareRow
+          kind="rec"
+          code={code}
+          pagePath={`${hrefFor('infographics')}?card=rec`}
+          loggedIn={Boolean(user)}
+          onNotice={onNotice}
+        />
+      )}
+    </>
+  );
+}
+
 // --- Squad card ------------------------------------------------------------
 
 function TeamCardTool({ onNotice }: { onNotice: (m: string | null) => void }) {
@@ -792,13 +1329,16 @@ function ShareRow({
   loggedIn,
   onNotice,
 }: {
-  kind: 'build' | 'team';
+  kind: 'build' | 'team' | 'rec';
   code: string;
   pagePath: string;
   loggedIn: boolean;
   onNotice: (m: string | null) => void;
 }) {
   const origin = window.location.origin;
+  // The rec card's editor path already carries ?card=rec, so the code joins
+  // with & there and ? on the plain builder paths.
+  const editorHref = `${pagePath}${pagePath.includes('?') ? '&' : '?'}b=${code}`;
   return (
     <div className="infog-actions">
       <CopyButton
@@ -828,13 +1368,13 @@ function ShareRow({
       )}
       <CopyButton
         label="Copy editor link"
-        build={() => `${origin}${pagePath}?b=${code}`}
+        build={() => `${origin}${editorHref}`}
         onFail={onNotice}
       />
       <a
         className="btn-outline"
-        href={`${pagePath}?b=${code}`}
-        onClick={onSpaLinkClick(`${pagePath}?b=${code}`)}
+        href={editorHref}
+        onClick={onSpaLinkClick(editorHref)}
       >
         Open in editor
       </a>
@@ -844,11 +1384,10 @@ function ShareRow({
 
 // --- Page ------------------------------------------------------------------
 
-/** `?card=team` → the squad card; anything else (or nothing) → the build card. */
+/** `?card=team|rec` → that card; anything else (or nothing) → the build card. */
 function bootCardType(): CardType {
-  return new URLSearchParams(window.location.search).get('card') === 'team'
-    ? 'team'
-    : 'build';
+  const card = new URLSearchParams(window.location.search).get('card');
+  return card === 'team' || card === 'rec' ? card : 'build';
 }
 
 export function InfographicsPage() {
@@ -857,8 +1396,8 @@ export function InfographicsPage() {
 
   useEffect(() => {
     setDetailMeta(
-      'GFL2 Infographics Creator — Build & Squad Card Maker',
-      "Make shareable Girls' Frontline 2: Exilium infographics: compose a doll build card or a squad card, preview it live, then download the PNG or copy a hosted image link."
+      'GFL2 Infographics Creator — Build, Squad & Recommendation Cards',
+      "Make shareable Girls' Frontline 2: Exilium infographics: compose a doll build card, a squad card or an investment recommendation card, preview it live, then download the PNG or copy a hosted image link."
     );
   }, []);
 
@@ -913,11 +1452,9 @@ export function InfographicsPage() {
 
       {/* key: switching card type resets the tool's state rather than
           carrying a half-composed card across two different renderers. */}
-      {cardType === 'build' ? (
-        <BuildCardTool key="build" onNotice={setNotice} />
-      ) : (
-        <TeamCardTool key="team" onNotice={setNotice} />
-      )}
+      {cardType === 'build' && <BuildCardTool key="build" onNotice={setNotice} />}
+      {cardType === 'team' && <TeamCardTool key="team" onNotice={setNotice} />}
+      {cardType === 'rec' && <RecCardTool key="rec" onNotice={setNotice} />}
     </div>
   );
 }

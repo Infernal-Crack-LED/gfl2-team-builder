@@ -82,6 +82,15 @@ describe('renderCacheKey', () => {
     );
   });
 
+  it('accepts every render kind in the cache-filename guard', () => {
+    for (const kind of ['build', 'team', 'rec'] as const) {
+      expect(CACHE_FILENAME_RE.test(renderCacheFilename(kind, BUILD))).toBe(
+        true
+      );
+    }
+    expect(CACHE_FILENAME_RE.test('other.0123456789abcdef.png')).toBe(false);
+  });
+
   it('changes when RENDERER_VERSION changes', () => {
     const current = renderCacheKey('build', BUILD);
     const bumped = createHash('sha256')

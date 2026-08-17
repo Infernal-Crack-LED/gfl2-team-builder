@@ -19,9 +19,11 @@ import { createHash } from 'node:crypto';
 // 4: attachment set inline with the weapon (both cards); squad card gains a
 //    per-row element bar, drops its footer wordmark, and omits the
 //    expansion-key line outright when there isn't one.
+// 4 also covers the recommendation card's INTRODUCTION — a new kind mints
+//    fresh hashes, so adding it needed no bump.
 export const RENDERER_VERSION = 4;
 
-export type RenderKind = 'build' | 'team';
+export type RenderKind = 'build' | 'team' | 'rec';
 
 /** Deterministic JSON: object keys sorted recursively, so logically equal
  * payloads hash identically regardless of source key order. */
@@ -54,4 +56,4 @@ export function renderCacheFilename(
 }
 
 /** Must match the cache-route guard in src/server/imgApi.ts. */
-export const CACHE_FILENAME_RE = /^(build|team)\.[0-9a-f]{16}\.png$/;
+export const CACHE_FILENAME_RE = /^(build|team|rec)\.[0-9a-f]{16}\.png$/;

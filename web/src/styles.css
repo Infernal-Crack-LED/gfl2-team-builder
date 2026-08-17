@@ -3729,6 +3729,348 @@ summary.teameffect-tier-title:hover {
   height: 24px;
 }
 
+/* ---- Recommendation Card Preview (760×dynamic logical, PORTRAIT) ---- */
+/* Geometry mirrors core/recCard.ts: HEADER_H 128, identity block 148 at
+   y=142, then flow sections whose heights sum to recCardHeight — the shell
+   height is set inline by RecCardPreview from the same formula. */
+.rec-card {
+  position: relative;
+  width: 760px;
+  background: #101216;
+  font-family:
+    -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  color: #e7eaf0;
+  overflow: hidden;
+  transform: scale(0.55);
+  transform-origin: top left;
+}
+
+.card-preview-scale:has(.rec-card) {
+  overflow: hidden;
+}
+
+.rec-card-stripe {
+  height: 6px;
+  background: #5b9dff;
+}
+
+/* 6px stripe + 122px header = HEADER_H 128, as on the squad card. */
+.rec-card-header {
+  position: relative;
+  height: 122px;
+}
+
+/* Scoped through .rec-card so `.unit-panel h2` can't shrink the title —
+   same reason the other two card titles are scoped. */
+.rec-card .rec-card-title {
+  position: absolute;
+  left: 36px;
+  top: 34px;
+  font-size: 40px;
+  line-height: 1;
+  font-weight: 700;
+  color: #e7eaf0;
+  margin: 0;
+}
+
+.rec-card-mark {
+  position: absolute;
+  top: 20px;
+  right: 36px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.rec-card-brand {
+  font-size: 15px;
+  font-weight: 700;
+  color: #5b9dff;
+  white-space: nowrap;
+}
+
+.rec-card-divider {
+  position: absolute;
+  left: 36px;
+  right: 36px;
+  top: 100px;
+  height: 2px;
+  background: #2a2f3b;
+}
+
+/* Identity block: IDENT_TOP = HEADER_H + 14 → 14px top margin. */
+.rec-card-ident {
+  position: relative;
+  height: 148px;
+  margin: 14px 36px 0;
+}
+
+.rec-card-portrait-frame {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 148px;
+  height: 148px;
+  border-radius: 12px;
+  border: 2px solid #2a2f3b;
+  background: #1f232d;
+  overflow: hidden;
+}
+
+.rec-card-portrait {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 16%;
+  display: block;
+}
+
+.rec-card-portrait-empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  font-size: 64px;
+  font-weight: 700;
+  color: #8b93a3;
+}
+
+/* nameX = PAD + PORTRAIT + 22 → 170 relative to the 36px-inset block. */
+.rec-card-ident-info {
+  position: absolute;
+  left: 170px;
+  right: 0;
+  top: 0;
+}
+
+.rec-card .rec-card-name {
+  margin: 18px 0 0;
+  font-size: 40px;
+  line-height: 1.1;
+  font-weight: 700;
+  color: #e7eaf0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.rec-card-subtitle {
+  margin: 6px 0 0;
+  font-size: 20px;
+  font-weight: 500;
+  color: #8b93a3;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Element-tinted; the inline `background` comes from PHASE_COLORS. */
+.rec-card-optimal {
+  display: inline-flex;
+  align-items: center;
+  margin-top: 12px;
+  height: 34px;
+  padding: 0 16px;
+  border-radius: 17px;
+  font-size: 18px;
+  font-weight: 700;
+  color: #101216;
+}
+
+/* Section label region: SEC_CONTENT_DROP (46px) tall, label at its foot —
+   approximates the canvas's baseline-34/content-46 spacing. */
+.rec-card-sechead {
+  box-sizing: border-box;
+  height: 46px;
+  display: flex;
+  align-items: flex-end;
+  padding: 0 36px 6px;
+}
+
+.rec-card-label {
+  font-size: 13px;
+  font-weight: 700;
+  color: #8b93a3;
+}
+
+/* Priority chip runs (roadmap 60×34; fixed keys 40×32) with '›' separators —
+   mirrors drawPriorityChips. */
+.rec-card-chips {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+}
+
+.rec-card-chipseq {
+  display: flex;
+  align-items: center;
+}
+
+.rec-card-chip-arrow {
+  width: 12px;
+  margin: 0 8px;
+  text-align: center;
+  font-size: 20px;
+  font-weight: 700;
+  color: #8b93a3;
+}
+
+/* Element-tinted; the inline `background` comes from PHASE_COLORS. */
+.rec-card-chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 34px;
+  border-radius: 8px;
+  background: #5b9dff;
+  color: #101216;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.rec-card-chips.small .rec-card-chip {
+  width: 40px;
+  height: 32px;
+}
+
+.rec-card-roadmap {
+  height: 34px;
+  padding: 0 36px;
+  display: flex;
+  align-items: center;
+}
+
+/* One bordered row per recommended weapon (56 high, 10 apart). */
+.rec-card-weapon-row {
+  box-sizing: border-box;
+  height: 56px;
+  margin: 0 36px;
+  border: 2px solid #2a2f3b;
+  border-radius: 10px;
+  background: #181b22;
+  display: flex;
+  align-items: center;
+}
+
+.rec-card-weapon-row + .rec-card-weapon-row {
+  margin-top: 10px;
+}
+
+/* The canvas draws only a muted dash when no weapon is picked — no panel. */
+.rec-card-weapon-row.is-empty {
+  border-color: transparent;
+  background: transparent;
+}
+
+/* Rank numeral cell: canvas draws it at +18 and starts the art at +44. */
+.rec-card-rank {
+  flex: none;
+  width: 26px;
+  margin-left: 18px;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.rec-card-weapon-art {
+  flex: none;
+  width: 84px;
+  height: 44px;
+  object-fit: contain;
+  margin-right: 14px;
+}
+
+.rec-card-weapon-name {
+  min-width: 0;
+  margin-right: 18px;
+  font-size: 20px;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.rec-card-set-line {
+  height: 30px;
+  padding: 0 36px;
+  display: flex;
+  align-items: center;
+}
+
+.rec-card-set-line .rec-card-rank {
+  margin-left: 0;
+  font-size: 18px;
+}
+
+.rec-card-set-name {
+  min-width: 0;
+  font-size: 18px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.rec-card-keyline {
+  height: 32px;
+  padding: 0 36px;
+  display: flex;
+  align-items: center;
+}
+
+/* Element-tinted; the inline `color` comes from PHASE_COLORS. */
+.rec-card-keytitle {
+  flex: none;
+  margin-right: 12px;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.rec-card-metaline {
+  height: 28px;
+  padding: 0 36px;
+  display: flex;
+  align-items: center;
+}
+
+.rec-card-metavalue {
+  min-width: 0;
+  font-size: 18px;
+  color: #e7eaf0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.rec-card-muted {
+  color: #8b93a3;
+  font-size: 18px;
+}
+
+/* Notes panel: 10px padding + 2px border = the canvas's 12px inset; the
+   text is line-clamped to the same budget notesLineCount() gives the PNG. */
+.rec-card-notes {
+  margin: 0 36px;
+  padding: 10px 16px;
+  border: 2px solid #2a2f3b;
+  border-radius: 10px;
+  background: #181b22;
+}
+
+.rec-card-notes-text {
+  margin: 0;
+  font-size: 16px;
+  line-height: 24px;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* FOOTER_H 28 — bottom breathing room. */
+.rec-card-foot {
+  height: 28px;
+}
+
 /* ---- Keys Page ---- */
 /* One section per key type, each a responsive card grid. Cards reuse the
    dollcard idiom — phase-tinted left border, panel surface — so a key reads
@@ -3987,6 +4329,24 @@ summary.teameffect-tier-title:hover {
 .infog-chips.scroll {
   max-height: 132px;
   overflow-y: auto;
+}
+
+/* Pick-order footer under the rec card's priority chip rows. */
+.infog-order {
+  margin: 0;
+  font-size: 12px;
+}
+
+.infog-notes textarea {
+  resize: vertical;
+  min-height: 72px;
+  font: inherit;
+  font-size: 13px;
+  color: var(--text);
+  background: var(--panel2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 8px 10px;
 }
 
 .infog-load {
