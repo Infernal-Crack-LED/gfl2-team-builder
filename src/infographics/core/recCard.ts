@@ -517,7 +517,15 @@ export function drawRecCard(ctx: Canvas2DLike, data: RecCardData): void {
     groupLabel(ctx, 'Notes', PAD, y + SEC_LABEL_DROP);
     const lines = notesLineCount(data.notes);
     const panelH = lines * NOTES_LINE + 2 * NOTES_PAD;
-    borderedRoundRect(ctx, PAD, y + SEC_CONTENT_DROP, CW, panelH, 10, COLORS.panel);
+    borderedRoundRect(
+      ctx,
+      PAD,
+      y + SEC_CONTENT_DROP,
+      CW,
+      panelH,
+      10,
+      COLORS.panel
+    );
     ctx.fillStyle = COLORS.text;
     ctx.font = `400 16px ${FONT}`;
     ctx.textAlign = 'left';

@@ -63,7 +63,9 @@ function snippetText(snippet: string): string {
 }
 
 /** An effect's base description as tooltip text, or undefined for none. */
-function effectTooltip(effectId: string | null | undefined): string | undefined {
+function effectTooltip(
+  effectId: string | null | undefined
+): string | undefined {
   if (!effectId) {
     return undefined;
   }
@@ -400,8 +402,7 @@ export function TeamEffectsPanel({ squad }: { squad: (Doll | null)[] }) {
     e.effectTags.some((tag) => tag.toLowerCase().includes(needle)) ||
     getEffectTags(e.effectId).some(
       (id) =>
-        id.includes(needle) ||
-        effectTagLabel(id).toLowerCase().includes(needle)
+        id.includes(needle) || effectTagLabel(id).toLowerCase().includes(needle)
     );
 
   const visible = classified.filter((c) => matches(c.entry));
@@ -470,10 +471,7 @@ export function TeamEffectsPanel({ squad }: { squad: (Doll | null)[] }) {
       {ownKit.length > 0 && (
         /* Collapsed by default; forced open while a filter needle is active
            so matches inside it aren't invisible. */
-        <details
-          className="teameffect-tier"
-          open={needle ? true : undefined}
-        >
+        <details className="teameffect-tier" open={needle ? true : undefined}>
           <summary className="teameffect-tier-title">
             Own-kit effects
             <span className="teameffect-tier-count">{ownKit.length}</span>
