@@ -32,7 +32,7 @@ export const FONT = 'Roboto';
  * (og:url is "/"), so page titles use the site NAME from the static head
  * (`og:site_name` / <title>). Keep it in sync with web/index.html.
  */
-export const SITE_NAME = 'GFL2 Team Builder';
+export const SITE_NAME = 'Refitting Room';
 
 /**
  * What cards are STAMPED with — the domain, not the site name: a card gets

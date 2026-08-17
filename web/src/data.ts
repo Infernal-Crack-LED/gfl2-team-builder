@@ -13,6 +13,7 @@ import dollsJson from '../../data/dolls.json';
 import weaponsJson from '../../data/weapons.json';
 import keysJson from '../../data/keys.json';
 import effectsJson from '../../data/effects.json';
+import attachmentSetsJson from '../../data/attachment-sets.json';
 import {
   parseEffectDetails,
   stripHtml,
@@ -173,6 +174,16 @@ export interface Key {
   searchTags: string[];
 }
 
+/**
+ * An attachment set bonus. Keyed by NAME — the wiki has no ids for these and
+ * neither does our table (db/schema.ts), so share codes carry the name.
+ */
+export interface AttachmentSet {
+  name: string;
+  piecesRequired: number;
+  description: string;
+}
+
 export interface Effect {
   id: string;
   effectName: string | null;
@@ -200,6 +211,10 @@ interface EffectsFile {
   syncedAt: string;
   effects: Effect[];
 }
+interface AttachmentSetsFile {
+  syncedAt: string;
+  attachmentSets: AttachmentSet[];
+}
 
 // --- Loaded data ---
 
@@ -207,6 +222,7 @@ const dollsData = dollsJson as unknown as DollsFile;
 const weaponsData = weaponsJson as unknown as WeaponsFile;
 const keysData = keysJson as unknown as KeysFile;
 const effectsData = effectsJson as unknown as EffectsFile;
+const attachmentSetsData = attachmentSetsJson as unknown as AttachmentSetsFile;
 
 export const allDolls: Doll[] = dollsData.dolls;
 export const allWeapons: Weapon[] = weaponsData.weapons;
@@ -214,6 +230,11 @@ export const allWeapons: Weapon[] = weaponsData.weapons;
 // merged here so a re-sync never drops them from the builder's picker.
 export const allKeys: Key[] = [...keysData.keys, ...GENERIC_COMMON_KEYS];
 export const allEffects: Effect[] = effectsData.effects;
+/** Attachment set bonuses, alphabetical — the builder's set dropdown. */
+export const allAttachmentSets: AttachmentSet[] =
+  attachmentSetsData.attachmentSets
+    .slice()
+    .sort((a, b) => a.name.localeCompare(b.name));
 
 // --- Lookups ---
 
@@ -265,6 +286,11 @@ export function getWeaponById(id: string): Weapon | undefined {
 
 export function getKeyById(id: string): Key | undefined {
   return keyById.get(id);
+}
+
+/** By NAME — attachment sets have no ids, upstream or here. */
+export function getAttachmentSet(name: string): AttachmentSet | undefined {
+  return allAttachmentSets.find((s) => s.name === name);
 }
 
 export function getEffectById(id: string): Effect | undefined {
@@ -748,6 +774,18 @@ export const STAT_PREF_OPTIONS = [
   'Crit Rate',
   'Crit DMG',
 ] as const;
+
+/**
+ * What a fresh build opens on. The overwhelmingly common ask is a damage
+ * spread, so the builder starts there rather than on an empty list nobody
+ * fills in before sharing — reorder or clear it and the card follows.
+ */
+export const DEFAULT_STAT_PREFS: string[] = [
+  'ATK%',
+  'ATK',
+  'Crit Rate',
+  'Crit DMG',
+];
 
 /** Weapon refinement levels (R1–R6). */
 export const REFINEMENT_LEVELS = [1, 2, 3, 4, 5, 6] as const;

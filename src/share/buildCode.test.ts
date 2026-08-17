@@ -121,6 +121,8 @@ describe('team build codec', () => {
     expect(bad({ d: 'alva', ck: [1] })).toBeNull();
     // An out-of-range refinement is DROPPED, not fatal — same as DollBuild.
     expect(bad({ d: 'alva', cal: 9 })).toEqual({ v: 2, s: [{ d: 'alva' }] });
+    // An over-long attachment set name is fatal, like the other caps here.
+    expect(bad({ d: 'alva', as: 'x'.repeat(65) })).toBeNull();
   });
 });
 
@@ -136,6 +138,7 @@ describe('team slot ↔ doll build', () => {
       stats: ['ATK%'],
       ck: ['ck1'],
       exp: 'exp-id',
+      set: 'Ultimate Pursuit',
     };
     expect(dollBuildFromTeamSlot(teamSlotFromDollBuild(build))).toEqual(build);
   });
@@ -151,6 +154,7 @@ describe('team slot ↔ doll build', () => {
       stats: [],
       ck: [],
       exp: null,
+      set: null,
     });
   });
 

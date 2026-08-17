@@ -4,17 +4,27 @@
  *
  * PORTRAIT, one row per doll, each carrying her whole build inline beside the
  * portrait. Logical width 760; height grows with filled slot count (HEADER 128
- * + ROW 212 × n + FOOTER 38). Download uses html-to-image at 2× pixel ratio.
+ * + rows + FOOTER 24; a row is 200, or 226 with an expansion-key line).
+ * Download uses html-to-image at 2× pixel ratio.
  */
 import { useCallback, useRef, useState } from 'react';
 import { toPng } from 'html-to-image';
-import { assetUrl, getDollById, getKeyById, getWeaponById } from '../data';
+import {
+  assetUrl,
+  getDollById,
+  getKeyById,
+  getWeaponById,
+  PHASE_COLORS,
+} from '../data';
 import type { Doll } from '../data';
 import type { DollBuild } from '../../../src/share/buildCode';
 import { commonKeySource, fixedKeySlot } from '../../../src/share/keyLabels';
 
 /** Cards are stamped with the DOMAIN — mirrors CARD_WORDMARK in core/theme.ts. */
 const CARD_WORDMARK = 'refittingroom.app';
+
+/** Site accent, the fallback tint for an unknown/missing element. */
+const SITE_ACCENT = '#5b9dff';
 
 const MUTED_PLACEHOLDER = '—';
 
@@ -25,21 +35,38 @@ const MUTED_PLACEHOLDER = '—';
  * or a short squad leaves a screenful of dead space under it.
  */
 const HEADER_H = 128;
-const ROW_H = 212;
-const FOOTER_H = 38;
+const FOOTER_H = 24;
+const META_TOP = 147;
+const META_LINE = 26;
+const BASE_META_LINES = 2;
+const META_BOTTOM_PAD = 22;
+const PANEL_INSET = 5;
 const EMPTY_BODY_H = 96;
 /** Must match `transform: scale(…)` on .team-card. */
 const PREVIEW_SCALE = 0.55;
 
-function cardHeight(n: number): number {
-  return HEADER_H + (n === 0 ? EMPTY_BODY_H : ROW_H * n) + FOOTER_H;
+function slotHeight(slot: TeamCardSlotData): number {
+  const lines = BASE_META_LINES + (slot.expansionKey ? 1 : 0);
+  return META_TOP + (lines - 1) * META_LINE + META_BOTTOM_PAD + PANEL_INSET;
+}
+
+function cardHeight(slots: TeamCardSlotData[]): number {
+  const body =
+    slots.length === 0
+      ? EMPTY_BODY_H
+      : slots.reduce((h, slot) => h + slotHeight(slot), 0);
+  return HEADER_H + body + FOOTER_H;
 }
 
 /** Exactly the fields core/teamCard.ts's TeamCardSlot carries, minus the portrait. */
 export interface TeamCardSlotData {
   dollName: string;
   weaponName: string | null;
+  /** Element — tints the left edge of this doll's row. */
+  dollPhase: string | null;
   refinement: number | null;
+  /** Attachment set bonus name, shown inline after the weapon. */
+  attachmentSet: string | null;
   vert: number[];
   fixedKeys: number[];
   expansionKey: string | null;
@@ -67,7 +94,9 @@ export function teamCardSlot(
     weaponName: build?.weapon
       ? (getWeaponById(build.weapon)?.name ?? null)
       : null,
+    dollPhase: doll.phase,
     refinement: build?.cal ?? null,
+    attachmentSet: build?.set ?? null,
     vert: build?.vert ?? [],
     // Fixed keys show as SLOT NUMBERS, not titles — that is how a squad's key
     // investment is read at a glance. A key whose title carries no number
@@ -114,7 +143,17 @@ function SlotRow({ slot }: { slot: TeamCardSlotData }) {
   // carried more than one.
   const vert = slot.vert.length > 0 ? Math.max(...slot.vert) : null;
   return (
-    <div className="team-card-row">
+    <div
+      className="team-card-row"
+      style={{ height: slotHeight(slot) - 2 * PANEL_INSET }}
+    >
+      {/* Element-tinted left edge, over the panel's own border. */}
+      <span
+        className="team-card-element-bar"
+        style={{
+          background: PHASE_COLORS[slot.dollPhase ?? ''] ?? SITE_ACCENT,
+        }}
+      />
       <div className="team-card-portrait-frame">
         {slot.portraitUrl ? (
           // assetUrl, not <GameIcon>: html-to-image needs crossOrigin and a
@@ -149,6 +188,9 @@ function SlotRow({ slot }: { slot: TeamCardSlotData }) {
           >
             {slot.weaponName ?? MUTED_PLACEHOLDER}
           </span>
+          {slot.attachmentSet && (
+            <span className="team-card-set">· {slot.attachmentSet}</span>
+          )}
           <span
             className={
               'team-card-pill team-card-pill-sm' +
@@ -175,24 +217,30 @@ function SlotRow({ slot }: { slot: TeamCardSlotData }) {
           )}
         </div>
 
-        <div className="team-card-meta-row team-card-meta-exp">
-          <MetaField label="EXP" value={slot.expansionKey} />
-        </div>
-        <div className="team-card-meta-row team-card-meta-common">
-          <MetaField
-            label="COMMON KEYS"
-            value={
-              slot.commonKeys.length > 0 ? slot.commonKeys.join(' · ') : null
-            }
-          />
-        </div>
-        <div className="team-card-meta-row team-card-meta-stats">
-          <MetaField
-            label="STATS"
-            value={
-              slot.statPrefs.length > 0 ? slot.statPrefs.join(' › ') : null
-            }
-          />
+        {/* The expansion-key line is ABSENT, not "—", when there is no
+            expansion key, and the rest stack up into the space. */}
+        <div className="team-card-meta-stack">
+          {slot.expansionKey && (
+            <div className="team-card-meta-row">
+              <MetaField label="EXP. KEY" value={slot.expansionKey} />
+            </div>
+          )}
+          <div className="team-card-meta-row">
+            <MetaField
+              label="COMMON KEYS"
+              value={
+                slot.commonKeys.length > 0 ? slot.commonKeys.join(' · ') : null
+              }
+            />
+          </div>
+          <div className="team-card-meta-row">
+            <MetaField
+              label="STATS"
+              value={
+                slot.statPrefs.length > 0 ? slot.statPrefs.join(' › ') : null
+              }
+            />
+          </div>
         </div>
       </div>
     </div>
@@ -228,7 +276,7 @@ export function TeamCardPreview({ slots }: { slots: TeamCardSlotData[] }) {
     <div className="card-preview-wrapper">
       <div
         className="card-preview-scale"
-        style={{ height: Math.ceil(cardHeight(slots.length) * PREVIEW_SCALE) }}
+        style={{ height: Math.ceil(cardHeight(slots) * PREVIEW_SCALE) }}
       >
         <div ref={cardRef} className="team-card">
           {/* Accent stripe — one site-accent bar (see core/teamCard.ts on why
@@ -260,8 +308,9 @@ export function TeamCardPreview({ slots }: { slots: TeamCardSlotData[] }) {
             ))}
           </div>
 
-          {/* Footer */}
-          <span className="team-card-footer">{CARD_WORDMARK}</span>
+          {/* No footer line — the brand mark in the header stamps the card;
+              this is just the bottom breathing room the canvas leaves. */}
+          <div className="team-card-foot" />
         </div>
       </div>
 

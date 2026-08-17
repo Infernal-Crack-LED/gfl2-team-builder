@@ -30,8 +30,13 @@ function stripTags(html: string): string {
 /**
  * Parse the "Set Effects List" section from the wiki HTML.
  * The section is a <ul> immediately following <h2 id="Set_Effects_List">.
- * Each <li> contains: <strong>Name</strong> - Description text.
- * All current sets require 3 pieces (Assembled variant activates set skill).
+ * Each <li> reads `Name - Description`.
+ *
+ * The name is taken by SPLITTING THE STRIPPED TEXT on the first " - ", not by
+ * reading a <strong>: the page used to bold the names and silently stopped,
+ * which made a <strong>-anchored parse return zero sets rather than fail. The
+ * split handles both, since stripping tags turns the bold form into the plain
+ * one. All current sets require 3 pieces (Assembled activates the set skill).
  */
 function parseSetEffects(html: string): WikiAttachmentSet[] {
   const headingIdx = html.indexOf('id="Set_Effects_List"');
@@ -61,28 +66,32 @@ function parseSetEffects(html: string): WikiAttachmentSet[] {
       continue;
     }
 
-    const strongMatch = /<strong>([\s\S]*?)<\/strong>/.exec(inner);
-    if (!strongMatch || !strongMatch[1]) {
-      continue;
-    }
-
-    const name = decodeHtmlEntities(stripTags(strongMatch[1])).trim();
-
-    const dashIdx = inner.indexOf('</strong>');
+    const text = decodeHtmlEntities(stripTags(inner))
+      .replace(/\s+/g, ' ')
+      .trim();
+    const dashIdx = text.indexOf(' - ');
     if (dashIdx === -1) {
       continue;
     }
-
-    const afterStrong = inner.slice(dashIdx + '</strong>'.length);
-    const description = decodeHtmlEntities(
-      stripTags(afterStrong.replace(/^\s*-\s*/, ''))
-    ).trim();
+    const name = text.slice(0, dashIdx).trim();
+    const description = text.slice(dashIdx + 3).trim();
+    if (name === '' || description === '') {
+      continue;
+    }
 
     results.push({
       name,
       piecesRequired: 3,
       description,
     });
+  }
+
+  if (results.length === 0) {
+    // A structural change upstream must fail loudly — a silent empty list
+    // would wipe the set dropdown on the next sync.
+    throw new Error(
+      'Set Effects List parsed to zero sets — wiki format changed'
+    );
   }
 
   return results;

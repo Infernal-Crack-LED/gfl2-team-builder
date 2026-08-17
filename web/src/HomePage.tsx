@@ -7,7 +7,7 @@ export function HomePage() {
   return (
     <div className="app home-page">
       <div className="home-hero">
-        <h1>GFL2 Team Builder</h1>
+        <h1>Refitting Room</h1>
         <p className="muted">
           Build and plan your Girls&apos; Frontline 2: Exilium squad.
         </p>

@@ -43,6 +43,7 @@ import {
 import { loadArt, loadPortrait } from '../infographics/node/portraits.js';
 import { commonKeySource, fixedKeySlot } from '../share/keyLabels.js';
 import {
+  getAttachmentSet,
   getDoll,
   getDollById,
   getKey,
@@ -123,6 +124,9 @@ function validateBuild(build: DollBuild): void {
   if (build.exp != null && !getKey(build.exp)) {
     throw new BadRequest(`unknown key: ${build.exp}`);
   }
+  if (build.set != null && !getAttachmentSet(build.set)) {
+    throw new BadRequest(`unknown attachment set: ${build.set}`);
+  }
 }
 
 function validateTeam(team: TeamBuild): void {
@@ -145,6 +149,9 @@ function validateTeam(team: TeamBuild): void {
     }
     if (slot.ex != null && !getKey(slot.ex)) {
       throw new BadRequest(`unknown key: ${slot.ex}`);
+    }
+    if (slot.as != null && !getAttachmentSet(slot.as)) {
+      throw new BadRequest(`unknown attachment set: ${slot.as}`);
     }
   }
 }
@@ -193,6 +200,7 @@ async function renderPayload(
         : null,
       vert: b.vert,
       refinement: b.cal ?? null,
+      attachmentSet: b.set ?? null,
       statPrefs: b.stats ?? [],
       portrait,
     });
@@ -224,7 +232,9 @@ async function renderPayload(
       return {
         dollName: doll?.name ?? s.d,
         weaponName: weapon?.name ?? null,
+        dollPhase: doll?.phase ?? null,
         refinement: s.cal ?? null,
+        attachmentSet: s.as ?? null,
         vert: s.t ?? [],
         fixedKeys,
         expansionKey: expKey

@@ -9,7 +9,7 @@ export const command: Command = {
   execute: async (interaction) => {
     const embed = new EmbedBuilder()
       .setColor(0x5b9dff)
-      .setTitle('GFL2 Team Builder')
+      .setTitle('Refitting Room')
       .setDescription("Build and share squads for Girls' Frontline 2: Exilium.")
       .setURL(`${getSiteUrl()}/team-builder`);
 

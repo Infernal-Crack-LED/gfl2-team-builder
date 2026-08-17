@@ -16,7 +16,10 @@ import { createHash } from 'node:crypto';
 //    portrait, with each doll's whole build inline beside her portrait.
 // 3: slot chips list only what's EQUIPPED (both cards), spelled-out FIXED
 //    KEYS / COMMON KEYS labels, squad card back to one site-accent stripe.
-export const RENDERER_VERSION = 3;
+// 4: attachment set inline with the weapon (both cards); squad card gains a
+//    per-row element bar, drops its footer wordmark, and omits the
+//    expansion-key line outright when there isn't one.
+export const RENDERER_VERSION = 4;
 
 export type RenderKind = 'build' | 'team';
 

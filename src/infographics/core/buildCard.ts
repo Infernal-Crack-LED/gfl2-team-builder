@@ -40,6 +40,8 @@ export interface BuildCardData {
   weaponImage?: unknown | null;
   /** Weapon refinement level 1–6, or null. */
   refinement: number | null;
+  /** Attachment set bonus name, drawn inline in the weapon row, or null. */
+  attachmentSet: string | null;
   /** Fixed key SLOT numbers (1–6) — cards name the slots, not the titles. */
   fixedKeySlots: number[];
   /** Common keys, labelled by their source doll (see share/keyLabels.ts). */
@@ -234,10 +236,13 @@ export function drawBuildCard(ctx: Canvas2DLike, data: BuildCardData): void {
     );
   }
   const nameX = rx + (hasArt ? 14 + artW + 14 : 20);
-  // The refinement badge is drawn AFTER the name (it hangs off its right
-  // edge), so the name's budget reserves room for it up front.
+  // The refinement badge and the attachment set are drawn AFTER the name (they
+  // hang off its right edge), so the name's budget reserves room for both up
+  // front rather than letting a long gun name crowd them off the row.
   const refText = data.refinement ? `R${data.refinement}` : null;
+  const rowRight = rx + rw - 20;
   const refBudget = refText ? 60 : 0;
+  const setBudget = data.attachmentSet ? 210 : 0;
   ctx.fillStyle = data.weaponName ? COLORS.text : COLORS.muted;
   ctx.textAlign = 'left';
   ctx.textBaseline = 'alphabetic';
@@ -247,18 +252,34 @@ export function drawBuildCard(ctx: Canvas2DLike, data: BuildCardData): void {
     weaponText,
     nameX,
     wpY + 49,
-    rx + rw - 20 - refBudget - nameX,
+    rowRight - refBudget - setBudget - nameX,
     '500',
     24,
     FONT
   );
+  // fitText leaves ctx.font at the size it settled on, so measuring here
+  // gives the width actually drawn.
+  let cursor = nameX + ctx.measureText(weaponText).width;
   if (refText) {
-    // fitText leaves ctx.font at the size it settled on, so measuring here
-    // gives the width actually drawn.
-    const drawn = ctx.measureText(weaponText).width;
+    cursor += 14;
     ctx.fillStyle = accent;
     ctx.font = `700 22px ${FONT}`;
-    ctx.fillText(refText, nameX + drawn + 14, wpY + 49);
+    ctx.fillText(refText, cursor, wpY + 49);
+    cursor += ctx.measureText(refText).width;
+  }
+  if (data.attachmentSet) {
+    cursor += 14;
+    ctx.fillStyle = COLORS.muted;
+    fitText(
+      ctx,
+      `· ${data.attachmentSet}`,
+      cursor,
+      wpY + 49,
+      rowRight - cursor,
+      '400',
+      18,
+      FONT
+    );
   }
 
   // ---- Keys: fixed slots as chips, then common sources / expansion key ----

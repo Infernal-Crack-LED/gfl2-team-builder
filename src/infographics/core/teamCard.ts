@@ -8,34 +8,50 @@
  * grows with filled slot count (see cardHeight) — a full 4–5 doll squad lands
  * around 5:8, which is the shape this layout is tuned for.
  *
- * The card keeps ONE site-accent stripe. Per-doll element bands were tried and
- * dropped: five colors across the top edge competed with the rows for
- * attention without telling you whose element was whose.
+ * The top stripe is ONE site-accent bar; each doll's element instead tints the
+ * left edge of her own row, where it sits next to the doll it describes. Five
+ * bands across the top edge told you the squad's spread without telling you
+ * whose element was whose.
  *
- * ALL row geometry is fixed constants: missing data degrades to a muted "—"
- * in its slot and never reflows or throws, so a half-known build still
- * produces a well-formed row. Rasterized at dpr 2 by node/render.ts.
+ * Row geometry is fixed EXCEPT for the expansion-key line, which is omitted
+ * outright when the doll has no expansion key — so a row is one of two known
+ * heights (see slotHeight). Everything else degrades to a muted "—" in place
+ * rather than reflowing. Rasterized at dpr 2 by node/render.ts.
  */
 import { fitText, roundRect, type Canvas2DLike } from './canvas2d.js';
 import {
-  CARD_WORDMARK,
   COLORS,
   FONT,
   drawBrandMark,
   drawSlotChips,
+  phaseAccent,
 } from './theme.js';
 
 export const TEAM_CARD_W = 760;
 
 const HEADER_H = 128;
-const ROW_H = 212;
-const FOOTER_H = 38;
+/** Bottom breathing room. The card is stamped by the brand mark up in the
+ *  header, so there is no footer line to leave space for. */
+const FOOTER_H = 24;
+
+/** Baseline of a row's FIRST meta line, measured from the row's top. */
+const META_TOP = 147;
+/** What one meta line costs. */
+const META_LINE = 26;
+/** Meta lines every row has: COMMON KEYS and STATS. */
+const BASE_META_LINES = 2;
+/** Last meta baseline → the row panel's bottom edge. */
+const META_BOTTOM_PAD = 22;
+/** The row panel is inset this far inside the row, top and bottom. */
+const PANEL_INSET = 5;
 /** Vertical space an empty squad's "no dolls" line gets instead of rows. */
 const EMPTY_BODY_H = 96;
 
 const PAD = 36; // card edge → row panel
 const ROW_INSET = 14; // row panel edge → its content
 const PORTRAIT = 128;
+/** Element-tinted left edge of a row, drawn over that side's border. */
+const ELEMENT_BAR_W = 6;
 const MUTED_PLACEHOLDER = '—';
 
 /** Content column: everything inline with the portrait starts here. */
@@ -50,6 +66,8 @@ const TEXT_W = TEAM_CARD_W - PAD - ROW_INSET - TEXT_X;
 export interface TeamCardSlot {
   dollName: string;
   weaponName: string | null;
+  /** Element, tinting this doll's row along its left edge. */
+  dollPhase?: string | null;
   /** Weapon refinement level 1–6, or null. */
   refinement: number | null;
   /**
@@ -57,6 +75,8 @@ export interface TeamCardSlot {
    * entry; a legacy code carrying several shows the deepest.
    */
   vert: number[];
+  /** Attachment set bonus name, drawn inline after the weapon, or null. */
+  attachmentSet: string | null;
   /** Unlocked fixed-key slot numbers (1–6); unmatched keys are absent. */
   fixedKeys: number[];
   /** Expansion key short title, or null. */
@@ -69,9 +89,33 @@ export interface TeamCardSlot {
   portrait: unknown | null;
 }
 
-/** Total logical card height for `n` filled slots. */
-export function cardHeight(n: number): number {
-  return HEADER_H + (n === 0 ? EMPTY_BODY_H : ROW_H * n) + FOOTER_H;
+/** Meta lines this slot draws — the expansion key's is conditional. */
+function metaLineCount(slot: TeamCardSlot): number {
+  return BASE_META_LINES + (slot.expansionKey ? 1 : 0);
+}
+
+/**
+ * How tall one slot's row is. Two values, not a continuum: a doll with no
+ * expansion key doesn't get an "EXP. KEY —" line, she gets 26px less row.
+ * Derived from the meta block so the gap under the last line (STATS) is the
+ * same whichever height the row lands on.
+ */
+export function slotHeight(slot: TeamCardSlot): number {
+  return (
+    META_TOP +
+    (metaLineCount(slot) - 1) * META_LINE +
+    META_BOTTOM_PAD +
+    PANEL_INSET
+  );
+}
+
+/** Total logical card height for a squad. */
+export function cardHeight(slots: TeamCardSlot[]): number {
+  const body =
+    slots.length === 0
+      ? EMPTY_BODY_H
+      : slots.reduce((h, slot) => h + slotHeight(slot), 0);
+  return HEADER_H + body + FOOTER_H;
 }
 
 /** Two-fill border (no stroke API — see canvas2d.ts). */
@@ -168,19 +212,24 @@ function metaField(
 }
 
 function drawSlotRow(ctx: Canvas2DLike, slot: TeamCardSlot, y: number): void {
-  borderedRoundRect(
-    ctx,
-    PAD,
-    y + 5,
-    TEAM_CARD_W - 2 * PAD,
-    ROW_H - 10,
-    12,
-    COLORS.panel
-  );
+  const rowH = slotHeight(slot);
+  const panelY = y + PANEL_INSET;
+  const panelW = TEAM_CARD_W - 2 * PAD;
+  const panelH = rowH - 2 * PANEL_INSET;
+  borderedRoundRect(ctx, PAD, panelY, panelW, panelH, 12, COLORS.panel);
+  // Element bar: the doll's phase color painted over the panel's LEFT border,
+  // clipped to the panel so it inherits the rounded corners. Next to the doll
+  // it describes, which a shared stripe along the card's top edge is not.
+  ctx.save();
+  roundRect(ctx, PAD, panelY, panelW, panelH, 12);
+  ctx.clip();
+  ctx.fillStyle = phaseAccent(slot.dollPhase);
+  ctx.fillRect(PAD, panelY, ELEMENT_BAR_W, panelH);
+  ctx.restore();
 
   // ---- Portrait, vertically centered in the row ----
   const px = PAD + ROW_INSET;
-  const py = y + (ROW_H - PORTRAIT) / 2;
+  const py = y + (rowH - PORTRAIT) / 2;
   ctx.fillStyle = COLORS.border;
   roundRect(ctx, px - 2, py - 2, PORTRAIT + 4, PORTRAIT + 4, 14);
   ctx.fill();
@@ -229,22 +278,34 @@ function drawSlotRow(ctx: Canvas2DLike, slot: TeamCardSlot, y: number): void {
   // Text on these two lines stops short of the pill gutter.
   const lineW = TEXT_W - pillW - 14;
 
-  // ---- Name + weapon ----
+  // ---- Name, then weapon with the attachment set inline after it ----
   ctx.fillStyle = COLORS.text;
   ctx.textAlign = 'left';
   ctx.textBaseline = 'alphabetic';
   fitText(ctx, slot.dollName, TEXT_X, y + 48, lineW, '700', 26, FONT);
+
+  // The set shares the weapon's line, so the weapon's budget is halved up
+  // front rather than letting a long gun name leave the set nowhere to go.
+  const weaponText = slot.weaponName ?? MUTED_PLACEHOLDER;
+  const weaponBudget = slot.attachmentSet ? Math.round(lineW * 0.5) : lineW;
   ctx.fillStyle = slot.weaponName ? COLORS.text : COLORS.muted;
-  fitText(
-    ctx,
-    slot.weaponName ?? MUTED_PLACEHOLDER,
-    TEXT_X,
-    y + 81,
-    lineW,
-    '500',
-    18,
-    FONT
-  );
+  fitText(ctx, weaponText, TEXT_X, y + 81, weaponBudget, '500', 18, FONT);
+  if (slot.attachmentSet) {
+    // fitText leaves ctx.font at the size it settled on, so this measures the
+    // width actually drawn.
+    const sx = TEXT_X + ctx.measureText(weaponText).width + 12;
+    ctx.fillStyle = COLORS.muted;
+    fitText(
+      ctx,
+      `· ${slot.attachmentSet}`,
+      sx,
+      y + 81,
+      TEXT_X + lineW - sx,
+      '400',
+      15,
+      FONT
+    );
+  }
 
   // ---- Fixed-key slots: a chip per EQUIPPED slot (see drawSlotChips) ----
   const chipsX = fieldLabel(ctx, 'FIXED KEYS', TEXT_X, y + 115);
@@ -259,25 +320,25 @@ function drawSlotRow(ctx: Canvas2DLike, slot: TeamCardSlot, y: number): void {
     fill: COLORS.accent,
   });
 
-  // ---- One full-width line each: the values are long enough that sharing a
-  //      line would shrink both of them to unreadable. ----
-  metaField(ctx, 'EXP', slot.expansionKey, TEXT_X, y + 147, TEXT_W);
-  metaField(
-    ctx,
+  // ---- Meta lines, one full-width each: the values are long enough that
+  //      sharing a line would shrink both of them to unreadable. The
+  //      expansion-key line is ABSENT (not "—") when there's no expansion
+  //      key, and the rest stack up into the space — see slotHeight. ----
+  const metaLines: [string, string | null][] = [];
+  if (slot.expansionKey) {
+    metaLines.push(['EXP. KEY', slot.expansionKey]);
+  }
+  metaLines.push([
     'COMMON KEYS',
     slot.commonKeys.length > 0 ? slot.commonKeys.join(' · ') : null,
-    TEXT_X,
-    y + 173,
-    TEXT_W
-  );
-  metaField(
-    ctx,
+  ]);
+  metaLines.push([
     'STATS',
     slot.statPrefs.length > 0 ? slot.statPrefs.join(' › ') : null,
-    TEXT_X,
-    y + 199,
-    TEXT_W
-  );
+  ]);
+  metaLines.forEach(([label, value], i) => {
+    metaField(ctx, label, value, TEXT_X, y + META_TOP + i * META_LINE, TEXT_W);
+  });
 }
 
 export function drawTeamCard(
@@ -286,7 +347,7 @@ export function drawTeamCard(
   /** Shared site-icon image for the brand mark (opaque to the core). */
   siteIcon?: unknown | null
 ): void {
-  const h = cardHeight(slots.length);
+  const h = cardHeight(slots);
   ctx.fillStyle = COLORS.bg;
   ctx.fillRect(0, 0, TEAM_CARD_W, h);
   ctx.fillStyle = COLORS.accent;
@@ -308,15 +369,11 @@ export function drawTeamCard(
     ctx.fillText('Empty squad', PAD, HEADER_H + 40);
   }
 
-  slots.forEach((slot, i) => {
-    drawSlotRow(ctx, slot, HEADER_H + i * ROW_H);
-  });
-
-  ctx.fillStyle = COLORS.muted;
-  ctx.font = `400 13px ${FONT}`;
-  ctx.textAlign = 'left';
-  ctx.textBaseline = 'alphabetic';
-  ctx.globalAlpha = 0.8;
-  ctx.fillText(CARD_WORDMARK, PAD, h - 14);
-  ctx.globalAlpha = 1;
+  // Rows are two different heights, so each one's top is where the previous
+  // one ended rather than a multiple of a constant.
+  let rowY = HEADER_H;
+  for (const slot of slots) {
+    drawSlotRow(ctx, slot, rowY);
+    rowY += slotHeight(slot);
+  }
 }

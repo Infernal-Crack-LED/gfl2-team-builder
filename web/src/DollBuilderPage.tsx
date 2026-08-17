@@ -14,12 +14,15 @@
  */
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import {
+  allAttachmentSets,
   allWeapons,
   getAllCommonKeys,
   getDollById,
+  DEFAULT_STAT_PREFS,
   getDollBySlug,
   getKeysForDoll,
   getVertebraeForDoll,
+  getAttachmentSet,
   getWeaponById,
   getWeaponForDoll,
   PHASE_COLORS,
@@ -73,6 +76,8 @@ interface BuildState {
   expansionKey: string | null;
   vert: number[];
   refinement: number | null;
+  /** Attachment set bonus, by name (see data.ts AttachmentSet). */
+  attachmentSet: string | null;
   statPrefs: string[];
   commonKeys: string[];
 }
@@ -197,6 +202,7 @@ export function DollBuilder({
       stats?: string[];
       ck?: string[];
       exp?: string | null;
+      set?: string | null;
     }): BuildState => {
       const validFixedKeys = new Set(
         dollKeys.filter((k) => k.keyType === 'Fixed Key').map((k) => k.id)
@@ -225,6 +231,10 @@ export function DollBuilder({
           build.cal <= 6
             ? build.cal
             : null,
+        // A set name that no longer exists (renamed upstream) drops out, same
+        // contract as every id above.
+        attachmentSet:
+          build.set && getAttachmentSet(build.set) ? build.set : null,
         statPrefs: (build.stats ?? [])
           .filter((s) => (STAT_PREF_OPTIONS as readonly string[]).includes(s))
           .slice(0, 4),
@@ -253,7 +263,8 @@ export function DollBuilder({
           expansionKey: null,
           vert: [],
           refinement: 1,
-          statPrefs: [],
+          attachmentSet: null,
+          statPrefs: [...DEFAULT_STAT_PREFS],
           commonKeys: [],
         };
   });
@@ -340,6 +351,7 @@ export function DollBuilder({
       stats: build.statPrefs,
       ck: build.commonKeys,
       exp: build.expansionKey,
+      set: build.attachmentSet,
     }),
     [doll, build]
   );
@@ -454,6 +466,9 @@ export function DollBuilder({
 
   const phaseColor = PHASE_COLORS[doll.phase ?? ''] ?? 'var(--border)';
   const selectedWeapon = build.weapon ? getWeaponById(build.weapon) : undefined;
+  const selectedSet = build.attachmentSet
+    ? getAttachmentSet(build.attachmentSet)
+    : undefined;
 
   // Build card preview data — derived from current build state.
   const [showPreview, setShowPreview] = useState(false);
@@ -493,6 +508,7 @@ export function DollBuilder({
       vert: build.vert,
       portraitUrl: doll.avatarUrl,
       refinement: build.refinement,
+      attachmentSet: build.attachmentSet,
       statPrefs: build.statPrefs,
     };
   }, [doll, build, dollKeys, commonKeys, selectedWeapon]);
@@ -728,6 +744,35 @@ export function DollBuilder({
               </button>
             ))}
           </div>
+        </div>
+
+        {/* Attachment set bonus — a property of the gear on the weapon, so
+            it sits under it, above the picker. */}
+        <div className="dollbuilder-subfield">
+          <h3>Attachment Set</h3>
+          <select
+            className="dollbuilder-set-select"
+            aria-label="Attachment set bonus"
+            value={build.attachmentSet ?? ''}
+            onChange={(e) =>
+              setBuild((prev) => ({
+                ...prev,
+                attachmentSet: e.target.value || null,
+              }))
+            }
+          >
+            <option value="">No set bonus</option>
+            {allAttachmentSets.map((s) => (
+              <option key={s.name} value={s.name}>
+                {s.name}
+              </option>
+            ))}
+          </select>
+          {selectedSet && (
+            <p className="dollbuilder-set-effect muted">
+              {selectedSet.piecesRequired}-piece · {selectedSet.description}
+            </p>
+          )}
         </div>
 
         <WeaponPicker

@@ -76,9 +76,16 @@ export interface DollBuild {
   ck?: string[];
   /** Selected expansion key id — separate from `keys`, not capped by it. */
   exp?: string | null;
+  /**
+   * Attachment set bonus, by NAME — the wiki has no ids for these and the
+   * name is the primary key on our side too (see db/schema.ts).
+   */
+  set?: string | null;
 }
 
 const MAX_SLUG = 64;
+/** Attachment set names are wiki prose ("Ultimate Pursuit"), not slugs. */
+const MAX_SET_NAME = 64;
 const MAX_KEYS = 12;
 const MAX_VERT = 6;
 const MAX_STAT_PREFS = 4;
@@ -148,6 +155,12 @@ export function decodeDollBuild(code: string): DollBuild | null {
     if (typeof b.exp === 'string' || b.exp === null) {
       result.exp = b.exp;
     }
+    if (
+      b.set === null ||
+      (typeof b.set === 'string' && b.set.length <= MAX_SET_NAME)
+    ) {
+      result.set = b.set as string | null;
+    }
     return result;
   } catch {
     return null;
@@ -175,6 +188,7 @@ export interface TeamSlot {
   cal?: number | null; // weapon refinement 1–6
   st?: string[]; // ordered stat preferences
   ck?: string[]; // common key ids
+  as?: string | null; // attachment set bonus, by name
 }
 
 export interface TeamBuild {
@@ -275,6 +289,14 @@ export function decodeTeamBuild(code: string): TeamBuild | null {
         }
         slot.ck = ck;
       }
+      if (s.as === null) {
+        slot.as = null;
+      } else if (typeof s.as === 'string') {
+        if (s.as.length > MAX_SET_NAME) {
+          return null;
+        }
+        slot.as = s.as;
+      }
       slots.push(slot);
     }
     return { v: BUILD_VERSION, s: slots };
@@ -306,6 +328,9 @@ export function teamSlotFromDollBuild(build: DollBuild): TeamSlot {
   if (build.ck && build.ck.length > 0) {
     slot.ck = build.ck;
   }
+  if (build.set != null) {
+    slot.as = build.set;
+  }
   return slot;
 }
 
@@ -321,6 +346,7 @@ export function dollBuildFromTeamSlot(slot: TeamSlot): DollBuild {
     stats: slot.st ?? [],
     ck: slot.ck ?? [],
     exp: slot.ex ?? null,
+    set: slot.as ?? null,
   };
 }
 

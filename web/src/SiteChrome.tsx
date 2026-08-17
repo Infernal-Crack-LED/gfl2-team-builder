@@ -295,7 +295,7 @@ export function SiteFooter() {
         <a href={hrefFor('terms')} onClick={(e) => navClick(e, 'terms')}>
           Terms
         </a>
-        {' · '}GFL2 Team Builder
+        {' · '}Refitting Room
       </div>
     </footer>
   );

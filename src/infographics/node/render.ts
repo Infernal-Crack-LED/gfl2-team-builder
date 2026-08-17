@@ -86,7 +86,7 @@ export async function renderTeamCardPng(
 ): Promise<Buffer> {
   assertFontsLive();
   const siteIcon = await loadSiteIcon();
-  const { canvas, ctx } = makeCard(TEAM_CARD_W, cardHeight(slots.length));
+  const { canvas, ctx } = makeCard(TEAM_CARD_W, cardHeight(slots));
   drawTeamCard(ctx, slots, siteIcon);
   return canvas.encode('png');
 }

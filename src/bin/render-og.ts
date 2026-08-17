@@ -22,7 +22,7 @@ const W = 1200;
 const H = 630;
 const DPR = 2;
 
-const TITLE = 'GFL2 Team Builder';
+const TITLE = 'Refitting Room';
 const SUBTITLE = "Girls' Frontline 2: Exilium squad planner";
 const BULLETS = [
   'Every doll’s kit, skills, keys and vertebrae',

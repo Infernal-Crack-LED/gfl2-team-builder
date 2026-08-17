@@ -17,7 +17,7 @@ interface HeadMeta {
 // Per-route SEO metadata. Titles are keyword-rich and unique per page.
 export const META: Record<string, HeadMeta> = {
   home: {
-    title: "GFL2 Team Builder — Girls' Frontline 2: Exilium Squad Planner",
+    title: "Refitting Room — Girls' Frontline 2: Exilium Squad Planner",
     description:
       "Build and plan your Girls' Frontline 2: Exilium squad. Browse dolls and weapons, filter by class, phase, and weapon type, and assemble your team.",
   },
@@ -32,7 +32,7 @@ export const META: Record<string, HeadMeta> = {
       "Browse every weapon in Girls' Frontline 2: Exilium. Filter by rarity, weapon type, and primary attribute, then view traits and effects.",
   },
   'team-builder': {
-    title: 'GFL2 Team Builder — Visual Squad Planner',
+    title: 'Refitting Room — Visual Squad Planner',
     description:
       'Build your GFL2 squad visually. Filter the full doll roster, place dolls in 4 or 5 slots, and plan your team composition.',
   },
@@ -54,26 +54,26 @@ export const META: Record<string, HeadMeta> = {
       "Every Girls' Frontline 2: Exilium tool on the site: the team builder, the character builder, the key catalogue, and the infographics creator.",
   },
   saved: {
-    title: 'Saved builds — GFL2 Team Builder',
+    title: 'Saved builds — Refitting Room',
     description:
       'Your saved GFL2 character builds and squads, tied to your Discord account.',
   },
   credits: {
-    title: 'Credits — GFL2 Team Builder',
-    description: 'The data sources and tools behind the GFL2 Team Builder.',
+    title: 'Credits — Refitting Room',
+    description: 'The data sources and tools behind the Refitting Room.',
   },
   dev: {
-    title: 'Meet the dev — GFL2 Team Builder',
+    title: 'Meet the dev — Refitting Room',
     description:
-      'Who builds the GFL2 Team Builder and the Helen Discord bot, and where to find the rest of the projects.',
+      'Who builds the Refitting Room and the Helen Discord bot, and where to find the rest of the projects.',
   },
   privacy: {
-    title: 'Privacy Policy — GFL2 Team Builder',
+    title: 'Privacy Policy — Refitting Room',
     description:
       'What data Helen and the Refitting Room website collect, how it is used, and your choices.',
   },
   terms: {
-    title: 'Terms of Service — GFL2 Team Builder',
+    title: 'Terms of Service — Refitting Room',
     description:
       'The terms governing use of the Helen Discord bot and the Refitting Room website.',
   },

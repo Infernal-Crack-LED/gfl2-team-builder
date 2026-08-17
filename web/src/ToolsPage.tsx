@@ -26,7 +26,7 @@ const TOOLS: Tool[] = [
     href: `${hrefFor('infographics')}?card=team`,
     title: 'Squad Card Creator',
     blurb:
-      'Compose a squad card from up to five dolls with their weapons, preview it live, then download the PNG or mint a hosted image link that embeds in Discord.',
+      'Compose a squad card from up to five dolls and their full builds, preview it live, then download the PNG or mint a hosted image link that embeds in Discord.',
   },
 ];
 

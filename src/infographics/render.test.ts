@@ -67,6 +67,7 @@ describe.skipIf(!FONTS_PRESENT)('card renderers (fonts present)', () => {
       expansionKeyName: 'White Reaper',
       vert: [1, 2, 3],
       refinement: 4,
+      attachmentSet: 'Ultimate Pursuit',
       statPrefs: ['ATK', 'Crit DMG', 'Crit Rate', 'HP'],
       portrait: null,
     });
@@ -97,6 +98,7 @@ describe.skipIf(!FONTS_PRESENT)('card renderers (fonts present)', () => {
         expansionKeyName: null,
         vert: [],
         refinement: null,
+        attachmentSet: null,
         statPrefs: [],
         portrait: null,
       })
@@ -106,13 +108,13 @@ describe.skipIf(!FONTS_PRESENT)('card renderers (fonts present)', () => {
   it('team card renders with ink in the Squad title region', async () => {
     const { createCanvas, drawTeamCard, TEAM_CARD_W, cardHeight } =
       await import('./node/render.js');
-    const canvas = createCanvas(TEAM_CARD_W, cardHeight(2));
-    const ctx = canvas.getContext('2d');
-    drawTeamCard(ctx as never, [
+    const slots = [
       {
         dollName: 'Alva',
         weaponName: '6P33',
+        dollPhase: 'Freeze',
         refinement: 4,
+        attachmentSet: 'Phase Strike',
         vert: [3],
         fixedKeys: [1, 2, 3],
         expansionKey: "Senior's Instructions",
@@ -123,7 +125,9 @@ describe.skipIf(!FONTS_PRESENT)('card renderers (fonts present)', () => {
       {
         dollName: 'Makiatto',
         weaponName: null,
+        dollPhase: null,
         refinement: null,
+        attachmentSet: null,
         vert: [],
         fixedKeys: [],
         expansionKey: null,
@@ -131,24 +135,28 @@ describe.skipIf(!FONTS_PRESENT)('card renderers (fonts present)', () => {
         statPrefs: [],
         portrait: null,
       },
-    ]);
+    ];
+    const canvas = createCanvas(TEAM_CARD_W, cardHeight(slots));
+    const ctx = canvas.getContext('2d');
+    drawTeamCard(ctx as never, slots);
     const ctx2d = ctx as never as Parameters<typeof inkInRegion>[0];
     // "Squad" title at x=36, baseline y=74.
     expect(inkInRegion(ctx2d, 36, 40, 300, 42)).toBeGreaterThan(100);
     // The card is PORTRAIT: a full squad must be taller than it is wide.
-    expect(cardHeight(5)).toBeGreaterThan(TEAM_CARD_W);
+    const five = Array.from({ length: 5 }, () => slots[0]!);
+    expect(cardHeight(five)).toBeGreaterThan(TEAM_CARD_W);
   });
 
   it('team card row draws every build field inline with the portrait', async () => {
     const { createCanvas, drawTeamCard, TEAM_CARD_W, cardHeight } =
       await import('./node/render.js');
-    const canvas = createCanvas(TEAM_CARD_W, cardHeight(1));
-    const ctx = canvas.getContext('2d');
-    drawTeamCard(ctx as never, [
+    const slots = [
       {
         dollName: 'Alva',
         weaponName: '6P33',
+        dollPhase: 'Freeze',
         refinement: 4,
+        attachmentSet: 'Phase Strike',
         vert: [3],
         fixedKeys: [1, 2, 3],
         expansionKey: "Senior's Instructions",
@@ -156,20 +164,23 @@ describe.skipIf(!FONTS_PRESENT)('card renderers (fonts present)', () => {
         statPrefs: ['Crit Rate', 'Crit DMG'],
         portrait: null,
       },
-    ]);
+    ];
+    const canvas = createCanvas(TEAM_CARD_W, cardHeight(slots));
+    const ctx = canvas.getContext('2d');
+    drawTeamCard(ctx as never, slots);
     const ctx2d = ctx as never as Parameters<typeof inkInRegion>[0];
     // Row 0 starts at y=128; the info column starts at x=198. Each band below
     // is one of the inline lines, so a dropped field shows up as dead pixels.
     const rowY = 128;
     // Name (bright text) + the accent V pill on the same line.
     expect(inkInRegion(ctx2d, 198, rowY + 24, 520, 32)).toBeGreaterThan(100);
-    // Weapon + R pill.
+    // Weapon + R pill, with the attachment set inline between them.
     expect(inkInRegion(ctx2d, 198, rowY + 58, 520, 30)).toBeGreaterThan(100);
     // Fixed-key chips (accent fill).
     expect(inkInRegion(ctx2d, 198, rowY + 98, 520, 24, 80)).toBeGreaterThan(
       100
     );
-    // EXP, COMMON KEYS and STATS, one full-width line each.
+    // EXP. KEY, COMMON KEYS and STATS, one full-width line each.
     expect(inkInRegion(ctx2d, 198, rowY + 134, 520, 18, 80)).toBeGreaterThan(
       50
     );
@@ -187,7 +198,9 @@ describe.skipIf(!FONTS_PRESENT)('card renderers (fonts present)', () => {
     const base = {
       dollName: 'Alva',
       weaponName: '6P33',
+      dollPhase: 'Freeze',
       refinement: 4,
+      attachmentSet: null,
       vert: [3],
       expansionKey: null,
       commonKeys: [],
@@ -199,9 +212,10 @@ describe.skipIf(!FONTS_PRESENT)('card renderers (fonts present)', () => {
     // but not the row panel (#181b22) underneath them.
     const strip = [360, 128 + 98, 340, 24, 40] as const;
     const render = (fixedKeys: number[]) => {
-      const canvas = createCanvas(TEAM_CARD_W, cardHeight(1));
+      const slots = [{ ...base, fixedKeys }];
+      const canvas = createCanvas(TEAM_CARD_W, cardHeight(slots));
       const ctx = canvas.getContext('2d');
-      drawTeamCard(ctx as never, [{ ...base, fixedKeys }]);
+      drawTeamCard(ctx as never, slots);
       return inkInRegion(
         ctx as never as Parameters<typeof inkInRegion>[0],
         ...strip
@@ -211,25 +225,50 @@ describe.skipIf(!FONTS_PRESENT)('card renderers (fonts present)', () => {
     expect(render([1, 2, 3, 4, 5, 6])).toBeGreaterThan(100);
   });
 
+  it('team card omits the expansion-key line entirely when there is none', async () => {
+    const { cardHeight, slotHeight } = await import('./node/render.js');
+    const base = {
+      dollName: 'Alva',
+      weaponName: '6P33',
+      dollPhase: 'Freeze',
+      refinement: 4,
+      attachmentSet: null,
+      vert: [3],
+      fixedKeys: [1],
+      commonKeys: [],
+      statPrefs: [],
+      portrait: null,
+    };
+    const withExp = { ...base, expansionKey: "Senior's Instructions" };
+    const without = { ...base, expansionKey: null };
+    // The row is SHORTER, not the same height with a muted dash in the slot.
+    expect(slotHeight(without)).toBeLessThan(slotHeight(withExp));
+    // And the card's height is the sum of its rows, not slots × a constant.
+    expect(cardHeight([withExp, without])).toBe(
+      cardHeight([withExp]) + slotHeight(without)
+    );
+  });
+
   it('team card degrades on an all-empty build without throwing', async () => {
     const { createCanvas, drawTeamCard, TEAM_CARD_W, cardHeight } =
       await import('./node/render.js');
-    const canvas = createCanvas(TEAM_CARD_W, cardHeight(1));
+    const slots = [
+      {
+        dollName: 'Alva',
+        weaponName: null,
+        dollPhase: null,
+        refinement: null,
+        attachmentSet: null,
+        vert: [],
+        fixedKeys: [],
+        expansionKey: null,
+        commonKeys: [],
+        statPrefs: [],
+        portrait: null,
+      },
+    ];
+    const canvas = createCanvas(TEAM_CARD_W, cardHeight(slots));
     const ctx = canvas.getContext('2d');
-    expect(() =>
-      drawTeamCard(ctx as never, [
-        {
-          dollName: 'Alva',
-          weaponName: null,
-          refinement: null,
-          vert: [],
-          fixedKeys: [],
-          expansionKey: null,
-          commonKeys: [],
-          statPrefs: [],
-          portrait: null,
-        },
-      ])
-    ).not.toThrow();
+    expect(() => drawTeamCard(ctx as never, slots)).not.toThrow();
   });
 });

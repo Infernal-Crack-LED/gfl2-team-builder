@@ -28,6 +28,13 @@ export interface WeaponEntry {
   imageUrl: string | null;
 }
 
+/** Attachment set bonus — keyed by NAME (see db/schema.ts attachmentSets). */
+export interface AttachmentSetEntry {
+  name: string;
+  piecesRequired: number;
+  description: string;
+}
+
 export interface KeyEntry {
   id: string;
   keyTitle: string | null;
@@ -42,6 +49,9 @@ function loadJson<T>(file: string): T {
 const dollsFile = loadJson<{ dolls: DollEntry[] }>('dolls.json');
 const weaponsFile = loadJson<{ weapons: WeaponEntry[] }>('weapons.json');
 const keysFile = loadJson<{ keys: KeyEntry[] }>('keys.json');
+const setsFile = loadJson<{ attachmentSets: AttachmentSetEntry[] }>(
+  'attachment-sets.json'
+);
 
 const dollBySlug = new Map(dollsFile.dolls.map((d) => [d.slug, d]));
 const dollById = new Map(dollsFile.dolls.map((d) => [d.id, d]));
@@ -52,6 +62,8 @@ const keyById = new Map<string, KeyEntry>([
   ...keysFile.keys.map((k) => [k.id, k] as const),
   ...GENERIC_COMMON_KEYS.map((k) => [k.id, k] as const),
 ]);
+
+const setByName = new Map(setsFile.attachmentSets.map((s) => [s.name, s]));
 
 export function getDoll(slug: string): DollEntry | undefined {
   return dollBySlug.get(slug);
@@ -68,6 +80,11 @@ export function getWeapon(id: string): WeaponEntry | undefined {
 
 export function getKey(id: string): KeyEntry | undefined {
   return keyById.get(id);
+}
+
+/** By NAME — attachment sets have no ids, upstream or here. */
+export function getAttachmentSet(name: string): AttachmentSetEntry | undefined {
+  return setByName.get(name);
 }
 
 /** Display name for a key row — displayTitle carries the full label. */

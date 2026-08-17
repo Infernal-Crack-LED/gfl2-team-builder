@@ -27,6 +27,8 @@ export interface BuildCardPreviewData {
   vert: number[];
   portraitUrl: string | null;
   refinement: number | null;
+  /** Attachment set bonus name, shown inline in the weapon row. */
+  attachmentSet: string | null;
   statPrefs: string[];
 }
 
@@ -150,6 +152,9 @@ export function BuildCardPreview({ data }: { data: BuildCardPreviewData }) {
                   >
                     R{data.refinement}
                   </span>
+                )}
+                {data.attachmentSet && (
+                  <span className="build-card-set">· {data.attachmentSet}</span>
                 )}
               </div>
             </div>

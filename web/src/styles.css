@@ -1,5 +1,5 @@
 /* ============================================================
-   GFL2 Team Builder — single stylesheet
+   Refitting Room — single stylesheet
    ============================================================ */
 
 /* ---- Design Tokens ---- */
@@ -3292,6 +3292,21 @@ summary.teameffect-tier-title:hover {
   flex: 0 0 auto;
 }
 
+/* Attachment set, last on the weapon row and the first thing to give up
+   space when the gun's name is long. */
+.build-card-set {
+  font-size: 18px;
+  font-weight: 400;
+  color: #8b93a3;
+  margin-left: 14px;
+  line-height: 56px;
+  flex: 0 1 auto;
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 /* Keys: a fixed block height so the sections below sit where the canvas
    renderer puts them regardless of how many key rows a build has. */
 .build-card-keyrows {
@@ -3378,7 +3393,9 @@ summary.teameffect-tier-title:hover {
 }
 
 /* ---- Squad Card Preview (760×dynamic logical, PORTRAIT) ---- */
-/* Geometry mirrors core/teamCard.ts: HEADER_H 128, ROW_H 212, FOOTER_H 38,
+/* Geometry mirrors core/teamCard.ts: HEADER_H 128, FOOTER_H 38, a row 186
+   (or 212 with an expansion-key line — TeamCardPreview sets each row's height
+   inline),
    PAD 36, ROW_INSET 14, PORTRAIT 128, TEXT_X 198, TEXT_W 512. Row content is
    absolutely positioned at the same offsets the canvas draws it, so the
    preview and the rendered PNG are the same picture. */
@@ -3464,16 +3481,27 @@ summary.teameffect-tier-title:hover {
   padding: 5px 0;
 }
 
-/* The row panel itself: canvas draws it inset 5px vertically inside ROW_H
-   212, from PAD to W-PAD, with a 2px border. */
+/* The row panel itself: canvas draws it inset 5px vertically inside the row,
+   from PAD to W-PAD, with a 2px border. Height comes in inline, because a row
+   with no expansion-key line is 26px shorter. */
 .team-card-row {
   position: relative;
   flex: none;
-  height: 202px;
   margin: 0 36px;
   border: 2px solid #2a2f3b;
   border-radius: 12px;
   background: #181b22;
+  overflow: hidden;
+}
+
+/* The doll's element, painted over the panel's LEFT border. Offsets are
+   negative because absolute children resolve against the padding box. */
+.team-card-element-bar {
+  position: absolute;
+  left: -2px;
+  top: -2px;
+  width: 6px;
+  height: calc(100% + 4px);
 }
 
 /* Offsets below are panel-content-relative: card x − PAD(36) − border(2). */
@@ -3535,6 +3563,11 @@ summary.teameffect-tier-title:hover {
 .team-card-line-weapon {
   top: 55px;
   height: 28px;
+  justify-content: flex-start;
+}
+
+.team-card-line-weapon .team-card-pill {
+  margin-left: auto;
 }
 
 .team-card-name {
@@ -3557,6 +3590,18 @@ summary.teameffect-tier-title:hover {
 
 .team-card-weapon.is-empty {
   color: #8b93a3;
+}
+
+/* Attachment set, inline after the weapon it belongs to. */
+.team-card-set {
+  flex: 0 1 auto;
+  min-width: 0;
+  font-size: 15px;
+  font-weight: 400;
+  color: #8b93a3;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 /* Right-hung V / R pills — an unset one still draws, muted, so the row's
@@ -3628,27 +3673,20 @@ summary.teameffect-tier-title:hover {
   color: #8b93a3;
 }
 
-.team-card-meta-row {
+/* One full-width line each, stacked in FLOW so an absent expansion-key line
+   pulls the rest up exactly as the canvas does. The stack's top is the
+   canvas's first meta baseline (row y+147) less the text box's own height. */
+.team-card-meta-stack {
   position: absolute;
   left: 0;
   right: 0;
-  height: 18px;
-  display: flex;
-  align-items: baseline;
-}
-
-/* One full-width line each, at the canvas's baselines less the text box's
-   own height. */
-.team-card-meta-exp {
   top: 128px;
 }
 
-.team-card-meta-common {
-  top: 154px;
-}
-
-.team-card-meta-stats {
-  top: 180px;
+.team-card-meta-row {
+  height: 26px;
+  display: flex;
+  align-items: baseline;
 }
 
 .team-card-meta {
@@ -3671,14 +3709,10 @@ summary.teameffect-tier-title:hover {
   color: #8b93a3;
 }
 
-/* 11 + 13 + 14 = FOOTER_H 38. */
-.team-card-footer {
-  display: block;
-  padding: 11px 36px 14px;
-  font-size: 13px;
-  line-height: 13px;
-  color: #8b93a3;
-  opacity: 0.8;
+/* FOOTER_H 24 — bottom breathing room, no footer text: the brand mark up in
+   the header is what stamps the card. */
+.team-card-foot {
+  height: 24px;
 }
 
 /* ---- Keys Page ---- */

@@ -17,11 +17,14 @@
  */
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import {
+  allAttachmentSets,
   allWeapons,
+  DEFAULT_STAT_PREFS,
   getAllCommonKeys,
   getDollById,
   getDollBySlug,
   getKeysForDoll,
+  getAttachmentSet,
   getVertebraeForDoll,
   getWeaponById,
   getWeaponForDoll,
@@ -34,9 +37,11 @@ import {
   BUILD_VERSION,
   decodeDollBuild,
   decodeTeamBuild,
+  dollBuildFromTeamSlot,
   encodeDollBuild,
   encodeTeamBuild,
   shareProfileName,
+  teamSlotFromDollBuild,
   TEAM_SLOTS,
   type DollBuild,
 } from '../../src/share/buildCode';
@@ -54,6 +59,11 @@ import { copyText } from './clipboard';
 import { BuildCardPreview } from './components/BuildCardPreview';
 import { GameIcon } from './components/GameIcon';
 import { TeamCardPreview, teamCardSlot } from './components/TeamCardPreview';
+import {
+  SquadStrip,
+  defaultBuildFor,
+  type SquadSlot,
+} from './components/SquadStrip';
 import { DollCards, DollFilters, useDollFilter } from './components/DollGrid';
 import { hrefFor, hrefForBuilder, onSpaLinkClick } from './router';
 import { setDetailMeta } from './useDocumentHead';
@@ -73,7 +83,7 @@ const CARD_TYPES: { key: CardType; label: string; blurb: string }[] = [
   {
     key: 'team',
     label: 'Squad Card',
-    blurb: 'Up to five dolls with their weapons, as a roster strip.',
+    blurb: 'Up to five dolls, each with her full build inline.',
   },
 ];
 
@@ -262,6 +272,8 @@ interface BuildState {
   expansionKey: string | null;
   vert: number[];
   refinement: number | null;
+  /** Attachment set bonus, by name (see data.ts AttachmentSet). */
+  attachmentSet: string | null;
   statPrefs: string[];
   commonKeys: string[];
 }
@@ -273,7 +285,8 @@ function emptyBuild(doll: Doll): BuildState {
     expansionKey: null,
     vert: [],
     refinement: 1,
-    statPrefs: [],
+    attachmentSet: null,
+    statPrefs: [...DEFAULT_STAT_PREFS],
     commonKeys: [],
   };
 }
@@ -352,6 +365,8 @@ function BuildCardTool({ onNotice }: { onNotice: (m: string | null) => void }) {
         // Same contract as DollBuilderPage.sanitize: an id or stat name that
         // doesn't resolve is dropped, never carried into the card or re-encoded
         // into the next share code.
+        attachmentSet:
+          decoded.set && getAttachmentSet(decoded.set) ? decoded.set : null,
         statPrefs: (decoded.stats ?? [])
           .filter((s) => (STAT_PREF_OPTIONS as readonly string[]).includes(s))
           .slice(0, MAX_STAT_PREFS),
@@ -378,6 +393,7 @@ function BuildCardTool({ onNotice }: { onNotice: (m: string | null) => void }) {
       stats: build.statPrefs,
       ck: build.commonKeys,
       exp: build.expansionKey,
+      set: build.attachmentSet,
     };
     return encodeDollBuild(payload);
   }, [doll, build]);
@@ -420,6 +436,7 @@ function BuildCardTool({ onNotice }: { onNotice: (m: string | null) => void }) {
       vert: build.vert,
       portraitUrl: doll.avatarUrl,
       refinement: build.refinement,
+      attachmentSet: build.attachmentSet,
       statPrefs: build.statPrefs,
     };
   }, [doll, build, dollKeys, commonKeys]);
@@ -503,6 +520,21 @@ function BuildCardTool({ onNotice }: { onNotice: (m: string | null) => void }) {
                   {w.name}
                 </option>
               ))}
+          </select>
+        </label>
+
+        <label className="infog-field">
+          <span className="infog-field-label">Attachment set</span>
+          <select
+            value={build.attachmentSet ?? ''}
+            onChange={(e) => patch({ attachmentSet: e.target.value || null })}
+          >
+            <option value="">No set bonus</option>
+            {allAttachmentSets.map((s) => (
+              <option key={s.name} value={s.name}>
+                {s.name}
+              </option>
+            ))}
           </select>
         </label>
 
@@ -614,11 +646,28 @@ function BuildCardTool({ onNotice }: { onNotice: (m: string | null) => void }) {
 // --- Squad card ------------------------------------------------------------
 
 function TeamCardTool({ onNotice }: { onNotice: (m: string | null) => void }) {
-  const [squad, setSquad] = useState<Doll[]>([]);
+  // Positional slots carrying FULL builds, exactly like /team-builder — the
+  // strip below is the same component, so a squad card composed here is as
+  // rich as one composed there.
+  const [squad, setSquad] = useState<(SquadSlot | null)[]>(() =>
+    Array.from({ length: TEAM_SLOTS }, () => null)
+  );
   const { user } = useAuth();
 
-  const excluded = useMemo(() => new Set(squad.map((d) => d.id)), [squad]);
+  const excluded = useMemo(() => {
+    const set = new Set<string>();
+    for (const s of squad) {
+      if (s) {
+        set.add(s.doll.id);
+      }
+    }
+    return set;
+  }, [squad]);
   const filterResult = useDollFilter({ exclude: excluded });
+  const filled = useMemo(
+    () => squad.filter((s): s is SquadSlot => s !== null),
+    [squad]
+  );
 
   const applyCode = useCallback(
     (loaded: string) => {
@@ -627,28 +676,59 @@ function TeamCardTool({ onNotice }: { onNotice: (m: string | null) => void }) {
         onNotice('Could not read that saved squad.');
         return;
       }
-      const dolls = decoded.s
-        .filter((s) => s !== null)
-        .map((s) => getDollBySlug(s.d))
-        .filter((d): d is Doll => d !== undefined);
-      setSquad(dolls.slice(0, TEAM_SLOTS));
+      // A slug that no longer resolves drops its slot rather than breaking
+      // the strip — same contract as the team builder's boot path.
+      const slots = decoded.s.map((slot) => {
+        if (!slot) {
+          return null;
+        }
+        const doll = getDollBySlug(slot.d);
+        return doll ? { doll, build: dollBuildFromTeamSlot(slot) } : null;
+      });
+      setSquad(Array.from({ length: TEAM_SLOTS }, (_, i) => slots[i] ?? null));
       onNotice(null);
     },
     [onNotice]
   );
 
+  // Place a doll in the first empty slot, on her default build.
+  const placeInSlot = useCallback((doll: Doll) => {
+    setSquad((prev) => {
+      const idx = prev.findIndex((s) => s === null);
+      if (idx === -1) {
+        return prev;
+      }
+      const next = [...prev];
+      next[idx] = { doll, build: defaultBuildFor(doll) };
+      return next;
+    });
+  }, []);
+
+  const setSlotBuild = useCallback((index: number, build: DollBuild) => {
+    setSquad((prev) =>
+      prev.map((s, i) => (i === index && s ? { ...s, build } : s))
+    );
+  }, []);
+
+  const removeFromSlot = useCallback((index: number) => {
+    setSquad((prev) => {
+      const next = [...prev];
+      next[index] = null;
+      return next;
+    });
+  }, []);
+
   const code = useMemo(
     () =>
-      squad.length === 0
+      filled.length === 0
         ? null
         : encodeTeamBuild({
             v: BUILD_VERSION,
-            s: squad.map((d) => ({
-              d: d.slug,
-              w: getWeaponForDoll(d.id)?.id ?? null,
-            })),
+            s: squad
+              .slice(0, TEAM_SLOTS)
+              .map((s) => (s ? teamSlotFromDollBuild(s.build) : null)),
           }),
-    [squad]
+    [squad, filled]
   );
 
   return (
@@ -659,73 +739,17 @@ function TeamCardTool({ onNotice }: { onNotice: (m: string | null) => void }) {
         onLoad={applyCode}
       />
 
-      <div className="infog-squad">
-        {Array.from({ length: TEAM_SLOTS }, (_, i) => squad[i] ?? null).map(
-          (doll, i) => (
-            <div
-              key={i}
-              className={
-                'teambuilder-slot' +
-                (doll ? ' teambuilder-slot-filled' : ' teambuilder-slot-empty')
-              }
-            >
-              {doll ? (
-                <>
-                  <div className="teambuilder-portrait">
-                    {doll.avatarUrl ? (
-                      <GameIcon
-                        className="portrait"
-                        src={doll.avatarUrl}
-                        alt={doll.name}
-                      />
-                    ) : (
-                      <div className="portrait-empty" aria-hidden="true">
-                        ?
-                      </div>
-                    )}
-                  </div>
-                  <div className="teambuilder-slot-name">{doll.name}</div>
-                  <button
-                    type="button"
-                    className="teambuilder-slot-remove"
-                    aria-label={`Remove ${doll.name}`}
-                    onClick={() =>
-                      setSquad((prev) => prev.filter((d) => d.id !== doll.id))
-                    }
-                  >
-                    ×
-                  </button>
-                </>
-              ) : (
-                <div
-                  className="teambuilder-slot-placeholder"
-                  aria-hidden="true"
-                >
-                  ?
-                </div>
-              )}
-            </div>
-          )
-        )}
-      </div>
+      <SquadStrip
+        squad={squad}
+        onSetBuild={setSlotBuild}
+        onRemove={removeFromSlot}
+      />
 
-      {squad.length > 0 && (
+      {filled.length > 0 && (
         <section className="unit-section unit-panel">
           <h2>Preview</h2>
-          {/* This composer picks DOLLS only — the code it mints above carries
-              just `d`/`w`, so every other build field on the card is honestly
-              blank here. Rich squad cards come from /team-builder, where a
-              slot owns a full build. */}
           <TeamCardPreview
-            slots={squad.map((d) =>
-              teamCardSlot(d, {
-                v: BUILD_VERSION,
-                doll: d.slug,
-                weapon: getWeaponForDoll(d.id)?.id ?? null,
-                keys: [],
-                vert: [],
-              })
-            )}
+            slots={filled.map((s) => teamCardSlot(s.doll, s.build))}
           />
         </section>
       )}
@@ -742,18 +766,12 @@ function TeamCardTool({ onNotice }: { onNotice: (m: string | null) => void }) {
 
       <DollFilters
         filterResult={filterResult}
-        defaultOpen={squad.length === 0}
+        defaultOpen={filled.length === 0}
       />
       <DollCards
         dolls={filterResult.dolls}
         mode="badge"
-        onSelect={(d) =>
-          setSquad((prev) =>
-            prev.length >= TEAM_SLOTS || prev.some((p) => p.id === d.id)
-              ? prev
-              : [...prev, d]
-          )
-        }
+        onSelect={placeInSlot}
       />
     </>
   );
