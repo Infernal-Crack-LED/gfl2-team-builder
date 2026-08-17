@@ -42,7 +42,6 @@ import {
   BUILD_VERSION,
   decodeDollBuild,
   encodeDollBuild,
-  shareProfileName,
   type DollBuild,
 } from '../../src/share/buildCode';
 import {
@@ -50,8 +49,9 @@ import {
   commonKeySource,
   fixedKeySlot,
 } from '../../src/share/keyLabels';
-import { BUILD_KIND, saveProfile, useAuth } from './auth';
+import { BUILD_KIND, mintShareId, useAuth } from './auth';
 import { SaveProfileControl } from './components/SaveProfileControl';
+import { ShortLinkExpiryHint } from './components/ShortLinkExpiryHint';
 import {
   hrefFor,
   hrefForBuilder,
@@ -61,7 +61,6 @@ import {
 } from './router';
 import { setDetailMeta } from './useDocumentHead';
 import {
-  SHARE_PROFILE_KIND,
   bootBuildFromCodeParam,
   bootIdFromSearch,
   fetchSharedBuild,
@@ -390,26 +389,22 @@ export function DollBuilder({
     const code = getCode();
     const base = `${window.location.origin}${hrefForBuilder(doll.slug)}`;
     try {
-      const row = await saveProfile(
-        SHARE_PROFILE_KIND,
-        shareProfileName(code),
-        code
-      );
-      if (await copyText(`${base}?id=${row.id}`)) {
+      const id = await mintShareId(code, Boolean(user));
+      if (await copyText(`${base}?id=${id}`)) {
         flashCopied('short');
         return;
       }
     } catch {
       // Fall through to the long link.
     }
-    // Sharing never breaks, it only gets longer — any failure (logged-out
-    // token, offline, endpoint down) degrades to the self-contained ?b= URL.
+    // Sharing never breaks, it only gets longer — any failure (rate limit,
+    // offline, endpoint down) degrades to the self-contained ?b= URL.
     if (await copyText(`${base}?b=${code}`)) {
       flashCopied('link');
     } else {
       setNotice('Copy failed — select the URL and copy it manually.');
     }
-  }, [doll, getCode, flashCopied]);
+  }, [doll, getCode, flashCopied, user]);
 
   // Toggle a fixed key on/off; respects the 3-key cap.
   const toggleKey = useCallback((id: string) => {
@@ -629,12 +624,15 @@ export function DollBuilder({
         <button type="button" className="btn-outline" onClick={copyLongLink}>
           {copied === 'link' ? '✓ Copied' : 'Copy link'}
         </button>
-        {user && (
-          <button type="button" className="btn-outline" onClick={copyShortLink}>
-            {copied === 'short' ? '✓ Copied' : 'Copy short link'}
-          </button>
-        )}
+        <button
+          type="button"
+          className="btn-outline"
+          onClick={() => void copyShortLink()}
+        >
+          {copied === 'short' ? '✓ Copied' : 'Copy short link'}
+        </button>
       </div>
+      {!user && <ShortLinkExpiryHint />}
       {notice && (
         <p className="dollbuilder-notice" role="alert">
           {notice}

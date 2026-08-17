@@ -2540,6 +2540,13 @@ summary.teameffect-tier-title:hover {
   color: var(--warn);
 }
 
+/* Expiry caveat under a logged-out short-link button. Informational, not a
+   warning — it sits at the same weight as the other muted hints. */
+.shortlink-hint {
+  margin-top: 8px;
+  font-size: 12px;
+}
+
 /* Count badge inside section h2s ("3 selected"). */
 .dollbuilder-count {
   margin-left: 8px;

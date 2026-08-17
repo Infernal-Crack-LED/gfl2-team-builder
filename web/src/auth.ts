@@ -9,6 +9,8 @@
  * localhost:4173 — so CORS never enters the picture for the SPA itself.
  */
 import { useCallback, useEffect, useState } from 'react';
+import { shareProfileName } from '../../src/share/buildCode';
+import { SHARE_PROFILE_KIND } from './buildShare';
 
 export interface AuthUser {
   id: string;
@@ -147,6 +149,56 @@ export async function saveProfile(
     throw new Error(body?.error ?? `save failed (${res.status})`);
   }
   return (await res.json()) as SavedProfile;
+}
+
+/**
+ * Mint a public share row with NO session, returning its id. Deliberately
+ * bypasses apiFetch: this is the one write that must work logged out, and
+ * sending a stale/rejected token with it would only invite a 401.
+ *
+ * The server derives the row's dedup name from the code, so re-minting the
+ * same build returns the same id. Rows expire — see ANON_SHARE_DAYS.
+ */
+export async function createAnonShare(code: string): Promise<string> {
+  const res = await fetch('/api/share', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ code }),
+  });
+  if (!res.ok) {
+    const body = (await res.json().catch(() => null)) as {
+      error?: string;
+    } | null;
+    throw new Error(body?.error ?? `share failed (${res.status})`);
+  }
+  const row = (await res.json()) as { id: string };
+  return row.id;
+}
+
+/** How long a logged-out short link lives. Mirrors ANON_RETENTION_MS. */
+export const ANON_SHARE_DAYS = 3;
+
+/**
+ * Mint the `?id=` row behind a short link and return its id.
+ *
+ * Signed in, the row is the user's own: owned, counted against their profile
+ * cap, and permanent. Logged out it goes to the shared anonymous bucket and
+ * expires after ANON_SHARE_DAYS. Same URL either way, so callers only need
+ * this one function — but the UI should say which one the user is getting.
+ */
+export async function mintShareId(
+  code: string,
+  loggedIn: boolean
+): Promise<string> {
+  if (!loggedIn) {
+    return createAnonShare(code);
+  }
+  const row = await saveProfile(
+    SHARE_PROFILE_KIND,
+    shareProfileName(code),
+    code
+  );
+  return row.id;
 }
 
 export async function deleteProfile(id: string): Promise<void> {

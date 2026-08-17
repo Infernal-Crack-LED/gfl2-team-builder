@@ -12,9 +12,9 @@
  * and the bot produce — the hosted URL is just /api/v1/img/<kind>.png over
  * that code.
  *
- * Everything works logged out; a session only buys the SHORT hosted link
- * (the code is stored server-side under the public share kind) and the
- * "load a saved build" dropdowns.
+ * Everything works logged out, including the SHORT hosted link — though a
+ * session-less short link expires (see auth.ts mintShareId). A session buys
+ * permanent short links and the "load a saved build" dropdowns.
  */
 import {
   useCallback,
@@ -55,7 +55,6 @@ import {
   MAX_REC_NOTES,
   MAX_REC_SETS,
   MAX_REC_WEAPONS,
-  shareProfileName,
   teamSlotFromDollBuild,
   TEAM_SLOTS,
   type DollBuild,
@@ -70,14 +69,14 @@ import {
 import {
   BUILD_KIND,
   listProfiles,
-  saveProfile,
+  mintShareId,
   TEAM_KIND,
   useAuth,
   type SavedProfile,
 } from './auth';
-import { SHARE_PROFILE_KIND } from './buildShare';
 import { copyText } from './clipboard';
 import { BuildCardPreview } from './components/BuildCardPreview';
+import { ShortLinkExpiryHint } from './components/ShortLinkExpiryHint';
 import { RecCardPreview } from './components/RecCardPreview';
 import { GameIcon } from './components/GameIcon';
 import { TeamCardPreview, teamCardSlot } from './components/TeamCardPreview';
@@ -1408,24 +1407,20 @@ function ShareRow({
   // with & there and ? on the plain builder paths.
   const editorHref = `${pagePath}${pagePath.includes('?') ? '&' : '?'}b=${code}`;
   return (
-    <div className="infog-actions">
-      <CopyButton
-        primary
-        label="Copy image link"
-        build={() => `${origin}/api/v1/img/${kind}.png?b=${code}`}
-        onFail={onNotice}
-      />
-      {loggedIn && (
+    <>
+      <div className="infog-actions">
+        <CopyButton
+          primary
+          label="Copy image link"
+          build={() => `${origin}/api/v1/img/${kind}.png?b=${code}`}
+          onFail={onNotice}
+        />
         <CopyButton
           label="Copy short image link"
           build={async () => {
             try {
-              const row = await saveProfile(
-                SHARE_PROFILE_KIND,
-                shareProfileName(code),
-                code
-              );
-              return `${origin}/api/v1/img/${kind}.png?id=${row.id}`;
+              const id = await mintShareId(code, loggedIn);
+              return `${origin}/api/v1/img/${kind}.png?id=${id}`;
             } catch {
               // Sharing never breaks, it only gets longer.
               return `${origin}/api/v1/img/${kind}.png?b=${code}`;
@@ -1433,20 +1428,21 @@ function ShareRow({
           }}
           onFail={onNotice}
         />
-      )}
-      <CopyButton
-        label="Copy editor link"
-        build={() => `${origin}${editorHref}`}
-        onFail={onNotice}
-      />
-      <a
-        className="btn-outline"
-        href={editorHref}
-        onClick={onSpaLinkClick(editorHref)}
-      >
-        Open in editor
-      </a>
-    </div>
+        <CopyButton
+          label="Copy editor link"
+          build={() => `${origin}${editorHref}`}
+          onFail={onNotice}
+        />
+        <a
+          className="btn-outline"
+          href={editorHref}
+          onClick={onSpaLinkClick(editorHref)}
+        >
+          Open in editor
+        </a>
+      </div>
+      {!loggedIn && <ShortLinkExpiryHint />}
+    </>
   );
 }
 

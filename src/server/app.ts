@@ -1,27 +1,37 @@
 /**
  * Hono app factory — static dist/ hosting with SPA fallback, Discord OAuth,
- * the per-user saved-profiles API, and the per-doll recommendation defaults.
- * Ported from the nikke-sim server shape. GAME data stays client-side as
- * build-imported JSON (conventions §7); the runtime API serves only mutable
- * rows: user profiles and the community rec defaults.
+ * the per-user saved-profiles API, the anonymous share mint, and the per-doll
+ * recommendation defaults. Ported from the nikke-sim server shape. GAME data
+ * stays client-side as build-imported JSON (conventions §7); the runtime API
+ * serves only mutable rows: user profiles, share rows and the community rec
+ * defaults.
  */
 import { existsSync, statSync } from 'node:fs';
 import { readFile } from 'node:fs/promises';
 import path from 'node:path';
 import { Hono } from 'hono';
 import { getMimeType } from 'hono/utils/mime';
-import { and, desc, eq, sql } from 'drizzle-orm';
+import { and, desc, eq, lt, sql } from 'drizzle-orm';
+import { getConnInfo } from '@hono/node-server/conninfo';
 import { db } from '../db/index.js';
 import { dollRecommendations, userProfiles } from '../db/schema.js';
 import {
   BUILD_VERSION,
   decodeRecBuild,
   encodeRecBuild,
+  shareProfileName,
   type RecBuild,
 } from '../share/buildCode.js';
+import {
+  ANON_OWNER,
+  ANON_ROW_CAP,
+  anonExpiryCutoff,
+  clientIpFromForwardedFor,
+} from './anonShare.js';
 import { registerImgApi } from './imgApi.js';
 import { injectShareMeta } from './ogInject.js';
 import { PUBLIC_KINDS, PUBLIC_PROFILE_ID_RE } from './publicShare.js';
+import { createRateLimiter } from './rateLimit.js';
 import { sign, verify } from './session.js';
 
 /** Claims carried inside the HMAC session token. */
@@ -65,6 +75,16 @@ const KIND_RE = /^[a-z0-9-]+$/;
 // `code` is an opaque base64url blob produced by the client; the DB and this
 // server never interpret it, so validation is shape-and-size only.
 const CODE_RE = /^[A-Za-z0-9_-]+$/;
+const MAX_CODE_LEN = 8192;
+
+/**
+ * Anonymous mints per IP per hour. Generous next to real use — one build is
+ * one mint no matter how many times you copy it, since the row is keyed by a
+ * hash of the code — but low enough that filling ANON_ROW_CAP would take
+ * hundreds of distinct addresses.
+ */
+const ANON_MINT_LIMIT = 60;
+const ANON_MINT_WINDOW_MS = 60 * 60 * 1000;
 
 const DIST = path.resolve('dist');
 
@@ -122,8 +142,30 @@ function bearerUser(authHeader: string | undefined): SessionUser | null {
   return payload;
 }
 
+/**
+ * Delete anonymous share rows past their retention window. Scoped to
+ * ANON_OWNER, so a signed-in user's saves and share rows are never touched.
+ * Idempotent — safe to run from every replica.
+ */
+export async function sweepExpiredAnonShares(): Promise<void> {
+  await db
+    .delete(userProfiles)
+    .where(
+      and(
+        eq(userProfiles.discordId, ANON_OWNER),
+        lt(userProfiles.updatedAt, anonExpiryCutoff(Date.now()))
+      )
+    );
+}
+
 export function createServer(): Hono {
   const app = new Hono();
+
+  // Per-app so tests don't inherit another app's counters.
+  const anonMintLimiter = createRateLimiter({
+    limit: ANON_MINT_LIMIT,
+    windowMs: ANON_MINT_WINDOW_MS,
+  });
 
   // ---- CORS ----
   // Reflect the Origin ONLY when it is in ALLOWED_ORIGINS; unknown origins
@@ -282,7 +324,7 @@ export function createServer(): Hono {
     if (name.length < 1 || name.length > 80) {
       return c.json({ error: 'bad_name' }, 400);
     }
-    if (code.length < 1 || code.length > 8192 || !CODE_RE.test(code)) {
+    if (code.length < 1 || code.length > MAX_CODE_LEN || !CODE_RE.test(code)) {
       return c.json({ error: 'bad_code' }, 400);
     }
 
@@ -359,6 +401,90 @@ export function createServer(): Hono {
       return c.json({ error: 'not_found' }, 404);
     }
     return c.json(row);
+  });
+
+  // ---- Anonymous share mint (NO auth) ----
+  // Logged-out users can hand out a short link too. The row is owned by the
+  // ANON_OWNER sentinel and expires (see anonShare.ts for why the rules differ
+  // from a signed-in share). Reads are unchanged: the id resolves through the
+  // same public path as any other 'gfl2-share' row.
+  app.post('/api/share', async (c) => {
+    // Keyed on the forwarded client address, falling back to the socket — an
+    // unauthenticated insert with no key at all is a disk-fill waiting to
+    // happen. getConnInfo needs the node-server bindings, which a bare
+    // fetch() in a test won't have.
+    let ip = clientIpFromForwardedFor(c.req.header('X-Forwarded-For'));
+    if (!ip) {
+      try {
+        ip = getConnInfo(c).remote.address ?? null;
+      } catch {
+        ip = null;
+      }
+    }
+    if (!anonMintLimiter.allow(ip ?? 'unknown', Date.now())) {
+      return c.json({ error: 'rate_limited' }, 429);
+    }
+
+    const body = (await c.req.json().catch(() => null)) as {
+      code?: unknown;
+    } | null;
+    const code = typeof body?.code === 'string' ? body.code : '';
+    if (code.length < 1 || code.length > MAX_CODE_LEN || !CODE_RE.test(code)) {
+      return c.json({ error: 'bad_code' }, 400);
+    }
+    // Server-derived, never client-supplied: the name IS the dedup key, so
+    // letting a caller choose it would let them overwrite someone else's row.
+    const name = shareProfileName(code);
+
+    const existing = await db
+      .select({ id: userProfiles.id })
+      .from(userProfiles)
+      .where(
+        and(
+          eq(userProfiles.discordId, ANON_OWNER),
+          eq(userProfiles.kind, PUBLIC_KINDS[0]),
+          eq(userProfiles.name, name)
+        )
+      )
+      .limit(1);
+    if (existing.length === 0) {
+      // Only an INSERT can breach the cap; re-sharing an existing build is an
+      // upsert onto its own row and always allowed.
+      const countRows = await db
+        .select({ count: sql<number>`count(*)` })
+        .from(userProfiles)
+        .where(
+          and(
+            eq(userProfiles.discordId, ANON_OWNER),
+            eq(userProfiles.kind, PUBLIC_KINDS[0])
+          )
+        );
+      if (Number(countRows[0]?.count ?? 0) >= ANON_ROW_CAP) {
+        return c.json({ error: 'capacity' }, 503);
+      }
+    }
+
+    const [row] = await db
+      .insert(userProfiles)
+      .values({
+        discordId: ANON_OWNER,
+        kind: PUBLIC_KINDS[0],
+        name,
+        code,
+      })
+      .onConflictDoUpdate({
+        target: [userProfiles.discordId, userProfiles.kind, userProfiles.name],
+        // Same code (the name is its hash), so only the clock moves — which
+        // is the point: re-sharing a build renews its three days.
+        set: { updatedAt: new Date() },
+      })
+      .returning({ id: userProfiles.id });
+    if (!row) {
+      // Both arms of the upsert RETURNING a row is guaranteed by Postgres;
+      // this only fires if that ever stops being true.
+      return c.json({ error: 'share_failed' }, 500);
+    }
+    return c.json({ id: row.id });
   });
 
   app.delete('/api/profiles/:id', async (c) => {
