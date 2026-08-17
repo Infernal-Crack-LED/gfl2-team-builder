@@ -23,11 +23,23 @@ import {
 } from 'react';
 import { toBlob, toPng } from 'html-to-image';
 
-/** Matches the server renderer's DPR=2 and the card background. */
+/**
+ * Matches the server renderer's DPR=2 and the card background.
+ *
+ * `transform: none` is load-bearing, not cosmetic: every card node is
+ * `transform: scale(0.55)`d for on-page display, and html-to-image sizes the
+ * output from the node's UNSCALED layout box (clientWidth/clientHeight) while
+ * the clone it rasterizes keeps the copied `transform` from computed style. Left
+ * alone, that draws the card at 55% into the top-left of a full-size canvas and
+ * pads the other ~45% with flat background. Overriding it on the clone (this
+ * `style` block is applied after the computed styles are copied) makes the
+ * exported PNG exactly the card, at 2× — no dead space.
+ */
 const RENDER_OPTIONS = {
   pixelRatio: 2,
   cacheBust: true,
   backgroundColor: '#101216',
+  style: { transform: 'none', transformOrigin: 'top left' },
 } as const;
 
 /** Same 1.5s flash as the text copy buttons elsewhere on the site. */
