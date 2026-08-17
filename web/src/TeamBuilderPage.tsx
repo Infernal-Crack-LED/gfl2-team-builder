@@ -20,17 +20,12 @@
  * the first render; `?id=` needs a fetch and lands in an effect.
  */
 import { useState, useMemo, useCallback, useEffect, useRef } from 'react';
-import {
-  getDollBySlug,
-  getWeaponById,
-  getWeaponForDoll,
-  type Doll,
-} from './data';
+import { getDollBySlug, getWeaponForDoll, type Doll } from './data';
 import { DollCards, DollFilters, useDollFilter } from './components/DollGrid';
 import { GameIcon } from './components/GameIcon';
 import { hrefFor, hrefForDoll, onSpaLinkClick } from './router';
 import { TeamEffectsPanel } from './components/TeamEffectsPanel';
-import { TeamCardPreview } from './components/TeamCardPreview';
+import { TeamCardPreview, teamCardSlot } from './components/TeamCardPreview';
 import { SaveProfileControl } from './components/SaveProfileControl';
 import { Modal } from './components/Modal';
 import { DollBuilder } from './DollBuilderPage';
@@ -652,14 +647,7 @@ export function TeamBuilderPage() {
           <TeamCardPreview
             slots={squad
               .filter((s): s is SquadSlot => s != null)
-              .map((s) => ({
-                dollName: s.doll.name,
-                weaponName: s.build.weapon
-                  ? (getWeaponById(s.build.weapon)?.name ?? null)
-                  : null,
-                dollPhase: s.doll.phase,
-                portraitUrl: s.doll.avatarUrl,
-              }))}
+              .map((s) => teamCardSlot(s.doll, s.build))}
           />
         </details>
       )}

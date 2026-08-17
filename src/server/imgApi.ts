@@ -203,10 +203,36 @@ async function renderPayload(
     filled.map(async (s) => {
       const doll = getDoll(s.d);
       const weapon = typeof s.w === 'string' ? getWeapon(s.w) : undefined;
+      // Fixed keys show as SLOT NUMBERS, not titles — that is how a squad's
+      // key investment is read at a glance. A key whose title carries no
+      // number simply contributes no chip.
+      const fixedKeys = (s.k ?? [])
+        .map((id) => getKey(id))
+        .filter((k) => k !== undefined)
+        .map(fixedKeySlot)
+        .filter((n): n is number => n !== null)
+        .sort((a, b) => a - b);
+      // Common keys are named by their SOURCE doll ("Suomi", not the key's
+      // own title); the stat-only generics have no source and name themselves.
+      const commonKeys = (s.ck ?? [])
+        .map((id) => getKey(id))
+        .filter((k) => k !== undefined)
+        .map((k) => commonKeySource(k, getDollById(k.dollId)?.name));
+      // Short title for the expansion key: displayTitle prefixes every one of
+      // them with "Expansion Key - ", which the card's own EXP label says.
+      const expKey = s.ex != null ? getKey(s.ex) : undefined;
       return {
         dollName: doll?.name ?? s.d,
         weaponName: weapon?.name ?? null,
         dollPhase: doll?.phase ?? null,
+        refinement: s.cal ?? null,
+        vert: s.t ?? [],
+        fixedKeys,
+        expansionKey: expKey
+          ? (expKey.keyTitle ?? keyDisplayName(expKey))
+          : null,
+        commonKeys,
+        statPrefs: s.st ?? [],
         portrait: await loadPortrait(doll?.avatarUrl),
       };
     })

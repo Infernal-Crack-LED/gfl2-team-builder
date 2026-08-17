@@ -53,7 +53,7 @@ import { SHARE_PROFILE_KIND } from './buildShare';
 import { copyText } from './clipboard';
 import { BuildCardPreview } from './components/BuildCardPreview';
 import { GameIcon } from './components/GameIcon';
-import { TeamCardPreview } from './components/TeamCardPreview';
+import { TeamCardPreview, teamCardSlot } from './components/TeamCardPreview';
 import { DollCards, DollFilters, useDollFilter } from './components/DollGrid';
 import { hrefFor, hrefForBuilder, onSpaLinkClick } from './router';
 import { setDetailMeta } from './useDocumentHead';
@@ -712,13 +712,20 @@ function TeamCardTool({ onNotice }: { onNotice: (m: string | null) => void }) {
       {squad.length > 0 && (
         <section className="unit-section unit-panel">
           <h2>Preview</h2>
+          {/* This composer picks DOLLS only — the code it mints above carries
+              just `d`/`w`, so every other build field on the card is honestly
+              blank here. Rich squad cards come from /team-builder, where a
+              slot owns a full build. */}
           <TeamCardPreview
-            slots={squad.map((d) => ({
-              dollName: d.name,
-              weaponName: getWeaponForDoll(d.id)?.name ?? null,
-              dollPhase: d.phase,
-              portraitUrl: d.avatarUrl,
-            }))}
+            slots={squad.map((d) =>
+              teamCardSlot(d, {
+                v: BUILD_VERSION,
+                doll: d.slug,
+                weapon: getWeaponForDoll(d.id)?.id ?? null,
+                keys: [],
+                vert: [],
+              })
+            )}
           />
         </section>
       )}
