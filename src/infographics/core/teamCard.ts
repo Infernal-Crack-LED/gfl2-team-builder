@@ -4,11 +4,13 @@
  * PORTRAIT, one full-width row per doll: the row carries the doll's WHOLE
  * build inline beside her portrait (vertebra, weapon + refinement, fixed-key
  * slots, expansion key, common keys, stat priority), so the card audits the
- * squad instead of just advertising it. The top accent stripe carries one band
- * per doll in her element color, so the squad's elemental spread reads off the
- * card's top edge. Logical width is fixed at 760; height grows with filled slot
- * count (see cardHeight) — a full 4–5 doll squad lands around 3:4, which is the
- * shape this layout is tuned for.
+ * squad instead of just advertising it. Logical width is fixed at 760; height
+ * grows with filled slot count (see cardHeight) — a full 4–5 doll squad lands
+ * around 5:8, which is the shape this layout is tuned for.
+ *
+ * The card keeps ONE site-accent stripe. Per-doll element bands were tried and
+ * dropped: five colors across the top edge competed with the rows for
+ * attention without telling you whose element was whose.
  *
  * ALL row geometry is fixed constants: missing data degrades to a muted "—"
  * in its slot and never reflows or throws, so a half-known build still
@@ -20,13 +22,13 @@ import {
   COLORS,
   FONT,
   drawBrandMark,
-  phaseAccent,
+  drawSlotChips,
 } from './theme.js';
 
 export const TEAM_CARD_W = 760;
 
 const HEADER_H = 128;
-const ROW_H = 190;
+const ROW_H = 212;
 const FOOTER_H = 38;
 /** Vertical space an empty squad's "no dolls" line gets instead of rows. */
 const EMPTY_BODY_H = 96;
@@ -35,9 +37,6 @@ const PAD = 36; // card edge → row panel
 const ROW_INSET = 14; // row panel edge → its content
 const PORTRAIT = 128;
 const MUTED_PLACEHOLDER = '—';
-
-/** Fixed-key slots a doll can unlock — chips are always drawn 1…6. */
-const FIXED_KEY_SLOTS = 6;
 
 /** Content column: everything inline with the portrait starts here. */
 const TEXT_X = PAD + ROW_INSET + PORTRAIT + 20;
@@ -51,8 +50,6 @@ const TEXT_W = TEAM_CARD_W - PAD - ROW_INSET - TEXT_X;
 export interface TeamCardSlot {
   dollName: string;
   weaponName: string | null;
-  /** Element, used to tint this doll's band of the top accent stripe. */
-  dollPhase?: string | null;
   /** Weapon refinement level 1–6, or null. */
   refinement: number | null;
   /**
@@ -129,6 +126,18 @@ function pill(
   ctx.textBaseline = 'alphabetic';
 }
 
+/**
+ * Fixed gutter the field labels sit in, so every value in a row starts at the
+ * same x — the four lines read as a column, not a ragged left edge.
+ *
+ * Sized to clear the longest label ("COMMON KEYS") in BOTH renderers: 79px in
+ * Roboto here, 87px in the HTML preview's system-font stack, so the gutter has
+ * to beat the wider of the two or the preview stops mirroring the PNG. A label
+ * that somehow overruns it pushes its own value right rather than drawing
+ * underneath it.
+ */
+const LABEL_GUTTER = 98;
+
 /** Small-caps field label; returns the x the value should start at. */
 function fieldLabel(
   ctx: Canvas2DLike,
@@ -141,7 +150,7 @@ function fieldLabel(
   ctx.textAlign = 'left';
   ctx.textBaseline = 'alphabetic';
   ctx.fillText(label, x, y);
-  return x + ctx.measureText(label).width + 10;
+  return x + Math.max(LABEL_GUTTER, ctx.measureText(label).width + 10);
 }
 
 /** `LABEL  value` on one line, the value shrink-fitted into what's left. */
@@ -237,43 +246,37 @@ function drawSlotRow(ctx: Canvas2DLike, slot: TeamCardSlot, y: number): void {
     FONT
   );
 
-  // ---- Fixed-key slots: chips 1…6, unlocked ones filled ----
-  const chipsX = fieldLabel(ctx, 'KEYS', TEXT_X, y + 115);
-  const chipW = 38;
-  const chipGap = 7;
-  for (let n = 1; n <= FIXED_KEY_SLOTS; n++) {
-    const cx = chipsX + (n - 1) * (chipW + chipGap);
-    const has = slot.fixedKeys.includes(n);
-    ctx.fillStyle = has ? COLORS.accent : COLORS.panel2;
-    roundRect(ctx, cx, y + 98, chipW, 24, 6);
-    ctx.fill();
-    ctx.fillStyle = has ? COLORS.bg : COLORS.muted;
-    ctx.font = `700 14px ${FONT}`;
-    ctx.textAlign = 'center';
-    ctx.textBaseline = 'middle';
-    ctx.fillText(String(n), cx + chipW / 2, y + 98 + 13);
-    ctx.textAlign = 'left';
-    ctx.textBaseline = 'alphabetic';
-  }
+  // ---- Fixed-key slots: a chip per EQUIPPED slot (see drawSlotChips) ----
+  const chipsX = fieldLabel(ctx, 'FIXED KEYS', TEXT_X, y + 115);
+  drawSlotChips(ctx, slot.fixedKeys, {
+    x: chipsX,
+    y: y + 98,
+    w: 38,
+    h: 24,
+    gap: 7,
+    radius: 6,
+    fontSize: 14,
+    fill: COLORS.accent,
+  });
 
-  // ---- Expansion key, then common keys / stat priority side by side ----
-  metaField(ctx, 'EXP', slot.expansionKey, TEXT_X, y + 145, TEXT_W);
-  const half = Math.floor(TEXT_W / 2);
+  // ---- One full-width line each: the values are long enough that sharing a
+  //      line would shrink both of them to unreadable. ----
+  metaField(ctx, 'EXP', slot.expansionKey, TEXT_X, y + 147, TEXT_W);
   metaField(
     ctx,
-    'CK',
+    'COMMON KEYS',
     slot.commonKeys.length > 0 ? slot.commonKeys.join(' · ') : null,
     TEXT_X,
-    y + 171,
-    half - 12
+    y + 173,
+    TEXT_W
   );
   metaField(
     ctx,
     'STATS',
     slot.statPrefs.length > 0 ? slot.statPrefs.join(' › ') : null,
-    TEXT_X + half,
-    y + 171,
-    TEXT_W - half
+    TEXT_X,
+    y + 199,
+    TEXT_W
   );
 }
 
@@ -286,23 +289,8 @@ export function drawTeamCard(
   const h = cardHeight(slots.length);
   ctx.fillStyle = COLORS.bg;
   ctx.fillRect(0, 0, TEAM_CARD_W, h);
-  // Accent stripe: one equal band per doll, in that doll's element color, so
-  // the squad's elemental spread reads off the top edge. An empty squad keeps
-  // a single site-accent bar.
-  if (slots.length === 0) {
-    ctx.fillStyle = COLORS.accent;
-    ctx.fillRect(0, 0, TEAM_CARD_W, 6);
-  } else {
-    const band = TEAM_CARD_W / slots.length;
-    slots.forEach((slot, i) => {
-      ctx.fillStyle = phaseAccent(slot.dollPhase);
-      // Last band runs to the edge — float division must not leave a seam.
-      const x = Math.round(i * band);
-      const end =
-        i === slots.length - 1 ? TEAM_CARD_W : Math.round((i + 1) * band);
-      ctx.fillRect(x, 0, end - x, 6);
-    });
-  }
+  ctx.fillStyle = COLORS.accent;
+  ctx.fillRect(0, 0, TEAM_CARD_W, 6);
 
   // Header
   ctx.fillStyle = COLORS.text;

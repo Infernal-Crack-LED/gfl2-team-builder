@@ -14,7 +14,9 @@ import { createHash } from 'node:crypto';
 // 2: element-tinted accent, weapon art + R level, slot-numbered keys, stats
 //    header, no footer note, refittingroom.app wordmark; squad card turned
 //    portrait, with each doll's whole build inline beside her portrait.
-export const RENDERER_VERSION = 2;
+// 3: slot chips list only what's EQUIPPED (both cards), spelled-out FIXED
+//    KEYS / COMMON KEYS labels, squad card back to one site-accent stripe.
+export const RENDERER_VERSION = 3;
 
 export type RenderKind = 'build' | 'team';
 

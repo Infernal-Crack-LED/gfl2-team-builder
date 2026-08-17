@@ -3295,7 +3295,27 @@ summary.teameffect-tier-title:hover {
 /* Keys: a fixed block height so the sections below sit where the canvas
    renderer puts them regardless of how many key rows a build has. */
 .build-card-keyrows {
-  min-height: 90px;
+  min-height: 60px;
+}
+
+/* Fixed-key slot chips sit inline with their "Fixed" title, so they run a
+   touch smaller than the vertebra chips below. */
+.build-card-chiprow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 20px;
+  line-height: 32px;
+  margin: 0 0 8px;
+}
+
+.build-card-chiprow .build-card-chips {
+  gap: 8px;
+}
+
+.build-card-chiprow .build-card-chip {
+  width: 44px;
+  height: 32px;
 }
 
 .build-card-keyrow {
@@ -3358,7 +3378,7 @@ summary.teameffect-tier-title:hover {
 }
 
 /* ---- Squad Card Preview (760×dynamic logical, PORTRAIT) ---- */
-/* Geometry mirrors core/teamCard.ts: HEADER_H 128, ROW_H 190, FOOTER_H 38,
+/* Geometry mirrors core/teamCard.ts: HEADER_H 128, ROW_H 212, FOOTER_H 38,
    PAD 36, ROW_INSET 14, PORTRAIT 128, TEXT_X 198, TEXT_W 512. Row content is
    absolutely positioned at the same offsets the canvas draws it, so the
    preview and the rendered PNG are the same picture. */
@@ -3382,16 +3402,9 @@ summary.teameffect-tier-title:hover {
   overflow: hidden;
 }
 
-/* One equal band per doll, each tinted with that doll's element (inline
-   `background` from PHASE_COLORS). An empty squad leaves the site accent. */
 .team-card-stripe {
-  display: flex;
   height: 6px;
   background: #5b9dff;
-}
-
-.team-card-stripe-band {
-  flex: 1 1 0;
 }
 
 /* 6px stripe + 122px header = HEADER_H 128. */
@@ -3452,11 +3465,11 @@ summary.teameffect-tier-title:hover {
 }
 
 /* The row panel itself: canvas draws it inset 5px vertically inside ROW_H
-   190, from PAD to W-PAD, with a 2px border. */
+   212, from PAD to W-PAD, with a 2px border. */
 .team-card-row {
   position: relative;
   flex: none;
-  height: 180px;
+  height: 202px;
   margin: 0 36px;
   border: 2px solid #2a2f3b;
   border-radius: 12px;
@@ -3467,7 +3480,7 @@ summary.teameffect-tier-title:hover {
 .team-card-portrait-frame {
   position: absolute;
   left: 12px;
-  top: 26px;
+  top: 37px;
   width: 128px;
   height: 128px;
   border-radius: 12px;
@@ -3574,6 +3587,8 @@ summary.teameffect-tier-title:hover {
 }
 
 /* Fixed-key slots 1…6; unlocked ones filled. */
+/* No row `gap`: the label owns the 82px gutter exactly, so the first chip
+   starts where the canvas draws it. Chips space themselves. */
 .team-card-keys {
   position: absolute;
   left: 0;
@@ -3581,15 +3596,20 @@ summary.teameffect-tier-title:hover {
   height: 24px;
   display: flex;
   align-items: center;
-  gap: 7px;
 }
 
+.team-card-keychip + .team-card-keychip {
+  margin-left: 7px;
+}
+
+/* One chip per EQUIPPED slot — always accent, never a greyed placeholder. */
 .team-card-keychip {
+  flex: none;
   width: 38px;
   height: 24px;
   border-radius: 6px;
-  background: #1f232d;
-  color: #8b93a3;
+  background: #5b9dff;
+  color: #101216;
   font-size: 14px;
   font-weight: 700;
   display: flex;
@@ -3597,18 +3617,15 @@ summary.teameffect-tier-title:hover {
   justify-content: center;
 }
 
-.team-card-keychip.is-on {
-  background: #5b9dff;
-  color: #101216;
-}
-
+/* Fixed gutter (LABEL_GUTTER in core/teamCard.ts) so every value in a row
+   starts at the same x — the four lines read as a column. No letter-spacing:
+   the canvas has none, and every 1px of drift here is 1px of mismatch. */
 .team-card-field-label {
   flex: none;
+  min-width: 98px;
   font-size: 11px;
   font-weight: 700;
   color: #8b93a3;
-  letter-spacing: 0.02em;
-  margin-right: 3px;
 }
 
 .team-card-meta-row {
@@ -3620,19 +3637,23 @@ summary.teameffect-tier-title:hover {
   align-items: baseline;
 }
 
+/* One full-width line each, at the canvas's baselines less the text box's
+   own height. */
 .team-card-meta-exp {
-  top: 126px;
+  top: 128px;
 }
 
-/* CK and STATS split the column in half, as the canvas does. */
-.team-card-meta-split {
-  top: 152px;
+.team-card-meta-common {
+  top: 154px;
+}
+
+.team-card-meta-stats {
+  top: 180px;
 }
 
 .team-card-meta {
   display: flex;
   align-items: baseline;
-  gap: 7px;
   min-width: 0;
   flex: 1;
 }

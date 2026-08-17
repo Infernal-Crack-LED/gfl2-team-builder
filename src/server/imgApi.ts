@@ -224,7 +224,6 @@ async function renderPayload(
       return {
         dollName: doll?.name ?? s.d,
         weaponName: weapon?.name ?? null,
-        dollPhase: doll?.phase ?? null,
         refinement: s.cal ?? null,
         vert: s.t ?? [],
         fixedKeys,

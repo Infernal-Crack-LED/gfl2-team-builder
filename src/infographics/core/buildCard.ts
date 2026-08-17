@@ -18,7 +18,13 @@ import {
   drawContained,
   type Canvas2DLike,
 } from './canvas2d.js';
-import { COLORS, FONT, drawBrandMark, phaseAccent } from './theme.js';
+import {
+  COLORS,
+  FONT,
+  drawBrandMark,
+  drawSlotChips,
+  phaseAccent,
+} from './theme.js';
 
 export const BUILD_CARD_W = 1200;
 export const BUILD_CARD_H = 630;
@@ -91,6 +97,27 @@ function groupLabel(
   ctx.fillText(label.toUpperCase(), x, y);
 }
 
+/** Row title in the card's element accent; returns the x its value starts at. */
+function accentTitle(
+  ctx: Canvas2DLike,
+  title: string,
+  x: number,
+  y: number,
+  accent: string
+): number {
+  ctx.textAlign = 'left';
+  ctx.textBaseline = 'alphabetic';
+  ctx.font = `700 20px ${FONT}`;
+  ctx.fillStyle = accent;
+  ctx.fillText(title, x, y);
+  return x + ctx.measureText(title).width + 12;
+}
+
+/** Slot numbers 1–6, deduped junk dropped and in ascending order. */
+function sortedSlots(slots: number[]): number[] {
+  return slots.filter((s) => s >= 1 && s <= 6).sort((a, b) => a - b);
+}
+
 /**
  * A "<title> <value>" row inside a group: the title takes the card's element
  * accent, the value the normal text color, so the two read apart without a
@@ -105,15 +132,9 @@ function labelledRow(
   maxWidth: number,
   accent: string
 ): void {
-  ctx.textAlign = 'left';
-  ctx.textBaseline = 'alphabetic';
-  ctx.font = `700 20px ${FONT}`;
-  ctx.fillStyle = accent;
-  ctx.fillText(title, x, y);
-  const titleWidth = ctx.measureText(title).width;
-  const vx = x + titleWidth + 12;
+  const vx = accentTitle(ctx, title, x, y, accent);
   ctx.fillStyle = COLORS.text;
-  fitText(ctx, value, vx, y, maxWidth - titleWidth - 12, '400', 20, FONT);
+  fitText(ctx, value, vx, y, maxWidth - (vx - x), '400', 20, FONT);
 }
 
 export function drawBuildCard(ctx: Canvas2DLike, data: BuildCardData): void {
@@ -240,16 +261,23 @@ export function drawBuildCard(ctx: Canvas2DLike, data: BuildCardData): void {
     ctx.fillText(refText, nameX + drawn + 14, wpY + 49);
   }
 
-  // ---- Keys: fixed slots, common sources, expansion key ----
-  groupLabel(ctx, 'Keys', rx, 340);
-  const keyRows: [string, string][] = [
-    [
-      'Fixed',
-      data.fixedKeySlots.length > 0
-        ? data.fixedKeySlots.join(', ')
-        : MUTED_PLACEHOLDER,
-    ],
-  ];
+  // ---- Keys: fixed slots as chips, then common sources / expansion key ----
+  groupLabel(ctx, 'Keys', rx, 336);
+  // Same chip idiom as the vertebrae below and as the squad card's rows: one
+  // chip per EQUIPPED slot, nothing for the rest.
+  const fixedX = accentTitle(ctx, 'Fixed', rx, 374, accent);
+  drawSlotChips(ctx, sortedSlots(data.fixedKeySlots), {
+    x: fixedX,
+    y: 350,
+    w: 44,
+    h: 32,
+    gap: 8,
+    radius: 8,
+    fontSize: 18,
+    fill: accent,
+  });
+
+  const keyRows: [string, string][] = [];
   if (data.commonKeySources.length > 0) {
     keyRows.push(['Common', data.commonKeySources.join(', ')]);
   }
@@ -257,49 +285,33 @@ export function drawBuildCard(ctx: Canvas2DLike, data: BuildCardData): void {
     keyRows.push(['Expansion Key', data.expansionKeyName]);
   }
   keyRows.forEach(([title, value], i) => {
-    labelledRow(ctx, title, value, rx, 372 + i * 30, rw, accent);
+    labelledRow(ctx, title, value, rx, 414 + i * 30, rw, accent);
   });
 
   // ---- Vertebrae: ONLY the selected segments ----
-  groupLabel(ctx, 'Vertebrae', rx, 476);
-  const chipY = 490;
-  const chipW = 56;
-  const chipH = 36;
-  const active = data.vert
-    .filter((s) => s >= 1 && s <= 6)
-    .sort((a, b) => a - b);
-  if (active.length === 0) {
-    ctx.fillStyle = COLORS.muted;
-    ctx.font = `400 20px ${FONT}`;
-    ctx.textAlign = 'left';
-    ctx.textBaseline = 'alphabetic';
-    ctx.fillText(MUTED_PLACEHOLDER, rx, chipY + 26);
-  } else {
-    active.forEach((seg, i) => {
-      const cx = rx + i * (chipW + 10);
-      ctx.fillStyle = accent;
-      roundRect(ctx, cx, chipY, chipW, chipH, 8);
-      ctx.fill();
-      ctx.fillStyle = COLORS.bg;
-      ctx.font = `700 18px ${FONT}`;
-      ctx.textAlign = 'center';
-      ctx.textBaseline = 'middle';
-      ctx.fillText(`V${seg}`, cx + chipW / 2, chipY + chipH / 2 + 1);
-    });
-    ctx.textAlign = 'left';
-    ctx.textBaseline = 'alphabetic';
-  }
+  groupLabel(ctx, 'Vertebrae', rx, 486);
+  drawSlotChips(ctx, sortedSlots(data.vert), {
+    x: rx,
+    y: 500,
+    w: 56,
+    h: 36,
+    gap: 10,
+    radius: 8,
+    fontSize: 18,
+    fill: accent,
+    prefix: 'V',
+  });
 
   // ---- Stats (priority order) ----
-  groupLabel(ctx, 'Stats', rx, 566);
+  groupLabel(ctx, 'Stats', rx, 576);
   ctx.textAlign = 'left';
   ctx.textBaseline = 'alphabetic';
   if (data.statPrefs.length === 0) {
     ctx.fillStyle = COLORS.muted;
     ctx.font = `400 20px ${FONT}`;
-    ctx.fillText(MUTED_PLACEHOLDER, rx, 596);
+    ctx.fillText(MUTED_PLACEHOLDER, rx, 606);
   } else {
     ctx.fillStyle = COLORS.text;
-    fitText(ctx, data.statPrefs.join(' > '), rx, 596, rw, '400', 20, FONT);
+    fitText(ctx, data.statPrefs.join(' > '), rx, 606, rw, '400', 20, FONT);
   }
 }

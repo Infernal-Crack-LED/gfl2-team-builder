@@ -4,17 +4,11 @@
  *
  * PORTRAIT, one row per doll, each carrying her whole build inline beside the
  * portrait. Logical width 760; height grows with filled slot count (HEADER 128
- * + ROW 190 × n + FOOTER 38). Download uses html-to-image at 2× pixel ratio.
+ * + ROW 212 × n + FOOTER 38). Download uses html-to-image at 2× pixel ratio.
  */
 import { useCallback, useRef, useState } from 'react';
 import { toPng } from 'html-to-image';
-import {
-  assetUrl,
-  getDollById,
-  getKeyById,
-  getWeaponById,
-  PHASE_COLORS,
-} from '../data';
+import { assetUrl, getDollById, getKeyById, getWeaponById } from '../data';
 import type { Doll } from '../data';
 import type { DollBuild } from '../../../src/share/buildCode';
 import { commonKeySource, fixedKeySlot } from '../../../src/share/keyLabels';
@@ -22,12 +16,7 @@ import { commonKeySource, fixedKeySlot } from '../../../src/share/keyLabels';
 /** Cards are stamped with the DOMAIN — mirrors CARD_WORDMARK in core/theme.ts. */
 const CARD_WORDMARK = 'refittingroom.app';
 
-/** Site accent, the fallback tint for an unknown/missing element. */
-const SITE_ACCENT = '#5b9dff';
-
 const MUTED_PLACEHOLDER = '—';
-/** Fixed-key slots a doll can unlock — chips are always drawn 1…6. */
-const FIXED_KEY_SLOTS = [1, 2, 3, 4, 5, 6];
 
 /**
  * Card geometry, mirroring core/teamCard.ts (and the .team-card CSS block).
@@ -36,7 +25,7 @@ const FIXED_KEY_SLOTS = [1, 2, 3, 4, 5, 6];
  * or a short squad leaves a screenful of dead space under it.
  */
 const HEADER_H = 128;
-const ROW_H = 190;
+const ROW_H = 212;
 const FOOTER_H = 38;
 const EMPTY_BODY_H = 96;
 /** Must match `transform: scale(…)` on .team-card. */
@@ -50,8 +39,6 @@ function cardHeight(n: number): number {
 export interface TeamCardSlotData {
   dollName: string;
   weaponName: string | null;
-  /** Element — tints this doll's band of the top accent stripe. */
-  dollPhase: string | null;
   refinement: number | null;
   vert: number[];
   fixedKeys: number[];
@@ -80,7 +67,6 @@ export function teamCardSlot(
     weaponName: build?.weapon
       ? (getWeaponById(build.weapon)?.name ?? null)
       : null,
-    dollPhase: doll.phase,
     refinement: build?.cal ?? null,
     vert: build?.vert ?? [],
     // Fixed keys show as SLOT NUMBERS, not titles — that is how a squad's key
@@ -173,31 +159,34 @@ function SlotRow({ slot }: { slot: TeamCardSlotData }) {
           </span>
         </div>
 
+        {/* One chip per EQUIPPED slot — see drawSlotChips in core/theme.ts. */}
         <div className="team-card-keys">
-          <span className="team-card-field-label">KEYS</span>
-          {FIXED_KEY_SLOTS.map((n) => (
-            <span
-              key={n}
-              className={
-                'team-card-keychip' +
-                (slot.fixedKeys.includes(n) ? ' is-on' : '')
-              }
-            >
-              {n}
+          <span className="team-card-field-label">FIXED KEYS</span>
+          {slot.fixedKeys.length === 0 ? (
+            <span className="team-card-meta-value is-empty">
+              {MUTED_PLACEHOLDER}
             </span>
-          ))}
+          ) : (
+            slot.fixedKeys.map((n) => (
+              <span key={n} className="team-card-keychip">
+                {n}
+              </span>
+            ))
+          )}
         </div>
 
         <div className="team-card-meta-row team-card-meta-exp">
           <MetaField label="EXP" value={slot.expansionKey} />
         </div>
-        <div className="team-card-meta-row team-card-meta-split">
+        <div className="team-card-meta-row team-card-meta-common">
           <MetaField
-            label="CK"
+            label="COMMON KEYS"
             value={
               slot.commonKeys.length > 0 ? slot.commonKeys.join(' · ') : null
             }
           />
+        </div>
+        <div className="team-card-meta-row team-card-meta-stats">
           <MetaField
             label="STATS"
             value={
@@ -242,19 +231,9 @@ export function TeamCardPreview({ slots }: { slots: TeamCardSlotData[] }) {
         style={{ height: Math.ceil(cardHeight(slots.length) * PREVIEW_SCALE) }}
       >
         <div ref={cardRef} className="team-card">
-          {/* Accent stripe — one equal band per doll, in that doll's element
-              color, so the squad's elemental spread reads off the top edge. */}
-          <div className="team-card-stripe">
-            {slots.map((slot, i) => (
-              <span
-                key={i}
-                className="team-card-stripe-band"
-                style={{
-                  background: PHASE_COLORS[slot.dollPhase ?? ''] ?? SITE_ACCENT,
-                }}
-              />
-            ))}
-          </div>
+          {/* Accent stripe — one site-accent bar (see core/teamCard.ts on why
+              this isn't per-doll element bands). */}
+          <div className="team-card-stripe" />
 
           {/* Header */}
           <div className="team-card-header">

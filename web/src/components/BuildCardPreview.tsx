@@ -73,13 +73,11 @@ export function BuildCardPreview({ data }: { data: BuildCardPreviewData }) {
     .filter((s) => s >= 1 && s <= 6)
     .sort((a, b) => a - b);
 
-  const keyRows: { title: string; value: string }[] = [
-    {
-      title: 'Fixed',
-      value:
-        data.fixedKeySlots.length > 0 ? data.fixedKeySlots.join(', ') : '—',
-    },
-  ];
+  const activeFixed = data.fixedKeySlots
+    .filter((s) => s >= 1 && s <= 6)
+    .sort((a, b) => a - b);
+
+  const keyRows: { title: string; value: string }[] = [];
   if (data.commonKeySources.length > 0) {
     keyRows.push({ title: 'Common', value: data.commonKeySources.join(', ') });
   }
@@ -156,9 +154,34 @@ export function BuildCardPreview({ data }: { data: BuildCardPreviewData }) {
               </div>
             </div>
 
-            {/* Keys — title/value rows, title in the element accent */}
+            {/* Keys — fixed slots as chips, then title/value rows */}
             <div className="build-card-section">
               <span className="build-card-label">KEYS</span>
+              {/* One chip per EQUIPPED slot — same idiom as the vertebrae
+                  below and as the squad card. */}
+              <div className="build-card-keyrow build-card-chiprow">
+                <span
+                  className="build-card-keyrow-title"
+                  style={{ color: accent }}
+                >
+                  Fixed
+                </span>
+                {activeFixed.length === 0 ? (
+                  <span className="build-card-keyrow-value muted-value">—</span>
+                ) : (
+                  <div className="build-card-chips">
+                    {activeFixed.map((n) => (
+                      <span
+                        key={n}
+                        className="build-card-chip on"
+                        style={{ background: accent }}
+                      >
+                        {n}
+                      </span>
+                    ))}
+                  </div>
+                )}
+              </div>
               <div className="build-card-keyrows">
                 {keyRows.map((row) => (
                   <p key={row.title} className="build-card-keyrow">

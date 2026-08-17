@@ -165,17 +165,50 @@ describe.skipIf(!FONTS_PRESENT)('card renderers (fonts present)', () => {
     expect(inkInRegion(ctx2d, 198, rowY + 24, 520, 32)).toBeGreaterThan(100);
     // Weapon + R pill.
     expect(inkInRegion(ctx2d, 198, rowY + 58, 520, 30)).toBeGreaterThan(100);
-    // Fixed-key chips (accent fill on the unlocked ones).
+    // Fixed-key chips (accent fill).
     expect(inkInRegion(ctx2d, 198, rowY + 98, 520, 24, 80)).toBeGreaterThan(
       100
     );
-    // EXP line, then the CK / STATS line.
-    expect(inkInRegion(ctx2d, 198, rowY + 132, 520, 18, 80)).toBeGreaterThan(
+    // EXP, COMMON KEYS and STATS, one full-width line each.
+    expect(inkInRegion(ctx2d, 198, rowY + 134, 520, 18, 80)).toBeGreaterThan(
       50
     );
-    expect(inkInRegion(ctx2d, 198, rowY + 158, 520, 18, 80)).toBeGreaterThan(
+    expect(inkInRegion(ctx2d, 198, rowY + 160, 520, 18, 80)).toBeGreaterThan(
       50
     );
+    expect(inkInRegion(ctx2d, 198, rowY + 186, 520, 18, 80)).toBeGreaterThan(
+      50
+    );
+  });
+
+  it('team card draws a chip per EQUIPPED fixed key and none for the rest', async () => {
+    const { createCanvas, drawTeamCard, TEAM_CARD_W, cardHeight } =
+      await import('./node/render.js');
+    const base = {
+      dollName: 'Alva',
+      weaponName: '6P33',
+      refinement: 4,
+      vert: [3],
+      expansionKey: null,
+      commonKeys: [],
+      statPrefs: [],
+      portrait: null,
+    };
+    // The chip strip well to the RIGHT of the first chip: empty when one key
+    // is equipped, inked when six are. Threshold 40 sees accent chips (#5b9dff)
+    // but not the row panel (#181b22) underneath them.
+    const strip = [360, 128 + 98, 340, 24, 40] as const;
+    const render = (fixedKeys: number[]) => {
+      const canvas = createCanvas(TEAM_CARD_W, cardHeight(1));
+      const ctx = canvas.getContext('2d');
+      drawTeamCard(ctx as never, [{ ...base, fixedKeys }]);
+      return inkInRegion(
+        ctx as never as Parameters<typeof inkInRegion>[0],
+        ...strip
+      );
+    };
+    expect(render([2])).toBe(0);
+    expect(render([1, 2, 3, 4, 5, 6])).toBeGreaterThan(100);
   });
 
   it('team card degrades on an all-empty build without throwing', async () => {

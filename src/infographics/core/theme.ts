@@ -3,7 +3,12 @@
  * tokens in web/src/styles.css (`:root`) one-for-one — when a token changes,
  * change it here too, or the share images drift from the site they advertise.
  */
-import { drawContained, imageSize, type Canvas2DLike } from './canvas2d.js';
+import {
+  drawContained,
+  imageSize,
+  roundRect,
+  type Canvas2DLike,
+} from './canvas2d.js';
 
 export const COLORS = {
   bg: '#101216', // --bg
@@ -120,4 +125,57 @@ export function drawBrandMark(
   ctx.fillText(CARD_WORDMARK, left, o.top + MARK_BASELINE);
   ctx.restore();
   return left;
+}
+
+/**
+ * A row of numbered slot chips — the shared idiom for "which numbered things
+ * are equipped": fixed keys on BOTH cards, vertebrae on the build card. Lives
+ * here rather than in either card so the two can't drift apart.
+ *
+ * ONLY the equipped numbers are drawn. Rendering all six with the unpicked
+ * ones greyed reads as a progress bar and buries the two that matter — the
+ * chips are a list of what IS there, not a checklist of what isn't. An empty
+ * list falls back to a muted em dash so the row is never blank.
+ *
+ * `y` is the chips' TOP edge (they are box-positioned, not baseline-aligned).
+ */
+export function drawSlotChips(
+  ctx: Canvas2DLike,
+  slots: number[],
+  o: {
+    x: number;
+    y: number;
+    w: number;
+    h: number;
+    gap: number;
+    radius: number;
+    fontSize: number;
+    /** Chip fill — the card's accent (site blue, or the doll's element). */
+    fill: string;
+    /** Prepended to the number, e.g. 'V' for vertebrae. */
+    prefix?: string;
+  }
+): void {
+  ctx.save();
+  if (slots.length === 0) {
+    ctx.fillStyle = COLORS.muted;
+    ctx.font = `400 ${Math.round(o.h * 0.7)}px ${FONT}`;
+    ctx.textAlign = 'left';
+    ctx.textBaseline = 'middle';
+    ctx.fillText('—', o.x, o.y + o.h / 2);
+    ctx.restore();
+    return;
+  }
+  slots.forEach((n, i) => {
+    const cx = o.x + i * (o.w + o.gap);
+    ctx.fillStyle = o.fill;
+    roundRect(ctx, cx, o.y, o.w, o.h, o.radius);
+    ctx.fill();
+    ctx.fillStyle = COLORS.bg;
+    ctx.font = `700 ${o.fontSize}px ${FONT}`;
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText(`${o.prefix ?? ''}${n}`, cx + o.w / 2, o.y + o.h / 2 + 1);
+  });
+  ctx.restore();
 }
