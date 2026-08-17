@@ -85,10 +85,10 @@ const MARK_BASELINE = 24; // wordmark baseline, from the icon's top edge
  * parameter on purpose: no renderer can accidentally ship an unmarked (or
  * mis-marked) image — the brand string is owned here and nowhere else.
  *
- * `icon` is the shared nikkesim.app mark (node/icon.ts loads it; the browser
- * previews use the same PNG from web/public/). It is OPTIONAL: a host with no
- * icon loaded thins the mark to its wordmark rather than dropping it, so a
- * missing asset can never produce an unmarked image.
+ * `icon` is Refitting Room's chevron mark (node/icon.ts loads it; the
+ * browser previews use the same PNG from web/public/site-icon.png). It is
+ * OPTIONAL: a host with no icon loaded thins the mark to its wordmark rather
+ * than dropping it, so a missing asset can never produce an unmarked image.
  *
  * Returns the mark's LEFT edge so a caller can clamp a title that would
  * otherwise run underneath it.

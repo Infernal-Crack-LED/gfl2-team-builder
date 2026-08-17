@@ -1,5 +1,5 @@
 /**
- * The shared nikkesim.app site icon drawn beside every card's wordmark
+ * Refitting Room's chevron site icon, drawn beside every card's wordmark
  * (core/theme.ts drawBrandMark). Loaded ONCE, lazily, and cached for the
  * process; the asset ships beside the fonts under assets/ and is copied into
  * dist-server by `npm run build:server`.
@@ -19,7 +19,7 @@ import sharp from 'sharp';
 
 const ICON_PATH = path.join(
   path.dirname(fileURLToPath(import.meta.url)),
-  '../assets/nikkesim-icon.png'
+  '../assets/site-icon.png'
 );
 
 const ICON_PX = 128; // decoded edge length (drawn down to the 40px mark)

@@ -189,7 +189,7 @@ export function RecCardPreview({ data }: { data: RecCardPreviewData }) {
               <span className="rec-card-brand">{CARD_WORDMARK}</span>
               <img
                 className="card-mark-icon"
-                src="/nikkesim-icon.png"
+                src="/site-icon.png"
                 alt=""
                 crossOrigin="anonymous"
               />

@@ -1,17 +1,12 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="GFL2 Team Builder">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Refitting Room">
   <rect width="64" height="64" rx="14" fill="#101216"/>
-  <!-- The shared nikkesim.app brand mark (the same bars drawn on share cards
-       and in the nav), on this site's surface colors. -->
-  <g fill="#2a2f3b">
-    <rect x="12" y="13" width="40" height="7" rx="3.5"/>
-    <rect x="12" y="24" width="40" height="7" rx="3.5"/>
-    <rect x="12" y="35" width="40" height="7" rx="3.5"/>
-    <rect x="12" y="46" width="40" height="7" rx="3.5"/>
-  </g>
-  <g fill="#5b9dff">
-    <rect x="12" y="13" width="40" height="7" rx="3.5"/>
-    <rect x="12" y="24" width="29" height="7" rx="3.5"/>
-    <rect x="12" y="35" width="20" height="7" rx="3.5"/>
-    <rect x="12" y="46" width="12" height="7" rx="3.5"/>
+  <!-- Refitting Room's chevron mark: the V0 → V6 investment climb, dim to
+       bright. Mirrored by web/public/site-icon.png and the server card mark
+       (src/infographics/assets/site-icon.png) — regenerate those when this
+       changes. -->
+  <g fill="none" stroke-width="7" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M17 47 L32 39 L47 47" stroke="#2a2f3b"/>
+    <path d="M17 33 L32 25 L47 33" stroke="#3f6fbf"/>
+    <path d="M17 19 L32 11 L47 19" stroke="#5b9dff"/>
   </g>
 </svg>

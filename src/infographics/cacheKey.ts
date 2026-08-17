@@ -21,7 +21,9 @@ import { createHash } from 'node:crypto';
 //    expansion-key line outright when there isn't one.
 // 4 also covers the recommendation card's INTRODUCTION — a new kind mints
 //    fresh hashes, so adding it needed no bump.
-export const RENDERER_VERSION = 4;
+// 5: brand-mark icon switches from the shared nikkesim bars to Refitting
+//    Room's own chevron mark (every card draws it, so every card changed).
+export const RENDERER_VERSION = 5;
 
 export type RenderKind = 'build' | 'team' | 'rec';
 

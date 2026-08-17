@@ -174,7 +174,7 @@ export function SiteNav({ current }: { current: Route }) {
           >
             <img
               className="site-nav-logo"
-              src="/nikkesim-icon.png"
+              src="/site-icon.png"
               alt=""
               width={22}
               height={22}

@@ -100,7 +100,7 @@ export function BuildCardPreview({ data }: { data: BuildCardPreviewData }) {
             <span className="build-card-brand">{CARD_WORDMARK}</span>
             <img
               className="card-mark-icon"
-              src="/nikkesim-icon.png"
+              src="/site-icon.png"
               alt=""
               crossOrigin="anonymous"
             />

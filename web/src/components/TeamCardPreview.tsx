@@ -290,7 +290,7 @@ export function TeamCardPreview({ slots }: { slots: TeamCardSlotData[] }) {
               <span className="team-card-brand">{CARD_WORDMARK}</span>
               <img
                 className="card-mark-icon"
-                src="/nikkesim-icon.png"
+                src="/site-icon.png"
                 alt=""
                 crossOrigin="anonymous"
               />
