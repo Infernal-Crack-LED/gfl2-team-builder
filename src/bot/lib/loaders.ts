@@ -9,6 +9,11 @@ const srcRoot = join(here, '..');
 /**
  * Recursively collect every module under a directory. Accepts `.ts` (dev via
  * tsx) and `.js` (compiled output), while skipping declaration/source-map files.
+ *
+ * Tests are skipped too, and NOT merely because they export no command: a
+ * co-located `*.test.ts` imports vitest and runs `describe` at module scope,
+ * so importing one outside a test runner throws. tsconfig keeps them out of
+ * the build, but `npm run dev:bot` loads the .ts sources directly.
  */
 async function collectModules(dir: string): Promise<string[]> {
   const entries = await readdir(dir, { withFileTypes: true });
@@ -19,7 +24,8 @@ async function collectModules(dir: string): Promise<string[]> {
       files.push(...(await collectModules(full)));
     } else if (
       (entry.name.endsWith('.js') || entry.name.endsWith('.ts')) &&
-      !entry.name.endsWith('.d.ts')
+      !entry.name.endsWith('.d.ts') &&
+      !/\.test\.[jt]s$/.test(entry.name)
     ) {
       files.push(full);
     }

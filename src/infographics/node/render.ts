@@ -26,6 +26,12 @@ import {
   recCardHeight,
   type RecCardData,
 } from '../core/recCard.js';
+import {
+  PULL_CARD_W,
+  drawPullCard,
+  pullCardHeight,
+  type PullCardData,
+} from '../core/pullCard.js';
 import { FONT } from '../core/theme.js';
 import { loadSiteIcon } from './icon.js';
 
@@ -35,6 +41,7 @@ export * from '../core/theme.js';
 export * from '../core/buildCard.js';
 export * from '../core/teamCard.js';
 export * from '../core/recCard.js';
+export * from '../core/pullCard.js';
 export { loadSiteIcon };
 
 const DPR = 2;
@@ -103,5 +110,13 @@ export async function renderRecCardPng(data: RecCardData): Promise<Buffer> {
   const siteIcon = await loadSiteIcon();
   const { canvas, ctx } = makeCard(REC_CARD_W, recCardHeight(data));
   drawRecCard(ctx, { ...data, siteIcon });
+  return canvas.encode('png');
+}
+
+export async function renderPullCardPng(data: PullCardData): Promise<Buffer> {
+  assertFontsLive();
+  const siteIcon = await loadSiteIcon();
+  const { canvas, ctx } = makeCard(PULL_CARD_W, pullCardHeight(data));
+  drawPullCard(ctx, { ...data, siteIcon });
   return canvas.encode('png');
 }

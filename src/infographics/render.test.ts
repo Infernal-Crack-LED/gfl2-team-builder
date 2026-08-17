@@ -351,6 +351,113 @@ describe.skipIf(!FONTS_PRESENT)('card renderers (fonts present)', () => {
     expect(() => drawRecCard(ctx as never, data)).not.toThrow();
   });
 
+  it('pull card renders tiles, the odds ladder and its bars', async () => {
+    const { createCanvas, drawPullCard, PULL_CARD_W, pullCardHeight } =
+      await import('./node/render.js');
+    const data = {
+      title: 'Pull Calculator',
+      subtitle:
+        '160 pulls · Doll banner · pity 0 · 50% featured on the next Elite',
+      accent: '#5b9dff',
+      tiles: [
+        {
+          label: '1+ featured doll',
+          value: '86.4%',
+          sub: 'chance in 160 pulls',
+          main: true,
+        },
+        { label: 'Expected copies', value: '1.5', sub: 'of the featured unit' },
+        {
+          label: 'Any Elite Doll',
+          value: '3.0',
+          sub: 'expected · 95.1% for 1+',
+        },
+      ],
+      rows: Array.from({ length: 7 }, (_, i) => ({
+        tier: `V${i}`,
+        copies: `${i + 1} cop${i === 0 ? 'y' : 'ies'}`,
+        chance: '50.0%',
+        p: 1 / (i + 1),
+      })),
+      meta: 'Worst case 240 pulls to a first copy · soft pity from 59',
+      detail: 'Tiers are cumulative — V1 includes everything above it.',
+    };
+    const h = pullCardHeight(data);
+    // LANDSCAPE, unlike the portrait build/squad/rec cards.
+    expect(h).toBeLessThan(PULL_CARD_W);
+    const canvas = createCanvas(PULL_CARD_W, h);
+    const ctx = canvas.getContext('2d');
+    drawPullCard(ctx as never, data);
+    const ctx2d = ctx as never as Parameters<typeof inkInRegion>[0];
+    // "Pull Calculator" title at x=36, baseline y=74.
+    expect(inkInRegion(ctx2d, 36, 40, 360, 42)).toBeGreaterThan(100);
+    // The main tile's value (accent #5b9dff), under the header.
+    expect(inkInRegion(ctx2d, 52, 132 + 34, 200, 32, 80)).toBeGreaterThan(100);
+    // First ladder row: the accent tier chip, and its odds in the right column.
+    const rowY = 132 + 96 + 46;
+    expect(inkInRegion(ctx2d, 36, rowY + 4, 46, 26, 80)).toBeGreaterThan(200);
+    expect(inkInRegion(ctx2d, 640, rowY, 84, 30)).toBeGreaterThan(50);
+    const png = await canvas.encode('png');
+    expect(png.length).toBeGreaterThan(1000);
+  });
+
+  it('pull card bars track the odds and survive a zero row', async () => {
+    const { createCanvas, drawPullCard, PULL_CARD_W, pullCardHeight } =
+      await import('./node/render.js');
+    const base = {
+      title: 'Pull Calculator',
+      subtitle: '10 pulls · Doll banner',
+      accent: '#5b9dff',
+      tiles: [{ label: 'a', value: 'b', sub: 'c', main: true }],
+      meta: 'meta',
+      detail: 'detail',
+    };
+    // The bar band of row 0, from the halfway point of the track rightwards:
+    // inked at p=1, empty at p=0.05, and a zero row must not throw.
+    const band = [
+      36 + 180 + Math.round((760 - 72 - 180 - 86 - 14) / 2),
+      132 + 96 + 46 + 12,
+      120,
+      10,
+      80,
+    ] as const;
+    const render = (p: number) => {
+      const data = {
+        ...base,
+        rows: [{ tier: 'V0', copies: '1 copy', chance: 'x', p }],
+      };
+      const canvas = createCanvas(PULL_CARD_W, pullCardHeight(data));
+      const ctx = canvas.getContext('2d');
+      drawPullCard(ctx as never, data);
+      return inkInRegion(
+        ctx as never as Parameters<typeof inkInRegion>[0],
+        ...band
+      );
+    };
+    expect(render(1)).toBeGreaterThan(100);
+    expect(render(0.05)).toBe(0);
+    expect(() => render(0)).not.toThrow();
+  });
+
+  it('pull card height grows one row at a time', async () => {
+    const { pullCardHeight } = await import('./node/render.js');
+    const row = { tier: 'V0', copies: '1 copy', chance: '50%', p: 0.5 };
+    const base = {
+      title: 'Pull Calculator',
+      subtitle: '',
+      accent: '#5b9dff',
+      tiles: [],
+      rows: [row],
+      meta: '',
+      detail: '',
+    };
+    const one = pullCardHeight(base);
+    const two = pullCardHeight({ ...base, rows: [row, row] });
+    expect(two - one).toBe(
+      pullCardHeight({ ...base, rows: [row, row, row] }) - two
+    );
+  });
+
   it('team card degrades on an all-empty build without throwing', async () => {
     const { createCanvas, drawTeamCard, TEAM_CARD_W, cardHeight } =
       await import('./node/render.js');

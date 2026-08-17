@@ -1,4 +1,10 @@
-import { EmbedBuilder, MessageFlags, SlashCommandBuilder } from 'discord.js';
+import {
+  AttachmentBuilder,
+  EmbedBuilder,
+  MessageFlags,
+  SlashCommandBuilder,
+  type ChatInputCommandInteraction,
+} from 'discord.js';
 import type { Command } from '../../types.js';
 import {
   BANNERS,
@@ -12,38 +18,13 @@ import {
   type BannerConfig,
   type PullsSummary,
 } from '../../lib/gfl2/gacha.js';
-
-/** Format a per-pull rate as a percent, trimming a trailing ".0" (3% not 3.0%). */
-function ratePct(rate: number): string {
-  const v = rate * 100;
-  return `${Number.isInteger(v) ? v.toString() : v.toFixed(1)}%`;
-}
-
-/**
- * Format a 0-1 probability as a whole percent (e.g. "87%). Rounding is held
- * back from the extremes: a merely-unlikely outcome must not print as a flat
- * "0%", and only a true certainty may print as "100%".
- */
-function pct0(p: number): string {
-  if (p > 0 && p < 0.005) {
-    return '<1%';
-  }
-  if (p < 1 && p >= 0.995) {
-    return '>99%';
-  }
-  return `${Math.round(p * 100)}%`;
-}
-
-/** Format a 0-1 probability with one decimal (e.g. "98.3%"), same guards. */
-function pct1(p: number): string {
-  if (p > 0 && p < 0.0005) {
-    return '<0.1%';
-  }
-  if (p < 1 && p >= 0.9995) {
-    return '>99.9%';
-  }
-  return `${(p * 100).toFixed(1)}%`;
-}
+import {
+  bannerEmbedColor,
+  buildPullCardData,
+  pct0,
+  pct1,
+  ratePct,
+} from '../../lib/gfl2/pullDisplay.js';
 
 /** One line describing where the plan starts from: pity and 50/50 state. */
 function startingStateLine(
@@ -54,6 +35,41 @@ function startingStateLine(
     ? '**guaranteed featured** on your next Elite'
     : `**${pct0(banner.featuredChance)}** featured on your next Elite`;
   return `Starting pity **${state.pity}** · ${next}`;
+}
+
+/**
+ * Render the odds card and reply with it. The image REPLACES the embed when a
+ * budget is all that was asked for — the card carries every figure the embed
+ * did — but a render failure (missing fonts, a canvas that won't load in this
+ * environment) must never cost the user their answer, so the embed is the
+ * fallback rather than an error message.
+ *
+ * The renderer is imported lazily: it pulls in @napi-rs/canvas and registers
+ * fonts at module load, and the command loader imports every command at boot.
+ * A static import would make a font problem a bot-wide startup crash instead
+ * of one degraded reply.
+ */
+async function replyWithCard(
+  interaction: ChatInputCommandInteraction,
+  summary: PullsSummary,
+  /** Shown above the card (target mode) and alone if rendering fails. */
+  embeds: EmbedBuilder[],
+  fallback: EmbedBuilder
+): Promise<void> {
+  await interaction.deferReply();
+  try {
+    const { renderPullCardPng } =
+      await import('../../../infographics/node/render.js');
+    const data = buildPullCardData(summary);
+    const png = await renderPullCardPng(data);
+    const file = new AttachmentBuilder(png, {
+      name: 'pull-odds.png',
+    }).setDescription(`${data.title} — ${data.subtitle}`);
+    await interaction.editReply({ embeds, files: [file] });
+  } catch (err) {
+    console.warn('[pulls] card render failed, falling back to embed:', err);
+    await interaction.editReply({ embeds: [fallback] });
+  }
 }
 
 /**
@@ -73,7 +89,7 @@ function buildPullsEmbed(s: PullsSummary): EmbedBuilder {
   }
 
   return new EmbedBuilder()
-    .setColor(banner.key === 'doll' ? 0x5b9dff : 0xf4a72c)
+    .setColor(bannerEmbedColor(banner))
     .setTitle(`🎲 ${s.pulls} pull${s.pulls === 1 ? '' : 's'} — ${banner.label}`)
     .setDescription(
       startingStateLine(banner, { pity: s.pity, guaranteed: s.guaranteed })
@@ -117,7 +133,7 @@ function buildTargetEmbed(
   const worst = worstCasePullsToFeatured(banner, copies, state);
 
   const embed = new EmbedBuilder()
-    .setColor(banner.key === 'doll' ? 0x5b9dff : 0xf4a72c)
+    .setColor(bannerEmbedColor(banner))
     .setTitle(`🎯 ${tier} — ${banner.label}`)
     .setDescription(
       `${copies} featured cop${copies === 1 ? 'y' : 'ies'} · ${startingStateLine(banner, state)}`
@@ -254,13 +270,25 @@ export const command: Command = {
         );
         return;
       }
-      await interaction.reply({
-        embeds: [buildTargetEmbed(banner, copies, { pity, guaranteed }, pulls)],
-      });
+      const targetEmbed = buildTargetEmbed(
+        banner,
+        copies,
+        { pity, guaranteed },
+        pulls
+      );
+      // A target on its own is a "how many pulls do I need" question, which
+      // the card doesn't answer — it charts a BUDGET. So the card only comes
+      // along when a budget was named too, under the target's own answer.
+      if (pulls === null) {
+        await interaction.reply({ embeds: [targetEmbed] });
+        return;
+      }
+      const budget = summarizePulls(pulls, { banner, pity, guaranteed });
+      await replyWithCard(interaction, budget, [targetEmbed], targetEmbed);
       return;
     }
 
     const summary = summarizePulls(pulls ?? 0, { banner, pity, guaranteed });
-    await interaction.reply({ embeds: [buildPullsEmbed(summary)] });
+    await replyWithCard(interaction, summary, [], buildPullsEmbed(summary));
   },
 };
