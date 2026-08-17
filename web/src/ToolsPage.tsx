@@ -1,49 +1,32 @@
 /**
- * Tools index (/tools) — the top-level home for everything on the site that
- * builds something rather than just browsing data. Mirrors nikke-sim's Tools
- * section: one landing page, one tile per tool, each tile a real link so the
- * page is crawlable and every tool has a shareable URL.
+ * Tools index (/tools) — the landing page for the infographics creator, whose
+ * two card types each get their own tile and their own crawlable URL
+ * (`?card=build` / `?card=team`, read by InfographicsPage on mount).
  *
- * The infographics creator (/tools/infographics) is the tile that lives here
- * exclusively; the builders and the key catalogue also sit in the top nav,
- * and are repeated here so Tools is a complete index rather than a stub.
+ * The builders and the key catalogue used to be repeated here; they live in
+ * the top nav, so this page is the one place that owns the card maker rather
+ * than a second copy of the nav.
  */
-import type { Route } from './router';
 import { hrefFor, onSpaLinkClick } from './router';
 
 interface Tool {
-  route: Route;
+  href: string;
   title: string;
   blurb: string;
-  /** Marks the tool this section owns — rendered first, visually lifted. */
-  featured?: boolean;
 }
 
 const TOOLS: Tool[] = [
   {
-    route: 'infographics',
-    title: 'Infographics Creator',
+    href: `${hrefFor('infographics')}?card=build`,
+    title: 'Build Card Creator',
     blurb:
-      'Compose a build card or a squad card from the live game data, preview it exactly as it will render, then download the PNG or mint a hosted image link that embeds in Discord.',
-    featured: true,
+      "Compose one doll's card — weapon and refinement, keys, vertebra and stat priorities — preview it exactly as it will render, then download the PNG or mint a hosted image link that embeds in Discord.",
   },
   {
-    route: 'team-builder',
-    title: 'Team Builder',
+    href: `${hrefFor('infographics')}?card=team`,
+    title: 'Squad Card Creator',
     blurb:
-      'Stage a 4- or 5-doll squad from the filtered roster, see the effects the team shares, then save or share it.',
-  },
-  {
-    route: 'builder',
-    title: 'Character Builder',
-    blurb:
-      'Plan one doll in depth — weapon and refinement, fixed, expansion and common keys, vertebrae, and stat priorities.',
-  },
-  {
-    route: 'keys',
-    title: 'Key Catalogue',
-    blurb:
-      'Every fixed, expansion, and common key, filterable by type, stat, and the class or phase of the doll it comes from.',
+      'Compose a squad card from up to five dolls with their weapons, preview it live, then download the PNG or mint a hosted image link that embeds in Discord.',
   },
 ];
 
@@ -59,23 +42,20 @@ export function ToolsPage() {
       </header>
 
       <div className="tools-grid">
-        {TOOLS.map((tool) => {
-          const href = hrefFor(tool.route);
-          return (
-            <a
-              key={tool.route}
-              className={'tool-tile' + (tool.featured ? ' featured' : '')}
-              href={href}
-              onClick={onSpaLinkClick(href)}
-            >
-              <h2 className="tool-tile-title">{tool.title}</h2>
-              <p className="tool-tile-blurb">{tool.blurb}</p>
-              <span className="tool-tile-cta" aria-hidden="true">
-                Open →
-              </span>
-            </a>
-          );
-        })}
+        {TOOLS.map((tool) => (
+          <a
+            key={tool.href}
+            className="tool-tile featured"
+            href={tool.href}
+            onClick={onSpaLinkClick(tool.href)}
+          >
+            <h2 className="tool-tile-title">{tool.title}</h2>
+            <p className="tool-tile-blurb">{tool.blurb}</p>
+            <span className="tool-tile-cta" aria-hidden="true">
+              Open →
+            </span>
+          </a>
+        ))}
       </div>
     </div>
   );

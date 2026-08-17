@@ -798,8 +798,15 @@ function ShareRow({
 
 // --- Page ------------------------------------------------------------------
 
+/** `?card=team` → the squad card; anything else (or nothing) → the build card. */
+function bootCardType(): CardType {
+  return new URLSearchParams(window.location.search).get('card') === 'team'
+    ? 'team'
+    : 'build';
+}
+
 export function InfographicsPage() {
-  const [cardType, setCardType] = useState<CardType>('build');
+  const [cardType, setCardType] = useState<CardType>(bootCardType);
   const [notice, setNotice] = useState<string | null>(null);
 
   useEffect(() => {
@@ -839,6 +846,11 @@ export function InfographicsPage() {
             onClick={() => {
               setCardType(c.key);
               setNotice(null);
+              // Keep ?card= honest without a route change — the Tools tiles
+              // link here by card type, so the URL should survive a copy.
+              const url = new URL(window.location.href);
+              url.searchParams.set('card', c.key);
+              window.history.replaceState({}, '', url);
             }}
           >
             {c.label}

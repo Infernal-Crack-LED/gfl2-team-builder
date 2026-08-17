@@ -19,10 +19,10 @@ const NAV: { route: Route; label: string }[] = [
   { route: 'characters', label: 'Characters' },
   { route: 'weapons', label: 'Weapons' },
   { route: 'keys', label: 'Keys' },
-  { route: 'team-builder', label: 'Team Builder' },
   // Straight into the per-doll builder (its slug-less character picker), so
   // the character builder is one click from anywhere, next to Team Builder.
   { route: 'builder', label: 'Character Builder' },
+  { route: 'team-builder', label: 'Team Builder' },
   { route: 'tools', label: 'Tools' },
 ];
 

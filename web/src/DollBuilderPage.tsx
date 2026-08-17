@@ -29,6 +29,7 @@ import {
   type Weapon,
 } from './data';
 import { GameIcon } from './components/GameIcon';
+import { KeyCardBody } from './components/KeyCard';
 import { RichText } from './components/RichText';
 import { BuildCardPreview } from './components/BuildCardPreview';
 import { DollCards, DollFilters, useDollFilter } from './components/DollGrid';
@@ -615,7 +616,45 @@ export function DollBuilder({
         </p>
       )}
 
-      {/* Weapon */}
+      {/* Vertebrae — single select */}
+      <section className="unit-section unit-panel">
+        <h2>
+          Vertebrae
+          <span className="dollbuilder-count">
+            {build.vert.length > 0 ? `V${build.vert[0]}` : 'none'}
+          </span>
+        </h2>
+        <p className="muted dollbuilder-hint">Select one vertebra segment.</p>
+        {vertebrae.length > 0 ? (
+          <div className="dollbuilder-vert-grid">
+            {vertebrae.map((v) => {
+              const on = build.vert.includes(v.segment);
+              return (
+                <button
+                  key={v.segment}
+                  type="button"
+                  className={'dollbuilder-vert-card' + (on ? ' on' : '')}
+                  aria-pressed={on}
+                  onClick={() => selectVert(v.segment)}
+                >
+                  <span className="dollbuilder-vert-head">
+                    <span className="dollbuilder-vert-num">V{v.segment}</span>
+                    {v.name && <strong>{v.name}</strong>}
+                    {v.level != null && (
+                      <span className="muted">Lv{v.level}</span>
+                    )}
+                  </span>
+                  <EffectText text={v.effect} />
+                </button>
+              );
+            })}
+          </div>
+        ) : (
+          <p className="muted">No vertebrae data available.</p>
+        )}
+      </section>
+
+      {/* Weapon — the selected weapon, its refinement, then the picker */}
       <section className="unit-section unit-panel">
         <h2>Weapon</h2>
         {selectedWeapon ? (
@@ -659,95 +698,38 @@ export function DollBuilder({
         ) : (
           <p className="muted">No weapon selected.</p>
         )}
+
+        {/* Refinement belongs to the weapon, so it sits with it — between the
+            equipped weapon and the picker that changes it. */}
+        <div className="dollbuilder-subfield">
+          <h3>Refinement</h3>
+          <div className="dollbuilder-refinement">
+            {REFINEMENT_LEVELS.map((r) => (
+              <button
+                key={r}
+                type="button"
+                className={
+                  'dollbuilder-ref-btn' + (build.refinement === r ? ' on' : '')
+                }
+                aria-pressed={build.refinement === r}
+                onClick={() =>
+                  setBuild((prev) => ({
+                    ...prev,
+                    refinement: prev.refinement === r ? null : r,
+                  }))
+                }
+              >
+                R{r}
+              </button>
+            ))}
+          </div>
+        </div>
+
         <WeaponPicker
           selectedId={build.weapon}
           imprintId={imprintWeapon?.id ?? null}
           onSelect={(id) => setBuild((prev) => ({ ...prev, weapon: id }))}
         />
-      </section>
-
-      {/* Weapon Refinement */}
-      <section className="unit-section unit-panel">
-        <h2>Refinement</h2>
-        <div className="dollbuilder-refinement">
-          {REFINEMENT_LEVELS.map((r) => (
-            <button
-              key={r}
-              type="button"
-              className={
-                'dollbuilder-ref-btn' + (build.refinement === r ? ' on' : '')
-              }
-              aria-pressed={build.refinement === r}
-              onClick={() =>
-                setBuild((prev) => ({
-                  ...prev,
-                  refinement: prev.refinement === r ? null : r,
-                }))
-              }
-            >
-              R{r}
-            </button>
-          ))}
-        </div>
-      </section>
-
-      {/* Stat Preferences */}
-      <section className="unit-section unit-panel">
-        <h2>
-          Stat Preferences
-          {build.statPrefs.length > 0 && (
-            <span className="dollbuilder-count">
-              {build.statPrefs.length}/4
-            </span>
-          )}
-        </h2>
-        <p className="muted dollbuilder-hint">
-          Click stats in priority order (1 → 2 → 3 → 4). Click again to remove.
-        </p>
-        {build.statPrefs.length > 0 && (
-          <div className="dollbuilder-stat-summary">
-            {build.statPrefs.map((stat, i) => (
-              <span key={stat} className="dollbuilder-stat-chosen">
-                <span className="dollbuilder-stat-rank">{i + 1}</span>
-                {stat}
-                <button
-                  type="button"
-                  className="dollbuilder-stat-remove"
-                  aria-label={`Remove ${stat}`}
-                  onClick={() => toggleStatPref(stat)}
-                >
-                  ×
-                </button>
-              </span>
-            ))}
-          </div>
-        )}
-        <div className="dollbuilder-stat-options">
-          {STAT_PREF_OPTIONS.map((stat) => {
-            const chosen = build.statPrefs.includes(stat);
-            const rank = chosen ? build.statPrefs.indexOf(stat) + 1 : null;
-            const full = build.statPrefs.length >= 4 && !chosen;
-            return (
-              <button
-                key={stat}
-                type="button"
-                className={
-                  'dollbuilder-stat-btn' +
-                  (chosen ? ' on' : '') +
-                  (full ? ' disabled' : '')
-                }
-                aria-pressed={chosen}
-                disabled={full}
-                onClick={() => toggleStatPref(stat)}
-              >
-                {stat}
-                {rank != null && (
-                  <span className="dollbuilder-stat-badge">{rank}</span>
-                )}
-              </button>
-            );
-          })}
-        </div>
       </section>
 
       {/* Keys — Fixed (3×2 grid, left) + Expansion (right) */}
@@ -860,42 +842,63 @@ export function DollBuilder({
         />
       </section>
 
-      {/* Vertebrae — single select */}
+      {/* Stat Preferences */}
       <section className="unit-section unit-panel">
         <h2>
-          Vertebrae
-          <span className="dollbuilder-count">
-            {build.vert.length > 0 ? `V${build.vert[0]}` : 'none'}
-          </span>
+          Stat Preferences
+          {build.statPrefs.length > 0 && (
+            <span className="dollbuilder-count">
+              {build.statPrefs.length}/4
+            </span>
+          )}
         </h2>
-        <p className="muted dollbuilder-hint">Select one vertebra segment.</p>
-        {vertebrae.length > 0 ? (
-          <div className="dollbuilder-vert-grid">
-            {vertebrae.map((v) => {
-              const on = build.vert.includes(v.segment);
-              return (
+        <p className="muted dollbuilder-hint">
+          Click stats in priority order (1 → 2 → 3 → 4). Click again to remove.
+        </p>
+        {build.statPrefs.length > 0 && (
+          <div className="dollbuilder-stat-summary">
+            {build.statPrefs.map((stat, i) => (
+              <span key={stat} className="dollbuilder-stat-chosen">
+                <span className="dollbuilder-stat-rank">{i + 1}</span>
+                {stat}
                 <button
-                  key={v.segment}
                   type="button"
-                  className={'dollbuilder-vert-card' + (on ? ' on' : '')}
-                  aria-pressed={on}
-                  onClick={() => selectVert(v.segment)}
+                  className="dollbuilder-stat-remove"
+                  aria-label={`Remove ${stat}`}
+                  onClick={() => toggleStatPref(stat)}
                 >
-                  <span className="dollbuilder-vert-head">
-                    <span className="dollbuilder-vert-num">V{v.segment}</span>
-                    {v.name && <strong>{v.name}</strong>}
-                    {v.level != null && (
-                      <span className="muted">Lv{v.level}</span>
-                    )}
-                  </span>
-                  <EffectText text={v.effect} />
+                  ×
                 </button>
-              );
-            })}
+              </span>
+            ))}
           </div>
-        ) : (
-          <p className="muted">No vertebrae data available.</p>
         )}
+        <div className="dollbuilder-stat-options">
+          {STAT_PREF_OPTIONS.map((stat) => {
+            const chosen = build.statPrefs.includes(stat);
+            const rank = chosen ? build.statPrefs.indexOf(stat) + 1 : null;
+            const full = build.statPrefs.length >= 4 && !chosen;
+            return (
+              <button
+                key={stat}
+                type="button"
+                className={
+                  'dollbuilder-stat-btn' +
+                  (chosen ? ' on' : '') +
+                  (full ? ' disabled' : '')
+                }
+                aria-pressed={chosen}
+                disabled={full}
+                onClick={() => toggleStatPref(stat)}
+              >
+                {stat}
+                {rank != null && (
+                  <span className="dollbuilder-stat-badge">{rank}</span>
+                )}
+              </button>
+            );
+          })}
+        </div>
       </section>
 
       {/* Build card preview */}
@@ -1034,32 +1037,7 @@ function KeyCard({
       disabled={disabled}
       onClick={onToggle}
     >
-      <span className="dollbuilder-key-head">
-        {keyData.imageUrl ? (
-          <GameIcon className="dollbuilder-key-icon" src={keyData.imageUrl} />
-        ) : (
-          <span
-            className="dollbuilder-key-icon dollbuilder-key-icon-empty"
-            aria-hidden="true"
-          >
-            ?
-          </span>
-        )}
-        <strong>{keyData.displayTitle ?? keyData.keyTitle ?? 'Key'}</strong>
-        {keyData.level != null && (
-          <span className="muted">Lv{keyData.level}</span>
-        )}
-      </span>
-      {keyData.attributes && keyData.attributes.length > 0 && (
-        <span className="dollbuilder-key-attrs">
-          {keyData.attributes.map((attr, i) => (
-            <span key={i}>
-              {attr.name}: {attr.value}
-            </span>
-          ))}
-        </span>
-      )}
-      <EffectText text={keyData.effect} />
+      <KeyCardBody keyData={keyData} />
     </button>
   );
 }

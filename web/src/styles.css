@@ -459,6 +459,70 @@ textarea:focus {
   outline: none;
 }
 
+/* The native <select> popup draws its "selected" checkmark at the platform
+   MENU size, which reads oversized next to our 13px option text — and a
+   native popup takes no CSS. The customizable-select rendering is the one
+   way to size it, so opt in where it exists (Chromium 135+) and style the
+   picker to the site's popover recipe; elsewhere the native popup stands. */
+@supports (appearance: base-select) {
+  select,
+  select::picker(select) {
+    appearance: base-select;
+  }
+
+  /* base-select turns the control into a flex button; clip rather than let a
+     long selection (a saved build's name) widen the control that holds it. */
+  select {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    overflow: hidden;
+  }
+
+  select::picker(select) {
+    margin-top: 4px;
+    padding: 4px;
+    background: var(--panel2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+  }
+
+  select option {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 8px;
+    border-radius: 6px;
+    font-size: inherit;
+    color: var(--text);
+    background: transparent;
+  }
+
+  select option:hover,
+  select option:focus {
+    background: var(--panel);
+  }
+
+  select option:checked {
+    color: var(--accent);
+    font-weight: 600;
+  }
+
+  select option:disabled {
+    color: var(--muted);
+  }
+
+  /* The point of all this: a checkmark that matches the row's text. */
+  select option::checkmark {
+    order: -1;
+    width: 1em;
+    height: 1em;
+    font-size: 1em;
+    line-height: 1;
+  }
+}
+
 /* ---- Popovers, Tabs, Modal ---- */
 /* Dropdown/popover panel (nikke-sim recipe): absolute under its control,
    elevated panel2 surface with a dark shadow. Rows are full-width items
@@ -2810,6 +2874,20 @@ summary.teameffect-tier-title:hover {
   font-size: 13px;
 }
 
+/* A labelled sub-block inside a builder panel — the refinement row under the
+   equipped weapon. Its heading matches the key columns' section labels. */
+.dollbuilder-subfield {
+  margin-top: 12px;
+}
+
+.dollbuilder-subfield h3 {
+  margin: 0 0 6px;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+}
+
 /* ---- Builder: Refinement (R1–R6) ---- */
 .dollbuilder-refinement {
   display: flex;
@@ -2984,6 +3062,16 @@ summary.teameffect-tier-title:hover {
 .dollbuilder-key-card.disabled {
   opacity: 0.4;
   cursor: not-allowed;
+}
+
+/* Read-only key cards (the doll page reuses the builder's grid): same card,
+   minus the affordances of something you can click. */
+.dollbuilder-key-card.static {
+  cursor: default;
+}
+
+.dollbuilder-key-card.static:hover {
+  border-color: var(--border);
 }
 
 /* ---- Builder: Common key picker list ---- */

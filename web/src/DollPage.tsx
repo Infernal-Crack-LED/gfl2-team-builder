@@ -35,6 +35,7 @@ import {
   type Weapon,
 } from './data';
 import { GameIcon } from './components/GameIcon';
+import { StaticKeyCard } from './components/KeyCard';
 import { RichText } from './components/RichText';
 import {
   hrefFor,
@@ -305,6 +306,12 @@ export function DollPage({ slug }: { slug: string | null }) {
   }
 
   const dollKeys = getKeysForDoll(doll.id);
+  // Affinity keys are an affinity-level stat reward, not a build choice — the
+  // same reason the Keys page hides them (see KEY_TYPE_OPTIONS). Her own
+  // common key gets its own panel; fixed and expansion share the Keys grid.
+  const fixedKeys = dollKeys.filter((k) => k.keyType === 'Fixed Key');
+  const expansionKeys = dollKeys.filter((k) => k.keyType === 'Expansion Key');
+  const dollCommonKeys = dollKeys.filter((k) => k.keyType === 'Common Key');
   const dollEffects = getEffectsForDoll(doll.id);
   const imprintWeapon = getWeaponForDoll(doll.id);
   const vertebrae = getVertebraeForDoll(doll);
@@ -423,47 +430,6 @@ export function DollPage({ slug }: { slug: string | null }) {
         )}
       </section>
 
-      {/* Keys */}
-      <section className="unit-section unit-panel">
-        <h2>Keys</h2>
-        {dollKeys.length > 0 ? (
-          <div className="unit-keys-grid">
-            {dollKeys.map((key) => (
-              <div key={key.id} className="unit-key-card">
-                <h3>{key.displayTitle ?? key.keyTitle ?? 'Key'}</h3>
-                {key.keyType && <span className="muted">{key.keyType}</span>}
-                {key.attributes && key.attributes.length > 0 && (
-                  <ul>
-                    {key.attributes.map((attr, i) => (
-                      <li key={i}>
-                        {attr.name}: {attr.value}
-                      </li>
-                    ))}
-                  </ul>
-                )}
-                <RichText text={key.effect} />
-              </div>
-            ))}
-          </div>
-        ) : (
-          <p className="muted">No key data available.</p>
-        )}
-      </section>
-
-      {/* Exclusive effects */}
-      <section className="unit-section unit-panel">
-        <h2>Exclusive Effects</h2>
-        {dollEffects.length > 0 ? (
-          <ul className="unit-effects">
-            {dollEffects.map((eff) => (
-              <EffectEntry key={eff.id} effect={eff} />
-            ))}
-          </ul>
-        ) : (
-          <p className="muted">No exclusive effects.</p>
-        )}
-      </section>
-
       {/* Weapon imprint + sig weapon counterparts */}
       <section className="unit-section unit-panel">
         <h2>Weapon Imprint</h2>
@@ -543,6 +509,74 @@ export function DollPage({ slug }: { slug: string | null }) {
         )}
       </section>
 
+      {/* Vertebrae */}
+      <section className="unit-section unit-panel">
+        <h2>Vertebrae</h2>
+        {vertebrae.length > 0 ? (
+          <div className="unit-keys-grid">
+            {vertebrae.map((v) => (
+              <div key={v.id} className="unit-key-card">
+                <h3>
+                  {v.segment != null ? `V${v.segment}` : 'Vertebra'}
+                  {v.name ? ` — ${v.name}` : ''}
+                </h3>
+                <RichText text={v.effect} />
+              </div>
+            ))}
+          </div>
+        ) : (
+          <p className="muted">No vertebrae data.</p>
+        )}
+      </section>
+
+      {/* Her own common key — its own panel, since it unlocks separately from
+          the fixed/expansion keys below and any doll can equip it. */}
+      <section className="unit-section unit-panel">
+        <h2>Common Key</h2>
+        {dollCommonKeys.length > 0 ? (
+          <div className="dollbuilder-key-grid">
+            {dollCommonKeys.map((key) => (
+              <StaticKeyCard key={key.id} keyData={key} />
+            ))}
+          </div>
+        ) : (
+          <p className="muted">No common key data.</p>
+        )}
+      </section>
+
+      {/* Keys — the builder's layout: fixed grid left, expansion right */}
+      <section className="unit-section unit-panel">
+        <h2>Keys</h2>
+        {fixedKeys.length > 0 || expansionKeys.length > 0 ? (
+          <div className="dollbuilder-key-layout">
+            <div className="dollbuilder-key-fixed-col">
+              <h3>Fixed Keys</h3>
+              {fixedKeys.length > 0 ? (
+                <div className="dollbuilder-key-grid">
+                  {fixedKeys.map((key) => (
+                    <StaticKeyCard key={key.id} keyData={key} />
+                  ))}
+                </div>
+              ) : (
+                <p className="muted">No fixed key data.</p>
+              )}
+            </div>
+            {expansionKeys.length > 0 && (
+              <div className="dollbuilder-key-expansion-col">
+                <h3>Expansion</h3>
+                <div className="dollbuilder-key-grid">
+                  {expansionKeys.map((key) => (
+                    <StaticKeyCard key={key.id} keyData={key} />
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+        ) : (
+          <p className="muted">No key data available.</p>
+        )}
+      </section>
+
       {/* Remolding pattern */}
       <section className="unit-section unit-panel">
         <h2>Remolding Pattern</h2>
@@ -609,33 +643,17 @@ export function DollPage({ slug }: { slug: string | null }) {
         )}
       </section>
 
-      {/* Vertebrae */}
+      {/* Exclusive effects */}
       <section className="unit-section unit-panel">
-        <h2>Vertebrae</h2>
-        {vertebrae.length > 0 ? (
-          <div className="unit-keys-grid">
-            {vertebrae.map((v) => (
-              <div key={v.id} className="unit-key-card">
-                <h3>
-                  {v.segment != null ? `V${v.segment}` : 'Vertebra'}
-                  {v.name ? ` — ${v.name}` : ''}
-                </h3>
-                <RichText text={v.effect} />
-              </div>
+        <h2>Exclusive Effects</h2>
+        {dollEffects.length > 0 ? (
+          <ul className="unit-effects">
+            {dollEffects.map((eff) => (
+              <EffectEntry key={eff.id} effect={eff} />
             ))}
-          </div>
+          </ul>
         ) : (
-          <p className="muted">No vertebrae data.</p>
-        )}
-      </section>
-
-      {/* Bio */}
-      <section className="unit-section unit-panel">
-        <h2>Bio</h2>
-        {doll.bio ? (
-          <RichText text={doll.bio} className="unit-bio" />
-        ) : (
-          <p className="muted">No bio available.</p>
+          <p className="muted">No exclusive effects.</p>
         )}
       </section>
 
