@@ -61,7 +61,12 @@ import {
   type DollBuild,
   type RecBuild,
 } from '../../src/share/buildCode';
-import { commonKeySource, fixedKeySlot } from '../../src/share/keyLabels';
+import {
+  commonKeyLabel,
+  commonKeySource,
+  fixedKeyLabel,
+  fixedKeySlot,
+} from '../../src/share/keyLabels';
 import {
   BUILD_KIND,
   listProfiles,
@@ -113,6 +118,11 @@ const CARD_TYPES: { key: CardType; label: string; blurb: string }[] = [
 /** Display name for a key, matching the server-side keyDisplayName(). */
 function keyName(key: Key | undefined): string | null {
   return key?.displayTitle ?? key?.keyTitle ?? null;
+}
+
+/** Chip label for a common key: "<Doll Name> - <Key Name>". */
+function commonKeyChipLabel(key: Key): string {
+  return commonKeyLabel(key, getDollById(key.dollId ?? '')?.name ?? null);
 }
 
 /**
@@ -181,6 +191,7 @@ function ChipRow({
   cap,
   empty,
   scroll,
+  search,
   footer,
 }: {
   label: string;
@@ -191,9 +202,25 @@ function ChipRow({
   empty?: string;
   /** Long lists (common keys) get a fixed-height scroll box. */
   scroll?: boolean;
+  /** Placeholder for a filter box above the chips; omit for no filter. */
+  search?: string;
   /** Rendered under the chips — the rec card uses it to show pick ORDER. */
   footer?: ReactNode;
 }) {
+  const [query, setQuery] = useState('');
+
+  // Already-picked chips survive the filter — narrowing the list to find the
+  // next pick shouldn't hide (or silently un-show) the ones already chosen.
+  const shown = useMemo(() => {
+    const q = query.trim().toLowerCase();
+    if (!q) {
+      return options;
+    }
+    return options.filter(
+      (opt) => opt.label.toLowerCase().includes(q) || selected.includes(opt.id)
+    );
+  }, [query, options, selected]);
+
   return (
     <div className="infog-field">
       <span className="infog-field-label">
@@ -207,24 +234,39 @@ function ChipRow({
       {options.length === 0 ? (
         <p className="muted">{empty ?? 'None available.'}</p>
       ) : (
-        <div className={'infog-chips' + (scroll ? ' scroll' : '')}>
-          {options.map((opt) => {
-            const on = selected.includes(opt.id);
-            const full = cap !== undefined && selected.length >= cap && !on;
-            return (
-              <button
-                key={opt.id}
-                type="button"
-                className={'pill-toggle' + (on ? ' on' : '')}
-                aria-pressed={on}
-                disabled={full}
-                onClick={() => onToggle(opt.id)}
-              >
-                {opt.label}
-              </button>
-            );
-          })}
-        </div>
+        <>
+          {search !== undefined && (
+            <input
+              className="infog-search"
+              type="search"
+              placeholder={search}
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              aria-label={search}
+            />
+          )}
+          <div className={'infog-chips' + (scroll ? ' scroll' : '')}>
+            {shown.map((opt) => {
+              const on = selected.includes(opt.id);
+              const full = cap !== undefined && selected.length >= cap && !on;
+              return (
+                <button
+                  key={opt.id}
+                  type="button"
+                  className={'pill-toggle' + (on ? ' on' : '')}
+                  aria-pressed={on}
+                  disabled={full}
+                  onClick={() => onToggle(opt.id)}
+                >
+                  {opt.label}
+                </button>
+              );
+            })}
+            {shown.length === 0 && (
+              <p className="muted">No matches for "{query}".</p>
+            )}
+          </div>
+        </>
       )}
       {footer}
     </div>
@@ -584,7 +626,7 @@ function BuildCardTool({ onNotice }: { onNotice: (m: string | null) => void }) {
           cap={MAX_FIXED_KEYS}
           options={fixedKeys.map((k) => ({
             id: k.id,
-            label: k.keyTitle ?? 'Key',
+            label: fixedKeyLabel(k),
           }))}
           selected={build.keys}
           onToggle={(id) =>
@@ -637,9 +679,10 @@ function BuildCardTool({ onNotice }: { onNotice: (m: string | null) => void }) {
           label="Common keys"
           cap={MAX_COMMON_KEYS}
           scroll
+          search="Search common keys…"
           options={commonKeys.map((k) => ({
             id: k.id,
-            label: k.keyTitle ?? 'Key',
+            label: commonKeyChipLabel(k),
           }))}
           selected={build.commonKeys}
           onToggle={(id) =>
@@ -1103,7 +1146,7 @@ function RecCardTool({ onNotice }: { onNotice: (m: string | null) => void }) {
           cap={MAX_REC_KEYS}
           options={fixedKeys.map((k) => ({
             id: k.id,
-            label: k.keyTitle ?? 'Key',
+            label: fixedKeyLabel(k),
           }))}
           selected={rec.keys}
           onToggle={(id) =>
@@ -1114,7 +1157,7 @@ function RecCardTool({ onNotice }: { onNotice: (m: string | null) => void }) {
             rec.keys
               .map((id) => fixedKeys.find((k) => k.id === id))
               .filter((k): k is Key => k !== undefined)
-              .map((k) => k.keyTitle ?? 'Key'),
+              .map(fixedKeyLabel),
             'Pick keys in unlock-priority order.'
           )}
         />
@@ -1136,9 +1179,10 @@ function RecCardTool({ onNotice }: { onNotice: (m: string | null) => void }) {
           label="Common keys"
           cap={MAX_REC_KEYS}
           scroll
+          search="Search common keys…"
           options={commonKeys.map((k) => ({
             id: k.id,
-            label: k.keyTitle ?? 'Key',
+            label: commonKeyChipLabel(k),
           }))}
           selected={rec.commonKeys}
           onToggle={(id) =>
@@ -1150,7 +1194,7 @@ function RecCardTool({ onNotice }: { onNotice: (m: string | null) => void }) {
             rec.commonKeys
               .map((id) => commonKeys.find((k) => k.id === id))
               .filter((k): k is Key => k !== undefined)
-              .map((k) => k.keyTitle ?? 'Key'),
+              .map(commonKeyChipLabel),
             'Pick keys in priority order.'
           )}
         />

@@ -5,10 +5,10 @@
  * PORTRAIT, one row per doll, each carrying her whole build inline beside the
  * portrait. Logical width 760; height grows with filled slot count (HEADER 128
  * + rows + FOOTER 24; a row is 200, or 226 with an expansion-key line).
- * Download uses html-to-image at 2× pixel ratio.
+ * Download/copy of the PNG lives in CardImageActions, shared with the other
+ * previews.
  */
-import { useCallback, useRef, useState } from 'react';
-import { toPng } from 'html-to-image';
+import { useRef } from 'react';
 import {
   assetUrl,
   getDollById,
@@ -19,6 +19,7 @@ import {
 import type { Doll } from '../data';
 import type { DollBuild } from '../../../src/share/buildCode';
 import { commonKeySource, fixedKeySlot } from '../../../src/share/keyLabels';
+import { CardImageActions } from './CardImageActions';
 
 /** Cards are stamped with the DOMAIN — mirrors CARD_WORDMARK in core/theme.ts. */
 const CARD_WORDMARK = 'refittingroom.app';
@@ -249,28 +250,6 @@ function SlotRow({ slot }: { slot: TeamCardSlotData }) {
 
 export function TeamCardPreview({ slots }: { slots: TeamCardSlotData[] }) {
   const cardRef = useRef<HTMLDivElement>(null);
-  const [downloading, setDownloading] = useState(false);
-
-  const handleDownload = useCallback(async () => {
-    if (!cardRef.current || downloading) {
-      return;
-    }
-    setDownloading(true);
-    try {
-      const dataUrl = await toPng(cardRef.current, {
-        pixelRatio: 2,
-        cacheBust: true,
-        backgroundColor: '#101216',
-      });
-      const link = document.createElement('a');
-      link.download = 'squad-card.png';
-      link.href = dataUrl;
-      link.click();
-    } catch {
-      // Download failed silently — the preview is still visible.
-    }
-    setDownloading(false);
-  }, [downloading]);
 
   return (
     <div className="card-preview-wrapper">
@@ -315,14 +294,12 @@ export function TeamCardPreview({ slots }: { slots: TeamCardSlotData[] }) {
       </div>
 
       {slots.length > 0 && (
-        <button
-          type="button"
-          className="btn-outline card-preview-download"
-          onClick={handleDownload}
-          disabled={downloading}
-        >
-          {downloading ? 'Rendering…' : 'Download squad card'}
-        </button>
+        <CardImageActions
+          cardRef={cardRef}
+          filename="squad-card.png"
+          downloadLabel="Download squad card"
+          copyLabel="Copy squad card image"
+        />
       )}
     </div>
   );

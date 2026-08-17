@@ -45,7 +45,11 @@ import {
   shareProfileName,
   type DollBuild,
 } from '../../src/share/buildCode';
-import { commonKeySource, fixedKeySlot } from '../../src/share/keyLabels';
+import {
+  commonKeyLabel,
+  commonKeySource,
+  fixedKeySlot,
+} from '../../src/share/keyLabels';
 import { BUILD_KIND, saveProfile, useAuth } from './auth';
 import { SaveProfileControl } from './components/SaveProfileControl';
 import {
@@ -860,7 +864,10 @@ export function DollBuilder({
                         />
                       ) : null}
                       <strong>
-                        {ck.displayTitle ?? ck.keyTitle ?? 'Common Key'}
+                        {commonKeyLabel(
+                          ck,
+                          getDollById(ck.dollId ?? '')?.name ?? null
+                        )}
                       </strong>
                       {ck.attributes && ck.attributes.length > 0 && (
                         <span className="muted">
@@ -1107,15 +1114,23 @@ function CommonKeyPicker({
   const [query, setQuery] = useState('');
   const selectedSet = useMemo(() => new Set(selectedIds), [selectedIds]);
 
+  // Label once, then search the label — so typing a doll name finds her key.
+  const labelled = useMemo(
+    () =>
+      commonKeys.map((k) => ({
+        key: k,
+        label: commonKeyLabel(k, getDollById(k.dollId ?? '')?.name ?? null),
+      })),
+    [commonKeys]
+  );
+
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
     if (!q) {
-      return commonKeys;
+      return labelled;
     }
-    return commonKeys.filter((k) =>
-      (k.displayTitle ?? k.keyTitle ?? '').toLowerCase().includes(q)
-    );
-  }, [query, commonKeys]);
+    return labelled.filter((e) => e.label.toLowerCase().includes(q));
+  }, [query, labelled]);
 
   return (
     <div className="dollbuilder-picker">
@@ -1127,7 +1142,7 @@ function CommonKeyPicker({
         aria-label="Search common keys"
       />
       <div className="dollbuilder-picker-list dollbuilder-ck-list">
-        {filtered.map((k) => {
+        {filtered.map(({ key: k, label }) => {
           const on = selectedSet.has(k.id);
           const disabled = atCap && !on;
           return (
@@ -1153,9 +1168,7 @@ function CommonKeyPicker({
                   ?
                 </span>
               )}
-              <span className="dollbuilder-weapon-name">
-                {k.displayTitle ?? k.keyTitle ?? 'Common Key'}
-              </span>
+              <span className="dollbuilder-weapon-name">{label}</span>
               {k.attributes && k.attributes.length > 0 && (
                 <span className="muted">
                   {k.attributes.map((a) => `${a.name}: ${a.value}`).join(' · ')}

@@ -3125,7 +3125,11 @@ summary.teameffect-tier-title:hover {
   margin-top: 12px;
 }
 
-.card-preview-download {
+.card-preview-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
   margin-top: 10px;
 }
 
@@ -4316,6 +4320,13 @@ summary.teameffect-tier-title:hover {
   font-weight: 500;
   letter-spacing: 0;
   text-transform: none;
+}
+
+/* Filter box above a long chip list (common keys). */
+.infog-search {
+  width: 100%;
+  font-size: 13px;
+  padding: 4px 8px;
 }
 
 .infog-chips {
