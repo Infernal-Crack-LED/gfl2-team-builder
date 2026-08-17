@@ -1,5 +1,6 @@
 import eslint from '@eslint/js';
 import globals from 'globals';
+import reactHooks from 'eslint-plugin-react-hooks';
 import tseslint from 'typescript-eslint';
 
 export default tseslint.config(
@@ -41,6 +42,42 @@ export default tseslint.config(
     },
     rules: {
       '@typescript-eslint/no-explicit-any': 'warn',
+    },
+  },
+  {
+    files: ['web/src/**/*.{ts,tsx}'],
+    plugins: {
+      'react-hooks': reactHooks,
+    },
+    rules: {
+      'react-hooks/exhaustive-deps': 'error',
+    },
+  },
+  {
+    // Infographics core/ is DOM-free AND platform-free: it must never import the
+    // Node render host. This invariant is what keeps @napi-rs/canvas and sharp out
+    // of the web bundle AND keeps the fonts-before-draw ordering guarantee honest
+    // (node/render.ts is the only module that may import node/fonts.ts). The rule
+    // enforces what core/canvas2d.ts already states in prose.
+    files: ['src/infographics/core/**/*.ts'],
+    rules: {
+      'no-restricted-imports': [
+        'error',
+        {
+          patterns: [
+            {
+              group: ['@napi-rs/canvas', 'sharp'],
+              message:
+                'core/ must stay platform-free — Node-only deps belong in src/infographics/node/ (imported via node/render.ts).',
+            },
+            {
+              group: ['../node', '../node/**'],
+              message:
+                'core/ must never import the Node render host — the fonts-first ordering guarantee lives in node/render.ts only.',
+            },
+          ],
+        },
+      ],
     },
   },
   {

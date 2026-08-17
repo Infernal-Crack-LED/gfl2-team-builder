@@ -36,7 +36,8 @@
     "lint:fix": "eslint . --fix",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "import:recs": "tsx src/bin/import-recommendations.ts"
+    "import:recs": "tsx src/bin/import-recommendations.ts",
+    "prepare": "husky"
   },
   "engines": {
     "node": ">=20"
@@ -63,7 +64,10 @@
     "@vitejs/plugin-react": "^6.0.5",
     "drizzle-kit": "^0.30.2",
     "eslint": "^10.6.0",
+    "eslint-plugin-react-hooks": "^7.1.1",
     "globals": "^17.7.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^17.3.0",
     "playwright": "^1.62.1",
     "prettier": "^3.9.4",
     "tsx": "^4.19.2",
@@ -71,5 +75,14 @@
     "typescript-eslint": "^8.62.1",
     "vite": "^8.2.1",
     "vitest": "^4.1.10"
+  },
+  "lint-staged": {
+    "*.{ts,tsx,js,mjs,cjs}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{json,md,yml,yaml}": [
+      "prettier --write"
+    ]
   }
 }
