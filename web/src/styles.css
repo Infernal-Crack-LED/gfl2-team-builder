@@ -4082,6 +4082,275 @@ summary.teameffect-tier-title:hover {
   height: 28px;
 }
 
+/* ---- Pull Card Preview (760×dynamic logical, LANDSCAPE) ---- */
+/* Geometry mirrors core/pullCard.ts: HEADER_H 132, a 96-high tile row, then
+   the odds ladder (46 drop + 38 per row), a 30 meta line, the detail panel
+   and FOOTER_H 26 — the shell height is set inline by PullCardPreview from
+   the same formula. Tinted by BANNER, so every accent here is inline. */
+.pull-card {
+  position: relative;
+  width: 760px;
+  background: #101216;
+  font-family:
+    -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  color: #e7eaf0;
+  overflow: hidden;
+  transform: scale(0.55);
+  transform-origin: top left;
+}
+
+.pull-card-stripe {
+  height: 6px;
+  background: #5b9dff;
+}
+
+/* 6px stripe + 126px header = HEADER_H 132. */
+.pull-card-header {
+  position: relative;
+  height: 126px;
+}
+
+/* Scoped through .pull-card so `.unit-panel h2` can't shrink the title. */
+.pull-card .pull-card-title {
+  position: absolute;
+  left: 36px;
+  top: 34px;
+  font-size: 40px;
+  line-height: 1;
+  font-weight: 700;
+  color: #e7eaf0;
+  margin: 0;
+}
+
+.pull-card .pull-card-subtitle {
+  position: absolute;
+  left: 36px;
+  right: 36px;
+  top: 82px;
+  margin: 0;
+  font-size: 18px;
+  line-height: 1;
+  font-weight: 500;
+  color: #8b93a3;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.pull-card-mark {
+  position: absolute;
+  top: 20px;
+  right: 36px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.pull-card-brand {
+  font-size: 15px;
+  font-weight: 700;
+  color: #5b9dff;
+  white-space: nowrap;
+}
+
+.pull-card-divider {
+  position: absolute;
+  left: 36px;
+  right: 36px;
+  top: 108px;
+  height: 2px;
+  background: #2a2f3b;
+}
+
+/* Three headline tiles across the content width, 12 apart (TILE_H 96). */
+.pull-card-tiles {
+  display: flex;
+  gap: 12px;
+  height: 96px;
+  margin: 0 36px;
+}
+
+.pull-card-tile {
+  position: relative;
+  box-sizing: border-box;
+  flex: 1;
+  min-width: 0;
+  border: 2px solid #2a2f3b;
+  border-radius: 10px;
+  background: #181b22;
+}
+
+/* The headline tile's accent rule, drawn over the top border like the
+   canvas draws it at the tile's top edge. */
+.pull-card-tile.is-main::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: 8px;
+  right: 8px;
+  height: 3px;
+  background: var(--tile-accent, #5b9dff);
+}
+
+.pull-card-tile-label,
+.pull-card-tile-value,
+.pull-card-tile-sub {
+  position: absolute;
+  left: 14px;
+  right: 14px;
+  line-height: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.pull-card-tile-label {
+  top: 16px;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #8b93a3;
+}
+
+.pull-card-tile-value {
+  top: 36px;
+  font-size: 30px;
+  font-weight: 700;
+  color: #e7eaf0;
+}
+
+.pull-card-tile-sub {
+  top: 71px;
+  font-size: 13px;
+  font-weight: 400;
+  color: #8b93a3;
+}
+
+.pull-card-sechead {
+  box-sizing: border-box;
+  height: 46px;
+  display: flex;
+  align-items: flex-end;
+  padding: 0 36px 6px;
+}
+
+.pull-card-label {
+  font-size: 13px;
+  font-weight: 700;
+  color: #8b93a3;
+}
+
+/* One ladder row: tier chip, copy count, bar, odds (ROW_H 38). */
+.pull-card-row {
+  position: relative;
+  height: 38px;
+  margin: 0 36px;
+}
+
+.pull-card-tier {
+  position: absolute;
+  left: 0;
+  top: 4px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 46px;
+  height: 26px;
+  border-radius: 7px;
+  background: #5b9dff;
+  color: #101216;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.pull-card-copies {
+  position: absolute;
+  left: 58px;
+  top: 12px;
+  width: 110px;
+  font-size: 14px;
+  line-height: 1;
+  color: #8b93a3;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Track and fill: BAR_X 180 from the content edge, 408 wide, 10 high. */
+.pull-card-bar {
+  position: absolute;
+  left: 180px;
+  top: 12px;
+  width: 408px;
+  height: 10px;
+  border-radius: 5px;
+  background: #1f232d;
+  overflow: hidden;
+}
+
+.pull-card-bar-fill {
+  display: block;
+  height: 100%;
+  border-radius: 5px;
+  background: #5b9dff;
+}
+
+.pull-card-chance {
+  position: absolute;
+  right: 0;
+  top: 10px;
+  width: 86px;
+  text-align: right;
+  font-size: 16px;
+  line-height: 1;
+  font-weight: 700;
+  color: #e7eaf0;
+}
+
+/* META_LINE 30 — one line of banner facts under the ladder. */
+.pull-card .pull-card-meta {
+  box-sizing: border-box;
+  height: 30px;
+  margin: 0 36px;
+  padding-top: 8px;
+  font-size: 15px;
+  line-height: 1;
+  font-weight: 500;
+  color: #8b93a3;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Detail panel: two clamped lines, same two-fill border as the tiles. */
+.pull-card-detail {
+  box-sizing: border-box;
+  height: 68px;
+  margin: 14px 36px 0;
+  /* No bottom padding: the two 22px lines need the full inner height, and
+     the canvas places their baselines absolutely rather than boxing them. */
+  padding: 12px 16px 0;
+  border: 2px solid #2a2f3b;
+  border-radius: 10px;
+  background: #181b22;
+}
+
+.pull-card .pull-card-detail-text {
+  margin: 0;
+  font-size: 14px;
+  line-height: 22px;
+  color: #e7eaf0;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* FOOTER_H 26 — bottom breathing room. */
+.pull-card-foot {
+  height: 26px;
+}
+
 /* ---- Keys Page ---- */
 /* One section per key type, each a responsive card grid. Cards reuse the
    dollcard idiom — phase-tinted left border, panel surface — so a key reads
@@ -4327,6 +4596,27 @@ summary.teameffect-tier-title:hover {
   font-weight: 500;
   letter-spacing: 0;
   text-transform: none;
+}
+
+/* A checkbox and its sentence, inside an .infog-field whose <label> already
+   wraps them — the box keeps its intrinsic size against the global input
+   recipe, which is sized for text fields. */
+.infog-check {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--text);
+  /* It's a sentence, not a field name — undo the global `label` casing. */
+  text-transform: none;
+  letter-spacing: normal;
+}
+
+.infog-check input {
+  width: auto;
+  flex: none;
+  padding: 0;
+  accent-color: var(--accent);
 }
 
 /* Filter box above a long chip list (common keys). */

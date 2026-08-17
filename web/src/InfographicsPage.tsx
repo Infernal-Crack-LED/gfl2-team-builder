@@ -5,12 +5,14 @@
  * components the builders use, then either download the PNG or mint a hosted,
  * Discord-embeddable image URL.
  *
- * Three cards exist today because three renderers do (src/infographics/core):
- * the build card (one doll), the squad card (up to five) and the
- * recommendation card (one doll's investment advice). All encode to the
- * shared build codecs, so a card made here is the same artifact the builders
- * and the bot produce — the hosted URL is just /api/v1/img/<kind>.png over
- * that code.
+ * Four cards exist today because four renderers do (src/infographics/core):
+ * the build card (one doll), the squad card (up to five), the recommendation
+ * card (one doll's investment advice) and the pull card (what a pull budget
+ * is worth). The first three encode to the shared build codecs, so a card
+ * made here is the same artifact the builders and the bot produce — the
+ * hosted URL is just /api/v1/img/<kind>.png over that code. The pull card is
+ * the exception: its state is four scalars rather than a build, so it is
+ * download-only (see PullCardTool).
  *
  * Everything works logged out, including the SHORT hosted link — though a
  * session-less short link expires (see auth.ts mintShareId). A session buys
@@ -66,6 +68,8 @@ import {
   fixedKeyLabel,
   fixedKeySlot,
 } from '../../src/share/keyLabels';
+import { BANNERS, summarizePulls } from '../../src/share/gacha';
+import { buildPullCardData } from '../../src/share/pullDisplay';
 import {
   BUILD_KIND,
   listProfiles,
@@ -78,6 +82,7 @@ import { copyText } from './clipboard';
 import { BuildCardPreview } from './components/BuildCardPreview';
 import { ShortLinkExpiryHint } from './components/ShortLinkExpiryHint';
 import { RecCardPreview } from './components/RecCardPreview';
+import { PullCardPreview } from './components/PullCardPreview';
 import { GameIcon } from './components/GameIcon';
 import { TeamCardPreview, teamCardSlot } from './components/TeamCardPreview';
 import {
@@ -93,7 +98,7 @@ const MAX_FIXED_KEYS = 3;
 const MAX_COMMON_KEYS = 3;
 const MAX_STAT_PREFS = 4;
 
-type CardType = 'build' | 'team' | 'rec';
+type CardType = 'build' | 'team' | 'rec' | 'pull';
 
 const CARD_TYPES: { key: CardType; label: string; blurb: string }[] = [
   {
@@ -111,6 +116,12 @@ const CARD_TYPES: { key: CardType; label: string; blurb: string }[] = [
     label: 'Recommendation Card',
     blurb:
       'Investment advice for one doll: V/R breakpoints, ranked weapons and sets, key priorities and your own notes.',
+  },
+  {
+    key: 'pull',
+    label: 'Pull Calculator',
+    blurb:
+      'What a pull budget is actually worth: the odds of landing the featured unit, and of every dupe tier above it.',
   },
 ];
 
@@ -1383,6 +1394,124 @@ function TeamCardTool({ onNotice }: { onNotice: (m: string | null) => void }) {
 
 // --- Shared share actions --------------------------------------------------
 
+// --- Pull Calculator card ---------------------------------------------------
+
+/** Matches the /pulls slash command's own budget ceiling. */
+const MAX_PULLS = 5000;
+
+/** A numeric field's text as a clamped integer; blank/garbage reads as 0. */
+function clampInt(text: string, max: number): number {
+  const n = Number.parseInt(text, 10);
+  if (!Number.isFinite(n) || n < 0) {
+    return 0;
+  }
+  return Math.min(n, max);
+}
+
+/**
+ * The odds card's editor. Unlike the other three tools this one composes
+ * nothing from the game data and has nothing to share server-side — its whole
+ * state is four scalars — so it carries no build code, no hosted image link
+ * and no saved-build loader, just the inputs and the download.
+ *
+ * Every number on the card comes from share/gacha.ts through
+ * share/pullDisplay.ts, i.e. the same Markov walk and the same wording the
+ * bot's /pulls uses. The site and Discord cannot disagree about the odds.
+ */
+function PullCardTool() {
+  const [pullsText, setPullsText] = useState('160');
+  const [bannerKey, setBannerKey] = useState<'doll' | 'weapon'>('doll');
+  const [pityText, setPityText] = useState('0');
+  const [guaranteed, setGuaranteed] = useState(false);
+
+  const banner = BANNERS[bannerKey];
+  // Pity resets AT hard pity, so it can only ever be one short of it — and
+  // the two banners have different ceilings (80 vs 70).
+  const maxPity = banner.hardPity - 1;
+  const pulls = clampInt(pullsText, MAX_PULLS);
+  const pity = clampInt(pityText, maxPity);
+
+  const data = useMemo(
+    () =>
+      buildPullCardData(summarizePulls(pulls, { banner, pity, guaranteed })),
+    [banner, guaranteed, pity, pulls]
+  );
+
+  return (
+    <section className="unit-panel">
+      <div className="infog-fields">
+        <label className="infog-field">
+          <span className="infog-field-label">Pulls</span>
+          <input
+            type="number"
+            min={0}
+            max={MAX_PULLS}
+            value={pullsText}
+            onChange={(e) => setPullsText(e.target.value)}
+          />
+        </label>
+
+        <label className="infog-field">
+          <span className="infog-field-label">Banner</span>
+          <select
+            value={bannerKey}
+            onChange={(e) => {
+              const next = e.target.value as 'doll' | 'weapon';
+              setBannerKey(next);
+              // The weapon banner's ceiling is lower: carry the pity over
+              // clamped rather than letting the field disagree with the card.
+              setPityText(
+                String(
+                  Math.min(
+                    clampInt(pityText, maxPity),
+                    BANNERS[next].hardPity - 1
+                  )
+                )
+              );
+            }}
+          >
+            <option value="doll">Doll — 0.6% base, 50/50, pity 80</option>
+            <option value="weapon">Weapon — 0.7% base, 75/25, pity 70</option>
+          </select>
+        </label>
+
+        <label className="infog-field">
+          <span className="infog-field-label">
+            Pity
+            <span className="infog-field-cap">
+              pulls since your last Elite (max {maxPity})
+            </span>
+          </span>
+          <input
+            type="number"
+            min={0}
+            max={maxPity}
+            value={pityText}
+            onChange={(e) => setPityText(e.target.value)}
+          />
+        </label>
+
+        <label className="infog-field">
+          <span className="infog-field-label">Guaranteed</span>
+          <span className="infog-check">
+            <input
+              type="checkbox"
+              checked={guaranteed}
+              onChange={(e) => setGuaranteed(e.target.checked)}
+            />
+            <span>Last Elite went off-banner — the next one is featured</span>
+          </span>
+        </label>
+      </div>
+
+      <PullCardPreview
+        data={data}
+        filename={`${pulls}-pulls-${bannerKey}-odds.png`}
+      />
+    </section>
+  );
+}
+
 /**
  * The three things you can do with a finished card: take the hosted image URL
  * (what Discord embeds), take a link back to the editor, or take the SHORT
@@ -1449,10 +1578,13 @@ function ShareRow({
 
 // --- Page ------------------------------------------------------------------
 
-/** `?card=team|rec` → that card; anything else (or nothing) → the build card. */
+/**
+ * `?card=team|rec|pull` → that card; anything else (or nothing) → the build
+ * card.
+ */
 function bootCardType(): CardType {
   const card = new URLSearchParams(window.location.search).get('card');
-  return card === 'team' || card === 'rec' ? card : 'build';
+  return card === 'team' || card === 'rec' || card === 'pull' ? card : 'build';
 }
 
 export function InfographicsPage() {
@@ -1461,8 +1593,8 @@ export function InfographicsPage() {
 
   useEffect(() => {
     setDetailMeta(
-      'GFL2 Infographics Creator — Build, Squad & Recommendation Cards',
-      "Make shareable Girls' Frontline 2: Exilium infographics: compose a doll build card, a squad card or an investment recommendation card, preview it live, then download the PNG or copy a hosted image link."
+      'GFL2 Infographics Creator — Build, Squad, Recommendation & Pull Cards',
+      "Make shareable Girls' Frontline 2: Exilium infographics: compose a doll build card, a squad card, an investment recommendation card or a pull-odds card, preview it live, then download the PNG or copy a hosted image link."
     );
   }, []);
 
@@ -1522,6 +1654,7 @@ export function InfographicsPage() {
       )}
       {cardType === 'team' && <TeamCardTool key="team" onNotice={setNotice} />}
       {cardType === 'rec' && <RecCardTool key="rec" onNotice={setNotice} />}
+      {cardType === 'pull' && <PullCardTool key="pull" />}
     </div>
   );
 }

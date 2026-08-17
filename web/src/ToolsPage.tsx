@@ -1,8 +1,8 @@
 /**
  * Tools index (/tools) — the landing page for the infographics creator, whose
  * card types each get their own tile and their own crawlable URL
- * (`?card=build` / `?card=team` / `?card=rec`, read by InfographicsPage on
- * mount).
+ * (`?card=build` / `?card=team` / `?card=rec` / `?card=pull`, read by
+ * InfographicsPage on mount).
  *
  * The builders and the key catalogue used to be repeated here; they live in
  * the top nav, so this page is the one place that owns the card maker rather
@@ -34,6 +34,12 @@ const TOOLS: Tool[] = [
     title: 'Recommendation Card Creator',
     blurb:
       'Publish investment advice for one doll: the V/R breakpoint order, an optimal stopping point, ranked weapons and attachment sets, key priorities and your own notes.',
+  },
+  {
+    href: `${hrefFor('infographics')}?card=pull`,
+    title: 'Pull Calculator',
+    blurb:
+      'Work out what a pull budget is worth on either banner: the chance of landing the featured unit, the odds of every dupe tier above it, and the worst case — from your current pity, with the 50/50 accounted for. Download the card or post it in Discord with /pulls.',
   },
 ];
 

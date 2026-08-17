@@ -2,10 +2,15 @@
  * Presentation layer for pull odds: how the numbers out of gacha.ts are
  * WORDED and ROUNDED, plus the mapping onto the pull infographic's card data.
  *
- * Everything that formats a pull probability lives here — the /pulls embed and
- * the rendered card both read from this module, so the same figure can never
- * come out as "63%" in one and "63.2%" in the other. gacha.ts stays pure math
- * and knows nothing about display.
+ * Everything that formats a pull probability lives here — the /pulls embed,
+ * the canvas card the bot attaches, and the site's HTML preview of that same
+ * card all read from this module, so the same figure can never come out as
+ * "63%" in one and "63.2%" in another. gacha.ts stays pure math and knows
+ * nothing about display.
+ *
+ * The PullCardData import is TYPE-ONLY and stays that way: it is erased at
+ * build time, so bundling this module into the web app never drags in
+ * infographics/core (let alone the node canvas behind it).
  */
 import {
   copyTierLabel,
@@ -13,7 +18,7 @@ import {
   type BannerConfig,
   type PullsSummary,
 } from './gacha.js';
-import type { PullCardData } from '../../../infographics/core/pullCard.js';
+import type { PullCardData } from '../infographics/core/pullCard.js';
 
 /**
  * Per-banner tint: the site accent for dolls, amber for weapons. Hex strings

@@ -1,6 +1,10 @@
 /**
  * Pull-odds calculator for GFL2: Exilium recruitment ("access").
  *
+ * Lives in share/ because BOTH renderers of these odds read it: the bot's
+ * /pulls command and the site's Pull Calculator tool (web/ may only import
+ * from src/share — see web/tsconfig.json). One model, one set of numbers.
+ *
  * PURE math (no I/O, no clock) so it's trivially unit-testable. Unlike a plain
  * binomial model, GFL2 pulls are NOT independent: the Elite rate ramps once you
  * pass the soft-pity threshold, resets on every Elite, and a lost featured roll

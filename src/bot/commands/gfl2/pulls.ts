@@ -17,14 +17,14 @@ import {
   worstCasePullsToFeatured,
   type BannerConfig,
   type PullsSummary,
-} from '../../lib/gfl2/gacha.js';
+} from '../../../share/gacha.js';
 import {
   bannerEmbedColor,
   buildPullCardData,
   pct0,
   pct1,
   ratePct,
-} from '../../lib/gfl2/pullDisplay.js';
+} from '../../../share/pullDisplay.js';
 
 /** One line describing where the plan starts from: pity and 50/50 state. */
 function startingStateLine(

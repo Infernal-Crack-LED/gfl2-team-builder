@@ -83,6 +83,18 @@ await visit('/tools/infographics', 'infographics', async () => {
   console.log('  title:', await page.title());
 });
 
+// The pull card is the one tool whose preview is driven purely by the shared
+// odds model, so its ladder row count is the signal that share/gacha.ts came
+// through the bundle intact.
+await visit('/tools/infographics?card=pull', 'infographics-pull', async () => {
+  console.log(
+    '  odds rows (want 7):',
+    await page.$$eval('.pull-card-row', (e) => e.length),
+    '| headline:',
+    await page.$eval('.pull-card-tile-value', (e) => e.textContent)
+  );
+});
+
 await visit('/saved', 'saved');
 
 await visit('/team-builder', 'teambuilder-empty', async () => {
