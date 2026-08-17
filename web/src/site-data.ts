@@ -26,7 +26,7 @@ export const dev = {
     blurb:
       'A Girls’ Frontline 2: Exilium info & team-building Discord bot that serves up doll kits, weapon data, and shareable squad cards on demand. Works in any GFL2-oriented server.',
     addToServer:
-      'https://discord.com/oauth2/authorize?client_id=1538690317363191922',
+      'https://discord.com/discovery/applications/1538690317363191922',
   },
   // the sister site — the two share a brand mark, so they cross-link
   nikkesim: {
