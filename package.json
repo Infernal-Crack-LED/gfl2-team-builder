@@ -6,7 +6,7 @@
   "description": "Discord bot + team-building website for Girls' Frontline 2: Exilium",
   "scripts": {
     "build": "tsc",
-    "build:server": "tsc",
+    "build:server": "tsc && cp -r src/infographics/assets dist-server/infographics/assets",
     "build:web": "npm run build:server && npm run vite:build",
     "build:bot": "npm run build:server",
     "start:web": "node dist-server/server/index.js",
