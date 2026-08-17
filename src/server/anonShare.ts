@@ -13,6 +13,7 @@
  * writable by anyone who can reach the endpoint — so it gets a retention
  * window and a hard ceiling instead.
  */
+import { ANON_SHARE_RETENTION_MS } from '../share/shareRetention.js';
 
 /**
  * Owner column value for session-less rows. A sentinel rather than NULL: the
@@ -25,8 +26,12 @@
  */
 export const ANON_OWNER = 'anon';
 
-/** Anonymous short links expire three days after their last write. */
-export const ANON_RETENTION_MS = 3 * 24 * 60 * 60 * 1000;
+/**
+ * Anonymous short links expire this long after their last write. Re-exported
+ * from the shared module rather than restated: the client prints the same
+ * window in its expiry hint, and the two must never disagree.
+ */
+export const ANON_RETENTION_MS = ANON_SHARE_RETENTION_MS;
 
 /**
  * Hard ceiling on live anonymous rows. Retention bounds the STEADY state; this
@@ -50,6 +55,15 @@ export function anonExpiryCutoff(now: number): Date {
  * trivially forged, which is exactly why the first entry is the wrong one to
  * key on. Returns null when the header is absent or empty so the caller can
  * fall back to the socket address.
+ *
+ * DEPLOYMENT ASSUMPTION — exactly one appending proxy. Put a CDN in front of
+ * Railway (Cloudflare on the custom domain, say) and the last entry becomes
+ * the CDN's egress address, so every visitor shares a handful of rate-limit
+ * keys; put the app behind no proxy at all and the last entry is whatever the
+ * client forged. Neither is a breach — the row cap still bounds the damage and
+ * a spurious 429 degrades to the long `?b=` link — but if a CDN is ever added,
+ * switch to its real-client header (CF-Connecting-IP and friends) or make the
+ * edge SET X-Forwarded-For instead of appending.
  */
 export function clientIpFromForwardedFor(
   header: string | undefined

@@ -389,7 +389,7 @@ export function DollBuilder({
     const code = getCode();
     const base = `${window.location.origin}${hrefForBuilder(doll.slug)}`;
     try {
-      const id = await mintShareId(code, Boolean(user));
+      const id = await mintShareId(code);
       if (await copyText(`${base}?id=${id}`)) {
         flashCopied('short');
         return;

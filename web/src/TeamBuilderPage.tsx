@@ -181,7 +181,7 @@ export function TeamBuilderPage() {
     }
     const base = `${window.location.origin}${hrefFor('team-builder')}`;
     try {
-      const id = await mintShareId(code, Boolean(user));
+      const id = await mintShareId(code);
       if (await copyText(`${base}?id=${id}`)) {
         flashCopied('short');
         return;

@@ -175,30 +175,35 @@ export async function createAnonShare(code: string): Promise<string> {
   return row.id;
 }
 
-/** How long a logged-out short link lives. Mirrors ANON_RETENTION_MS. */
-export const ANON_SHARE_DAYS = 3;
-
 /**
  * Mint the `?id=` row behind a short link and return its id.
  *
- * Signed in, the row is the user's own: owned, counted against their profile
- * cap, and permanent. Logged out it goes to the shared anonymous bucket and
- * expires after ANON_SHARE_DAYS. Same URL either way, so callers only need
- * this one function — but the UI should say which one the user is getting.
+ * With a token the row is the user's own: owned, counted against their profile
+ * cap, and permanent. Without one it goes to the shared anonymous bucket and
+ * expires after ANON_SHARE_RETENTION_DAYS. Same URL either way, so callers
+ * need only this one function — but the UI should say which one they get.
+ *
+ * Keyed on the TOKEN, not on useAuth's `user`, which is null for the first
+ * moment of every page load while fetchMe is in flight. Keying on the resolved
+ * user would silently hand a signed-in user an expiring row if they clicked
+ * inside that window. A token that turns out to be stale falls through to the
+ * anonymous mint rather than failing the copy outright — an expiring short
+ * link still beats dropping the user back to the long one.
  */
-export async function mintShareId(
-  code: string,
-  loggedIn: boolean
-): Promise<string> {
-  if (!loggedIn) {
+export async function mintShareId(code: string): Promise<string> {
+  if (!getToken()) {
     return createAnonShare(code);
   }
-  const row = await saveProfile(
-    SHARE_PROFILE_KIND,
-    shareProfileName(code),
-    code
-  );
-  return row.id;
+  try {
+    const row = await saveProfile(
+      SHARE_PROFILE_KIND,
+      shareProfileName(code),
+      code
+    );
+    return row.id;
+  } catch {
+    return createAnonShare(code);
+  }
 }
 
 export async function deleteProfile(id: string): Promise<void> {

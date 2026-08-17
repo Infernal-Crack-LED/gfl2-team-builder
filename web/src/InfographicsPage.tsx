@@ -1385,9 +1385,10 @@ function TeamCardTool({ onNotice }: { onNotice: (m: string | null) => void }) {
 
 /**
  * The three things you can do with a finished card: take the hosted image URL
- * (what Discord embeds), take a link back to the editor, or — with a session —
- * take the SHORT hosted URL, which stores the code server-side under the
- * public share kind so the URL stays a fixed length.
+ * (what Discord embeds), take a link back to the editor, or take the SHORT
+ * hosted URL, which stores the code server-side under the public share kind so
+ * the URL stays a fixed length. The short one works logged out too, but that
+ * row expires — a session is what makes it permanent.
  */
 function ShareRow({
   kind,
@@ -1419,7 +1420,7 @@ function ShareRow({
           label="Copy short image link"
           build={async () => {
             try {
-              const id = await mintShareId(code, loggedIn);
+              const id = await mintShareId(code);
               return `${origin}/api/v1/img/${kind}.png?id=${id}`;
             } catch {
               // Sharing never breaks, it only gets longer.
