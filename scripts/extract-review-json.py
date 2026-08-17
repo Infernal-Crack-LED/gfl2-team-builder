@@ -72,7 +72,7 @@ def main() -> int:
     ap.add_argument(
         '--model',
         default=None,
-        help='stamp `model` on the verdict (canonical name — see CROSS-FAMILY-PROTOCOL.md)',
+        help='stamp `model` on the verdict (canonical name — see .claude/skills/code-review/SKILL.md)',
     )
     args = ap.parse_args()
 

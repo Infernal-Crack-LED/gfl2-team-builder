@@ -107,18 +107,34 @@ echo "→ dispatching $(basename "$PACKET") to $MODEL ($MODE mode) …" >&2
 # and `qwen -p` appends its prompt argument to stdin, so an empty -p is the
 # documented way to send stdin-only. -o json wraps the run in an event array
 # whose final {"type":"result"} element carries the model's text.
-RAW="$(printf '%s' "$PROMPT" | QWEN_CODE_SUPPRESS_YOLO_WARNING=1 "$QWEN" \
+#
+# stdout goes to a FILE, not a command substitution. Captured through a pipe,
+# this CLI's event stream is truncated at exactly 65536 bytes — the pipe
+# buffer — and every review long enough to matter exceeds that, so the run
+# looked like "no result event" while the model had actually answered
+# (observed 2026-08-16: 65536-byte streams cut mid-token, three times; the
+# same prompts redirected to a file completed at 105–188 KB). Keep the stream:
+# it is the rescue input if the CLI answers but dies before the final event.
+#
+# stderr is kept for the same reason — when the API refuses a request (rate
+# limit, quota, auth), the reason is only there.
+mkdir -p "$(dirname "$OUT")"
+STREAM="${OUT%.json}.stream.json"
+ERRLOG="${OUT%.json}.stderr.txt"
+printf '%s' "$PROMPT" | QWEN_CODE_SUPPRESS_YOLO_WARNING=1 "$QWEN" \
   -m "$MODEL" \
   -p "" \
   --approval-mode "$APPROVAL" \
   --safe-mode \
   -o json \
-  2>/dev/null)" || true
+  >"$STREAM" 2>"$ERRLOG" || true
 
-RESULT_TEXT="$(printf '%s' "$RAW" | jq -r '[.[] | select(.type == "result") | .result // empty] | last // empty' 2>/dev/null)" || true
+RESULT_TEXT="$(jq -r '[.[] | select(.type == "result") | .result // empty] | last // empty' "$STREAM" 2>/dev/null)" || true
 if [[ -z "$RESULT_TEXT" ]]; then
-  echo "❌ qwen returned no result event" >&2
-  printf '%s' "$RAW" | head -c 1000 >&2 || true
+  echo "❌ qwen returned no result event — the run ended before answering" >&2
+  echo "   stream saved ($(wc -c <"$STREAM" | tr -d ' ') bytes): $STREAM" >&2
+  echo "   CLI stderr ($ERRLOG):" >&2
+  tail -c 2000 "$ERRLOG" >&2 2>/dev/null || true
   echo >&2
   exit 1
 fi
@@ -145,8 +161,11 @@ sys.stdout.write(text[idx:idx + end])
 ")" || {
   mkdir -p "$(dirname "$OUT")"
   printf '%s' "$RESULT_TEXT" > "${OUT%.json}.raw.txt"
+  printf '%s' "$CLEANED" > "${OUT%.json}.cleaned.txt"
   echo "❌ could not extract a JSON object from the model response" >&2
-  echo "   raw reply saved: ${OUT%.json}.raw.txt" >&2
+  echo "   raw reply saved:      ${OUT%.json}.raw.txt" >&2
+  echo "   extracted candidate:  ${OUT%.json}.cleaned.txt" >&2
+  echo "   rescue: python3 scripts/extract-review-json.py ${OUT%.json}.raw.txt $OUT --model $MODEL" >&2
   exit 1
 }
 CLEANED="$EXTRACTED"

@@ -11,7 +11,7 @@
  * renders, which would put tens of MB in the repo. Skill and summon icons
  * already ship at their cap and are copied byte-for-byte.
  *
- * Run with `npm run assets`.
+ * Run with `npm run icons` (fetch-icons drives both the wiki icons and this mirror).
  */
 
 import { mkdir, readFile, stat, writeFile } from 'node:fs/promises';
@@ -114,12 +114,16 @@ async function mirrorOne(
   const image = sharp(body);
   const meta = await image.metadata();
   if (Math.max(meta.width ?? 0, meta.height ?? 0) > asset.maxEdge) {
+    // No explicit output format: sharp re-encodes in the SOURCE format, and
+    // the mirror path keeps the CDN filename's extension (see parseRemoteAsset).
+    // Forcing .webp() here would write webp bytes into a .png name for any
+    // non-webp source — every asset is webp today, so this costs nothing and
+    // stops the pipeline from lying about a format later.
     body = await image
       .resize(asset.maxEdge, asset.maxEdge, {
         fit: 'inside',
         withoutEnlargement: true,
       })
-      .webp({ quality: 80 })
       .toBuffer();
   }
 

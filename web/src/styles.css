@@ -1696,9 +1696,6 @@ td {
    tall dashed boxes before anything is placed. */
 .teambuilder-slot-empty {
   align-self: flex-start;
-}
-
-.teambuilder-slot-empty {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -3349,10 +3346,14 @@ summary.teameffect-tier-title:hover {
   margin: 0;
 }
 
-/* Header padding is 40px, so top:-10px puts the icon at the card's y=30 —
-   the same `top` core/teamCard.ts passes drawBrandMark. */
+/* core/teamCard.ts draws the mark at the CARD's y=30. `top` here resolves
+   against .team-card-header's padding box — its top border edge, which the
+   6px .team-card-stripe pushes to card y=6 — so 24px lands the icon at y=30.
+   (Padding does not offset an absolutely positioned child: the old -10px,
+   reasoned from the header's 40px padding, hung the icon above the card and
+   .team-card's overflow:hidden clipped it.) */
 .team-card-mark {
-  top: -10px;
+  top: 24px;
   right: 40px;
 }
 

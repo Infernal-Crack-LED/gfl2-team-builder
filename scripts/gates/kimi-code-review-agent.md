@@ -1,5 +1,5 @@
 ---
-name: kit-code-reviewer
+name: kimi-code-reviewer
 description: Sighted cross-family code reviewer, dispatched via scripts/gates/dispatch-kimi.sh when the packet starts with "# code-review" — read-only tools (Read, Grep, Glob, Bash) so the reviewer can verify against the engine and run fast checks; findings-only, never edits the tree.
 tools: [Read, Grep, Glob, Bash]
 ---

@@ -242,8 +242,11 @@ export function decodeTeamBuild(code: string): TeamBuild | null {
         }
         slot.t = vt;
       }
-      // Build fields — same validation as decodeDollBuild's optional block,
-      // so a slot can never carry a build the per-doll builder would reject.
+      // Build fields — the same shape decodeDollBuild accepts, but STRICTER
+      // about a violation: an over-cap or non-string entry REJECTS the whole
+      // team code here, where decodeDollBuild drops the field. A malformed
+      // team code is far likelier to mean a broken encoder than a hand-edited
+      // URL, and silently truncating one loses a squad member's build.
       if (typeof s.ex === 'string' || s.ex === null) {
         slot.ex = s.ex;
       }

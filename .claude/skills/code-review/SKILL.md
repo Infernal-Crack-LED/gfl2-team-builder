@@ -16,10 +16,10 @@ fixes. Trivial edits (typos, one-liners, a doc tweak) may skip.
 
 The author is whoever wrote the code — normally you, the driver.
 
-| Author / driver       | Reviewer                        | Bridge                                                                       |
-| --------------------- | ------------------------------- | ---------------------------------------------------------------------------- |
+| Author / driver       | Reviewer                        | Bridge                                                                                 |
+| --------------------- | ------------------------------- | -------------------------------------------------------------------------------------- |
 | **Claude** (any tier) | `kimi-code/k3` or `qwen3.7-max` | `bash scripts/gates/dispatch-kimi.sh` / `dispatch-qwen.sh <packet> <model> <out.json>` |
-| **Kimi** or **Qwen**  | `claude-opus-5`                 | `bash scripts/gates/dispatch-claude.sh <packet> claude-opus-5 <out.json>`     |
+| **Kimi** or **Qwen**  | `claude-opus-5`                 | `bash scripts/gates/dispatch-claude.sh <packet> claude-opus-5 <out.json>`              |
 
 - **Model names are literal, not aliases.** The bridges pass the string straight to the target CLI:
   `claude-opus-4-8` is NOT `claude-opus-5`; `kimi-code/kimi-for-coding` is NOT `kimi-code/k3`;
@@ -113,6 +113,12 @@ The author is whoever wrote the code — normally you, the driver.
      instead of re-spending the dispatch:
      `python3 scripts/extract-review-json.py <raw-path> <out.json> --model <name>` (add `--model`
      only when the bridge never stamped one, and use the canonical name).
+   - **One dispatch at a time, and ~200 KB per packet on qwen.** Reviewing a multi-commit range
+     means SPLITTING it into coherent slices with one packet each, run sequentially — a 313 KB
+     packet came back empty, and the same content in three slices (170/94/70 KB) all reviewed
+     cleanly (2026-08-16). Give every slice the same INTENT and a line naming which slice it is and
+     where the rest lives, so a reviewer that follows a thread out of its slice knows it has left
+     home. Findings then merge across slices.
 
 4. **Read the result JSON:**
    - `CLEAN` → land it. A cross-family CLEAN is real evidence.
@@ -132,3 +138,11 @@ The author is whoever wrote the code — normally you, the driver.
   audit trail, and re-reviews rebuild from them. `scratchpad/` is gitignored.
 - A reviewer that reports a finding about generated `data/*.json` content is usually pointing at the
   sync pipeline, not the diff — check `src/sync/` before "fixing" the artifact.
+- **"No result event" is a bridge symptom, not a model refusal.** `dispatch-qwen.sh` keeps the CLI's
+  stdout (`result.stream.json`) and stderr (`result.stderr.txt`) precisely so this is diagnosable:
+  read them before re-dispatching. A stream that ends at exactly 65536 bytes is the pipe-capture
+  truncation that bridge was rewritten to avoid — if it reappears, the run is being captured through
+  a pipe somewhere again.
+- **A reviewer's suggested fix is a hypothesis too.** Two of this harness's first findings were real
+  bugs with wrong prescriptions (a CSS offset that ignored a 6px stripe; an extension rename that
+  would have broken the asset-URL mapping). Verify the DEFECT, then decide the fix yourself.

@@ -4,7 +4,7 @@
  *
  * The site self-hosts every icon it renders: hotlinking the Dandegate CDN
  * would put a request on someone else's server for every skill and key tile
- * on every page view. `npm run assets` mirrors the art referenced by
+ * on every page view. `npm run icons` mirrors the art referenced by
  * data/*.json into web/public/game-assets/, and `localAssetUrl` rewrites the
  * URLs the data still carries.
  *

@@ -332,6 +332,7 @@ function BuildCardTool({ onNotice }: { onNotice: (m: string | null) => void }) {
       const validVert = new Set(
         getVertebraeForDoll(target).map((v) => v.segment)
       );
+      const validCommon = new Set(commonKeys.map((k) => k.id));
       setDoll(target);
       setPicking(false);
       setBuild({
@@ -346,12 +347,19 @@ function BuildCardTool({ onNotice }: { onNotice: (m: string | null) => void }) {
           decoded.exp && validExpansion.has(decoded.exp) ? decoded.exp : null,
         vert: decoded.vert.filter((s) => validVert.has(s)).slice(0, 1),
         refinement: decoded.cal ?? null,
-        statPrefs: (decoded.stats ?? []).slice(0, MAX_STAT_PREFS),
-        commonKeys: (decoded.ck ?? []).slice(0, MAX_COMMON_KEYS),
+        // Same contract as DollBuilderPage.sanitize: an id or stat name that
+        // doesn't resolve is dropped, never carried into the card or re-encoded
+        // into the next share code.
+        statPrefs: (decoded.stats ?? [])
+          .filter((s) => (STAT_PREF_OPTIONS as readonly string[]).includes(s))
+          .slice(0, MAX_STAT_PREFS),
+        commonKeys: (decoded.ck ?? [])
+          .filter((id) => validCommon.has(id))
+          .slice(0, MAX_COMMON_KEYS),
       });
       onNotice(null);
     },
-    [onNotice]
+    [onNotice, commonKeys]
   );
 
   const code = useMemo(() => {

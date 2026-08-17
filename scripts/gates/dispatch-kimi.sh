@@ -157,37 +157,39 @@ if [[ -z "$RESULT_TEXT" ]]; then
   exit 1
 fi
 
-# Strip markdown code fences (```json ... ``` or ``` ... ```) if present,
-# then extract the JSON object using brace-matching (models sometimes add
-# preamble text before the JSON or trailing commentary after it).
+# Strip markdown code fences (```json ... ``` or ``` ... ```) if present, then extract the
+# JSON object. Extraction uses Python's json.raw_decode — a REAL JSON parser — scanning for
+# the first parseable object, the same as the other two bridges. The hand-rolled brace-matcher
+# this replaces tracked string/escape state itself and desynced on a payload full of escaped
+# quotes and braces (an `issue` string quoting code), truncating a verdict that had already
+# cost a full dispatch.
 CLEANED="$(printf '%s' "$RESULT_TEXT" | sed -e '/^```[a-zA-Z]*$/d' -e '/^```$/d')"
-CLEANED="$(printf '%s' "$CLEANED" | python3 -c "
-import sys
+EXTRACTED="$(printf '%s' "$CLEANED" | python3 -c "
+import sys, json
 text = sys.stdin.read()
-idx = text.find('{')
-if idx < 0:
-    sys.exit(1)
-depth = 0
-in_str = False
-escape = False
-for i, c in enumerate(text[idx:], idx):
-    if escape:
-        escape = False
-        continue
-    if c == '\\\\' and in_str:
-        escape = True
-        continue
-    if c == '\"' and not escape:
-        in_str = not in_str
-        continue
-    if in_str:
-        continue
-    if c == '{': depth += 1
-    elif c == '}': depth -= 1
-    if depth == 0:
-        print(text[idx:i+1])
+dec = json.JSONDecoder()
+start = 0
+while True:
+    idx = text.find('{', start)
+    if idx < 0:
+        sys.exit(1)
+    try:
+        _, end = dec.raw_decode(text[idx:])
         break
-")"
+    except json.JSONDecodeError:
+        start = idx + 1
+sys.stdout.write(text[idx:idx + end])
+")" || {
+  mkdir -p "$(dirname "$OUT")"
+  printf '%s' "$RESULT_TEXT" > "${OUT%.json}.raw.txt"
+  printf '%s' "$CLEANED" > "${OUT%.json}.cleaned.txt"
+  echo "❌ could not extract a JSON object from the model response" >&2
+  echo "   raw reply saved:      ${OUT%.json}.raw.txt" >&2
+  echo "   extracted candidate:  ${OUT%.json}.cleaned.txt" >&2
+  echo "   rescue: python3 scripts/extract-review-json.py ${OUT%.json}.raw.txt $OUT --model $MODEL" >&2
+  exit 1
+}
+CLEANED="$EXTRACTED"
 
 # Validate: must parse as JSON. On failure the reviewer's ACTUAL WORK must survive — before
 # 2026-08-13 it did not: the assistant text lived only in this shell variable, so an unparseable
@@ -202,7 +204,7 @@ if ! printf '%s' "$CLEANED" | jq empty 2>/dev/null; then
   echo "❌ model response is not valid JSON" >&2
   echo "   raw reply saved:      ${OUT%.json}.raw.txt" >&2
   echo "   extracted candidate:  ${OUT%.json}.cleaned.txt" >&2
-  echo "   rescue: python3 scripts/extract-review-json.py ${OUT%.json}.raw.txt $OUT" >&2
+  echo "   rescue: python3 scripts/extract-review-json.py ${OUT%.json}.raw.txt $OUT --model $MODEL" >&2
   echo "--- first 500 chars ---" >&2
   printf '%s' "$CLEANED" | head -c 500 >&2
   echo >&2

@@ -12,7 +12,7 @@
  * `onClose` is the only exit — callers that need to commit state on close do
  * it there, so closing by Escape, backdrop, or the × are all the same action.
  */
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import type { ReactNode } from 'react';
 
 export function Modal({
@@ -27,10 +27,16 @@ export function Modal({
   wide?: boolean;
   children: ReactNode;
 }) {
+  // onClose through a ref: callers pass an inline arrow, so depending on it
+  // would tear down and re-add the key listener — and re-run the body-overflow
+  // override — on every render of the host page.
+  const onCloseRef = useRef(onClose);
+  onCloseRef.current = onClose;
+
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
-        onClose();
+        onCloseRef.current();
       }
     };
     document.addEventListener('keydown', onKey);
@@ -40,14 +46,14 @@ export function Modal({
       document.removeEventListener('keydown', onKey);
       document.body.style.overflow = prevOverflow;
     };
-  }, [onClose]);
+  }, []);
 
   return (
     <div
       className="modal-backdrop"
-      // Only a click that both started and ended on the backdrop closes:
-      // testing the target keeps a drag that ends outside the panel (text
-      // selection inside it) from dismissing the dialog.
+      // Dismiss on mousedown, not click, and only when the press LANDED on the
+      // backdrop: a text-selection drag that starts inside the panel and ends
+      // out here never presses the backdrop, so it can't close the dialog.
       onMouseDown={(e) => {
         if (e.target === e.currentTarget) {
           onClose();

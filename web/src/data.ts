@@ -426,10 +426,15 @@ function statRank(label: string): number {
   return i === -1 ? STAT_ORDER.length : i;
 }
 
-/** dollId → the weapon that imprints on her. */
+/**
+ * dollId → the weapon that imprints on her. First match wins, keeping the
+ * semantics of the `allWeapons.find()` this index replaced: if a sync ever
+ * emitted two weapons imprinting the same doll, the answer shouldn't quietly
+ * change with the lookup strategy.
+ */
 const weaponByImprintDollId = new Map<string, Weapon>();
 for (const w of allWeapons) {
-  if (w.imprintDollId) {
+  if (w.imprintDollId && !weaponByImprintDollId.has(w.imprintDollId)) {
     weaponByImprintDollId.set(w.imprintDollId, w);
   }
 }

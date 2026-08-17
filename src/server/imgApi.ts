@@ -106,7 +106,9 @@ function validateBuild(build: DollBuild): void {
   if (build.weapon !== null && !getWeapon(build.weapon)) {
     throw new BadRequest(`unknown weapon: ${build.weapon}`);
   }
-  for (const k of build.keys) {
+  // Fixed AND common keys — validateTeam checks both per slot, and a doll
+  // build must not be the looser endpoint of the pair.
+  for (const k of [...build.keys, ...(build.ck ?? [])]) {
     if (!getKey(k)) {
       throw new BadRequest(`unknown key: ${k}`);
     }

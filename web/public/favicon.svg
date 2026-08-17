@@ -1,6 +1,7 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="NIKKE Solo Raid Sim">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="GFL2 Team Builder">
   <rect width="64" height="64" rx="14" fill="#101216"/>
-  <!-- damage-share tracks (matches the DPS infographic: #2a2f3b track, #5b9dff fill) -->
+  <!-- The shared nikkesim.app brand mark (the same bars drawn on share cards
+       and in the nav), on this site's surface colors. -->
   <g fill="#2a2f3b">
     <rect x="12" y="13" width="40" height="7" rx="3.5"/>
     <rect x="12" y="24" width="40" height="7" rx="3.5"/>

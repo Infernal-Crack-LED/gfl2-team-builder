@@ -1,5 +1,5 @@
 ---
-name: kit-blind-reviewer
+name: kimi-blind-reviewer
 description: Blind cross-family reviewer for blind gate roles, dispatched via scripts/gates/dispatch-kimi.sh — all tools disabled by design (blindness boundary); answers the packet directly in text.
 tools: []
 ---
