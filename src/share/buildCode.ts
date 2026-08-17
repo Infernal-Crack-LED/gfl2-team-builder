@@ -122,7 +122,12 @@ export function decodeDollBuild(code: string): DollBuild | null {
       vert,
     };
     // Optional fields — silently dropped from old codes.
-    if (typeof b.cal === 'number' && Number.isInteger(b.cal) && b.cal >= 1 && b.cal <= 6) {
+    if (
+      typeof b.cal === 'number' &&
+      Number.isInteger(b.cal) &&
+      b.cal >= 1 &&
+      b.cal <= 6
+    ) {
       result.cal = b.cal;
     }
     if (Array.isArray(b.stats)) {
@@ -151,12 +156,25 @@ export function decodeDollBuild(code: string): DollBuild | null {
 
 // --- Team build -------------------------------------------------------------
 
-/** One squad slot: a doll slug plus (optionally) its equipment, inlined. */
+/**
+ * One squad slot: a doll slug plus (optionally) her full build, inlined.
+ *
+ * The optional fields are the DollBuild fields under short names — a squad
+ * slot IS a doll build, so the team builder can hand a slot straight to the
+ * per-doll builder and back (teamSlotFromDollBuild / dollBuildFromTeamSlot).
+ * Every one is optional and decoded leniently, so codes minted before the
+ * build fields existed still decode: a slot with only `d`/`w` is a doll with
+ * default equipment, which is exactly what those codes meant.
+ */
 export interface TeamSlot {
   d: string; // doll slug
   w?: string | null; // weapon id
-  k?: string[]; // key ids
+  k?: string[]; // fixed key ids
   t?: number[]; // vertebra segments
+  ex?: string | null; // expansion key id (outside the fixed-key cap)
+  cal?: number | null; // weapon refinement 1–6
+  st?: string[]; // ordered stat preferences
+  ck?: string[]; // common key ids
 }
 
 export interface TeamBuild {
@@ -224,12 +242,83 @@ export function decodeTeamBuild(code: string): TeamBuild | null {
         }
         slot.t = vt;
       }
+      // Build fields — same validation as decodeDollBuild's optional block,
+      // so a slot can never carry a build the per-doll builder would reject.
+      if (typeof s.ex === 'string' || s.ex === null) {
+        slot.ex = s.ex;
+      }
+      if (
+        typeof s.cal === 'number' &&
+        Number.isInteger(s.cal) &&
+        s.cal >= 1 &&
+        s.cal <= 6
+      ) {
+        slot.cal = s.cal;
+      }
+      if (Array.isArray(s.st)) {
+        const st = s.st.filter(
+          (x): x is string =>
+            typeof x === 'string' && x.length > 0 && x.length <= MAX_STAT_LABEL
+        );
+        if (st.length > MAX_STAT_PREFS || st.length !== s.st.length) {
+          return null;
+        }
+        slot.st = st;
+      }
+      if (Array.isArray(s.ck)) {
+        const ck = s.ck.filter((x): x is string => typeof x === 'string');
+        if (ck.length > 3 || ck.length !== s.ck.length) {
+          return null;
+        }
+        slot.ck = ck;
+      }
       slots.push(slot);
     }
     return { v: BUILD_VERSION, s: slots };
   } catch {
     return null;
   }
+}
+
+/**
+ * A doll build → its squad-slot form. The two carry the same information
+ * under different field names; keeping the mapping in ONE place is what lets
+ * the team builder open the per-doll builder on a slot and write the result
+ * straight back without either side knowing the other's shape.
+ */
+export function teamSlotFromDollBuild(build: DollBuild): TeamSlot {
+  const slot: TeamSlot = { d: build.doll, w: build.weapon, k: build.keys };
+  if (build.vert.length > 0) {
+    slot.t = build.vert;
+  }
+  if (build.exp != null) {
+    slot.ex = build.exp;
+  }
+  if (build.cal != null) {
+    slot.cal = build.cal;
+  }
+  if (build.stats && build.stats.length > 0) {
+    slot.st = build.stats;
+  }
+  if (build.ck && build.ck.length > 0) {
+    slot.ck = build.ck;
+  }
+  return slot;
+}
+
+/** The inverse of teamSlotFromDollBuild — absent fields become empty. */
+export function dollBuildFromTeamSlot(slot: TeamSlot): DollBuild {
+  return {
+    v: BUILD_VERSION,
+    doll: slot.d,
+    weapon: slot.w ?? null,
+    keys: slot.k ?? [],
+    vert: slot.t ?? [],
+    cal: slot.cal ?? null,
+    stats: slot.st ?? [],
+    ck: slot.ck ?? [],
+    exp: slot.ex ?? null,
+  };
 }
 
 /** Try both codecs — used on public share links where the kind isn't known. */

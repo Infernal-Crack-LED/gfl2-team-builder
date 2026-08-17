@@ -8,9 +8,7 @@ import { getAllCommonKeys, allKeys } from './data';
 
 describe('generic common keys', () => {
   it('merges the 3 generic common keys into allKeys', () => {
-    const generics = allKeys.filter((k) =>
-      k.keyTitle?.startsWith('Generic ')
-    );
+    const generics = allKeys.filter((k) => k.keyTitle?.startsWith('Generic '));
     expect(generics.map((k) => k.keyTitle).sort()).toEqual([
       'Generic Atk/Crit',
       'Generic Atk/Def',

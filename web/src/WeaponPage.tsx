@@ -4,6 +4,7 @@
  */
 import { useEffect } from 'react';
 import { getDollById, getWeaponById, getWeaponBySlug } from './data';
+import { GameIcon } from './components/GameIcon';
 import { RichText } from './components/RichText';
 import { hrefFor, hrefForDoll, hrefForWeapon, onSpaLinkClick } from './router';
 import { escapeJsonLd } from './jsonLd';
@@ -100,11 +101,10 @@ export function WeaponPage({ slug }: { slug: string | null }) {
           {weapon.imageUrl ? (
             // Weapon art is wide (512×256) with transparency —
             // .portrait-contain letterboxes instead of cropping.
-            <img
+            <GameIcon
               className="portrait portrait-contain"
               src={weapon.imageUrl}
               alt={weapon.name}
-              loading="lazy"
             />
           ) : (
             <div className="portrait portrait-empty" aria-hidden="true">

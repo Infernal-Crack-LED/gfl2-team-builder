@@ -5,9 +5,11 @@ import {
   decodeAnyBuild,
   decodeDollBuild,
   decodeTeamBuild,
+  dollBuildFromTeamSlot,
   encodeDollBuild,
   encodeTeamBuild,
   shareProfileName,
+  teamSlotFromDollBuild,
 } from './buildCode';
 
 const dollBuild = {
@@ -89,6 +91,83 @@ describe('team build codec', () => {
     expect(
       decodeTeamBuild(b64urlEncode(JSON.stringify({ v: 2, s: [{ d: 5 }] })))
     ).toBeNull();
+  });
+
+  it('roundtrips a slot carrying a full build', () => {
+    const full = {
+      v: 2 as const,
+      s: [
+        {
+          d: 'alva',
+          w: 'weapon-id',
+          k: ['k1', 'k2'],
+          t: [3],
+          ex: 'exp-id',
+          cal: 5,
+          st: ['ATK%', 'Crit DMG'],
+          ck: ['ck1'],
+        },
+      ],
+    };
+    expect(decodeTeamBuild(encodeTeamBuild(full))).toEqual(full);
+  });
+
+  it('rejects build fields that break their own limits', () => {
+    const bad = (slot: Record<string, unknown>) =>
+      decodeTeamBuild(b64urlEncode(JSON.stringify({ v: 2, s: [slot] })));
+    // >4 stat prefs, >3 common keys, and non-string members are all refused.
+    expect(bad({ d: 'alva', st: ['a', 'b', 'c', 'd', 'e'] })).toBeNull();
+    expect(bad({ d: 'alva', ck: ['a', 'b', 'c', 'd'] })).toBeNull();
+    expect(bad({ d: 'alva', ck: [1] })).toBeNull();
+    // An out-of-range refinement is DROPPED, not fatal — same as DollBuild.
+    expect(bad({ d: 'alva', cal: 9 })).toEqual({ v: 2, s: [{ d: 'alva' }] });
+  });
+});
+
+describe('team slot ↔ doll build', () => {
+  it('roundtrips a full build through a slot', () => {
+    const build = {
+      v: 2 as const,
+      doll: 'alva',
+      weapon: 'weapon-id',
+      keys: ['k1'],
+      vert: [2],
+      cal: 4,
+      stats: ['ATK%'],
+      ck: ['ck1'],
+      exp: 'exp-id',
+    };
+    expect(dollBuildFromTeamSlot(teamSlotFromDollBuild(build))).toEqual(build);
+  });
+
+  it('reads a legacy doll-only slot as an empty build', () => {
+    expect(dollBuildFromTeamSlot({ d: 'alva', w: 'weapon-id' })).toEqual({
+      v: 2,
+      doll: 'alva',
+      weapon: 'weapon-id',
+      keys: [],
+      vert: [],
+      cal: null,
+      stats: [],
+      ck: [],
+      exp: null,
+    });
+  });
+
+  it('omits empty fields from the slot so codes stay short', () => {
+    expect(
+      teamSlotFromDollBuild({
+        v: 2,
+        doll: 'alva',
+        weapon: null,
+        keys: [],
+        vert: [],
+        cal: null,
+        stats: [],
+        ck: [],
+        exp: null,
+      })
+    ).toEqual({ d: 'alva', w: null, k: [] });
   });
 });
 

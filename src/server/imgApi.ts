@@ -127,10 +127,15 @@ function validateTeam(team: TeamBuild): void {
     if (typeof slot.w === 'string' && !getWeapon(slot.w)) {
       throw new BadRequest(`unknown weapon: ${slot.w}`);
     }
-    for (const k of slot.k ?? []) {
+    // Every key a slot references — fixed, expansion, and common — must
+    // resolve, same contract as validateBuild.
+    for (const k of [...(slot.k ?? []), ...(slot.ck ?? [])]) {
       if (!getKey(k)) {
         throw new BadRequest(`unknown key: ${k}`);
       }
+    }
+    if (slot.ex != null && !getKey(slot.ex)) {
+      throw new BadRequest(`unknown key: ${slot.ex}`);
     }
   }
 }

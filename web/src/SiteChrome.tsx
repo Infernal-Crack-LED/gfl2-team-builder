@@ -13,13 +13,24 @@ import { hrefFor, navigate } from './router';
 import { socials } from './site-data';
 import { BrandIcon } from './social-icons';
 import { TabDropdown, useMediaQuery } from './TabDropdown';
-import { useAuth } from './auth';
+import { useAuth, type AuthUser } from './auth';
 
 const NAV: { route: Route; label: string }[] = [
   { route: 'characters', label: 'Characters' },
   { route: 'weapons', label: 'Weapons' },
+  { route: 'keys', label: 'Keys' },
   { route: 'team-builder', label: 'Team Builder' },
+  // Straight into the per-doll builder (its slug-less character picker), so
+  // the character builder is one click from anywhere, next to Team Builder.
+  { route: 'builder', label: 'Character Builder' },
+  { route: 'tools', label: 'Tools' },
 ];
+
+// Shown only to logged-in users — there is nothing behind it when logged out.
+const AUTHED_NAV: { route: Route; label: string } = {
+  route: 'saved',
+  label: 'Saved builds',
+};
 
 // Secondary links — collapse into the hamburger at all sizes
 const MENU: { route: Route; label: string }[] = [
@@ -50,9 +61,24 @@ function navClick(e: MouseEvent, route: Route) {
  * Right-side nav auth control. Logged out: a Discord login button that does
  * a FULL page navigation (OAuth leaves the SPA); icon-only on mobile to save
  * width, same as nikke-sim. Logged in: avatar + username + logout.
+ *
+ * The session comes from SiteNav rather than its own useAuth() — the nav also
+ * needs `user` to decide whether to show "Saved builds", and two hooks would
+ * mean two /api/me round-trips per page load.
  */
-function AuthControl({ mobile }: { mobile: boolean }) {
-  const { user, loading, login, logout } = useAuth();
+function AuthControl({
+  mobile,
+  user,
+  loading,
+  login,
+  logout,
+}: {
+  mobile: boolean;
+  user: AuthUser | null;
+  loading: boolean;
+  login: () => void;
+  logout: () => void;
+}) {
   if (loading) {
     // Avoid flashing "Log in" while the stored token is being validated.
     return null;
@@ -96,7 +122,16 @@ function AuthControl({ mobile }: { mobile: boolean }) {
 export function SiteNav({ current }: { current: Route }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
-  const mobile = useMediaQuery('(max-width: 640px)'); // page nav → focused dropdown
+  const mobile = useMediaQuery('(max-width: 900px)'); // page nav → focused dropdown
+  const auth = useAuth();
+
+  // "Saved builds" only exists for a logged-in user; everything else is
+  // always present. Built here so the desktop tabs and the mobile dropdown
+  // can never show a different set.
+  const navItems = auth.user ? [...NAV, AUTHED_NAV] : NAV;
+
+  // The infographics creator lives under /tools, so it lights up the Tools tab.
+  const activeRoute: Route = current === 'infographics' ? 'tools' : current;
 
   // Close the menu on an outside click or Escape.
   useEffect(() => {
@@ -150,21 +185,21 @@ export function SiteNav({ current }: { current: Route }) {
           {mobile ? (
             <TabDropdown
               label="Page"
-              items={NAV.map((n) => ({
+              items={navItems.map((n) => ({
                 key: n.route,
                 label: n.label,
-                active: current === n.route,
+                active: activeRoute === n.route,
                 href: hrefFor(n.route),
                 onSelect: (e) => navClick(e, n.route),
               }))}
             />
           ) : (
-            NAV.map((n) => (
+            navItems.map((n) => (
               <a
                 key={n.route}
                 href={hrefFor(n.route)}
                 onClick={(e) => navClick(e, n.route)}
-                className={current === n.route ? 'on' : ''}
+                className={activeRoute === n.route ? 'on' : ''}
               >
                 {n.label}
               </a>
@@ -173,7 +208,13 @@ export function SiteNav({ current }: { current: Route }) {
         </div>
 
         <div className="site-nav-right">
-          <AuthControl mobile={mobile} />
+          <AuthControl
+            mobile={mobile}
+            user={auth.user}
+            loading={auth.loading}
+            login={auth.login}
+            logout={auth.logout}
+          />
           <div className="nav-menu" ref={menuRef}>
             <button
               className={'nav-btn nav-menu-btn' + (menuOpen ? ' on' : '')}

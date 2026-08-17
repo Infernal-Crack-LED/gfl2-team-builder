@@ -16,20 +16,30 @@ export type Route =
   | 'weapon'
   | 'team-builder'
   | 'builder'
+  | 'keys'
+  | 'tools'
+  | 'infographics'
+  | 'saved'
   | 'credits'
   | 'dev'
   | 'privacy'
   | 'terms';
 
 // Flat list of nav/analytics routes. Parameterized routes (/characters/<slug>,
-// /weapons/<slug>, /builder/<slug>) are excluded — hrefFor('character') would
-// produce a dead slug-less path. Detail routes are detected by a present
-// second segment.
+// /weapons/<slug>) are excluded — hrefFor('character') would produce a dead
+// slug-less path. Detail routes are detected by a present second segment.
+// 'builder' IS listed: slug-less /builder is a real page (the character
+// picker), so the nav can link straight at it.
 export const ROUTES: Route[] = [
   'home',
   'characters',
   'weapons',
   'team-builder',
+  'builder',
+  'keys',
+  'tools',
+  'infographics',
+  'saved',
   'credits',
   'dev',
   'privacy',
@@ -59,10 +69,24 @@ export function routeFromPath(pathname: string): Route {
     return 'team-builder';
   }
   if (seg === 'builder') {
-    // A builder without a doll slug is meaningless — /builder alone lands on
-    // the character roster instead of a dead page.
+    // Slug-less /builder is the character picker (the nav links here); with a
+    // slug it's that doll's builder. Both are the 'builder' route — the page
+    // switches on the slug.
+    return 'builder';
+  }
+  if (seg === 'keys') {
+    return 'keys';
+  }
+  if (seg === 'tools') {
+    // /tools is the tool index; its one sub-page today is the infographics
+    // creator. Unknown sub-segments fall back to the index rather than 404.
     const parts = pathname.replace(/^\/+|\/+$/g, '').split('/');
-    return parts.length > 1 ? 'builder' : 'characters';
+    return parts[1]?.toLowerCase() === 'infographics'
+      ? 'infographics'
+      : 'tools';
+  }
+  if (seg === 'saved') {
+    return 'saved';
   }
   if (seg === 'credits') {
     return 'credits';
@@ -102,6 +126,9 @@ export const hrefFor = (route: Route): string => {
   }
   if (route === 'team-builder') {
     return '/team-builder';
+  }
+  if (route === 'infographics') {
+    return '/tools/infographics';
   }
   return `/${route}`;
 };

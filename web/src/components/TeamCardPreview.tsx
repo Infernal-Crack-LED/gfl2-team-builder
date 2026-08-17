@@ -7,6 +7,7 @@
  */
 import { useCallback, useRef, useState } from 'react';
 import { toPng } from 'html-to-image';
+import { assetUrl } from '../data';
 
 export interface TeamCardSlotData {
   dollName: string;
@@ -75,9 +76,12 @@ export function TeamCardPreview({ slots }: { slots: TeamCardSlotData[] }) {
               >
                 <div className="team-card-portrait-frame">
                   {slot.portraitUrl ? (
+                    // assetUrl, not <GameIcon>: html-to-image needs crossOrigin
+                    // and a src that never swaps mid-export. Same-origin art
+                    // also can't taint the canvas, which the CDN copy could.
                     <img
                       className="team-card-portrait"
-                      src={slot.portraitUrl}
+                      src={assetUrl(slot.portraitUrl)}
                       alt=""
                       crossOrigin="anonymous"
                     />

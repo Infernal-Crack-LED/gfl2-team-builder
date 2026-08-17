@@ -20,12 +20,24 @@ import {
 } from '../../src/share/html';
 export type { EffectDetails, EffectUpgrade } from '../../src/share/html';
 import { GENERIC_COMMON_KEYS } from '../../src/share/genericKeys';
+/**
+ * Rewrites Dandegate CDN URLs to our own mirror under /game-assets. Render
+ * game art through <GameIcon> rather than calling this directly — it adds the
+ * fallback for art synced since the last `npm run icons`.
+ */
+export { localAssetUrl as assetUrl } from '../../src/share/assets';
 
 // --- Type definitions ---
 
 export interface Skill {
   name: string | null;
   skillType: string | null;
+  /**
+   * Dandegate CDN skill icon. Not sourced from iopwiki: its GFL2 doll pages
+   * render a shared `Skill backup.png` placeholder for all but a handful of
+   * skills, whereas Dandegate carries art for every one.
+   */
+  imageUrl: string | null;
   description: string | null;
   descriptionLevel2: string | null;
   descriptionLevel3: string | null;
@@ -259,6 +271,35 @@ export function getAllCommonKeys(): Key[] {
   return allKeys.filter((k) => k.keyType === 'Common Key');
 }
 
+/**
+ * The three key types the Keys page browses, in display order. Affinity keys
+ * are deliberately absent: they are an affinity-level reward with a flat stat
+ * line, not a build choice, so listing them would bury the keys that are.
+ */
+export const KEY_TYPE_OPTIONS = [
+  { id: 'Fixed Key', label: 'Fixed' },
+  { id: 'Expansion Key', label: 'Expansion' },
+  { id: 'Common Key', label: 'Common' },
+] as const;
+
+export type BrowsableKeyType = (typeof KEY_TYPE_OPTIONS)[number]['id'];
+
+const BROWSABLE_KEY_TYPES = new Set<string>(KEY_TYPE_OPTIONS.map((o) => o.id));
+
+/** Every key the Keys page can show — i.e. everything except affinity keys. */
+export const browsableKeys: Key[] = allKeys.filter(
+  (k) => k.keyType != null && BROWSABLE_KEY_TYPES.has(k.keyType)
+);
+
+/** Distinct attribute names across the browsable keys, alphabetical. */
+export const KEY_ATTRIBUTE_OPTIONS: { id: string; label: string }[] = [
+  ...new Set(
+    browsableKeys.flatMap((k) => (k.attributes ?? []).map((a) => a.name))
+  ),
+]
+  .sort((a, b) => a.localeCompare(b))
+  .map((name) => ({ id: name.toLowerCase(), label: name }));
+
 /** All effects exclusively linked to a given doll (by dollId). */
 export function getEffectsForDoll(dollId: string): Effect[] {
   return allEffects.filter((e) => e.dollId === dollId);
@@ -385,9 +426,33 @@ function statRank(label: string): number {
   return i === -1 ? STAT_ORDER.length : i;
 }
 
+/** dollId → the weapon that imprints on her. */
+const weaponByImprintDollId = new Map<string, Weapon>();
+for (const w of allWeapons) {
+  if (w.imprintDollId) {
+    weaponByImprintDollId.set(w.imprintDollId, w);
+  }
+}
+
 /** The weapon that imprints on a given doll (by dollId). */
 export function getWeaponForDoll(dollId: string): Weapon | undefined {
-  return allWeapons.find((w) => w.imprintDollId === dollId);
+  return weaponByImprintDollId.get(dollId);
+}
+
+/**
+ * A doll's weapon type ("Machine Gun", "Handgun", …).
+ *
+ * `doll.weaponImprintType` is null for EVERY doll Dandegate serves, so
+ * reading it directly — as the filter row and the doll header used to — meant
+ * the weapon-type filter matched nothing at all and the header icon never
+ * rendered. The authoritative source is the type of the weapon that imprints
+ * on her, which every doll has; the raw field stays first in case a later
+ * sync starts populating it.
+ */
+export function dollWeaponType(doll: Doll): string | null {
+  return (
+    doll.weaponImprintType ?? getWeaponForDoll(doll.id)?.weaponType ?? null
+  );
 }
 
 // --- Marker resolver ---
@@ -556,48 +621,106 @@ export function resolveEffectMarkers(text: string | null): TextSegment[] {
 
 // --- Filter option constants ---
 
-export const CLASS_OPTIONS = [
-  { id: 'bulwark', label: 'Bulwark' },
-  { id: 'vanguard', label: 'Vanguard' },
-  { id: 'support', label: 'Support' },
-  { id: 'sentinel', label: 'Sentinel' },
-] as const;
+/**
+ * Icons live in web/public/gfl2-icons/, sourced from iopwiki by
+ * `npm run icons` (see src/sync/wikiIcons.ts for the GFL2-only catalog).
+ *
+ * `colored` marks an icon that carries its own hue — the accent-filled "on"
+ * state inverts monochrome icons to dark, which would destroy a colored one,
+ * so those opt out via the `data-colored` attribute.
+ */
+export interface FilterOption {
+  id: string;
+  label: string;
+  icon?: string;
+  colored?: boolean;
+}
 
-export const PHASE_OPTIONS = [
-  { id: 'physical', label: 'Physical' },
-  { id: 'burn', label: 'Burn' },
-  { id: 'hydro', label: 'Hydro' },
-  { id: 'electric', label: 'Electric' },
-  { id: 'freeze', label: 'Freeze' },
-  { id: 'corrosion', label: 'Corrosion' },
-  { id: 'omni', label: 'Omni' },
-] as const;
+const ICON = (name: string) => `/gfl2-icons/${name}.png`;
+
+export const CLASS_OPTIONS: readonly FilterOption[] = [
+  { id: 'bulwark', label: 'Bulwark', icon: ICON('class-bulwark') },
+  { id: 'vanguard', label: 'Vanguard', icon: ICON('class-vanguard') },
+  { id: 'support', label: 'Support', icon: ICON('class-support') },
+  { id: 'sentinel', label: 'Sentinel', icon: ICON('class-sentinel') },
+];
+
+export const PHASE_OPTIONS: readonly FilterOption[] = [
+  { id: 'physical', label: 'Physical', icon: ICON('phase-physical') },
+  { id: 'burn', label: 'Burn', icon: ICON('phase-burn'), colored: true },
+  { id: 'hydro', label: 'Hydro', icon: ICON('phase-hydro'), colored: true },
+  {
+    id: 'electric',
+    label: 'Electric',
+    icon: ICON('phase-electric'),
+    colored: true,
+  },
+  { id: 'freeze', label: 'Freeze', icon: ICON('phase-freeze'), colored: true },
+  {
+    id: 'corrosion',
+    label: 'Corrosion',
+    icon: ICON('phase-corrosion'),
+    colored: true,
+  },
+  { id: 'omni', label: 'Omni', icon: ICON('phase-omni'), colored: true },
+];
 
 // Option ids MUST be the lowercased data values — the filters match by exact
 // equality against `(doll.field ?? '').toLowerCase()`. Short codes here
 // silently break the row (every selection filters to zero results).
-export const AMMO_OPTIONS = [
-  { id: 'light ammo', label: 'Light' },
-  { id: 'medium ammo', label: 'Medium' },
-  { id: 'heavy ammo', label: 'Heavy' },
-  { id: 'shotgun ammo', label: 'Shotgun' },
-  { id: 'melee', label: 'Melee' },
-] as const;
+export const AMMO_OPTIONS: readonly FilterOption[] = [
+  { id: 'light ammo', label: 'Light', icon: ICON('ammo-light') },
+  { id: 'medium ammo', label: 'Medium', icon: ICON('ammo-medium') },
+  { id: 'heavy ammo', label: 'Heavy', icon: ICON('ammo-heavy') },
+  { id: 'shotgun ammo', label: 'Shotgun', icon: ICON('ammo-shotgun') },
+  { id: 'melee', label: 'Melee', icon: ICON('ammo-melee') },
+];
 
-export const WEAPON_TYPE_OPTIONS = [
-  { id: 'assault rifle', label: 'AR' },
-  { id: 'submachine gun', label: 'SMG' },
-  { id: 'shotgun', label: 'SG' },
-  { id: 'machine gun', label: 'MG' },
-  { id: 'sniper rifle', label: 'RF' },
-  { id: 'handgun', label: 'HG' },
-  { id: 'blade', label: 'Blade' },
-] as const;
+// GFL2 has no distinct weapon-type art — iopwiki's own doll template aliases
+// each weapon type onto its ammo icon, and so do we. The label carries the
+// distinction the icon can't (SMG and HG both fire light ammo).
+export const WEAPON_TYPE_OPTIONS: readonly FilterOption[] = [
+  { id: 'assault rifle', label: 'AR', icon: ICON('ammo-medium') },
+  { id: 'submachine gun', label: 'SMG', icon: ICON('ammo-light') },
+  { id: 'shotgun', label: 'SG', icon: ICON('ammo-shotgun') },
+  { id: 'machine gun', label: 'MG', icon: ICON('ammo-heavy') },
+  { id: 'sniper rifle', label: 'RF', icon: ICON('ammo-heavy') },
+  { id: 'handgun', label: 'HG', icon: ICON('ammo-light') },
+  { id: 'blade', label: 'Blade', icon: ICON('ammo-melee') },
+];
 
-export const RARITY_OPTIONS = [
+/**
+ * Imago factors — the per-class currency the Remolding Core spends. Not a
+ * filter row; these exist so the remolding section can label its costs with
+ * the same icons the game and the wiki use. Distinct art from CLASS_OPTIONS.
+ */
+export const IMAGO_OPTIONS: readonly FilterOption[] = [
+  { id: 'bulwark', label: 'Bulwark', icon: ICON('imago-bulwark') },
+  { id: 'vanguard', label: 'Vanguard', icon: ICON('imago-vanguard') },
+  { id: 'support', label: 'Support', icon: ICON('imago-support') },
+  { id: 'sentinel', label: 'Sentinel', icon: ICON('imago-sentinel') },
+];
+
+// Rarity stays text-only: the wiki renders it as a colored block, not an icon.
+export const RARITY_OPTIONS: readonly FilterOption[] = [
   { id: 'elite', label: 'Elite' },
   { id: 'standard', label: 'Standard' },
-] as const;
+];
+
+/** Look up a filter option's icon by row + raw data value (case-insensitive). */
+function iconLookup(
+  options: readonly FilterOption[]
+): (value: string | null | undefined) => FilterOption | undefined {
+  const byId = new Map(options.map((o) => [o.id, o]));
+  return (value) =>
+    value == null ? undefined : byId.get(value.toLowerCase().trim());
+}
+
+export const classOption = iconLookup(CLASS_OPTIONS);
+export const imagoOption = iconLookup(IMAGO_OPTIONS);
+export const phaseOption = iconLookup(PHASE_OPTIONS);
+export const ammoOption = iconLookup(AMMO_OPTIONS);
+export const weaponTypeOption = iconLookup(WEAPON_TYPE_OPTIONS);
 
 /** Stats available for preference ordering in the builder. */
 export const STAT_PREF_OPTIONS = [
@@ -619,8 +742,8 @@ export const PHASE_COLORS: Record<string, string> = {
   Physical: '#b0b7c3',
   Burn: '#d92d38',
   Hydro: '#0075f8',
-  Electric: '#bc1eb1',
+  Electric: '#e0b04b',
   Freeze: '#00c8e0',
   Corrosion: '#00e554',
-  Omni: '#e0b04b',
+  Omni: '#bc1eb1',
 };

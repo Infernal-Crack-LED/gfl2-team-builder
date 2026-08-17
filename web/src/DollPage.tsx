@@ -14,6 +14,8 @@
  */
 import { useEffect, useState } from 'react';
 import {
+  ammoOption,
+  classOption,
   getDollBySlug,
   getEffectDetails,
   getEffectsForDoll,
@@ -22,11 +24,17 @@ import {
   getVertebraeForDoll,
   getWeaponById,
   getWeaponForDoll,
+  imagoOption,
+  phaseOption,
+  weaponTypeOption,
+  dollWeaponType,
   PHASE_COLORS,
   type Effect,
+  type FilterOption,
   type Skill,
   type Weapon,
 } from './data';
+import { GameIcon } from './components/GameIcon';
 import { RichText } from './components/RichText';
 import {
   hrefFor,
@@ -36,6 +44,26 @@ import {
 } from './router';
 import { escapeJsonLd } from './jsonLd';
 import { setDetailMeta } from './useDocumentHead';
+
+/**
+ * The iopwiki icon for an identity pill, when the row has one. Rarity has no
+ * wiki art, and an unrecognized value (a new class from a CN-only doll) simply
+ * resolves to nothing — the pill still renders its label.
+ */
+function IdentIcon({ option }: { option: FilterOption | undefined }) {
+  if (!option?.icon) {
+    return null;
+  }
+  return (
+    <img
+      className="pill-icon"
+      src={option.icon}
+      alt=""
+      data-colored={option.colored ? '' : undefined}
+      loading="lazy"
+    />
+  );
+}
 
 /** Render a skill with level-variant tabs. */
 function SkillSection({ skill }: { skill: Skill }) {
@@ -51,7 +79,12 @@ function SkillSection({ skill }: { skill: Skill }) {
 
   return (
     <div className="unit-skill">
-      <h3>{skill.name ?? 'Skill'}</h3>
+      <h3>
+        {skill.imageUrl && (
+          <GameIcon className="unit-skill-icon" src={skill.imageUrl} />
+        )}
+        {skill.name ?? 'Skill'}
+      </h3>
       {skill.skillTags && skill.skillTags.length > 0 && (
         <div className="unit-skill-tags">
           {skill.skillTags.map((tag, i) => (
@@ -151,9 +184,9 @@ function SigWeaponCounterparts({ weapon }: { weapon: Weapon }) {
   const counterparts: {
     label: string;
     blob: Record<string, unknown> | null;
-  }[] = [
-    { label: 'Elite', blob: weapon.eliteCounterpart },
-  ].filter((c) => c.blob != null);
+  }[] = [{ label: 'Elite', blob: weapon.eliteCounterpart }].filter(
+    (c) => c.blob != null
+  );
 
   if (counterparts.length === 0) {
     return null;
@@ -167,21 +200,17 @@ function SigWeaponCounterparts({ weapon }: { weapon: Weapon }) {
           const id = c.blob!.id as string | undefined;
           const resolved = id ? getWeaponById(id) : undefined;
           const slug = resolved?.slug;
-          const name =
-            (c.blob!.name as string | undefined) ?? c.label;
-          const rarity =
-            (c.blob!.rarity as string | undefined) ?? null;
-          const imageUrl =
-            (c.blob!.imageUrl as string | undefined) ?? null;
+          const name = (c.blob!.name as string | undefined) ?? c.label;
+          const rarity = (c.blob!.rarity as string | undefined) ?? null;
+          const imageUrl = (c.blob!.imageUrl as string | undefined) ?? null;
 
           const inner = (
             <div className="dollpage-counterpart-card">
               {imageUrl ? (
-                <img
+                <GameIcon
                   className="portrait portrait-contain dollpage-counterpart-img"
                   src={imageUrl}
                   alt={name}
-                  loading="lazy"
                 />
               ) : (
                 <div
@@ -196,8 +225,7 @@ function SigWeaponCounterparts({ weapon }: { weapon: Weapon }) {
                 {rarity && (
                   <span
                     className={
-                      'unit-ident' +
-                      (rarity === 'Elite' ? ' elite' : '')
+                      'unit-ident' + (rarity === 'Elite' ? ' elite' : '')
                     }
                   >
                     {rarity}
@@ -300,11 +328,10 @@ export function DollPage({ slug }: { slug: string | null }) {
       {/* Header: 96px portrait + name + identity pills */}
       <div className="unit-header">
         {doll.avatarUrl ? (
-          <img
+          <GameIcon
             className="portrait unit-portrait"
             src={doll.avatarUrl}
             alt={doll.name}
-            loading="lazy"
           />
         ) : (
           <div
@@ -317,12 +344,18 @@ export function DollPage({ slug }: { slug: string | null }) {
         <div className="unit-meta">
           <h1>{doll.name}</h1>
           <div className="unit-idents">
-            {doll.class && <span className="unit-ident">{doll.class}</span>}
+            {doll.class && (
+              <span className="unit-ident">
+                <IdentIcon option={classOption(doll.class)} />
+                {doll.class}
+              </span>
+            )}
             {doll.phase && (
               <span
                 className="unit-ident"
                 style={{ borderColor: phaseColor, color: phaseColor }}
               >
+                <IdentIcon option={phaseOption(doll.phase)} />
                 {doll.phase}
               </span>
             )}
@@ -335,11 +368,19 @@ export function DollPage({ slug }: { slug: string | null }) {
                 {doll.rarity}
               </span>
             )}
-            {doll.ammoTypes && doll.ammoTypes.length > 0 && (
-              <span className="unit-ident">{doll.ammoTypes.join(', ')}</span>
-            )}
-            {doll.weaponImprintType && (
-              <span className="unit-ident">{doll.weaponImprintType}</span>
+            {/* One pill per ammo type — each carries its own icon, so joining
+                them into a single pill would leave all but the first unlabeled. */}
+            {(doll.ammoTypes ?? []).map((ammo) => (
+              <span key={ammo} className="unit-ident">
+                <IdentIcon option={ammoOption(ammo)} />
+                {ammo}
+              </span>
+            ))}
+            {dollWeaponType(doll) && (
+              <span className="unit-ident">
+                <IdentIcon option={weaponTypeOption(dollWeaponType(doll))} />
+                {dollWeaponType(doll)}
+              </span>
             )}
             {doll.movement != null && (
               <span className="unit-ident">Move: {doll.movement}</span>
@@ -430,28 +471,22 @@ export function DollPage({ slug }: { slug: string | null }) {
           <div className="dollpage-imprint">
             <div className="dollpage-imprint-weapon">
               {imprintWeapon.imageUrl && (
-                <img
+                <GameIcon
                   className="portrait portrait-contain dollpage-imprint-img"
                   src={imprintWeapon.imageUrl}
                   alt={imprintWeapon.name}
-                  loading="lazy"
                 />
               )}
               <div className="dollpage-imprint-body">
                 <div className="dollpage-imprint-head">
                   <a
                     href={hrefForWeapon(imprintWeapon.slug)}
-                    onClick={onSpaLinkClick(
-                      hrefForWeapon(imprintWeapon.slug)
-                    )}
+                    onClick={onSpaLinkClick(hrefForWeapon(imprintWeapon.slug))}
                   >
                     <strong>{imprintWeapon.name}</strong>
                   </a>
                   <span className="muted">
-                    {[
-                      imprintWeapon.rarity,
-                      imprintWeapon.weaponType,
-                    ]
+                    {[imprintWeapon.rarity, imprintWeapon.weaponType]
                       .filter(Boolean)
                       .join(' · ')}
                   </span>
@@ -515,12 +550,21 @@ export function DollPage({ slug }: { slug: string | null }) {
           <>
             <div className="unit-idents unit-remold-summary">
               {remolding.dollCore && (
-                <span className="unit-ident">{remolding.dollCore}</span>
+                <span className="unit-ident">
+                  {/* "Support Core" → the Support class icon. */}
+                  <IdentIcon
+                    option={classOption(
+                      remolding.dollCore.replace(/\s*core$/i, '')
+                    )}
+                  />
+                  {remolding.dollCore}
+                </span>
               )}
               {remolding.coreSlots
                 .filter((slot) => slot.value > 0)
                 .map((slot) => (
                   <span key={slot.label} className="unit-ident">
+                    <IdentIcon option={classOption(slot.label)} />
                     {slot.label} ×{slot.value}
                   </span>
                 ))}
@@ -540,13 +584,16 @@ export function DollPage({ slug }: { slug: string | null }) {
                       {form.coreLevel != null && (
                         <span className="muted">Core Lv{form.coreLevel}</span>
                       )}
-                      {form.factors.length > 0 && (
-                        <span className="muted">
-                          {form.factors
-                            .map((f) => `${f.label} ${f.value}`)
-                            .join(' · ')}
-                        </span>
-                      )}
+                      {/* Imago factor costs, one icon+count per class. Zero-cost
+                          classes are dropped rather than shown as "×0". */}
+                      {form.factors
+                        .filter((f) => f.value > 0)
+                        .map((f) => (
+                          <span key={f.label} className="unit-imago-cost">
+                            <IdentIcon option={imagoOption(f.label)} />
+                            {f.value}
+                          </span>
+                        ))}
                     </div>
                     <RichText
                       text={form.effect}

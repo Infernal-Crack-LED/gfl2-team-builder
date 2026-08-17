@@ -43,6 +43,21 @@ export const META: Record<string, HeadMeta> = {
     description:
       "Plan a doll build in Girls' Frontline 2: Exilium. Pick a weapon, unlock affinity and common keys, choose vertebra segments, then save or share the build.",
   },
+  keys: {
+    title: 'GFL2 Keys — Fixed, Expansion & Common Key Database',
+    description:
+      "Every fixed, expansion, and common key in Girls' Frontline 2: Exilium, with stats and effects. Filter by key type, stat bonus, and the class or phase of the doll they belong to.",
+  },
+  tools: {
+    title: 'GFL2 Tools — Builders, Key Database & Infographics Creator',
+    description:
+      "Every Girls' Frontline 2: Exilium tool on the site: the team builder, the character builder, the key catalogue, and the infographics creator.",
+  },
+  saved: {
+    title: 'Saved builds — GFL2 Team Builder',
+    description:
+      'Your saved GFL2 character builds and squads, tied to your Discord account.',
+  },
   credits: {
     title: 'Credits — GFL2 Team Builder',
     description: 'The data sources and tools behind the GFL2 Team Builder.',
@@ -124,12 +139,14 @@ export function useDocumentHead() {
         window.location.pathname.toLowerCase()
       );
 
-      // Detail pages set their own head — skip here
+      // Detail pages (and /tools sub-pages, e.g. the infographics creator)
+      // set their own head — skip here.
       const segs = pathname.replace(/^\/+|\/+$/g, '').split('/');
       if (
         (segs[0] === 'characters' ||
           segs[0] === 'weapons' ||
-          segs[0] === 'builder') &&
+          segs[0] === 'builder' ||
+          segs[0] === 'tools') &&
         segs[1]
       ) {
         return;

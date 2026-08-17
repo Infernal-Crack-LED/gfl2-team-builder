@@ -36,6 +36,18 @@ const TeamBuilderPage = lazy(() =>
 const DollBuilderPage = lazy(() =>
   import('./DollBuilderPage').then((m) => ({ default: m.DollBuilderPage }))
 );
+const KeysPage = lazy(() =>
+  import('./KeysPage').then((m) => ({ default: m.KeysPage }))
+);
+const ToolsPage = lazy(() =>
+  import('./ToolsPage').then((m) => ({ default: m.ToolsPage }))
+);
+const InfographicsPage = lazy(() =>
+  import('./InfographicsPage').then((m) => ({ default: m.InfographicsPage }))
+);
+const SavedPage = lazy(() =>
+  import('./SavedPage').then((m) => ({ default: m.SavedPage }))
+);
 const CreditsPage = lazy(() =>
   import('./CreditsPage').then((m) => ({ default: m.CreditsPage }))
 );
@@ -80,6 +92,14 @@ function Root() {
           <TeamBuilderPage />
         ) : route === 'builder' ? (
           <DollBuilderPage slug={slug} />
+        ) : route === 'keys' ? (
+          <KeysPage />
+        ) : route === 'tools' ? (
+          <ToolsPage />
+        ) : route === 'infographics' ? (
+          <InfographicsPage />
+        ) : route === 'saved' ? (
+          <SavedPage />
         ) : route === 'credits' ? (
           <CreditsPage />
         ) : route === 'dev' ? (

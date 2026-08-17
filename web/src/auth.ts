@@ -24,8 +24,11 @@ export interface SavedProfile {
   updatedAt: string;
 }
 
-/** Profiles kind slug for saved team-builder squads. */
+/** Profiles kind slug for saved per-doll builds (/builder/<slug>). */
 export const BUILD_KIND = 'gfl2-build';
+
+/** Profiles kind slug for saved squads (/team-builder). */
+export const TEAM_KIND = 'gfl2-team';
 
 const TOKEN_KEY = 'gfl2.auth';
 

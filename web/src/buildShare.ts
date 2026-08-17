@@ -12,8 +12,8 @@
  * page or clobber the default state. These helpers are pure (the fetcher is
  * injected) so they are unit-testable without a DOM or network.
  */
-import { decodeDollBuild } from '../../src/share/buildCode';
-import type { DollBuild } from '../../src/share/buildCode';
+import { decodeDollBuild, decodeTeamBuild } from '../../src/share/buildCode';
+import type { DollBuild, TeamBuild } from '../../src/share/buildCode';
 
 /**
  * Profiles kind for idempotent share rows (distinct from BUILD_KIND, which is
@@ -44,6 +44,16 @@ export function bootBuildFromCodeParam(
     return null;
   }
   return build;
+}
+
+/**
+ * Team-builder counterpart of bootBuildFromCodeParam. There is no doll to
+ * cross-check here — a team code is valid for the one team-builder page — so
+ * the only failure mode is a code that doesn't decode.
+ */
+export function bootTeamFromCodeParam(search: string): TeamBuild | null {
+  const code = new URLSearchParams(search).get('b');
+  return code ? decodeTeamBuild(code) : null;
 }
 
 /** Read a validated `?id=` param, or null when missing/malformed. */
@@ -91,6 +101,31 @@ export async function fetchSharedBuild(
     }
     const build = decodeDollBuild(code);
     return build && build.doll === dollSlug ? build : null;
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * Team counterpart of fetchSharedBuild — same total-failure contract: every
+ * error path resolves to null so a dead `?id=` leaves the squad strip empty
+ * rather than breaking the page.
+ */
+export async function fetchSharedTeam(
+  id: string,
+  fetcher: ShareFetcher = fetch
+): Promise<TeamBuild | null> {
+  try {
+    const res = await fetcher(`/api/profiles/${encodeURIComponent(id)}/public`);
+    if (!res.ok) {
+      return null;
+    }
+    const body: unknown = await res.json();
+    const code =
+      body && typeof body === 'object'
+        ? (body as { code?: unknown }).code
+        : null;
+    return typeof code === 'string' ? decodeTeamBuild(code) : null;
   } catch {
     return null;
   }

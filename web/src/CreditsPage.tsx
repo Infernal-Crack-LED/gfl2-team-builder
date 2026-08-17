@@ -18,9 +18,29 @@ export function CreditsPage() {
             <a href="https://dandegate.net" target="_blank" rel="noreferrer">
               dandegate.net
             </a>{' '}
-            — community-maintained GFL2 database.
+            — community-maintained GFL2 database. Skill and key icons are
+            mirrored from it and served from this site.
+          </li>
+          <li>
+            Class, phase, ammo and Imago factor icons from{' '}
+            <a href="https://iopwiki.com/wiki" target="_blank" rel="noreferrer">
+              IOP Wiki
+            </a>
+            , used under{' '}
+            <a
+              href="https://creativecommons.org/licenses/by-sa/3.0/"
+              target="_blank"
+              rel="noreferrer"
+            >
+              CC BY-SA 3.0
+            </a>
+            .
           </li>
         </ul>
+        <p className="muted">
+          All game art and assets are the property of Sunborn Network
+          Technology.
+        </p>
       </section>
 
       <section>

@@ -28,17 +28,27 @@ import {
   type Key,
   type Weapon,
 } from './data';
+import { GameIcon } from './components/GameIcon';
 import { RichText } from './components/RichText';
 import { BuildCardPreview } from './components/BuildCardPreview';
+import { DollCards, DollFilters, useDollFilter } from './components/DollGrid';
+import { copyText } from './clipboard';
 import {
   BUILD_VERSION,
   decodeDollBuild,
   encodeDollBuild,
   shareProfileName,
+  type DollBuild,
 } from '../../src/share/buildCode';
 import { BUILD_KIND, saveProfile, useAuth } from './auth';
 import { SaveProfileControl } from './components/SaveProfileControl';
-import { hrefFor, hrefForBuilder, hrefForDoll, onSpaLinkClick } from './router';
+import {
+  hrefFor,
+  hrefForBuilder,
+  hrefForDoll,
+  navigate,
+  onSpaLinkClick,
+} from './router';
 import { setDetailMeta } from './useDocumentHead';
 import {
   SHARE_PROFILE_KIND,
@@ -69,35 +79,13 @@ function EffectText({ text }: { text: string | null }) {
   return <RichText text={text} className="dollbuilder-effect" />;
 }
 
-/**
- * Clipboard write with a textarea fallback — navigator.clipboard requires a
- * secure context and permission, and both can be missing (plain-http dev
- * hosts, denied prompts). Returns false only if both paths fail.
- */
-async function copyText(text: string): Promise<boolean> {
-  try {
-    await navigator.clipboard.writeText(text);
-    return true;
-  } catch {
-    // Fall through to the legacy path.
-  }
-  try {
-    const ta = document.createElement('textarea');
-    ta.value = text;
-    ta.style.position = 'fixed';
-    ta.style.opacity = '0';
-    document.body.appendChild(ta);
-    ta.select();
-    const ok = document.execCommand('copy');
-    ta.remove();
-    return ok;
-  } catch {
-    return false;
-  }
-}
-
 export function DollBuilderPage({ slug }: { slug: string | null }) {
-  const doll = slug ? getDollBySlug(slug) : undefined;
+  // Slug-less /builder is the picker: the nav links straight here, so it has
+  // to be a real page rather than a redirect.
+  if (!slug) {
+    return <DollBuilderPicker />;
+  }
+  const doll = getDollBySlug(slug);
   if (!doll) {
     return (
       <div className="app dollbuilder-page">
@@ -118,7 +106,55 @@ export function DollBuilderPage({ slug }: { slug: string | null }) {
   return <DollBuilder key={doll.slug} doll={doll} />;
 }
 
-function DollBuilder({ doll }: { doll: Doll }) {
+/**
+ * Character picker for slug-less /builder — the same filtered roster the
+ * team builder uses, in badge mode, where picking navigates into that doll's
+ * builder instead of placing her in a squad.
+ */
+function DollBuilderPicker() {
+  const filterResult = useDollFilter();
+  return (
+    <div className="app dollbuilder-page">
+      <header>
+        <h1>Character Builder</h1>
+        <p className="muted">
+          Pick a doll to plan her weapon, keys, vertebrae, and stat priorities —
+          then save the build or share it with a link.
+        </p>
+      </header>
+      <DollFilters filterResult={filterResult} defaultOpen={true} />
+      <DollCards
+        dolls={filterResult.dolls}
+        mode="badge"
+        onSelect={(d) => navigate(hrefForBuilder(d.slug))}
+      />
+    </div>
+  );
+}
+
+/**
+ * The builder itself. Exported because the team builder embeds it in a modal
+ * to edit one squad slot: `initialBuild` seeds the state from that slot,
+ * `onBuildChange` streams every edit back so the squad picks it up WITHOUT a
+ * save or a session, and `embedded` drops the page furniture (breadcrumbs,
+ * portrait header, document head) that the modal already provides.
+ */
+export function DollBuilder({
+  doll,
+  initialBuild,
+  onBuildChange,
+  embedded,
+}: {
+  doll: Doll;
+  /** Seed state instead of reading the URL — the host owns the build. */
+  initialBuild?: DollBuild;
+  /**
+   * Called on mount and after every edit. MUST be referentially stable
+   * (useCallback in the host), or the effect below re-fires each render.
+   */
+  onBuildChange?: (build: DollBuild) => void;
+  embedded?: boolean;
+}) {
   const { user } = useAuth();
 
   // The doll's imprint weapon is the sensible default selection. The
@@ -186,9 +222,9 @@ function DollBuilder({ doll }: { doll: Doll }) {
           build.cal <= 6
             ? build.cal
             : null,
-        statPrefs: (build.stats ?? []).filter((s) =>
-          (STAT_PREF_OPTIONS as readonly string[]).includes(s)
-        ).slice(0, 4),
+        statPrefs: (build.stats ?? [])
+          .filter((s) => (STAT_PREF_OPTIONS as readonly string[]).includes(s))
+          .slice(0, 4),
         commonKeys: (build.ck ?? [])
           .filter((id) => validCommonKeys.has(id))
           .slice(0, MAX_COMMON_KEYS),
@@ -197,9 +233,14 @@ function DollBuilder({ doll }: { doll: Doll }) {
     [dollKeys, vertebrae, commonKeys]
   );
 
-  // ?b= boot happens synchronously in the initializer so the shared build is
-  // the FIRST render — applying it in an effect would flash the default state.
+  // Boot order: a host-supplied build wins (embedded — the URL belongs to
+  // another page entirely), then `?b=`, which applies synchronously in the
+  // initializer so a shared build is the FIRST render rather than a flash of
+  // default state.
   const [build, setBuild] = useState<BuildState>(() => {
+    if (initialBuild) {
+      return sanitize(initialBuild);
+    }
     const boot = bootBuildFromCodeParam(window.location.search, doll.slug);
     return boot
       ? sanitize(boot)
@@ -226,17 +267,25 @@ function DollBuilder({ doll }: { doll: Doll }) {
     };
   }, []);
 
-  // Per-doll document head (useDocumentHead skips /builder/<slug>).
+  // Per-doll document head (useDocumentHead skips /builder/<slug>). Embedded,
+  // the host page owns the head — a modal must not retitle the page.
   useEffect(() => {
+    if (embedded) {
+      return;
+    }
     setDetailMeta(
       `${doll.name} Builder — GFL2 Weapon, Keys & Vertebrae Planner`,
       `Plan ${doll.name}'s build in Girls' Frontline 2: Exilium: pick a weapon, unlock keys, choose vertebra segments, and share the build with a link.`
     );
-  }, [doll]);
+  }, [doll, embedded]);
 
   // ?id= boot — the async counterpart of the ?b= initializer above. Skipped
-  // when a valid ?b= already claimed the state (it needs no fetch).
+  // when a host build or a valid ?b= already claimed the state (neither needs
+  // a fetch, and the host's build outranks anything in someone else's URL).
   useEffect(() => {
+    if (initialBuild) {
+      return;
+    }
     if (bootBuildFromCodeParam(window.location.search, doll.slug)) {
       return;
     }
@@ -253,7 +302,7 @@ function DollBuilder({ doll }: { doll: Doll }) {
     return () => {
       live = false;
     };
-  }, [doll, sanitize]);
+  }, [doll, sanitize, initialBuild]);
 
   const applyLoadedCode = useCallback(
     (code: string) => {
@@ -275,21 +324,31 @@ function DollBuilder({ doll }: { doll: Doll }) {
     [doll, sanitize]
   );
 
-  const getCode = useCallback(
-    () =>
-      encodeDollBuild({
-        v: BUILD_VERSION,
-        doll: doll.slug,
-        weapon: build.weapon,
-        keys: build.keys,
-        vert: build.vert,
-        cal: build.refinement,
-        stats: build.statPrefs,
-        ck: build.commonKeys,
-        exp: build.expansionKey,
-      }),
+  // The canonical DollBuild for the current selections — what gets encoded
+  // for saves and share links, and what the embedding host is handed.
+  const payload = useMemo(
+    (): DollBuild => ({
+      v: BUILD_VERSION,
+      doll: doll.slug,
+      weapon: build.weapon,
+      keys: build.keys,
+      vert: build.vert,
+      cal: build.refinement,
+      stats: build.statPrefs,
+      ck: build.commonKeys,
+      exp: build.expansionKey,
+    }),
     [doll, build]
   );
+
+  const getCode = useCallback(() => encodeDollBuild(payload), [payload]);
+
+  // Stream every edit to the host (team builder slot). Fires on mount too, so
+  // a slot opened for the first time gets the sanitized build even if the
+  // user changes nothing and closes immediately.
+  useEffect(() => {
+    onBuildChange?.(payload);
+  }, [payload, onBuildChange]);
 
   const flashCopied = useCallback((which: 'link' | 'short') => {
     setCopied(which);
@@ -437,67 +496,102 @@ function DollBuilder({ doll }: { doll: Doll }) {
   const expansionKeys = dollKeys.filter((k) => k.keyType === 'Expansion Key');
 
   return (
-    <div className="app dollbuilder-page">
-      {/* Breadcrumbs */}
-      <nav className="unit-crumbs">
-        <a
-          href={hrefFor('characters')}
-          onClick={onSpaLinkClick(hrefFor('characters'))}
-        >
-          Characters
-        </a>
-        {' / '}
-        <a
-          href={hrefForDoll(doll.slug)}
-          onClick={onSpaLinkClick(hrefForDoll(doll.slug))}
-        >
-          {doll.name}
-        </a>
-        {' / '}
-        Builder
-      </nav>
+    <div
+      className={
+        embedded
+          ? 'dollbuilder-page dollbuilder-embedded'
+          : 'app dollbuilder-page'
+      }
+    >
+      {/* Breadcrumbs — the modal has its own title bar and no page to
+          navigate back through, so they're page-only. */}
+      {!embedded && (
+        <nav className="unit-crumbs">
+          <a
+            href={hrefFor('characters')}
+            onClick={onSpaLinkClick(hrefFor('characters'))}
+          >
+            Characters
+          </a>
+          {' / '}
+          <a
+            href={hrefForDoll(doll.slug)}
+            onClick={onSpaLinkClick(hrefForDoll(doll.slug))}
+          >
+            {doll.name}
+          </a>
+          {' / '}
+          Builder
+        </nav>
+      )}
 
       {/* Header: portrait + name + identity pills (DollPage pattern) */}
-      <div className="unit-header">
-        {doll.avatarUrl ? (
-          <img
-            className="portrait unit-portrait"
-            src={doll.avatarUrl}
-            alt={doll.name}
-            loading="lazy"
-          />
-        ) : (
-          <div
-            className="portrait portrait-empty unit-portrait"
-            aria-hidden="true"
-          >
-            ?
-          </div>
-        )}
-        <div className="unit-meta">
-          <h1>{doll.name} — Builder</h1>
-          <div className="unit-idents">
-            {doll.class && <span className="unit-ident">{doll.class}</span>}
-            {doll.phase && (
-              <span
-                className="unit-ident"
-                style={{ borderColor: phaseColor, color: phaseColor }}
-              >
-                {doll.phase}
-              </span>
-            )}
-            {doll.rarity && (
-              <span
-                className={
-                  'unit-ident' + (doll.rarity === 'Elite' ? ' elite' : '')
-                }
-              >
-                {doll.rarity}
-              </span>
-            )}
+      {!embedded && (
+        <div className="unit-header">
+          {doll.avatarUrl ? (
+            <GameIcon
+              className="portrait unit-portrait"
+              src={doll.avatarUrl}
+              alt={doll.name}
+            />
+          ) : (
+            <div
+              className="portrait portrait-empty unit-portrait"
+              aria-hidden="true"
+            >
+              ?
+            </div>
+          )}
+          <div className="unit-meta">
+            <h1>{doll.name} — Builder</h1>
+            <div className="unit-idents">
+              {doll.class && <span className="unit-ident">{doll.class}</span>}
+              {doll.phase && (
+                <span
+                  className="unit-ident"
+                  style={{ borderColor: phaseColor, color: phaseColor }}
+                >
+                  {doll.phase}
+                </span>
+              )}
+              {doll.rarity && (
+                <span
+                  className={
+                    'unit-ident' + (doll.rarity === 'Elite' ? ' elite' : '')
+                  }
+                >
+                  {doll.rarity}
+                </span>
+              )}
+            </div>
           </div>
         </div>
-      </div>
+      )}
+
+      {/* Embedded, the identity pills are the only header worth the vertical
+          space — the modal title already names the doll. */}
+      {embedded && (
+        <div className="unit-idents dollbuilder-embedded-idents">
+          {doll.class && <span className="unit-ident">{doll.class}</span>}
+          {doll.phase && (
+            <span
+              className="unit-ident"
+              style={{ borderColor: phaseColor, color: phaseColor }}
+            >
+              {doll.phase}
+            </span>
+          )}
+          {doll.rarity && (
+            <span
+              className={
+                'unit-ident' + (doll.rarity === 'Elite' ? ' elite' : '')
+              }
+            >
+              {doll.rarity}
+            </span>
+          )}
+        </div>
+      )}
 
       {/* Save / share actions */}
       <div className="dollbuilder-actions">
@@ -527,11 +621,10 @@ function DollBuilder({ doll }: { doll: Doll }) {
         {selectedWeapon ? (
           <div className="dollbuilder-selected">
             {selectedWeapon.imageUrl ? (
-              <img
+              <GameIcon
                 className="portrait portrait-contain dollbuilder-selected-img"
                 src={selectedWeapon.imageUrl}
                 alt={selectedWeapon.name}
-                loading="lazy"
               />
             ) : (
               <div
@@ -609,8 +702,7 @@ function DollBuilder({ doll }: { doll: Doll }) {
           )}
         </h2>
         <p className="muted dollbuilder-hint">
-          Click stats in priority order (1 → 2 → 3 → 4). Click again to
-          remove.
+          Click stats in priority order (1 → 2 → 3 → 4). Click again to remove.
         </p>
         {build.statPrefs.length > 0 && (
           <div className="dollbuilder-stat-summary">
@@ -633,9 +725,7 @@ function DollBuilder({ doll }: { doll: Doll }) {
         <div className="dollbuilder-stat-options">
           {STAT_PREF_OPTIONS.map((stat) => {
             const chosen = build.statPrefs.includes(stat);
-            const rank = chosen
-              ? build.statPrefs.indexOf(stat) + 1
-              : null;
+            const rank = chosen ? build.statPrefs.indexOf(stat) + 1 : null;
             const full = build.statPrefs.length >= 4 && !chosen;
             return (
               <button
@@ -675,8 +765,7 @@ function DollBuilder({ doll }: { doll: Doll }) {
               <div className="dollbuilder-key-grid">
                 {fixedKeys.map((key) => {
                   const on = build.keys.includes(key.id);
-                  const atCap =
-                    build.keys.length >= MAX_FIXED_KEYS && !on;
+                  const atCap = build.keys.length >= MAX_FIXED_KEYS && !on;
                   return (
                     <KeyCard
                       key={key.id}
@@ -733,11 +822,9 @@ function DollBuilder({ doll }: { doll: Doll }) {
                   <div className="dollbuilder-selected-body">
                     <div className="dollbuilder-selected-head">
                       {ck.imageUrl ? (
-                        <img
+                        <GameIcon
                           className="dollbuilder-key-icon"
                           src={ck.imageUrl}
-                          alt=""
-                          loading="lazy"
                         />
                       ) : null}
                       <strong>
@@ -903,11 +990,9 @@ function WeaponRow({
       onClick={onSelect}
     >
       {weapon.imageUrl ? (
-        <img
+        <GameIcon
           className="portrait portrait-contain portrait-sm"
           src={weapon.imageUrl}
-          alt=""
-          loading="lazy"
         />
       ) : (
         <span
@@ -951,12 +1036,7 @@ function KeyCard({
     >
       <span className="dollbuilder-key-head">
         {keyData.imageUrl ? (
-          <img
-            className="dollbuilder-key-icon"
-            src={keyData.imageUrl}
-            alt=""
-            loading="lazy"
-          />
+          <GameIcon className="dollbuilder-key-icon" src={keyData.imageUrl} />
         ) : (
           <span
             className="dollbuilder-key-icon dollbuilder-key-icon-empty"
@@ -1004,9 +1084,8 @@ function CommonKeyPicker({
     if (!q) {
       return commonKeys;
     }
-    return commonKeys.filter(
-      (k) =>
-        (k.displayTitle ?? k.keyTitle ?? '').toLowerCase().includes(q)
+    return commonKeys.filter((k) =>
+      (k.displayTitle ?? k.keyTitle ?? '').toLowerCase().includes(q)
     );
   }, [query, commonKeys]);
 
@@ -1037,12 +1116,7 @@ function CommonKeyPicker({
               onClick={() => onSelect(k.id)}
             >
               {k.imageUrl ? (
-                <img
-                  className="dollbuilder-key-icon"
-                  src={k.imageUrl}
-                  alt=""
-                  loading="lazy"
-                />
+                <GameIcon className="dollbuilder-key-icon" src={k.imageUrl} />
               ) : (
                 <span
                   className="dollbuilder-key-icon dollbuilder-key-icon-empty"
@@ -1056,9 +1130,7 @@ function CommonKeyPicker({
               </span>
               {k.attributes && k.attributes.length > 0 && (
                 <span className="muted">
-                  {k.attributes
-                    .map((a) => `${a.name}: ${a.value}`)
-                    .join(' · ')}
+                  {k.attributes.map((a) => `${a.name}: ${a.value}`).join(' · ')}
                 </span>
               )}
             </button>

@@ -347,13 +347,19 @@ button,
   vertical-align: -3px;
 }
 
-/* On an accent-filled pill the icon inverts to dark so it reads against the
-   blue; a deliberately colored icon opts out with data-colored. */
+/* On an accent-filled pill the icon has to darken to read against the blue.
+   INVERT, not brightness(0) — nikke-sim's icons are flat light silhouettes
+   that survive being crushed to black, but the iopwiki art here is a light
+   glyph sitting on a dark plate. brightness(0) painted glyph and plate the
+   same black, so a selected pill showed a featureless dark blob and the icon
+   read as "gone". invert(1) flips both, keeping the contrast BETWEEN them:
+   the plate goes light, the glyph goes dark, and the shape stays legible.
+   A deliberately colored icon opts out with data-colored. */
 .pill-toggle.on .pill-icon,
 .pills button.on .pill-icon,
 .pill-toggle.on .dollfilter-icon,
 .pills button.on .dollfilter-icon {
-  filter: brightness(0);
+  filter: invert(1);
 }
 
 .pill-toggle.on .pill-icon[data-colored],
@@ -1331,13 +1337,23 @@ td {
   gap: 6px;
 }
 
+/* inline-flex so a pill that carries an icon centers it against the label —
+   the icons are baseline-nudged for running text, which is wrong inside a
+   pill whose height is set by its own padding. */
 .unit-ident {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
   font-size: 11px;
   padding: 3px 8px;
   border-radius: 999px;
   background: var(--panel2);
   border: 1px solid var(--border);
   color: var(--muted);
+}
+
+.unit-ident .pill-icon {
+  vertical-align: baseline;
 }
 
 .unit-ident.elite {
@@ -1388,12 +1404,24 @@ td {
 
 .unit-skill h3,
 .unit-key-card h3 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
   font-size: 11px;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.06em;
   color: var(--muted);
   margin-bottom: 6px;
+}
+
+/* Skill icon sits at 28px — large enough to read the in-game art, which is
+   busier than the flat class/phase glyphs, without crowding the heading. */
+.unit-skill-icon {
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
+  object-fit: contain;
 }
 
 .unit-skill-tags {
@@ -1480,6 +1508,15 @@ td {
 
 .unit-imago-head .muted {
   font-size: 12px;
+}
+
+/* Imago factor cost: icon + count, read as one token. */
+.unit-imago-cost {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 12px;
+  color: var(--muted);
 }
 
 /* Multi-paragraph game text — space paragraphs without doubling the gap
@@ -1580,13 +1617,21 @@ td {
   flex-wrap: wrap;
 }
 
+/* Wide enough for the build dropdown under the portrait — a slot is a column
+   of controls now, not just a face. */
 .teambuilder-slot {
   position: relative;
-  min-width: 80px;
-  width: 100px;
+  min-width: 120px;
+  width: 150px;
   border-radius: 10px;
   overflow: hidden;
   text-align: center;
+}
+
+/* Empty slots keep the old square footprint so the strip doesn't sprout five
+   tall dashed boxes before anything is placed. */
+.teambuilder-slot-empty {
+  align-self: flex-start;
 }
 
 .teambuilder-slot-empty {
@@ -1654,6 +1699,30 @@ td {
 .teambuilder-size-toggle {
   display: flex;
   gap: 4px;
+}
+
+/* Per-slot build controls: the saved-build picker and the modal opener, both
+   full-width under the portrait so the strip reads as a column per doll. */
+.teambuilder-slot-build {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 0 6px 6px;
+}
+
+.teambuilder-build-select {
+  width: 100%;
+  padding: 4px 6px;
+  font-size: 11px;
+  /* A long save name must not widen the slot — it ellipsizes in the closed
+     select and shows in full in the native dropdown. */
+  text-overflow: ellipsis;
+}
+
+.teambuilder-edit-build {
+  width: 100%;
+  justify-content: center;
+  font-size: 11px;
 }
 
 /* .teambuilder-clear shares the .chip recipe (see Buttons). */
@@ -3027,6 +3096,417 @@ td {
   font-size: 13px;
   color: #8b93a3;
   opacity: 0.8;
+}
+
+/* ---- Keys Page ---- */
+/* One section per key type, each a responsive card grid. Cards reuse the
+   dollcard idiom — phase-tinted left border, panel surface — so a key reads
+   as the same kind of object as the doll it belongs to. */
+.keys-section {
+  margin-top: 22px;
+}
+
+.keys-section h2 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--border);
+}
+
+.keys-section-count {
+  padding: 1px 8px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--panel2);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.keygrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 10px;
+}
+
+.keycard {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 10px 12px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--border);
+  border-radius: 10px;
+}
+
+.keycard-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.keycard-img {
+  flex: 0 0 auto;
+  width: 42px;
+  height: 42px;
+  object-fit: contain;
+  border-radius: 8px;
+  background: var(--panel2);
+}
+
+.keycard-img-empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--muted);
+}
+
+.keycard-titles {
+  min-width: 0;
+}
+
+.keycard-title {
+  font-size: 14px;
+  line-height: 1.3;
+}
+
+.keycard-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.keycard-level {
+  padding: 0 6px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+}
+
+.keycard-attrs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  list-style: none;
+}
+
+.keycard-attrs li {
+  display: flex;
+  gap: 5px;
+  padding: 2px 8px;
+  background: var(--panel2);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  font-size: 12px;
+}
+
+.keycard-attr-name {
+  color: var(--muted);
+}
+
+.keycard-attr-value {
+  font-weight: 600;
+}
+
+.keycard-effect {
+  font-size: 13px;
+  color: var(--text);
+}
+
+.keycard-effect p + p {
+  margin-top: 6px;
+}
+
+.keycard-build-link {
+  margin-top: auto;
+  padding-top: 4px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.keys-more {
+  margin-top: 12px;
+}
+
+/* ---- Tools Page ---- */
+.tools-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 12px;
+  margin-top: 18px;
+}
+
+/* Whole tile is the link; the featured tool (the one this section owns) gets
+   the accent border so the index has an obvious entry point. */
+.tool-tile {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 16px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  color: var(--text);
+}
+
+.tool-tile:hover {
+  border-color: var(--accent);
+  text-decoration: none;
+}
+
+.tool-tile.featured {
+  border-color: var(--accent);
+  background: linear-gradient(180deg, var(--panel2), var(--panel));
+}
+
+.tool-tile-title {
+  font-size: 16px;
+}
+
+.tool-tile-blurb {
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.tool-tile-cta {
+  margin-top: auto;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--accent);
+}
+
+/* ---- Infographics Creator ---- */
+.infog-tabs {
+  margin-bottom: 2px;
+}
+
+.infog-blurb {
+  margin-bottom: 12px;
+  font-size: 13px;
+}
+
+/* Chosen-doll strip: the card's subject, always visible above the fields. */
+.infog-chosen {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  margin-bottom: 12px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+}
+
+.infog-chosen .portrait {
+  width: 48px;
+  height: 48px;
+  border-radius: 8px;
+}
+
+.infog-chosen button {
+  margin-left: auto;
+}
+
+.infog-fields {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.infog-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 10px 12px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+}
+
+.infog-field-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.infog-field-cap {
+  font-weight: 500;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.infog-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+/* Common keys run to ~70 options — cap the height so one field can't push
+   the preview off the screen. */
+.infog-chips.scroll {
+  max-height: 132px;
+  overflow-y: auto;
+}
+
+.infog-load {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.infog-squad {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.infog-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin: 14px 0 18px;
+}
+
+/* ---- Saved Builds Page ---- */
+.saved-section + .saved-section {
+  margin-top: 16px;
+}
+
+.saved-section h2 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.saved-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 10px;
+  list-style: none;
+}
+
+.saved-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 10px;
+  background: var(--panel2);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+}
+
+/* Squad rows carry up to five portraits — they shrink rather than wrap so
+   every row keeps the same height. */
+.saved-thumbs {
+  display: flex;
+  flex: 0 0 auto;
+  gap: 4px;
+}
+
+.saved-thumbs .portrait {
+  width: 40px;
+  height: 40px;
+  border-radius: 7px;
+}
+
+.saved-body {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  gap: 2px;
+}
+
+.saved-name {
+  font-weight: 600;
+}
+
+.saved-summary,
+.saved-date {
+  font-size: 12px;
+}
+
+.saved-row-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-left: auto;
+}
+
+@media (max-width: 640px) {
+  .keygrid {
+    grid-template-columns: 1fr;
+  }
+
+  .saved-row {
+    flex-wrap: wrap;
+  }
+
+  .saved-row-actions {
+    margin-left: 0;
+  }
+}
+
+/* ---- Team Builder: embedded build modal ---- */
+/* The per-doll builder rendered inside a modal. It normally IS the page, so
+   `.dollbuilder-embedded` strips the page-level width/padding and pulls the
+   first section up under the modal's own title bar. */
+.dollbuilder-embedded {
+  max-width: none;
+  padding: 0;
+  margin: 0;
+}
+
+.dollbuilder-embedded > .unit-section:first-of-type {
+  margin-top: 8px;
+}
+
+/* The identity pills stand in for the portrait header the modal drops. */
+.dollbuilder-embedded-idents {
+  margin: 4px 0 10px;
+}
+
+/* Modal footer: the reassurance line + the primary exit, on one row. */
+.modal-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid var(--border);
+}
+
+.modal-actions .muted {
+  font-size: 12px;
+  margin-right: auto;
+}
+
+@media (max-width: 640px) {
+  .modal-backdrop {
+    padding: 24px 8px;
+  }
+
+  .modal-panel {
+    padding: 14px 12px;
+  }
+
+  .modal-actions {
+    flex-wrap: wrap;
+  }
 }
 
 /* ---- Accessibility: Reduced Motion ---- */

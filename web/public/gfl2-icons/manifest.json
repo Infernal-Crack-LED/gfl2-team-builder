@@ -1,0 +1,168 @@
+{
+  "syncedAt": "2026-08-17T01:32:21.567Z",
+  "source": "https://iopwiki.com/wiki/IOP_Wiki",
+  "license": "CC BY-SA 3.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+  "icons": [
+    {
+      "name": "class-bulwark",
+      "path": "/gfl2-icons/class-bulwark.png",
+      "sourceFile": "File:GFL2 Icon Bulwark.png",
+      "descriptionUrl": "https://iopwiki.com/wiki/File:GFL2_Icon_Bulwark.png",
+      "sha1": "82f5379889ca3fcf25df777901b2c175f8d31fa8",
+      "bytes": 4114
+    },
+    {
+      "name": "class-vanguard",
+      "path": "/gfl2-icons/class-vanguard.png",
+      "sourceFile": "File:GFL2 Icon Vanguard.png",
+      "descriptionUrl": "https://iopwiki.com/wiki/File:GFL2_Icon_Vanguard.png",
+      "sha1": "87e69c27336290a9bfe8bc24b1c53cd35d203de4",
+      "bytes": 3511
+    },
+    {
+      "name": "class-support",
+      "path": "/gfl2-icons/class-support.png",
+      "sourceFile": "File:GFL2 Icon Support.png",
+      "descriptionUrl": "https://iopwiki.com/wiki/File:GFL2_Icon_Support.png",
+      "sha1": "f88f0933291519e5be44bb8fb462e9e323d7f15d",
+      "bytes": 5046
+    },
+    {
+      "name": "class-sentinel",
+      "path": "/gfl2-icons/class-sentinel.png",
+      "sourceFile": "File:GFL2 Icon Sentinel.png",
+      "descriptionUrl": "https://iopwiki.com/wiki/File:GFL2_Icon_Sentinel.png",
+      "sha1": "a07ad0596852697b8c4b4530706e712dbc3c877a",
+      "bytes": 5076
+    },
+    {
+      "name": "imago-bulwark",
+      "path": "/gfl2-icons/imago-bulwark.png",
+      "sourceFile": "File:GF2 Bulwark Imago.png",
+      "descriptionUrl": "https://iopwiki.com/wiki/File:GF2_Bulwark_Imago.png",
+      "sha1": "8ce412172b95ebacb4c6530879c6ea56698d2a1a",
+      "bytes": 1224
+    },
+    {
+      "name": "imago-vanguard",
+      "path": "/gfl2-icons/imago-vanguard.png",
+      "sourceFile": "File:GF2 Vanguard Imago.png",
+      "descriptionUrl": "https://iopwiki.com/wiki/File:GF2_Vanguard_Imago.png",
+      "sha1": "3b92003b510a54e6328a91c3c52a3192fd6e38cd",
+      "bytes": 1628
+    },
+    {
+      "name": "imago-support",
+      "path": "/gfl2-icons/imago-support.png",
+      "sourceFile": "File:GF2 Support Imago.png",
+      "descriptionUrl": "https://iopwiki.com/wiki/File:GF2_Support_Imago.png",
+      "sha1": "c1105729b2128c74358432d53542d9d9251d81d1",
+      "bytes": 1545
+    },
+    {
+      "name": "imago-sentinel",
+      "path": "/gfl2-icons/imago-sentinel.png",
+      "sourceFile": "File:GF2 Sentinel Imago.png",
+      "descriptionUrl": "https://iopwiki.com/wiki/File:GF2_Sentinel_Imago.png",
+      "sha1": "ca55a0f0d4ed56b1fe8066e78ee0cb905d171fea",
+      "bytes": 1692
+    },
+    {
+      "name": "phase-physical",
+      "path": "/gfl2-icons/phase-physical.png",
+      "sourceFile": "File:GF2 physical icon.png",
+      "descriptionUrl": "https://iopwiki.com/wiki/File:GF2_physical_icon.png",
+      "sha1": "e4c83983e8a7309a0096d952993a1b27be9887ca",
+      "bytes": 1541
+    },
+    {
+      "name": "phase-burn",
+      "path": "/gfl2-icons/phase-burn.png",
+      "sourceFile": "File:GF2 burn icon.png",
+      "descriptionUrl": "https://iopwiki.com/wiki/File:GF2_burn_icon.png",
+      "sha1": "000a46b4468a3e64b371e182a09ff955b527a8e1",
+      "bytes": 1690
+    },
+    {
+      "name": "phase-hydro",
+      "path": "/gfl2-icons/phase-hydro.png",
+      "sourceFile": "File:GF2 hydro icon.png",
+      "descriptionUrl": "https://iopwiki.com/wiki/File:GF2_hydro_icon.png",
+      "sha1": "adc1a7e9dbdac120dd0436174b0d8c111aecb7b8",
+      "bytes": 1773
+    },
+    {
+      "name": "phase-electric",
+      "path": "/gfl2-icons/phase-electric.png",
+      "sourceFile": "File:GF2 electric icon.png",
+      "descriptionUrl": "https://iopwiki.com/wiki/File:GF2_electric_icon.png",
+      "sha1": "fd42806acbc1cbfce2e6a5f4593ee1f40ba7910e",
+      "bytes": 1460
+    },
+    {
+      "name": "phase-freeze",
+      "path": "/gfl2-icons/phase-freeze.png",
+      "sourceFile": "File:GF2 freeze icon.png",
+      "descriptionUrl": "https://iopwiki.com/wiki/File:GF2_freeze_icon.png",
+      "sha1": "3bb0c603bfa16a62ecced68199487c8acc163756",
+      "bytes": 1833
+    },
+    {
+      "name": "phase-corrosion",
+      "path": "/gfl2-icons/phase-corrosion.png",
+      "sourceFile": "File:GF2 corrosion icon.png",
+      "descriptionUrl": "https://iopwiki.com/wiki/File:GF2_corrosion_icon.png",
+      "sha1": "089cd9dc45c1d6e8a912c07d7717e99ab8bdbef2",
+      "bytes": 1798
+    },
+    {
+      "name": "phase-omni",
+      "path": "/gfl2-icons/phase-omni.png",
+      "sourceFile": "File:GF2 omni icon.png",
+      "descriptionUrl": "https://iopwiki.com/wiki/File:GF2_omni_icon.png",
+      "sha1": "89563cf9b7404e1bca3e85342940086c34e88ef6",
+      "bytes": 2407
+    },
+    {
+      "name": "ammo-light",
+      "path": "/gfl2-icons/ammo-light.png",
+      "sourceFile": "File:GF2 light icon.png",
+      "descriptionUrl": "https://iopwiki.com/wiki/File:GF2_light_icon.png",
+      "sha1": "4277f2f5f602731b89bc37246aae443df96c7fd8",
+      "bytes": 1541
+    },
+    {
+      "name": "ammo-medium",
+      "path": "/gfl2-icons/ammo-medium.png",
+      "sourceFile": "File:GF2 medium icon.png",
+      "descriptionUrl": "https://iopwiki.com/wiki/File:GF2_medium_icon.png",
+      "sha1": "2a833f1289c730ff29ded2935ba23826354ab4de",
+      "bytes": 2007
+    },
+    {
+      "name": "ammo-heavy",
+      "path": "/gfl2-icons/ammo-heavy.png",
+      "sourceFile": "File:GF2 heavy icon.png",
+      "descriptionUrl": "https://iopwiki.com/wiki/File:GF2_heavy_icon.png",
+      "sha1": "30339998f71202da59f42023303809b99e00541c",
+      "bytes": 2148
+    },
+    {
+      "name": "ammo-shotgun",
+      "path": "/gfl2-icons/ammo-shotgun.png",
+      "sourceFile": "File:GF2 shotgun icon.png",
+      "descriptionUrl": "https://iopwiki.com/wiki/File:GF2_shotgun_icon.png",
+      "sha1": "30247862f838de3f339fa390be5ca63d37a05a29",
+      "bytes": 2172
+    },
+    {
+      "name": "ammo-melee",
+      "path": "/gfl2-icons/ammo-melee.png",
+      "sourceFile": "File:GF2 melee icon.png",
+      "descriptionUrl": "https://iopwiki.com/wiki/File:GF2_melee_icon.png",
+      "sha1": "811af2c9fddc31614653f325856d839bc0d97f81",
+      "bytes": 2407
+    }
+  ]
+}

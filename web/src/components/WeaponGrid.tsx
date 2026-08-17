@@ -10,6 +10,8 @@ import {
   WEAPON_TYPE_OPTIONS,
   type Weapon,
 } from '../data';
+import { FilterRow } from './FilterRow';
+import { GameIcon } from './GameIcon';
 import { hrefForWeapon } from '../router';
 import { onSpaLinkClick } from '../router';
 
@@ -167,36 +169,6 @@ export function useWeaponFilter(
   };
 }
 
-// --- Filter row (same shape as DollGrid) ---
-
-interface FilterRowProps {
-  label: string;
-  options: readonly { id: string; label: string }[];
-  selected: Set<string>;
-  onToggle: (id: string) => void;
-}
-
-function FilterRow({ label, options, selected, onToggle }: FilterRowProps) {
-  return (
-    <div className="dollfilter-row">
-      <span className="dollfilter-row-label">{label}</span>
-      <div className="dollfilter-row-options">
-        {options.map((opt) => (
-          <button
-            key={opt.id}
-            type="button"
-            className={'pill-toggle' + (selected.has(opt.id) ? ' on' : '')}
-            aria-pressed={selected.has(opt.id)}
-            onClick={() => onToggle(opt.id)}
-          >
-            {opt.label}
-          </button>
-        ))}
-      </div>
-    </div>
-  );
-}
-
 // --- WeaponFilters ---
 
 export function WeaponFilters({
@@ -290,11 +262,10 @@ export function WeaponCards({ weapons }: { weapons: Weapon[] }) {
               {w.imageUrl ? (
                 // Weapon art is wide (512×256) with transparency —
                 // .portrait-contain letterboxes instead of cropping.
-                <img
+                <GameIcon
                   className="portrait portrait-contain"
                   src={w.imageUrl}
                   alt={w.name}
-                  loading="lazy"
                 />
               ) : (
                 <div className="portrait-empty" aria-hidden="true">

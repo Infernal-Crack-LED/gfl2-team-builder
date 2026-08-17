@@ -13,30 +13,28 @@
  * between /characters and /team-builder.
  *
  * Icon vs pill fallback: each option is `{ id, label, icon? }`. The row
- * renders an icon button when the icon file exists, otherwise a text pill.
- * Dropping assets into web/public/gfl2-icons/ later is a zero-code change.
+ * renders the icon alongside the label when the option carries one, otherwise
+ * a plain text pill (rarity, which has no wiki art). Icons themselves come
+ * from web/public/gfl2-icons/ via `npm run icons`.
  */
 import { useMemo, useState } from 'react';
 import {
   allDolls,
   AMMO_OPTIONS,
   CLASS_OPTIONS,
+  dollWeaponType,
   PHASE_COLORS,
   PHASE_OPTIONS,
   RARITY_OPTIONS,
   WEAPON_TYPE_OPTIONS,
   type Doll,
 } from '../data';
+import { FilterRow } from './FilterRow';
+import { GameIcon } from './GameIcon';
 import { hrefForDoll } from '../router';
 import { onSpaLinkClick } from '../router';
 
 // --- Filter types ---
-
-interface FilterOption {
-  id: string;
-  label: string;
-  icon?: string;
-}
 
 interface FilterState {
   class: Set<string>;
@@ -172,9 +170,10 @@ export function useDollFilter(opts?: UseDollFilterOpts): DollFilterResult {
         }
       }
 
-      // Weapon type filter
+      // Weapon type filter — via dollWeaponType, NOT doll.weaponImprintType
+      // (which the sync leaves null on every doll; see data.ts).
       if (filter.weaponType.size > 0) {
-        const wt = (doll.weaponImprintType ?? '').toLowerCase();
+        const wt = (dollWeaponType(doll) ?? '').toLowerCase();
         let match = false;
         for (const id of filter.weaponType) {
           if (wt === id) {
@@ -227,44 +226,6 @@ export function useDollFilter(opts?: UseDollFilterOpts): DollFilterResult {
     clearAll,
     anyActive,
   };
-}
-
-// --- Filter rows ---
-
-interface FilterRowProps {
-  label: string;
-  options: readonly FilterOption[];
-  selected: Set<string>;
-  onToggle: (id: string) => void;
-}
-
-function FilterRow({ label, options, selected, onToggle }: FilterRowProps) {
-  return (
-    <div className="dollfilter-row">
-      <span className="dollfilter-row-label">{label}</span>
-      <div className="dollfilter-row-options">
-        {options.map((opt) => (
-          <button
-            key={opt.id}
-            type="button"
-            className={'pill-toggle' + (selected.has(opt.id) ? ' on' : '')}
-            aria-pressed={selected.has(opt.id)}
-            onClick={() => onToggle(opt.id)}
-          >
-            {opt.icon ? (
-              <img
-                src={opt.icon}
-                alt=""
-                className="dollfilter-icon"
-                loading="lazy"
-              />
-            ) : null}
-            {opt.label}
-          </button>
-        ))}
-      </div>
-    </div>
-  );
 }
 
 // --- DollFilters ---
@@ -387,11 +348,10 @@ export function DollCards({
             >
               <div className="dollcard-img">
                 {doll.avatarUrl ? (
-                  <img
+                  <GameIcon
                     className="portrait"
                     src={doll.avatarUrl}
                     alt={doll.name}
-                    loading="lazy"
                   />
                 ) : (
                   <div className="portrait-empty" aria-hidden="true">
@@ -445,11 +405,10 @@ export function DollCards({
           >
             <div className="dollcard-img">
               {doll.avatarUrl ? (
-                <img
+                <GameIcon
                   className="portrait"
                   src={doll.avatarUrl}
                   alt={doll.name}
-                  loading="lazy"
                 />
               ) : (
                 <div className="portrait-empty" aria-hidden="true">
