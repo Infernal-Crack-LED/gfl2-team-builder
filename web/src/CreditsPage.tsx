@@ -1,6 +1,8 @@
 /**
  * Credits page — data sources and acknowledgments.
  */
+import { hrefFor, onSpaLinkClick } from './router';
+
 export function CreditsPage() {
   return (
     <div className="app credits-page">
@@ -32,6 +34,10 @@ export function CreditsPage() {
       <section>
         <h2>Made by Max</h2>
         <p className="muted">
+          <a href={hrefFor('dev')} onClick={onSpaLinkClick(hrefFor('dev'))}>
+            Meet the dev
+          </a>{' '}
+          — or find me on{' '}
           <a
             href="https://github.com/Infernal-Crack-LED"
             target="_blank"
@@ -39,6 +45,7 @@ export function CreditsPage() {
           >
             GitHub
           </a>
+          .
         </p>
       </section>
     </div>

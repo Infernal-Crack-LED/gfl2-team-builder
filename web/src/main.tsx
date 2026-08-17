@@ -39,6 +39,9 @@ const DollBuilderPage = lazy(() =>
 const CreditsPage = lazy(() =>
   import('./CreditsPage').then((m) => ({ default: m.CreditsPage }))
 );
+const DevPage = lazy(() =>
+  import('./DevPage').then((m) => ({ default: m.DevPage }))
+);
 const PrivacyPage = lazy(() =>
   import('./PrivacyPage').then((m) => ({ default: m.PrivacyPage }))
 );
@@ -79,6 +82,8 @@ function Root() {
           <DollBuilderPage slug={slug} />
         ) : route === 'credits' ? (
           <CreditsPage />
+        ) : route === 'dev' ? (
+          <DevPage />
         ) : route === 'privacy' ? (
           <PrivacyPage />
         ) : route === 'terms' ? (

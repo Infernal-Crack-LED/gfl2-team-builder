@@ -17,6 +17,7 @@ export type Route =
   | 'team-builder'
   | 'builder'
   | 'credits'
+  | 'dev'
   | 'privacy'
   | 'terms';
 
@@ -30,6 +31,7 @@ export const ROUTES: Route[] = [
   'weapons',
   'team-builder',
   'credits',
+  'dev',
   'privacy',
   'terms',
 ];
@@ -64,6 +66,9 @@ export function routeFromPath(pathname: string): Route {
   }
   if (seg === 'credits') {
     return 'credits';
+  }
+  if (seg === 'dev') {
+    return 'dev';
   }
   if (seg === 'privacy') {
     return 'privacy';

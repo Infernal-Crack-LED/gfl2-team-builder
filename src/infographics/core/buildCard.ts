@@ -29,6 +29,8 @@ export interface BuildCardData {
   commonKeyNames: string[];
   /** Square-cropped portrait canvas (opaque to the core), or null. */
   portrait: unknown | null;
+  /** Shared site-icon image for the brand mark (opaque to the core), or null. */
+  siteIcon?: unknown | null;
 }
 
 const MUTED_PLACEHOLDER = '—';
@@ -81,7 +83,11 @@ export function drawBuildCard(ctx: Canvas2DLike, data: BuildCardData): void {
   ctx.fillStyle = COLORS.accent;
   ctx.fillRect(0, 0, BUILD_CARD_W, 6);
 
-  drawBrandMark(ctx, { right: BUILD_CARD_W - 40, top: 34 });
+  drawBrandMark(ctx, {
+    right: BUILD_CARD_W - 40,
+    top: 20,
+    icon: data.siteIcon,
+  });
 
   // ---- Portrait (left) ----
   const px = 60;

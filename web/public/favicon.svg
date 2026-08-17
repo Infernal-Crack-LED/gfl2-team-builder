@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="NIKKE Solo Raid Sim">
+  <rect width="64" height="64" rx="14" fill="#101216"/>
+  <!-- damage-share tracks (matches the DPS infographic: #2a2f3b track, #5b9dff fill) -->
+  <g fill="#2a2f3b">
+    <rect x="12" y="13" width="40" height="7" rx="3.5"/>
+    <rect x="12" y="24" width="40" height="7" rx="3.5"/>
+    <rect x="12" y="35" width="40" height="7" rx="3.5"/>
+    <rect x="12" y="46" width="40" height="7" rx="3.5"/>
+  </g>
+  <g fill="#5b9dff">
+    <rect x="12" y="13" width="40" height="7" rx="3.5"/>
+    <rect x="12" y="24" width="29" height="7" rx="3.5"/>
+    <rect x="12" y="35" width="20" height="7" rx="3.5"/>
+    <rect x="12" y="46" width="12" height="7" rx="3.5"/>
+  </g>
+</svg>

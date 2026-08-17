@@ -63,8 +63,17 @@ export function BuildCardPreview({ data }: { data: BuildCardPreviewData }) {
           {/* Accent stripe */}
           <div className="build-card-stripe" />
 
-          {/* Brand mark */}
-          <span className="build-card-brand">{SITE_NAME}</span>
+          {/* Brand mark — wordmark + the shared site icon, mirroring
+              core/theme.ts drawBrandMark on the server side. */}
+          <div className="build-card-mark">
+            <span className="build-card-brand">{SITE_NAME}</span>
+            <img
+              className="card-mark-icon"
+              src="/nikkesim-icon.png"
+              alt=""
+              crossOrigin="anonymous"
+            />
+          </div>
 
           {/* Portrait */}
           <div className="build-card-portrait-frame">
@@ -84,12 +93,8 @@ export function BuildCardPreview({ data }: { data: BuildCardPreviewData }) {
 
           {/* Right column */}
           <div className="build-card-info">
-            <h2 className="build-card-name">
-              {data.dollName ?? '—'}
-            </h2>
-            <p className="build-card-subtitle">
-              {subtitle || '—'}
-            </p>
+            <h2 className="build-card-name">{data.dollName ?? '—'}</h2>
+            <p className="build-card-subtitle">{subtitle || '—'}</p>
 
             {/* Weapon */}
             <div className="build-card-section">
@@ -105,9 +110,7 @@ export function BuildCardPreview({ data }: { data: BuildCardPreviewData }) {
             <div className="build-card-section">
               <span className="build-card-label">KEYS</span>
               <p className="build-card-keys">
-                {data.keyNames.length > 0
-                  ? data.keyNames.join(' · ')
-                  : 'None'}
+                {data.keyNames.length > 0 ? data.keyNames.join(' · ') : 'None'}
               </p>
             </div>
 
@@ -119,8 +122,7 @@ export function BuildCardPreview({ data }: { data: BuildCardPreviewData }) {
                   <span
                     key={seg}
                     className={
-                      'build-card-chip' +
-                      (data.vert.includes(seg) ? ' on' : '')
+                      'build-card-chip' + (data.vert.includes(seg) ? ' on' : '')
                     }
                   >
                     V{seg}
@@ -144,9 +146,7 @@ export function BuildCardPreview({ data }: { data: BuildCardPreviewData }) {
               if (parts.length === 0) {
                 return null;
               }
-              return (
-                <p className="build-card-extras">{parts.join('  ·  ')}</p>
-              );
+              return <p className="build-card-extras">{parts.join('  ·  ')}</p>;
             })()}
           </div>
 

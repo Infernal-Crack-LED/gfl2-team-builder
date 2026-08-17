@@ -16,11 +16,7 @@ export interface TeamCardSlotData {
 
 const SITE_NAME = 'GFL2 Team Builder';
 
-export function TeamCardPreview({
-  slots,
-}: {
-  slots: TeamCardSlotData[];
-}) {
+export function TeamCardPreview({ slots }: { slots: TeamCardSlotData[] }) {
   const cardRef = useRef<HTMLDivElement>(null);
   const [downloading, setDownloading] = useState(false);
 
@@ -55,7 +51,15 @@ export function TeamCardPreview({
           {/* Header */}
           <div className="team-card-header">
             <h2 className="team-card-title">Squad</h2>
-            <span className="team-card-brand">{SITE_NAME}</span>
+            <div className="team-card-mark">
+              <span className="team-card-brand">{SITE_NAME}</span>
+              <img
+                className="card-mark-icon"
+                src="/nikkesim-icon.png"
+                alt=""
+                crossOrigin="anonymous"
+              />
+            </div>
             <div className="team-card-divider" />
           </div>
 
@@ -67,9 +71,7 @@ export function TeamCardPreview({
             {slots.map((slot, i) => (
               <div
                 key={i}
-                className={
-                  'team-card-row' + (i % 2 === 1 ? ' alt' : '')
-                }
+                className={'team-card-row' + (i % 2 === 1 ? ' alt' : '')}
               >
                 <div className="team-card-portrait-frame">
                   {slot.portraitUrl ? (

@@ -29,7 +29,12 @@ export function cardHeight(n: number): number {
   return HEADER_H + ROW_H * n + FOOTER_H;
 }
 
-export function drawTeamCard(ctx: Canvas2DLike, slots: TeamCardSlot[]): void {
+export function drawTeamCard(
+  ctx: Canvas2DLike,
+  slots: TeamCardSlot[],
+  /** Shared site-icon image for the brand mark (opaque to the core). */
+  siteIcon?: unknown | null
+): void {
   const h = cardHeight(slots.length);
   ctx.fillStyle = COLORS.bg;
   ctx.fillRect(0, 0, TEAM_CARD_W, h);
@@ -42,7 +47,7 @@ export function drawTeamCard(ctx: Canvas2DLike, slots: TeamCardSlot[]): void {
   ctx.textBaseline = 'alphabetic';
   ctx.font = `700 44px ${FONT}`;
   ctx.fillText('Squad', 60, 88);
-  drawBrandMark(ctx, { right: TEAM_CARD_W - 40, top: 40 });
+  drawBrandMark(ctx, { right: TEAM_CARD_W - 40, top: 30, icon: siteIcon });
   ctx.fillStyle = COLORS.border;
   ctx.fillRect(60, HEADER_H - 24, TEAM_CARD_W - 120, 2);
 

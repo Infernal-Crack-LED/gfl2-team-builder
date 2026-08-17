@@ -16,6 +16,7 @@
     "derive": "tsx src/bin/derive.ts",
     "derive:report": "tsx src/bin/derive.ts --report",
     "analyze:mentions": "tsx src/bin/analyze-mentions.ts",
+    "render:og": "tsx src/bin/render-og.ts",
     "test": "vitest run",
     "dev": "vite",
     "dev:server": "tsx watch src/server/index.ts",

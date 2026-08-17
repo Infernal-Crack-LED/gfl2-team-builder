@@ -21,12 +21,14 @@ import {
   type TeamCardSlot,
 } from '../core/teamCard.js';
 import { FONT } from '../core/theme.js';
+import { loadSiteIcon } from './icon.js';
 
 export { createCanvas };
 export * from '../core/canvas2d.js';
 export * from '../core/theme.js';
 export * from '../core/buildCard.js';
 export * from '../core/teamCard.js';
+export { loadSiteIcon };
 
 const DPR = 2;
 
@@ -67,16 +69,24 @@ function makeCard(w: number, h: number) {
   return { canvas, ctx: ctx as unknown as Canvas2DLike };
 }
 
-export function renderBuildCardPng(data: BuildCardData): Promise<Buffer> {
+// The brand mark's icon is resolved HERE, not by callers: the same reason
+// drawBrandMark takes no text — a renderer cannot ship an unmarked (or
+// half-marked) image by forgetting to pass it. loadSiteIcon caches, so this
+// is one decode per process.
+export async function renderBuildCardPng(data: BuildCardData): Promise<Buffer> {
   assertFontsLive();
+  const siteIcon = await loadSiteIcon();
   const { canvas, ctx } = makeCard(BUILD_CARD_W, BUILD_CARD_H);
-  drawBuildCard(ctx, data);
+  drawBuildCard(ctx, { ...data, siteIcon });
   return canvas.encode('png');
 }
 
-export function renderTeamCardPng(slots: TeamCardSlot[]): Promise<Buffer> {
+export async function renderTeamCardPng(
+  slots: TeamCardSlot[]
+): Promise<Buffer> {
   assertFontsLive();
+  const siteIcon = await loadSiteIcon();
   const { canvas, ctx } = makeCard(TEAM_CARD_W, cardHeight(slots.length));
-  drawTeamCard(ctx, slots);
+  drawTeamCard(ctx, slots, siteIcon);
   return canvas.encode('png');
 }

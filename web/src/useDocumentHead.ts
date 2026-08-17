@@ -47,6 +47,11 @@ export const META: Record<string, HeadMeta> = {
     title: 'Credits — GFL2 Team Builder',
     description: 'The data sources and tools behind the GFL2 Team Builder.',
   },
+  dev: {
+    title: 'Meet the dev — GFL2 Team Builder',
+    description:
+      'Who builds the GFL2 Team Builder and the Helen Discord bot, and where to find the rest of the projects.',
+  },
   privacy: {
     title: 'Privacy Policy — GFL2 Team Builder',
     description:

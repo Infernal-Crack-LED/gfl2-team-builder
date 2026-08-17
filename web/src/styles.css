@@ -18,8 +18,9 @@
      Darker than --bg so it reads on the lighter accent blue. */
   --accent-ink: #0b1220;
 
-  /* Discord brand fill — reserved for the future login button (.discord). */
+  /* Discord brand fill + its hover shade (nav login button, .discord). */
   --discord: #5865f2;
+  --discord-hover: #4752c4;
 
   /* Portrait crop anchor (nikke-sim's PORTRAIT_CROP_TOP = 0.16). If a
      build-time thumbnail pipeline ever lands (playbook §10), its crop
@@ -150,7 +151,28 @@ label,
 }
 
 /* ---- Layout ---- */
+/* Sticky footer: the root is a full-height column and the page body is the
+   only growing child, so the social footer sits at the bottom of the viewport
+   on a short page (Home, Credits) instead of floating mid-screen with dead
+   background under it. */
+#root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+#root > .app,
+#root > .page-fallback {
+  flex: 1 0 auto;
+}
+
+#root > .site-nav,
+#root > .site-footer {
+  flex: 0 0 auto;
+}
+
 .app {
+  width: 100%;
   max-width: 1180px;
   margin: 0 auto;
   padding: 24px 20px 60px;
@@ -170,46 +192,107 @@ button,
   color: inherit;
 }
 
-/* Primary/outline action voice (nikke-sim .share-btn/.nav-btn): quiet panel2
-   surface ringed with accent; hover fills accent with dark text. One recipe
-   covers both the "primary" and "outline" voices. */
+/* THE action voice, one recipe for every button on the site — nikke-sim's
+   .share-btn / .nav-btn: quiet panel2 surface ringed with accent, LABEL IN
+   --text (not accent: an accent-on-panel2 label reads as a link, not a
+   control), hover fills accent with dark ink. `.btn-primary`/`.btn-outline`
+   are this site's names for it; `.share-btn`/`.nav-btn` are nikke-sim's and
+   are kept as aliases so ported markup lands styled. */
 .btn-primary,
-.btn-outline {
+.btn-outline,
+.share-btn,
+.nav-btn {
   display: inline-flex;
   align-items: center;
   gap: 6px;
   padding: 6px 14px;
   font-size: 13px;
   font-weight: 600;
+  white-space: nowrap;
   border-radius: 8px;
   background: var(--panel2);
   border: 1px solid var(--accent);
-  color: var(--accent);
+  color: var(--text);
+  text-decoration: none;
   transition:
     background 0.15s,
-    color 0.15s;
+    color 0.15s,
+    border-color 0.15s;
 }
 
-.btn-primary:hover,
-.btn-outline:hover {
+.btn-primary:hover:not(:disabled),
+.btn-outline:hover:not(:disabled),
+.share-btn:hover:not(:disabled),
+.nav-btn:hover:not(:disabled) {
   background: var(--accent);
   color: var(--accent-ink);
   text-decoration: none;
 }
 
-/* Discord variant — brand fill, reserved for the future login button. */
-.btn-primary.discord,
-.btn-outline.discord {
-  background: var(--discord);
-  border-color: var(--discord);
-  color: var(--text);
+/* Pressed/active state and the "✓ Copied" flash both fill with accent. */
+.btn-primary.on,
+.btn-outline.on,
+.share-btn.on,
+.nav-btn.on,
+.share-btn.copied,
+.btn-primary.copied {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--accent-ink);
 }
 
-.btn-primary.discord:hover,
-.btn-outline.discord:hover {
+.btn-primary:disabled,
+.btn-outline:disabled,
+.share-btn:disabled,
+.nav-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  border-color: var(--border);
+}
+
+/* Solid accent variant (nikke-sim .load-btn / .calc-run) — the one loud
+   affirmative action in a group of quiet ones. */
+.btn-solid {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 16px;
+  font-size: 13px;
+  font-weight: 600;
+  border-radius: 8px;
+  border: 0;
+  background: var(--accent);
+  color: var(--accent-ink);
+  text-decoration: none;
+}
+
+.btn-solid:hover:not(:disabled) {
+  filter: brightness(1.08);
+  text-decoration: none;
+}
+
+.btn-solid:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+/* Discord variant — brand fill, brand hover (nikke-sim .nav-btn.discord). */
+.btn-primary.discord,
+.btn-outline.discord,
+.share-btn.discord,
+.nav-btn.discord {
   background: var(--discord);
-  color: var(--text);
-  opacity: 0.9;
+  border-color: var(--discord);
+  color: #fff;
+}
+
+.btn-primary.discord:hover:not(:disabled),
+.btn-outline.discord:hover:not(:disabled),
+.share-btn.discord:hover:not(:disabled),
+.nav-btn.discord:hover:not(:disabled) {
+  background: var(--discord-hover);
+  border-color: var(--discord-hover);
+  color: #fff;
 }
 
 /* Toggle pills (nikke-sim .pills): panel2 surface, pill radius, accent fill
@@ -219,6 +302,7 @@ button,
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
+  align-items: center;
 }
 
 .pill-toggle,
@@ -227,20 +311,22 @@ button,
   align-items: center;
   gap: 4px;
   padding: 4px 12px;
-  font-size: 12px;
+  font-size: 13px;
   border-radius: 999px;
   border: 1px solid var(--border);
   background: var(--panel2);
-  color: var(--muted);
+  color: var(--text);
   transition:
     background 0.15s,
     color 0.15s,
     border-color 0.15s;
 }
 
+/* Hover moves the BORDER, not the label — the label is already at full
+   contrast, so a color hover has nowhere to go (nikke-sim .pills button). */
 .pill-toggle:hover,
 .pills button:hover {
-  color: var(--text);
+  border-color: var(--accent);
 }
 
 .pill-toggle.on,
@@ -248,14 +334,33 @@ button,
   background: var(--accent);
   border-color: var(--accent);
   color: var(--accent-ink);
+  font-weight: 600;
 }
 
-/* 16px icon inside a pill (filter rows once icon assets land). */
+/* 16px icon inside a pill. 16px and not smaller: the class/type badges carry
+   fine vector detail that aliases visibly below ~16px on dpr-1 displays. */
 .pill-icon,
 .dollfilter-icon {
   width: 16px;
   height: 16px;
   object-fit: contain;
+  vertical-align: -3px;
+}
+
+/* On an accent-filled pill the icon inverts to dark so it reads against the
+   blue; a deliberately colored icon opts out with data-colored. */
+.pill-toggle.on .pill-icon,
+.pills button.on .pill-icon,
+.pill-toggle.on .dollfilter-icon,
+.pills button.on .dollfilter-icon {
+  filter: brightness(0);
+}
+
+.pill-toggle.on .pill-icon[data-colored],
+.pills button.on .pill-icon[data-colored],
+.pill-toggle.on .dollfilter-icon[data-colored],
+.pills button.on .dollfilter-icon[data-colored] {
+  filter: none;
 }
 
 /* Denser pill row for tight spaces (skill level tabs). */
@@ -264,8 +369,17 @@ button,
 }
 
 .pills.small button {
-  padding: 2px 8px;
-  font-size: 11px;
+  padding: 2px 9px;
+  font-size: 12px;
+}
+
+/* Uppercase micro-label that leads a pill row. */
+.pill-label {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+  min-width: 30px;
 }
 
 /* Small action chip (nikke-sim .chip): pill-shaped, hover flips to the warn
@@ -294,6 +408,23 @@ button,
   color: var(--warn);
   border-color: var(--warn);
   text-decoration: none;
+}
+
+/* A destructive/reset chip announces itself with a dashed ring. */
+.chip.clear,
+.dollfilter-clear,
+.teambuilder-clear {
+  color: var(--muted);
+  border-style: dashed;
+}
+
+/* "Copied"/"Saved" flash — same accent fill as .share-btn.copied, scaled
+   down to the chip's pill shape. */
+.chip.copied {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--accent-ink);
+  font-weight: 600;
 }
 
 /* ---- Inputs ---- */
@@ -328,58 +459,72 @@ textarea:focus {
    with a hover state. */
 .popover-panel,
 .nav-menu-panel,
-.nav-dropdown-panel,
 .save-profile-panel {
   position: absolute;
-  top: 100%;
+  top: calc(100% + 6px);
   right: 0;
-  min-width: 180px;
-  background: var(--panel2);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
-  padding: 6px 0;
   z-index: 110;
+  min-width: 200px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 6px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.45);
 }
 
 .popover-item,
-.nav-menu-item,
-.nav-dropdown-item {
+.nav-menu-item {
   display: block;
   width: 100%;
-  padding: 8px 14px;
+  padding: 8px 10px;
+  border-radius: 7px;
   font-size: 13px;
-  color: var(--muted);
+  font-weight: 600;
+  color: var(--text);
   text-align: left;
   text-decoration: none;
+  white-space: nowrap;
 }
 
 .popover-item:hover,
-.nav-menu-item:hover,
-.nav-dropdown-item:hover {
-  color: var(--text);
-  background: var(--panel);
+.nav-menu-item:hover {
+  background: var(--panel2);
   text-decoration: none;
 }
 
 .popover-item.on,
-.nav-menu-item.on,
-.nav-dropdown-item.on {
+.nav-menu-item.on {
   color: var(--accent);
+  background: var(--panel2);
 }
 
 /* Underline tabs (nikke-sim .tabs-bar): transparent 2px bottom border swaps
-   to accent + semibold when .on; scrolls horizontally when it overflows. */
+   to accent + semibold when .on. Long labels stay on one line and the bar
+   scrolls sideways rather than shrink-wrapping into tall uneven boxes on
+   mobile; the scrollbar itself is hidden (the overflow is discoverable by
+   swipe/drag and a visible bar would sit on the hairline divider). */
 .tabs-bar {
   display: flex;
-  gap: 2px;
+  gap: 4px;
+  margin: 14px 0 4px;
   border-bottom: 1px solid var(--border);
   overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: none;
+}
+
+.tabs-bar::-webkit-scrollbar {
+  display: none;
 }
 
 .tabs-bar button {
-  padding: 8px 12px;
-  font-size: 13px;
+  flex: 0 0 auto;
+  padding: 8px 14px;
+  margin-bottom: -1px;
+  font-size: 14px;
   color: var(--muted);
   border-bottom: 2px solid transparent;
   white-space: nowrap;
@@ -395,28 +540,142 @@ textarea:focus {
   font-weight: 600;
 }
 
-/* Modal (nikke-sim recipe): dimmed fixed backdrop, centered 520px panel. */
+/* Focused-tab + expandable menu (TabDropdown.tsx) — the mobile stand-in for
+   a tab row or the nav link row. The current item is a full-width button
+   with a caret; tapping it drops the full list. */
+.tabs-dd-wrap {
+  margin: 14px 0 8px;
+}
+
+.tab-dd {
+  position: relative;
+  width: 100%;
+}
+
+.tab-dd-current {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 8px 12px;
+  background: var(--panel2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--text);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.tab-dd.open .tab-dd-current {
+  border-color: var(--accent);
+}
+
+/* The caret is flex-fixed, so a long label ellipsizes instead of pushing it
+   off the button on a narrow phone. */
+.tab-dd-label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.tab-dd-caret {
+  color: var(--muted);
+  transition: transform 0.15s ease;
+}
+
+.tab-dd.open .tab-dd-caret {
+  transform: rotate(180deg);
+}
+
+.tab-dd-panel {
+  position: absolute;
+  z-index: 120;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: var(--panel2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+}
+
+.tab-dd-item {
+  display: block;
+  width: 100%;
+  padding: 9px 12px;
+  font-size: 14px;
+  color: var(--text);
+  text-align: left;
+  text-decoration: none;
+  background: none;
+  border: 0;
+}
+
+.tab-dd-item:hover {
+  background: var(--panel);
+  text-decoration: none;
+}
+
+.tab-dd-item.on {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+/* Modal (nikke-sim recipe): dimmed fixed backdrop, TOP-aligned panel with the
+   backdrop itself scrolling — a tall modal on a short viewport stays reachable
+   instead of overflowing equally off both edges. */
 .modal-backdrop {
   position: fixed;
   inset: 0;
   z-index: 200;
   background: rgba(0, 0, 0, 0.6);
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
-  padding: 16px;
+  padding: 60px 16px;
+  overflow-y: auto;
 }
 
 .modal-panel {
   width: 100%;
   max-width: 520px;
-  max-height: 80vh;
-  overflow-y: auto;
   background: var(--panel);
   border: 1px solid var(--border);
   border-radius: 12px;
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
-  padding: 16px;
+  padding: 18px 20px;
+}
+
+/* Browse-the-roster style modal: room for the doll grid + its filter panel. */
+.modal-wide {
+  max-width: 1080px;
+}
+
+.modal-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.modal-head h2 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.modal-x {
+  background: none;
+  border: 0;
+  color: var(--muted);
+  font-size: 22px;
+  line-height: 1;
+}
+
+.modal-x:hover {
+  color: var(--text);
 }
 
 /* ---- Tables ---- */
@@ -487,8 +746,10 @@ td {
   flex-shrink: 0;
 }
 
-/* "?" placeholder for missing art — same footprint as .portrait. */
-.portrait-empty {
+/* "?" placeholder for missing art — same footprint as .portrait.
+   `.portrait.empty` is nikke-sim's spelling of the same thing. */
+.portrait-empty,
+.portrait.empty {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -499,7 +760,27 @@ td {
   background: var(--panel2);
 }
 
+/* A clickable portrait (grid card, squad slot) gets the pointer; a
+   drag-to-reorder one doubles as its own handle. */
+.portrait.clickable {
+  cursor: pointer;
+}
+
+.portrait.draggable {
+  cursor: grab;
+  touch-action: pan-y; /* vertical swipe scrolls; sideways drag reorders */
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+.portrait.draggable:active {
+  cursor: grabbing;
+}
+
 /* ---- Site Chrome ---- */
+/* Top nav (nikke-sim recipe). The inner row WRAPS and is min-height'd rather
+   than fixed-height: at the mobile breakpoint the right-side cluster takes
+   its own row (see the 640px block) and a fixed height would clip it. */
 .site-nav {
   position: sticky;
   top: 0;
@@ -511,81 +792,311 @@ td {
 .site-nav-inner {
   max-width: 1180px;
   margin: 0 auto;
-  padding: 0 20px;
+  padding: 8px 20px;
   display: flex;
+  gap: 10px 12px;
   align-items: center;
   justify-content: space-between;
-  height: 48px;
+  flex-wrap: wrap;
+  min-height: 46px;
 }
 
-.site-nav-left,
+.site-nav-left {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
 .site-nav-right {
   display: flex;
+  gap: 8px;
   align-items: center;
-  gap: 16px;
+  flex-wrap: wrap;
 }
 
-.site-nav a {
+/* Page links read as pill TABS, not inline text: muted until hovered, and the
+   current page carries a panel2 fill with an inset accent ring.
+   DIRECT children only — the mobile TabDropdown's items are also anchors
+   inside .site-nav-left, and a descendant selector here outranks
+   `.tab-dd-item.on`, repainting the dropdown's current row muted grey and
+   overriding its padding. */
+.site-nav-left > a {
   color: var(--muted);
-  font-size: 13px;
-  font-weight: 500;
   text-decoration: none;
-  transition: color 0.15s;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 6px 12px;
+  border-radius: 8px;
 }
 
-.site-nav a:hover {
+.site-nav-left > a:hover {
   color: var(--text);
+  background: var(--panel2);
   text-decoration: none;
 }
 
-.site-nav a.on {
-  color: var(--accent);
+.site-nav-left > a.on {
+  color: var(--text);
+  background: var(--panel2);
+  box-shadow: 0 0 0 1px var(--accent) inset;
 }
 
+/* Brand / home link — the mark plus the wordmark, always at full contrast. */
 .site-nav-brand {
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: 7px;
+  margin-right: 2px;
+}
+
+.site-nav-left > a.site-nav-brand {
+  color: var(--text);
   font-weight: 700;
 }
 
-/* Mobile nav dropdown (≤640px): quiet button + shared popover panel. */
-.nav-dropdown {
-  position: relative;
+.site-nav-logo {
+  width: 22px;
+  height: 22px;
+  border-radius: 6px;
+  object-fit: contain;
+  flex: 0 0 auto;
 }
 
-.nav-dropdown-btn {
-  padding: 6px 12px;
-  font-size: 13px;
-  border-radius: 8px;
+/* Discord login button — icon + label (icon-only under 640px). */
+.nav-login {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.nav-login .discord-icon,
+.nav-login .discord-icon svg {
+  display: block;
+  width: 16px;
+  height: 16px;
+}
+
+/* Logged-in account chip beside the hamburger. */
+.nav-user {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+.nav-user-avatar {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  object-fit: cover;
   border: 1px solid var(--border);
-  background: var(--panel2);
-  color: var(--text);
+  flex: 0 0 auto;
 }
 
-/* hamburger / dropdown menu */
+.nav-user-name {
+  color: var(--muted);
+  font-size: 12px;
+  max-width: 130px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Log out is a QUIET .nav-btn — it borrows the shape but drops the accent
+   ring, and warms to --warn on hover, so it can't be mistaken for the
+   affirmative action next to it. */
+.nav-logout {
+  border-color: var(--border);
+  background: var(--panel2);
+  color: var(--muted);
+}
+
+.nav-logout:hover:not(:disabled) {
+  background: var(--panel2);
+  color: var(--warn);
+  border-color: var(--warn);
+}
+
+/* Hamburger menu (right-side overflow) — a .nav-btn sized for one glyph. */
 .nav-menu {
   position: relative;
+  display: inline-flex;
 }
 
 .nav-menu-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 36px;
-  height: 36px;
-  font-size: 20px;
-  color: var(--muted);
-  background: none;
-  border: none;
+  font-size: 16px;
+  line-height: 1;
+  padding: 6px 12px;
 }
 
+/* ---- Shared social footer ---- */
 .site-footer {
-  text-align: center;
-  padding: 20px;
-  font-size: 12px;
-  color: var(--muted);
   border-top: 1px solid var(--border);
+  margin-top: 40px;
+  background: var(--panel);
+}
+
+.social-row {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 22px 20px 8px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+}
+
+/* Rounded brand tile; `.round` makes it a circle for a bot avatar. */
+.social-tile {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  text-decoration: none;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  transition:
+    transform 0.12s ease,
+    box-shadow 0.12s ease;
+}
+
+.social-tile.round {
+  border-radius: 50%;
+}
+
+.social-tile:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+  text-decoration: none;
+}
+
+.social-tile svg {
+  width: 22px;
+  height: 22px;
+  display: block;
+}
+
+.social-tile img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.site-footer-by {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 6px 20px 24px;
+  text-align: center;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.site-footer-by a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.site-footer-by a:hover {
+  text-decoration: underline;
+}
+
+/* ---- Dev page ("made by Max") ---- */
+.dev-hero {
+  margin: 8px 0 22px;
+}
+
+.dev-hero h1 {
+  font-size: 28px;
+  margin: 0 0 10px;
+}
+
+.dev-hero p {
+  color: var(--muted);
+  font-size: 15px;
+  max-width: 680px;
+  line-height: 1.6;
+}
+
+.dev-callout {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 18px 20px;
+  margin-bottom: 26px;
+}
+
+.dev-callout-avatar {
+  flex: 0 0 auto;
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--border);
+  background: var(--panel2);
+}
+
+/* A logo, not a bot avatar: rounded square, contained with a little air, and
+   sitting on the page bg its artwork was drawn against. */
+.dev-callout-avatar.square {
+  border-radius: 14px;
+  object-fit: contain;
+  padding: 10px;
+  background: var(--bg);
+}
+
+.dev-callout-body h2 {
+  margin: 2px 0 8px;
+  font-size: 18px;
+}
+
+.dev-callout-body p {
+  margin: 0 0 12px;
+  color: var(--muted);
+  line-height: 1.6;
+  max-width: 620px;
+}
+
+.dev-callout-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.dev-link {
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 600;
+  background: var(--accent);
+  color: var(--accent-ink);
+  border-radius: 8px;
+  padding: 7px 15px;
+}
+
+.dev-link:hover {
+  filter: brightness(1.08);
+  text-decoration: none;
+}
+
+.dev-link.ghost {
+  background: var(--panel2);
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+
+.dev-link.ghost:hover {
+  border-color: var(--accent);
+  filter: none;
+}
+
+.dev-foot-note {
+  margin-top: 24px;
+  font-size: 13px;
 }
 
 /* ---- Doll Grid / Filter System ---- */
@@ -593,11 +1104,24 @@ td {
   margin-bottom: 12px;
 }
 
+/* The disclosure row: "Filters" on the left, the live result count set apart
+   from it. Both live inside the <summary>, so the count needs an explicit
+   inline gap — its own vertical margin does nothing inline and the two
+   strings otherwise run together as "FiltersShowing 64 of 64". */
 .dollfilter-panel summary {
   cursor: pointer;
   font-size: 13px;
+  font-weight: 600;
   color: var(--muted);
   padding: 6px 0;
+}
+
+.dollfilter-panel summary:hover {
+  color: var(--text);
+}
+
+.dollfilter-panel[open] summary {
+  color: var(--text);
 }
 
 .dollfilter-body {
@@ -635,8 +1159,9 @@ td {
 
 .dollfilter-count {
   font-size: 12px;
+  font-weight: 400;
   color: var(--muted);
-  margin: 8px 0;
+  margin-left: 12px;
 }
 
 /* .dollfilter-clear shares the .chip recipe (see Buttons). */
@@ -1075,6 +1600,14 @@ td {
   font-size: 24px;
 }
 
+/* "?" glyph in an empty slot — the dashed .teambuilder-slot-empty frame
+   already centers and mutes it; this just pins the size to .portrait-empty's. */
+.teambuilder-slot-placeholder {
+  font-size: 24px;
+  line-height: 1;
+  color: var(--muted);
+}
+
 .teambuilder-slot-filled {
   background: var(--panel);
   border: 1px solid var(--border);
@@ -1289,11 +1822,15 @@ td {
 }
 
 /* ---- Home Page ---- */
+/* The hero is horizontally centered but sits near the TOP: `.home-page` is
+   also the growing `.app` under the sticky-footer layout, so centering it
+   vertically too would drop the title into the middle of a tall viewport
+   behind a screen of empty background. */
 .home-page {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   text-align: center;
   padding: 60px 20px;
 }
@@ -1446,7 +1983,26 @@ td {
   }
 
   .site-nav-inner {
-    padding: 0 8px;
+    padding: 8px;
+  }
+
+  /* The auth control + hamburger snap to their own top row, right-aligned
+     (the hamburger stays pinned top-right); the brand + page dropdown drop
+     below it on a full-width row of their own. */
+  .site-nav-right {
+    order: -1;
+    flex: 1 1 100%;
+    justify-content: flex-end;
+    flex-wrap: nowrap;
+  }
+
+  .site-nav-left {
+    flex: 1 1 100%;
+  }
+
+  /* The TabDropdown takes the rest of the row beside the brand. */
+  .site-nav-left .tab-dd {
+    flex: 1 1 auto;
   }
 
   .dollgrid {
@@ -1460,6 +2016,27 @@ td {
 
   .home-hero p {
     font-size: 13px;
+  }
+
+  /* Bot callouts stack: avatar centered over the copy. */
+  .dev-callout {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 16px;
+  }
+
+  .dev-callout-links {
+    justify-content: center;
+  }
+
+  .dev-hero h1 {
+    font-size: 24px;
+  }
+
+  .social-row {
+    gap: 10px;
+    padding: 18px 12px 8px;
   }
 }
 
@@ -1920,7 +2497,9 @@ td {
   font-size: 13px;
   font-weight: 600;
   cursor: pointer;
-  transition: border-color 0.15s, box-shadow 0.15s;
+  transition:
+    border-color 0.15s,
+    box-shadow 0.15s;
 }
 
 .dollbuilder-ref-btn:hover {
@@ -2133,8 +2712,8 @@ td {
   width: 1200px;
   height: 630px;
   background: #101216;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
-    sans-serif;
+  font-family:
+    -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   color: #e7eaf0;
   overflow: hidden;
   /* Scale down for display — the element stays 1200×630 for PNG capture. */
@@ -2155,13 +2734,35 @@ td {
   background: #5b9dff;
 }
 
-.build-card-brand {
+/* Brand mark — wordmark + 40px site icon, hung off the card's top-right
+   corner. Geometry mirrors core/theme.ts drawBrandMark (MARK_ICON 40,
+   MARK_FONT 15, MARK_GAP 8) so the HTML preview matches the PNG the server
+   renders for the same build. */
+.build-card-mark,
+.team-card-mark {
   position: absolute;
-  top: 30px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.build-card-mark {
+  top: 20px;
   right: 40px;
-  font-size: 14px;
-  font-weight: 600;
-  color: #8b93a3;
+}
+
+.card-mark-icon {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+}
+
+.build-card-brand,
+.team-card-brand {
+  font-size: 15px;
+  font-weight: 700;
+  color: #5b9dff;
+  white-space: nowrap;
 }
 
 .build-card-portrait-frame {
@@ -2301,8 +2902,8 @@ td {
   position: relative;
   width: 1040px;
   background: #101216;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
-    sans-serif;
+  font-family:
+    -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   color: #e7eaf0;
   overflow: hidden;
   transform: scale(0.55);
@@ -2330,13 +2931,11 @@ td {
   margin: 0;
 }
 
-.team-card-brand {
-  position: absolute;
-  top: 36px;
+/* Header padding is 40px, so top:-10px puts the icon at the card's y=30 —
+   the same `top` core/teamCard.ts passes drawBrandMark. */
+.team-card-mark {
+  top: -10px;
   right: 40px;
-  font-size: 14px;
-  font-weight: 600;
-  color: #8b93a3;
 }
 
 .team-card-divider {
