@@ -4,12 +4,12 @@
  * can see what their share image will look like before downloading.
  *
  * Logical size is 1200×630 (the OG card standard); the component renders at
- * that size inside a scrollable/scaled container. Download uses html-to-image
- * at 2× pixel ratio for retina output, matching the server's DPR=2.
+ * that size inside a scrollable/scaled container. Download/copy of the PNG
+ * lives in CardImageActions, shared with the squad and rec previews.
  */
-import { useCallback, useRef, useState } from 'react';
-import { toPng } from 'html-to-image';
+import { useRef } from 'react';
 import { assetUrl, PHASE_COLORS } from '../data';
+import { CardImageActions } from './CardImageActions';
 
 export interface BuildCardPreviewData {
   dollName: string | null;
@@ -40,28 +40,6 @@ const SITE_ACCENT = '#5b9dff';
 
 export function BuildCardPreview({ data }: { data: BuildCardPreviewData }) {
   const cardRef = useRef<HTMLDivElement>(null);
-  const [downloading, setDownloading] = useState(false);
-
-  const handleDownload = useCallback(async () => {
-    if (!cardRef.current || downloading) {
-      return;
-    }
-    setDownloading(true);
-    try {
-      const dataUrl = await toPng(cardRef.current, {
-        pixelRatio: 2,
-        cacheBust: true,
-        backgroundColor: '#101216',
-      });
-      const link = document.createElement('a');
-      link.download = `${data.dollName ?? 'build'}-card.png`;
-      link.href = dataUrl;
-      link.click();
-    } catch {
-      // Download failed silently — the preview is still visible.
-    }
-    setDownloading(false);
-  }, [downloading, data.dollName]);
 
   const subtitle = [data.dollClass, data.dollPhase, data.dollRarity]
     .filter((p): p is string => typeof p === 'string' && p.length > 0)
@@ -238,14 +216,11 @@ export function BuildCardPreview({ data }: { data: BuildCardPreviewData }) {
         </div>
       </div>
 
-      <button
-        type="button"
-        className="btn-outline card-preview-download"
-        onClick={handleDownload}
-        disabled={downloading}
-      >
-        {downloading ? 'Rendering…' : 'Download card image'}
-      </button>
+      <CardImageActions
+        cardRef={cardRef}
+        filename={`${data.dollName ?? 'build'}-card.png`}
+        downloadLabel="Download card image"
+      />
     </div>
   );
 }

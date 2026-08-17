@@ -4,12 +4,12 @@
  *
  * PORTRAIT, logical width 760; height computed from the SAME discrete-data
  * formula as recCardHeight (list lengths, section presence, the notes line
- * budget) — the constants below are a copy and must stay in sync. Download
- * uses html-to-image at 2× pixel ratio, matching the server's DPR=2.
+ * budget) — the constants below are a copy and must stay in sync. Download/copy
+ * of the PNG lives in CardImageActions, shared with the other previews.
  */
-import { useCallback, useRef, useState } from 'react';
-import { toPng } from 'html-to-image';
+import { useRef } from 'react';
 import { assetUrl, PHASE_COLORS } from '../data';
+import { CardImageActions } from './CardImageActions';
 
 /** Cards are stamped with the DOMAIN — mirrors CARD_WORDMARK in core/theme.ts. */
 const CARD_WORDMARK = 'refittingroom.app';
@@ -141,28 +141,6 @@ function SectionLabel({ children }: { children: string }) {
 
 export function RecCardPreview({ data }: { data: RecCardPreviewData }) {
   const cardRef = useRef<HTMLDivElement>(null);
-  const [downloading, setDownloading] = useState(false);
-
-  const handleDownload = useCallback(async () => {
-    if (!cardRef.current || downloading) {
-      return;
-    }
-    setDownloading(true);
-    try {
-      const dataUrl = await toPng(cardRef.current, {
-        pixelRatio: 2,
-        cacheBust: true,
-        backgroundColor: '#101216',
-      });
-      const link = document.createElement('a');
-      link.download = `${data.dollName ?? 'recommendation'}-rec-card.png`;
-      link.href = dataUrl;
-      link.click();
-    } catch {
-      // Download failed silently — the preview is still visible.
-    }
-    setDownloading(false);
-  }, [downloading, data.dollName]);
 
   const accent = PHASE_COLORS[data.dollPhase ?? ''] ?? SITE_ACCENT;
   const subtitle = [data.dollClass, data.dollPhase, data.dollRarity]
@@ -341,14 +319,11 @@ export function RecCardPreview({ data }: { data: RecCardPreviewData }) {
         </div>
       </div>
 
-      <button
-        type="button"
-        className="btn-outline card-preview-download"
-        onClick={handleDownload}
-        disabled={downloading}
-      >
-        {downloading ? 'Rendering…' : 'Download card image'}
-      </button>
+      <CardImageActions
+        cardRef={cardRef}
+        filename={`${data.dollName ?? 'recommendation'}-rec-card.png`}
+        downloadLabel="Download card image"
+      />
     </div>
   );
 }

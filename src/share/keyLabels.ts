@@ -40,3 +40,32 @@ export function commonKeySource(
   }
   return key.keyTitle ?? key.displayTitle ?? 'Common Key';
 }
+
+/**
+ * How a common key reads in a picker: "<Doll Name> - <Key Name>". Dandegate's
+ * own display title is "Common Key - <Key Name>", which wastes the prefix on
+ * something every entry in the list already is; the source doll is what
+ * players actually search by. Generics have no source doll, so they keep the
+ * upstream title.
+ */
+export function commonKeyLabel(
+  key: KeyLike,
+  dollName: string | null | undefined
+): string {
+  const name = key.keyTitle ?? key.displayTitle ?? 'Common Key';
+  if (dollName) {
+    return `${dollName} - ${name}`;
+  }
+  return key.displayTitle ?? name;
+}
+
+/**
+ * How a fixed key reads in a picker: "<slot> - <Key Name>". The slot is the
+ * unlock order, so leading with it lets a list of six read as a sequence.
+ * Falls back to the bare name when the title carries no slot number.
+ */
+export function fixedKeyLabel(key: KeyLike): string {
+  const name = key.keyTitle ?? key.displayTitle ?? 'Key';
+  const slot = fixedKeySlot(key);
+  return slot != null ? `${slot} - ${name}` : name;
+}
