@@ -614,10 +614,41 @@ export function TeamBuilderPage() {
         </Modal>
       )}
 
-      {/* Team card preview */}
+      {/* Workspace: picking on the left, live effect feedback on the right.
+          The aside comes first in the DOM so the single-column (mobile)
+          stack keeps the old squad → effects → filters → grid order. */}
+      <div className="teambuilder-workspace">
+        <aside className="teambuilder-side">
+          {filledCount > 0 ? (
+            <TeamEffectsPanel squad={squad.map((s) => s?.doll ?? null)} />
+          ) : (
+            <div className="teambuilder-side-empty">
+              Add dolls to the squad to see the effects they put on the field —
+              and who on the team reacts to them.
+            </div>
+          )}
+        </aside>
+
+        <div className="teambuilder-pick">
+          {/* Filters above grid (defaultOpen=true — filtering IS the task) */}
+          <DollFilters filterResult={filterResult} defaultOpen={true} />
+
+          {/* Doll grid in badge mode */}
+          <DollCards
+            dolls={filterResult.dolls}
+            mode="badge"
+            onSelect={placeInSlot}
+          />
+        </div>
+      </div>
+
+      {/* Team card preview — an output artifact, not part of the build loop,
+          so it lives at the bottom behind a disclosure. */}
       {filledCount > 0 && (
-        <section className="unit-section unit-panel">
-          <h2>Share Card Preview</h2>
+        <details className="unit-section unit-panel teambuilder-preview">
+          <summary className="teambuilder-preview-summary">
+            Share Card Preview
+          </summary>
           <TeamCardPreview
             slots={squad
               .filter((s): s is SquadSlot => s != null)
@@ -629,21 +660,8 @@ export function TeamBuilderPage() {
                 portraitUrl: s.doll.avatarUrl,
               }))}
           />
-        </section>
+        </details>
       )}
-
-      {/* Effect matrix for the current squad */}
-      <TeamEffectsPanel squad={squad.map((s) => s?.doll ?? null)} />
-
-      {/* Filters above grid (defaultOpen=true — filtering IS the task) */}
-      <DollFilters filterResult={filterResult} defaultOpen={true} />
-
-      {/* Doll grid in badge mode */}
-      <DollCards
-        dolls={filterResult.dolls}
-        mode="badge"
-        onSelect={placeInSlot}
-      />
     </div>
   );
 }

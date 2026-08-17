@@ -1727,6 +1727,88 @@ td {
 
 /* .teambuilder-clear shares the .chip recipe (see Buttons). */
 
+/* ---- Team Builder workspace: picking left, effects right ---- */
+/* Wider than the site default so the doll grid keeps ~5 columns with the
+   side panel open; max-width still collapses gracefully on smaller screens. */
+.teambuilder-page {
+  max-width: 1400px;
+}
+
+.teambuilder-workspace {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 400px;
+  gap: 20px;
+  align-items: start;
+}
+
+/* The aside is first in the DOM (mobile stacking order) but renders on the
+   right; both land in row 1 explicitly. Sticky + own scrollbar so the effect
+   list follows the grid as you pick dolls. */
+.teambuilder-side {
+  grid-column: 2;
+  grid-row: 1;
+  position: sticky;
+  top: 76px;
+  max-height: calc(100vh - 92px);
+  overflow-y: auto;
+}
+
+.teambuilder-pick {
+  grid-column: 1;
+  grid-row: 1;
+  min-width: 0;
+}
+
+.teambuilder-side .teambuilder-effects {
+  margin: 0;
+}
+
+/* Inside the scroll container an upward tooltip on the top card would clip
+   at the container edge — flip the name tooltips downward here. */
+.teambuilder-side .teameffect-name[data-tooltip]::after {
+  bottom: auto;
+  top: calc(100% + 6px);
+}
+
+.teambuilder-side-empty {
+  border: 2px dashed var(--border);
+  border-radius: 10px;
+  padding: 16px;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+/* Share-card preview disclosure, parked at the bottom of the page. */
+.teambuilder-preview-summary {
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.teambuilder-preview[open] .teambuilder-preview-summary {
+  margin-bottom: 10px;
+}
+
+@media (max-width: 1100px) {
+  .teambuilder-workspace {
+    display: block;
+  }
+
+  .teambuilder-side {
+    position: static;
+    max-height: none;
+    overflow: visible;
+    margin-bottom: 16px;
+  }
+
+  /* Un-flip the tooltips — there's no scroll container to clip them. */
+  .teambuilder-side .teameffect-name[data-tooltip]::after {
+    bottom: calc(100% + 6px);
+    top: auto;
+  }
+}
+
 /* ---- Team Effects Panel ---- */
 .teambuilder-effects {
   margin: 8px 0 20px;
@@ -1750,40 +1832,154 @@ td {
   margin-left: auto;
 }
 
+/* "Weak references" toggle — reveals `mentions` rows inside cards. */
+.teambuilder-effects-mentions {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12px;
+  color: var(--muted);
+  cursor: pointer;
+  user-select: none;
+}
+
 .teambuilder-effects-list {
   display: flex;
   flex-direction: column;
   gap: 6px;
 }
 
+/* Tier sections: Team synergies / Own-kit / Also on the field. The first two
+   are <details>, sharing the native marker triangle with the Filters panel —
+   the summary must stay display:list-item (no flex) or the arrow vanishes,
+   so the count/hint spans space themselves with inline margins. */
+.teameffect-tier {
+  margin-bottom: 16px;
+}
+
+.teameffect-tier-title {
+  margin: 0 0 8px;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+summary.teameffect-tier-title {
+  cursor: pointer;
+  user-select: none;
+  padding: 2px 0;
+}
+
+summary.teameffect-tier-title:hover {
+  color: var(--accent);
+}
+
+.teameffect-tier-count {
+  font-size: 11px;
+  font-weight: 400;
+  padding: 1px 7px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  color: var(--muted);
+  margin-left: 8px;
+}
+
+.teameffect-tier-hint {
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--muted);
+  margin-left: 8px;
+}
+
+.teameffect-tier-empty {
+  font-size: 13px;
+  margin: 0;
+}
+
+/* "Also on the field" — inert provided effects as one row of chips. */
+.teameffect-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.teameffect-chip {
+  font-size: 12px;
+  padding: 3px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--panel);
+  color: var(--text);
+  cursor: help;
+}
+
+.teameffect-chip-debuff {
+  color: #d92d38;
+  border-color: color-mix(in srgb, #d92d38 50%, var(--border));
+}
+
+.teameffect-chip-buff {
+  color: #00e554;
+  border-color: color-mix(in srgb, #00e554 50%, var(--border));
+}
+
+/* No overflow:hidden here — the effect-name tooltip extends above the card's
+   top edge and must not get clipped; the head rounds its own corners. */
 .teameffect-card {
   border: 1px solid var(--border);
   border-radius: 10px;
   background: var(--panel);
-  overflow: hidden;
 }
 
 .teameffect-head {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
   width: 100%;
   padding: 8px 12px;
   background: none;
   border: none;
+  border-radius: 9px;
   color: var(--text);
   font-size: 14px;
   cursor: pointer;
   text-align: left;
+}
+
+/* Left side of the head: effect name stacked over its tag pills. */
+.teameffect-headmain {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  flex: 1;
+  min-width: 0;
+}
+
+.teameffect-headtags {
+  display: flex;
   flex-wrap: wrap;
+  gap: 4px;
 }
 
 .teameffect-head:hover {
   background: var(--panel2);
 }
 
+/* Dashed underline = effect-text tooltip, same cue as .effect-ref. */
 .teameffect-name {
   font-weight: 600;
+}
+
+.teameffect-name[data-tooltip] {
+  border-bottom: 1px dashed var(--border);
+  cursor: help;
+}
+
+/* Card names hug the card's left edge — a centered tooltip would clip at the
+   viewport, so align it to the name instead. */
+.teameffect-name[data-tooltip]::after {
+  left: 0;
+  transform: none;
 }
 
 .teameffect-tag {
@@ -1799,16 +1995,40 @@ td {
   border-color: #d92d38;
 }
 
+/* Green twin of the debuff tag — same green as the applies/gains chips. */
+.teameffect-tag-buff {
+  color: #00e554;
+  border-color: #00e554;
+}
+
 /* Derived buff/debuff tags (data/effect-tags.json), shown next to the
    upstream tag chips — dashed border marks them as derived. */
 .teameffect-tag-derived {
   border-style: dashed;
 }
 
-.teameffect-count {
+/* "+N" overflow chip — the folded tags live in its tooltip. */
+.teameffect-tag-more {
+  cursor: help;
+}
+
+/* Portrait row in a card head: everyone whose kit reacts to the effect.
+   Sized to the two-line (name + tags) head height. */
+.teameffect-interactors {
   margin-left: auto;
-  font-size: 12px;
-  color: var(--muted);
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  flex: none;
+}
+
+.teameffect-interactor {
+  display: inline-flex;
+}
+
+.teameffect-interactors .teameffect-avatar {
+  width: 40px;
+  height: 40px;
 }
 
 .teameffect-body {
@@ -1841,8 +2061,30 @@ td {
 }
 
 .teameffect-member {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
   font-weight: 600;
-  min-width: 90px;
+  min-width: 110px;
+}
+
+.teameffect-avatar {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  object-fit: cover;
+  background: var(--panel2);
+  flex: none;
+}
+
+.teameffect-avatar-empty {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  font-weight: 400;
+  color: var(--muted);
+  border: 1px solid var(--border);
 }
 
 .teameffect-relation {
@@ -1881,8 +2123,24 @@ td {
   border-color: #bc1eb1;
 }
 
+/* Merged surface labels: "Passive · Skill 3 · Vertebrae Lv2", each span
+   keeping its own snippet tooltip. Dashed underline = tooltip, as ever. */
+.teameffect-labels {
+  display: inline;
+}
+
 .teameffect-label {
   color: var(--text);
+}
+
+.teameffect-label-sep {
+  color: var(--muted);
+}
+
+.teameffect-label[data-tooltip],
+.teameffect-via[data-tooltip] {
+  border-bottom: 1px dashed var(--border);
+  cursor: help;
 }
 
 .teameffect-via {
@@ -2413,6 +2671,9 @@ td {
   left: 50%;
   transform: translateX(-50%);
   z-index: 200;
+  /* max-content, or a narrow anchor (an effect name) caps shrink-to-fit at
+     its own width and the tooltip renders as a skinny tall column. */
+  width: max-content;
   max-width: 340px;
   min-width: 120px;
   padding: 6px 10px;

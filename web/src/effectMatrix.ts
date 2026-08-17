@@ -194,6 +194,8 @@ export interface TeamEffectSource {
   label: string;
   /** set when the effect is conferred through another provided effect */
   viaEffectName: string | null;
+  /** id twin of viaEffectName, for tooltip lookups */
+  viaEffectId: string | null;
   snippet: string;
 }
 
@@ -202,6 +204,8 @@ export interface TeamEffectAffected {
   relation: MatrixRelation;
   /** null = the member's own kit references it directly; else the carrier effect */
   viaEffectName: string | null;
+  /** id twin of viaEffectName, for tooltip lookups */
+  viaEffectId: string | null;
   label: string;
   snippet: string;
 }
@@ -271,6 +275,7 @@ interface Provision {
   relation: 'applies' | 'gains';
   label: string;
   viaEffectName: string | null;
+  viaEffectId: string | null;
   snippet: string;
 }
 
@@ -313,6 +318,7 @@ export function computeTeamEffects(
         relation: edge.relation as 'applies' | 'gains',
         label: edgeLabel(edge),
         viaEffectName: null,
+        viaEffectId: null,
         snippet: edge.snippet,
       });
     }
@@ -325,6 +331,7 @@ export function computeTeamEffects(
         relation: 'gains',
         label: 'Exclusive effect',
         viaEffectName: null,
+        viaEffectId: null,
         snippet: '',
       });
     }
@@ -332,17 +339,22 @@ export function computeTeamEffects(
 
   // 2. Chain expansion — provided effect X confers further effects
   const visited = new Set<string>();
-  const queue: { effectId: string; viaEffectName: string | null }[] = [];
+  const queue: {
+    effectId: string;
+    viaEffectName: string | null;
+    viaEffectId: string | null;
+  }[] = [];
   for (const effectId of provisions.keys()) {
     if (!visited.has(effectId)) {
       visited.add(effectId);
-      queue.push({ effectId, viaEffectName: null });
+      queue.push({ effectId, viaEffectName: null, viaEffectId: null });
     }
   }
   while (queue.length > 0) {
-    const { effectId, viaEffectName } = queue.shift()!;
+    const { effectId, viaEffectName, viaEffectId } = queue.shift()!;
     const carrierName =
       viaEffectName ?? matrixByEffectId.get(effectId)?.effectName ?? null;
+    const carrierId = viaEffectId ?? effectId;
     for (const { target, edge } of grantedByEffect.get(effectId) ?? []) {
       if (visited.has(target.effectId)) {
         continue;
@@ -354,10 +366,15 @@ export function computeTeamEffects(
           relation: edge.relation as 'applies' | 'gains',
           label: edgeLabel(edge),
           viaEffectName: carrierName,
+          viaEffectId: carrierId,
           snippet: edge.snippet,
         });
       }
-      queue.push({ effectId: target.effectId, viaEffectName: carrierName });
+      queue.push({
+        effectId: target.effectId,
+        viaEffectName: carrierName,
+        viaEffectId: carrierId,
+      });
     }
   }
 
@@ -390,6 +407,7 @@ export function computeTeamEffects(
           member: p.member,
           relation: 'gains',
           viaEffectName: p.viaEffectName,
+          viaEffectId: p.viaEffectId,
           label: p.label,
           snippet: p.snippet,
         });
@@ -418,6 +436,7 @@ export function computeTeamEffects(
               member: carrier,
               relation: edge.relation,
               viaEffectName: carrierName,
+              viaEffectId: carrierId,
               label: edgeLabel(edge),
               snippet: edge.snippet,
             });
@@ -433,6 +452,7 @@ export function computeTeamEffects(
           member,
           relation: edge.relation,
           viaEffectName: null,
+          viaEffectId: null,
           label: edgeLabel(edge),
           snippet: edge.snippet,
         });
