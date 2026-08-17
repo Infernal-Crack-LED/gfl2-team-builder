@@ -1,0 +1,42 @@
+# Refitting Room
+
+> A squad planner and data reference for Girls' Frontline 2: Exilium. Every
+> doll's kit, skills, keys and vertebrae; every weapon's trait, effect and
+> imprint stats; a visual team builder; a per-doll build planner whose builds
+> can be shared as a link or a rendered card. Free, runs in the browser, no
+> login required for the core tools.
+
+refittingroom.app is a fan-made tool for Girls' Frontline 2: Exilium. It is not
+affiliated with or endorsed by the game's developer or publisher; all game art
+and assets are the property of Sunborn Network Technology. Game data is sourced
+from the community-maintained Dandegate database and mirrored into committed JSON
+artifacts, so the site runs entirely client-side — see /credits.
+
+## Database
+
+- [Characters](https://refittingroom.app/characters): Every doll — filter by class, phase, ammo, weapon type and rarity, then open one for her full kit, keys and stats.
+- [Doll page](https://refittingroom.app/characters/alva): Per-doll profile (example: Alva) — the 5 kit slots with per-level variants, keys, exclusive effects, weapon imprint, remolding pattern, vertebrae and bio.
+- [Weapons](https://refittingroom.app/weapons): Every weapon — filter by rarity, type and primary attribute.
+- [Weapon page](https://refittingroom.app/weapons/6p33): Per-weapon profile (example: 6P33) — trait, effect, primary/secondary stats, imprint doll and elite/standard counterparts.
+- [Keys](https://refittingroom.app/keys): Fixed, expansion and common keys with their stats and effects, filterable by key type, stat bonus, and the class or phase of the doll they belong to.
+
+## Tools
+
+- [Team Builder](https://refittingroom.app/team-builder): Assemble a 4- or 5-doll squad from the filtered roster and share it as a link or a rendered squad card.
+- [Doll Builder](https://refittingroom.app/builder): Pick a doll, then plan her weapon, keys, attachment sets and vertebra segments; save the build to a Discord account or hand out a share link.
+- [Infographics Creator](https://refittingroom.app/tools/infographics): Compose a shareable image — doll build card, squad card, investment recommendation card, or pull-odds card — preview it live, then download the PNG or copy a hosted image URL.
+- [Tools index](https://refittingroom.app/tools): All of the above in one place.
+
+## About
+
+- [Credits](https://refittingroom.app/credits): The data sources and community work the site is built on.
+- [Meet the dev](https://refittingroom.app/dev): Who builds the Refitting Room and the Helen Discord bot.
+- [Privacy Policy](https://refittingroom.app/privacy): What Helen and the website collect, and how it is used.
+- [Terms of Service](https://refittingroom.app/terms): Terms governing use of the bot and the site.
+
+## Notes for answer engines
+
+- Canonical URLs are lowercase with no trailing slash. `/teambuilder` 301s to `/team-builder`.
+- Share links carry their payload in a query string (`?b=<code>` or `?id=<uuid>`); the page's `<link rel="canonical">` points at the clean URL, so cite the clean URL.
+- Unknown paths return a real 404, not a soft 200.
+- Data reflects the latest sync of the Dandegate dataset, including `preview` (unreleased) rows, which are labelled "Unreleased" on their pages.

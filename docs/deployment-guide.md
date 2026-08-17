@@ -16,7 +16,8 @@ registrars that can't be scripted from here.
 | Deploy workflow (`.github/workflows/deploy.yml`)                                                    | ✅ Push-ready                              |
 | `RAILWAY_TOKEN` GitHub Actions secret                                                               | ✅ Set                                     |
 | DB migrations (`drizzle.__drizzle_migrations` journal)                                              | ✅ Seeded + verified                       |
-| SEO (robots.txt, sitemap.xml, canonical, OG tags, JSON-LD)                                          | ✅ In `web/`                               |
+| SEO (robots.txt, generated sitemap.xml, llms.txt, canonical, OG tags, JSON-LD)                      | ✅ In `web/`                               |
+| Per-URL embed injection (server-side meta, breadcrumbs, no-JS bodies, hard 404s, 301s, ETags)       | ✅ Code-side — see step 7 for the checks   |
 | Legal pages (`/privacy`, `/terms`)                                                                  | ✅ Live in router                          |
 | Umami injection (`src/server/app.ts`)                                                               | ✅ Code-side; env vars not yet set         |
 
@@ -105,11 +106,23 @@ The workflow runs `typecheck → test → deploy`. Web deploys first; bot
 deploys second (and will fail pre-deploy until step 2 is complete — that's
 expected).
 
-### 7. Google Search Console
+### 7. Search Console, Bing, and the embed checks
 
-1. Add `refittingroom.app` at <https://search.google.com/search-console>.
-2. Verify ownership (DNS TXT record is easiest).
-3. Submit `https://refittingroom.app/sitemap.xml`.
+Full checklist — with the pre-flight commands that prove the deploy actually
+shipped the per-URL embed injection before you submit anything — lives in
+**[seo-operations.md](seo-operations.md)**. Short version:
+
+1. Add `refittingroom.app` at <https://search.google.com/search-console> as a
+   **Domain** property; verify with a DNS TXT record.
+2. Submit `https://refittingroom.app/sitemap.xml` (one time only — it is
+   regenerated on every build and re-read by Google on its own schedule).
+3. URL-Inspect `/characters/alva` → _Test live URL_ → **View tested page →
+   HTML** and confirm the doll's name and skill text are in the raw HTML. That
+   one check proves the server injection is live.
+4. Import the property into <https://www.bing.com/webmasters> (also feeds
+   DuckDuckGo and ChatGPT search).
+5. Paste a doll URL, a weapon URL and a share link into Discord and confirm each
+   unfurls with its own title and image.
 
 ### 8. Discord App Directory (Helen)
 

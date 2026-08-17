@@ -44,7 +44,7 @@ import {
   onSpaLinkClick,
 } from './router';
 import { escapeJsonLd } from './jsonLd';
-import { setDetailMeta } from './useDocumentHead';
+import { dollPageMeta, setDetailMeta } from './useDocumentHead';
 
 /**
  * The iopwiki icon for an identity pill, when the row has one. Rarity has no
@@ -260,10 +260,8 @@ export function DollPage({ slug }: { slug: string | null }) {
   // Set document head for this doll
   useEffect(() => {
     if (doll) {
-      setDetailMeta(
-        `${doll.name} — GFL2 Doll Kit & Stats`,
-        `${doll.name}: ${doll.class ?? 'Unknown class'} ${doll.phase ?? ''} doll in Girls' Frontline 2: Exilium. View skills, keys, and stats.`
-      );
+      const meta = dollPageMeta(doll);
+      setDetailMeta(meta.title, meta.description);
 
       // JSON-LD
       const existing = document.getElementById('jsonld-page');

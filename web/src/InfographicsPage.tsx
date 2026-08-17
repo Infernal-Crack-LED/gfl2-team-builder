@@ -93,6 +93,7 @@ import {
 import { DollCards, DollFilters, useDollFilter } from './components/DollGrid';
 import { hrefFor, hrefForBuilder, onSpaLinkClick } from './router';
 import { setDetailMeta } from './useDocumentHead';
+import { ROUTE_META } from '../../src/share/pageMeta';
 
 const MAX_FIXED_KEYS = 3;
 const MAX_COMMON_KEYS = 3;
@@ -1593,8 +1594,8 @@ export function InfographicsPage() {
 
   useEffect(() => {
     setDetailMeta(
-      'GFL2 Infographics Creator — Build, Squad, Recommendation & Pull Cards',
-      "Make shareable Girls' Frontline 2: Exilium infographics: compose a doll build card, a squad card, an investment recommendation card or a pull-odds card, preview it live, then download the PNG or copy a hosted image link."
+      ROUTE_META.infographics.title,
+      ROUTE_META.infographics.description
     );
   }, []);
 
