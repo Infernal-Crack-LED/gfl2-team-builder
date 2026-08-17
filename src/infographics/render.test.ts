@@ -105,11 +105,94 @@ describe.skipIf(!FONTS_PRESENT)('card renderers (fonts present)', () => {
     const canvas = createCanvas(TEAM_CARD_W, cardHeight(2));
     const ctx = canvas.getContext('2d');
     drawTeamCard(ctx as never, [
-      { dollName: 'Alva', weaponName: '6P33', portrait: null },
-      { dollName: 'Makiatto', weaponName: null, portrait: null },
+      {
+        dollName: 'Alva',
+        weaponName: '6P33',
+        refinement: 4,
+        vert: [3],
+        fixedKeys: [1, 2, 3],
+        expansionKey: "Senior's Instructions",
+        commonKeys: ['Suomi', 'Generic Atk/Crit'],
+        statPrefs: ['Crit Rate', 'Crit DMG', 'ATK%'],
+        portrait: null,
+      },
+      {
+        dollName: 'Makiatto',
+        weaponName: null,
+        refinement: null,
+        vert: [],
+        fixedKeys: [],
+        expansionKey: null,
+        commonKeys: [],
+        statPrefs: [],
+        portrait: null,
+      },
     ]);
     const ctx2d = ctx as never as Parameters<typeof inkInRegion>[0];
-    // "Squad" title at x=60, baseline y=88.
-    expect(inkInRegion(ctx2d, 60, 50, 300, 45)).toBeGreaterThan(100);
+    // "Squad" title at x=36, baseline y=74.
+    expect(inkInRegion(ctx2d, 36, 40, 300, 42)).toBeGreaterThan(100);
+    // The card is PORTRAIT: a full squad must be taller than it is wide.
+    expect(cardHeight(5)).toBeGreaterThan(TEAM_CARD_W);
+  });
+
+  it('team card row draws every build field inline with the portrait', async () => {
+    const { createCanvas, drawTeamCard, TEAM_CARD_W, cardHeight } =
+      await import('./node/render.js');
+    const canvas = createCanvas(TEAM_CARD_W, cardHeight(1));
+    const ctx = canvas.getContext('2d');
+    drawTeamCard(ctx as never, [
+      {
+        dollName: 'Alva',
+        weaponName: '6P33',
+        refinement: 4,
+        vert: [3],
+        fixedKeys: [1, 2, 3],
+        expansionKey: "Senior's Instructions",
+        commonKeys: ['Suomi'],
+        statPrefs: ['Crit Rate', 'Crit DMG'],
+        portrait: null,
+      },
+    ]);
+    const ctx2d = ctx as never as Parameters<typeof inkInRegion>[0];
+    // Row 0 starts at y=128; the info column starts at x=198. Each band below
+    // is one of the inline lines, so a dropped field shows up as dead pixels.
+    const rowY = 128;
+    // Name (bright text) + the accent V pill on the same line.
+    expect(inkInRegion(ctx2d, 198, rowY + 24, 520, 32)).toBeGreaterThan(100);
+    // Weapon + R pill.
+    expect(inkInRegion(ctx2d, 198, rowY + 58, 520, 30)).toBeGreaterThan(100);
+    // Fixed-key chips (accent fill on the unlocked ones).
+    expect(inkInRegion(ctx2d, 198, rowY + 98, 520, 24, 80)).toBeGreaterThan(
+      100
+    );
+    // EXP line, then the CK / STATS line.
+    expect(inkInRegion(ctx2d, 198, rowY + 132, 520, 18, 80)).toBeGreaterThan(
+      50
+    );
+    expect(inkInRegion(ctx2d, 198, rowY + 158, 520, 18, 80)).toBeGreaterThan(
+      50
+    );
+  });
+
+  it('team card degrades on an all-empty build without throwing', async () => {
+    const { createCanvas, drawTeamCard, TEAM_CARD_W, cardHeight } =
+      await import('./node/render.js');
+    const canvas = createCanvas(TEAM_CARD_W, cardHeight(1));
+    const ctx = canvas.getContext('2d');
+    expect(() =>
+      drawTeamCard(ctx as never, [
+        {
+          dollName: 'Alva',
+          weaponName: null,
+          refinement: null,
+          vert: [],
+          fixedKeys: [],
+          expansionKey: null,
+          commonKeys: [],
+          statPrefs: [],
+          portrait: null,
+        },
+      ])
+    ).not.toThrow();
   });
 });

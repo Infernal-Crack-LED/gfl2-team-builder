@@ -235,6 +235,12 @@ for (const w of allWeapons) {
   weaponBySlug.set(w.slug, w);
 }
 
+/** id → Key */
+const keyById = new Map<string, Key>();
+for (const k of allKeys) {
+  keyById.set(k.id, k);
+}
+
 /** id → Effect */
 const effectById = new Map<string, Effect>();
 for (const e of allEffects) {
@@ -255,6 +261,10 @@ export function getWeaponBySlug(slug: string): Weapon | undefined {
 
 export function getWeaponById(id: string): Weapon | undefined {
   return weaponById.get(id);
+}
+
+export function getKeyById(id: string): Key | undefined {
+  return keyById.get(id);
 }
 
 export function getEffectById(id: string): Effect | undefined {

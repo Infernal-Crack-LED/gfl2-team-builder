@@ -11,7 +11,7 @@
  */
 import { createHash } from 'node:crypto';
 
-export const RENDERER_VERSION = 1;
+export const RENDERER_VERSION = 2;
 
 export type RenderKind = 'build' | 'team';
 

@@ -3312,10 +3312,14 @@ summary.teameffect-tier-title:hover {
   opacity: 0.8;
 }
 
-/* ---- Team Card Preview (1040×dynamic logical) ---- */
+/* ---- Squad Card Preview (760×dynamic logical, PORTRAIT) ---- */
+/* Geometry mirrors core/teamCard.ts: HEADER_H 128, ROW_H 190, FOOTER_H 38,
+   PAD 36, ROW_INSET 14, PORTRAIT 128, TEXT_X 198, TEXT_W 512. Row content is
+   absolutely positioned at the same offsets the canvas draws it, so the
+   preview and the rendered PNG are the same picture. */
 .team-card {
   position: relative;
-  width: 1040px;
+  width: 760px;
   background: #101216;
   font-family:
     -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -3325,8 +3329,12 @@ summary.teameffect-tier-title:hover {
   transform-origin: top left;
 }
 
+/* The card is `transform: scale`d, which does NOT shrink its layout box, so
+   the shell needs an explicit height. It varies with slot count now, so
+   TeamCardPreview sets it inline; this is the floor for a one-doll squad. */
 .card-preview-scale:has(.team-card) {
-  height: 310px;
+  height: 196px;
+  overflow: hidden;
 }
 
 .team-card-stripe {
@@ -3334,63 +3342,82 @@ summary.teameffect-tier-title:hover {
   background: #5b9dff;
 }
 
+/* 6px stripe + 122px header = HEADER_H 128. */
 .team-card-header {
-  padding: 40px 60px 20px;
   position: relative;
+  height: 122px;
 }
 
-.team-card-title {
-  font-size: 44px;
+/* Scoped through .team-card so `.unit-panel h2` (the panel the preview is
+   embedded in) can't win the cascade and shrink the card's own title. */
+.team-card .team-card-title {
+  position: absolute;
+  left: 36px;
+  top: 34px;
+  font-size: 40px;
+  line-height: 1;
   font-weight: 700;
   color: #e7eaf0;
   margin: 0;
 }
 
-/* core/teamCard.ts draws the mark at the CARD's y=30. `top` here resolves
-   against .team-card-header's padding box — its top border edge, which the
-   6px .team-card-stripe pushes to card y=6 — so 24px lands the icon at y=30.
-   (Padding does not offset an absolutely positioned child: the old -10px,
-   reasoned from the header's 40px padding, hung the icon above the card and
-   .team-card's overflow:hidden clipped it.) */
+/* core/teamCard.ts draws the mark at the CARD's y=26. `top` here resolves
+   against .team-card-header's border box, which the 6px .team-card-stripe
+   pushes to card y=6 — so 20px lands the icon at y=26. */
 .team-card-mark {
-  top: 24px;
-  right: 40px;
+  top: 20px;
+  right: 36px;
 }
 
+/* Canvas divider at card y = HEADER_H - 22 = 106 → header-relative 100. */
 .team-card-divider {
+  position: absolute;
+  left: 36px;
+  right: 36px;
+  top: 100px;
   height: 2px;
   background: #2a2f3b;
-  margin-top: 20px;
 }
 
-.team-card-body {
-  padding: 0 40px;
-}
-
+/* EMPTY_BODY_H 96, minus the body's own 5px padding above and below. */
 .team-card-empty {
-  padding: 24px 20px;
+  padding: 24px 36px;
+  height: 86px;
   font-size: 20px;
   color: #8b93a3;
+  margin: 0;
+  box-sizing: border-box;
 }
 
-.team-card-row {
+/* Flex column with an explicit gap, NOT row margins: adjacent margins would
+   collapse and every row after the first would land 10px above the canvas. */
+.team-card-body {
   display: flex;
-  align-items: center;
-  gap: 24px;
-  padding: 10px 20px;
-  min-height: 84px;
+  flex-direction: column;
+  gap: 10px;
+  padding: 5px 0;
 }
 
-.team-card-row.alt {
+/* The row panel itself: canvas draws it inset 5px vertically inside ROW_H
+   190, from PAD to W-PAD, with a 2px border. */
+.team-card-row {
+  position: relative;
+  flex: none;
+  height: 180px;
+  margin: 0 36px;
+  border: 2px solid #2a2f3b;
+  border-radius: 12px;
   background: #181b22;
-  border-radius: 4px;
 }
 
+/* Offsets below are panel-content-relative: card x − PAD(36) − border(2). */
 .team-card-portrait-frame {
-  width: 64px;
-  height: 64px;
-  flex-shrink: 0;
-  border-radius: 8px;
+  position: absolute;
+  left: 12px;
+  top: 26px;
+  width: 128px;
+  height: 128px;
+  border-radius: 12px;
   border: 2px solid #2a2f3b;
   background: #1f232d;
   overflow: hidden;
@@ -3410,16 +3437,38 @@ summary.teameffect-tier-title:hover {
   justify-content: center;
   width: 100%;
   height: 100%;
-  font-size: 28px;
+  font-size: 56px;
   font-weight: 700;
   color: #8b93a3;
 }
 
+/* Everything inline with the portrait. */
 .team-card-info {
+  position: absolute;
+  left: 160px;
+  top: 0;
+  width: 512px;
+  height: 100%;
+}
+
+.team-card-line {
+  position: absolute;
+  left: 0;
+  right: 0;
   display: flex;
-  flex-direction: column;
-  gap: 4px;
-  min-width: 0;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+}
+
+.team-card-line-name {
+  top: 19px;
+  height: 30px;
+}
+
+.team-card-line-weapon {
+  top: 55px;
+  height: 28px;
 }
 
 .team-card-name {
@@ -3433,17 +3482,127 @@ summary.teameffect-tier-title:hover {
 
 .team-card-weapon {
   font-size: 18px;
-  font-weight: 400;
-  color: #8b93a3;
+  font-weight: 500;
+  color: #e7eaf0;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
+.team-card-weapon.is-empty {
+  color: #8b93a3;
+}
+
+/* Right-hung V / R pills — an unset one still draws, muted, so the row's
+   right edge keeps its rhythm whatever the build knows. */
+.team-card-pill {
+  flex: none;
+  width: 64px;
+  height: 30px;
+  border-radius: 15px;
+  background: #1f232d;
+  color: #8b93a3;
+  font-size: 16px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.team-card-pill-sm {
+  height: 28px;
+  border-radius: 14px;
+  font-size: 15px;
+}
+
+.team-card-pill.is-on {
+  background: #5b9dff;
+  color: #101216;
+}
+
+/* Fixed-key slots 1…6; unlocked ones filled. */
+.team-card-keys {
+  position: absolute;
+  left: 0;
+  top: 93px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.team-card-keychip {
+  width: 38px;
+  height: 24px;
+  border-radius: 6px;
+  background: #1f232d;
+  color: #8b93a3;
+  font-size: 14px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.team-card-keychip.is-on {
+  background: #5b9dff;
+  color: #101216;
+}
+
+.team-card-field-label {
+  flex: none;
+  font-size: 11px;
+  font-weight: 700;
+  color: #8b93a3;
+  letter-spacing: 0.02em;
+  margin-right: 3px;
+}
+
+.team-card-meta-row {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 18px;
+  display: flex;
+  align-items: baseline;
+}
+
+.team-card-meta-exp {
+  top: 126px;
+}
+
+/* CK and STATS split the column in half, as the canvas does. */
+.team-card-meta-split {
+  top: 152px;
+}
+
+.team-card-meta {
+  display: flex;
+  align-items: baseline;
+  gap: 7px;
+  min-width: 0;
+  flex: 1;
+}
+
+.team-card-meta-value {
+  font-size: 14px;
+  font-weight: 400;
+  color: #e7eaf0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.team-card-meta-value.is-empty {
+  color: #8b93a3;
+}
+
+/* 11 + 13 + 14 = FOOTER_H 38. */
 .team-card-footer {
   display: block;
-  padding: 8px 60px 12px;
+  padding: 11px 36px 14px;
   font-size: 13px;
+  line-height: 13px;
   color: #8b93a3;
   opacity: 0.8;
 }
