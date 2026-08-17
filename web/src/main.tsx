@@ -8,11 +8,15 @@ import { SiteNav, SiteFooter } from './SiteChrome';
 import { useRouteAndSlug } from './router';
 import { useDocumentHead } from './useDocumentHead';
 import { captureTokenFromUrl } from './auth';
+import { installTooltipClamping } from './tooltip';
 import './styles.css';
 
 // Pick up the OAuth token fragment BEFORE first render so the nav and any
 // save controls see the session immediately.
 captureTokenFromUrl();
+
+// Keeps hovered [data-tooltip] bubbles inside the viewport / their panel.
+installTooltipClamping();
 
 // Route-level code splitting: every page loads as its own chunk.
 const HomePage = lazy(() =>

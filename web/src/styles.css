@@ -1814,6 +1814,12 @@ td {
   top: 76px;
   max-height: calc(100vh - 92px);
   overflow-y: auto;
+  /* Vertical scrolling alone would make overflow-x compute to auto, and the
+     idle (opacity:0) tooltip pseudo-elements — up to 340px wide, centered on
+     narrow anchors — spill past the panel, adding a horizontal scrollbar over
+     empty space. clip kills the scrollbar and the phantom width; the tooltips
+     were already clipped at this edge either way. */
+  overflow-x: clip;
 }
 
 .teambuilder-pick {
@@ -1861,7 +1867,11 @@ td {
   .teambuilder-side {
     position: static;
     max-height: none;
-    overflow: visible;
+    /* Stacked, the panel is page-width, so a tooltip spilling sideways widens
+       the whole document — clip x. y stays visible: nothing overflows
+       vertically here, and the tooltips flip back upward below. */
+    overflow-x: clip;
+    overflow-y: visible;
     margin-bottom: 16px;
   }
 
@@ -2039,10 +2049,11 @@ summary.teameffect-tier-title:hover {
 }
 
 /* Card names hug the card's left edge — a centered tooltip would clip at the
-   viewport, so align it to the name instead. */
+   viewport, so align it to the name instead. Keeps --tt-shift so tooltip.ts can
+   still pull it in when the card sits near an edge. */
 .teameffect-name[data-tooltip]::after {
   left: 0;
-  transform: none;
+  transform: translateX(var(--tt-shift, 0px));
 }
 
 .teameffect-tag {
@@ -2732,12 +2743,15 @@ summary.teameffect-tier-title:hover {
   position: absolute;
   bottom: calc(100% + 6px);
   left: 50%;
-  transform: translateX(-50%);
+  /* --tt-shift / --tt-max come from tooltip.ts, which nudges a tooltip back
+     inside the viewport (or a clipping panel) when centering would push it
+     past an edge. Unset they no-op, so tooltips still work without the JS. */
+  transform: translateX(calc(-50% + var(--tt-shift, 0px)));
   z-index: 200;
   /* max-content, or a narrow anchor (an effect name) caps shrink-to-fit at
      its own width and the tooltip renders as a skinny tall column. */
   width: max-content;
-  max-width: 340px;
+  max-width: var(--tt-max, 340px);
   min-width: 120px;
   padding: 6px 10px;
   font-size: 12px;
