@@ -32,6 +32,12 @@ import {
   pullCardHeight,
   type PullCardData,
 } from '../core/pullCard.js';
+import {
+  WEAPON_CARD_H,
+  WEAPON_CARD_W,
+  drawWeaponCard,
+  type WeaponCardData,
+} from '../core/weaponCard.js';
 import { FONT } from '../core/theme.js';
 import { loadSiteIcon } from './icon.js';
 
@@ -42,6 +48,7 @@ export * from '../core/buildCard.js';
 export * from '../core/teamCard.js';
 export * from '../core/recCard.js';
 export * from '../core/pullCard.js';
+export * from '../core/weaponCard.js';
 export { loadSiteIcon };
 
 const DPR = 2;
@@ -118,5 +125,15 @@ export async function renderPullCardPng(data: PullCardData): Promise<Buffer> {
   const siteIcon = await loadSiteIcon();
   const { canvas, ctx } = makeCard(PULL_CARD_W, pullCardHeight(data));
   drawPullCard(ctx, { ...data, siteIcon });
+  return canvas.encode('png');
+}
+
+export async function renderWeaponCardPng(
+  data: WeaponCardData
+): Promise<Buffer> {
+  assertFontsLive();
+  const siteIcon = await loadSiteIcon();
+  const { canvas, ctx } = makeCard(WEAPON_CARD_W, WEAPON_CARD_H);
+  drawWeaponCard(ctx, { ...data, siteIcon });
   return canvas.encode('png');
 }

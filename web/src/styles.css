@@ -3595,6 +3595,15 @@ summary.teameffect-tier-title:hover {
   margin-left: auto;
 }
 
+/* Weapon art: 2:1 banner drawn inline before the name. */
+.team-card-weapon-art {
+  width: 48px;
+  height: 24px;
+  object-fit: contain;
+  flex: 0 0 auto;
+  margin-right: 10px;
+}
+
 .team-card-name {
   font-size: 26px;
   font-weight: 700;
@@ -4806,6 +4815,226 @@ summary.teameffect-tier-title:hover {
   .modal-actions {
     flex-wrap: wrap;
   }
+}
+
+/* ---- Weapon Card Preview (1200×630 logical) ---- */
+.weapon-card {
+  position: relative;
+  width: 1200px;
+  height: 630px;
+  background: #101216;
+  font-family:
+    -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  color: #e7eaf0;
+  overflow: hidden;
+  transform: scale(0.55);
+  transform-origin: top left;
+}
+
+.card-preview-scale:has(.weapon-card) {
+  height: 347px;
+}
+
+.weapon-card-stripe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 6px;
+  background: #5b9dff;
+}
+
+.weapon-card-header {
+  position: absolute;
+  top: 40px;
+  left: 40px;
+  right: 40px;
+  height: 50px;
+}
+
+.weapon-card .weapon-card-title {
+  position: absolute;
+  top: 0;
+  left: 0;
+  font-size: 40px;
+  font-weight: 700;
+  line-height: 1;
+  margin: 0;
+  color: #e7eaf0;
+}
+
+.weapon-card-mark {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.weapon-card-brand {
+  font-size: 15px;
+  font-weight: 700;
+  color: #5b9dff;
+  white-space: nowrap;
+}
+
+.weapon-card-divider {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: #2a2f3b;
+}
+
+.weapon-card-art {
+  position: absolute;
+  left: 40px;
+  top: 110px;
+  width: 520px;
+  height: 260px;
+  background: #181b22;
+  border: 2px solid #2a2f3b;
+  border-radius: 12px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.weapon-card-art-img {
+  max-width: calc(100% - 24px);
+  max-height: calc(100% - 24px);
+  object-fit: contain;
+  display: block;
+}
+
+.weapon-card-art-empty {
+  font-size: 120px;
+  font-weight: 700;
+  color: #8b93a3;
+}
+
+.weapon-card-info {
+  position: absolute;
+  left: 600px;
+  top: 110px;
+  width: 560px;
+}
+
+.weapon-card .weapon-card-name {
+  font-size: 48px;
+  font-weight: 700;
+  line-height: 1.1;
+  margin: 0 0 12px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: #e7eaf0;
+}
+
+.weapon-card-badges {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 24px;
+}
+
+.weapon-card-badge {
+  display: inline-flex;
+  align-items: center;
+  height: 34px;
+  padding: 0 14px;
+  border-radius: 8px;
+  background: #5b9dff;
+  color: #101216;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.weapon-card-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.weapon-card-stat {
+  margin: 0;
+  font-size: 18px;
+  line-height: 1.3;
+}
+
+.weapon-card-stat-title {
+  color: #5b9dff;
+  font-weight: 700;
+  margin-right: 10px;
+}
+
+.weapon-card-stat-value {
+  color: #e7eaf0;
+}
+
+.weapon-card-text {
+  position: absolute;
+  left: 40px;
+  top: 400px;
+  width: 1120px;
+}
+
+.weapon-card-section {
+  margin-bottom: 14px;
+}
+
+.weapon-card-label {
+  display: block;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: #8b93a3;
+  margin-bottom: 4px;
+}
+
+.weapon-card-body {
+  margin: 0;
+  font-size: 17px;
+  line-height: 1.35;
+  color: #e7eaf0;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.weapon-card-body.muted-value {
+  color: #8b93a3;
+}
+
+.weapon-card-counters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.weapon-card-counter {
+  display: inline-flex;
+  align-items: center;
+  height: 30px;
+  padding: 0 12px;
+  border-radius: 6px;
+  background: #181b22;
+  color: #8b93a3;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.weapon-card-region {
+  position: absolute;
+  right: 40px;
+  bottom: 20px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #8b93a3;
 }
 
 /* ---- Accessibility: Reduced Motion ---- */

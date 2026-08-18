@@ -1,8 +1,8 @@
 /**
  * Tools index (/tools) — the landing page for the infographics creator, whose
  * card types each get their own tile and their own crawlable URL
- * (`?card=build` / `?card=team` / `?card=rec` / `?card=pull`, read by
- * InfographicsPage on mount).
+ * (`?card=weapon` / `?card=build` / `?card=team` / `?card=rec` / `?card=pull`,
+ * read by InfographicsPage on mount).
  *
  * The builders and the key catalogue used to be repeated here; they live in
  * the top nav, so this page is the one place that owns the card maker rather
@@ -34,6 +34,12 @@ const TOOLS: Tool[] = [
     title: 'Recommendation Card Creator',
     blurb:
       'Publish investment advice for one doll: the V/R breakpoint order, an optimal stopping point, ranked weapons and attachment sets, key priorities and your own notes.',
+  },
+  {
+    href: `${hrefFor('infographics')}?card=weapon`,
+    title: 'Weapon Card Creator',
+    blurb:
+      'Pick a weapon and preview its shareable infographic — stats, trait, effect and imprint — then download the PNG or copy the hosted image link that embeds in Discord.',
   },
   {
     href: `${hrefFor('infographics')}?card=pull`,

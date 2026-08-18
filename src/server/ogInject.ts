@@ -24,11 +24,13 @@ import {
   decodeTeamBuild,
 } from '../share/buildCode.js';
 import { SITE_NAME } from '../infographics/core/theme.js';
-import { getDoll } from './gameData.js';
+import { weaponPageMeta } from '../share/pageMeta.js';
+import { getDoll, getWeaponBySlug } from './gameData.js';
 import { removeMetaTag, setMetaTag } from './htmlHead.js';
 import { PUBLIC_KINDS, PUBLIC_PROFILE_ID_RE } from './publicShare.js';
 
 const BUILDER_PATH_RE = /^\/builder\/([a-z0-9-]+)$/;
+const WEAPON_PATH_RE = /^\/weapons\/([a-z0-9-]+)$/;
 const MAX_CODE_LEN = 4096; // same cap as the image API
 
 interface ShareMeta {
@@ -41,6 +43,22 @@ interface ShareMeta {
  * well-formed share link (→ caller serves the default head).
  */
 export async function shareMetaForUrl(url: URL): Promise<ShareMeta | null> {
+  const weaponMatch = WEAPON_PATH_RE.exec(url.pathname);
+  if (weaponMatch) {
+    const slug = weaponMatch[1];
+    if (!slug) {
+      return null;
+    }
+    const weapon = getWeaponBySlug(slug);
+    if (!weapon) {
+      return null;
+    }
+    return {
+      title: weaponPageMeta(weapon).title,
+      imagePath: `/api/v1/img/weapon.png?slug=${encodeURIComponent(slug)}`,
+    };
+  }
+
   const b = url.searchParams.get('b');
   const id = url.searchParams.get('id');
   if ((b === null && id === null) || (b !== null && id !== null)) {

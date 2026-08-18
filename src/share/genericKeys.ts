@@ -61,4 +61,7 @@ export const GENERIC_COMMON_KEYS: GenericCommonKey[] = [
     { name: 'Attack Boost', value: '3%' },
     { name: 'Health Boost', value: '3%' },
   ]),
+  // Unspecified generic placeholder — used when a community sheet lists
+  // "Global" or "Affinity" without naming a specific key.
+  genericCommonKey('00000000-0000-4000-8000-000000000004', 'Generic Key', []),
 ];

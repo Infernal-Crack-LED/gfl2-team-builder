@@ -58,6 +58,10 @@ export interface WeaponEntry {
   trait: string | null;
   effect: string | null;
   imprintDollId: string | null;
+  imprintDescription: string | null;
+  eliteCounterpart: { name: string } | null;
+  standardCounterpart: { name: string } | null;
+  retiredCounterpart: { name: string } | null;
   regionTag: string | null;
   preview: boolean | null;
 }

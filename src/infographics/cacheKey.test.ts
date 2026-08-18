@@ -83,7 +83,7 @@ describe('renderCacheKey', () => {
   });
 
   it('accepts every render kind in the cache-filename guard', () => {
-    for (const kind of ['build', 'team', 'rec'] as const) {
+    for (const kind of ['build', 'team', 'rec', 'weapon'] as const) {
       expect(CACHE_FILENAME_RE.test(renderCacheFilename(kind, BUILD))).toBe(
         true
       );

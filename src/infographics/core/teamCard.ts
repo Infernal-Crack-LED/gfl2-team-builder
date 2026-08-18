@@ -18,7 +18,13 @@
  * heights (see slotHeight). Everything else degrades to a muted "—" in place
  * rather than reflowing. Rasterized at dpr 2 by node/render.ts.
  */
-import { fitText, roundRect, type Canvas2DLike } from './canvas2d.js';
+import {
+  drawContained,
+  fitText,
+  imageSize,
+  roundRect,
+  type Canvas2DLike,
+} from './canvas2d.js';
 import {
   COLORS,
   FONT,
@@ -66,6 +72,8 @@ const TEXT_W = TEAM_CARD_W - PAD - ROW_INSET - TEXT_X;
 export interface TeamCardSlot {
   dollName: string;
   weaponName: string | null;
+  /** Weapon art, drawn inline with the name (opaque to the core), or null. */
+  weaponImage?: unknown | null;
   /** Element, tinting this doll's row along its left edge. */
   dollPhase?: string | null;
   /** Weapon refinement level 1–6, or null. */
@@ -284,16 +292,30 @@ function drawSlotRow(ctx: Canvas2DLike, slot: TeamCardSlot, y: number): void {
   ctx.textBaseline = 'alphabetic';
   fitText(ctx, slot.dollName, TEXT_X, y + 48, lineW, '700', 26, FONT);
 
+  // Weapon art is drawn inline before the name; the set still shares the line.
+  const artW = 48;
+  const artH = 24;
+  const { w: aw, h: ah } = imageSize(slot.weaponImage);
+  const hasArt = Boolean(slot.weaponImage) && aw > 0 && ah > 0;
+  if (hasArt) {
+    drawContained(ctx, slot.weaponImage, aw, ah, TEXT_X, y + 57, artW, artH);
+  }
+
   // The set shares the weapon's line, so the weapon's budget is halved up
   // front rather than letting a long gun name leave the set nowhere to go.
   const weaponText = slot.weaponName ?? MUTED_PLACEHOLDER;
-  const weaponBudget = slot.attachmentSet ? Math.round(lineW * 0.5) : lineW;
+  const imageBudget = hasArt ? artW + 10 : 0;
+  const contentW = lineW - imageBudget;
+  const weaponBudget = slot.attachmentSet
+    ? Math.round(contentW * 0.5)
+    : contentW;
+  const nameX = TEXT_X + imageBudget;
   ctx.fillStyle = slot.weaponName ? COLORS.text : COLORS.muted;
-  fitText(ctx, weaponText, TEXT_X, y + 81, weaponBudget, '500', 18, FONT);
+  fitText(ctx, weaponText, nameX, y + 81, weaponBudget, '500', 18, FONT);
   if (slot.attachmentSet) {
     // fitText leaves ctx.font at the size it settled on, so this measures the
     // width actually drawn.
-    const sx = TEXT_X + ctx.measureText(weaponText).width + 12;
+    const sx = nameX + ctx.measureText(weaponText).width + 12;
     ctx.fillStyle = COLORS.muted;
     fitText(
       ctx,

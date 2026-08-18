@@ -63,6 +63,8 @@ function cardHeight(slots: TeamCardSlotData[]): number {
 export interface TeamCardSlotData {
   dollName: string;
   weaponName: string | null;
+  /** Weapon art URL, drawn inline with the name. */
+  weaponImageUrl: string | null;
   /** Element — tints the left edge of this doll's row. */
   dollPhase: string | null;
   refinement: number | null;
@@ -90,11 +92,11 @@ export function teamCardSlot(
     .map((id) => getKeyById(id))
     .filter((k): k is NonNullable<typeof k> => k !== undefined);
   const expKey = build?.exp ? getKeyById(build.exp) : undefined;
+  const weapon = build?.weapon ? getWeaponById(build.weapon) : undefined;
   return {
     dollName: doll.name,
-    weaponName: build?.weapon
-      ? (getWeaponById(build.weapon)?.name ?? null)
-      : null,
+    weaponName: weapon?.name ?? null,
+    weaponImageUrl: weapon?.imageUrl ?? null,
     dollPhase: doll.phase,
     refinement: build?.cal ?? null,
     attachmentSet: build?.set ?? null,
@@ -182,6 +184,14 @@ function SlotRow({ slot }: { slot: TeamCardSlotData }) {
         </div>
 
         <div className="team-card-line team-card-line-weapon">
+          {slot.weaponImageUrl && (
+            <img
+              className="team-card-weapon-art"
+              src={assetUrl(slot.weaponImageUrl)}
+              alt=""
+              crossOrigin="anonymous"
+            />
+          )}
           <span
             className={
               'team-card-weapon' + (slot.weaponName ? '' : ' is-empty')

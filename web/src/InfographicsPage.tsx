@@ -5,10 +5,10 @@
  * components the builders use, then either download the PNG or mint a hosted,
  * Discord-embeddable image URL.
  *
- * Four cards exist today because four renderers do (src/infographics/core):
- * the build card (one doll), the squad card (up to five), the recommendation
- * card (one doll's investment advice) and the pull card (what a pull budget
- * is worth). The first three encode to the shared build codecs, so a card
+ * Five cards exist today because five renderers do (src/infographics/core):
+ * the weapon card, the build card (one doll), the squad card (up to five), the
+ * recommendation card (one doll's investment advice) and the pull card (what a
+ * pull budget is worth). The first three encode to the shared build codecs, so a card
  * made here is the same artifact the builders and the bot produce — the
  * hosted URL is just /api/v1/img/<kind>.png over that code. The pull card is
  * the exception: its state is four scalars rather than a build, so it is
@@ -42,6 +42,7 @@ import {
   STAT_PREF_OPTIONS,
   type Doll,
   type Key,
+  type Weapon,
 } from './data';
 import {
   BUILD_VERSION,
@@ -83,6 +84,7 @@ import { BuildCardPreview } from './components/BuildCardPreview';
 import { ShortLinkExpiryHint } from './components/ShortLinkExpiryHint';
 import { RecCardPreview } from './components/RecCardPreview';
 import { PullCardPreview } from './components/PullCardPreview';
+import { WeaponCardPreview } from './components/WeaponCardPreview';
 import { GameIcon } from './components/GameIcon';
 import { TeamCardPreview, teamCardSlot } from './components/TeamCardPreview';
 import {
@@ -91,6 +93,11 @@ import {
   type SquadSlot,
 } from './components/SquadStrip';
 import { DollCards, DollFilters, useDollFilter } from './components/DollGrid';
+import {
+  WeaponCards,
+  WeaponFilters,
+  useWeaponFilter,
+} from './components/WeaponGrid';
 import { hrefFor, hrefForBuilder, onSpaLinkClick } from './router';
 import { setDetailMeta } from './useDocumentHead';
 import { ROUTE_META } from '../../src/share/pageMeta';
@@ -99,9 +106,15 @@ const MAX_FIXED_KEYS = 3;
 const MAX_COMMON_KEYS = 3;
 const MAX_STAT_PREFS = 4;
 
-type CardType = 'build' | 'team' | 'rec' | 'pull';
+type CardType = 'weapon' | 'build' | 'team' | 'rec' | 'pull';
 
 const CARD_TYPES: { key: CardType; label: string; blurb: string }[] = [
+  {
+    key: 'weapon',
+    label: 'Weapon Card',
+    blurb:
+      'A shareable infographic for one weapon: stats, trait, effect and imprint.',
+  },
   {
     key: 'build',
     label: 'Build Card',
@@ -341,6 +354,128 @@ function LoadSavedControl({
         ))}
       </select>
     </label>
+  );
+}
+
+// --- Weapon card -----------------------------------------------------------
+
+function WeaponCardTool({
+  onNotice,
+}: {
+  onNotice: (m: string | null) => void;
+}) {
+  const [weapon, setWeapon] = useState<Weapon | null>(null);
+  const [picking, setPicking] = useState(true);
+  const filterResult = useWeaponFilter();
+
+  const previewData = useMemo(() => {
+    if (!weapon) {
+      return null;
+    }
+    const imprintDoll = weapon.imprintDollId
+      ? getDollById(weapon.imprintDollId)
+      : undefined;
+    const counterparts: string[] = [];
+    const elite = weapon.eliteCounterpart?.name as string | undefined;
+    const standard = weapon.standardCounterpart?.name as string | undefined;
+    const retired = weapon.retiredCounterpart?.name as string | undefined;
+    if (elite) {
+      counterparts.push(`Elite: ${elite}`);
+    }
+    if (standard) {
+      counterparts.push(`Standard: ${standard}`);
+    }
+    if (retired) {
+      counterparts.push(`Retired: ${retired}`);
+    }
+    return {
+      name: weapon.name,
+      rarity: weapon.rarity,
+      weaponType: weapon.weaponType,
+      primaryAttribute: weapon.primaryAttribute,
+      primaryAttributeStat: weapon.primaryAttributeStat,
+      secondaryAttribute: weapon.secondaryAttribute,
+      secondaryAttributeStat: weapon.secondaryAttributeStat,
+      trait: weapon.trait,
+      effect: weapon.effect,
+      imprintDollName: imprintDoll?.name ?? null,
+      imprintDescription: weapon.imprintDescription,
+      counterparts,
+      regionTag: weapon.regionTag,
+      weaponImageUrl: weapon.imageUrl,
+    };
+  }, [weapon]);
+
+  const imageUrl = useMemo(() => {
+    if (!weapon) {
+      return null;
+    }
+    return `${window.location.origin}/api/v1/img/weapon.png?slug=${encodeURIComponent(weapon.slug)}`;
+  }, [weapon]);
+
+  if (!weapon || picking) {
+    return (
+      <>
+        <p className="muted">Pick the weapon this card is about.</p>
+        <WeaponFilters filterResult={filterResult} defaultOpen={true} />
+        <WeaponCards
+          weapons={filterResult.weapons}
+          onSelect={(w) => {
+            setWeapon(w);
+            setPicking(false);
+            onNotice(null);
+          }}
+        />
+      </>
+    );
+  }
+
+  return (
+    <>
+      <div className="infog-chosen">
+        {weapon.imageUrl ? (
+          <GameIcon className="portrait" src={weapon.imageUrl} />
+        ) : (
+          <div className="portrait portrait-empty" aria-hidden="true">
+            ?
+          </div>
+        )}
+        <div>
+          <strong>{weapon.name}</strong>
+          <div className="muted">
+            {[weapon.weaponType, weapon.rarity].filter(Boolean).join(' · ')}
+          </div>
+        </div>
+        <button type="button" className="chip" onClick={() => setPicking(true)}>
+          Change weapon
+        </button>
+      </div>
+
+      {previewData && (
+        <section className="unit-section unit-panel">
+          <h2>Preview</h2>
+          <WeaponCardPreview data={previewData} />
+        </section>
+      )}
+
+      {imageUrl && (
+        <div className="infog-actions">
+          <CopyButton
+            primary
+            label="Copy image link"
+            build={() => imageUrl}
+            onFail={onNotice}
+          />
+          <a
+            className="btn-outline"
+            href={`/weapons/${weapon.slug}`}
+            onClick={onSpaLinkClick(`/weapons/${weapon.slug}`)}
+          >
+            View weapon page
+          </a>
+        </div>
+      )}
+    </>
   );
 }
 
@@ -1585,7 +1720,12 @@ function ShareRow({
  */
 function bootCardType(): CardType {
   const card = new URLSearchParams(window.location.search).get('card');
-  return card === 'team' || card === 'rec' || card === 'pull' ? card : 'build';
+  return card === 'weapon' ||
+    card === 'team' ||
+    card === 'rec' ||
+    card === 'pull'
+    ? card
+    : 'build';
 }
 
 export function InfographicsPage() {
@@ -1650,6 +1790,9 @@ export function InfographicsPage() {
 
       {/* key: switching card type resets the tool's state rather than
           carrying a half-composed card across two different renderers. */}
+      {cardType === 'weapon' && (
+        <WeaponCardTool key="weapon" onNotice={setNotice} />
+      )}
       {cardType === 'build' && (
         <BuildCardTool key="build" onNotice={setNotice} />
       )}

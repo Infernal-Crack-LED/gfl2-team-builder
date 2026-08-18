@@ -3,7 +3,7 @@
  * useWeaponFilter + WeaponFilters + WeaponCards. Filter axes: rarity,
  * weapon type, primary attribute, imprint doll search.
  */
-import { useMemo, useState } from 'react';
+import { useMemo, useState, type MouseEvent } from 'react';
 import {
   allWeapons,
   allDolls,
@@ -238,7 +238,13 @@ export function WeaponFilters({
 
 // --- WeaponCards ---
 
-export function WeaponCards({ weapons }: { weapons: Weapon[] }) {
+export function WeaponCards({
+  weapons,
+  onSelect,
+}: {
+  weapons: Weapon[];
+  onSelect?: (weapon: Weapon) => void;
+}) {
   if (weapons.length === 0) {
     return (
       <div className="dollgrid-empty">
@@ -251,13 +257,14 @@ export function WeaponCards({ weapons }: { weapons: Weapon[] }) {
     <div className="dollgrid">
       {weapons.map((w) => {
         const href = hrefForWeapon(w.slug);
+        const onClick = onSelect
+          ? (e: MouseEvent<HTMLAnchorElement>) => {
+              e.preventDefault();
+              onSelect(w);
+            }
+          : onSpaLinkClick(href);
         return (
-          <a
-            key={w.id}
-            href={href}
-            className="weaponcard"
-            onClick={onSpaLinkClick(href)}
-          >
+          <a key={w.id} href={href} className="weaponcard" onClick={onClick}>
             <div className="weaponcard-img">
               {w.imageUrl ? (
                 // Weapon art is wide (512×256) with transparency —

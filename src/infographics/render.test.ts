@@ -458,6 +458,64 @@ describe.skipIf(!FONTS_PRESENT)('card renderers (fonts present)', () => {
     );
   });
 
+  it('weapon card renders with ink in the title and name regions', async () => {
+    const { createCanvas, drawWeaponCard, WEAPON_CARD_W, WEAPON_CARD_H } =
+      await import('./node/render.js');
+    const canvas = createCanvas(WEAPON_CARD_W, WEAPON_CARD_H);
+    const ctx = canvas.getContext('2d');
+    drawWeaponCard(ctx as never, {
+      name: '6P33',
+      rarity: 'Elite',
+      weaponType: 'Assault Rifle',
+      primaryAttribute: 'Attack',
+      primaryAttributeStat: 348,
+      secondaryAttribute: 'Crit DMG',
+      secondaryAttributeStat: '25%',
+      trait:
+        'If the user has full HP at the end of the action, gain a random buff, lasting for 1 turn.',
+      effect:
+        'When allied units deal Freeze damage, critical damage is increased.',
+      imprintDollName: 'Nemesis',
+      imprintDescription:
+        'Damage dealt to targets with Freeze debuffs is increased.',
+      counterparts: ['Elite: X', 'Standard: Y'],
+      regionTag: 'en',
+      weaponImage: null,
+    });
+    const ctx2d = ctx as never as Parameters<typeof inkInRegion>[0];
+    // "Weapon" title at x=40, baseline y=68.
+    expect(inkInRegion(ctx2d, 40, 40, 200, 36)).toBeGreaterThan(100);
+    // Weapon name in the right column (x=600, y=160).
+    expect(inkInRegion(ctx2d, 600, 130, 560, 40)).toBeGreaterThan(100);
+    const png = await canvas.encode('png');
+    expect(png.length).toBeGreaterThan(1000);
+  });
+
+  it('weapon card degrades on all-null data without throwing', async () => {
+    const { createCanvas, drawWeaponCard, WEAPON_CARD_W, WEAPON_CARD_H } =
+      await import('./node/render.js');
+    const canvas = createCanvas(WEAPON_CARD_W, WEAPON_CARD_H);
+    const ctx = canvas.getContext('2d');
+    expect(() =>
+      drawWeaponCard(ctx as never, {
+        name: null,
+        rarity: null,
+        weaponType: null,
+        primaryAttribute: null,
+        primaryAttributeStat: null,
+        secondaryAttribute: null,
+        secondaryAttributeStat: null,
+        trait: null,
+        effect: null,
+        imprintDollName: null,
+        imprintDescription: null,
+        counterparts: [],
+        regionTag: null,
+        weaponImage: null,
+      })
+    ).not.toThrow();
+  });
+
   it('team card degrades on an all-empty build without throwing', async () => {
     const { createCanvas, drawTeamCard, TEAM_CARD_W, cardHeight } =
       await import('./node/render.js');

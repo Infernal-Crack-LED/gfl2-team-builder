@@ -25,7 +25,7 @@ import { createHash } from 'node:crypto';
 //    Room's own chevron mark (every card draws it, so every card changed).
 export const RENDERER_VERSION = 5;
 
-export type RenderKind = 'build' | 'team' | 'rec';
+export type RenderKind = 'build' | 'team' | 'rec' | 'weapon';
 
 /** Deterministic JSON: object keys sorted recursively, so logically equal
  * payloads hash identically regardless of source key order. */
@@ -58,4 +58,4 @@ export function renderCacheFilename(
 }
 
 /** Must match the cache-route guard in src/server/imgApi.ts. */
-export const CACHE_FILENAME_RE = /^(build|team|rec)\.[0-9a-f]{16}\.png$/;
+export const CACHE_FILENAME_RE = /^(build|team|rec|weapon)\.[0-9a-f]{16}\.png$/;

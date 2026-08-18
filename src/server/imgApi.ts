@@ -42,6 +42,7 @@ import {
   renderBuildCardPng,
   renderRecCardPng,
   renderTeamCardPng,
+  renderWeaponCardPng,
 } from '../infographics/node/render.js';
 import { loadArt, loadPortrait } from '../infographics/node/portraits.js';
 import { commonKeySource, fixedKeySlot } from '../share/keyLabels.js';
@@ -51,7 +52,9 @@ import {
   getDollById,
   getKey,
   getWeapon,
+  getWeaponBySlug,
   keyDisplayName,
+  resolveMarkerText,
 } from './gameData.js';
 import { PUBLIC_KINDS, PUBLIC_PROFILE_ID_RE } from './publicShare.js';
 
@@ -305,9 +308,14 @@ async function renderPayload(
       // Short title for the expansion key: displayTitle prefixes every one of
       // them with "Expansion Key - ", which the card's own EXP label says.
       const expKey = s.ex != null ? getKey(s.ex) : undefined;
+      const [portrait, weaponImage] = await Promise.all([
+        loadPortrait(doll?.avatarUrl),
+        loadArt(weapon?.imageUrl),
+      ]);
       return {
         dollName: doll?.name ?? s.d,
         weaponName: weapon?.name ?? null,
+        weaponImage,
         dollPhase: doll?.phase ?? null,
         refinement: s.cal ?? null,
         attachmentSet: s.as ?? null,
@@ -318,11 +326,45 @@ async function renderPayload(
           : null,
         commonKeys,
         statPrefs: s.st ?? [],
-        portrait: await loadPortrait(doll?.avatarUrl),
+        portrait,
       };
     })
   );
   return renderTeamCardPng(slots);
+}
+
+async function renderWeapon(slug: string): Promise<Buffer> {
+  const weapon = getWeaponBySlug(slug); // validated before render
+  const weaponImage = await loadArt(weapon?.imageUrl);
+  const imprintDoll = weapon?.imprintDollId
+    ? getDollById(weapon.imprintDollId)
+    : undefined;
+  const counterparts: string[] = [];
+  if (weapon?.eliteCounterpart?.name) {
+    counterparts.push(`Elite: ${weapon.eliteCounterpart.name}`);
+  }
+  if (weapon?.standardCounterpart?.name) {
+    counterparts.push(`Standard: ${weapon.standardCounterpart.name}`);
+  }
+  if (weapon?.retiredCounterpart?.name) {
+    counterparts.push(`Retired: ${weapon.retiredCounterpart.name}`);
+  }
+  return renderWeaponCardPng({
+    name: weapon?.name ?? null,
+    rarity: weapon?.rarity ?? null,
+    weaponType: weapon?.weaponType ?? null,
+    primaryAttribute: weapon?.primaryAttribute ?? null,
+    primaryAttributeStat: weapon?.primaryAttributeStat ?? null,
+    secondaryAttribute: weapon?.secondaryAttribute ?? null,
+    secondaryAttributeStat: weapon?.secondaryAttributeStat ?? null,
+    trait: resolveMarkerText(weapon?.trait ?? ''),
+    effect: resolveMarkerText(weapon?.effect ?? ''),
+    imprintDollName: imprintDoll?.name ?? null,
+    imprintDescription: resolveMarkerText(weapon?.imprintDescription ?? ''),
+    counterparts,
+    regionTag: weapon?.regionTag ?? null,
+    weaponImage,
+  });
 }
 
 /** Single-flight: concurrent misses for the same filename share ONE render. */
@@ -395,6 +437,27 @@ export function registerImgApi(app: Hono): void {
       return c.redirect(`/api/v1/img/cache/${filename}`, 302);
     });
   }
+
+  app.get('/api/v1/img/weapon.png', async (c) => {
+    const slug = c.req.query('slug') ?? '';
+    if (!/^[a-z0-9-]{1,64}$/.test(slug)) {
+      return c.json({ error: 'invalid slug' }, 400);
+    }
+    const weapon = getWeaponBySlug(slug);
+    if (!weapon) {
+      return c.json({ error: 'not_found' }, 404);
+    }
+    const payload = { slug };
+    const filename = renderCacheFilename('weapon', payload);
+    if (!existsSync(path.join(CACHE_DIR, filename))) {
+      const png = await renderSingleFlight(filename, () => renderWeapon(slug));
+      if (!existsSync(path.join(CACHE_DIR, filename))) {
+        await writeAtomic(filename, png);
+      }
+    }
+    c.header('Cache-Control', 'no-cache');
+    return c.redirect(`/api/v1/img/cache/${filename}`, 302);
+  });
 
   app.get('/api/v1/img/cache/:file', async (c) => {
     const file = c.req.param('file');
