@@ -1,31 +1,13 @@
-import { EmbedBuilder, MessageFlags, SlashCommandBuilder } from 'discord.js';
+import {
+  AttachmentBuilder,
+  EmbedBuilder,
+  MessageFlags,
+  SlashCommandBuilder,
+} from 'discord.js';
 import type { Command } from '../../types.js';
-import { getSiteUrl, loadGfl2Data, type Doll } from '../../lib/gfl2/data.js';
-import { searchDolls } from '../../lib/gfl2/search.js';
-
-function formatDollDescription(doll: Doll): string {
-  const parts = [
-    `**Class:** ${doll.class}`,
-    `**Phase:** ${doll.phase}`,
-    `**Rarity:** ${doll.rarity}`,
-  ];
-  if (doll.weaponImprintType) {
-    parts.push(`**Weapon:** ${doll.weaponImprintType}`);
-  }
-  if (doll.ammoTypes?.length) {
-    parts.push(`**Ammo:** ${doll.ammoTypes.join(', ')}`);
-  }
-  if (doll.movement != null) {
-    parts.push(`**Movement:** ${doll.movement}`);
-  }
-  if (doll.stabilityGauge != null) {
-    parts.push(`**Stability:** ${doll.stabilityGauge}`);
-  }
-  if (doll.regionTag) {
-    parts.push(`**Region:** ${doll.regionTag.toUpperCase()}`);
-  }
-  return parts.join('\n');
-}
+import { getSiteUrl, loadGfl2Data } from '../../lib/gfl2/data.js';
+import { respondDollAutocomplete } from '../../lib/gfl2/nameCache.js';
+import { getRecCardImageUrl } from '../../lib/gfl2/imageCache.js';
 
 export const command: Command = {
   data: new SlashCommandBuilder()
@@ -38,17 +20,7 @@ export const command: Command = {
         .setRequired(true)
         .setAutocomplete(true)
     ),
-  autocomplete: async (interaction) => {
-    const focused = interaction.options.getFocused();
-    const { dolls } = await loadGfl2Data();
-    const results = searchDolls(dolls, focused).slice(0, 25);
-    await interaction.respond(
-      results.map(({ item }) => ({
-        name: item.name,
-        value: item.id,
-      }))
-    );
-  },
+  autocomplete: respondDollAutocomplete,
   execute: async (interaction) => {
     const id = interaction.options.getString('name', true);
     const { dolls } = await loadGfl2Data();
@@ -61,17 +33,71 @@ export const command: Command = {
       return;
     }
 
+    await interaction.deferReply();
+
+    // Try the pre-warmed recommendation card first. The image is already
+    // rendered on the server (pre-warmed at startup), so discord.js fetching
+    // the URL for the attachment upload is a fast cache hit.
+    const recImageUrl = await getRecCardImageUrl(doll.slug);
+    if (recImageUrl) {
+      try {
+        const embed = new EmbedBuilder()
+          .setColor(0x5b9dff)
+          .setTitle(doll.name)
+          .setURL(`${getSiteUrl()}/characters/${doll.slug}`)
+          .setFooter({
+            text: `Region: ${doll.regionTag?.toUpperCase() ?? 'EN'}`,
+          });
+        await interaction.editReply({
+          embeds: [embed],
+          files: [
+            new AttachmentBuilder(recImageUrl, {
+              name: `${doll.slug}-recommendation.png`,
+            }).setDescription(
+              `${doll.name} — recommended investment, weapons, keys, and stats`
+            ),
+          ],
+        });
+        return;
+      } catch {
+        // Image unreachable — fall through to the text embed.
+      }
+    }
+
+    // Fallback: text embed with doll info (no rec card available).
+    const parts = [
+      `**Class:** ${doll.class}`,
+      `**Phase:** ${doll.phase}`,
+      `**Rarity:** ${doll.rarity}`,
+    ];
+    if (doll.weaponImprintType) {
+      parts.push(`**Weapon:** ${doll.weaponImprintType}`);
+    }
+    if (doll.ammoTypes?.length) {
+      parts.push(`**Ammo:** ${doll.ammoTypes.join(', ')}`);
+    }
+    if (doll.movement != null) {
+      parts.push(`**Movement:** ${doll.movement}`);
+    }
+    if (doll.stabilityGauge != null) {
+      parts.push(`**Stability:** ${doll.stabilityGauge}`);
+    }
+    if (doll.regionTag) {
+      parts.push(`**Region:** ${doll.regionTag.toUpperCase()}`);
+    }
+
     const embed = new EmbedBuilder()
       .setColor(0x5b9dff)
       .setTitle(doll.name)
       .setURL(`${getSiteUrl()}/characters/${doll.slug}`)
-      .setDescription(formatDollDescription(doll))
-      .setFooter({ text: `Region: ${doll.regionTag?.toUpperCase() ?? 'EN'}` });
+      .setDescription(parts.join('\n'))
+      .setFooter({
+        text: `Region: ${doll.regionTag?.toUpperCase() ?? 'EN'}`,
+      });
 
     if (doll.avatarUrl) {
       embed.setThumbnail(doll.avatarUrl);
     }
-
     if (doll.bio) {
       embed.addFields({
         name: 'Profile',
@@ -79,6 +105,6 @@ export const command: Command = {
       });
     }
 
-    await interaction.reply({ embeds: [embed] });
+    await interaction.editReply({ embeds: [embed] });
   },
 };

@@ -18,6 +18,11 @@ const GROUPS: {
         url: 'https://dandegate.net',
         note: 'database, dolls, weapons, and more',
       },
+      {
+        label: 'ReTempest TapTap Page',
+        url: 'https://www.taptap.cn/user/674589071',
+        note: 'GFL2 news and updates on TapTap',
+      },
     ],
   },
   {
@@ -42,6 +47,11 @@ const GROUPS: {
         label: 'GFL2 DORK TIPS',
         url: 'https://docs.google.com/document/d/134CEb77HGtEsa81UQWK9wyTm4KwoKFZxs7-cdM0bTO0/edit?usp=sharing',
         note: 'collected combat and account tips',
+      },
+      {
+        label: 'Crew Deck Unique Animations',
+        url: 'https://docs.google.com/spreadsheets/d/1NAYBgcFBVvUtGQ5kZVbRqAskanw7b77P-YMmVZHoTUc/edit?gid=1806725138#gid=1806725138',
+        note: 'unique crew deck animation tracking',
       },
     ],
   },

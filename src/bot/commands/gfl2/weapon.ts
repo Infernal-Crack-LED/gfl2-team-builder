@@ -1,7 +1,7 @@
 import { EmbedBuilder, MessageFlags, SlashCommandBuilder } from 'discord.js';
 import type { Command } from '../../types.js';
 import { getSiteUrl, loadGfl2Data, type Weapon } from '../../lib/gfl2/data.js';
-import { searchWeapons } from '../../lib/gfl2/search.js';
+import { respondWeaponAutocomplete } from '../../lib/gfl2/nameCache.js';
 
 function formatWeaponDescription(weapon: Weapon): string {
   const parts = [
@@ -31,17 +31,7 @@ export const command: Command = {
         .setRequired(true)
         .setAutocomplete(true)
     ),
-  autocomplete: async (interaction) => {
-    const focused = interaction.options.getFocused();
-    const { weapons } = await loadGfl2Data();
-    const results = searchWeapons(weapons, focused).slice(0, 25);
-    await interaction.respond(
-      results.map(({ item }) => ({
-        name: item.name,
-        value: item.id,
-      }))
-    );
-  },
+  autocomplete: respondWeaponAutocomplete,
   execute: async (interaction) => {
     const id = interaction.options.getString('name', true);
     const { weapons } = await loadGfl2Data();

@@ -36,6 +36,18 @@ export function CreditsPage() {
             </a>
             .
           </li>
+          <li>
+            Default recommendation builds from the{' '}
+            <a
+              href="https://docs.google.com/spreadsheets/d/1DogyU3K7ZXw2qbhP1EhRXIAw5nCyIV5G5e-QWviBZME/edit?usp=sharing"
+              target="_blank"
+              rel="noreferrer"
+            >
+              GFL2 Official Release Info Compilation
+            </a>{' '}
+            — community-maintained spreadsheet covering release schedules and
+            recommended builds.
+          </li>
         </ul>
         <p className="muted">
           All game art and assets are the property of Sunborn Network
