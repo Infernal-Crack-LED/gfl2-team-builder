@@ -475,9 +475,6 @@ export function TeamEffectsPanel({ squad }: { squad: (Doll | null)[] }) {
           <summary className="teameffect-tier-title">
             Own-kit effects
             <span className="teameffect-tier-count">{ownKit.length}</span>
-            <span className="teameffect-tier-hint">
-              members interacting with their own effects
-            </span>
           </summary>
           <div className="teambuilder-effects-list">
             {ownKit.map((c) => (
@@ -494,11 +491,8 @@ export function TeamEffectsPanel({ squad }: { squad: (Doll | null)[] }) {
       {field.length > 0 && (
         <div className="teameffect-tier">
           <h3 className="teameffect-tier-title">
-            Also on the field
+            Other effects
             <span className="teameffect-tier-count">{field.length}</span>
-            <span className="teameffect-tier-hint">
-              provided, but nobody's kit reacts — hover for what each does
-            </span>
           </h3>
           <div className="teameffect-chips">
             {field.map((c) => {

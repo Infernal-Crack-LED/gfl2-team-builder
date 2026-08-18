@@ -260,13 +260,24 @@ export function TeamBuilderPage() {
 
   return (
     <div className="app teambuilder-page">
-      <header>
+      <header className="teambuilder-page-header">
         <h1>Team Builder</h1>
-        <p className="muted">
-          Build your squad. Click a doll to place her in the next empty slot,
-          then pick or edit her build under her portrait.
-        </p>
       </header>
+      <p className="teambuilder-page-subtitle muted">
+        Build your squad. Click a doll to place her in the next empty slot, then
+        pick or edit her build under her portrait.
+      </p>
+
+      <aside className="teambuilder-side">
+        {filledCount > 0 ? (
+          <TeamEffectsPanel squad={squad.map((s) => s?.doll ?? null)} />
+        ) : (
+          <div className="teambuilder-side-empty">
+            Add dolls to the squad to see the effects they put on the field —
+            and who on the team reacts to them.
+          </div>
+        )}
+      </aside>
 
       {/* Save / share actions — same contract as the per-doll builder */}
       <div className="dollbuilder-actions">
@@ -331,26 +342,16 @@ export function TeamBuilderPage() {
         )}
       </div>
 
-      <SquadStrip
-        squad={squad}
-        onSetBuild={setSlotBuild}
-        onRemove={removeFromSlot}
-      />
-
-      {/* Workspace: picking on the left, live effect feedback on the right.
-          The aside comes first in the DOM so the single-column (mobile)
-          stack keeps the old squad → effects → filters → grid order. */}
+      {/* Workspace: squad strip + doll grid on the left. The effects panel
+          lives at the page level so it can align with the subtitle text. */}
       <div className="teambuilder-workspace">
-        <aside className="teambuilder-side">
-          {filledCount > 0 ? (
-            <TeamEffectsPanel squad={squad.map((s) => s?.doll ?? null)} />
-          ) : (
-            <div className="teambuilder-side-empty">
-              Add dolls to the squad to see the effects they put on the field —
-              and who on the team reacts to them.
-            </div>
-          )}
-        </aside>
+        <div className="teambuilder-squad-sticky">
+          <SquadStrip
+            squad={squad}
+            onSetBuild={setSlotBuild}
+            onRemove={removeFromSlot}
+          />
+        </div>
 
         <div className="teambuilder-pick">
           {/* Squad card preview — it belongs to the squad above it, not to the

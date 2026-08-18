@@ -1795,23 +1795,40 @@ td {
    side panel open; max-width still collapses gracefully on smaller screens. */
 .teambuilder-page {
   max-width: 1400px;
-}
-
-.teambuilder-workspace {
   display: grid;
   grid-template-columns: minmax(0, 1fr) 400px;
-  gap: 20px;
+  grid-template-rows: repeat(7, auto);
+  column-gap: 20px;
+  row-gap: 0;
   align-items: start;
 }
 
-/* The aside is first in the DOM (mobile stacking order) but renders on the
-   right; both land in row 1 explicitly. Sticky + own scrollbar so the effect
-   list follows the grid as you pick dolls. */
+.teambuilder-page-header {
+  grid-column: 1 / span 2;
+  grid-row: 1;
+  margin-bottom: 8px;
+}
+
+.teambuilder-page-header h1 {
+  line-height: 34px;
+}
+
+.teambuilder-page-subtitle {
+  grid-column: 1;
+  grid-row: 2;
+  margin: 0 0 16px;
+}
+
+/* The effects panel sits in the right column starting at the subtitle row so
+   its top edge lines up with the subtitle text. It spans the rest of the page
+   and sticks on scroll, with its own scrollbar for long effect lists. */
 .teambuilder-side {
   grid-column: 2;
-  grid-row: 1;
+  grid-row: 2 / span 6;
   position: sticky;
-  top: 76px;
+  /* Content starts ~75px below the viewport top (nav + app padding); the header
+     is a fixed 34px + 8px margin, so 117px aligns the panel with the subtitle. */
+  top: 117px;
   max-height: calc(100vh - 92px);
   overflow-y: auto;
   /* Vertical scrolling alone would make overflow-x compute to auto, and the
@@ -1822,9 +1839,48 @@ td {
   overflow-x: clip;
 }
 
-.teambuilder-pick {
+.dollbuilder-actions {
   grid-column: 1;
-  grid-row: 1;
+  grid-row: 3;
+}
+
+.shortlink-hint {
+  grid-column: 1;
+  grid-row: 4;
+  margin-bottom: 12px;
+}
+
+.dollbuilder-notice {
+  grid-column: 1;
+  grid-row: 5;
+  margin-bottom: 12px;
+}
+
+.teambuilder-controls {
+  grid-column: 1;
+  grid-row: 6;
+}
+
+/* Squad strip + doll grid in the left column, below the action rows. */
+.teambuilder-workspace {
+  grid-column: 1;
+  grid-row: 7;
+  display: block;
+}
+
+/* Squad strip sticks on scroll so the selected dolls stay reachable while
+   browsing the grid. */
+.teambuilder-squad-sticky {
+  position: sticky;
+  top: 76px;
+  z-index: 10;
+}
+
+.teambuilder-squad-sticky .teambuilder-squad {
+  margin-bottom: 0;
+}
+
+.teambuilder-pick {
   min-width: 0;
 }
 
@@ -1860,8 +1916,28 @@ td {
 }
 
 @media (max-width: 1100px) {
-  .teambuilder-workspace {
+  .teambuilder-page {
     display: block;
+  }
+
+  .teambuilder-page-header,
+  .teambuilder-page-subtitle,
+  .dollbuilder-actions,
+  .shortlink-hint,
+  .dollbuilder-notice,
+  .teambuilder-controls,
+  .teambuilder-workspace,
+  .teambuilder-side {
+    grid-column: auto;
+    grid-row: auto;
+  }
+
+  .teambuilder-squad-sticky {
+    position: static;
+  }
+
+  .teambuilder-squad-sticky .teambuilder-squad {
+    margin-bottom: 16px;
   }
 
   .teambuilder-side {
