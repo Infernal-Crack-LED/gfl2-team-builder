@@ -619,18 +619,15 @@ export function DollBuilder({
           getCode={getCode}
           onLoad={applyLoadedCode}
         />
-        <button type="button" className="btn-outline" onClick={copyLongLink}>
-          {copied === 'link' ? '✓ Copied' : 'Copy link'}
-        </button>
         <button
           type="button"
           className="btn-outline"
           onClick={() => void copyShortLink()}
         >
-          {copied === 'short' ? '✓ Copied' : 'Copy short link'}
+          {copied === 'short' ? '✓ Copied' : 'Copy Link'}
         </button>
       </div>
-      {!user && <ShortLinkExpiryHint />}
+      {!user && <ShortLinkExpiryHint onCopyFullLink={copyLongLink} />}
       {notice && (
         <p className="dollbuilder-notice" role="alert">
           {notice}

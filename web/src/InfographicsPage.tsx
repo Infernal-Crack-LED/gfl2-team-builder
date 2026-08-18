@@ -1672,24 +1672,25 @@ function ShareRow({
   // The rec card's editor path already carries ?card=rec, so the code joins
   // with & there and ? on the plain builder paths.
   const editorHref = `${pagePath}${pagePath.includes('?') ? '&' : '?'}b=${code}`;
+  const fullImageUrl = `${origin}/api/v1/img/${kind}.png?b=${code}`;
+  const copyFullImageLink = async () => {
+    if (!(await copyText(fullImageUrl))) {
+      onNotice('Copy failed — select the URL and copy it manually.');
+    }
+  };
   return (
     <>
       <div className="infog-actions">
         <CopyButton
           primary
           label="Copy image link"
-          build={() => `${origin}/api/v1/img/${kind}.png?b=${code}`}
-          onFail={onNotice}
-        />
-        <CopyButton
-          label="Copy short image link"
           build={async () => {
             try {
               const id = await mintShareId(code);
               return `${origin}/api/v1/img/${kind}.png?id=${id}`;
             } catch {
               // Sharing never breaks, it only gets longer.
-              return `${origin}/api/v1/img/${kind}.png?b=${code}`;
+              return fullImageUrl;
             }
           }}
           onFail={onNotice}
@@ -1707,7 +1708,7 @@ function ShareRow({
           Open in editor
         </a>
       </div>
-      {!loggedIn && <ShortLinkExpiryHint />}
+      {!loggedIn && <ShortLinkExpiryHint onCopyFullLink={copyFullImageLink} />}
     </>
   );
 }
