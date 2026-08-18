@@ -14,6 +14,7 @@ import { userProfiles } from '../../../db/schema.js';
 import { decodeTeamBuild } from '../../../share/buildCode.js';
 import { getSiteUrl, loadGfl2Data } from '../../lib/gfl2/data.js';
 import { brandEmbed, iconAttachment } from '../../lib/gfl2/embedBrand.js';
+import { teamShortLink } from '../../lib/gfl2/shareLink.js';
 
 /** Kind used by the web client's team builder save. */
 const TEAM_KIND = 'gfl2-team';
@@ -70,11 +71,6 @@ function teamCardUrl(code: string): string {
   return `${getSiteUrl()}/api/v1/img/team.png?b=${encodeURIComponent(code)}`;
 }
 
-/** Link to open the team on refittingroom.app. */
-function teamPageUrl(code: string): string {
-  return `${getSiteUrl()}/team-builder?b=${encodeURIComponent(code)}`;
-}
-
 export const command: Command = {
   data: new SlashCommandBuilder()
     .setName('shareteam')
@@ -112,11 +108,12 @@ export const command: Command = {
         return;
       }
       await interaction.deferReply();
+      const shortUrl = await teamShortLink(match.code);
       const embed = brandEmbed(
         new EmbedBuilder()
           .setTitle(match.name)
           .setDescription(match.memberNames.join(', ') || 'Empty squad'),
-        { name: 'View on Refitting Room', url: teamPageUrl(match.code) }
+        { name: 'View on Refitting Room', url: shortUrl }
       );
       try {
         await interaction.editReply({
@@ -179,11 +176,12 @@ export const command: Command = {
 
     await selected.update({ content: 'Loading…', components: [] });
 
+    const shortUrl = await teamShortLink(picked.code);
     const embed = brandEmbed(
       new EmbedBuilder()
         .setTitle(picked.name)
         .setDescription(picked.memberNames.join(', ') || 'Empty squad'),
-      { name: 'View on Refitting Room', url: teamPageUrl(picked.code) }
+      { name: 'View on Refitting Room', url: shortUrl }
     );
 
     // Post the result publicly so the whole channel can see it.

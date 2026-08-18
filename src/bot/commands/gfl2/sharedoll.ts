@@ -14,6 +14,7 @@ import { userProfiles } from '../../../db/schema.js';
 import { decodeDollBuild } from '../../../share/buildCode.js';
 import { getSiteUrl, loadGfl2Data } from '../../lib/gfl2/data.js';
 import { brandEmbed, iconAttachment } from '../../lib/gfl2/embedBrand.js';
+import { dollShortLink } from '../../lib/gfl2/shareLink.js';
 
 /** Kind used by the web client's per-doll builder save. */
 const BUILD_KIND = 'gfl2-build';
@@ -68,11 +69,6 @@ function buildCardUrl(code: string): string {
   return `${getSiteUrl()}/api/v1/img/build.png?b=${encodeURIComponent(code)}`;
 }
 
-/** Link to open the build on refittingroom.app. */
-function buildPageUrl(slug: string, code: string): string {
-  return `${getSiteUrl()}/builder/${encodeURIComponent(slug)}?b=${encodeURIComponent(code)}`;
-}
-
 export const command: Command = {
   data: new SlashCommandBuilder()
     .setName('sharedoll')
@@ -112,12 +108,10 @@ export const command: Command = {
         return;
       }
       await interaction.deferReply();
+      const shortUrl = await dollShortLink(match.dollSlug, match.code);
       const embed = brandEmbed(
         new EmbedBuilder().setTitle(`${match.dollName} — ${match.name}`),
-        {
-          name: 'View on Refitting Room',
-          url: buildPageUrl(match.dollSlug, match.code),
-        }
+        { name: 'View on Refitting Room', url: shortUrl }
       );
       try {
         await interaction.editReply({
@@ -179,12 +173,10 @@ export const command: Command = {
 
     await selected.update({ content: 'Loading…', components: [] });
 
+    const shortUrl = await dollShortLink(picked.dollSlug, picked.code);
     const embed = brandEmbed(
       new EmbedBuilder().setTitle(`${picked.dollName} — ${picked.name}`),
-      {
-        name: 'View on Refitting Room',
-        url: buildPageUrl(picked.dollSlug, picked.code),
-      }
+      { name: 'View on Refitting Room', url: shortUrl }
     );
 
     // Post the result publicly so the whole channel can see it.
