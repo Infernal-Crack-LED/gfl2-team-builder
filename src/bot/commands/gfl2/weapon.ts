@@ -2,6 +2,7 @@ import { EmbedBuilder, MessageFlags, SlashCommandBuilder } from 'discord.js';
 import type { Command } from '../../types.js';
 import { getSiteUrl, loadGfl2Data, type Weapon } from '../../lib/gfl2/data.js';
 import { respondWeaponAutocomplete } from '../../lib/gfl2/nameCache.js';
+import { brandEmbed, iconAttachment } from '../../lib/gfl2/embedBrand.js';
 
 function formatWeaponDescription(weapon: Weapon): string {
   const parts = [
@@ -44,14 +45,18 @@ export const command: Command = {
       return;
     }
 
-    const embed = new EmbedBuilder()
-      .setColor(0x5b9dff)
-      .setTitle(weapon.name)
-      .setURL(`${getSiteUrl()}/weapons/${weapon.slug}`)
-      .setDescription(formatWeaponDescription(weapon))
-      .setFooter({
-        text: `Region: ${weapon.regionTag?.toUpperCase() ?? 'EN'}`,
-      });
+    const embed = brandEmbed(
+      new EmbedBuilder()
+        .setTitle(weapon.name)
+        .setDescription(formatWeaponDescription(weapon))
+        .setFooter({
+          text: `Region: ${weapon.regionTag?.toUpperCase() ?? 'EN'}`,
+        }),
+      {
+        name: 'View on Refitting Room',
+        url: `${getSiteUrl()}/weapons/${weapon.slug}`,
+      }
+    );
 
     if (weapon.imageUrl) {
       embed.setThumbnail(weapon.imageUrl);
@@ -65,6 +70,6 @@ export const command: Command = {
       embed.addFields({ name: 'Effect', value: text });
     }
 
-    await interaction.reply({ embeds: [embed] });
+    await interaction.reply({ embeds: [embed], files: [iconAttachment()] });
   },
 };

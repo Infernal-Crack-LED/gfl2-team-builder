@@ -13,6 +13,7 @@ import { db } from '../../../db/index.js';
 import { userProfiles } from '../../../db/schema.js';
 import { decodeTeamBuild } from '../../../share/buildCode.js';
 import { getSiteUrl, loadGfl2Data } from '../../lib/gfl2/data.js';
+import { brandEmbed, iconAttachment } from '../../lib/gfl2/embedBrand.js';
 
 /** Kind used by the web client's team builder save. */
 const TEAM_KIND = 'gfl2-team';
@@ -111,11 +112,12 @@ export const command: Command = {
         return;
       }
       await interaction.deferReply();
-      const embed = new EmbedBuilder()
-        .setColor(0x5b9dff)
-        .setTitle(match.name)
-        .setDescription(match.memberNames.join(', ') || 'Empty squad')
-        .setURL(teamPageUrl(match.code));
+      const embed = brandEmbed(
+        new EmbedBuilder()
+          .setTitle(match.name)
+          .setDescription(match.memberNames.join(', ') || 'Empty squad'),
+        { name: 'View on Refitting Room', url: teamPageUrl(match.code) }
+      );
       try {
         await interaction.editReply({
           embeds: [embed],
@@ -123,10 +125,14 @@ export const command: Command = {
             new AttachmentBuilder(teamCardUrl(match.code), {
               name: 'squad-card.png',
             }).setDescription(`${match.name} squad card`),
+            iconAttachment(),
           ],
         });
       } catch {
-        await interaction.editReply({ embeds: [embed] });
+        await interaction.editReply({
+          embeds: [embed],
+          files: [iconAttachment()],
+        });
       }
       return;
     }
@@ -173,11 +179,12 @@ export const command: Command = {
 
     await selected.update({ content: 'Loading…', components: [] });
 
-    const embed = new EmbedBuilder()
-      .setColor(0x5b9dff)
-      .setTitle(picked.name)
-      .setDescription(picked.memberNames.join(', ') || 'Empty squad')
-      .setURL(teamPageUrl(picked.code));
+    const embed = brandEmbed(
+      new EmbedBuilder()
+        .setTitle(picked.name)
+        .setDescription(picked.memberNames.join(', ') || 'Empty squad'),
+      { name: 'View on Refitting Room', url: teamPageUrl(picked.code) }
+    );
 
     // Post the result publicly so the whole channel can see it.
     try {
@@ -187,10 +194,14 @@ export const command: Command = {
           new AttachmentBuilder(teamCardUrl(picked.code), {
             name: 'squad-card.png',
           }).setDescription(`${picked.name} squad card`),
+          iconAttachment(),
         ],
       });
     } catch {
-      await interaction.followUp({ embeds: [embed] });
+      await interaction.followUp({
+        embeds: [embed],
+        files: [iconAttachment()],
+      });
     }
     // Clean up the ephemeral "Loading…" message.
     await interaction.deleteReply().catch(() => null);

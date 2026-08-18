@@ -1,8 +1,4 @@
-import {
-  AttachmentBuilder,
-  EmbedBuilder,
-  SlashCommandBuilder,
-} from 'discord.js';
+import { AttachmentBuilder, SlashCommandBuilder } from 'discord.js';
 import type { Command } from '../../types.js';
 import { getInfographic } from '../../lib/gfl2/taptapScraper.js';
 
@@ -44,25 +40,14 @@ export const command: Command = {
 
       const label = tier === 'v6' ? 'V6 Tier List' : 'V0 Tier List';
 
-      const embed = new EmbedBuilder()
-        .setColor(0x5b9dff)
-        .setTitle(`${label} — ReTempest`)
-        .setDescription(`Latest ${tier.toUpperCase()} tier list by ReTempest`)
-        .setURL(momentUrl)
-        .setImage(row.imageUrl);
-
-      try {
-        await interaction.editReply({
-          embeds: [embed],
-          files: [
-            new AttachmentBuilder(row.imageUrl, {
-              name: `retempest-${tier}-tierlist.png`,
-            }).setDescription(`${label} by ReTempest`),
-          ],
-        });
-      } catch {
-        await interaction.editReply({ embeds: [embed] });
-      }
+      await interaction.editReply({
+        content: `${label} — ReTempest · [TapTap](${momentUrl})`,
+        files: [
+          new AttachmentBuilder(row.imageUrl, {
+            name: `retempest-${tier}-tierlist.png`,
+          }).setDescription(`${label} by ReTempest`),
+        ],
+      });
     } catch {
       await interaction.editReply({
         content: `Failed to fetch tier list data. Try again later or check [ReTempest's TapTap page](${TAPTAP_USER_URL}).`,

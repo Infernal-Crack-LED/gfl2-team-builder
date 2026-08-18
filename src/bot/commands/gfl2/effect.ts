@@ -3,6 +3,7 @@ import type { Command } from '../../types.js';
 import { loadGfl2Data } from '../../lib/gfl2/data.js';
 import { respondEffectAutocomplete } from '../../lib/gfl2/nameCache.js';
 import { parseEffectDetails } from '../../../share/html.js';
+import { brandEmbed, iconAttachment } from '../../lib/gfl2/embedBrand.js';
 
 /** Discord embed limits: 4096 for a description, 1024 for a field value. */
 function clamp(text: string, max: number): string {
@@ -33,12 +34,11 @@ export const command: Command = {
       return;
     }
 
-    const embed = new EmbedBuilder()
-      .setColor(0x5b9dff)
-      .setTitle(effect.effectName)
-      .setFooter({
+    const embed = brandEmbed(
+      new EmbedBuilder().setTitle(effect.effectName).setFooter({
         text: `Region: ${effect.regionTag?.toUpperCase() ?? 'EN'}`,
-      });
+      })
+    );
 
     if (effect.effectTags?.length) {
       embed.addFields({
@@ -69,6 +69,6 @@ export const command: Command = {
       }
     }
 
-    await interaction.reply({ embeds: [embed] });
+    await interaction.reply({ embeds: [embed], files: [iconAttachment()] });
   },
 };

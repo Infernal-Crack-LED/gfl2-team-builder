@@ -13,6 +13,7 @@ import { db } from '../../../db/index.js';
 import { userProfiles } from '../../../db/schema.js';
 import { decodeDollBuild } from '../../../share/buildCode.js';
 import { getSiteUrl, loadGfl2Data } from '../../lib/gfl2/data.js';
+import { brandEmbed, iconAttachment } from '../../lib/gfl2/embedBrand.js';
 
 /** Kind used by the web client's per-doll builder save. */
 const BUILD_KIND = 'gfl2-build';
@@ -111,10 +112,13 @@ export const command: Command = {
         return;
       }
       await interaction.deferReply();
-      const embed = new EmbedBuilder()
-        .setColor(0x5b9dff)
-        .setTitle(`${match.dollName} — ${match.name}`)
-        .setURL(buildPageUrl(match.dollSlug, match.code));
+      const embed = brandEmbed(
+        new EmbedBuilder().setTitle(`${match.dollName} — ${match.name}`),
+        {
+          name: 'View on Refitting Room',
+          url: buildPageUrl(match.dollSlug, match.code),
+        }
+      );
       try {
         await interaction.editReply({
           embeds: [embed],
@@ -122,11 +126,14 @@ export const command: Command = {
             new AttachmentBuilder(buildCardUrl(match.code), {
               name: `${match.dollSlug}-build.png`,
             }).setDescription(`${match.dollName} build card`),
+            iconAttachment(),
           ],
         });
       } catch {
-        // Image unreachable — fall back to embed only.
-        await interaction.editReply({ embeds: [embed] });
+        await interaction.editReply({
+          embeds: [embed],
+          files: [iconAttachment()],
+        });
       }
       return;
     }
@@ -172,10 +179,13 @@ export const command: Command = {
 
     await selected.update({ content: 'Loading…', components: [] });
 
-    const embed = new EmbedBuilder()
-      .setColor(0x5b9dff)
-      .setTitle(`${picked.dollName} — ${picked.name}`)
-      .setURL(buildPageUrl(picked.dollSlug, picked.code));
+    const embed = brandEmbed(
+      new EmbedBuilder().setTitle(`${picked.dollName} — ${picked.name}`),
+      {
+        name: 'View on Refitting Room',
+        url: buildPageUrl(picked.dollSlug, picked.code),
+      }
+    );
 
     // Post the result publicly so the whole channel can see it.
     try {
@@ -185,10 +195,14 @@ export const command: Command = {
           new AttachmentBuilder(buildCardUrl(picked.code), {
             name: `${picked.dollSlug}-build.png`,
           }).setDescription(`${picked.dollName} build card`),
+          iconAttachment(),
         ],
       });
     } catch {
-      await interaction.followUp({ embeds: [embed] });
+      await interaction.followUp({
+        embeds: [embed],
+        files: [iconAttachment()],
+      });
     }
     // Clean up the ephemeral "Loading…" message.
     await interaction.deleteReply().catch(() => null);

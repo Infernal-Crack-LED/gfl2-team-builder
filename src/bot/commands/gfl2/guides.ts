@@ -1,5 +1,6 @@
 import { EmbedBuilder, SlashCommandBuilder } from 'discord.js';
 import type { Command } from '../../types.js';
+import { brandEmbed, iconAttachment } from '../../lib/gfl2/embedBrand.js';
 
 /**
  * Curated resources, grouped so the list stays scannable as it grows. Each
@@ -77,22 +78,22 @@ export const command: Command = {
     .setName('guides')
     .setDescription('Curated GFL2 resources and guides.'),
   execute: async (interaction) => {
-    const embed = new EmbedBuilder()
-      .setColor(0x5b9dff)
-      .setTitle('GFL2 Resources')
-      .setDescription('Community-maintained resources worth bookmarking.')
-      .addFields(
-        GROUPS.map((group) => ({
-          name: group.name,
-          value: group.links
-            .map((l) => `[${l.label}](${l.url}) — ${l.note}`)
-            .join('\n'),
-        }))
-      )
-      .setFooter({
-        text: 'Sheets are community-run — check their own notes for how current they are.',
-      });
+    const embed = brandEmbed(
+      new EmbedBuilder()
+        .setDescription('Community-maintained resources worth bookmarking.')
+        .addFields(
+          GROUPS.map((group) => ({
+            name: group.name,
+            value: group.links
+              .map((l) => `[${l.label}](${l.url}) — ${l.note}`)
+              .join('\n'),
+          }))
+        )
+        .setFooter({
+          text: 'Sheets are community-run — check their own notes for how current they are.',
+        })
+    );
 
-    await interaction.reply({ embeds: [embed] });
+    await interaction.reply({ embeds: [embed], files: [iconAttachment()] });
   },
 };

@@ -8,6 +8,7 @@ import type { Command } from '../../types.js';
 import { getSiteUrl, loadGfl2Data } from '../../lib/gfl2/data.js';
 import { respondDollAutocomplete } from '../../lib/gfl2/nameCache.js';
 import { getRecCardImageUrl } from '../../lib/gfl2/imageCache.js';
+import { brandEmbed, iconAttachment } from '../../lib/gfl2/embedBrand.js';
 
 export const command: Command = {
   data: new SlashCommandBuilder()
@@ -41,13 +42,15 @@ export const command: Command = {
     const recImageUrl = await getRecCardImageUrl(doll.slug);
     if (recImageUrl) {
       try {
-        const embed = new EmbedBuilder()
-          .setColor(0x5b9dff)
-          .setTitle(doll.name)
-          .setURL(`${getSiteUrl()}/characters/${doll.slug}`)
-          .setFooter({
+        const embed = brandEmbed(
+          new EmbedBuilder().setTitle(doll.name).setFooter({
             text: `Region: ${doll.regionTag?.toUpperCase() ?? 'EN'}`,
-          });
+          }),
+          {
+            name: 'View on Refitting Room',
+            url: `${getSiteUrl()}/characters/${doll.slug}`,
+          }
+        );
         await interaction.editReply({
           embeds: [embed],
           files: [
@@ -56,6 +59,7 @@ export const command: Command = {
             }).setDescription(
               `${doll.name} — recommended investment, weapons, keys, and stats`
             ),
+            iconAttachment(),
           ],
         });
         return;
@@ -86,14 +90,18 @@ export const command: Command = {
       parts.push(`**Region:** ${doll.regionTag.toUpperCase()}`);
     }
 
-    const embed = new EmbedBuilder()
-      .setColor(0x5b9dff)
-      .setTitle(doll.name)
-      .setURL(`${getSiteUrl()}/characters/${doll.slug}`)
-      .setDescription(parts.join('\n'))
-      .setFooter({
-        text: `Region: ${doll.regionTag?.toUpperCase() ?? 'EN'}`,
-      });
+    const embed = brandEmbed(
+      new EmbedBuilder()
+        .setTitle(doll.name)
+        .setDescription(parts.join('\n'))
+        .setFooter({
+          text: `Region: ${doll.regionTag?.toUpperCase() ?? 'EN'}`,
+        }),
+      {
+        name: 'View on Refitting Room',
+        url: `${getSiteUrl()}/characters/${doll.slug}`,
+      }
+    );
 
     if (doll.avatarUrl) {
       embed.setThumbnail(doll.avatarUrl);
@@ -105,6 +113,6 @@ export const command: Command = {
       });
     }
 
-    await interaction.editReply({ embeds: [embed] });
+    await interaction.editReply({ embeds: [embed], files: [iconAttachment()] });
   },
 };

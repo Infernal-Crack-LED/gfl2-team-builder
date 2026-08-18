@@ -1,8 +1,4 @@
-import {
-  AttachmentBuilder,
-  EmbedBuilder,
-  SlashCommandBuilder,
-} from 'discord.js';
+import { AttachmentBuilder, SlashCommandBuilder } from 'discord.js';
 import type { Command } from '../../types.js';
 import { getInfographic } from '../../lib/gfl2/taptapScraper.js';
 
@@ -31,25 +27,14 @@ export const command: Command = {
         ? `https://www.taptap.cn/moment/${row.momentId}`
         : TAPTAP_USER_URL;
 
-      const embed = new EmbedBuilder()
-        .setColor(0x5b9dff)
-        .setTitle('Team Guide — ReTempest')
-        .setDescription('Latest team composition guide by ReTempest')
-        .setURL(momentUrl)
-        .setImage(row.imageUrl);
-
-      try {
-        await interaction.editReply({
-          embeds: [embed],
-          files: [
-            new AttachmentBuilder(row.imageUrl, {
-              name: 'retempest-teams.png',
-            }).setDescription('Team guide by ReTempest'),
-          ],
-        });
-      } catch {
-        await interaction.editReply({ embeds: [embed] });
-      }
+      await interaction.editReply({
+        content: `Team Guide — ReTempest · [TapTap](${momentUrl})`,
+        files: [
+          new AttachmentBuilder(row.imageUrl, {
+            name: 'retempest-teams.png',
+          }).setDescription('Team guide by ReTempest'),
+        ],
+      });
     } catch {
       await interaction.editReply({
         content: `Failed to fetch team guide data. Try again later or check [ReTempest's TapTap page](${TAPTAP_USER_URL}).`,
