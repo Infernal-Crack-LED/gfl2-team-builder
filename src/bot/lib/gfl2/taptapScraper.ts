@@ -113,15 +113,53 @@ interface ParsedMoment {
 function parseMomentPage(html: string): ParsedMoment {
   const data = extractNuxtData(html);
 
-  // Root structure: { data: 2 } → { <routeKey>: 3 } → [4] → { moment: 5, ... }
-  // The exact indices vary, but the structure is consistent.
+  // Root structure: { data: 2 } → { <routeKey>: idx, ... }
+  // The route map has multiple entries (sidebar data, moment data, etc.).
+  // We need the one whose resolved value is a dict containing a 'moment' key.
+  // The value may be a dict directly OR an array whose first element is a dict.
   const root = data[1] as Record<string, unknown>;
   const dataRef = root.data as number;
   const routeMap = data[dataRef] as Record<string, unknown>;
-  const routeKey = Object.keys(routeMap)[0]!;
-  const routeIdx = routeMap[routeKey] as number;
-  const routeArr = data[routeIdx] as number[];
-  const momentWrapper = data[routeArr[0]!] as Record<string, unknown>;
+
+  let momentWrapper: Record<string, unknown> | null = null;
+  for (const routeIdx of Object.values(routeMap)) {
+    if (typeof routeIdx !== 'number') {
+      continue;
+    }
+    const resolved = data[routeIdx];
+    if (
+      resolved &&
+      typeof resolved === 'object' &&
+      !Array.isArray(resolved) &&
+      'moment' in resolved
+    ) {
+      momentWrapper = resolved as Record<string, unknown>;
+      break;
+    }
+    if (Array.isArray(resolved)) {
+      for (const ref of resolved) {
+        if (typeof ref === 'number' && ref >= 0) {
+          const item = data[ref];
+          if (
+            item &&
+            typeof item === 'object' &&
+            !Array.isArray(item) &&
+            'moment' in (item as Record<string, unknown>)
+          ) {
+            momentWrapper = item as Record<string, unknown>;
+            break;
+          }
+        }
+      }
+      if (momentWrapper) {
+        break;
+      }
+    }
+  }
+  if (!momentWrapper) {
+    throw new Error('No moment wrapper found in NUXT_DATA');
+  }
+
   const momentIdx = momentWrapper.moment as number;
   const moment = data[momentIdx] as Record<string, unknown>;
 
