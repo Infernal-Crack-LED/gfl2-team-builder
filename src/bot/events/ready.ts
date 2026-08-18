@@ -2,7 +2,6 @@ import { ActivityType, Events } from 'discord.js';
 import type { Event } from '../types.js';
 import { preloadNameCache } from '../lib/gfl2/nameCache.js';
 import { preloadImageCache } from '../lib/gfl2/imageCache.js';
-import { preloadInfographicCache } from '../lib/gfl2/taptapScraper.js';
 
 export const event: Event<Events.ClientReady> = {
   name: Events.ClientReady,
@@ -33,18 +32,6 @@ export const event: Event<Events.ClientReady> = {
       .catch((e) =>
         console.warn(
           '[ready] rec card preload failed (will retry on first use):',
-          e
-        )
-      );
-
-    // Preload TapTap infographic URLs so /tierlist and /teams respond
-    // instantly. Fetches ReTempest's latest moment pages and caches the
-    // image URLs.
-    preloadInfographicCache()
-      .then(() => console.log('[ready] infographic cache preloaded'))
-      .catch((e) =>
-        console.warn(
-          '[ready] infographic preload failed (will retry on first use):',
           e
         )
       );

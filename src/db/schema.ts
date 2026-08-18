@@ -160,6 +160,25 @@ export const gfl2SyncRuns = pgTable('gfl2_sync_runs', {
 });
 
 /**
+ * Infographic image URLs scraped from TapTap (ReTempest posts). The sync
+ * script runs the TapTap scraper and upserts these rows; the bot commands
+ * (/tierlist, /teams) read from here at request time so we never hit TapTap
+ * from the bot process.
+ *
+ * `id` is a stable slug: 'team', 'tierlist-v6', 'tierlist-v0'.
+ * `moment_id` is the TapTap moment ID the image was extracted from.
+ */
+export const infographics = pgTable('infographics', {
+  id: text('id').primaryKey(),
+  imageUrl: text('image_url').notNull(),
+  momentId: text('moment_id'),
+  title: text('title'),
+  updatedAt: timestamp('updated_at', { withTimezone: true })
+    .notNull()
+    .defaultNow(),
+});
+
+/**
  * User profiles — saved client blobs (e.g. team-builder squads) keyed by
  * Discord user + kind + name. `code` is an opaque base64url payload; the DB
  * never interprets it. The (discordId, kind, name) unique index backs the

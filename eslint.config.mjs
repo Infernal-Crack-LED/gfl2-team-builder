@@ -81,6 +81,11 @@ export default tseslint.config(
     },
   },
   {
-    ignores: ['**/dist/**/*', '**/dist-server/**/*', '**/drizzle/**/*'],
+    ignores: [
+      '**/dist/**/*',
+      '**/dist-server/**/*',
+      '**/drizzle/**/*',
+      'scratchpad/**/*',
+    ],
   }
 );

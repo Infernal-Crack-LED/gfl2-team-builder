@@ -15,3 +15,6 @@ package-lock.json
 
 # curated / generated data
 data/
+
+# scratchpad / experiments
+scratchpad/

@@ -5,15 +5,21 @@
  * Records every run in `gfl2_sync_runs`.
  *
  * Run with `npm run sync`.
+ *
+ * Incremental: each entity type is skipped when its API `updatedAt`
+ * timestamps are all older than the corresponding DB rows. Doll details
+ * are only fetched for dolls that actually changed, so a typical daily
+ * sync is a handful of list requests instead of ~70 detail fetches.
  */
 
-import { sql } from 'drizzle-orm';
+import { isNotNull, sql } from 'drizzle-orm';
 import { db } from '../db/index.js';
 import {
   attachmentSets,
   dolls,
   effects,
   gfl2SyncRuns,
+  infographics,
   keys,
   weapons,
 } from '../db/schema.js';
@@ -34,15 +40,32 @@ import { DATA_DIR, exportJson } from './export.js';
 import { deriveEffectMatrix } from '../derive/effectMatrix.js';
 import { deriveEffectTags } from '../derive/effectTags.js';
 import { fetchAttachmentSets, type WikiAttachmentSet } from './wiki.js';
+import { fetchTapTapInfographics, type InfographicRow } from './taptap.js';
 
 export interface SyncSummary {
-  status: 'ok' | 'partial' | 'error';
+  status: 'ok' | 'partial' | 'error' | 'skipped';
   dolls: number;
   weapons: number;
   keys: number;
   effects: number;
   attachmentSets: number;
+  infographics: number;
+  /** How many entities were skipped because they were already up to date. */
+  skipped: {
+    dolls: number;
+    weapons: number;
+    keys: number;
+    effects: number;
+  };
+  /** Whether any data actually changed this run. */
+  changed: boolean;
   errors: string[];
+}
+
+export interface SyncOptions {
+  trigger?: string;
+  /** Force a full refresh even if nothing appears stale. */
+  force?: boolean;
 }
 
 function chunk<T>(items: T[], size: number): T[][] {
@@ -339,23 +362,162 @@ async function upsertAttachmentSets(rows: WikiAttachmentSet[]): Promise<void> {
   }
 }
 
+async function upsertInfographics(rows: InfographicRow[]): Promise<void> {
+  for (const row of rows) {
+    await db
+      .insert(infographics)
+      .values(row)
+      .onConflictDoUpdate({
+        target: infographics.id,
+        set: {
+          imageUrl: sql`excluded.image_url`,
+          momentId: sql`excluded.moment_id`,
+          title: sql`excluded.title`,
+          updatedAt: sql`now()`,
+        },
+      });
+  }
+}
+
+// --- Incremental helpers ---
+
+/** Build a map of existing API-updated timestamps by id for an entity table. */
+async function loadExistingTimestamps(
+  table: typeof dolls | typeof weapons | typeof keys | typeof effects
+): Promise<Map<string, Date>> {
+  const rows = await db
+    .select({ id: table.id, apiUpdatedAt: table.apiUpdatedAt })
+    .from(table)
+    .where(isNotNull(table.apiUpdatedAt));
+  return new Map(rows.map((r) => [r.id, r.apiUpdatedAt!]));
+}
+
+function isNewer(
+  apiUpdatedAt: string | null | undefined,
+  existing: Date | undefined
+): boolean {
+  if (!apiUpdatedAt) {
+    return existing == null;
+  }
+  if (existing == null) {
+    return true;
+  }
+  return new Date(apiUpdatedAt).getTime() > existing.getTime();
+}
+
+interface PartitionedList<T> {
+  changed: T[];
+  skipped: number;
+}
+
+function partitionByTimestamp<T extends { id: string; updatedAt?: string }>(
+  list: T[],
+  existing: Map<string, Date>
+): PartitionedList<T> {
+  const changed: T[] = [];
+  let skipped = 0;
+  for (const item of list) {
+    if (isNewer(item.updatedAt, existing.get(item.id))) {
+      changed.push(item);
+    } else {
+      skipped++;
+    }
+  }
+  return { changed, skipped };
+}
+
+/** Whether the attachment-set wiki scrape is due (empty table or >24h old). */
+async function attachmentSetsNeedSync(force: boolean): Promise<boolean> {
+  if (force) {
+    return true;
+  }
+  const row = await db
+    .select({ syncedAt: attachmentSets.syncedAt })
+    .from(attachmentSets)
+    .orderBy(sql`${attachmentSets.syncedAt} desc`)
+    .limit(1);
+  if (row.length === 0) {
+    return true;
+  }
+  const oneDayMs = 24 * 60 * 60 * 1000;
+  return Date.now() - (row[0]?.syncedAt?.getTime() ?? 0) > oneDayMs;
+}
+
 // --- Main sync ---
 
-export async function runSync(trigger?: string): Promise<SyncSummary> {
+export async function runSync(options?: SyncOptions): Promise<SyncSummary>;
+export async function runSync(trigger?: string): Promise<SyncSummary>;
+export async function runSync(
+  optionsOrTrigger?: SyncOptions | string
+): Promise<SyncSummary> {
+  const opts: SyncOptions =
+    typeof optionsOrTrigger === 'string'
+      ? { trigger: optionsOrTrigger }
+      : (optionsOrTrigger ?? {});
+  const { trigger, force = false } = opts;
+
   const startedAt = new Date();
   const errors: string[] = [];
+  const skipped = { dolls: 0, weapons: 0, keys: 0, effects: 0 };
 
-  console.log('Fetching dolls list...');
+  console.log(
+    `Starting sync (trigger: ${trigger ?? 'cli'}, force: ${force})...`
+  );
+
+  // Load existing timestamps so we can skip unchanged rows. In force mode we
+  // still fetch them (cheap) but the partition step treats every row as new.
+  const [existingDolls, existingWeapons, existingKeys, existingEffects] =
+    await Promise.all([
+      loadExistingTimestamps(dolls),
+      loadExistingTimestamps(weapons),
+      loadExistingTimestamps(keys),
+      loadExistingTimestamps(effects),
+    ]);
+
+  console.log('Fetching entity lists...');
   const dollList = await guarded(
     'dolls-list',
     errors,
     () => client.fetchDolls(),
     []
   );
+  const [weaponList, keyList, effectList] = await Promise.all([
+    guarded('weapons', errors, () => client.fetchWeapons(), []),
+    guarded('keys', errors, () => client.fetchKeys(), []),
+    guarded('effects', errors, () => client.fetchEffects(), []),
+  ]);
 
-  console.log(`Fetching ${dollList.length} doll details...`);
+  // Partition each list into changed vs. already-up-to-date rows.
+  const partitionedDolls = force
+    ? { changed: dollList, skipped: 0 }
+    : partitionByTimestamp(dollList, existingDolls);
+  const partitionedWeapons = force
+    ? { changed: weaponList, skipped: 0 }
+    : partitionByTimestamp(weaponList, existingWeapons);
+  const partitionedKeys = force
+    ? { changed: keyList, skipped: 0 }
+    : partitionByTimestamp(keyList, existingKeys);
+  const partitionedEffects = force
+    ? { changed: effectList, skipped: 0 }
+    : partitionByTimestamp(effectList, existingEffects);
+
+  skipped.dolls = partitionedDolls.skipped;
+  skipped.weapons = partitionedWeapons.skipped;
+  skipped.keys = partitionedKeys.skipped;
+  skipped.effects = partitionedEffects.skipped;
+
+  const changedDollSummaries = partitionedDolls.changed;
+  console.log(
+    `Lists: ${changedDollSummaries.length}/${dollList.length} dolls changed, ` +
+      `${partitionedWeapons.changed.length}/${weaponList.length} weapons, ` +
+      `${partitionedKeys.changed.length}/${keyList.length} keys, ` +
+      `${partitionedEffects.changed.length}/${effectList.length} effects`
+  );
+
+  // Fetch doll details only for dolls that actually changed.
+  console.log(`Fetching ${changedDollSummaries.length} doll details...`);
   const dollDetails: DollDetail[] = [];
-  for (const doll of dollList) {
+  for (const doll of changedDollSummaries) {
     const detail = await guarded<DollDetail | null>(
       `doll:${doll.name}`,
       errors,
@@ -368,23 +530,15 @@ export async function runSync(trigger?: string): Promise<SyncSummary> {
     await sleep(50);
   }
 
-  console.log('Fetching weapons, keys, effects, attachment sets...');
-  const [weaponList, keyList, effectList, attachmentSetList] =
-    await Promise.all([
-      guarded('weapons', errors, () => client.fetchWeapons(), []),
-      guarded('keys', errors, () => client.fetchKeys(), []),
-      guarded('effects', errors, () => client.fetchEffects(), []),
-      guarded('attachment-sets', errors, () => fetchAttachmentSets(), []),
-    ]);
-
+  // Normalize changed rows. For unchanged rows we write nothing.
   console.log('Normalizing...');
   const normalizedDolls = dollDetails.map(normalizeDoll);
-  const normalizedWeapons = weaponList.map(normalizeWeapon);
-  const normalizedKeys = keyList.map(normalizeKey);
-  const normalizedEffects = effectList.map(normalizeEffect);
+  const normalizedWeapons = partitionedWeapons.changed.map(normalizeWeapon);
+  const normalizedKeys = partitionedKeys.changed.map(normalizeKey);
+  const normalizedEffects = partitionedEffects.changed.map(normalizeEffect);
 
   console.log(
-    `Upserting: ${normalizedDolls.length} dolls, ${normalizedWeapons.length} weapons, ${normalizedKeys.length} keys, ${normalizedEffects.length} effects, ${attachmentSetList.length} attachment sets`
+    `Upserting: ${normalizedDolls.length} dolls, ${normalizedWeapons.length} weapons, ${normalizedKeys.length} keys, ${normalizedEffects.length} effects`
   );
 
   await guarded(
@@ -411,32 +565,81 @@ export async function runSync(trigger?: string): Promise<SyncSummary> {
     () => upsertEffects(normalizedEffects),
     undefined
   );
-  await guarded(
-    'upsert-attachment-sets',
+
+  // Attachment sets are scraped from the wiki and have no API updatedAt. Only
+  // scrape once per day or when the table is empty.
+  let attachmentSetList: WikiAttachmentSet[] = [];
+  const shouldSyncAttachmentSets = await attachmentSetsNeedSync(force);
+  if (shouldSyncAttachmentSets) {
+    attachmentSetList = await guarded(
+      'attachment-sets',
+      errors,
+      () => fetchAttachmentSets(),
+      []
+    );
+    await guarded(
+      'upsert-attachment-sets',
+      errors,
+      () => upsertAttachmentSets(attachmentSetList),
+      undefined
+    );
+  } else {
+    console.log('Attachment sets up to date — skipping wiki scrape');
+  }
+
+  // TapTap infographics — scrape ReTempest's latest posts and upsert
+  // image URLs into the infographics table. Always runs (TapTap is fast
+  // and the data changes when ReTempest publishes a new post).
+  let infographicRows: InfographicRow[] = [];
+  infographicRows = await guarded(
+    'taptap-infographics',
     errors,
-    () => upsertAttachmentSets(attachmentSetList),
+    () => fetchTapTapInfographics(),
+    []
+  );
+  await guarded(
+    'upsert-infographics',
+    errors,
+    () => upsertInfographics(infographicRows),
     undefined
   );
 
-  // Export committed JSON artifacts for the web app (build-time imports)
-  await guarded('export-json', errors, () => exportJson(), undefined);
+  const changed =
+    normalizedDolls.length > 0 ||
+    normalizedWeapons.length > 0 ||
+    normalizedKeys.length > 0 ||
+    normalizedEffects.length > 0 ||
+    attachmentSetList.length > 0 ||
+    infographicRows.length > 0;
 
-  // Derive the effect matrix and effect tags from the exported artifacts
-  await guarded(
-    'derive-effect-matrix',
-    errors,
-    async () => {
-      await deriveEffectMatrix(DATA_DIR);
-      await deriveEffectTags(DATA_DIR);
-    },
-    undefined
-  );
+  // Only rebuild committed JSON artifacts and derived outputs when something
+  // actually changed. Export is the expensive downstream step that writes the
+  // data files the web build imports.
+  if (changed) {
+    await guarded('export-json', errors, () => exportJson(), undefined);
+    await guarded(
+      'derive-effect-matrix',
+      errors,
+      async () => {
+        await deriveEffectMatrix(DATA_DIR);
+        await deriveEffectTags(DATA_DIR);
+      },
+      undefined
+    );
+  } else {
+    console.log('No changes detected — skipping export and derive');
+  }
 
   const status: SyncSummary['status'] = errors.length
-    ? normalizedDolls.length > 0 || normalizedWeapons.length > 0
+    ? normalizedDolls.length > 0 ||
+      normalizedWeapons.length > 0 ||
+      normalizedKeys.length > 0 ||
+      normalizedEffects.length > 0
       ? 'partial'
       : 'error'
-    : 'ok';
+    : changed
+      ? 'ok'
+      : 'skipped';
 
   const sources = {
     counts: {
@@ -445,7 +648,10 @@ export async function runSync(trigger?: string): Promise<SyncSummary> {
       keys: normalizedKeys.length,
       effects: normalizedEffects.length,
       attachmentSets: attachmentSetList.length,
+      infographics: infographicRows.length,
     },
+    skipped,
+    changed,
     errors,
   };
 
@@ -464,6 +670,9 @@ export async function runSync(trigger?: string): Promise<SyncSummary> {
     keys: normalizedKeys.length,
     effects: normalizedEffects.length,
     attachmentSets: attachmentSetList.length,
+    infographics: infographicRows.length,
+    skipped,
+    changed,
     errors,
   };
 }
