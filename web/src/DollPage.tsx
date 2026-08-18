@@ -16,6 +16,9 @@ import { useEffect, useState } from 'react';
 import {
   ammoOption,
   classOption,
+  getAllCommonKeys,
+  getAttachmentSet,
+  getDollById,
   getDollBySlug,
   getEffectDetails,
   getEffectsForDoll,
@@ -26,17 +29,26 @@ import {
   getWeaponForDoll,
   imagoOption,
   phaseOption,
+  STAT_PREF_OPTIONS,
   weaponTypeOption,
   dollWeaponType,
   PHASE_COLORS,
+  type Doll,
   type Effect,
   type FilterOption,
+  type Key,
   type Skill,
   type Weapon,
 } from './data';
 import { GameIcon } from './components/GameIcon';
 import { StaticKeyCard } from './components/KeyCard';
 import { RichText } from './components/RichText';
+import {
+  RecCardPreview,
+  type RecCardPreviewData,
+} from './components/RecCardPreview';
+import { decodeRecBuild, type RecBuild } from '../../src/share/buildCode';
+import { commonKeySource, fixedKeySlot } from '../../src/share/keyLabels';
 import {
   hrefFor,
   hrefForBuilder,
@@ -254,6 +266,110 @@ function SigWeaponCounterparts({ weapon }: { weapon: Weapon }) {
   );
 }
 
+/** Display name for a key, matching the server-side keyDisplayName(). */
+function keyName(key: Key | undefined): string | null {
+  return key?.displayTitle ?? key?.keyTitle ?? null;
+}
+
+/**
+ * Turn a decoded community recommendation code into the preview data shape
+ * used by <RecCardPreview>. Mirrors the previewData memo in RecCardTool.
+ */
+function buildRecCardPreviewData(
+  doll: Doll,
+  build: RecBuild
+): RecCardPreviewData {
+  const dollKeys = getKeysForDoll(doll.id);
+  const commonKeys = getAllCommonKeys();
+  const fixedKeySlots = build.keys
+    .map((id) => dollKeys.find((k) => k.id === id))
+    .filter((k): k is Key => k !== undefined)
+    .map(fixedKeySlot)
+    .filter((n): n is number => n !== null);
+  const expKey = build.exp
+    ? dollKeys.find((k) => k.id === build.exp)
+    : undefined;
+
+  return {
+    dollName: doll.name,
+    dollClass: doll.class,
+    dollPhase: doll.phase,
+    dollRarity: doll.rarity,
+    breakpoints: build.bp,
+    optimal: build.opt ?? null,
+    weapons: build.ws
+      .map((id) => getWeaponById(id))
+      .filter((w): w is NonNullable<typeof w> => w !== undefined)
+      .map((w) => ({ name: w.name, imageUrl: w.imageUrl ?? null })),
+    attachmentSets: build.sets.filter((s) => getAttachmentSet(s)),
+    fixedKeySlots,
+    expansionKeyName: expKey ? (expKey.keyTitle ?? keyName(expKey)) : null,
+    commonKeySources: (build.ck ?? [])
+      .map((id) => commonKeys.find((k) => k.id === id))
+      .filter((k): k is Key => k !== undefined)
+      .map((k) =>
+        commonKeySource(k, getDollById(k.dollId ?? '')?.name ?? null)
+      ),
+    statPrefs: (build.stats ?? []).filter((s) =>
+      (STAT_PREF_OPTIONS as readonly string[]).includes(s)
+    ),
+    notes: build.notes ?? null,
+    portraitUrl: doll.avatarUrl,
+  };
+}
+
+/**
+ * Collapsible community recommendation card for a doll. Fetches the default
+ * recommendation from /api/v1/rec-defaults/:slug and renders it with the same
+ * preview component used by the card creator.
+ */
+function RecommendedBuildSection({ doll }: { doll: Doll }) {
+  const [preview, setPreview] = useState<RecCardPreviewData | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    let cancelled = false;
+    setLoading(true);
+    setPreview(null);
+
+    fetch(`/api/v1/rec-defaults/${doll.slug}`)
+      .then((r) => (r.ok ? r.json() : null))
+      .then((data: { code?: string } | null) => {
+        if (cancelled) {
+          return;
+        }
+        const decoded =
+          typeof data?.code === 'string' ? decodeRecBuild(data.code) : null;
+        if (decoded) {
+          setPreview(buildRecCardPreviewData(doll, decoded));
+        }
+        setLoading(false);
+      })
+      .catch(() => {
+        if (!cancelled) {
+          setLoading(false);
+        }
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [doll]);
+
+  return (
+    <details className="unit-section unit-panel rec-section">
+      <summary className="rec-section-summary">Recommended Build</summary>
+      {loading ? (
+        <p className="muted">Loading community recommendation…</p>
+      ) : preview ? (
+        <RecCardPreview data={preview} />
+      ) : (
+        <p className="muted">No community recommendation available yet.</p>
+      )}
+    </details>
+  );
+}
+
 export function DollPage({ slug }: { slug: string | null }) {
   const doll = slug ? getDollBySlug(slug) : undefined;
 
@@ -413,6 +529,9 @@ export function DollPage({ slug }: { slug: string | null }) {
           </div>
         </div>
       </div>
+
+      {/* Recommended build — community default, collapsed by default */}
+      <RecommendedBuildSection doll={doll} />
 
       {/* Skills */}
       <section className="unit-section unit-panel">

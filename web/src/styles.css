@@ -1915,6 +1915,17 @@ td {
   margin-bottom: 10px;
 }
 
+/* Recommended build disclosure on the doll page. */
+.rec-section-summary {
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.rec-section[open] .rec-section-summary {
+  margin-bottom: 12px;
+}
+
 @media (max-width: 1100px) {
   .teambuilder-page {
     display: block;
@@ -2308,27 +2319,140 @@ summary.teameffect-tier-title:hover {
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
+  padding: 48px 20px 60px;
+}
+
+.home-hero {
   text-align: center;
-  padding: 60px 20px;
+  max-width: 640px;
+}
+
+.home-hero-logo {
+  width: 56px;
+  height: 56px;
+  margin: 0 auto 14px;
+  border-radius: 14px;
+  background: var(--panel);
 }
 
 .home-hero h1 {
-  font-size: 28px;
-  margin-bottom: 8px;
+  font-size: 36px;
+  margin-bottom: 10px;
 }
 
 .home-hero p {
-  font-size: 15px;
+  font-size: 16px;
+  line-height: 1.55;
   color: var(--muted);
-  max-width: 480px;
 }
 
-.home-links {
+.home-hero p strong {
+  color: var(--text);
+  font-weight: 600;
+}
+
+.home-cta-row {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 10px;
-  margin-top: 24px;
+  gap: 12px;
+  margin-top: 28px;
+}
+
+.home-section {
+  width: 100%;
+  max-width: 900px;
+  margin-top: 52px;
+}
+
+.home-section-title {
+  font-size: 18px;
+  margin-bottom: 14px;
+}
+
+.home-feature-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 12px;
+}
+
+.home-feature {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 16px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  color: var(--text);
+  text-decoration: none;
+  transition: border-color 0.15s;
+}
+
+.home-feature:hover {
+  border-color: var(--accent);
+  text-decoration: none;
+}
+
+.home-feature h2 {
+  font-size: 16px;
+  margin: 0;
+}
+
+.home-feature p {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.5;
+  margin: 0;
+}
+
+.home-feature-cta {
+  margin-top: auto;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--accent);
+}
+
+.home-callout {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  width: 100%;
+  max-width: 900px;
+  margin-top: 44px;
+  padding: 18px;
+  background: linear-gradient(180deg, var(--panel2), var(--panel));
+  border: 1px solid var(--border);
+  border-radius: 14px;
+}
+
+.home-callout-avatar {
+  flex: 0 0 auto;
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  object-fit: cover;
+  background: var(--bg);
+}
+
+/* A logo, not a bot avatar: rounded square with a little padding so the
+   artwork sits on the page background it was drawn against. */
+.home-callout-avatar.square {
+  border-radius: 14px;
+  object-fit: contain;
+  padding: 10px;
+}
+
+.home-callout-body h2 {
+  font-size: 18px;
+  margin: 2px 0 8px;
+}
+
+.home-callout-body p {
+  color: var(--muted);
+  line-height: 1.55;
+  margin: 0 0 14px;
+  max-width: 620px;
 }
 
 /* ---- Credits Page ---- */
@@ -2488,11 +2612,24 @@ summary.teameffect-tier-title:hover {
   }
 
   .home-hero h1 {
-    font-size: 22px;
+    font-size: 28px;
   }
 
   .home-hero p {
     font-size: 13px;
+  }
+
+  .home-callout {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 16px;
+  }
+
+  .home-callout-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 
   /* Bot callouts stack: avatar centered over the copy. */
