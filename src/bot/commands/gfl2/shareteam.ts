@@ -109,12 +109,10 @@ export const command: Command = {
       }
       await interaction.deferReply();
       const shortUrl = await teamShortLink(match.code);
-      const embed = brandEmbed(
-        new EmbedBuilder()
-          .setTitle(match.name)
-          .setDescription(match.memberNames.join(', ') || 'Empty squad'),
-        { name: 'View on Refitting Room', url: shortUrl }
-      );
+      const embed = brandEmbed(new EmbedBuilder(), {
+        name: 'View on Refitting Room',
+        url: shortUrl,
+      });
       try {
         await interaction.editReply({
           embeds: [embed],
@@ -177,12 +175,10 @@ export const command: Command = {
     await selected.update({ content: 'Loading…', components: [] });
 
     const shortUrl = await teamShortLink(picked.code);
-    const embed = brandEmbed(
-      new EmbedBuilder()
-        .setTitle(picked.name)
-        .setDescription(picked.memberNames.join(', ') || 'Empty squad'),
-      { name: 'View on Refitting Room', url: shortUrl }
-    );
+    const embed = brandEmbed(new EmbedBuilder(), {
+      name: 'View on Refitting Room',
+      url: shortUrl,
+    });
 
     // Post the result publicly so the whole channel can see it.
     try {
