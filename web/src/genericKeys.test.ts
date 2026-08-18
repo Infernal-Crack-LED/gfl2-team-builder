@@ -7,12 +7,13 @@ import { describe, expect, it } from 'vitest';
 import { getAllCommonKeys, allKeys } from './data';
 
 describe('generic common keys', () => {
-  it('merges the 3 generic common keys into allKeys', () => {
+  it('merges the 4 generic common keys into allKeys', () => {
     const generics = allKeys.filter((k) => k.keyTitle?.startsWith('Generic '));
     expect(generics.map((k) => k.keyTitle).sort()).toEqual([
       'Generic Atk/Crit',
       'Generic Atk/Def',
       'Generic Atk/Hp',
+      'Generic Key',
     ]);
   });
 
@@ -21,13 +22,14 @@ describe('generic common keys', () => {
     expect(titles).toContain('Common Key - Generic Atk/Crit');
     expect(titles).toContain('Common Key - Generic Atk/Def');
     expect(titles).toContain('Common Key - Generic Atk/Hp');
+    expect(titles).toContain('Common Key - Generic Key');
   });
 
   it('gives them stable unique ids and no doll owner', () => {
     const generics = getAllCommonKeys().filter((k) =>
       k.keyTitle?.startsWith('Generic ')
     );
-    expect(new Set(generics.map((k) => k.id)).size).toBe(3);
+    expect(new Set(generics.map((k) => k.id)).size).toBe(4);
     for (const g of generics) {
       expect(g.dollId).toBeNull();
       expect(g.keyType).toBe('Common Key');
