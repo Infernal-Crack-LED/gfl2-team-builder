@@ -1,4 +1,8 @@
-import { AttachmentBuilder, SlashCommandBuilder } from 'discord.js';
+import {
+  AttachmentBuilder,
+  MessageFlags,
+  SlashCommandBuilder,
+} from 'discord.js';
 import type { Command } from '../../types.js';
 import { getInfographic } from '../../lib/gfl2/taptapScraper.js';
 
@@ -42,6 +46,7 @@ export const command: Command = {
 
       await interaction.editReply({
         content: `${label} — ReTempest · [TapTap](${momentUrl})`,
+        flags: MessageFlags.SuppressEmbeds,
         files: [
           new AttachmentBuilder(row.imageUrl, {
             name: `retempest-${tier}-tierlist.png`,

@@ -42,15 +42,10 @@ export const command: Command = {
     const recImageUrl = await getRecCardImageUrl(doll.slug);
     if (recImageUrl) {
       try {
-        const embed = brandEmbed(
-          new EmbedBuilder().setTitle(doll.name).setFooter({
-            text: `Region: ${doll.regionTag?.toUpperCase() ?? 'EN'}`,
-          }),
-          {
-            name: 'View on Refitting Room',
-            url: `${getSiteUrl()}/characters/${doll.slug}`,
-          }
-        );
+        const embed = brandEmbed(new EmbedBuilder(), {
+          name: 'View on Refitting Room',
+          url: `${getSiteUrl()}/characters/${doll.slug}`,
+        });
         await interaction.editReply({
           embeds: [embed],
           files: [
@@ -68,49 +63,14 @@ export const command: Command = {
       }
     }
 
-    // Fallback: text embed with doll info (no rec card available).
-    const parts = [
-      `**Class:** ${doll.class}`,
-      `**Phase:** ${doll.phase}`,
-      `**Rarity:** ${doll.rarity}`,
-    ];
-    if (doll.weaponImprintType) {
-      parts.push(`**Weapon:** ${doll.weaponImprintType}`);
-    }
-    if (doll.ammoTypes?.length) {
-      parts.push(`**Ammo:** ${doll.ammoTypes.join(', ')}`);
-    }
-    if (doll.movement != null) {
-      parts.push(`**Movement:** ${doll.movement}`);
-    }
-    if (doll.stabilityGauge != null) {
-      parts.push(`**Stability:** ${doll.stabilityGauge}`);
-    }
-    if (doll.regionTag) {
-      parts.push(`**Region:** ${doll.regionTag.toUpperCase()}`);
-    }
-
-    const embed = brandEmbed(
-      new EmbedBuilder()
-        .setTitle(doll.name)
-        .setDescription(parts.join('\n'))
-        .setFooter({
-          text: `Region: ${doll.regionTag?.toUpperCase() ?? 'EN'}`,
-        }),
-      {
-        name: 'View on Refitting Room',
-        url: `${getSiteUrl()}/characters/${doll.slug}`,
-      }
-    );
+    // Fallback: branded embed with link only (no rec card available).
+    const embed = brandEmbed(new EmbedBuilder(), {
+      name: 'View on Refitting Room',
+      url: `${getSiteUrl()}/characters/${doll.slug}`,
+    });
 
     if (doll.avatarUrl) {
       embed.setThumbnail(doll.avatarUrl);
-    }
-    if (doll.bio) {
-      embed.addFields({
-        name: 'Profile',
-        value: doll.bio.length > 300 ? `${doll.bio.slice(0, 300)}…` : doll.bio,
-      });
     }
 
     await interaction.editReply({ embeds: [embed], files: [iconAttachment()] });
