@@ -43,12 +43,66 @@ export interface RecKeys {
   alternatives: string[];
 }
 
+/** A block of free prose from the sheet's path cell, with the steps it names. */
+export interface RecExplanationSource {
+  text: string;
+  refs?: string[] | null;
+}
+
 /** A raw row as it appears in data/recommendations-source.json. */
 export interface RecommendationSource {
   path?: RecPathStep[] | null;
+  explanation?: RecExplanationSource[] | null;
   weapons?: string[] | null;
   attachments?: Partial<RecAttachments> | null;
   keys?: Partial<RecKeys> | null;
+}
+
+/**
+ * What a block of free prose IS. The sheet's authors prefix these by hand, and
+ * the four kinds want four different treatments — a one-line verdict is not a
+ * paragraph of rotation theory, and burying it as "prose" wastes the most
+ * useful sentence on the page.
+ */
+export type RecExplanationKind =
+  | 'verdict' // "Recommendation: V0 > V3" — where to stop investing
+  | 'caveat' // "Disclaimer: ..." — a qualification on the advice
+  | 'tip' // "TIP: ..." — mechanics, rotations, interactions
+  | 'note'; // anything else the authors wrote
+
+export interface RecExplanation {
+  kind: RecExplanationKind;
+  /** The block with its own label prefix removed — the label becomes UI. */
+  text: string;
+  /** Steps this block names, so it can be shown against them. */
+  refs: string[];
+}
+
+// Spelling is as the authors typed it: both "Recommendation"/"Recomendation"
+// and "Disclaimer"/"Disclamer" appear, so the patterns tolerate the variants
+// rather than silently demoting a mis-typed block to an unlabelled note.
+const VERDICT_RE = /^\s*recomm?[ae]nd[ae]tion\s*:\s*/i;
+const CAVEAT_RE = /^\s*disclai?mer\s*:\s*/i;
+const TIP_RE = /^\s*tips?\s*:\s*/i;
+
+/** Classify one prose block and strip the label it classified on. */
+export function classifyExplanation(
+  block: RecExplanationSource
+): RecExplanation {
+  const raw = (block.text ?? '').trim();
+  const refs = (block.refs ?? []).filter(
+    (r): r is string => typeof r === 'string' && r !== ''
+  );
+  for (const [kind, re] of [
+    ['verdict', VERDICT_RE],
+    ['caveat', CAVEAT_RE],
+    ['tip', TIP_RE],
+  ] as const) {
+    if (re.test(raw)) {
+      return { kind, text: raw.replace(re, '').trim(), refs };
+    }
+  }
+  return { kind: 'note', text: raw, refs };
 }
 
 /** A recommended thing after the join: a link when resolved, text when not. */
@@ -67,8 +121,14 @@ export interface RecLink {
 export interface HydratedRecommendation {
   slug: string;
   path: RecPathStep[];
-  /** True when at least one step carries prose — 31 of 62 dolls have none. */
+  /** True when at least one step carries prose — 28 of 62 dolls have none. */
   hasNotes: boolean;
+  /** The one-line "where to stop" verdict, when the sheet states one. */
+  verdict: RecExplanation | null;
+  /** Qualifications on the advice — shown with the path they qualify. */
+  caveats: RecExplanation[];
+  /** Everything else: mechanics, rotations, interactions. */
+  notes: RecExplanation[];
   weapons: RecLink[];
   keys: { primary: RecLink[]; alternatives: RecLink[] };
   attachments: RecAttachments;
@@ -223,10 +283,34 @@ export function hydrateRecommendation(
     substats: textOrNull(source.attachments?.substats),
   };
 
+  // Free prose, split by what it is. The verdict is a single line the authors
+  // write at most once; a second one would mean the sheet changed shape, so
+  // keep the first and let the rest fall through as notes rather than
+  // silently dropping one.
+  const classified = (source.explanation ?? [])
+    .filter((b): b is RecExplanationSource => typeof b?.text === 'string')
+    .map(classifyExplanation)
+    .filter((b) => b.text !== '');
+  let verdict: RecExplanation | null = null;
+  const caveats: RecExplanation[] = [];
+  const notes: RecExplanation[] = [];
+  for (const block of classified) {
+    if (block.kind === 'verdict' && verdict === null) {
+      verdict = block;
+    } else if (block.kind === 'caveat') {
+      caveats.push(block);
+    } else {
+      notes.push(block);
+    }
+  }
+
   const hydrated: HydratedRecommendation = {
     slug,
     path,
     hasNotes: path.some((s) => s.note !== null),
+    verdict,
+    caveats,
+    notes,
     weapons,
     keys: {
       primary: keyLinks(strings(source.keys?.primary)),
@@ -239,6 +323,9 @@ export function hydrateRecommendation(
   // no panel than an empty one with a credit line attached to nothing.
   const empty =
     hydrated.path.length === 0 &&
+    verdict === null &&
+    caveats.length === 0 &&
+    notes.length === 0 &&
     hydrated.weapons.length === 0 &&
     hydrated.keys.primary.length === 0 &&
     hydrated.keys.alternatives.length === 0 &&

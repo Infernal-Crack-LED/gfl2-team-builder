@@ -46,6 +46,29 @@ function LinkRow({ item, rank }: { item: RecLink; rank?: number }) {
   );
 }
 
+/**
+ * The milestones a prose block names. This is the "tie the prose back to the
+ * path" link: the block is NOT that step's description — the parser was
+ * careful to keep those apart — but saying which steps it discusses lets a
+ * reader jump between the two without the page claiming they are the same
+ * thing.
+ */
+function StepRefs({ refs }: { refs: string[] }) {
+  if (refs.length === 0) {
+    return null;
+  }
+  return (
+    <p className="recbuild-refs">
+      <span className="recbuild-refs-label">Concerns</span>
+      {refs.map((r) => (
+        <span className="recbuild-ref" key={r}>
+          {r}
+        </span>
+      ))}
+    </p>
+  );
+}
+
 function Section({
   title,
   hint,
@@ -90,23 +113,50 @@ export function RecommendationPanel({
         </p>
       </header>
 
-      {rec.path.length > 0 && (
+      {(rec.path.length > 0 || rec.verdict || rec.caveats.length > 0) && (
         <Section
           title="Vertical investment"
           hint={
-            rec.hasNotes
+            rec.path.length === 0 || rec.hasNotes
               ? undefined
               : 'The sheet lists these breakpoints without further comment.'
           }
         >
-          <ol className="recbuild-path">
-            {rec.path.map((s) => (
-              <li key={s.step} className={s.note ? '' : 'recbuild-path-bare'}>
-                <span className="recbuild-step">{s.step}</span>
-                {s.note && <span className="recbuild-step-note">{s.note}</span>}
-              </li>
-            ))}
-          </ol>
+          {/* The verdict is the sheet's one-line answer to "how far do I go?".
+              It leads the section because it is the most useful sentence here
+              and it summarises the steps below it. */}
+          {rec.verdict && (
+            <p className="recbuild-verdict">
+              <span className="recbuild-verdict-label">Recommended</span>
+              <span className="recbuild-verdict-value">{rec.verdict.text}</span>
+            </p>
+          )}
+
+          {rec.path.length > 0 && (
+            <ol className="recbuild-path">
+              {rec.path.map((s) => (
+                <li key={s.step} className={s.note ? '' : 'recbuild-path-bare'}>
+                  <span className="recbuild-step">{s.step}</span>
+                  {s.note && (
+                    <span className="recbuild-step-note">{s.note}</span>
+                  )}
+                </li>
+              ))}
+            </ol>
+          )}
+
+          {/* Caveats qualify the path, so they sit with it rather than in the
+              notes below — a "do not stop at V3" warning is useless three
+              sections away from V3. */}
+          {rec.caveats.map((c, i) => (
+            <div className="recbuild-caveat" key={i}>
+              <span className="recbuild-caveat-label">Caveat</span>
+              <div>
+                <p className="recbuild-prose">{c.text}</p>
+                <StepRefs refs={c.refs} />
+              </div>
+            </div>
+          ))}
         </Section>
       )}
 
@@ -161,6 +211,25 @@ export function RecommendationPanel({
             </p>
           )}
         </Section>
+      )}
+
+      {/* Mechanics, rotations and interactions. Long — OTs-14 alone runs to
+          four blocks and 2000 characters — so it collapses, but it stays in
+          the DOM rather than behind a fetch: it is real indexable prose about
+          the doll, and it is the sheet's writing, not ours. */}
+      {rec.notes.length > 0 && (
+        <details className="recbuild-notes">
+          <summary>
+            Notes on playing {dollName}
+            <span className="recbuild-notes-count">{rec.notes.length}</span>
+          </summary>
+          {rec.notes.map((n, i) => (
+            <div className="recbuild-note" key={i}>
+              <p className="recbuild-prose">{n.text}</p>
+              <StepRefs refs={n.refs} />
+            </div>
+          ))}
+        </details>
       )}
     </section>
   );

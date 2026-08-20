@@ -18,6 +18,10 @@ import {
   introFor,
 } from '../share/facets';
 import { HOME_FEATURES, HOME_HERO } from '../share/homeContent';
+import {
+  hydrateRecommendation,
+  type RecommendationSource,
+} from '../share/recommendations';
 import { dev } from '../share/siteIdentity';
 import { stripHtml } from '../share/html';
 import {
@@ -518,5 +522,38 @@ describe('no-JS bodies', () => {
     }
     // ...and it links back to the profile rather than restating it.
     expect(builder).toContain(`href="/characters/${doll!.slug}"`);
+  });
+});
+
+describe('community recommendations', () => {
+  it('routes every prose block in the live data, losing none', () => {
+    // The panel shows verdict / caveats / notes; a block that matched no
+    // bucket would silently vanish, taking the maintainers' writing with it.
+    const source = JSON.parse(
+      readFileSync(path.resolve('data', 'recommendations-source.json'), 'utf8')
+    ) as Record<string, RecommendationSource>;
+    const noLookups = { weaponByName: () => null, keyByLabel: () => null };
+
+    let blocks = 0;
+    let routed = 0;
+    for (const [slug, row] of Object.entries(source)) {
+      blocks += (row.explanation ?? []).length;
+      const rec = hydrateRecommendation(slug, row, noLookups);
+      if (rec) {
+        routed += (rec.verdict ? 1 : 0) + rec.caveats.length + rec.notes.length;
+      }
+    }
+    expect(blocks).toBeGreaterThan(30);
+    expect(routed).toBe(blocks);
+  });
+
+  it('covers the dolls the sheet has rows for, and no others', () => {
+    const source = JSON.parse(
+      readFileSync(path.resolve('data', 'recommendations-source.json'), 'utf8')
+    ) as Record<string, unknown>;
+    const slugs = new Set(allDolls().map((d) => d.slug));
+    for (const slug of Object.keys(source)) {
+      expect(slugs.has(slug), `${slug} is not a doll`).toBe(true);
+    }
   });
 });
