@@ -1,6 +1,6 @@
 {
   "generator": "effect-tags/1",
-  "syncedAt": "2026-08-20T10:19:40.854Z",
+  "syncedAt": "2026-08-20T10:36:50.325Z",
   "vocabulary": {
     "buff": {
       "label": "Buff",
@@ -309,6 +309,7 @@
     "02d0f2eb-691d-5f46-a6e5-a77cf0d87223": [
       "buff",
       "damage-up",
+      "debuff",
       "uncleansable"
     ],
     "02f301d5-5c2e-5232-825e-afc0c3a0df37": [
@@ -781,7 +782,8 @@
     ],
     "0b268d29-d391-56c1-a5f3-ad3980df92ca": [
       "buff",
-      "crit-up",
+      "damage-up",
+      "ignore-defense",
       "movement-up",
       "uncleansable"
     ],
@@ -1387,10 +1389,7 @@
     ],
     "16c919e5-538b-540c-acb2-b1f3039fb226": [
       "buff",
-      "crit-up",
       "damage-up",
-      "hydro",
-      "movement-up",
       "uncleansable"
     ],
     "17468fe5-f123-55bb-a313-ea0c541d50ed": [
@@ -1599,8 +1598,6 @@
       "debuff"
     ],
     "1adafea9-e187-5729-9e6f-1e9d8408e360": [
-      "buff",
-      "damage-taken-down",
       "uncleansable"
     ],
     "1adf2933-c4fa-5614-9943-1026cd925a6b": [
@@ -1797,6 +1794,10 @@
       "damage-up",
       "debuff",
       "stability-damage-down"
+    ],
+    "1e7fe74c-6d4d-5200-a85f-a3367a273634": [
+      "buff",
+      "healing"
     ],
     "1e81a20b-e473-5afd-a026-be334eb2a315": [
       "damage-taken-up",
@@ -2173,7 +2174,8 @@
       "uncleansable"
     ],
     "25fbb77b-5420-53b1-813e-3e2fb27f9b47": [
-      "summon"
+      "buff",
+      "healing"
     ],
     "265bd32e-94a6-56f1-9ff6-a08289216bf2": [
       "uncleansable"
@@ -2220,10 +2222,6 @@
       "defense-up"
     ],
     "26f167f6-bb19-5a13-b828-89cd8d8b1896": [
-      "attack-up",
-      "buff",
-      "crit-up",
-      "shield",
       "uncleansable"
     ],
     "26fc8825-7329-532b-98cf-7a13390ed933": [
@@ -2922,7 +2920,6 @@
       "uncleansable"
     ],
     "3282ff48-caea-51cb-bafd-db8a233d4628": [
-      "damage-taken-up",
       "debuff",
       "uncleansable"
     ],
@@ -3264,6 +3261,7 @@
       "uncleansable"
     ],
     "37e0d3a3-e602-5dfc-a622-57a168a2b6f7": [
+      "buff",
       "uncleansable"
     ],
     "380c6b3d-9f22-5c95-90e1-e615fc789d38": [
@@ -3967,10 +3965,6 @@
       "uncleansable"
     ],
     "44ca72b9-3f14-5ad7-bdde-c84e5f22234e": [
-      "attack-up",
-      "buff",
-      "crit-up",
-      "shield",
       "uncleansable"
     ],
     "44d0c0b9-cd24-56e4-9e66-6308a02b8352": [
@@ -4455,10 +4449,6 @@
       "movement-down"
     ],
     "4c7b2340-e792-534a-ab6d-659cf753807b": [
-      "attack-up",
-      "buff",
-      "crit-up",
-      "shield",
       "uncleansable"
     ],
     "4cccddb9-ed37-5074-95a5-5d336a17d25f": [
@@ -5153,10 +5143,6 @@
       "uncleansable"
     ],
     "5958ee92-d720-546a-b828-cba3720d42f1": [
-      "attack-up",
-      "buff",
-      "crit-up",
-      "shield",
       "uncleansable"
     ],
     "5970408f-f792-5c41-97f1-494154521ea8": [
@@ -5205,6 +5191,7 @@
       "uncleansable"
     ],
     "5a951ca0-3408-5e4f-8228-d4a81e0ab12a": [
+      "attack-up",
       "buff",
       "damage-up",
       "stability-damage-up",
@@ -6130,6 +6117,7 @@
       "uncleansable"
     ],
     "6c6f5449-032c-59f9-8995-8ba0f354540e": [
+      "buff",
       "uncleansable"
     ],
     "6c9bc6ec-b1ad-5460-a5ae-5435f35e1189": [
@@ -6203,6 +6191,7 @@
       "uncleansable"
     ],
     "6dae5e1c-0126-569c-a8d3-fa70afdb9a9d": [
+      "buff",
       "uncleansable"
     ],
     "6db0e938-545e-51bf-8533-8f8486f83aff": [
@@ -6272,7 +6261,6 @@
       "uncleansable"
     ],
     "6e684d8e-5399-5cc2-b175-bf0d4364354b": [
-      "damage-taken-up",
       "debuff",
       "uncleansable"
     ],
@@ -6446,10 +6434,6 @@
       "uncleansable"
     ],
     "7168ad87-6f85-52e6-8e15-adb62c1ae9cb": [
-      "attack-up",
-      "buff",
-      "crit-up",
-      "shield",
       "uncleansable"
     ],
     "7184966e-ecdc-50b0-a18d-ecf5bc9bf25f": [
@@ -7205,14 +7189,15 @@
       "uncleansable"
     ],
     "7edd9115-17ec-52d2-8152-b5b0972512c4": [
+      "buff",
+      "damage-taken-down",
       "damage-taken-up",
       "debuff",
       "defense-down",
+      "dot",
       "uncleansable"
     ],
     "7ee67c9e-68ea-5a1b-88df-18d4910b3fdb": [
-      "buff",
-      "hydro",
       "uncleansable"
     ],
     "7ee9287a-1905-5cd1-ad6e-f6ca3022e0f0": [
@@ -7301,10 +7286,6 @@
       "uncleansable"
     ],
     "8067fbca-0d04-52db-8e95-d4dd02f497c2": [
-      "attack-up",
-      "buff",
-      "crit-up",
-      "shield",
       "uncleansable"
     ],
     "806a14f8-7d10-5904-9d16-757e8fb56654": [
@@ -7515,7 +7496,6 @@
       "damage-up"
     ],
     "8433bf14-c17e-55f3-b484-3c08cd233833": [
-      "damage-taken-up",
       "debuff",
       "uncleansable"
     ],
@@ -9080,8 +9060,6 @@
       "uncleansable"
     ],
     "9fe147f2-7892-5930-a9f8-3612388c0dbd": [
-      "buff",
-      "damage-taken-down",
       "uncleansable"
     ],
     "9fe8fe53-9de2-5e17-92cf-2f0efddeda1a": [
@@ -9423,7 +9401,7 @@
     ],
     "a66d0882-1c5f-5fd0-93b1-f8dd90a017a1": [
       "buff",
-      "movement-up",
+      "damage-up",
       "uncleansable"
     ],
     "a672667e-723d-5103-8d7d-15b0a81cd9e9": [
@@ -9793,8 +9771,6 @@
       "uncleansable"
     ],
     "ac270248-b4ec-5bc7-b419-9e5f23765d9b": [
-      "debuff",
-      "freeze",
       "uncleansable"
     ],
     "ac286e6d-6471-56dc-be89-f387d64fc12f": [
@@ -9858,7 +9834,7 @@
     ],
     "ad8a5795-6780-5bc1-ae2d-2c874069b76f": [
       "buff",
-      "movement-up",
+      "damage-up",
       "uncleansable"
     ],
     "ada18dff-a7cb-5114-aea5-074fb8ebf076": [
@@ -10137,8 +10113,6 @@
       "uncleansable"
     ],
     "b263f947-e762-5e80-89b0-0e22b29ae28d": [
-      "debuff",
-      "freeze",
       "uncleansable"
     ],
     "b27b61cf-c45a-5bcc-9288-746268dd459d": [
@@ -10162,9 +10136,12 @@
       "defense-up"
     ],
     "b2a0880d-2a3f-5777-bf13-f48ae25ede90": [
+      "buff",
+      "damage-taken-down",
       "damage-taken-up",
       "debuff",
       "defense-down",
+      "dot",
       "uncleansable"
     ],
     "b2b0ecf2-8a08-55d9-ba3f-1026245da374": [
@@ -10212,6 +10189,7 @@
       "buff"
     ],
     "b326ae14-622f-567d-ab61-c07208919a7f": [
+      "attack-up",
       "buff",
       "damage-up",
       "stability-damage-up",
@@ -10660,6 +10638,10 @@
       "crit-up",
       "uncleansable"
     ],
+    "b9d56234-6ae5-5320-a368-b0a3b15a5462": [
+      "buff",
+      "healing"
+    ],
     "b9eb3898-5b8a-5818-9c4a-422f19dcebfa": [
       "corrosion",
       "debuff",
@@ -10726,7 +10708,7 @@
     ],
     "bb03ea00-6bcc-5942-8625-4afc9a7f485a": [
       "buff",
-      "hydro",
+      "damage-up",
       "uncleansable"
     ],
     "bb061a3a-e333-5861-b221-16ad7c884e51": [
@@ -10858,13 +10840,6 @@
     "bdcf970e-cde5-5188-8f5b-68b70d4a31a8": [
       "buff",
       "damage-taken-down",
-      "uncleansable"
-    ],
-    "bdd68030-315c-5abf-bc85-658a77d155b2": [
-      "attack-up",
-      "buff",
-      "crit-up",
-      "shield",
       "uncleansable"
     ],
     "bde51d79-212a-5c93-93f7-c6b192da5b92": [
@@ -11541,10 +11516,6 @@
       "defense-down"
     ],
     "ca3beaa0-be58-53ff-9ac4-c3c6057ca6e1": [
-      "attack-up",
-      "buff",
-      "crit-up",
-      "shield",
       "uncleansable"
     ],
     "ca435c05-c2d5-5e30-bdac-c414129c2fd6": [
@@ -11937,6 +11908,7 @@
       "uncleansable"
     ],
     "d16cd58c-7439-5815-a029-4eecb732ccd0": [
+      "buff",
       "uncleansable"
     ],
     "d185ff05-fef8-5c16-8b96-6bcbbf3b8898": [
@@ -12167,14 +12139,9 @@
       "uncleansable"
     ],
     "d6292875-e5fe-56d5-9b22-864975d2565b": [
-      "attack-up",
-      "buff",
-      "crit-up",
-      "shield",
       "uncleansable"
     ],
     "d6360cec-9d72-5188-b0a8-085a2b390d0d": [
-      "control",
       "debuff",
       "immunity",
       "uncleansable"
@@ -12925,10 +12892,6 @@
       "debuff"
     ],
     "e3c23d95-fbfa-58c1-8bdd-6369e71af101": [
-      "attack-up",
-      "buff",
-      "crit-up",
-      "shield",
       "uncleansable"
     ],
     "e3c3c266-d6aa-5ccb-b8ba-4cd6a19977d3": [
@@ -13267,9 +13230,9 @@
       "crit-up"
     ],
     "ea452154-d998-5fb2-88e1-0c04d6bb74a3": [
-      "damage-taken-up",
-      "debuff",
-      "defense-down"
+      "attack-up",
+      "buff",
+      "uncleansable"
     ],
     "ea491662-fb7e-5bba-b583-6ffaeaf78c84": [
       "uncleansable"
@@ -13809,6 +13772,7 @@
     "f2966611-5926-5928-b572-95915de995cd": [
       "buff",
       "damage-taken-down",
+      "defense-up",
       "uncleansable"
     ],
     "f2b220f1-b0d8-5f52-b585-b291b6b5e1ec": [
@@ -14195,12 +14159,6 @@
       "debuff",
       "uncleansable"
     ],
-    "f91455fa-32f0-5cb1-a090-330eef8c8c6a": [
-      "control",
-      "debuff",
-      "immunity",
-      "uncleansable"
-    ],
     "f91c6abd-1d9b-5e81-a6af-265ffe849b1c": [
       "buff",
       "damage-up"
@@ -14214,6 +14172,7 @@
     "f97390e9-4e03-5684-893d-e9aca9bbb397": [
       "damage-taken-up",
       "debuff",
+      "defense-down",
       "uncleansable"
     ],
     "f976d894-598b-5ed5-af95-0136bde86f3f": [
