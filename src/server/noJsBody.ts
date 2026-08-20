@@ -463,7 +463,7 @@ function recommendationSection(doll: DollEntry): string {
     '<section class="unit-section unit-panel recbuild-panel">' +
     '<h2>Recommended build</h2>' +
     `<p class="recbuild-credit">${escapeHtml(RECOMMENDATION_CREDIT.lead)} ` +
-    `<a href="${escapeHtml(RECOMMENDATION_CREDIT.sheetUrl)}" target="_blank" rel="noreferrer">` +
+    `<a href="${escapeHtml(rec.sheetUrl)}" target="_blank" rel="noreferrer">` +
     `View ${escapeHtml(doll.name)} on the ${escapeHtml(RECOMMENDATION_CREDIT.sheetName)}</a></p>` +
     sub('Vertical investment', investment) +
     sub('Weapons', list(rec.weapons, true)) +

@@ -29,6 +29,7 @@
     "step": "V6"
    }
   ],
+  "sheetGid": "1072847572",
   "weapons": [
    "6P33",
    "Golden Melody",
@@ -42,12 +43,6 @@
    "substats": "Damage: ATK% > ATK > CRIT% > CRIT DMG%\nTank: HP% > DEF% > HP > DEF"
   },
   "explanation": [
-   {
-    "refs": [
-     "V1"
-    ],
-    "text": "V1 (?): V1 significantly boosts Auto-Turret's damage. However, the new passive for Auto-Turret means that it is applying Negative Charge at the start of the turn instead of the end. This decreases Leva's damage as her Action Support are triggered by Negative Charge application. Ideally, her Action Support should be triggered only at the end as Leva gains extra damage when hitting Stability broken enemies"
-   },
    {
     "refs": [],
     "text": "Tip: Andoris only apply positive charges to ally dolls and their summons, which also extends to her cleanse. For healing/cleansing neutral units (such as the ones in the Tumorhynchus - Massacre GS boss), other Dolls like Ksenia will be needed."
@@ -69,7 +64,7 @@
   },
   "path": [
    {
-    "note": null,
+    "note": "V1 significantly boosts Auto-Turret's damage. However, the new passive for Auto-Turret means that it is applying Negative Charge at the start of the turn instead of the end. This decreases Leva's damage as her Action Support are triggered by Negative Charge application. Ideally, her Action Support should be triggered only at the end as Leva gains extra damage when hitting Stability broken enemies",
     "step": "V1"
    },
    {
@@ -77,6 +72,7 @@
     "step": "V6"
    }
   ],
+  "sheetGid": "354611575",
   "weapons": [
    "Aglaea",
    "G36K-KSK"
@@ -124,6 +120,7 @@
    ]
   },
   "path": [],
+  "sheetGid": "271959436",
   "weapons": [
    "Njörðr",
    "Mjölnir",
@@ -215,6 +212,7 @@
     "step": "V6"
    }
   ],
+  "sheetGid": "1230518079",
   "weapons": [
    "Sylvan Elf",
    "Leaping Tiger",
@@ -252,6 +250,7 @@
     "step": "V1"
    }
   ],
+  "sheetGid": "1922543195",
   "weapons": [
    "Guerno",
    "Golden Melody",
@@ -281,6 +280,7 @@
    ]
   },
   "path": [],
+  "sheetGid": "918137745",
   "weapons": [
    "Echoes of Sorrow",
    "Classified Manuscript",
@@ -333,6 +333,7 @@
    ]
   },
   "path": [],
+  "sheetGid": "538607781",
   "weapons": [
    "Papa-Figo",
    "Hestia"
@@ -375,6 +376,7 @@
     "step": "V4"
    }
   ],
+  "sheetGid": "656825845",
   "weapons": [
    "AK-15",
    "Heavy Strings",
@@ -416,6 +418,7 @@
     "step": "V6"
    }
   ],
+  "sheetGid": "1914576842",
   "weapons": [
    "Eulogistic Verse",
    "Bittersweet Caramel",
@@ -507,6 +510,7 @@
     "step": "V4"
    }
   ],
+  "sheetGid": "1269540532",
   "weapons": [
    "Hestia",
    "Papa-Figo",
@@ -541,6 +545,7 @@
     "step": "V6"
    }
   ],
+  "sheetGid": "846510085",
   "weapons": [
    "Iaso",
    "Hestia",
@@ -570,6 +575,7 @@
    ]
   },
   "path": [],
+  "sheetGid": "1466511687",
   "weapons": [
    "Guerno",
    "Golden Melody",
@@ -736,6 +742,7 @@
     "step": "V6"
    }
   ],
+  "sheetGid": "2083867509",
   "weapons": [
    "Skylla (Please get V6 first)",
    "Planeta",
@@ -812,6 +819,7 @@
    ]
   },
   "path": [],
+  "sheetGid": "492277675",
   "weapons": [
    "Crowned Jackelope",
    "Rectrix",
@@ -839,6 +847,7 @@
    ]
   },
   "path": [],
+  "sheetGid": "1104712660",
   "weapons": [
    "Stechkin",
    "Papa-Figo",
@@ -882,6 +891,7 @@
     "step": "R6"
    }
   ],
+  "sheetGid": "963368885",
   "weapons": [
    "Perihelion",
    "Svarog"
@@ -918,6 +928,7 @@
     "step": "V1"
    }
   ],
+  "sheetGid": "1810944397",
   "weapons": [
    "Schlitzohr",
    "Svarog",
@@ -959,6 +970,7 @@
     "step": "V6"
    }
   ],
+  "sheetGid": "1842622265",
   "weapons": [
    "Schlitzohr",
    "Svarog",
@@ -1057,6 +1069,7 @@
     "step": "V6"
    }
   ],
+  "sheetGid": "1895188455",
   "weapons": [
    "Thorn Criterion",
    "Expeditionary Pigeon",
@@ -1084,6 +1097,7 @@
    ]
   },
   "path": [],
+  "sheetGid": "1457157730",
   "weapons": [
    "Optical Illusion",
    "Mjölnir",
@@ -1210,6 +1224,7 @@
    ]
   },
   "path": [],
+  "sheetGid": "1391022767",
   "weapons": [
    "Heart Seeker",
    "Expeditionary Pigeon",
@@ -1263,6 +1278,7 @@
     "step": "V6"
    }
   ],
+  "sheetGid": "1368554730",
   "weapons": [
    "Bittersweet Caramel",
    "Eulogistic Verse",
@@ -1297,6 +1313,7 @@
     "step": "V6"
    }
   ],
+  "sheetGid": "2111564037",
   "weapons": [
    "Daydream",
    "Skylla",
@@ -1347,6 +1364,7 @@
    ]
   },
   "path": [],
+  "sheetGid": "1456907333",
   "weapons": [
    "Hestia",
    "Papa-Figo",
@@ -1376,6 +1394,7 @@
    ]
   },
   "path": [],
+  "sheetGid": "1452795159",
   "weapons": [
    "Arcana",
    "Samosek",
@@ -1412,6 +1431,7 @@
     "step": "V6"
    }
   ],
+  "sheetGid": "278224983",
   "weapons": [
    "Bittersweet Caramel",
    "Samosek",
@@ -1508,6 +1528,7 @@
    ]
   },
   "path": [],
+  "sheetGid": "767591678",
   "weapons": [
    "Svarog",
    "Classified Manuscript"
@@ -1547,6 +1568,7 @@
     "step": "V6"
    }
   ],
+  "sheetGid": "1124520127",
   "weapons": [
    "Amanita",
    "Banshee's Whisper",
@@ -1576,6 +1598,7 @@
    ]
   },
   "path": [],
+  "sheetGid": "885074054",
   "weapons": [
    "Optical Illusion",
    "Mjölnir",
@@ -1684,6 +1707,7 @@
     "step": "V5"
    }
   ],
+  "sheetGid": "769854121",
   "weapons": [
    "Golden Melody",
    "Guerno",
@@ -1729,6 +1753,7 @@
     "step": "V6"
    }
   ],
+  "sheetGid": "31264255",
   "weapons": [
    "Thorn Criterion",
    "Trailblazer",
@@ -1770,6 +1795,7 @@
     "step": "V6"
    }
   ],
+  "sheetGid": "1320446205",
   "weapons": [
    "Svarog",
    "Wanderer's Magnum",
@@ -1800,6 +1826,7 @@
    ]
   },
   "path": [],
+  "sheetGid": "1107596361",
   "weapons": [
    "Mezzaluna",
    "Expeditionary Pigeon",
@@ -1904,6 +1931,7 @@
    ]
   },
   "path": [],
+  "sheetGid": "972896318",
   "weapons": [
    "Planeta",
    "Golden Melody",
@@ -1984,6 +2012,7 @@
     "step": "V6"
    }
   ],
+  "sheetGid": "831025244",
   "weapons": [
    "Faithpiercer",
    "Bittersweet Caramel",
@@ -2037,6 +2066,7 @@
     "step": "V5"
    }
   ],
+  "sheetGid": "790119477",
   "weapons": [
    "Unspoken Calling",
    "Classified Manuscript",
@@ -2077,6 +2107,7 @@
     "step": "V5"
    }
   ],
+  "sheetGid": "285694669",
   "weapons": [
    "Planeta",
    "Guerno",
@@ -2090,10 +2121,6 @@
    "substats": "ATK% > ATK > CRIT% > CRIT DMG%"
   },
   "explanation": [
-   {
-    "refs": [],
-    "text": "V0R1: Very unique as the only unit in the game has heavy reliant on her sig weapon for her skill rotation (very much recommend to have at least her SR version of the blade). Her tier 2 expansion key makes her among the few best of budget dps at the current point of writing."
-   },
    {
     "refs": [
      "V0",
@@ -2115,7 +2142,11 @@
   },
   "path": [
    {
-    "note": null,
+    "note": "Very unique as the only unit in the game has heavy reliant on her sig weapon for her skill rotation (very much recommend to have at least her SR version of the blade). Her tier 2 expansion key makes her among the few best of budget dps at the current point of writing.",
+    "step": "V0"
+   },
+   {
+    "note": "Very unique as the only unit in the game has heavy reliant on her sig weapon for her skill rotation (very much recommend to have at least her SR version of the blade). Her tier 2 expansion key makes her among the few best of budget dps at the current point of writing.",
     "step": "R1"
    },
    {
@@ -2131,6 +2162,7 @@
     "step": "V6"
    }
   ],
+  "sheetGid": "66746103",
   "weapons": [
    "Rectrix",
    "Pluma Edge",
@@ -2176,6 +2208,7 @@
     "step": "V2"
    }
   ],
+  "sheetGid": "1178564983",
   "weapons": [
    "Banshee's Whisper",
    "Classified Manuscript",
@@ -2206,6 +2239,7 @@
    ]
   },
   "path": [],
+  "sheetGid": "258879651",
   "weapons": [
    "Heart Seeker",
    "Expeditionary Pigeon",
@@ -2257,6 +2291,7 @@
     "step": "V6"
    }
   ],
+  "sheetGid": "1169017625",
   "weapons": [
    "AK-15",
    "Planeta",
@@ -2326,6 +2361,7 @@
     "step": "V6"
    }
   ],
+  "sheetGid": "1406180247",
   "weapons": [
    "Dazzling Sparkles",
    "Planeta",
@@ -2366,6 +2402,7 @@
     "step": "V6"
    }
   ],
+  "sheetGid": "854468208",
   "weapons": [
    "Juggernaut",
    "Classified Manuscript",

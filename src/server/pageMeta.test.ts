@@ -21,6 +21,7 @@ import { HOME_FEATURES, HOME_HERO } from '../share/homeContent';
 import {
   RECOMMENDATION_CREDIT,
   hydrateRecommendation,
+  sheetUrlFor,
   type RecommendationSource,
 } from '../share/recommendations';
 import { recommendationFor } from './recommendations';
@@ -569,7 +570,7 @@ describe('community recommendations', () => {
     expect(body).toContain('Recommended build');
     // The credit is not optional and not deferred to a footer.
     expect(body).toContain(escapeHtml(RECOMMENDATION_CREDIT.lead));
-    expect(body).toContain(RECOMMENDATION_CREDIT.sheetUrl);
+    expect(body).toContain(escapeHtml(rec.sheetUrl));
     for (const w of rec.weapons) {
       expect(body, w.label).toContain(escapeHtml(w.label));
     }
@@ -649,5 +650,36 @@ describe('doll page meta', () => {
       expect(title.length, `${doll.slug}: "${title}"`).toBeLessThanOrEqual(60);
     }
     expect(titles.size).toBe(allDolls().length);
+  });
+});
+
+describe('sheet citation links', () => {
+  it("cites a doll's own tab when the sheet indexes her", () => {
+    const withGid = allDolls()
+      .map((d) => recommendationFor(d))
+      .find((r) => r !== null && r.sheetUrl !== RECOMMENDATION_CREDIT.sheetUrl);
+    expect(withGid, 'no doll resolved a per-tab gid').toBeDefined();
+    expect(withGid!.sheetUrl).toMatch(/[?#]gid=\d+/);
+  });
+
+  it('falls back to the sheet root rather than guessing a tab', () => {
+    // The Quick Links index does not name every doll. A wrong gid would land
+    // the reader on someone else's analysis while claiming to be hers, which
+    // is worse for the maintainers than one extra click.
+    expect(sheetUrlFor(null)).toBe(RECOMMENDATION_CREDIT.sheetUrl);
+    expect(sheetUrlFor(undefined)).toBe(RECOMMENDATION_CREDIT.sheetUrl);
+    expect(sheetUrlFor('not-a-gid')).toBe(RECOMMENDATION_CREDIT.sheetUrl);
+    expect(sheetUrlFor('123')).toContain('gid=123');
+  });
+
+  it('never emits a citation link outside the credited spreadsheet', () => {
+    for (const doll of allDolls()) {
+      const rec = recommendationFor(doll);
+      if (rec) {
+        expect(rec.sheetUrl, doll.slug).toMatch(
+          /^https:\/\/docs\.google\.com\/spreadsheets\/d\/1DogyU3K7ZXw2qbhP1EhRXIAw5nCyIV5G5e-QWviBZME\//
+        );
+      }
+    }
   });
 });
