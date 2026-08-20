@@ -21,7 +21,6 @@ import {
   getDollById,
   getDollBySlug,
   getEffectDetails,
-  getEffectsForDoll,
   getKeysForDoll,
   getRemoldingPattern,
   getVertebraeForDoll,
@@ -56,6 +55,7 @@ import {
   onSpaLinkClick,
 } from './router';
 import { escapeJsonLd } from './jsonLd';
+import { getDollEffectVariants } from './effectGroups';
 import { dollPageMeta, setDetailMeta } from './useDocumentHead';
 
 /**
@@ -157,7 +157,13 @@ function SkillSection({ skill }: { skill: Skill }) {
  * effect has them. The rewrites restate the whole effect rather than
  * describing a delta, so they're tabbed, not stacked.
  */
-function EffectEntry({ effect }: { effect: Effect }) {
+function EffectEntry({
+  effect,
+  source,
+}: {
+  effect: Effect;
+  source?: string | null;
+}) {
   const { main, upgrades } = getEffectDetails(effect);
   const [upgrade, setUpgrade] = useState<number>(-1);
   const shown = upgrade === -1 ? main : (upgrades[upgrade]?.details ?? main);
@@ -170,6 +176,7 @@ function EffectEntry({ effect }: { effect: Effect }) {
             can't match them — badge the raw field up here instead */}
         <CnMark text={[effect.effectName, effect.effectDetails]} />
       </strong>
+      {source && <span className="unit-ident effect-source">{source}</span>}
       {upgrades.length > 0 && (
         <div className="pills small unit-skill-tabs">
           <button
@@ -433,7 +440,7 @@ export function DollPage({ slug }: { slug: string | null }) {
   const fixedKeys = dollKeys.filter((k) => k.keyType === 'Fixed Key');
   const expansionKeys = dollKeys.filter((k) => k.keyType === 'Expansion Key');
   const dollCommonKeys = dollKeys.filter((k) => k.keyType === 'Common Key');
-  const dollEffects = getEffectsForDoll(doll.id);
+  const dollEffects = getDollEffectVariants(doll);
   const imprintWeapon = getWeaponForDoll(doll.id);
   const vertebrae = getVertebraeForDoll(doll);
   const remolding = getRemoldingPattern(doll);
@@ -773,8 +780,12 @@ export function DollPage({ slug }: { slug: string | null }) {
         <h2>Exclusive Effects</h2>
         {dollEffects.length > 0 ? (
           <ul className="unit-effects">
-            {dollEffects.map((eff) => (
-              <EffectEntry key={eff.id} effect={eff} />
+            {dollEffects.map((v) => (
+              <EffectEntry
+                key={v.effect.id}
+                effect={v.effect}
+                source={v.source}
+              />
             ))}
           </ul>
         ) : (

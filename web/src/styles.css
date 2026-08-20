@@ -1548,6 +1548,12 @@ td {
   border-bottom: none;
 }
 
+/* Upgrade-source chip on deduped effect variants ("V4", "Fixed Key 2"). */
+.unit-effects .effect-source {
+  margin-left: 6px;
+  vertical-align: 1px;
+}
+
 /* Remolding pattern: a pill row (core, slots, stat boosts) over the six
    imago stages. Vertebrae reuse .unit-keys-grid / .unit-key-card. */
 .unit-remold-summary {

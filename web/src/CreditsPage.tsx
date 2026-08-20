@@ -14,8 +14,11 @@ export function CreditsPage() {
         <h2>Data Sources</h2>
         <ul>
           <li>
-            Game data and art are extracted directly from the Girls&apos;
-            Frontline 2: Exilium game client.
+            Game data and art are sourced from Girls&apos; Frontline 2: Exilium,
+            and are used here for informational and educational purposes under
+            fair use. This site is an unofficial fan resource, is not affiliated
+            with or endorsed by the rights holders, and makes no claim of
+            ownership over any game content.
           </li>
           <li>
             Class, phase, ammo and Imago factor icons from{' '}

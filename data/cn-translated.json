@@ -21,7 +21,6 @@
   "Bewildering Tide",
   "Call of the Stars",
   "Cannot be affected by [effect:c4f67f90-25d1-55e8-8336-9df07ce70b89] or buffs; immune to displacement and control effects. Max HP cannot exceed 2,000.",
-  "Cannot be affected by [effect:c4f67f90-25d1-55e8-8336-9df07ce70b89] or buffs; immune to displacement and control effects. Max HP cannot exceed <span style=\"color: rgb(242, 108, 28);\">2,000</span>.",
   "Cannot move and cannot actively displace. Movement debuff.",
   "Cannot use the active skills <span style=\"color: rgb(52, 135, 224);\">KANSEI DORIFTO?!</span> and <span style=\"color: rgb(52, 135, 224);\">Speedy Speed Doll!</span> this turn; damage taken is reduced by <span style=\"color: rgb(242, 108, 28);\">150%</span>, defense is increased by <span style=\"color: rgb(242, 108, 28);\">150%</span> and healing received by <span style=\"color: rgb(242, 108, 28);\">150%</span>. Cannot be dispelled.",
   "Consumes <span style=\"color: rgb(242, 108, 28);\">2 points</span> of [effect:1dd1b085-0c7b-5eb3-b527-cc498defc82b] and selects 1 enemy target within a <span style=\"color: rgb(242, 108, 28);\">6-tile radius</span>, dealing <span style=\"color: rgb(66, 204, 224);\">Freeze damage</span> equal to <span style=\"color: rgb(242, 108, 28);\">100%</span> of attack and <span style=\"color: rgb(242, 108, 28);\">2 points</span> of Stability damage; damage dealt is increased by <span style=\"color: rgb(242, 108, 28);\">15%</span> and Crit DMG by <span style=\"color: rgb(242, 108, 28);\">5%</span>. After the skill, gains <span style=\"color: rgb(242, 108, 28);\">6 tiles</span> of [effect:46e80fff-f871-5769-85c6-f787a64e5326] and can use one Command. If the target is killed, its on-death skills and effects do not trigger. Usable with <span style=\"color: rgb(242, 108, 28);\">2 points</span> or more of [effect:1dd1b085-0c7b-5eb3-b527-cc498defc82b].",
@@ -82,6 +81,7 @@
   "Rending Talons - Counter",
   "Repelling Tactics",
   "Repelling Tactics Lv.2",
+  "Repelling Tactics Lv.3",
   "Restores HP equal to <span style=\"color: rgb(242, 108, 28);\">50%</span> of <span style=\"color: rgb(52, 135, 224);\">The Sinner</span>'s max HP and <span style=\"color: rgb(242, 108, 28);\">5 points</span> of Stability Index.",
   "Roadblock",
   "Selects 1 allied Doll within a 3-tile radius (excluding Koleda) and applies [effect:375b11fe-f07e-5421-973a-e0b6a53181ea] to them. After the skill, gains 9 tiles of [effect:46e80fff-f871-5769-85c6-f787a64e5326] and can use 1 Command.",
@@ -124,6 +124,7 @@
   "The Doll becomes untargetable, all of her skill effects are disabled, and she rides along with <span style=\"color: rgb(52, 135, 224);\">The Sinner</span>. If <span style=\"color: rgb(52, 135, 224);\">The Sinner</span> dies, the Doll dies with it.\n<span style=\"color: rgb(52, 135, 224);\">The Sinner</span> additionally gains <span style=\"color: rgb(242, 108, 28);\">70%</span> of the Doll's base attack, defense, max HP, Stability Index and Crit DMG.\nWhen <span style=\"color: rgb(52, 135, 224);\">The Sinner</span> uses the active skill <span style=\"color: rgb(52, 135, 224);\">Speedy Speed Doll!</span>, it applies phase tiles matching the chosen Doll's phase, lasting <span style=\"color: rgb(242, 108, 28);\">2 turns</span>.",
   "The Sinner",
   "The Sinner Lv.2",
+  "The Sinner Lv.3",
   "Tololo-exclusive counter, used to summon [effect:71fd529a-d0c1-58e3-af8a-a0e1f796df53]. Stacks up to <span style=\"color: rgb(242, 108, 28);\">3 times</span>. Cannot be dispelled.",
   "Tololo-exclusive counter. With <span style=\"color: rgb(242, 108, 28);\">3 stacks</span> of <span style=\"color: rgb(52, 135, 224);\">Orbital Resonance</span>, after an active attack applies <span style=\"color: rgb(242, 108, 28);\">3 stacks</span> of [effect:f2689bfe-203d-5aa8-b1fb-585061e4226a] to the target and removes all of her <span style=\"color: rgb(52, 135, 224);\">Orbital Resonance</span>. Stacks up to <span style=\"color: rgb(242, 108, 28);\">3 times</span>. Cannot be dispelled.",
   "Tololo-exclusive mark. Prioritised as the attack target by [effect:71fd529a-d0c1-58e3-af8a-a0e1f796df53]. At most 1 friendly-applied <span style=\"color: rgb(52, 135, 224);\">Gravitational Mark</span> can exist on the field. Cannot be dispelled.",
@@ -131,7 +132,6 @@
   "Upshift",
   "When ally units deal Freeze Damage, gain <span style=\"color: rgb(242, 108, 28);\">1 stack</span>. For every <span style=\"color: rgb(242, 108, 28);\">30 stacks</span>, deal AoE <span style=\"color: rgb(66, 204, 224);\">Freeze Damage</span> to all enemy targets equal to <span style=\"color: rgb(242, 108, 28);\">150%</span> of the highest ally attack.",
   "When summoned and at the end of its action, applies [effect:3385d18a-509b-5fc1-bab0-14540eadab37] to all enemy targets within a 3-tile radius (targets under Ambush do not have [effect:3385d18a-509b-5fc1-bab0-14540eadab37] take effect immediately), lasting 2 turns.",
-  "When summoned and at the end of its action, applies [effect:3385d18a-509b-5fc1-bab0-14540eadab37] to all enemy targets within a <span style=\"color: rgb(242, 108, 28);\">3-tile radius</span> (targets under Ambush do not have [effect:3385d18a-509b-5fc1-bab0-14540eadab37] take effect immediately), lasting <span style=\"color: rgb(242, 108, 28);\">2 turns</span>.",
   "When the holder's action starts, if this effect has <span style=\"color: rgb(242, 108, 28);\">3 stacks</span> or more, applies [effect:f5ce7f45-44d1-5f77-a0b4-8dcb6966d6b3] to allied targets within a <span style=\"color: rgb(242, 108, 28);\">3-tile radius</span>, lasting <span style=\"color: rgb(242, 108, 28);\">1 turn</span>; removes <span style=\"color: rgb(242, 108, 28);\">1 stack</span> at the end of the round. Cannot be dispelled.",
   "Winner"
  ]
