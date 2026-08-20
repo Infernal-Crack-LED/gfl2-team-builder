@@ -49,14 +49,33 @@ function* walk(dir: string): Generator<string> {
   }
 }
 
+/**
+ * Brotli budget for a single JS chunk, in bytes.
+ *
+ * The site's weight is dominated by ONE shared chunk — the committed game data
+ * compiled into JavaScript. Measured on the wire, a content page pulls about
+ * 372 kB of JS and the landing page 71 kB, because that chunk is immutable and
+ * shared: a visitor pays for it once, then every other content route is free.
+ * That is why it has not been split apart, and the number that matters is
+ * whether it stays put rather than creeping up each sync.
+ *
+ * Set with headroom over the current 298 kB. Tripping it means the data grew
+ * enough to be worth splitting the datasets out of the JS graph — which needs
+ * an async boundary in <RichText>, the component behind every tooltip on the
+ * site, and so should be a deliberate piece of work rather than a surprise.
+ */
+const CHUNK_BROTLI_BUDGET = 360 * 1024;
+
 export function precompress(root = DIST): {
   files: number;
   before: number;
   after: number;
+  largest: { name: string; brotli: number } | null;
 } {
   let files = 0;
   let before = 0;
   let after = 0;
+  let largest: { name: string; brotli: number } | null = null;
 
   for (const file of walk(root)) {
     if (file.endsWith('.br') || !COMPRESSIBLE.has(path.extname(file))) {
@@ -81,18 +100,43 @@ export function precompress(root = DIST): {
     files += 1;
     before += raw.length;
     after += compressed.length;
+    if (
+      path.extname(file) === '.js' &&
+      compressed.length > (largest?.brotli ?? 0)
+    ) {
+      largest = { name: path.basename(file), brotli: compressed.length };
+    }
   }
 
-  return { files, before, after };
+  return { files, before, after, largest };
 }
 
 function main(): void {
-  const { files, before, after } = precompress();
+  const { files, before, after, largest } = precompress();
   const kb = (n: number) => `${Math.round(n / 1024)} kB`;
   const saved = before === 0 ? 0 : Math.round((1 - after / before) * 100);
   console.log(
     `precompress: ${files} files, ${kb(before)} → ${kb(after)} (−${saved}%)`
   );
+  if (!largest) {
+    return;
+  }
+  console.log(
+    `  largest chunk: ${largest.name} ${kb(largest.brotli)} brotli ` +
+      `(budget ${kb(CHUNK_BROTLI_BUDGET)})`
+  );
+  if (largest.brotli > CHUNK_BROTLI_BUDGET) {
+    // Fail the build rather than warn: a bundle that grows quietly is exactly
+    // how a site ends up shipping a megabyte nobody decided to ship.
+    console.error(
+      `\nBUNDLE BUDGET EXCEEDED — ${largest.name} is ${kb(largest.brotli)} ` +
+        `brotli, over the ${kb(CHUNK_BROTLI_BUDGET)} budget.\n` +
+        'The committed game data is compiled into this chunk. Either the data ' +
+        'grew a lot, or something new was pulled into the shared graph.\n' +
+        'See the budget comment in src/bin/precompress.ts before raising it.'
+    );
+    process.exitCode = 1;
+  }
 }
 
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
