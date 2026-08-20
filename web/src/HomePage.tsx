@@ -3,63 +3,20 @@
  * Helen bot callout. The goal is to explain what the site does and nudge new
  * visitors toward the team builder instead of mirroring the top nav.
  */
-import type { Route } from './router';
 import { hrefFor, onSpaLinkClick } from './router';
 import { dev } from './site-data';
+// Hero + feature copy lives in src/share so the no-JS crawler body
+// (src/server/noJsBody.ts) renders the same words this page does.
+import {
+  GAME_NAME,
+  HOME_FEATURES,
+  HOME_HERO_AFTER,
+  HOME_HERO_BEFORE,
+  HOME_SECTION_TITLE,
+  type HomeFeature,
+} from '../../src/share/homeContent';
 
-interface Feature {
-  route: Route;
-  title: string;
-  blurb: string;
-  cta: string;
-}
-
-const FEATURES: Feature[] = [
-  {
-    route: 'team-builder',
-    title: 'Team Builder',
-    blurb:
-      'Assemble up to five dolls and see team effects, elemental synergies, and damage-type coverage at a glance.',
-    cta: 'Build a team',
-  },
-  {
-    route: 'builder',
-    title: 'Character Builder',
-    blurb:
-      'Pick a doll, set their weapon, refinement, keys, vertebra, and stats, then share the build as a card or short link.',
-    cta: 'Build a character',
-  },
-  {
-    route: 'characters',
-    title: 'Character Catalog',
-    blurb:
-      'Browse every doll with full kits, key recommendations, weapons, attachment sets, and community build cards.',
-    cta: 'Browse characters',
-  },
-  {
-    route: 'weapons',
-    title: 'Weapon Catalog',
-    blurb:
-      'Compare all weapons, their stats, effects, imprints, and which dolls want them most.',
-    cta: 'Browse weapons',
-  },
-  {
-    route: 'keys',
-    title: 'Key Catalogue',
-    blurb:
-      'Read every key in the game, filter by effect tags, and find the best fits for your squad.',
-    cta: 'Browse keys',
-  },
-  {
-    route: 'tools',
-    title: 'Card Tools',
-    blurb:
-      'Download or host shareable infographics for builds, squads, weapons, recommendations, and pull odds.',
-    cta: 'Open tools',
-  },
-];
-
-function FeatureCard({ route, title, blurb, cta }: Feature) {
+function FeatureCard({ route, title, blurb, cta }: HomeFeature) {
   const href = hrefFor(route);
   return (
     <a href={href} onClick={onSpaLinkClick(href)} className="home-feature">
@@ -85,10 +42,9 @@ export function HomePage() {
         />
         <h1>Refitting Room</h1>
         <p>
-          Plan, build, and share{' '}
-          <strong>Girls&apos; Frontline 2: Exilium</strong> squads. Browse every
-          doll and weapon, assemble teams, craft build cards, and compare key
-          effects — all in one place.
+          {HOME_HERO_BEFORE}
+          <strong>{GAME_NAME}</strong>
+          {HOME_HERO_AFTER}
         </p>
         <div className="home-cta-row">
           <a
@@ -109,11 +65,9 @@ export function HomePage() {
       </section>
 
       <section className="home-section">
-        <h2 className="home-section-title">
-          Everything you need to plan a squad
-        </h2>
+        <h2 className="home-section-title">{HOME_SECTION_TITLE}</h2>
         <div className="home-feature-grid">
-          {FEATURES.map((feature) => (
+          {HOME_FEATURES.map((feature) => (
             <FeatureCard key={feature.route} {...feature} />
           ))}
         </div>

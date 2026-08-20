@@ -10,9 +10,33 @@ import {
 } from './pageMeta';
 import { noJsBodyFor } from './noJsBody';
 import { escapeHtml, injectRootBody } from './htmlHead';
-import { ROUTE_META, dollPageMeta } from '../share/pageMeta';
+import { ROUTE_META, SITE, dollPageMeta } from '../share/pageMeta';
+import {
+  MIN_FACET_MEMBERS,
+  facetHeading,
+  facetSlug,
+  introFor,
+} from '../share/facets';
+import { HOME_FEATURES, HOME_HERO } from '../share/homeContent';
+import {
+  hydrateRecommendation,
+  type RecommendationSource,
+} from '../share/recommendations';
+import { dev } from '../share/siteIdentity';
 import { stripHtml } from '../share/html';
-import { allDolls, allWeapons, getDoll, resolveMarkerText } from './gameData';
+import {
+  allDolls,
+  allFacets,
+  allKeys,
+  allWeapons,
+  facetMembers,
+  facetsInGroup,
+  fixedKeysForDoll,
+  getDoll,
+  getDollById,
+  keyDisplayName,
+  resolveMarkerText,
+} from './gameData';
 // The CLIENT resolver, imported deliberately: the same-source rule is a claim
 // about these two producing the same words, and only comparing them proves it.
 import { resolveEffectMarkers as clientResolve } from '../../web/src/data';
@@ -347,8 +371,193 @@ describe('no-JS bodies', () => {
   });
 
   it('has no body for pages that are not crawl surfaces', () => {
-    for (const p of ['/', '/tools', '/saved', '/nope', '/team-builder']) {
+    for (const p of ['/tools', '/saved', '/nope', '/team-builder']) {
       expect(noJsBodyFor(resolvePage(url(p))), p).toBe('');
+    }
+  });
+
+  it('renders the landing page hero and every feature link', () => {
+    const body = noJsBodyFor(resolvePage(url('/')));
+    expect(body).toContain('<h1>Refitting Room</h1>');
+    expect(body).toContain(escapeHtml(HOME_HERO));
+    // The root is the top of the internal link graph: a crawler that only ever
+    // fetches "/" has to be able to reach both catalogues from it.
+    for (const f of HOME_FEATURES) {
+      expect(body, f.route).toContain(`href="${f.href}"`);
+    }
+    expect(body).toContain('href="/characters"');
+  });
+
+  it('puts the nikkesim.app cross-link in the crawlable body', () => {
+    // nikkesim.app server-renders its link back to this site, so this half has
+    // to be server-rendered too or the pair is only ever one-directional to a
+    // crawler. Both are plain follow links — no rel="nofollow".
+    const body = noJsBodyFor(resolvePage(url('/')));
+    expect(body).toContain(`href="${dev.nikkesim.url}"`);
+    expect(body).toContain(escapeHtml(dev.nikkesim.blurb));
+    expect(body).toContain(`href="${dev.helen.addToServer}"`);
+    expect(body).not.toContain('nofollow');
+  });
+
+  it('renders every key on /keys, with fixed keys linking to their doll', () => {
+    const body = noJsBodyFor(resolvePage(url('/keys')));
+    expect(body).toContain('<h1>Keys</h1>');
+    for (const type of ['Fixed Key', 'Expansion Key', 'Common Key']) {
+      expect(body, type).toContain(`<h2>${type}s</h2>`);
+    }
+    // Every row is present — this body is the only indexable copy of the key
+    // database, so a dropped row is a row that exists nowhere a crawler looks.
+    for (const key of allKeys()) {
+      expect(body, key.id).toContain(escapeHtml(keyDisplayName(key)));
+    }
+    const owned = allKeys().find(
+      (k) => k.keyType === 'Fixed Key' && k.dollId !== null
+    );
+    expect(owned).toBeDefined();
+    const doll = getDollById(owned!.dollId);
+    expect(body).toContain(`href="/characters/${doll!.slug}"`);
+  });
+
+  it('serves a facet page with its full membership and no orphans', () => {
+    const facet = facetsInGroup('class').find((f) => f.slug === 'sentinel');
+    expect(facet).toBeDefined();
+    const body = noJsBodyFor(resolvePage(url(facet!.path)));
+
+    expect(body).toContain(`<h1>${escapeHtml(facetHeading(facet!))}</h1>`);
+    expect(body).toContain(escapeHtml(introFor(facet!)));
+    // The complete membership is the page's whole value proposition — a
+    // dropped member is a doll this category silently claims not to have.
+    for (const m of facetMembers(facet!)) {
+      expect(body, m.name).toContain(`href="/characters/${m.slug}"`);
+    }
+    // ...and it links to its siblings, so no facet is reachable only from the
+    // sitemap.
+    for (const sib of facetsInGroup('class').filter((f) => f !== facet)) {
+      expect(body, sib.path).toContain(`href="${sib.path}"`);
+    }
+  });
+
+  it('links every facet from its parent catalogue', () => {
+    const characters = noJsBodyFor(resolvePage(url('/characters')));
+    for (const f of [...facetsInGroup('class'), ...facetsInGroup('phase')]) {
+      expect(characters, f.path).toContain(`href="${f.path}"`);
+    }
+    const weapons = noJsBodyFor(resolvePage(url('/weapons')));
+    for (const f of facetsInGroup('type')) {
+      expect(weapons, f.path).toContain(`href="${f.path}"`);
+    }
+  });
+
+  it('builds every facet from the data, with no stale or thin categories', () => {
+    for (const f of allFacets()) {
+      // Declared count matches the rows, so a value that changes upstream
+      // cannot leave a page behind claiming a membership it no longer has.
+      expect(facetMembers(f).length, f.path).toBe(f.count);
+      expect(f.count, f.path).toBeGreaterThanOrEqual(MIN_FACET_MEMBERS);
+      expect(facetSlug(f.value), f.path).toBe(f.slug);
+      expect(f.path.replace(/^\//, '').split('/'), f.path).toHaveLength(3);
+    }
+    // Resonance is one doll today: she must NOT get a category page, because
+    // it would duplicate her own.
+    expect(allDolls().some((d) => d.phase === 'Resonance')).toBe(true);
+    expect(facetsInGroup('phase').map((f) => f.slug)).not.toContain(
+      'resonance'
+    );
+  });
+
+  it('gives every facet a distinct, written intro', () => {
+    const intros = allFacets().map((f) => introFor(f));
+    for (const [i, f] of allFacets().entries()) {
+      const intro = intros[i]!;
+      // Long enough to be a sentence, and specific enough to name itself —
+      // the generic fallback wording would fail the second check for most.
+      expect(intro.length, `${f.path} intro too short`).toBeGreaterThan(60);
+      expect(intro, f.path).toContain(f.value);
+      expect(facetHeading(f), f.path).toContain(f.value);
+    }
+    expect(new Set(intros).size, 'duplicate intros').toBe(intros.length);
+  });
+
+  it('404s a facet value that has no page', () => {
+    // Resonance is under MIN_FACET_MEMBERS, so it is a hard 404 rather than an
+    // empty-but-200 category page.
+    for (const p of [
+      '/characters/phase/resonance',
+      '/characters/class/nonsense',
+      '/weapons/type/nonsense',
+      '/characters/class',
+    ]) {
+      expect(resolvePage(url(p)).status, p).toBe(404);
+    }
+  });
+
+  it('canonicalizes and titles each facet distinctly', () => {
+    const titles = new Set<string>();
+    for (const f of allFacets()) {
+      const page = resolvePage(url(f.path));
+      expect(page.status, f.path).toBe(200);
+      expect(SITE + page.canonicalPath, f.path).toBe(SITE + f.path);
+      titles.add(page.meta.title);
+    }
+    // Duplicate titles across 17 pages would be the classic faceted-nav SEO
+    // failure — every category claiming to be the same page.
+    expect(titles.size).toBe(allFacets().length);
+  });
+
+  it('gives a builder page its own content, not the doll page again', () => {
+    const doll = allDolls().find((d) => fixedKeysForDoll(d.id).length > 0);
+    expect(doll).toBeDefined();
+    const builder = noJsBodyFor(resolvePage(url(`/builder/${doll!.slug}`)));
+    const profile = noJsBodyFor(resolvePage(url(`/characters/${doll!.slug}`)));
+
+    expect(builder).toContain(`<h1>${escapeHtml(doll!.name)} Builder</h1>`);
+    expect(builder).toContain('<h2>Fixed keys</h2>');
+    // The two pages must not be near-duplicates: the profile words her kit,
+    // the builder words her keys. Thin duplicate URLs were the reason the
+    // builder pages had no body worth serving in the first place.
+    expect(builder).not.toBe(profile);
+    expect(profile).not.toContain('<h2>Fixed keys</h2>');
+    for (const key of fixedKeysForDoll(doll!.id)) {
+      expect(builder, key.id).toContain(escapeHtml(keyDisplayName(key)));
+    }
+    // ...and it links back to the profile rather than restating it.
+    expect(builder).toContain(`href="/characters/${doll!.slug}"`);
+  });
+});
+
+describe('community recommendations', () => {
+  it('routes every prose block in the live data, losing none', () => {
+    // The panel shows verdict / caveats / notes; a block that matched no
+    // bucket would silently vanish, taking the maintainers' writing with it.
+    const source = JSON.parse(
+      readFileSync(path.resolve('data', 'recommendations-source.json'), 'utf8')
+    ) as Record<string, RecommendationSource>;
+    const noLookups = { weaponByName: () => null, keyByLabel: () => null };
+
+    let blocks = 0;
+    let routed = 0;
+    for (const [slug, row] of Object.entries(source)) {
+      blocks += (row.explanation ?? []).length;
+      const rec = hydrateRecommendation(slug, row, noLookups);
+      if (rec) {
+        routed +=
+          (rec.verdict ? 1 : 0) +
+          (rec.noPath ? 1 : 0) +
+          rec.caveats.length +
+          rec.notes.length;
+      }
+    }
+    expect(blocks).toBeGreaterThan(30);
+    expect(routed).toBe(blocks);
+  });
+
+  it('covers the dolls the sheet has rows for, and no others', () => {
+    const source = JSON.parse(
+      readFileSync(path.resolve('data', 'recommendations-source.json'), 'utf8')
+    ) as Record<string, unknown>;
+    const slugs = new Set(allDolls().map((d) => d.slug));
+    for (const slug of Object.keys(source)) {
+      expect(slugs.has(slug), `${slug} is not a doll`).toBe(true);
     }
   });
 });

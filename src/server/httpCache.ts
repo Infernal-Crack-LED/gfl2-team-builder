@@ -34,9 +34,42 @@ export function cacheControlFor(urlPath: string): string {
   return NO_CACHE;
 }
 
-/** Weak validator: size + mtime, the cheapest thing that is correct here. */
-export function etagFor(stat: { size: number; mtimeMs: number }): string {
-  return `W/"${stat.size}-${Math.floor(stat.mtimeMs)}"`;
+/**
+ * Weak validator: size + mtime, the cheapest thing that is correct here.
+ *
+ * `encoding` distinguishes the brotli variant from the identity one. Without
+ * it both would validate against the same ETag, and a shared cache that stored
+ * the `.br` bytes could hand them to a client that never asked for brotli.
+ */
+export function etagFor(
+  stat: { size: number; mtimeMs: number },
+  encoding?: string
+): string {
+  const suffix = encoding === undefined ? '' : `-${encoding}`;
+  return `W/"${stat.size}-${Math.floor(stat.mtimeMs)}${suffix}"`;
+}
+
+/**
+ * Does this Accept-Encoding actually ask for brotli? Matches the `br` token
+ * (case-insensitive, parameters ignored) and honours an explicit `br;q=0`
+ * refusal — a client that names the encoding only to reject it must still get
+ * the identity bytes.
+ */
+export function acceptsBrotli(acceptEncoding: string | undefined): boolean {
+  if (acceptEncoding === undefined) {
+    return false;
+  }
+  for (const part of acceptEncoding.split(',')) {
+    const [token, ...params] = part.trim().split(';');
+    if ((token ?? '').trim().toLowerCase() !== 'br') {
+      continue;
+    }
+    const q = params
+      .map((p) => p.trim().toLowerCase())
+      .find((p) => p.startsWith('q='));
+    return q === undefined || Number(q.slice(2)) > 0;
+  }
+  return false;
 }
 
 /**

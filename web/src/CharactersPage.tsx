@@ -6,6 +6,7 @@
 import { useEffect } from 'react';
 import { DollCards, DollFilters, useDollFilter } from './components/DollGrid';
 import { escapeJsonLd } from './jsonLd';
+import { FacetLinks } from './components/FacetLinks';
 
 export function CharactersPage() {
   const filterResult = useDollFilter();
@@ -40,6 +41,7 @@ export function CharactersPage() {
         </p>
       </header>
 
+      <FacetLinks groups={['class', 'phase']} />
       <DollFilters filterResult={filterResult} defaultOpen={true} />
       <DollCards dolls={filterResult.dolls} mode="navigation" />
     </div>

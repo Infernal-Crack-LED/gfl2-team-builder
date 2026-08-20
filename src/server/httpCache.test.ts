@@ -2,10 +2,45 @@ import { describe, expect, it } from 'vitest';
 import {
   IMMUTABLE,
   NO_CACHE,
+  acceptsBrotli,
   cacheControlFor,
   etagFor,
   isNotModified,
 } from './httpCache';
+
+describe('acceptsBrotli', () => {
+  it('accepts the br token in any position or casing', () => {
+    for (const h of ['br', 'gzip, br', 'BR', 'gzip, deflate, br, zstd']) {
+      expect(acceptsBrotli(h), h).toBe(true);
+    }
+  });
+
+  it('declines when br is absent or explicitly refused', () => {
+    for (const h of [undefined, '', 'gzip', 'gzip, deflate', 'br;q=0']) {
+      expect(acceptsBrotli(h), String(h)).toBe(false);
+    }
+  });
+
+  it('does not match encodings that merely contain "br"', () => {
+    expect(acceptsBrotli('brotli')).toBe(false);
+    expect(acceptsBrotli('gzip, xbr')).toBe(false);
+  });
+
+  it('honours a positive explicit q-value', () => {
+    expect(acceptsBrotli('br;q=1.0')).toBe(true);
+    expect(acceptsBrotli('gzip;q=0.5, br;q=0.9')).toBe(true);
+  });
+});
+
+describe('etagFor', () => {
+  it('gives the brotli variant a different tag than the identity one', () => {
+    const stat = { size: 1234, mtimeMs: 1_700_000_000_000 };
+    // Same bytes on disk, two representations on the wire: a shared cache that
+    // keyed both on one tag could serve br bytes to a client that never asked.
+    expect(etagFor(stat, 'br')).not.toBe(etagFor(stat));
+    expect(etagFor(stat)).toBe(etagFor(stat, undefined));
+  });
+});
 
 describe('cacheControlFor', () => {
   it('marks content-hashed bundles and fonts immutable', () => {

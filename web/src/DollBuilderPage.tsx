@@ -462,6 +462,7 @@ export function DollBuilder({
   }, []);
 
   const phaseColor = PHASE_COLORS[doll.phase ?? ''] ?? 'var(--border)';
+
   const selectedWeapon = build.weapon ? getWeaponById(build.weapon) : undefined;
   const selectedSet = build.attachmentSet
     ? getAttachmentSet(build.attachmentSet)

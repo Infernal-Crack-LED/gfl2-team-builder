@@ -1,11 +1,52 @@
-# gfl2-team-builder
+# gfl2-team-builder — free Girls' Frontline 2: Exilium game data & squad planner
 
-Discord bot + team-building website for **Girls' Frontline 2: Exilium**.
+**Open game data for [Girls' Frontline 2: Exilium](https://refittingroom.app),
+as plain JSON, free to copy — no permission request, no attribution
+condition.** Plus the site and Discord bot built on top of it.
 
-Game data and art are extracted directly from the game client by the
-companion datamine pipeline (see `../CUTOVER.md` in the parent workspace).
-The former Dandegate sync (`npm run sync`) is retired; content updates flow
-through `npm run seed:datamine`.
+Live at **[refittingroom.app](https://refittingroom.app)**.
+
+## Using the data
+
+Every doll, weapon, key and effect the site renders is committed to
+[`data/`](data/) as plain JSON, extracted directly from the game client and
+refreshed each patch. If you are building a GFL2 bot, spreadsheet, calculator
+or site, take it — that is what it is there for.
+
+| File                                                     | Contents                                                                            |
+| -------------------------------------------------------- | ----------------------------------------------------------------------------------- |
+| [`data/dolls.json`](data/dolls.json)                     | Every doll: kit slots with per-level skill variants, summons, vertebrae, stats, bio |
+| [`data/weapons.json`](data/weapons.json)                 | Every weapon: trait, effect, primary/secondary stats, imprint doll, counterparts    |
+| [`data/keys.json`](data/keys.json)                       | All 590 fixed, expansion and common keys with stats and effect text                 |
+| [`data/effects.json`](data/effects.json)                 | The effect dictionary that `[effect:<uuid>]` markers in skill text resolve against  |
+| [`data/effect-matrix.json`](data/effect-matrix.json)     | Derived cross-reference: who applies / who is affected by every effect              |
+| [`data/attachment-sets.json`](data/attachment-sets.json) | Attachment set bonuses                                                              |
+
+Each file carries a `syncedAt` timestamp. Mirrored game art lives in
+[`web/public/game-assets/`](web/public/game-assets/).
+
+**Please serve your own copy** rather than requesting these from
+refittingroom.app at runtime — the whole point is that you don't have to depend
+on this origin staying up.
+
+Two things in the repo are **not** covered by that offer, because they aren't
+this project's to give away: `data/recommendations-source.json` (used with the
+community spreadsheet maintainers' permission, which doesn't travel) and
+`web/public/gfl2-icons/` (IOP Wiki, CC BY-SA 3.0 — reusable on those terms,
+with attribution). The game content itself is likewise not this project's to
+license: art, text and assets are the property of Sunborn Network Technology,
+shown here for reference under fair use, and this project is not affiliated
+with or endorsed by the game's developer or publisher.
+
+Full breakdown in [Content ownership and reuse](#content-ownership-and-reuse)
+below, or at [refittingroom.app/usage](https://refittingroom.app/usage).
+
+## How the data is produced
+
+Game data and art are extracted directly from the game client by the companion
+datamine pipeline (see `../CUTOVER.md` in the parent workspace). The former
+Dandegate sync (`npm run sync`) is retired; content updates flow through
+`npm run seed:datamine`.
 
 ## Setup
 
@@ -32,17 +73,16 @@ npm run serve        # build dist/ then serve it with the API (prod shape)
 
 ## Sync
 
-Pull the latest data from dandegate:
+> **Retired.** `npm run sync` pulled from dandegate; content now comes from the
+> datamine pipeline via `npm run seed:datamine` (see
+> [How the data is produced](#how-the-data-is-produced)). Kept here because the
+> derive step below still runs the same way.
 
-```bash
-npm run sync
-```
+The sync fetched dolls (list + per-doll detail), weapons, keys, and effects,
+stripped HTML to plain text, and upserted into Postgres. Every run was recorded
+in `gfl2_sync_runs`.
 
-The sync fetches dolls (list + per-doll detail), weapons, keys, and effects,
-strips HTML to plain text, and upserts into Postgres. Every run is recorded in
-`gfl2_sync_runs`.
-
-After the JSON export, sync derives `data/effect-matrix.json` — a cross-reference
+After the JSON export, the pipeline derives `data/effect-matrix.json` — a cross-reference
 of every `[effect:<uuid>]` marker in skills, weapons, keys, and effect text,
 classified by relation (applies / gains / removes / conditional / enhances /
 mentions). This powers the team builder's "who applies / who is affected" view.
@@ -80,8 +120,11 @@ render time.
 
 | Command                       | Description                                                     |
 | ----------------------------- | --------------------------------------------------------------- |
-| `npm run sync`                | Run the dandegate data sync                                     |
+| `npm run seed:datamine`       | Load the latest datamine export into `data/*.json`              |
+| `npm run sync`                | Retired dandegate data sync (superseded by `seed:datamine`)     |
 | `npm run icons`               | Fetch wiki UI icons and mirror CDN game art (`--force` to redo) |
+| `npm run sitemap`             | Regenerate `web/public/sitemap.xml` (drift-tested)              |
+| `npm run precompress`         | Brotli-precompress `dist/` (runs inside `build:web`)            |
 | `npm run derive`              | Rebuild `data/effect-matrix.json` from the JSON artifacts       |
 | `npm run derive:report`       | Rebuild the matrix and print the QA classification report       |
 | `npm run db:push`             | Push schema to Postgres (no migration)                          |

@@ -34,6 +34,9 @@ const WeaponsPage = lazy(() =>
 const WeaponPage = lazy(() =>
   import('./WeaponPage').then((m) => ({ default: m.WeaponPage }))
 );
+const FacetPage = lazy(() =>
+  import('./FacetPage').then((m) => ({ default: m.FacetPage }))
+);
 const TeamBuilderPage = lazy(() =>
   import('./TeamBuilderPage').then((m) => ({ default: m.TeamBuilderPage }))
 );
@@ -95,6 +98,8 @@ function Root() {
           <WeaponsPage />
         ) : route === 'weapon' ? (
           <WeaponPage slug={slug} />
+        ) : route === 'facet' ? (
+          <FacetPage />
         ) : route === 'team-builder' ? (
           <TeamBuilderPage />
         ) : route === 'builder' ? (

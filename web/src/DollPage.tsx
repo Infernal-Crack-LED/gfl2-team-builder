@@ -12,7 +12,7 @@
  * Sets its own document head (title/description/canonical) so the full
  * dataset doesn't land in the eager entry chunk.
  */
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import {
   ammoOption,
   classOption,
@@ -61,6 +61,8 @@ import {
 import { escapeJsonLd } from './jsonLd';
 import { getDollEffectVariants } from './effectGroups';
 import { dollPageMeta, setDetailMeta } from './useDocumentHead';
+import { RecommendationPanel } from './components/RecommendationPanel';
+import { recommendationFor } from './recommendations';
 
 /**
  * The iopwiki icon for an identity pill, when the row has one. Rarity has no
@@ -337,7 +339,7 @@ function RecommendedBuildSection({ doll }: { doll: Doll }) {
 
   return (
     <details className="unit-section unit-panel rec-section">
-      <summary className="rec-section-summary">Recommended Build</summary>
+      <summary className="rec-section-summary">Shareable build card</summary>
       {loading ? (
         <p className="muted">Loading community recommendation…</p>
       ) : preview ? (
@@ -351,6 +353,7 @@ function RecommendedBuildSection({ doll }: { doll: Doll }) {
 
 export function DollPage({ slug }: { slug: string | null }) {
   const doll = slug ? getDollBySlug(slug) : undefined;
+  const rec = useMemo(() => (doll ? recommendationFor(doll) : null), [doll]);
 
   // Set document head for this doll
   useEffect(() => {
@@ -509,7 +512,16 @@ export function DollPage({ slug }: { slug: string | null }) {
         </div>
       </div>
 
-      {/* Recommended build — community default, collapsed by default */}
+      {/* The community recommendation, joined to this site's own weapon and
+          key rows. This is what a "<doll> build" search is looking for, so it
+          sits high on the page and ships in the server-rendered body. Absent
+          for the two dolls the sheet does not cover — better no section than
+          an empty one with a credit line attached to nothing. */}
+      {rec && <RecommendationPanel rec={rec} dollName={doll.name} />}
+
+      {/* The same recommendation as the shareable infographic card. Kept
+          collapsed and renamed: it is a share tool, not a second copy of the
+          section above. */}
       <RecommendedBuildSection doll={doll} />
 
       {/* Skills */}
