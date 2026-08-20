@@ -1,21 +1,6 @@
 {
-  "syncedAt": "2026-08-20T09:51:39.193Z",
+  "syncedAt": "2026-08-20T10:04:35.078Z",
   "attachmentSets": [
-    {
-      "name": "Summon Boost",
-      "piecesRequired": 3,
-      "description": "When this unit's [effect:k900240] are on the battlefield, damage dealt by this unit and this unit's [effect:k900240] is increased by 20%."
-    },
-    {
-      "name": "Tactical Calculus",
-      "piecesRequired": 3,
-      "description": "When using Support Attacks, Interceptions, Counterattacks, or other means of attacks from passive effects to deal damage outside of this unit's turn, damage dealt is increased by 25%."
-    },
-    {
-      "name": "Ultimate Pursuit",
-      "piecesRequired": 3,
-      "description": "Increases the damage, healing, and shield effects of Ultimate skills by 5%. Gains 1 stack after each use of an Ultimate skill, up to a maximum of 4 stacks."
-    },
     {
       "name": "Allay Support",
       "piecesRequired": 3,
@@ -80,6 +65,21 @@
       "name": "Shielded Recovery",
       "piecesRequired": 3,
       "description": "When this unit has a shield-type effect, damage taken is reduced by 15% and healing received is increased by 15%."
+    },
+    {
+      "name": "Summon Boost",
+      "piecesRequired": 3,
+      "description": "When this unit's [effect:k900240] are on the battlefield, damage dealt by this unit and this unit's [effect:k900240] is increased by 20%."
+    },
+    {
+      "name": "Tactical Calculus",
+      "piecesRequired": 3,
+      "description": "When using Support Attacks, Interceptions, Counterattacks, or other means of attacks from passive effects to deal damage outside of this unit's turn, damage dealt is increased by 25%."
+    },
+    {
+      "name": "Ultimate Pursuit",
+      "piecesRequired": 3,
+      "description": "Increases the damage, healing, and shield effects of Ultimate skills by 5%. Gains 1 stack after each use of an Ultimate skill, up to a maximum of 4 stacks."
     }
   ]
 }

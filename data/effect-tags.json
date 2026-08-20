@@ -1,6 +1,6 @@
 {
   "generator": "effect-tags/1",
-  "syncedAt": "2026-08-20T09:51:39.341Z",
+  "syncedAt": "2026-08-20T10:04:35.232Z",
   "vocabulary": {
     "buff": {
       "label": "Buff",
@@ -6103,6 +6103,9 @@
       "debuff"
     ],
     "6c04a617-7379-59e4-830e-bdeb057aa75c": [
+      "uncleansable"
+    ],
+    "6c151fbd-6a08-5aee-9aa6-52f907d64b71": [
       "uncleansable"
     ],
     "6c4170f4-57fe-52af-b070-7e776dd9b463": [

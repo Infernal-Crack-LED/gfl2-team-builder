@@ -9,7 +9,7 @@
  */
 import type { Key } from '../data';
 import { GameIcon } from './GameIcon';
-import { RichText } from './RichText';
+import { CnMark, RichText } from './RichText';
 import { keyLevelChip } from '../../../src/share/keyLabels';
 
 export function KeyCardBody({ keyData }: { keyData: Key }) {
@@ -26,7 +26,10 @@ export function KeyCardBody({ keyData }: { keyData: Key }) {
             ?
           </span>
         )}
-        <strong>{keyData.displayTitle ?? keyData.keyTitle ?? 'Key'}</strong>
+        <strong>
+          {keyData.displayTitle ?? keyData.keyTitle ?? 'Key'}
+          <CnMark text={[keyData.displayTitle, keyData.keyTitle]} />
+        </strong>
         {keyLevelChip(keyData.keyType, keyData.level) != null && (
           <span className="muted">
             {keyLevelChip(keyData.keyType, keyData.level)}

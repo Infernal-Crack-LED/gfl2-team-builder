@@ -14,6 +14,7 @@ import weaponsJson from '../../data/weapons.json';
 import keysJson from '../../data/keys.json';
 import effectsJson from '../../data/effects.json';
 import attachmentSetsJson from '../../data/attachment-sets.json';
+import cnTranslatedJson from '../../data/cn-translated.json';
 import {
   parseEffectDetails,
   stripHtml,
@@ -240,6 +241,18 @@ export const allDolls: Doll[] = [...dollsData.dolls].sort(
 const dollReleaseById = new Map(
   dollsData.dolls.map((d) => [d.id, d.gunDataId ?? 0])
 );
+/**
+ * Strings produced by the datamine's manual CN→EN registry (exact field
+ * values, spans/markers included). Text matching this set gets a hover badge:
+ * the wording is ours, not Global's, and will change when Global localises it.
+ */
+const cnTranslated = new Set<string>(
+  (cnTranslatedJson as { strings: string[] }).strings
+);
+export function isCnTranslated(text: string | null | undefined): boolean {
+  return text != null && cnTranslated.has(text);
+}
+
 export const allWeapons: Weapon[] = [...weaponsData.weapons].sort((a, b) => {
   const rank = (w: Weapon): number =>
     w.rarity === 'Elite' ? (w.imprintDollId ? 0 : 1) : 2;

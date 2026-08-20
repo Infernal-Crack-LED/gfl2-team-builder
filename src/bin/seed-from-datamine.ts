@@ -182,6 +182,13 @@ async function main() {
     const { deriveEffectTags } = await import('../derive/effectTags.js');
     await deriveEffectMatrix(DATA_DIR);
     await deriveEffectTags(DATA_DIR);
+    // sidecar, not DB content: which strings the datamine's manual CN->EN
+    // registry produced, for the site's "translated from CN" badge
+    const { copyFileSync, existsSync } = await import('node:fs');
+    const sidecar = resolve(src, 'cn-translated.json');
+    if (existsSync(sidecar)) {
+      copyFileSync(sidecar, resolve(DATA_DIR, 'cn-translated.json'));
+    }
     console.log('Exported data/*.json and derived artifacts.');
   }
 

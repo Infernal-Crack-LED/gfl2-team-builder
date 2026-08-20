@@ -3014,6 +3014,16 @@ summary.teameffect-tier-title:hover {
   cursor: help;
 }
 
+/* ---- "Translated from CN" badge ---- */
+/* Asterisk on names/text whose EN comes from the datamine's manual registry
+   rather than Global localisation (see data.ts isCnTranslated). */
+.cn-tl {
+  margin-left: 1px;
+  color: var(--muted, #8a8f98);
+  font-size: 0.85em;
+  cursor: help;
+}
+
 /* ---- DollPage: Weapon Imprint ---- */
 .dollpage-imprint-weapon {
   display: flex;

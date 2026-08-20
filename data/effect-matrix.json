@@ -1,6 +1,6 @@
 {
   "generator": "effect-matrix/1",
-  "syncedAt": "2026-08-20T09:51:39.285Z",
+  "syncedAt": "2026-08-20T10:04:35.174Z",
   "effects": [
     {
       "effectId": "05d35544-1f14-5a28-b509-778a9f013afc",
@@ -1244,7 +1244,7 @@
       "interactions": []
     },
     {
-      "effectId": "99bf9519-c4b5-59f1-80bb-a90948e03f4d",
+      "effectId": "5b34f66d-6d9f-57fa-9735-7ea6a0a74844",
       "effectName": "Adversity Attenuation III",
       "effectTags": [],
       "exclusiveDollId": null,
@@ -1253,7 +1253,7 @@
       "interactions": []
     },
     {
-      "effectId": "5b34f66d-6d9f-57fa-9735-7ea6a0a74844",
+      "effectId": "99bf9519-c4b5-59f1-80bb-a90948e03f4d",
       "effectName": "Adversity Attenuation III",
       "effectTags": [],
       "exclusiveDollId": null,
@@ -1623,15 +1623,6 @@
       "interactions": []
     },
     {
-      "effectId": "f260fb20-d919-5474-8898-ffaa9b284b9b",
-      "effectName": "Alert",
-      "effectTags": [],
-      "exclusiveDollId": null,
-      "exclusiveDollName": null,
-      "sources": [],
-      "interactions": []
-    },
-    {
       "effectId": "f1344b5e-dbf1-5632-9a25-6619c95b5a63",
       "effectName": "Alert",
       "effectTags": [],
@@ -1698,6 +1689,15 @@
           "skillType": "Ultimate"
         }
       ],
+      "interactions": []
+    },
+    {
+      "effectId": "f260fb20-d919-5474-8898-ffaa9b284b9b",
+      "effectName": "Alert",
+      "effectTags": [],
+      "exclusiveDollId": null,
+      "exclusiveDollName": null,
+      "sources": [],
       "interactions": []
     },
     {
@@ -2391,15 +2391,6 @@
       "interactions": []
     },
     {
-      "effectId": "2207ed77-a119-59ca-9515-2fc04aa0f5ba",
-      "effectName": "Anode",
-      "effectTags": [],
-      "exclusiveDollId": null,
-      "exclusiveDollName": null,
-      "sources": [],
-      "interactions": []
-    },
-    {
       "effectId": "315354d9-5afb-542e-90da-77493ec3d037",
       "effectName": "Anode",
       "effectTags": [],
@@ -2426,6 +2417,15 @@
           "ownerDollName": null
         }
       ]
+    },
+    {
+      "effectId": "2207ed77-a119-59ca-9515-2fc04aa0f5ba",
+      "effectName": "Anode",
+      "effectTags": [],
+      "exclusiveDollId": null,
+      "exclusiveDollName": null,
+      "sources": [],
+      "interactions": []
     },
     {
       "effectId": "70e4cb5e-16f4-5149-9658-7c7d0bd1b5e1",
@@ -2830,6 +2830,15 @@
       "interactions": []
     },
     {
+      "effectId": "92a10eec-fac6-559d-be83-c1ff401706f1",
+      "effectName": "Area Defense I",
+      "effectTags": [],
+      "exclusiveDollId": null,
+      "exclusiveDollName": null,
+      "sources": [],
+      "interactions": []
+    },
+    {
       "effectId": "17bcd532-5071-591b-b1c1-b45eda902c1e",
       "effectName": "Area Defense I",
       "effectTags": [],
@@ -2848,15 +2857,6 @@
           "dollName": "Faye"
         }
       ],
-      "interactions": []
-    },
-    {
-      "effectId": "92a10eec-fac6-559d-be83-c1ff401706f1",
-      "effectName": "Area Defense I",
-      "effectTags": [],
-      "exclusiveDollId": null,
-      "exclusiveDollName": null,
-      "sources": [],
       "interactions": []
     },
     {
@@ -3313,6 +3313,15 @@
       "interactions": []
     },
     {
+      "effectId": "538478ce-f1ad-54f1-9dde-367d07d7eb53",
+      "effectName": "Attack Down",
+      "effectTags": [],
+      "exclusiveDollId": null,
+      "exclusiveDollName": null,
+      "sources": [],
+      "interactions": []
+    },
+    {
       "effectId": "02ccea3d-689e-5187-a024-b94481f9768f",
       "effectName": "Attack Down",
       "effectTags": [],
@@ -3350,15 +3359,6 @@
     },
     {
       "effectId": "2669a48b-d1c3-5e3c-981a-7d2ea195784a",
-      "effectName": "Attack Down",
-      "effectTags": [],
-      "exclusiveDollId": null,
-      "exclusiveDollName": null,
-      "sources": [],
-      "interactions": []
-    },
-    {
-      "effectId": "538478ce-f1ad-54f1-9dde-367d07d7eb53",
       "effectName": "Attack Down",
       "effectTags": [],
       "exclusiveDollId": null,
@@ -3587,6 +3587,24 @@
       "interactions": []
     },
     {
+      "effectId": "8801a36f-d941-50c3-b3c3-9137de71a323",
+      "effectName": "Attack Increased",
+      "effectTags": [],
+      "exclusiveDollId": null,
+      "exclusiveDollName": null,
+      "sources": [],
+      "interactions": []
+    },
+    {
+      "effectId": "dc81f58d-3c83-5bb3-a249-1c257bbfd179",
+      "effectName": "Attack Increased",
+      "effectTags": [],
+      "exclusiveDollId": null,
+      "exclusiveDollName": null,
+      "sources": [],
+      "interactions": []
+    },
+    {
       "effectId": "56733649-5c1d-5410-8863-732b91270ed1",
       "effectName": "Attack Increased",
       "effectTags": [],
@@ -3614,34 +3632,16 @@
       "interactions": []
     },
     {
-      "effectId": "eb52fff6-fed5-5b88-976e-f8c8b8e67069",
-      "effectName": "Attack Increased",
-      "effectTags": [],
-      "exclusiveDollId": null,
-      "exclusiveDollName": null,
-      "sources": [],
-      "interactions": []
-    },
-    {
-      "effectId": "8801a36f-d941-50c3-b3c3-9137de71a323",
-      "effectName": "Attack Increased",
-      "effectTags": [],
-      "exclusiveDollId": null,
-      "exclusiveDollName": null,
-      "sources": [],
-      "interactions": []
-    },
-    {
-      "effectId": "dc81f58d-3c83-5bb3-a249-1c257bbfd179",
-      "effectName": "Attack Increased",
-      "effectTags": [],
-      "exclusiveDollId": null,
-      "exclusiveDollName": null,
-      "sources": [],
-      "interactions": []
-    },
-    {
       "effectId": "3c717a12-6f59-5686-bd25-5586adaf2dbc",
+      "effectName": "Attack Increased",
+      "effectTags": [],
+      "exclusiveDollId": null,
+      "exclusiveDollName": null,
+      "sources": [],
+      "interactions": []
+    },
+    {
+      "effectId": "eb52fff6-fed5-5b88-976e-f8c8b8e67069",
       "effectName": "Attack Increased",
       "effectTags": [],
       "exclusiveDollId": null,
@@ -4279,7 +4279,7 @@
       "interactions": []
     },
     {
-      "effectId": "53782e1d-8fff-5ec6-b139-c264791d1878",
+      "effectId": "1229c7fa-d294-5d71-81dd-16ae805373fb",
       "effectName": "Backtrack Code",
       "effectTags": [],
       "exclusiveDollId": null,
@@ -4288,7 +4288,7 @@
       "interactions": []
     },
     {
-      "effectId": "1229c7fa-d294-5d71-81dd-16ae805373fb",
+      "effectId": "53782e1d-8fff-5ec6-b139-c264791d1878",
       "effectName": "Backtrack Code",
       "effectTags": [],
       "exclusiveDollId": null,
@@ -4835,7 +4835,7 @@
       "interactions": []
     },
     {
-      "effectId": "125e0cd7-d399-58c3-9083-3ec636633db0",
+      "effectId": "373ecee4-fa1b-57b5-a27f-c5919df05da4",
       "effectName": "Beast King's Defense",
       "effectTags": [],
       "exclusiveDollId": null,
@@ -4844,7 +4844,7 @@
       "interactions": []
     },
     {
-      "effectId": "373ecee4-fa1b-57b5-a27f-c5919df05da4",
+      "effectId": "125e0cd7-d399-58c3-9083-3ec636633db0",
       "effectName": "Beast King's Defense",
       "effectTags": [],
       "exclusiveDollId": null,
@@ -5003,15 +5003,6 @@
       "interactions": []
     },
     {
-      "effectId": "a69f4e25-0587-5dcf-ae2a-6004c3aeeaad",
-      "effectName": "Binding",
-      "effectTags": [],
-      "exclusiveDollId": null,
-      "exclusiveDollName": null,
-      "sources": [],
-      "interactions": []
-    },
-    {
       "effectId": "9f09b9e9-124d-50b9-9ab3-26930d53e978",
       "effectName": "Binding",
       "effectTags": [],
@@ -5030,7 +5021,7 @@
       "interactions": []
     },
     {
-      "effectId": "ee5fd2cf-abae-5887-8d5d-cfb2c0a2f41c",
+      "effectId": "ab18428f-697d-5174-a871-b3a84876f4eb",
       "effectName": "Binding",
       "effectTags": [],
       "exclusiveDollId": null,
@@ -5039,7 +5030,16 @@
       "interactions": []
     },
     {
-      "effectId": "ab18428f-697d-5174-a871-b3a84876f4eb",
+      "effectId": "a69f4e25-0587-5dcf-ae2a-6004c3aeeaad",
+      "effectName": "Binding",
+      "effectTags": [],
+      "exclusiveDollId": null,
+      "exclusiveDollName": null,
+      "sources": [],
+      "interactions": []
+    },
+    {
+      "effectId": "ee5fd2cf-abae-5887-8d5d-cfb2c0a2f41c",
       "effectName": "Binding",
       "effectTags": [],
       "exclusiveDollId": null,
@@ -5075,6 +5075,15 @@
       "interactions": []
     },
     {
+      "effectId": "f261e0e6-a063-5aef-885d-89b1ec5484de",
+      "effectName": "Bittersweet Caramel",
+      "effectTags": [],
+      "exclusiveDollId": null,
+      "exclusiveDollName": null,
+      "sources": [],
+      "interactions": []
+    },
+    {
       "effectId": "198e02b6-e612-50b7-a6e5-cb3bdf768062",
       "effectName": "Bittersweet Caramel",
       "effectTags": [],
@@ -5094,15 +5103,6 @@
     },
     {
       "effectId": "dbaf6276-dd9d-54a9-a859-b509019705ad",
-      "effectName": "Bittersweet Caramel",
-      "effectTags": [],
-      "exclusiveDollId": null,
-      "exclusiveDollName": null,
-      "sources": [],
-      "interactions": []
-    },
-    {
-      "effectId": "f261e0e6-a063-5aef-885d-89b1ec5484de",
       "effectName": "Bittersweet Caramel",
       "effectTags": [],
       "exclusiveDollId": null,
@@ -5201,7 +5201,7 @@
       "interactions": []
     },
     {
-      "effectId": "71e36f1c-f5ab-50ca-a34e-375370d8aaea",
+      "effectId": "c4d30c59-b2b9-5db4-bbd3-1b92f70bf3d0",
       "effectName": "Black Haze",
       "effectTags": [],
       "exclusiveDollId": null,
@@ -5210,7 +5210,7 @@
       "interactions": []
     },
     {
-      "effectId": "c4d30c59-b2b9-5db4-bbd3-1b92f70bf3d0",
+      "effectId": "71e36f1c-f5ab-50ca-a34e-375370d8aaea",
       "effectName": "Black Haze",
       "effectTags": [],
       "exclusiveDollId": null,
@@ -5336,6 +5336,15 @@
       "interactions": []
     },
     {
+      "effectId": "38ec906d-15f2-542c-b745-add09b9f128c",
+      "effectName": "Blade of Sin",
+      "effectTags": [],
+      "exclusiveDollId": "ac6fa408-f95c-57f2-a250-a264166efb29",
+      "exclusiveDollName": "Asteria",
+      "sources": [],
+      "interactions": []
+    },
+    {
       "effectId": "2bb2c002-7a22-5811-85ff-d2d8b35a13a6",
       "effectName": "Blade of Sin",
       "effectTags": [],
@@ -5371,15 +5380,6 @@
           "skillType": "Ultimate"
         }
       ]
-    },
-    {
-      "effectId": "38ec906d-15f2-542c-b745-add09b9f128c",
-      "effectName": "Blade of Sin",
-      "effectTags": [],
-      "exclusiveDollId": "ac6fa408-f95c-57f2-a250-a264166efb29",
-      "exclusiveDollName": "Asteria",
-      "sources": [],
-      "interactions": []
     },
     {
       "effectId": "034fae94-bf07-5641-836c-e788263a00a8",
@@ -5601,6 +5601,15 @@
       "interactions": []
     },
     {
+      "effectId": "cc2c7678-b81d-512b-b304-0bfe9457175a",
+      "effectName": "Blazing Assault II",
+      "effectTags": [],
+      "exclusiveDollId": null,
+      "exclusiveDollName": null,
+      "sources": [],
+      "interactions": []
+    },
+    {
       "effectId": "681a5353-75dd-5bd3-a4b7-601232e2d1dd",
       "effectName": "Blazing Assault II",
       "effectTags": [],
@@ -5790,15 +5799,6 @@
     },
     {
       "effectId": "c6f18aca-eacc-5d22-9a52-2fdfcf97c575",
-      "effectName": "Blazing Assault II",
-      "effectTags": [],
-      "exclusiveDollId": null,
-      "exclusiveDollName": null,
-      "sources": [],
-      "interactions": []
-    },
-    {
-      "effectId": "cc2c7678-b81d-512b-b304-0bfe9457175a",
       "effectName": "Blazing Assault II",
       "effectTags": [],
       "exclusiveDollId": null,
@@ -6492,6 +6492,25 @@
       "interactions": []
     },
     {
+      "effectId": "b1cd6e48-d692-5976-8839-ca6e9dd73aed",
+      "effectName": "Brainwashed",
+      "effectTags": [],
+      "exclusiveDollId": null,
+      "exclusiveDollName": null,
+      "sources": [],
+      "interactions": [
+        {
+          "kind": "effect",
+          "relation": "mentions",
+          "snippet": "Upon reaching 2 stacks, if the target is a normal unit or elite unit, it converts to [effect:b1cd6e48-d692-5976-8839-ca6e9dd73aed]",
+          "effectId": "86791982-6200-5ac8-952a-1d37c9930220",
+          "effectName": "Cognitive Disruption",
+          "ownerDollId": null,
+          "ownerDollName": null
+        }
+      ]
+    },
+    {
       "effectId": "78040047-6f59-5024-b798-785689b1d901",
       "effectName": "Brainwashed",
       "effectTags": [],
@@ -6513,25 +6532,6 @@
           "relation": "mentions",
           "snippet": "Upon reaching 3 stacks, if the target is a normal unit or elite unit, it converts to [effect:78040047-6f59-5024-b798-785689b1d901]",
           "effectId": "c5164990-9965-5266-96c6-0f767514dea0",
-          "effectName": "Cognitive Disruption",
-          "ownerDollId": null,
-          "ownerDollName": null
-        }
-      ]
-    },
-    {
-      "effectId": "b1cd6e48-d692-5976-8839-ca6e9dd73aed",
-      "effectName": "Brainwashed",
-      "effectTags": [],
-      "exclusiveDollId": null,
-      "exclusiveDollName": null,
-      "sources": [],
-      "interactions": [
-        {
-          "kind": "effect",
-          "relation": "mentions",
-          "snippet": "Upon reaching 2 stacks, if the target is a normal unit or elite unit, it converts to [effect:b1cd6e48-d692-5976-8839-ca6e9dd73aed]",
-          "effectId": "86791982-6200-5ac8-952a-1d37c9930220",
           "effectName": "Cognitive Disruption",
           "ownerDollId": null,
           "ownerDollName": null
@@ -7240,7 +7240,7 @@
       "interactions": []
     },
     {
-      "effectId": "d01e1ee7-d668-527f-9272-1bd64a511843",
+      "effectId": "e7f69b8e-7fb7-5dfa-a0c0-0215594403b8",
       "effectName": "Caelum Cadit",
       "effectTags": [],
       "exclusiveDollId": null,
@@ -7249,7 +7249,7 @@
       "interactions": []
     },
     {
-      "effectId": "e7f69b8e-7fb7-5dfa-a0c0-0215594403b8",
+      "effectId": "d01e1ee7-d668-527f-9272-1bd64a511843",
       "effectName": "Caelum Cadit",
       "effectTags": [],
       "exclusiveDollId": null,
@@ -8020,20 +8020,20 @@
       "interactions": []
     },
     {
-      "effectId": "92ecfd61-a909-534c-a5c6-cbbea3d4ffcc",
+      "effectId": "b6d6654f-210c-5bc0-971a-a88f41e12d0a",
       "effectName": "Chain Reaction",
       "effectTags": [],
-      "exclusiveDollId": null,
-      "exclusiveDollName": null,
+      "exclusiveDollId": "65efbb03-2da8-5ab7-9fa9-d89433feaa01",
+      "exclusiveDollName": "Peritya",
       "sources": [],
       "interactions": []
     },
     {
-      "effectId": "680b47c8-ed8a-5e7b-a9d0-d0884dc91a89",
+      "effectId": "81bb2aad-4e7f-5119-87c5-bc6d03197b17",
       "effectName": "Chain Reaction",
       "effectTags": [],
-      "exclusiveDollId": null,
-      "exclusiveDollName": null,
+      "exclusiveDollId": "65efbb03-2da8-5ab7-9fa9-d89433feaa01",
+      "exclusiveDollName": "Peritya",
       "sources": [],
       "interactions": []
     },
@@ -8048,15 +8048,6 @@
     },
     {
       "effectId": "c5805f91-9641-5deb-9189-a801dd3c67a6",
-      "effectName": "Chain Reaction",
-      "effectTags": [],
-      "exclusiveDollId": "65efbb03-2da8-5ab7-9fa9-d89433feaa01",
-      "exclusiveDollName": "Peritya",
-      "sources": [],
-      "interactions": []
-    },
-    {
-      "effectId": "b6d6654f-210c-5bc0-971a-a88f41e12d0a",
       "effectName": "Chain Reaction",
       "effectTags": [],
       "exclusiveDollId": "65efbb03-2da8-5ab7-9fa9-d89433feaa01",
@@ -8083,11 +8074,20 @@
       "interactions": []
     },
     {
-      "effectId": "81bb2aad-4e7f-5119-87c5-bc6d03197b17",
+      "effectId": "92ecfd61-a909-534c-a5c6-cbbea3d4ffcc",
       "effectName": "Chain Reaction",
       "effectTags": [],
-      "exclusiveDollId": "65efbb03-2da8-5ab7-9fa9-d89433feaa01",
-      "exclusiveDollName": "Peritya",
+      "exclusiveDollId": null,
+      "exclusiveDollName": null,
+      "sources": [],
+      "interactions": []
+    },
+    {
+      "effectId": "680b47c8-ed8a-5e7b-a9d0-d0884dc91a89",
+      "effectName": "Chain Reaction",
+      "effectTags": [],
+      "exclusiveDollId": null,
+      "exclusiveDollName": null,
       "sources": [],
       "interactions": []
     },
@@ -8709,6 +8709,15 @@
       "interactions": []
     },
     {
+      "effectId": "021969af-7c04-5f99-affd-2748d8d9f9b1",
+      "effectName": "Cleanse",
+      "effectTags": [],
+      "exclusiveDollId": "f415e5f0-2358-567d-956e-187948a8e40a",
+      "exclusiveDollName": "Colphne",
+      "sources": [],
+      "interactions": []
+    },
+    {
       "effectId": "098db0ec-9157-567b-addc-d8d715ae5c54",
       "effectName": "Cleanse",
       "effectTags": [],
@@ -8736,24 +8745,6 @@
       "interactions": []
     },
     {
-      "effectId": "021969af-7c04-5f99-affd-2748d8d9f9b1",
-      "effectName": "Cleanse",
-      "effectTags": [],
-      "exclusiveDollId": "f415e5f0-2358-567d-956e-187948a8e40a",
-      "exclusiveDollName": "Colphne",
-      "sources": [],
-      "interactions": []
-    },
-    {
-      "effectId": "f1e99a55-8b01-5f9a-97b2-f768422f6a02",
-      "effectName": "Cleanse",
-      "effectTags": [],
-      "exclusiveDollId": null,
-      "exclusiveDollName": null,
-      "sources": [],
-      "interactions": []
-    },
-    {
       "effectId": "f771db0d-ff6f-554d-af3b-3d281f6b07c6",
       "effectName": "Cleanse",
       "effectTags": [],
@@ -8768,6 +8759,15 @@
       "effectTags": [],
       "exclusiveDollId": "50056cae-1c7e-56bc-bb11-6f337d1c37f2",
       "exclusiveDollName": "Vepley",
+      "sources": [],
+      "interactions": []
+    },
+    {
+      "effectId": "f1e99a55-8b01-5f9a-97b2-f768422f6a02",
+      "effectName": "Cleanse",
+      "effectTags": [],
+      "exclusiveDollId": null,
+      "exclusiveDollName": null,
       "sources": [],
       "interactions": []
     },
@@ -8835,24 +8835,6 @@
       "interactions": []
     },
     {
-      "effectId": "8af3a98b-33c6-5a20-8e7e-44d53992d08c",
-      "effectName": "Cloaked",
-      "effectTags": [],
-      "exclusiveDollId": null,
-      "exclusiveDollName": null,
-      "sources": [],
-      "interactions": []
-    },
-    {
-      "effectId": "dcc69548-9110-528a-b79a-551dc9bb6c72",
-      "effectName": "Cloaked",
-      "effectTags": [],
-      "exclusiveDollId": null,
-      "exclusiveDollName": null,
-      "sources": [],
-      "interactions": []
-    },
-    {
       "effectId": "ebe56395-1168-583a-98ce-aabaeb84ae23",
       "effectName": "Cloaked",
       "effectTags": [],
@@ -8863,6 +8845,24 @@
     },
     {
       "effectId": "f2818963-2b63-56e8-ad3d-78600ada7dd2",
+      "effectName": "Cloaked",
+      "effectTags": [],
+      "exclusiveDollId": null,
+      "exclusiveDollName": null,
+      "sources": [],
+      "interactions": []
+    },
+    {
+      "effectId": "8af3a98b-33c6-5a20-8e7e-44d53992d08c",
+      "effectName": "Cloaked",
+      "effectTags": [],
+      "exclusiveDollId": null,
+      "exclusiveDollName": null,
+      "sources": [],
+      "interactions": []
+    },
+    {
+      "effectId": "dcc69548-9110-528a-b79a-551dc9bb6c72",
       "effectName": "Cloaked",
       "effectTags": [],
       "exclusiveDollId": null,
@@ -9036,25 +9036,6 @@
       "interactions": []
     },
     {
-      "effectId": "c5164990-9965-5266-96c6-0f767514dea0",
-      "effectName": "Cognitive Disruption",
-      "effectTags": [],
-      "exclusiveDollId": null,
-      "exclusiveDollName": null,
-      "sources": [
-        {
-          "kind": "effect",
-          "relation": "gains",
-          "snippet": "Enemy units which end their turn in this area take fixed damage equal to 50% of the inflictor's attack, gain [effect:bed0e328-6058-536b-9b54-fa0323620fe4] for 2 turns, and gain [effect:c5164990-9965-5266-96c6-0f767514dea0]",
-          "effectId": "1e81a20b-e473-5afd-a026-be334eb2a315",
-          "effectName": "Radiant Energy",
-          "ownerDollId": null,
-          "ownerDollName": null
-        }
-      ],
-      "interactions": []
-    },
-    {
       "effectId": "86791982-6200-5ac8-952a-1d37c9930220",
       "effectName": "Cognitive Disruption",
       "effectTags": [],
@@ -9067,6 +9048,25 @@
           "snippet": "Enemy units which end their turn in this area take fixed damage equal to 150% of the inflictor's attack, gain [effect:bed0e328-6058-536b-9b54-fa0323620fe4], [effect:a4650791-ff5d-576a-a225-715f6ac02801] and 1 random debuff for 2 turns, and gain [effect:86791982-6200-5ac8-952a-1d37c9930220]",
           "effectId": "f7f4e9c5-826c-57d3-9b39-4dcc9be6440b",
           "effectName": "Radiant Energy II",
+          "ownerDollId": null,
+          "ownerDollName": null
+        }
+      ],
+      "interactions": []
+    },
+    {
+      "effectId": "c5164990-9965-5266-96c6-0f767514dea0",
+      "effectName": "Cognitive Disruption",
+      "effectTags": [],
+      "exclusiveDollId": null,
+      "exclusiveDollName": null,
+      "sources": [
+        {
+          "kind": "effect",
+          "relation": "gains",
+          "snippet": "Enemy units which end their turn in this area take fixed damage equal to 50% of the inflictor's attack, gain [effect:bed0e328-6058-536b-9b54-fa0323620fe4] for 2 turns, and gain [effect:c5164990-9965-5266-96c6-0f767514dea0]",
+          "effectId": "1e81a20b-e473-5afd-a026-be334eb2a315",
+          "effectName": "Radiant Energy",
           "ownerDollId": null,
           "ownerDollName": null
         }
@@ -9144,38 +9144,6 @@
       "interactions": []
     },
     {
-      "effectId": "902fa4a0-f98b-5534-883e-deb8c3b13d88",
-      "effectName": "Cold Snap",
-      "effectTags": [],
-      "exclusiveDollId": "b4192e1a-eedc-5c7b-8b91-70cf7e83a9c1",
-      "exclusiveDollName": "Springfield",
-      "sources": [
-        {
-          "kind": "skill",
-          "relation": "applies",
-          "levels": [
-            2
-          ],
-          "snippet": "Selects an enemy target within 9 tiles and applies [effect:cd3f599b-12d7-5a11-a975-26ad56644657] to it for 2 turns, deals Hydro damage equal to 150% of attack, and applies [effect:902fa4a0-f98b-5534-883e-deb8c3b13d88] to it for 1 turn",
-          "dollId": "b4192e1a-eedc-5c7b-8b91-70cf7e83a9c1",
-          "dollName": "Springfield",
-          "skillId": "10470501",
-          "skillName": "Intel Manipulation",
-          "skillType": "Active"
-        },
-        {
-          "kind": "vertebrae",
-          "relation": "gains",
-          "snippet": "Congestion is changed to [effect:902fa4a0-f98b-5534-883e-deb8c3b13d88] for 1 turn",
-          "dollId": "b4192e1a-eedc-5c7b-8b91-70cf7e83a9c1",
-          "dollName": "Springfield",
-          "level": 2,
-          "segment": 4
-        }
-      ],
-      "interactions": []
-    },
-    {
       "effectId": "5e1b62dc-cd5b-5439-8955-877493344b97",
       "effectName": "Cold Snap",
       "effectTags": [],
@@ -9246,6 +9214,38 @@
           "segment": 5
         }
       ]
+    },
+    {
+      "effectId": "902fa4a0-f98b-5534-883e-deb8c3b13d88",
+      "effectName": "Cold Snap",
+      "effectTags": [],
+      "exclusiveDollId": "b4192e1a-eedc-5c7b-8b91-70cf7e83a9c1",
+      "exclusiveDollName": "Springfield",
+      "sources": [
+        {
+          "kind": "skill",
+          "relation": "applies",
+          "levels": [
+            2
+          ],
+          "snippet": "Selects an enemy target within 9 tiles and applies [effect:cd3f599b-12d7-5a11-a975-26ad56644657] to it for 2 turns, deals Hydro damage equal to 150% of attack, and applies [effect:902fa4a0-f98b-5534-883e-deb8c3b13d88] to it for 1 turn",
+          "dollId": "b4192e1a-eedc-5c7b-8b91-70cf7e83a9c1",
+          "dollName": "Springfield",
+          "skillId": "10470501",
+          "skillName": "Intel Manipulation",
+          "skillType": "Active"
+        },
+        {
+          "kind": "vertebrae",
+          "relation": "gains",
+          "snippet": "Congestion is changed to [effect:902fa4a0-f98b-5534-883e-deb8c3b13d88] for 1 turn",
+          "dollId": "b4192e1a-eedc-5c7b-8b91-70cf7e83a9c1",
+          "dollName": "Springfield",
+          "level": 2,
+          "segment": 4
+        }
+      ],
+      "interactions": []
     },
     {
       "effectId": "77547e72-ff36-5d66-9eed-3c47b574ead3",
@@ -9519,15 +9519,6 @@
       ]
     },
     {
-      "effectId": "d469696f-e718-5cf7-a2d1-4297676c720a",
-      "effectName": "Combined Mode",
-      "effectTags": [],
-      "exclusiveDollId": null,
-      "exclusiveDollName": null,
-      "sources": [],
-      "interactions": []
-    },
-    {
       "effectId": "cfee5014-a115-5d44-b085-d2b96e79756d",
       "effectName": "Combined Mode",
       "effectTags": [],
@@ -9545,6 +9536,34 @@
           "ownerDollName": null
         }
       ]
+    },
+    {
+      "effectId": "d469696f-e718-5cf7-a2d1-4297676c720a",
+      "effectName": "Combined Mode",
+      "effectTags": [],
+      "exclusiveDollId": null,
+      "exclusiveDollName": null,
+      "sources": [],
+      "interactions": []
+    },
+    {
+      "effectId": "cb1dcd3b-f1ba-5209-8ea2-77634fa99e60",
+      "effectName": "Combo Pounce",
+      "effectTags": [],
+      "exclusiveDollId": "d8661706-7a29-5545-b8b1-7b42fd041994",
+      "exclusiveDollName": "Faelynn",
+      "sources": [
+        {
+          "kind": "effect",
+          "relation": "gains",
+          "snippet": "On a kill, gains 1 additional stack of [effect:cb1dcd3b-f1ba-5209-8ea2-77634fa99e60], up to 2 stacks",
+          "effectId": "46828e9a-ba88-504b-aca5-b58285905288",
+          "effectName": "Hunter's Instinct III",
+          "ownerDollId": "d8661706-7a29-5545-b8b1-7b42fd041994",
+          "ownerDollName": "Faelynn"
+        }
+      ],
+      "interactions": []
     },
     {
       "effectId": "5ae01199-84e5-5393-85d4-8e6b40c044d5",
@@ -9619,25 +9638,6 @@
           "skillType": "Ultimate"
         }
       ]
-    },
-    {
-      "effectId": "cb1dcd3b-f1ba-5209-8ea2-77634fa99e60",
-      "effectName": "Combo Pounce",
-      "effectTags": [],
-      "exclusiveDollId": "d8661706-7a29-5545-b8b1-7b42fd041994",
-      "exclusiveDollName": "Faelynn",
-      "sources": [
-        {
-          "kind": "effect",
-          "relation": "gains",
-          "snippet": "On a kill, gains 1 additional stack of [effect:cb1dcd3b-f1ba-5209-8ea2-77634fa99e60], up to 2 stacks",
-          "effectId": "46828e9a-ba88-504b-aca5-b58285905288",
-          "effectName": "Hunter's Instinct III",
-          "ownerDollId": "d8661706-7a29-5545-b8b1-7b42fd041994",
-          "ownerDollName": "Faelynn"
-        }
-      ],
-      "interactions": []
     },
     {
       "effectId": "99407a3a-987c-5b09-a4c0-adc301a6220c",
@@ -9733,15 +9733,6 @@
       "interactions": []
     },
     {
-      "effectId": "9453a3e9-bbdf-5cf0-b870-7a68f67cce85",
-      "effectName": "Command Mode",
-      "effectTags": [],
-      "exclusiveDollId": "173fe1dd-74ee-5fbc-ae09-15704379df3e",
-      "exclusiveDollName": "OTs-14",
-      "sources": [],
-      "interactions": []
-    },
-    {
       "effectId": "baa8e46c-c851-5e75-9391-3a77133bfdd3",
       "effectName": "Command Mode",
       "effectTags": [],
@@ -9796,7 +9787,7 @@
       "interactions": []
     },
     {
-      "effectId": "bfe55563-4616-5683-a395-3df40db9af0b",
+      "effectId": "9453a3e9-bbdf-5cf0-b870-7a68f67cce85",
       "effectName": "Command Mode",
       "effectTags": [],
       "exclusiveDollId": "173fe1dd-74ee-5fbc-ae09-15704379df3e",
@@ -9835,6 +9826,15 @@
           "skillType": "Active"
         }
       ],
+      "interactions": []
+    },
+    {
+      "effectId": "bfe55563-4616-5683-a395-3df40db9af0b",
+      "effectName": "Command Mode",
+      "effectTags": [],
+      "exclusiveDollId": "173fe1dd-74ee-5fbc-ae09-15704379df3e",
+      "exclusiveDollName": "OTs-14",
+      "sources": [],
       "interactions": []
     },
     {
@@ -10433,24 +10433,6 @@
       "interactions": []
     },
     {
-      "effectId": "10ea6419-2e61-5920-841f-1fb6635dfd1d",
-      "effectName": "Confectance Boost I",
-      "effectTags": [],
-      "exclusiveDollId": null,
-      "exclusiveDollName": null,
-      "sources": [],
-      "interactions": []
-    },
-    {
-      "effectId": "54ec936d-9ca9-59dd-9049-8a06b6426d4a",
-      "effectName": "Confectance Boost I",
-      "effectTags": [],
-      "exclusiveDollId": null,
-      "exclusiveDollName": null,
-      "sources": [],
-      "interactions": []
-    },
-    {
       "effectId": "00dc3ad0-f2a1-5655-aae5-8addfbdc746c",
       "effectName": "Confectance Boost I",
       "effectTags": [],
@@ -10461,6 +10443,24 @@
     },
     {
       "effectId": "2a5f0d79-430b-5ad2-9027-c1c7e3dcb33a",
+      "effectName": "Confectance Boost I",
+      "effectTags": [],
+      "exclusiveDollId": null,
+      "exclusiveDollName": null,
+      "sources": [],
+      "interactions": []
+    },
+    {
+      "effectId": "10ea6419-2e61-5920-841f-1fb6635dfd1d",
+      "effectName": "Confectance Boost I",
+      "effectTags": [],
+      "exclusiveDollId": null,
+      "exclusiveDollName": null,
+      "sources": [],
+      "interactions": []
+    },
+    {
+      "effectId": "54ec936d-9ca9-59dd-9049-8a06b6426d4a",
       "effectName": "Confectance Boost I",
       "effectTags": [],
       "exclusiveDollId": null,
@@ -10595,7 +10595,7 @@
       "interactions": []
     },
     {
-      "effectId": "74429d72-e6e8-568e-9400-c1827124d736",
+      "effectId": "26300883-8fde-59f7-bc52-4d32639ab524",
       "effectName": "Confectance Up",
       "effectTags": [],
       "exclusiveDollId": null,
@@ -10604,7 +10604,7 @@
       "interactions": []
     },
     {
-      "effectId": "26300883-8fde-59f7-bc52-4d32639ab524",
+      "effectId": "74429d72-e6e8-568e-9400-c1827124d736",
       "effectName": "Confectance Up",
       "effectTags": [],
       "exclusiveDollId": null,
@@ -11635,7 +11635,7 @@
       "interactions": []
     },
     {
-      "effectId": "9bdd1fed-3b73-5a77-ae8f-a6a54f390139",
+      "effectId": "61bb9406-7fb9-5c27-9332-894d152f136e",
       "effectName": "Corrosive Infusion",
       "effectTags": [],
       "exclusiveDollId": "163b2a89-ddba-5e0a-bbd3-cd98df581b34",
@@ -11644,7 +11644,7 @@
       "interactions": []
     },
     {
-      "effectId": "61bb9406-7fb9-5c27-9332-894d152f136e",
+      "effectId": "9bdd1fed-3b73-5a77-ae8f-a6a54f390139",
       "effectName": "Corrosive Infusion",
       "effectTags": [],
       "exclusiveDollId": "163b2a89-ddba-5e0a-bbd3-cd98df581b34",
@@ -11917,7 +11917,7 @@
       "interactions": []
     },
     {
-      "effectId": "40a6a908-2798-5e55-8c91-37340b0fba48",
+      "effectId": "37b610f9-4d32-509b-aa63-fed04a6cae73",
       "effectName": "Counter - Scorch Mark",
       "effectTags": [],
       "exclusiveDollId": "f4eab065-9ccd-59bf-9809-ae627cc4c5a6",
@@ -11926,7 +11926,7 @@
       "interactions": []
     },
     {
-      "effectId": "37b610f9-4d32-509b-aa63-fed04a6cae73",
+      "effectId": "40a6a908-2798-5e55-8c91-37340b0fba48",
       "effectName": "Counter - Scorch Mark",
       "effectTags": [],
       "exclusiveDollId": "f4eab065-9ccd-59bf-9809-ae627cc4c5a6",
@@ -12036,15 +12036,6 @@
     {
       "effectId": "f293e83b-fd75-5828-aba8-a98e86d59363",
       "effectName": "Counter: Stellar Extinction",
-      "effectTags": [],
-      "exclusiveDollId": null,
-      "exclusiveDollName": null,
-      "sources": [],
-      "interactions": []
-    },
-    {
-      "effectId": "baf446cd-8b19-51e8-8f15-73948b2f9f16",
-      "effectName": "Counterattack",
       "effectTags": [],
       "exclusiveDollId": null,
       "exclusiveDollName": null,
@@ -12298,6 +12289,15 @@
       ]
     },
     {
+      "effectId": "baf446cd-8b19-51e8-8f15-73948b2f9f16",
+      "effectName": "Counterattack",
+      "effectTags": [],
+      "exclusiveDollId": null,
+      "exclusiveDollName": null,
+      "sources": [],
+      "interactions": []
+    },
+    {
       "effectId": "ab4354b5-7b8d-547b-ae88-c906b77792d7",
       "effectName": "Counterattack Enhancement",
       "effectTags": [],
@@ -12321,6 +12321,15 @@
       "effectTags": [],
       "exclusiveDollId": "12b699ed-9172-54e4-a51b-1cdd4639eb5b",
       "exclusiveDollName": "Littara",
+      "sources": [],
+      "interactions": []
+    },
+    {
+      "effectId": "4ac66a68-3f6f-5cb0-8e17-f11df01e284c",
+      "effectName": "Counting - Adversity Reversal",
+      "effectTags": [],
+      "exclusiveDollId": null,
+      "exclusiveDollName": null,
       "sources": [],
       "interactions": []
     },
@@ -12361,35 +12370,8 @@
       "interactions": []
     },
     {
-      "effectId": "4ac66a68-3f6f-5cb0-8e17-f11df01e284c",
-      "effectName": "Counting - Adversity Reversal",
-      "effectTags": [],
-      "exclusiveDollId": null,
-      "exclusiveDollName": null,
-      "sources": [],
-      "interactions": []
-    },
-    {
       "effectId": "cce20ace-14d4-5cb8-baa8-c5653db4d86a",
       "effectName": "Counting - Adversity Reversal",
-      "effectTags": [],
-      "exclusiveDollId": null,
-      "exclusiveDollName": null,
-      "sources": [],
-      "interactions": []
-    },
-    {
-      "effectId": "8ef2c55f-ae00-5841-80e8-c124a05176b5",
-      "effectName": "Counting - Bittersweet Caramel",
-      "effectTags": [],
-      "exclusiveDollId": null,
-      "exclusiveDollName": null,
-      "sources": [],
-      "interactions": []
-    },
-    {
-      "effectId": "137bfc77-0d9a-51d6-b4ca-bbae255bd7a4",
-      "effectName": "Counting - Bittersweet Caramel",
       "effectTags": [],
       "exclusiveDollId": null,
       "exclusiveDollName": null,
@@ -12407,6 +12389,24 @@
     },
     {
       "effectId": "cc785db8-3698-5af9-9074-bfe39326b961",
+      "effectName": "Counting - Bittersweet Caramel",
+      "effectTags": [],
+      "exclusiveDollId": null,
+      "exclusiveDollName": null,
+      "sources": [],
+      "interactions": []
+    },
+    {
+      "effectId": "8ef2c55f-ae00-5841-80e8-c124a05176b5",
+      "effectName": "Counting - Bittersweet Caramel",
+      "effectTags": [],
+      "exclusiveDollId": null,
+      "exclusiveDollName": null,
+      "sources": [],
+      "interactions": []
+    },
+    {
+      "effectId": "137bfc77-0d9a-51d6-b4ca-bbae255bd7a4",
       "effectName": "Counting - Bittersweet Caramel",
       "effectTags": [],
       "exclusiveDollId": null,
@@ -12496,6 +12496,15 @@
       "interactions": []
     },
     {
+      "effectId": "fd10f561-1704-5638-9bb3-d6fe04ce48d4",
+      "effectName": "Counting - Spotlight",
+      "effectTags": [],
+      "exclusiveDollId": null,
+      "exclusiveDollName": null,
+      "sources": [],
+      "interactions": []
+    },
+    {
       "effectId": "4be05c69-3edd-513d-8073-c17f0096abe0",
       "effectName": "Counting - Spotlight",
       "effectTags": [],
@@ -12533,15 +12542,6 @@
     },
     {
       "effectId": "939f4ff4-6c4b-526a-a4f8-74d9dfd54c52",
-      "effectName": "Counting - Spotlight",
-      "effectTags": [],
-      "exclusiveDollId": null,
-      "exclusiveDollName": null,
-      "sources": [],
-      "interactions": []
-    },
-    {
-      "effectId": "fd10f561-1704-5638-9bb3-d6fe04ce48d4",
       "effectName": "Counting - Spotlight",
       "effectTags": [],
       "exclusiveDollId": null,
@@ -12604,7 +12604,7 @@
       "interactions": []
     },
     {
-      "effectId": "98d6ec4a-322e-519c-997d-6151a4f0b0b5",
+      "effectId": "cc5fb6b8-6e2a-5454-8b67-b30050054b12",
       "effectName": "Country-style Stir Fry",
       "effectTags": [],
       "exclusiveDollId": null,
@@ -12613,7 +12613,7 @@
       "interactions": []
     },
     {
-      "effectId": "cc5fb6b8-6e2a-5454-8b67-b30050054b12",
+      "effectId": "98d6ec4a-322e-519c-997d-6151a4f0b0b5",
       "effectName": "Country-style Stir Fry",
       "effectTags": [],
       "exclusiveDollId": null,
@@ -13453,6 +13453,15 @@
       "interactions": []
     },
     {
+      "effectId": "3b136685-8a1a-5ab7-8331-6af1afc9fab3",
+      "effectName": "Critical Damage Increased",
+      "effectTags": [],
+      "exclusiveDollId": "4d30e6e6-8968-51db-be02-157393254532",
+      "exclusiveDollName": "Zhaohui",
+      "sources": [],
+      "interactions": []
+    },
+    {
       "effectId": "bcaea932-cf05-5a9e-aee4-3f8cf5173cb1",
       "effectName": "Critical Damage Increased",
       "effectTags": [],
@@ -13463,15 +13472,6 @@
     },
     {
       "effectId": "3f82548b-b151-5b4c-a142-d2bca8a0c14f",
-      "effectName": "Critical Damage Increased",
-      "effectTags": [],
-      "exclusiveDollId": "4d30e6e6-8968-51db-be02-157393254532",
-      "exclusiveDollName": "Zhaohui",
-      "sources": [],
-      "interactions": []
-    },
-    {
-      "effectId": "3b136685-8a1a-5ab7-8331-6af1afc9fab3",
       "effectName": "Critical Damage Increased",
       "effectTags": [],
       "exclusiveDollId": "4d30e6e6-8968-51db-be02-157393254532",
@@ -14230,6 +14230,15 @@
       "interactions": []
     },
     {
+      "effectId": "dc1132d0-be7e-5858-aaf6-87e87d430137",
+      "effectName": "Cutie",
+      "effectTags": [],
+      "exclusiveDollId": "495bc361-0504-57f6-90cc-192ff68cd0e4",
+      "exclusiveDollName": "Basti",
+      "sources": [],
+      "interactions": []
+    },
+    {
       "effectId": "92b03b0c-c94a-5433-be24-03760457df58",
       "effectName": "Cutie",
       "effectTags": [],
@@ -14249,15 +14258,6 @@
     },
     {
       "effectId": "6e97fa2c-ed8c-5fd4-a8af-e354d6a9ee4b",
-      "effectName": "Cutie",
-      "effectTags": [],
-      "exclusiveDollId": "495bc361-0504-57f6-90cc-192ff68cd0e4",
-      "exclusiveDollName": "Basti",
-      "sources": [],
-      "interactions": []
-    },
-    {
-      "effectId": "dc1132d0-be7e-5858-aaf6-87e87d430137",
       "effectName": "Cutie",
       "effectTags": [],
       "exclusiveDollId": "495bc361-0504-57f6-90cc-192ff68cd0e4",
@@ -14492,15 +14492,6 @@
       "interactions": []
     },
     {
-      "effectId": "40e8f6b1-ec1e-5230-b283-984a55c0b683",
-      "effectName": "Damage Increased",
-      "effectTags": [],
-      "exclusiveDollId": "9ec7b7d3-a457-59ec-8a12-f67be6e01956",
-      "exclusiveDollName": "Nemesis",
-      "sources": [],
-      "interactions": []
-    },
-    {
       "effectId": "415ecbcd-2473-53db-9786-8e19256a605f",
       "effectName": "Damage Increased",
       "effectTags": [],
@@ -14511,6 +14502,15 @@
     },
     {
       "effectId": "71fe405e-aebd-5226-8057-9f2d28ae9b49",
+      "effectName": "Damage Increased",
+      "effectTags": [],
+      "exclusiveDollId": "9ec7b7d3-a457-59ec-8a12-f67be6e01956",
+      "exclusiveDollName": "Nemesis",
+      "sources": [],
+      "interactions": []
+    },
+    {
+      "effectId": "40e8f6b1-ec1e-5230-b283-984a55c0b683",
       "effectName": "Damage Increased",
       "effectTags": [],
       "exclusiveDollId": "9ec7b7d3-a457-59ec-8a12-f67be6e01956",
@@ -14656,6 +14656,38 @@
       "interactions": []
     },
     {
+      "effectId": "614d7747-6bc6-541e-a2ec-a433cd6f3aca",
+      "effectName": "Damage Reduction II",
+      "effectTags": [],
+      "exclusiveDollId": "ac6fa408-f95c-57f2-a250-a264166efb29",
+      "exclusiveDollName": "Asteria",
+      "sources": [
+        {
+          "kind": "skill",
+          "relation": "applies",
+          "levels": [
+            2
+          ],
+          "snippet": "If there is Cover around the landing point, the [effect:20c22306-c7a4-5340-884c-54a54473ae80] effect is raised to 40%, [effect:d16cd58c-7439-5815-a029-4eecb732ccd0] is applied to the unit holding [effect:e1f0f3e7-6003-56c8-8987-baf16e4a6c10] for 1 round, and [effect:614d7747-6bc6-541e-a2ec-a433cd…",
+          "dollId": "ac6fa408-f95c-57f2-a250-a264166efb29",
+          "dollName": "Asteria",
+          "skillId": "10800501",
+          "skillName": "Assault Focus",
+          "skillType": "Active"
+        },
+        {
+          "kind": "vertebrae",
+          "relation": "applies",
+          "snippet": "If there is Cover around the landing point, the [effect:20c22306-c7a4-5340-884c-54a54473ae80] effect is raised to 40%, [effect:d16cd58c-7439-5815-a029-4eecb732ccd0] is applied to the unit holding [effect:e1f0f3e7-6003-56c8-8987-baf16e4a6c10] for 1 round, and [effect:614d7747-6bc6-541e-a2ec-a433cd…",
+          "dollId": "ac6fa408-f95c-57f2-a250-a264166efb29",
+          "dollName": "Asteria",
+          "level": 2,
+          "segment": 4
+        }
+      ],
+      "interactions": []
+    },
+    {
       "effectId": "91650feb-bc6e-5d75-b649-480ea46c606f",
       "effectName": "Damage Reduction II",
       "effectTags": [],
@@ -14704,35 +14736,12 @@
       "interactions": []
     },
     {
-      "effectId": "614d7747-6bc6-541e-a2ec-a433cd6f3aca",
-      "effectName": "Damage Reduction II",
+      "effectId": "a4a8c3fe-98cc-54e3-8aa9-dc03657d1456",
+      "effectName": "Damage Reduction III",
       "effectTags": [],
-      "exclusiveDollId": "ac6fa408-f95c-57f2-a250-a264166efb29",
-      "exclusiveDollName": "Asteria",
-      "sources": [
-        {
-          "kind": "skill",
-          "relation": "applies",
-          "levels": [
-            2
-          ],
-          "snippet": "If there is Cover around the landing point, the [effect:20c22306-c7a4-5340-884c-54a54473ae80] effect is raised to 40%, [effect:d16cd58c-7439-5815-a029-4eecb732ccd0] is applied to the unit holding [effect:e1f0f3e7-6003-56c8-8987-baf16e4a6c10] for 1 round, and [effect:614d7747-6bc6-541e-a2ec-a433cd…",
-          "dollId": "ac6fa408-f95c-57f2-a250-a264166efb29",
-          "dollName": "Asteria",
-          "skillId": "10800501",
-          "skillName": "Assault Focus",
-          "skillType": "Active"
-        },
-        {
-          "kind": "vertebrae",
-          "relation": "applies",
-          "snippet": "If there is Cover around the landing point, the [effect:20c22306-c7a4-5340-884c-54a54473ae80] effect is raised to 40%, [effect:d16cd58c-7439-5815-a029-4eecb732ccd0] is applied to the unit holding [effect:e1f0f3e7-6003-56c8-8987-baf16e4a6c10] for 1 round, and [effect:614d7747-6bc6-541e-a2ec-a433cd…",
-          "dollId": "ac6fa408-f95c-57f2-a250-a264166efb29",
-          "dollName": "Asteria",
-          "level": 2,
-          "segment": 4
-        }
-      ],
+      "exclusiveDollId": null,
+      "exclusiveDollName": null,
+      "sources": [],
       "interactions": []
     },
     {
@@ -14754,15 +14763,6 @@
           "dollName": "Papasha"
         }
       ],
-      "interactions": []
-    },
-    {
-      "effectId": "a4a8c3fe-98cc-54e3-8aa9-dc03657d1456",
-      "effectName": "Damage Reduction III",
-      "effectTags": [],
-      "exclusiveDollId": null,
-      "exclusiveDollName": null,
-      "sources": [],
       "interactions": []
     },
     {
@@ -14920,24 +14920,6 @@
       "interactions": []
     },
     {
-      "effectId": "23e173a2-e0ef-5ced-a738-f6b32442a150",
-      "effectName": "Damage Up I",
-      "effectTags": [],
-      "exclusiveDollId": "9ec7b7d3-a457-59ec-8a12-f67be6e01956",
-      "exclusiveDollName": "Nemesis",
-      "sources": [],
-      "interactions": []
-    },
-    {
-      "effectId": "b8e8cfc2-3784-50cd-b7c8-41920cb0962e",
-      "effectName": "Damage Up I",
-      "effectTags": [],
-      "exclusiveDollId": null,
-      "exclusiveDollName": null,
-      "sources": [],
-      "interactions": []
-    },
-    {
       "effectId": "b09e90df-5752-54a5-97db-9cc35dc35b88",
       "effectName": "Damage Up I",
       "effectTags": [],
@@ -14993,36 +14975,21 @@
       "interactions": []
     },
     {
-      "effectId": "f91c6abd-1d9b-5e81-a6af-265ffe849b1c",
-      "effectName": "Damage Up II",
+      "effectId": "23e173a2-e0ef-5ced-a738-f6b32442a150",
+      "effectName": "Damage Up I",
+      "effectTags": [],
+      "exclusiveDollId": "9ec7b7d3-a457-59ec-8a12-f67be6e01956",
+      "exclusiveDollName": "Nemesis",
+      "sources": [],
+      "interactions": []
+    },
+    {
+      "effectId": "b8e8cfc2-3784-50cd-b7c8-41920cb0962e",
+      "effectName": "Damage Up I",
       "effectTags": [],
       "exclusiveDollId": null,
       "exclusiveDollName": null,
-      "sources": [
-        {
-          "kind": "skill",
-          "relation": "gains",
-          "levels": [
-            2,
-            3
-          ],
-          "snippet": "Rank I: Before the attack, gains [effect:f91c6abd-1d9b-5e81-a6af-265ffe849b1c] for 2 turns",
-          "dollId": "91d16c70-f1c1-5924-a0e4-2ebeeef72e4c",
-          "dollName": "Lewis",
-          "skillId": "10620401",
-          "skillName": "Toy Carnival",
-          "skillType": "Ultimate"
-        },
-        {
-          "kind": "vertebrae",
-          "relation": "gains",
-          "snippet": "Rank I: Before the attack, gains [effect:f91c6abd-1d9b-5e81-a6af-265ffe849b1c] for 2 turns",
-          "dollId": "91d16c70-f1c1-5924-a0e4-2ebeeef72e4c",
-          "dollName": "Lewis",
-          "level": 2,
-          "segment": 2
-        }
-      ],
+      "sources": [],
       "interactions": []
     },
     {
@@ -15106,20 +15073,53 @@
       ]
     },
     {
-      "effectId": "9f253f51-422f-5f2a-beeb-75fb0172e2e5",
-      "effectName": "Damage Up II",
-      "effectTags": [],
-      "exclusiveDollId": "91d16c70-f1c1-5924-a0e4-2ebeeef72e4c",
-      "exclusiveDollName": "Lewis",
-      "sources": [],
-      "interactions": []
-    },
-    {
       "effectId": "cb63d41c-850b-5aca-8595-a743a3e9a41a",
       "effectName": "Damage Up II",
       "effectTags": [],
       "exclusiveDollId": null,
       "exclusiveDollName": null,
+      "sources": [],
+      "interactions": []
+    },
+    {
+      "effectId": "f91c6abd-1d9b-5e81-a6af-265ffe849b1c",
+      "effectName": "Damage Up II",
+      "effectTags": [],
+      "exclusiveDollId": null,
+      "exclusiveDollName": null,
+      "sources": [
+        {
+          "kind": "skill",
+          "relation": "gains",
+          "levels": [
+            2,
+            3
+          ],
+          "snippet": "Rank I: Before the attack, gains [effect:f91c6abd-1d9b-5e81-a6af-265ffe849b1c] for 2 turns",
+          "dollId": "91d16c70-f1c1-5924-a0e4-2ebeeef72e4c",
+          "dollName": "Lewis",
+          "skillId": "10620401",
+          "skillName": "Toy Carnival",
+          "skillType": "Ultimate"
+        },
+        {
+          "kind": "vertebrae",
+          "relation": "gains",
+          "snippet": "Rank I: Before the attack, gains [effect:f91c6abd-1d9b-5e81-a6af-265ffe849b1c] for 2 turns",
+          "dollId": "91d16c70-f1c1-5924-a0e4-2ebeeef72e4c",
+          "dollName": "Lewis",
+          "level": 2,
+          "segment": 2
+        }
+      ],
+      "interactions": []
+    },
+    {
+      "effectId": "9f253f51-422f-5f2a-beeb-75fb0172e2e5",
+      "effectName": "Damage Up II",
+      "effectTags": [],
+      "exclusiveDollId": "91d16c70-f1c1-5924-a0e4-2ebeeef72e4c",
+      "exclusiveDollName": "Lewis",
       "sources": [],
       "interactions": []
     },
@@ -15905,25 +15905,6 @@
       "interactions": []
     },
     {
-      "effectId": "40cdc25b-0985-5a43-b102-da13f04b45df",
-      "effectName": "Deep Freeze",
-      "effectTags": [],
-      "exclusiveDollId": null,
-      "exclusiveDollName": null,
-      "sources": [
-        {
-          "kind": "effect",
-          "relation": "applies",
-          "snippet": "At the end of the enemy turn, deals AoE Freeze damage equal to 30% of the Horn Beasteel's attack, 3 points of stability damage, and applies 1 stack of [effect:40cdc25b-0985-5a43-b102-da13f04b45df] to the bearer and all units within a 5×5 tile area",
-          "effectId": "c0a3c601-9794-5d7d-a7fb-1c23b1eb7919",
-          "effectName": "Icicle",
-          "ownerDollId": null,
-          "ownerDollName": null
-        }
-      ],
-      "interactions": []
-    },
-    {
       "effectId": "16721f1e-c2c1-58ea-9f93-9e3c9afd0e7d",
       "effectName": "Deep Freeze",
       "effectTags": [],
@@ -15935,6 +15916,25 @@
           "relation": "applies",
           "snippet": "Explodes at the end of the holder's faction's turn, dealing AoE Freeze damage equal to 70% of the Horn Beasteel's attack, 2 points of stability damage to all units in a 5×5 tile area, and applies 1 stack of [effect:16721f1e-c2c1-58ea-9f93-9e3c9afd0e7d]",
           "effectId": "d2e36048-f3f5-531f-a674-ac7d73430ed8",
+          "effectName": "Icicle",
+          "ownerDollId": null,
+          "ownerDollName": null
+        }
+      ],
+      "interactions": []
+    },
+    {
+      "effectId": "40cdc25b-0985-5a43-b102-da13f04b45df",
+      "effectName": "Deep Freeze",
+      "effectTags": [],
+      "exclusiveDollId": null,
+      "exclusiveDollName": null,
+      "sources": [
+        {
+          "kind": "effect",
+          "relation": "applies",
+          "snippet": "At the end of the enemy turn, deals AoE Freeze damage equal to 30% of the Horn Beasteel's attack, 3 points of stability damage, and applies 1 stack of [effect:40cdc25b-0985-5a43-b102-da13f04b45df] to the bearer and all units within a 5×5 tile area",
+          "effectId": "c0a3c601-9794-5d7d-a7fb-1c23b1eb7919",
           "effectName": "Icicle",
           "ownerDollId": null,
           "ownerDollName": null
@@ -16045,6 +16045,15 @@
       "interactions": []
     },
     {
+      "effectId": "efa48252-954b-5b29-b94c-293d5c3349a4",
+      "effectName": "Defense Boost",
+      "effectTags": [],
+      "exclusiveDollId": null,
+      "exclusiveDollName": null,
+      "sources": [],
+      "interactions": []
+    },
+    {
       "effectId": "c52f0b8b-5946-5f9c-8dfa-56171b4064f2",
       "effectName": "Defense Boost",
       "effectTags": [],
@@ -16055,15 +16064,6 @@
     },
     {
       "effectId": "58de1e25-0fbd-561f-96e7-6f2ca9439c77",
-      "effectName": "Defense Boost",
-      "effectTags": [],
-      "exclusiveDollId": null,
-      "exclusiveDollName": null,
-      "sources": [],
-      "interactions": []
-    },
-    {
-      "effectId": "efa48252-954b-5b29-b94c-293d5c3349a4",
       "effectName": "Defense Boost",
       "effectTags": [],
       "exclusiveDollId": null,
@@ -16240,6 +16240,15 @@
       "interactions": []
     },
     {
+      "effectId": "5ec3711a-9a2c-5f70-a6e2-ce3a8ce13738",
+      "effectName": "Defense Down II",
+      "effectTags": [],
+      "exclusiveDollId": "1d6835a0-b848-5988-84bc-1a632e626a4e",
+      "exclusiveDollName": "Daiyan",
+      "sources": [],
+      "interactions": []
+    },
+    {
       "effectId": "da9e7fae-4886-5e1a-86ce-38998a189410",
       "effectName": "Defense Down II",
       "effectTags": [],
@@ -16254,51 +16263,6 @@
       "effectTags": [],
       "exclusiveDollId": null,
       "exclusiveDollName": null,
-      "sources": [],
-      "interactions": []
-    },
-    {
-      "effectId": "3b5dd838-1c91-557f-abb3-bb423aa05a76",
-      "effectName": "Defense Down II",
-      "effectTags": [],
-      "exclusiveDollId": null,
-      "exclusiveDollName": null,
-      "sources": [],
-      "interactions": []
-    },
-    {
-      "effectId": "9e1c354e-151c-51fa-befd-a78734a26603",
-      "effectName": "Defense Down II",
-      "effectTags": [],
-      "exclusiveDollId": null,
-      "exclusiveDollName": null,
-      "sources": [],
-      "interactions": []
-    },
-    {
-      "effectId": "d58f2fa7-1621-5ef6-93dc-40e38cfd51ef",
-      "effectName": "Defense Down II",
-      "effectTags": [],
-      "exclusiveDollId": null,
-      "exclusiveDollName": null,
-      "sources": [],
-      "interactions": []
-    },
-    {
-      "effectId": "45e1d970-e642-5254-926c-6eb42df0d575",
-      "effectName": "Defense Down II",
-      "effectTags": [],
-      "exclusiveDollId": null,
-      "exclusiveDollName": null,
-      "sources": [],
-      "interactions": []
-    },
-    {
-      "effectId": "5ec3711a-9a2c-5f70-a6e2-ce3a8ce13738",
-      "effectName": "Defense Down II",
-      "effectTags": [],
-      "exclusiveDollId": "1d6835a0-b848-5988-84bc-1a632e626a4e",
-      "exclusiveDollName": "Daiyan",
       "sources": [],
       "interactions": []
     },
@@ -16518,6 +16482,42 @@
       "interactions": []
     },
     {
+      "effectId": "3b5dd838-1c91-557f-abb3-bb423aa05a76",
+      "effectName": "Defense Down II",
+      "effectTags": [],
+      "exclusiveDollId": null,
+      "exclusiveDollName": null,
+      "sources": [],
+      "interactions": []
+    },
+    {
+      "effectId": "9e1c354e-151c-51fa-befd-a78734a26603",
+      "effectName": "Defense Down II",
+      "effectTags": [],
+      "exclusiveDollId": null,
+      "exclusiveDollName": null,
+      "sources": [],
+      "interactions": []
+    },
+    {
+      "effectId": "d58f2fa7-1621-5ef6-93dc-40e38cfd51ef",
+      "effectName": "Defense Down II",
+      "effectTags": [],
+      "exclusiveDollId": null,
+      "exclusiveDollName": null,
+      "sources": [],
+      "interactions": []
+    },
+    {
+      "effectId": "45e1d970-e642-5254-926c-6eb42df0d575",
+      "effectName": "Defense Down II",
+      "effectTags": [],
+      "exclusiveDollId": null,
+      "exclusiveDollName": null,
+      "sources": [],
+      "interactions": []
+    },
+    {
       "effectId": "6d776911-7d6d-5dc5-920e-ec8770f2895c",
       "effectName": "Defense Down II",
       "effectTags": [],
@@ -16659,6 +16659,15 @@
       "interactions": []
     },
     {
+      "effectId": "8ffa6e68-ced1-5c47-b41d-24ae5be23a66",
+      "effectName": "Defense Reduction",
+      "effectTags": [],
+      "exclusiveDollId": null,
+      "exclusiveDollName": null,
+      "sources": [],
+      "interactions": []
+    },
+    {
       "effectId": "b2e1d72d-1f70-5766-825a-e6ada66780c1",
       "effectName": "Defense Reduction",
       "effectTags": [],
@@ -16677,8 +16686,8 @@
       "interactions": []
     },
     {
-      "effectId": "8ffa6e68-ced1-5c47-b41d-24ae5be23a66",
-      "effectName": "Defense Reduction",
+      "effectId": "40ce9bfc-76a1-5d85-9f24-e62a3c9470a6",
+      "effectName": "Defense Up",
       "effectTags": [],
       "exclusiveDollId": null,
       "exclusiveDollName": null,
@@ -16705,15 +16714,6 @@
     },
     {
       "effectId": "b1dc034f-60b0-5bd2-aa87-0847d39ea7cd",
-      "effectName": "Defense Up",
-      "effectTags": [],
-      "exclusiveDollId": null,
-      "exclusiveDollName": null,
-      "sources": [],
-      "interactions": []
-    },
-    {
-      "effectId": "40ce9bfc-76a1-5d85-9f24-e62a3c9470a6",
       "effectName": "Defense Up",
       "effectTags": [],
       "exclusiveDollId": null,
@@ -16875,15 +16875,6 @@
       "interactions": []
     },
     {
-      "effectId": "569d057a-87eb-5634-a1fe-9209f3c97b03",
-      "effectName": "Defense Up III",
-      "effectTags": [],
-      "exclusiveDollId": null,
-      "exclusiveDollName": null,
-      "sources": [],
-      "interactions": []
-    },
-    {
       "effectId": "b9c3026f-1790-5c9c-841e-e35b7d84087a",
       "effectName": "Defense Up III",
       "effectTags": [],
@@ -16925,6 +16916,15 @@
           "segment": 3
         }
       ],
+      "interactions": []
+    },
+    {
+      "effectId": "569d057a-87eb-5634-a1fe-9209f3c97b03",
+      "effectName": "Defense Up III",
+      "effectTags": [],
+      "exclusiveDollId": null,
+      "exclusiveDollName": null,
+      "sources": [],
       "interactions": []
     },
     {
@@ -17064,7 +17064,7 @@
       "interactions": []
     },
     {
-      "effectId": "3864b5d7-834c-558b-b891-2b4f11defce3",
+      "effectId": "c57eb935-0c5d-57c8-aee6-41f2eeb36393",
       "effectName": "Deflection Armor",
       "effectTags": [],
       "exclusiveDollId": null,
@@ -17073,7 +17073,7 @@
       "interactions": []
     },
     {
-      "effectId": "c57eb935-0c5d-57c8-aee6-41f2eeb36393",
+      "effectId": "3864b5d7-834c-558b-b891-2b4f11defce3",
       "effectName": "Deflection Armor",
       "effectTags": [],
       "exclusiveDollId": null,
@@ -18271,6 +18271,15 @@
       "interactions": []
     },
     {
+      "effectId": "2e4ffbca-e6f4-5a08-999d-19d64dc506a0",
+      "effectName": "Don't display",
+      "effectTags": [],
+      "exclusiveDollId": null,
+      "exclusiveDollName": null,
+      "sources": [],
+      "interactions": []
+    },
+    {
       "effectId": "5e6cc415-6ac0-5803-8130-d166af87b2d4",
       "effectName": "Don't display",
       "effectTags": [],
@@ -18325,6 +18334,15 @@
       "interactions": []
     },
     {
+      "effectId": "e032dfe3-f9ce-5445-9bb4-cd2933e72dcb",
+      "effectName": "Don't display",
+      "effectTags": [],
+      "exclusiveDollId": null,
+      "exclusiveDollName": null,
+      "sources": [],
+      "interactions": []
+    },
+    {
       "effectId": "2daa709f-3fca-5c7b-960b-e9847da96b57",
       "effectName": "Don't display",
       "effectTags": [],
@@ -18335,24 +18353,6 @@
     },
     {
       "effectId": "bbec586a-b213-5bb7-824e-1a67b7ae2c41",
-      "effectName": "Don't display",
-      "effectTags": [],
-      "exclusiveDollId": null,
-      "exclusiveDollName": null,
-      "sources": [],
-      "interactions": []
-    },
-    {
-      "effectId": "2e4ffbca-e6f4-5a08-999d-19d64dc506a0",
-      "effectName": "Don't display",
-      "effectTags": [],
-      "exclusiveDollId": null,
-      "exclusiveDollName": null,
-      "sources": [],
-      "interactions": []
-    },
-    {
-      "effectId": "e032dfe3-f9ce-5445-9bb4-cd2933e72dcb",
       "effectName": "Don't display",
       "effectTags": [],
       "exclusiveDollId": null,
@@ -18701,6 +18701,15 @@
       ]
     },
     {
+      "effectId": "6a0794fd-4dc1-5f40-81f3-e73b92c748bd",
+      "effectName": "Dressed to Impress - Basic",
+      "effectTags": [],
+      "exclusiveDollId": null,
+      "exclusiveDollName": null,
+      "sources": [],
+      "interactions": []
+    },
+    {
       "effectId": "b8633923-1715-504f-855c-cb0b854fcbb4",
       "effectName": "Dressed to Impress - Basic",
       "effectTags": [],
@@ -18738,15 +18747,6 @@
     },
     {
       "effectId": "5c52b29a-5318-5aa9-8ca4-a5b50a591ff5",
-      "effectName": "Dressed to Impress - Basic",
-      "effectTags": [],
-      "exclusiveDollId": null,
-      "exclusiveDollName": null,
-      "sources": [],
-      "interactions": []
-    },
-    {
-      "effectId": "6a0794fd-4dc1-5f40-81f3-e73b92c748bd",
       "effectName": "Dressed to Impress - Basic",
       "effectTags": [],
       "exclusiveDollId": null,
@@ -18935,7 +18935,7 @@
       "interactions": []
     },
     {
-      "effectId": "9fa53b44-f8b1-52cf-b130-0cd6ec6d89a2",
+      "effectId": "9651ea8c-5237-5bd3-ab18-d07d67d65050",
       "effectName": "Dual Defense",
       "effectTags": [],
       "exclusiveDollId": null,
@@ -18944,7 +18944,7 @@
       "interactions": []
     },
     {
-      "effectId": "9651ea8c-5237-5bd3-ab18-d07d67d65050",
+      "effectId": "9fa53b44-f8b1-52cf-b130-0cd6ec6d89a2",
       "effectName": "Dual Defense",
       "effectTags": [],
       "exclusiveDollId": null,
@@ -19025,25 +19025,6 @@
       "interactions": []
     },
     {
-      "effectId": "fc4dcf61-e65c-50ba-8299-54fc0c1a1acd",
-      "effectName": "Dusty Wish",
-      "effectTags": [],
-      "exclusiveDollId": null,
-      "exclusiveDollName": null,
-      "sources": [
-        {
-          "kind": "effect",
-          "relation": "applies",
-          "snippet": "If the number of Final Wish stacks is still greater than or equal to 3, additionally applies [effect:fc4dcf61-e65c-50ba-8299-54fc0c1a1acd]",
-          "effectId": "10afba66-0746-5a04-b981-15ff0d5ed6c8",
-          "effectName": "Final Wish",
-          "ownerDollId": null,
-          "ownerDollName": null
-        }
-      ],
-      "interactions": []
-    },
-    {
       "effectId": "e93b6770-42d2-55f3-8b4c-b81caa6b6fb6",
       "effectName": "Dusty Wish",
       "effectTags": [],
@@ -19056,6 +19037,25 @@
           "snippet": "If the number of Wish stacks is still greater than or equal to 3, additionally applies [effect:e93b6770-42d2-55f3-8b4c-b81caa6b6fb6]",
           "effectId": "5cfbf225-d066-5a06-85da-560aa886b416",
           "effectName": "Wish",
+          "ownerDollId": null,
+          "ownerDollName": null
+        }
+      ],
+      "interactions": []
+    },
+    {
+      "effectId": "fc4dcf61-e65c-50ba-8299-54fc0c1a1acd",
+      "effectName": "Dusty Wish",
+      "effectTags": [],
+      "exclusiveDollId": null,
+      "exclusiveDollName": null,
+      "sources": [
+        {
+          "kind": "effect",
+          "relation": "applies",
+          "snippet": "If the number of Final Wish stacks is still greater than or equal to 3, additionally applies [effect:fc4dcf61-e65c-50ba-8299-54fc0c1a1acd]",
+          "effectId": "10afba66-0746-5a04-b981-15ff0d5ed6c8",
+          "effectName": "Final Wish",
           "ownerDollId": null,
           "ownerDollName": null
         }
@@ -19090,7 +19090,7 @@
       "interactions": []
     },
     {
-      "effectId": "e2289f17-6d01-5369-a3e2-2618f64b91ab",
+      "effectId": "04003e9c-e08f-523f-bfc9-df92391818d2",
       "effectName": "Eagle Strike",
       "effectTags": [],
       "exclusiveDollId": "3e50f95f-8f3d-5586-8b02-48b31d5d4d2e",
@@ -19099,7 +19099,16 @@
       "interactions": []
     },
     {
-      "effectId": "04003e9c-e08f-523f-bfc9-df92391818d2",
+      "effectId": "511fc9bd-017a-587b-9923-1e8553a4805d",
+      "effectName": "Eagle Strike",
+      "effectTags": [],
+      "exclusiveDollId": "3e50f95f-8f3d-5586-8b02-48b31d5d4d2e",
+      "exclusiveDollName": "Eagletta",
+      "sources": [],
+      "interactions": []
+    },
+    {
+      "effectId": "e2289f17-6d01-5369-a3e2-2618f64b91ab",
       "effectName": "Eagle Strike",
       "effectTags": [],
       "exclusiveDollId": "3e50f95f-8f3d-5586-8b02-48b31d5d4d2e",
@@ -19118,15 +19127,6 @@
     },
     {
       "effectId": "4323aaaf-6d7d-5e47-9ac6-da967a230b5e",
-      "effectName": "Eagle Strike",
-      "effectTags": [],
-      "exclusiveDollId": "3e50f95f-8f3d-5586-8b02-48b31d5d4d2e",
-      "exclusiveDollName": "Eagletta",
-      "sources": [],
-      "interactions": []
-    },
-    {
-      "effectId": "511fc9bd-017a-587b-9923-1e8553a4805d",
       "effectName": "Eagle Strike",
       "effectTags": [],
       "exclusiveDollId": "3e50f95f-8f3d-5586-8b02-48b31d5d4d2e",
@@ -19223,24 +19223,6 @@
       "interactions": []
     },
     {
-      "effectId": "244d88a8-80d6-5d3e-8d35-b9882256f3ad",
-      "effectName": "Edge Break",
-      "effectTags": [],
-      "exclusiveDollId": null,
-      "exclusiveDollName": null,
-      "sources": [],
-      "interactions": []
-    },
-    {
-      "effectId": "27b4ec22-6a6b-5897-95a8-c7beac19ac92",
-      "effectName": "Edge Break",
-      "effectTags": [],
-      "exclusiveDollId": null,
-      "exclusiveDollName": null,
-      "sources": [],
-      "interactions": []
-    },
-    {
       "effectId": "0d7816aa-d169-5e35-8afd-2cb2ac19e00a",
       "effectName": "Edge Break",
       "effectTags": [],
@@ -19251,6 +19233,24 @@
     },
     {
       "effectId": "4a6ea353-a50c-5f7e-a464-e0b01c4e199d",
+      "effectName": "Edge Break",
+      "effectTags": [],
+      "exclusiveDollId": null,
+      "exclusiveDollName": null,
+      "sources": [],
+      "interactions": []
+    },
+    {
+      "effectId": "244d88a8-80d6-5d3e-8d35-b9882256f3ad",
+      "effectName": "Edge Break",
+      "effectTags": [],
+      "exclusiveDollId": null,
+      "exclusiveDollName": null,
+      "sources": [],
+      "interactions": []
+    },
+    {
+      "effectId": "27b4ec22-6a6b-5897-95a8-c7beac19ac92",
       "effectName": "Edge Break",
       "effectTags": [],
       "exclusiveDollId": null,
@@ -19277,7 +19277,7 @@
       "interactions": []
     },
     {
-      "effectId": "5630a359-9e4b-557b-bbf4-32f1b8e93333",
+      "effectId": "33351555-8059-5d51-b659-3e115e8cd49c",
       "effectName": "Efficiency Boost",
       "effectTags": [],
       "exclusiveDollId": null,
@@ -19286,7 +19286,7 @@
       "interactions": []
     },
     {
-      "effectId": "33351555-8059-5d51-b659-3e115e8cd49c",
+      "effectId": "5630a359-9e4b-557b-bbf4-32f1b8e93333",
       "effectName": "Efficiency Boost",
       "effectTags": [],
       "exclusiveDollId": null,
@@ -19340,29 +19340,6 @@
       "interactions": []
     },
     {
-      "effectId": "752018b8-f570-500c-9dd3-9b6df9db7867",
-      "effectName": "Electric Arc",
-      "effectTags": [],
-      "exclusiveDollId": "4ce57d60-1840-5de8-b876-884458ff1aa7",
-      "exclusiveDollName": "Lenna",
-      "sources": [
-        {
-          "kind": "skill",
-          "relation": "gains",
-          "levels": [
-            3
-          ],
-          "snippet": "Lenna gains [effect:752018b8-f570-500c-9dd3-9b6df9db7867] for 3 turns",
-          "dollId": "4ce57d60-1840-5de8-b876-884458ff1aa7",
-          "dollName": "Lenna",
-          "skillId": "10130401",
-          "skillName": "Hunting Strategy",
-          "skillType": "Ultimate"
-        }
-      ],
-      "interactions": []
-    },
-    {
       "effectId": "54dbf658-b916-514e-a8a5-bc5dd3329852",
       "effectName": "Electric Arc",
       "effectTags": [],
@@ -19399,6 +19376,29 @@
             2
           ],
           "snippet": "Lenna gains [effect:11636fe5-2f0e-5da1-a853-0506d741c583] for 3 turns",
+          "dollId": "4ce57d60-1840-5de8-b876-884458ff1aa7",
+          "dollName": "Lenna",
+          "skillId": "10130401",
+          "skillName": "Hunting Strategy",
+          "skillType": "Ultimate"
+        }
+      ],
+      "interactions": []
+    },
+    {
+      "effectId": "752018b8-f570-500c-9dd3-9b6df9db7867",
+      "effectName": "Electric Arc",
+      "effectTags": [],
+      "exclusiveDollId": "4ce57d60-1840-5de8-b876-884458ff1aa7",
+      "exclusiveDollName": "Lenna",
+      "sources": [
+        {
+          "kind": "skill",
+          "relation": "gains",
+          "levels": [
+            3
+          ],
+          "snippet": "Lenna gains [effect:752018b8-f570-500c-9dd3-9b6df9db7867] for 3 turns",
           "dollId": "4ce57d60-1840-5de8-b876-884458ff1aa7",
           "dollName": "Lenna",
           "skillId": "10130401",
@@ -19589,7 +19589,7 @@
       "interactions": []
     },
     {
-      "effectId": "58382241-aff6-55c3-99e3-26eae42738d7",
+      "effectId": "f0ed1af5-7e93-5062-a887-4b1b9ea35352",
       "effectName": "Electric Weakness",
       "effectTags": [],
       "exclusiveDollId": null,
@@ -19598,7 +19598,7 @@
       "interactions": []
     },
     {
-      "effectId": "f0ed1af5-7e93-5062-a887-4b1b9ea35352",
+      "effectId": "58382241-aff6-55c3-99e3-26eae42738d7",
       "effectName": "Electric Weakness",
       "effectTags": [],
       "exclusiveDollId": null,
@@ -19971,6 +19971,15 @@
       "interactions": []
     },
     {
+      "effectId": "2858e615-2941-5717-a136-8bac03d1be11",
+      "effectName": "Emergency Readiness",
+      "effectTags": [],
+      "exclusiveDollId": null,
+      "exclusiveDollName": null,
+      "sources": [],
+      "interactions": []
+    },
+    {
       "effectId": "497c3192-d9cd-5029-8c79-6a0f07d4f014",
       "effectName": "Emergency Readiness",
       "effectTags": [],
@@ -19990,15 +19999,6 @@
     },
     {
       "effectId": "03c49106-9f77-5dc1-81b2-d3a8f09475f8",
-      "effectName": "Emergency Readiness",
-      "effectTags": [],
-      "exclusiveDollId": null,
-      "exclusiveDollName": null,
-      "sources": [],
-      "interactions": []
-    },
-    {
-      "effectId": "2858e615-2941-5717-a136-8bac03d1be11",
       "effectName": "Emergency Readiness",
       "effectTags": [],
       "exclusiveDollId": null,
@@ -20275,7 +20275,7 @@
       "interactions": []
     },
     {
-      "effectId": "a3b7e3bf-f0d3-5040-90ff-cdaa25d6b578",
+      "effectId": "97953f25-5657-5b9d-80a2-ceb5bec65a20",
       "effectName": "Emotional Projection - Black",
       "effectTags": [],
       "exclusiveDollId": null,
@@ -20284,7 +20284,7 @@
       "interactions": []
     },
     {
-      "effectId": "97953f25-5657-5b9d-80a2-ceb5bec65a20",
+      "effectId": "a3b7e3bf-f0d3-5040-90ff-cdaa25d6b578",
       "effectName": "Emotional Projection - Black",
       "effectTags": [],
       "exclusiveDollId": null,
@@ -20732,15 +20732,6 @@
       "interactions": []
     },
     {
-      "effectId": "4e4356fe-60ee-533d-a4b8-9d5df6a764a2",
-      "effectName": "Eroded",
-      "effectTags": [],
-      "exclusiveDollId": null,
-      "exclusiveDollName": null,
-      "sources": [],
-      "interactions": []
-    },
-    {
       "effectId": "80984abc-d007-5a52-ba76-8972ab67064f",
       "effectName": "Eroded",
       "effectTags": [],
@@ -20759,6 +20750,15 @@
       "interactions": []
     },
     {
+      "effectId": "4e4356fe-60ee-533d-a4b8-9d5df6a764a2",
+      "effectName": "Eroded",
+      "effectTags": [],
+      "exclusiveDollId": null,
+      "exclusiveDollName": null,
+      "sources": [],
+      "interactions": []
+    },
+    {
       "effectId": "38af4c9f-9d70-5b30-96c8-85287cc6a5bb",
       "effectName": "Eroded",
       "effectTags": [],
@@ -20768,7 +20768,7 @@
       "interactions": []
     },
     {
-      "effectId": "0f04d604-5440-5591-8ce2-2c00079dd5ab",
+      "effectId": "f8b810f6-e9a2-585b-9d06-4742c0a9880a",
       "effectName": "Erosion",
       "effectTags": [],
       "exclusiveDollId": null,
@@ -20777,7 +20777,7 @@
       "interactions": []
     },
     {
-      "effectId": "f8b810f6-e9a2-585b-9d06-4742c0a9880a",
+      "effectId": "0f04d604-5440-5591-8ce2-2c00079dd5ab",
       "effectName": "Erosion",
       "effectTags": [],
       "exclusiveDollId": null,
@@ -20949,7 +20949,7 @@
       "interactions": []
     },
     {
-      "effectId": "40157d76-302e-559d-8da6-3bd5978138e0",
+      "effectId": "bd2dfa87-72a9-50c7-a4d6-b1cef07c9b22",
       "effectName": "Explosive Damage Down II",
       "effectTags": [],
       "exclusiveDollId": null,
@@ -20958,7 +20958,7 @@
       "interactions": []
     },
     {
-      "effectId": "bd2dfa87-72a9-50c7-a4d6-b1cef07c9b22",
+      "effectId": "40157d76-302e-559d-8da6-3bd5978138e0",
       "effectName": "Explosive Damage Down II",
       "effectTags": [],
       "exclusiveDollId": null,
@@ -21030,15 +21030,6 @@
       "interactions": []
     },
     {
-      "effectId": "bcf68890-9d55-5e53-b3e5-b3c44ae8a800",
-      "effectName": "Exposed",
-      "effectTags": [],
-      "exclusiveDollId": null,
-      "exclusiveDollName": null,
-      "sources": [],
-      "interactions": []
-    },
-    {
       "effectId": "3d08a463-06c1-59f4-8d38-df8028ae46a9",
       "effectName": "Exposed",
       "effectTags": [],
@@ -21049,6 +21040,15 @@
     },
     {
       "effectId": "d188943a-93dc-5a9a-9291-9be3b4ad76f7",
+      "effectName": "Exposed",
+      "effectTags": [],
+      "exclusiveDollId": null,
+      "exclusiveDollName": null,
+      "sources": [],
+      "interactions": []
+    },
+    {
+      "effectId": "bcf68890-9d55-5e53-b3e5-b3c44ae8a800",
       "effectName": "Exposed",
       "effectTags": [],
       "exclusiveDollId": null,
@@ -21118,51 +21118,6 @@
           "ownerDollName": null
         }
       ],
-      "interactions": []
-    },
-    {
-      "effectId": "083e7f97-f60b-5040-941c-4af28f868391",
-      "effectName": "Extra Action",
-      "effectTags": [],
-      "exclusiveDollId": null,
-      "exclusiveDollName": null,
-      "sources": [],
-      "interactions": []
-    },
-    {
-      "effectId": "8f50ebbd-3cfb-5ef9-bc62-e253bb722bce",
-      "effectName": "Extra Action",
-      "effectTags": [],
-      "exclusiveDollId": null,
-      "exclusiveDollName": null,
-      "sources": [],
-      "interactions": []
-    },
-    {
-      "effectId": "06fdac57-4cea-51be-9af1-4607d5cb4589",
-      "effectName": "Extra Action",
-      "effectTags": [],
-      "exclusiveDollId": null,
-      "exclusiveDollName": null,
-      "sources": [],
-      "interactions": []
-    },
-    {
-      "effectId": "7c682a36-3348-54a1-b60e-811b41f62a95",
-      "effectName": "Extra Action",
-      "effectTags": [],
-      "exclusiveDollId": null,
-      "exclusiveDollName": null,
-      "sources": [],
-      "interactions": []
-    },
-    {
-      "effectId": "f58925b4-158c-51f3-873a-c853404fe155",
-      "effectName": "Extra Action",
-      "effectTags": [],
-      "exclusiveDollId": null,
-      "exclusiveDollName": null,
-      "sources": [],
       "interactions": []
     },
     {
@@ -21379,38 +21334,49 @@
       ]
     },
     {
-      "effectId": "6c151fbd-6a08-5aee-9aa6-52f907d64b71",
+      "effectId": "083e7f97-f60b-5040-941c-4af28f868391",
       "effectName": "Extra Action",
       "effectTags": [],
-      "exclusiveDollId": "99085e2d-963f-5322-b460-0b4841e08cb1",
-      "exclusiveDollName": "Tololo",
+      "exclusiveDollId": null,
+      "exclusiveDollName": null,
       "sources": [],
-      "interactions": [
-        {
-          "kind": "summon-skill",
-          "relation": "conditional",
-          "levels": [
-            1
-          ],
-          "snippet": "At the end of the allied faction's turn, deals Hydro damage equal to 130% of attack to enemy targets within a 7-tile radius that have [effect:6c151fbd-6a08-5aee-9aa6-52f907d64b71]",
-          "dollId": "99085e2d-963f-5322-b460-0b4841e08cb1",
-          "dollName": "Tololo",
-          "summonName": "Stationary Satellite",
-          "skillName": "Call of the Stars",
-          "skillType": null
-        },
-        {
-          "kind": "key",
-          "relation": "mentions",
-          "snippet": "\">1 stack</span> of [effect:6c151fbd-6a08-5aee-9aa6-52f907d64b71] to the target",
-          "keyId": "7a4b1279-d9ab-5ed7-b7d9-47a4002a0f68",
-          "keyTitle": "Expansion Key - Captured Starlight",
-          "keyType": "Expansion Key",
-          "level": 9,
-          "dollId": "99085e2d-963f-5322-b460-0b4841e08cb1",
-          "dollName": "Tololo"
-        }
-      ]
+      "interactions": []
+    },
+    {
+      "effectId": "8f50ebbd-3cfb-5ef9-bc62-e253bb722bce",
+      "effectName": "Extra Action",
+      "effectTags": [],
+      "exclusiveDollId": null,
+      "exclusiveDollName": null,
+      "sources": [],
+      "interactions": []
+    },
+    {
+      "effectId": "06fdac57-4cea-51be-9af1-4607d5cb4589",
+      "effectName": "Extra Action",
+      "effectTags": [],
+      "exclusiveDollId": null,
+      "exclusiveDollName": null,
+      "sources": [],
+      "interactions": []
+    },
+    {
+      "effectId": "7c682a36-3348-54a1-b60e-811b41f62a95",
+      "effectName": "Extra Action",
+      "effectTags": [],
+      "exclusiveDollId": null,
+      "exclusiveDollName": null,
+      "sources": [],
+      "interactions": []
+    },
+    {
+      "effectId": "f58925b4-158c-51f3-873a-c853404fe155",
+      "effectName": "Extra Action",
+      "effectTags": [],
+      "exclusiveDollId": null,
+      "exclusiveDollName": null,
+      "sources": [],
+      "interactions": []
     },
     {
       "effectId": "13c5e6b2-f153-56a5-bd66-ccaf56eeea2b",
@@ -22934,15 +22900,6 @@
       "interactions": []
     },
     {
-      "effectId": "ade1818c-940f-5b96-8dd2-ed187f311b3c",
-      "effectName": "Feathers of War",
-      "effectTags": [],
-      "exclusiveDollId": "3e50f95f-8f3d-5586-8b02-48b31d5d4d2e",
-      "exclusiveDollName": "Eagletta",
-      "sources": [],
-      "interactions": []
-    },
-    {
       "effectId": "1dd1b085-0c7b-5eb3-b527-cc498defc82b",
       "effectName": "Feathers of War",
       "effectTags": [],
@@ -23234,6 +23191,15 @@
       ]
     },
     {
+      "effectId": "ade1818c-940f-5b96-8dd2-ed187f311b3c",
+      "effectName": "Feathers of War",
+      "effectTags": [],
+      "exclusiveDollId": "3e50f95f-8f3d-5586-8b02-48b31d5d4d2e",
+      "exclusiveDollName": "Eagletta",
+      "sources": [],
+      "interactions": []
+    },
+    {
       "effectId": "d78caaf4-c190-5909-a708-d86e74fa6d0e",
       "effectName": "Feeble",
       "effectTags": [],
@@ -23244,6 +23210,15 @@
     },
     {
       "effectId": "f824b78d-4056-5226-9230-71a5a9b1543e",
+      "effectName": "Feeble",
+      "effectTags": [],
+      "exclusiveDollId": null,
+      "exclusiveDollName": null,
+      "sources": [],
+      "interactions": []
+    },
+    {
+      "effectId": "a9538364-5f61-567b-9e83-bb9a3ffaed50",
       "effectName": "Feeble",
       "effectTags": [],
       "exclusiveDollId": null,
@@ -23282,15 +23257,6 @@
     },
     {
       "effectId": "0d949bfd-7e58-537d-bf98-69770c1682aa",
-      "effectName": "Feeble",
-      "effectTags": [],
-      "exclusiveDollId": null,
-      "exclusiveDollName": null,
-      "sources": [],
-      "interactions": []
-    },
-    {
-      "effectId": "a9538364-5f61-567b-9e83-bb9a3ffaed50",
       "effectName": "Feeble",
       "effectTags": [],
       "exclusiveDollId": null,
@@ -25004,6 +24970,15 @@
       "interactions": []
     },
     {
+      "effectId": "6f48e365-2417-5ce8-b268-f3c5c4c1d387",
+      "effectName": "Fragile I",
+      "effectTags": [],
+      "exclusiveDollId": null,
+      "exclusiveDollName": null,
+      "sources": [],
+      "interactions": []
+    },
+    {
       "effectId": "75e9c7e3-dfa1-5f1e-bcba-252fb98f599b",
       "effectName": "Fragile I",
       "effectTags": [],
@@ -25014,15 +24989,6 @@
     },
     {
       "effectId": "5523b9ff-516a-5977-a7b6-875a8c52c4bf",
-      "effectName": "Fragile I",
-      "effectTags": [],
-      "exclusiveDollId": null,
-      "exclusiveDollName": null,
-      "sources": [],
-      "interactions": []
-    },
-    {
-      "effectId": "6f48e365-2417-5ce8-b268-f3c5c4c1d387",
       "effectName": "Fragile I",
       "effectTags": [],
       "exclusiveDollId": null,
@@ -25268,6 +25234,24 @@
       "interactions": []
     },
     {
+      "effectId": "07e464fd-c885-5ab8-9cad-a655e429ff62",
+      "effectName": "Frenzy",
+      "effectTags": [],
+      "exclusiveDollId": null,
+      "exclusiveDollName": null,
+      "sources": [],
+      "interactions": []
+    },
+    {
+      "effectId": "05437b27-5731-5cd0-bd14-d8cd9099d7f1",
+      "effectName": "Frenzy",
+      "effectTags": [],
+      "exclusiveDollId": null,
+      "exclusiveDollName": null,
+      "sources": [],
+      "interactions": []
+    },
+    {
       "effectId": "42eed78f-147f-58f4-9ed7-b9c793b524c8",
       "effectName": "Frenzy",
       "effectTags": [],
@@ -25314,24 +25298,6 @@
     },
     {
       "effectId": "b7cf796d-08b9-5d18-8176-5c589208b206",
-      "effectName": "Frenzy",
-      "effectTags": [],
-      "exclusiveDollId": null,
-      "exclusiveDollName": null,
-      "sources": [],
-      "interactions": []
-    },
-    {
-      "effectId": "07e464fd-c885-5ab8-9cad-a655e429ff62",
-      "effectName": "Frenzy",
-      "effectTags": [],
-      "exclusiveDollId": null,
-      "exclusiveDollName": null,
-      "sources": [],
-      "interactions": []
-    },
-    {
-      "effectId": "05437b27-5731-5cd0-bd14-d8cd9099d7f1",
       "effectName": "Frenzy",
       "effectTags": [],
       "exclusiveDollId": null,
@@ -25717,6 +25683,15 @@
       "interactions": []
     },
     {
+      "effectId": "a6b7d810-34a0-5e30-8c23-db7158fdf659",
+      "effectName": "Frigid Infiltration",
+      "effectTags": [],
+      "exclusiveDollId": null,
+      "exclusiveDollName": null,
+      "sources": [],
+      "interactions": []
+    },
+    {
       "effectId": "8ff08b92-76a7-577d-80bd-2aed35609dc9",
       "effectName": "Frigid Infiltration",
       "effectTags": [],
@@ -25838,15 +25813,6 @@
           "segment": 3
         }
       ]
-    },
-    {
-      "effectId": "a6b7d810-34a0-5e30-8c23-db7158fdf659",
-      "effectName": "Frigid Infiltration",
-      "effectTags": [],
-      "exclusiveDollId": null,
-      "exclusiveDollName": null,
-      "sources": [],
-      "interactions": []
     },
     {
       "effectId": "5970408f-f792-5c41-97f1-494154521ea8",
@@ -26086,109 +26052,6 @@
       "effectTags": [],
       "exclusiveDollId": null,
       "exclusiveDollName": null,
-      "sources": [],
-      "interactions": []
-    },
-    {
-      "effectId": "cbb927bb-fd47-50fe-a07f-6462ff1b60b2",
-      "effectName": "Frost Barrier",
-      "effectTags": [],
-      "exclusiveDollId": "d7019989-e2dc-563e-8dd6-3e9c4f1b46bf",
-      "exclusiveDollName": "Helen",
-      "sources": [
-        {
-          "kind": "skill",
-          "relation": "applies",
-          "levels": [
-            1,
-            2,
-            3
-          ],
-          "snippet": "Selects one tile within a cross-shaped area of 4 to 8 tiles, lands on the selected tile, cleanses 1 debuff from all allied units in a 5-tile-wide area along the path, and applies [effect:cbb927bb-fd47-50fe-a07f-6462ff1b60b2] for 2 turns",
-          "dollId": "d7019989-e2dc-563e-8dd6-3e9c4f1b46bf",
-          "dollName": "Helen",
-          "skillId": "10670701",
-          "skillName": "Covering Charge",
-          "skillType": "Active"
-        }
-      ],
-      "interactions": [
-        {
-          "kind": "skill",
-          "relation": "enhances",
-          "levels": [
-            1,
-            3
-          ],
-          "snippet": "The value of the [effect:cbb927bb-fd47-50fe-a07f-6462ff1b60b2] is 100% of Helen's initial attack, to a maximum of 100% of the target's Max HP",
-          "dollId": "d7019989-e2dc-563e-8dd6-3e9c4f1b46bf",
-          "dollName": "Helen",
-          "skillId": "10670701",
-          "skillName": "Covering Charge",
-          "skillType": "Active"
-        }
-      ]
-    },
-    {
-      "effectId": "b586310f-5f07-54aa-97e4-6e613ef7b771",
-      "effectName": "Frost Barrier",
-      "effectTags": [],
-      "exclusiveDollId": "d7019989-e2dc-563e-8dd6-3e9c4f1b46bf",
-      "exclusiveDollName": "Helen",
-      "sources": [],
-      "interactions": []
-    },
-    {
-      "effectId": "e89ebecc-3585-5b65-bfb7-2f2994de31b7",
-      "effectName": "Frost Barrier",
-      "effectTags": [],
-      "exclusiveDollId": "58b2d229-0202-5f24-864a-d0e1a0844e28",
-      "exclusiveDollName": "Suomi",
-      "sources": [],
-      "interactions": []
-    },
-    {
-      "effectId": "8f7610b2-87ae-5b4c-b924-982e3a902244",
-      "effectName": "Frost Barrier",
-      "effectTags": [],
-      "exclusiveDollId": "58b2d229-0202-5f24-864a-d0e1a0844e28",
-      "exclusiveDollName": "Suomi",
-      "sources": [],
-      "interactions": []
-    },
-    {
-      "effectId": "6fb8b838-4724-5bbc-bca9-95f49ec9df2f",
-      "effectName": "Frost Barrier",
-      "effectTags": [],
-      "exclusiveDollId": "58b2d229-0202-5f24-864a-d0e1a0844e28",
-      "exclusiveDollName": "Suomi",
-      "sources": [],
-      "interactions": []
-    },
-    {
-      "effectId": "76647f51-cba1-5b16-81a9-5d0a1879cc08",
-      "effectName": "Frost Barrier",
-      "effectTags": [],
-      "exclusiveDollId": "58b2d229-0202-5f24-864a-d0e1a0844e28",
-      "exclusiveDollName": "Suomi",
-      "sources": [],
-      "interactions": []
-    },
-    {
-      "effectId": "072f3bd2-e6f7-5e05-a35c-64bec9d9ff5c",
-      "effectName": "Frost Barrier",
-      "effectTags": [],
-      "exclusiveDollId": "58b2d229-0202-5f24-864a-d0e1a0844e28",
-      "exclusiveDollName": "Suomi",
-      "sources": [],
-      "interactions": []
-    },
-    {
-      "effectId": "580074d0-8ebf-5600-9ef4-e67d4e503f61",
-      "effectName": "Frost Barrier",
-      "effectTags": [],
-      "exclusiveDollId": "c68c3d17-9c78-5261-b114-6043c2be9434",
-      "exclusiveDollName": "Makiatto",
       "sources": [],
       "interactions": []
     },
@@ -26549,6 +26412,109 @@
       ]
     },
     {
+      "effectId": "cbb927bb-fd47-50fe-a07f-6462ff1b60b2",
+      "effectName": "Frost Barrier",
+      "effectTags": [],
+      "exclusiveDollId": "d7019989-e2dc-563e-8dd6-3e9c4f1b46bf",
+      "exclusiveDollName": "Helen",
+      "sources": [
+        {
+          "kind": "skill",
+          "relation": "applies",
+          "levels": [
+            1,
+            2,
+            3
+          ],
+          "snippet": "Selects one tile within a cross-shaped area of 4 to 8 tiles, lands on the selected tile, cleanses 1 debuff from all allied units in a 5-tile-wide area along the path, and applies [effect:cbb927bb-fd47-50fe-a07f-6462ff1b60b2] for 2 turns",
+          "dollId": "d7019989-e2dc-563e-8dd6-3e9c4f1b46bf",
+          "dollName": "Helen",
+          "skillId": "10670701",
+          "skillName": "Covering Charge",
+          "skillType": "Active"
+        }
+      ],
+      "interactions": [
+        {
+          "kind": "skill",
+          "relation": "enhances",
+          "levels": [
+            1,
+            3
+          ],
+          "snippet": "The value of the [effect:cbb927bb-fd47-50fe-a07f-6462ff1b60b2] is 100% of Helen's initial attack, to a maximum of 100% of the target's Max HP",
+          "dollId": "d7019989-e2dc-563e-8dd6-3e9c4f1b46bf",
+          "dollName": "Helen",
+          "skillId": "10670701",
+          "skillName": "Covering Charge",
+          "skillType": "Active"
+        }
+      ]
+    },
+    {
+      "effectId": "b586310f-5f07-54aa-97e4-6e613ef7b771",
+      "effectName": "Frost Barrier",
+      "effectTags": [],
+      "exclusiveDollId": "d7019989-e2dc-563e-8dd6-3e9c4f1b46bf",
+      "exclusiveDollName": "Helen",
+      "sources": [],
+      "interactions": []
+    },
+    {
+      "effectId": "e89ebecc-3585-5b65-bfb7-2f2994de31b7",
+      "effectName": "Frost Barrier",
+      "effectTags": [],
+      "exclusiveDollId": "58b2d229-0202-5f24-864a-d0e1a0844e28",
+      "exclusiveDollName": "Suomi",
+      "sources": [],
+      "interactions": []
+    },
+    {
+      "effectId": "8f7610b2-87ae-5b4c-b924-982e3a902244",
+      "effectName": "Frost Barrier",
+      "effectTags": [],
+      "exclusiveDollId": "58b2d229-0202-5f24-864a-d0e1a0844e28",
+      "exclusiveDollName": "Suomi",
+      "sources": [],
+      "interactions": []
+    },
+    {
+      "effectId": "6fb8b838-4724-5bbc-bca9-95f49ec9df2f",
+      "effectName": "Frost Barrier",
+      "effectTags": [],
+      "exclusiveDollId": "58b2d229-0202-5f24-864a-d0e1a0844e28",
+      "exclusiveDollName": "Suomi",
+      "sources": [],
+      "interactions": []
+    },
+    {
+      "effectId": "76647f51-cba1-5b16-81a9-5d0a1879cc08",
+      "effectName": "Frost Barrier",
+      "effectTags": [],
+      "exclusiveDollId": "58b2d229-0202-5f24-864a-d0e1a0844e28",
+      "exclusiveDollName": "Suomi",
+      "sources": [],
+      "interactions": []
+    },
+    {
+      "effectId": "072f3bd2-e6f7-5e05-a35c-64bec9d9ff5c",
+      "effectName": "Frost Barrier",
+      "effectTags": [],
+      "exclusiveDollId": "58b2d229-0202-5f24-864a-d0e1a0844e28",
+      "exclusiveDollName": "Suomi",
+      "sources": [],
+      "interactions": []
+    },
+    {
+      "effectId": "580074d0-8ebf-5600-9ef4-e67d4e503f61",
+      "effectName": "Frost Barrier",
+      "effectTags": [],
+      "exclusiveDollId": "c68c3d17-9c78-5261-b114-6043c2be9434",
+      "exclusiveDollName": "Makiatto",
+      "sources": [],
+      "interactions": []
+    },
+    {
       "effectId": "ac0a2bd6-b18c-5794-80f7-543e9a543ae4",
       "effectName": "Frost Barrier",
       "effectTags": [],
@@ -26594,15 +26560,6 @@
       "interactions": []
     },
     {
-      "effectId": "65fe2c60-facb-53cd-ad5d-2476aa6adaec",
-      "effectName": "Frost Shield",
-      "effectTags": [],
-      "exclusiveDollId": null,
-      "exclusiveDollName": null,
-      "sources": [],
-      "interactions": []
-    },
-    {
       "effectId": "41484fc2-c017-5e8f-97e8-62145b31df84",
       "effectName": "Frost Shield",
       "effectTags": [],
@@ -26622,6 +26579,24 @@
       ]
     },
     {
+      "effectId": "65fe2c60-facb-53cd-ad5d-2476aa6adaec",
+      "effectName": "Frost Shield",
+      "effectTags": [],
+      "exclusiveDollId": null,
+      "exclusiveDollName": null,
+      "sources": [],
+      "interactions": []
+    },
+    {
+      "effectId": "cb84d770-2151-5813-8904-69f7e34bd2f3",
+      "effectName": "Frost Shield",
+      "effectTags": [],
+      "exclusiveDollId": null,
+      "exclusiveDollName": null,
+      "sources": [],
+      "interactions": []
+    },
+    {
       "effectId": "afc7230e-4749-55a7-98dd-9ce8e65d316d",
       "effectName": "Frost Shield",
       "effectTags": [],
@@ -26632,15 +26607,6 @@
     },
     {
       "effectId": "ef35f30a-6ecf-537b-b5c7-8bc163dac33a",
-      "effectName": "Frost Shield",
-      "effectTags": [],
-      "exclusiveDollId": null,
-      "exclusiveDollName": null,
-      "sources": [],
-      "interactions": []
-    },
-    {
-      "effectId": "cb84d770-2151-5813-8904-69f7e34bd2f3",
       "effectName": "Frost Shield",
       "effectTags": [],
       "exclusiveDollId": null,
@@ -27968,6 +27934,40 @@
       ]
     },
     {
+      "effectId": "6c151fbd-6a08-5aee-9aa6-52f907d64b71",
+      "effectName": "Gravitational Mark",
+      "effectTags": [],
+      "exclusiveDollId": "99085e2d-963f-5322-b460-0b4841e08cb1",
+      "exclusiveDollName": "Tololo",
+      "sources": [],
+      "interactions": [
+        {
+          "kind": "summon-skill",
+          "relation": "conditional",
+          "levels": [
+            1
+          ],
+          "snippet": "At the end of the allied faction's turn, deals Hydro damage equal to 130% of attack to enemy targets within a 7-tile radius that have [effect:6c151fbd-6a08-5aee-9aa6-52f907d64b71]",
+          "dollId": "99085e2d-963f-5322-b460-0b4841e08cb1",
+          "dollName": "Tololo",
+          "summonName": "Stationary Satellite",
+          "skillName": "Call of the Stars",
+          "skillType": null
+        },
+        {
+          "kind": "key",
+          "relation": "mentions",
+          "snippet": "\">1 stack</span> of [effect:6c151fbd-6a08-5aee-9aa6-52f907d64b71] to the target",
+          "keyId": "7a4b1279-d9ab-5ed7-b7d9-47a4002a0f68",
+          "keyTitle": "Expansion Key - Captured Starlight",
+          "keyType": "Expansion Key",
+          "level": 9,
+          "dollId": "99085e2d-963f-5322-b460-0b4841e08cb1",
+          "dollName": "Tololo"
+        }
+      ]
+    },
+    {
       "effectId": "f35eff84-61ad-536d-991b-49e961ddaec5",
       "effectName": "Gravity Field",
       "effectTags": [],
@@ -28536,6 +28536,15 @@
       "interactions": []
     },
     {
+      "effectId": "6b8ad0a8-f516-580a-bf5b-f916fc3e87fa",
+      "effectName": "Heat Recovery",
+      "effectTags": [],
+      "exclusiveDollId": "fb12e551-6e4b-5554-a1a4-122b989dcd7a",
+      "exclusiveDollName": "Centaureissi",
+      "sources": [],
+      "interactions": []
+    },
+    {
       "effectId": "4d217318-41ae-54b3-b40c-2d60a81a3794",
       "effectName": "Heat Recovery",
       "effectTags": [],
@@ -28789,15 +28798,6 @@
           "dollName": "Centaureissi"
         }
       ]
-    },
-    {
-      "effectId": "6b8ad0a8-f516-580a-bf5b-f916fc3e87fa",
-      "effectName": "Heat Recovery",
-      "effectTags": [],
-      "exclusiveDollId": "fb12e551-6e4b-5554-a1a4-122b989dcd7a",
-      "exclusiveDollName": "Centaureissi",
-      "sources": [],
-      "interactions": []
     },
     {
       "effectId": "644052be-45d8-58bd-a150-278370f7a783",
@@ -30058,6 +30058,15 @@
       "interactions": []
     },
     {
+      "effectId": "8acbef59-eca7-57f0-8e69-02d17f8c2dc7",
+      "effectName": "Hunter's Instinct",
+      "effectTags": [],
+      "exclusiveDollId": "d8661706-7a29-5545-b8b1-7b42fd041994",
+      "exclusiveDollName": "Faelynn",
+      "sources": [],
+      "interactions": []
+    },
+    {
       "effectId": "0d8ada35-a8ad-56dc-a9d5-16d2808b72af",
       "effectName": "Hunter's Instinct",
       "effectTags": [],
@@ -30077,15 +30086,6 @@
     },
     {
       "effectId": "1e4601b7-24a1-5ee3-b418-616d22184c18",
-      "effectName": "Hunter's Instinct",
-      "effectTags": [],
-      "exclusiveDollId": "d8661706-7a29-5545-b8b1-7b42fd041994",
-      "exclusiveDollName": "Faelynn",
-      "sources": [],
-      "interactions": []
-    },
-    {
-      "effectId": "8acbef59-eca7-57f0-8e69-02d17f8c2dc7",
       "effectName": "Hunter's Instinct",
       "effectTags": [],
       "exclusiveDollId": "d8661706-7a29-5545-b8b1-7b42fd041994",
@@ -30140,53 +30140,6 @@
       "interactions": []
     },
     {
-      "effectId": "a0457f2d-9735-5ffe-9b3b-530cac332231",
-      "effectName": "Hunter's Instinct I",
-      "effectTags": [],
-      "exclusiveDollId": "d8661706-7a29-5545-b8b1-7b42fd041994",
-      "exclusiveDollName": "Faelynn",
-      "sources": [
-        {
-          "kind": "effect",
-          "relation": "gains",
-          "snippet": "After the Ultimate, triggers [effect:a0457f2d-9735-5ffe-9b3b-530cac332231] if the conditions are met",
-          "effectId": "1e4601b7-24a1-5ee3-b418-616d22184c18",
-          "effectName": "Hunter's Instinct",
-          "ownerDollId": "d8661706-7a29-5545-b8b1-7b42fd041994",
-          "ownerDollName": "Faelynn"
-        },
-        {
-          "kind": "effect",
-          "relation": "gains",
-          "snippet": "After the Ultimate, triggers [effect:a0457f2d-9735-5ffe-9b3b-530cac332231] if the conditions are met",
-          "effectId": "767edf82-4477-5e19-83ad-b12b07ff2591",
-          "effectName": "Hunter's Instinct",
-          "ownerDollId": "d8661706-7a29-5545-b8b1-7b42fd041994",
-          "ownerDollName": "Faelynn"
-        }
-      ],
-      "interactions": [
-        {
-          "kind": "effect",
-          "relation": "includes",
-          "snippet": "Includes [effect:a0457f2d-9735-5ffe-9b3b-530cac332231], [effect:68f69238-8fa4-5f58-a172-9ccf7036a14d] and [effect:46828e9a-ba88-504b-aca5-b58285905288]",
-          "effectId": "1e4601b7-24a1-5ee3-b418-616d22184c18",
-          "effectName": "Hunter's Instinct",
-          "ownerDollId": "d8661706-7a29-5545-b8b1-7b42fd041994",
-          "ownerDollName": "Faelynn"
-        },
-        {
-          "kind": "effect",
-          "relation": "includes",
-          "snippet": "Includes [effect:a0457f2d-9735-5ffe-9b3b-530cac332231], [effect:68f69238-8fa4-5f58-a172-9ccf7036a14d] and [effect:46828e9a-ba88-504b-aca5-b58285905288]",
-          "effectId": "767edf82-4477-5e19-83ad-b12b07ff2591",
-          "effectName": "Hunter's Instinct",
-          "ownerDollId": "d8661706-7a29-5545-b8b1-7b42fd041994",
-          "ownerDollName": "Faelynn"
-        }
-      ]
-    },
-    {
       "effectId": "1c5c4622-3f19-573e-8fd8-95e5e47bfd34",
       "effectName": "Hunter's Instinct I",
       "effectTags": [],
@@ -30227,6 +30180,53 @@
           "relation": "includes",
           "snippet": "Includes [effect:1c5c4622-3f19-573e-8fd8-95e5e47bfd34], [effect:907f1c49-8d53-5c17-9279-f492b581f347] and [effect:1534daaa-0276-5e20-b2e3-d4dc9dc9158a]",
           "effectId": "7cfab258-c294-5322-a7ad-5dfbe9963123",
+          "effectName": "Hunter's Instinct",
+          "ownerDollId": "d8661706-7a29-5545-b8b1-7b42fd041994",
+          "ownerDollName": "Faelynn"
+        }
+      ]
+    },
+    {
+      "effectId": "a0457f2d-9735-5ffe-9b3b-530cac332231",
+      "effectName": "Hunter's Instinct I",
+      "effectTags": [],
+      "exclusiveDollId": "d8661706-7a29-5545-b8b1-7b42fd041994",
+      "exclusiveDollName": "Faelynn",
+      "sources": [
+        {
+          "kind": "effect",
+          "relation": "gains",
+          "snippet": "After the Ultimate, triggers [effect:a0457f2d-9735-5ffe-9b3b-530cac332231] if the conditions are met",
+          "effectId": "1e4601b7-24a1-5ee3-b418-616d22184c18",
+          "effectName": "Hunter's Instinct",
+          "ownerDollId": "d8661706-7a29-5545-b8b1-7b42fd041994",
+          "ownerDollName": "Faelynn"
+        },
+        {
+          "kind": "effect",
+          "relation": "gains",
+          "snippet": "After the Ultimate, triggers [effect:a0457f2d-9735-5ffe-9b3b-530cac332231] if the conditions are met",
+          "effectId": "767edf82-4477-5e19-83ad-b12b07ff2591",
+          "effectName": "Hunter's Instinct",
+          "ownerDollId": "d8661706-7a29-5545-b8b1-7b42fd041994",
+          "ownerDollName": "Faelynn"
+        }
+      ],
+      "interactions": [
+        {
+          "kind": "effect",
+          "relation": "includes",
+          "snippet": "Includes [effect:a0457f2d-9735-5ffe-9b3b-530cac332231], [effect:68f69238-8fa4-5f58-a172-9ccf7036a14d] and [effect:46828e9a-ba88-504b-aca5-b58285905288]",
+          "effectId": "1e4601b7-24a1-5ee3-b418-616d22184c18",
+          "effectName": "Hunter's Instinct",
+          "ownerDollId": "d8661706-7a29-5545-b8b1-7b42fd041994",
+          "ownerDollName": "Faelynn"
+        },
+        {
+          "kind": "effect",
+          "relation": "includes",
+          "snippet": "Includes [effect:a0457f2d-9735-5ffe-9b3b-530cac332231], [effect:68f69238-8fa4-5f58-a172-9ccf7036a14d] and [effect:46828e9a-ba88-504b-aca5-b58285905288]",
+          "effectId": "767edf82-4477-5e19-83ad-b12b07ff2591",
           "effectName": "Hunter's Instinct",
           "ownerDollId": "d8661706-7a29-5545-b8b1-7b42fd041994",
           "ownerDollName": "Faelynn"
@@ -30993,20 +30993,20 @@
       "interactions": []
     },
     {
-      "effectId": "806cafaa-6105-50dd-84d2-c8e06536b9fa",
-      "effectName": "Hydro Weakness",
-      "effectTags": [],
-      "exclusiveDollId": "b4192e1a-eedc-5c7b-8b91-70cf7e83a9c1",
-      "exclusiveDollName": "Springfield",
-      "sources": [],
-      "interactions": []
-    },
-    {
       "effectId": "c2ea2c79-b0f5-5382-be94-a876656cd814",
       "effectName": "Hydro Weakness",
       "effectTags": [],
       "exclusiveDollId": null,
       "exclusiveDollName": null,
+      "sources": [],
+      "interactions": []
+    },
+    {
+      "effectId": "806cafaa-6105-50dd-84d2-c8e06536b9fa",
+      "effectName": "Hydro Weakness",
+      "effectTags": [],
+      "exclusiveDollId": "b4192e1a-eedc-5c7b-8b91-70cf7e83a9c1",
+      "exclusiveDollName": "Springfield",
       "sources": [],
       "interactions": []
     },
@@ -31498,24 +31498,6 @@
       "interactions": []
     },
     {
-      "effectId": "af873781-e5f3-5170-864c-4f83b59af009",
-      "effectName": "Illusory Corpus",
-      "effectTags": [],
-      "exclusiveDollId": null,
-      "exclusiveDollName": null,
-      "sources": [],
-      "interactions": []
-    },
-    {
-      "effectId": "58a80be8-1a22-524c-a997-094199360447",
-      "effectName": "Illusory Corpus",
-      "effectTags": [],
-      "exclusiveDollId": null,
-      "exclusiveDollName": null,
-      "sources": [],
-      "interactions": []
-    },
-    {
       "effectId": "5de24e8a-39ab-5e58-b960-97226c28c27c",
       "effectName": "Illusory Corpus",
       "effectTags": [],
@@ -31526,6 +31508,24 @@
     },
     {
       "effectId": "cf7100ab-0413-5312-9a84-89196862aaf1",
+      "effectName": "Illusory Corpus",
+      "effectTags": [],
+      "exclusiveDollId": null,
+      "exclusiveDollName": null,
+      "sources": [],
+      "interactions": []
+    },
+    {
+      "effectId": "af873781-e5f3-5170-864c-4f83b59af009",
+      "effectName": "Illusory Corpus",
+      "effectTags": [],
+      "exclusiveDollId": null,
+      "exclusiveDollName": null,
+      "sources": [],
+      "interactions": []
+    },
+    {
+      "effectId": "58a80be8-1a22-524c-a997-094199360447",
       "effectName": "Illusory Corpus",
       "effectTags": [],
       "exclusiveDollId": null,
@@ -31590,6 +31590,15 @@
       "interactions": []
     },
     {
+      "effectId": "7f359d61-a5a1-557f-bc75-f769a1c3729b",
+      "effectName": "Immune",
+      "effectTags": [],
+      "exclusiveDollId": null,
+      "exclusiveDollName": null,
+      "sources": [],
+      "interactions": []
+    },
+    {
       "effectId": "788930cb-8bf4-55e9-95cc-e49513869504",
       "effectName": "Immune",
       "effectTags": [],
@@ -31600,15 +31609,6 @@
     },
     {
       "effectId": "e8934da1-9743-5205-8361-a9f11796e236",
-      "effectName": "Immune",
-      "effectTags": [],
-      "exclusiveDollId": null,
-      "exclusiveDollName": null,
-      "sources": [],
-      "interactions": []
-    },
-    {
-      "effectId": "7f359d61-a5a1-557f-bc75-f769a1c3729b",
       "effectName": "Immune",
       "effectTags": [],
       "exclusiveDollId": null,
@@ -32561,6 +32561,15 @@
       "interactions": []
     },
     {
+      "effectId": "ff8938f8-d139-5b1e-8f6f-1581e5baea47",
+      "effectName": "Insight",
+      "effectTags": [],
+      "exclusiveDollId": "c68c3d17-9c78-5261-b114-6043c2be9434",
+      "exclusiveDollName": "Makiatto",
+      "sources": [],
+      "interactions": []
+    },
+    {
       "effectId": "dc6ab27b-5255-55bb-8655-c221565a7100",
       "effectName": "Insight",
       "effectTags": [],
@@ -32835,15 +32844,6 @@
           "skillType": "Passive"
         }
       ]
-    },
-    {
-      "effectId": "ff8938f8-d139-5b1e-8f6f-1581e5baea47",
-      "effectName": "Insight",
-      "effectTags": [],
-      "exclusiveDollId": "c68c3d17-9c78-5261-b114-6043c2be9434",
-      "exclusiveDollName": "Makiatto",
-      "sources": [],
-      "interactions": []
     },
     {
       "effectId": "6e18421e-af0e-5863-96ca-8df1ccf1a5f0",
@@ -33446,7 +33446,7 @@
       ]
     },
     {
-      "effectId": "9e469a06-5c0b-5697-9972-4f8898af7bec",
+      "effectId": "f548ccde-e792-5dcb-8132-dfce3ca377a5",
       "effectName": "Invincible",
       "effectTags": [],
       "exclusiveDollId": null,
@@ -33455,7 +33455,7 @@
       "interactions": []
     },
     {
-      "effectId": "f548ccde-e792-5dcb-8132-dfce3ca377a5",
+      "effectId": "9e469a06-5c0b-5697-9972-4f8898af7bec",
       "effectName": "Invincible",
       "effectTags": [],
       "exclusiveDollId": null,
@@ -33527,7 +33527,7 @@
       "interactions": []
     },
     {
-      "effectId": "f632dcad-0d2e-5c4d-800f-f8c4804a4a96",
+      "effectId": "25b358e9-8afc-5e07-8bf0-f6e993c54f7d",
       "effectName": "Isolated",
       "effectTags": [],
       "exclusiveDollId": null,
@@ -33536,7 +33536,7 @@
       "interactions": []
     },
     {
-      "effectId": "25b358e9-8afc-5e07-8bf0-f6e993c54f7d",
+      "effectId": "f632dcad-0d2e-5c4d-800f-f8c4804a4a96",
       "effectName": "Isolated",
       "effectTags": [],
       "exclusiveDollId": null,
@@ -34166,6 +34166,15 @@
       "interactions": []
     },
     {
+      "effectId": "ab487432-cca6-5ebf-a4ad-d3297d204c99",
+      "effectName": "Kofta",
+      "effectTags": [],
+      "exclusiveDollId": null,
+      "exclusiveDollName": null,
+      "sources": [],
+      "interactions": []
+    },
+    {
       "effectId": "12e2d7cb-2b4f-5a56-9142-ab5d9f1a014b",
       "effectName": "Kofta",
       "effectTags": [],
@@ -34176,15 +34185,6 @@
     },
     {
       "effectId": "11acf5b6-8ec4-55ae-8dd5-cb4721604ccd",
-      "effectName": "Kofta",
-      "effectTags": [],
-      "exclusiveDollId": null,
-      "exclusiveDollName": null,
-      "sources": [],
-      "interactions": []
-    },
-    {
-      "effectId": "ab487432-cca6-5ebf-a4ad-d3297d204c99",
       "effectName": "Kofta",
       "effectTags": [],
       "exclusiveDollId": null,
@@ -34609,7 +34609,7 @@
       "interactions": []
     },
     {
-      "effectId": "f3596e9a-9f30-5e68-b150-4ca93e90156b",
+      "effectId": "06d5bed6-2dd4-5a32-834d-998b8768ce55",
       "effectName": "Leap Mode",
       "effectTags": [],
       "exclusiveDollId": null,
@@ -34618,7 +34618,7 @@
       "interactions": []
     },
     {
-      "effectId": "06d5bed6-2dd4-5a32-834d-998b8768ce55",
+      "effectId": "f3596e9a-9f30-5e68-b150-4ca93e90156b",
       "effectName": "Leap Mode",
       "effectTags": [],
       "exclusiveDollId": null,
@@ -35344,6 +35344,15 @@
       "interactions": []
     },
     {
+      "effectId": "35372da2-295d-5eba-9b5e-b89e30938039",
+      "effectName": "Lock on Attack",
+      "effectTags": [],
+      "exclusiveDollId": null,
+      "exclusiveDollName": null,
+      "sources": [],
+      "interactions": []
+    },
+    {
       "effectId": "57c18669-1d21-5905-9558-62ec61a4f7a5",
       "effectName": "Lock on Attack",
       "effectTags": [],
@@ -35417,15 +35426,6 @@
           "segment": 2
         }
       ]
-    },
-    {
-      "effectId": "35372da2-295d-5eba-9b5e-b89e30938039",
-      "effectName": "Lock on Attack",
-      "effectTags": [],
-      "exclusiveDollId": null,
-      "exclusiveDollName": null,
-      "sources": [],
-      "interactions": []
     },
     {
       "effectId": "f109f5d9-b408-5285-8392-afd8a0df6ca7",
@@ -35727,6 +35727,15 @@
       "interactions": []
     },
     {
+      "effectId": "d2ce8a2c-3f6d-59ee-82c2-56f2f4625daf",
+      "effectName": "Mad Dog Mode",
+      "effectTags": [],
+      "exclusiveDollId": "71a8251b-d96e-5e59-be83-f80b219e0395",
+      "exclusiveDollName": "Soppo",
+      "sources": [],
+      "interactions": []
+    },
+    {
       "effectId": "61a6c7ae-0104-529e-b6f2-b54a269e548a",
       "effectName": "Mad Dog Mode",
       "effectTags": [],
@@ -35847,15 +35856,6 @@
     },
     {
       "effectId": "9eab73f8-fc21-5f52-93e9-5ccddb62c39a",
-      "effectName": "Mad Dog Mode",
-      "effectTags": [],
-      "exclusiveDollId": "71a8251b-d96e-5e59-be83-f80b219e0395",
-      "exclusiveDollName": "Soppo",
-      "sources": [],
-      "interactions": []
-    },
-    {
-      "effectId": "d2ce8a2c-3f6d-59ee-82c2-56f2f4625daf",
       "effectName": "Mad Dog Mode",
       "effectTags": [],
       "exclusiveDollId": "71a8251b-d96e-5e59-be83-f80b219e0395",
@@ -36363,6 +36363,15 @@
       "interactions": []
     },
     {
+      "effectId": "680d1184-ede2-572f-8769-ec4d146903c8",
+      "effectName": "Mayday!",
+      "effectTags": [],
+      "exclusiveDollId": null,
+      "exclusiveDollName": null,
+      "sources": [],
+      "interactions": []
+    },
+    {
       "effectId": "7ee9287a-1905-5cd1-ad6e-f6ca3022e0f0",
       "effectName": "Mayday!",
       "effectTags": [],
@@ -36382,15 +36391,6 @@
     },
     {
       "effectId": "f1fa6b62-3961-53ce-a345-4db79a2f733c",
-      "effectName": "Mayday!",
-      "effectTags": [],
-      "exclusiveDollId": null,
-      "exclusiveDollName": null,
-      "sources": [],
-      "interactions": []
-    },
-    {
-      "effectId": "680d1184-ede2-572f-8769-ec4d146903c8",
       "effectName": "Mayday!",
       "effectTags": [],
       "exclusiveDollId": null,
@@ -36536,34 +36536,6 @@
       "interactions": []
     },
     {
-      "effectId": "834097e0-ce3b-5296-9d8d-5221f0b083f7",
-      "effectName": "Meltdown",
-      "effectTags": [],
-      "exclusiveDollId": null,
-      "exclusiveDollName": null,
-      "sources": [],
-      "interactions": []
-    },
-    {
-      "effectId": "a6051de0-7011-5c11-8fd8-11f67c114cd0",
-      "effectName": "Meltdown",
-      "effectTags": [],
-      "exclusiveDollId": null,
-      "exclusiveDollName": null,
-      "sources": [
-        {
-          "kind": "effect",
-          "relation": "gains",
-          "snippet": "Every time Burn damage is taken, gains [effect:a6051de0-7011-5c11-8fd8-11f67c114cd0] for 1 turn",
-          "effectId": "e08c1c42-bfca-55e3-a448-2ba4ae9556ca",
-          "effectName": "Thermoplasmic Overload",
-          "ownerDollId": null,
-          "ownerDollName": null
-        }
-      ],
-      "interactions": []
-    },
-    {
       "effectId": "8e0dc441-3923-5820-b259-c1d537bb1922",
       "effectName": "Meltdown",
       "effectTags": [],
@@ -36585,6 +36557,34 @@
           "snippet": "Enemy units which end their action in this area gain [effect:c5d22599-cc4f-56f1-88a3-c2a1241a3d8b], [effect:9b3ae70b-8969-59e3-bb04-bcfb2257d827], [effect:dd1be37c-2762-5d00-9646-a85313600cb2], [effect:6430a6e1-85aa-5298-ae95-64573872740d] and [effect:48b1a4f4-1270-5ebf-8efc-7887f7537d85] for 2 t…",
           "effectId": "86a7554a-79c4-5e7d-81dd-ac56d699b235",
           "effectName": "Smoldering Suspire Ⅲ",
+          "ownerDollId": null,
+          "ownerDollName": null
+        }
+      ],
+      "interactions": []
+    },
+    {
+      "effectId": "834097e0-ce3b-5296-9d8d-5221f0b083f7",
+      "effectName": "Meltdown",
+      "effectTags": [],
+      "exclusiveDollId": null,
+      "exclusiveDollName": null,
+      "sources": [],
+      "interactions": []
+    },
+    {
+      "effectId": "a6051de0-7011-5c11-8fd8-11f67c114cd0",
+      "effectName": "Meltdown",
+      "effectTags": [],
+      "exclusiveDollId": null,
+      "exclusiveDollName": null,
+      "sources": [
+        {
+          "kind": "effect",
+          "relation": "gains",
+          "snippet": "Every time Burn damage is taken, gains [effect:a6051de0-7011-5c11-8fd8-11f67c114cd0] for 1 turn",
+          "effectId": "e08c1c42-bfca-55e3-a448-2ba4ae9556ca",
+          "effectName": "Thermoplasmic Overload",
           "ownerDollId": null,
           "ownerDollName": null
         }
@@ -36992,15 +36992,6 @@
       "interactions": []
     },
     {
-      "effectId": "988c2d14-dd7d-57ff-86fd-c2afe5574a23",
-      "effectName": "Mobile Support",
-      "effectTags": [],
-      "exclusiveDollId": null,
-      "exclusiveDollName": null,
-      "sources": [],
-      "interactions": []
-    },
-    {
       "effectId": "16c919e5-538b-540c-acb2-b1f3039fb226",
       "effectName": "Mobile Support",
       "effectTags": [],
@@ -37032,6 +37023,15 @@
           "segment": 2
         }
       ],
+      "interactions": []
+    },
+    {
+      "effectId": "988c2d14-dd7d-57ff-86fd-c2afe5574a23",
+      "effectName": "Mobile Support",
+      "effectTags": [],
+      "exclusiveDollId": null,
+      "exclusiveDollName": null,
+      "sources": [],
       "interactions": []
     },
     {
@@ -37970,7 +37970,7 @@
       "interactions": []
     },
     {
-      "effectId": "fe97a5dd-f757-5dfc-8dfa-5c8973d37043",
+      "effectId": "471c0455-3abb-55ae-9f74-a8365f4c0bf8",
       "effectName": "Movement Up",
       "effectTags": [],
       "exclusiveDollId": null,
@@ -37979,7 +37979,7 @@
       "interactions": []
     },
     {
-      "effectId": "471c0455-3abb-55ae-9f74-a8365f4c0bf8",
+      "effectId": "fe97a5dd-f757-5dfc-8dfa-5c8973d37043",
       "effectName": "Movement Up",
       "effectTags": [],
       "exclusiveDollId": null,
@@ -39303,6 +39303,15 @@
       "interactions": []
     },
     {
+      "effectId": "63469a28-0662-5df4-b397-277b3ee863f7",
+      "effectName": "Nightmare",
+      "effectTags": [],
+      "exclusiveDollId": null,
+      "exclusiveDollName": null,
+      "sources": [],
+      "interactions": []
+    },
+    {
       "effectId": "be6dfe18-aa85-5a36-9434-e33655f24c39",
       "effectName": "Nightmare",
       "effectTags": [],
@@ -39322,15 +39331,6 @@
     },
     {
       "effectId": "32919bcd-d3e5-5716-b7f9-eec254379787",
-      "effectName": "Nightmare",
-      "effectTags": [],
-      "exclusiveDollId": null,
-      "exclusiveDollName": null,
-      "sources": [],
-      "interactions": []
-    },
-    {
-      "effectId": "63469a28-0662-5df4-b397-277b3ee863f7",
       "effectName": "Nightmare",
       "effectTags": [],
       "exclusiveDollId": null,
@@ -40362,6 +40362,15 @@
       "interactions": []
     },
     {
+      "effectId": "1502e198-2bdb-5541-8285-d1298eb11f19",
+      "effectName": "Output Overload",
+      "effectTags": [],
+      "exclusiveDollId": null,
+      "exclusiveDollName": null,
+      "sources": [],
+      "interactions": []
+    },
+    {
       "effectId": "125a31c7-90ac-5cd6-bd60-083ae246a02f",
       "effectName": "Output Overload",
       "effectTags": [],
@@ -40399,15 +40408,6 @@
     },
     {
       "effectId": "25cf1fe1-5d40-52fa-89a3-e809423540a1",
-      "effectName": "Output Overload",
-      "effectTags": [],
-      "exclusiveDollId": null,
-      "exclusiveDollName": null,
-      "sources": [],
-      "interactions": []
-    },
-    {
-      "effectId": "1502e198-2bdb-5541-8285-d1298eb11f19",
       "effectName": "Output Overload",
       "effectTags": [],
       "exclusiveDollId": null,
@@ -41380,7 +41380,7 @@
       "interactions": []
     },
     {
-      "effectId": "2cabdd0d-4601-52f6-a776-cfafe839a97c",
+      "effectId": "9ac18c1b-13aa-5016-ab33-5cb0a39bfbb3",
       "effectName": "Overload",
       "effectTags": [],
       "exclusiveDollId": null,
@@ -41389,7 +41389,7 @@
       "interactions": []
     },
     {
-      "effectId": "9ac18c1b-13aa-5016-ab33-5cb0a39bfbb3",
+      "effectId": "2cabdd0d-4601-52f6-a776-cfafe839a97c",
       "effectName": "Overload",
       "effectTags": [],
       "exclusiveDollId": null,
@@ -41678,34 +41678,6 @@
       "interactions": []
     },
     {
-      "effectId": "1adafea9-e187-5729-9e6f-1e9d8408e360",
-      "effectName": "P Gear",
-      "effectTags": [],
-      "exclusiveDollId": "c8395bba-8c62-50df-a395-c860f8056e31",
-      "exclusiveDollName": "Koleda",
-      "sources": [
-        {
-          "kind": "effect",
-          "relation": "applies",
-          "snippet": "Grants the 6 gears [effect:1adafea9-e187-5729-9e6f-1e9d8408e360], [effect:aed9523b-15c8-5c21-84c7-3e73b0461c4d], [effect:95ae9209-8470-5763-9ea8-ccd60ea3b19e], [effect:bdc3c9a0-636e-588b-b7ef-58559952497e], [effect:bd1cf48e-1aaf-5ab9-99dd-c2074dd218a4] and [effect:140c051d-96a7-57b5-bfeb-17e16137…",
-          "effectId": "e1e3965e-1913-5bdf-815b-dbcbf53fd620",
-          "effectName": "Gear Shift",
-          "ownerDollId": "c8395bba-8c62-50df-a395-c860f8056e31",
-          "ownerDollName": "Koleda"
-        },
-        {
-          "kind": "effect",
-          "relation": "gains",
-          "snippet": "gains [effect:bdc3c9a0-636e-588b-b7ef-58559952497e] at the start of every turn and [effect:1adafea9-e187-5729-9e6f-1e9d8408e360] at the end of the last action",
-          "effectId": "e1e3965e-1913-5bdf-815b-dbcbf53fd620",
-          "effectName": "Gear Shift",
-          "ownerDollId": "c8395bba-8c62-50df-a395-c860f8056e31",
-          "ownerDollName": "Koleda"
-        }
-      ],
-      "interactions": []
-    },
-    {
       "effectId": "9fe147f2-7892-5930-a9f8-3612388c0dbd",
       "effectName": "P Gear",
       "effectTags": [],
@@ -41742,6 +41714,34 @@
           "summonName": "The Sinner",
           "skillName": "Gear Shift",
           "skillType": null
+        }
+      ],
+      "interactions": []
+    },
+    {
+      "effectId": "1adafea9-e187-5729-9e6f-1e9d8408e360",
+      "effectName": "P Gear",
+      "effectTags": [],
+      "exclusiveDollId": "c8395bba-8c62-50df-a395-c860f8056e31",
+      "exclusiveDollName": "Koleda",
+      "sources": [
+        {
+          "kind": "effect",
+          "relation": "applies",
+          "snippet": "Grants the 6 gears [effect:1adafea9-e187-5729-9e6f-1e9d8408e360], [effect:aed9523b-15c8-5c21-84c7-3e73b0461c4d], [effect:95ae9209-8470-5763-9ea8-ccd60ea3b19e], [effect:bdc3c9a0-636e-588b-b7ef-58559952497e], [effect:bd1cf48e-1aaf-5ab9-99dd-c2074dd218a4] and [effect:140c051d-96a7-57b5-bfeb-17e16137…",
+          "effectId": "e1e3965e-1913-5bdf-815b-dbcbf53fd620",
+          "effectName": "Gear Shift",
+          "ownerDollId": "c8395bba-8c62-50df-a395-c860f8056e31",
+          "ownerDollName": "Koleda"
+        },
+        {
+          "kind": "effect",
+          "relation": "gains",
+          "snippet": "gains [effect:bdc3c9a0-636e-588b-b7ef-58559952497e] at the start of every turn and [effect:1adafea9-e187-5729-9e6f-1e9d8408e360] at the end of the last action",
+          "effectId": "e1e3965e-1913-5bdf-815b-dbcbf53fd620",
+          "effectName": "Gear Shift",
+          "ownerDollId": "c8395bba-8c62-50df-a395-c860f8056e31",
+          "ownerDollName": "Koleda"
         }
       ],
       "interactions": []
@@ -42572,6 +42572,24 @@
       "interactions": []
     },
     {
+      "effectId": "1b6a693b-bb62-5c78-84b2-31ebcc2d0dea",
+      "effectName": "Path Patrol",
+      "effectTags": [],
+      "exclusiveDollId": null,
+      "exclusiveDollName": null,
+      "sources": [],
+      "interactions": []
+    },
+    {
+      "effectId": "1be7fd3b-ced3-5c41-ae67-a761489abd34",
+      "effectName": "Path Patrol",
+      "effectTags": [],
+      "exclusiveDollId": null,
+      "exclusiveDollName": null,
+      "sources": [],
+      "interactions": []
+    },
+    {
       "effectId": "c5bb4a3b-61b2-55a7-ba5d-97773f82017f",
       "effectName": "Path Patrol",
       "effectTags": [],
@@ -42600,24 +42618,6 @@
     },
     {
       "effectId": "deaf61ab-d5a2-53ba-9022-514cd799ef15",
-      "effectName": "Path Patrol",
-      "effectTags": [],
-      "exclusiveDollId": null,
-      "exclusiveDollName": null,
-      "sources": [],
-      "interactions": []
-    },
-    {
-      "effectId": "1b6a693b-bb62-5c78-84b2-31ebcc2d0dea",
-      "effectName": "Path Patrol",
-      "effectTags": [],
-      "exclusiveDollId": null,
-      "exclusiveDollName": null,
-      "sources": [],
-      "interactions": []
-    },
-    {
-      "effectId": "1be7fd3b-ced3-5c41-ae67-a761489abd34",
       "effectName": "Path Patrol",
       "effectTags": [],
       "exclusiveDollId": null,
@@ -43268,6 +43268,60 @@
       "interactions": []
     },
     {
+      "effectId": "64fede16-1bf2-567a-a9e5-3ebbe664ead4",
+      "effectName": "Phase Alignment",
+      "effectTags": [],
+      "exclusiveDollId": null,
+      "exclusiveDollName": null,
+      "sources": [],
+      "interactions": []
+    },
+    {
+      "effectId": "23b84905-2b03-56f5-bf08-6d68e92b9c9f",
+      "effectName": "Phase Alignment",
+      "effectTags": [],
+      "exclusiveDollId": null,
+      "exclusiveDollName": null,
+      "sources": [],
+      "interactions": []
+    },
+    {
+      "effectId": "32aef608-f6a2-5314-b0ed-b0f8441381ed",
+      "effectName": "Phase Alignment",
+      "effectTags": [],
+      "exclusiveDollId": null,
+      "exclusiveDollName": null,
+      "sources": [],
+      "interactions": []
+    },
+    {
+      "effectId": "ab63dd75-8ae1-596e-b339-1b6582b2b337",
+      "effectName": "Phase Alignment",
+      "effectTags": [],
+      "exclusiveDollId": null,
+      "exclusiveDollName": null,
+      "sources": [],
+      "interactions": []
+    },
+    {
+      "effectId": "7ebed0fc-2199-5c2c-ad7c-0f6d4daeb970",
+      "effectName": "Phase Alignment",
+      "effectTags": [],
+      "exclusiveDollId": null,
+      "exclusiveDollName": null,
+      "sources": [],
+      "interactions": []
+    },
+    {
+      "effectId": "92e9ebf0-8f32-5d88-9296-137234092aa2",
+      "effectName": "Phase Alignment",
+      "effectTags": [],
+      "exclusiveDollId": null,
+      "exclusiveDollName": null,
+      "sources": [],
+      "interactions": []
+    },
+    {
       "effectId": "c0a59f0d-419e-5acb-a574-92a6549c3327",
       "effectName": "Phase Alignment",
       "effectTags": [],
@@ -43610,15 +43664,6 @@
       "interactions": []
     },
     {
-      "effectId": "64fede16-1bf2-567a-a9e5-3ebbe664ead4",
-      "effectName": "Phase Alignment",
-      "effectTags": [],
-      "exclusiveDollId": null,
-      "exclusiveDollName": null,
-      "sources": [],
-      "interactions": []
-    },
-    {
       "effectId": "55706684-b441-5a5d-9d45-2c5482874980",
       "effectName": "Phase Alignment",
       "effectTags": [],
@@ -43907,15 +43952,6 @@
       "interactions": []
     },
     {
-      "effectId": "23b84905-2b03-56f5-bf08-6d68e92b9c9f",
-      "effectName": "Phase Alignment",
-      "effectTags": [],
-      "exclusiveDollId": null,
-      "exclusiveDollName": null,
-      "sources": [],
-      "interactions": []
-    },
-    {
       "effectId": "a5f103f2-5009-555c-86b2-5586501f2a64",
       "effectName": "Phase Alignment",
       "effectTags": [],
@@ -44015,24 +44051,6 @@
       "interactions": []
     },
     {
-      "effectId": "32aef608-f6a2-5314-b0ed-b0f8441381ed",
-      "effectName": "Phase Alignment",
-      "effectTags": [],
-      "exclusiveDollId": null,
-      "exclusiveDollName": null,
-      "sources": [],
-      "interactions": []
-    },
-    {
-      "effectId": "ab63dd75-8ae1-596e-b339-1b6582b2b337",
-      "effectName": "Phase Alignment",
-      "effectTags": [],
-      "exclusiveDollId": null,
-      "exclusiveDollName": null,
-      "sources": [],
-      "interactions": []
-    },
-    {
       "effectId": "744cec7c-d578-555f-995e-a4d999661c9c",
       "effectName": "Phase Alignment",
       "effectTags": [],
@@ -44061,15 +44079,6 @@
     },
     {
       "effectId": "1e7f9dba-0b71-519c-a5ce-170a12a6678c",
-      "effectName": "Phase Alignment",
-      "effectTags": [],
-      "exclusiveDollId": null,
-      "exclusiveDollName": null,
-      "sources": [],
-      "interactions": []
-    },
-    {
-      "effectId": "7ebed0fc-2199-5c2c-ad7c-0f6d4daeb970",
       "effectName": "Phase Alignment",
       "effectTags": [],
       "exclusiveDollId": null,
@@ -44330,7 +44339,7 @@
       "interactions": []
     },
     {
-      "effectId": "92e9ebf0-8f32-5d88-9296-137234092aa2",
+      "effectId": "681cf66a-3fc1-5dd5-be09-45da00449713",
       "effectName": "Phase Alignment",
       "effectTags": [],
       "exclusiveDollId": null,
@@ -44339,7 +44348,7 @@
       "interactions": []
     },
     {
-      "effectId": "681cf66a-3fc1-5dd5-be09-45da00449713",
+      "effectId": "49bb3fae-98eb-53d9-89f8-6affd9ec02a5",
       "effectName": "Phase Alignment",
       "effectTags": [],
       "exclusiveDollId": null,
@@ -44366,8 +44375,8 @@
       "interactions": []
     },
     {
-      "effectId": "49bb3fae-98eb-53d9-89f8-6affd9ec02a5",
-      "effectName": "Phase Alignment",
+      "effectId": "3fd49bbd-b8f5-5419-bda0-c15a91b3b00b",
+      "effectName": "Phase Boost I",
       "effectTags": [],
       "exclusiveDollId": null,
       "exclusiveDollName": null,
@@ -44385,15 +44394,6 @@
     },
     {
       "effectId": "0de5f36c-f180-57a1-80c1-2d0bfcf26a27",
-      "effectName": "Phase Boost I",
-      "effectTags": [],
-      "exclusiveDollId": null,
-      "exclusiveDollName": null,
-      "sources": [],
-      "interactions": []
-    },
-    {
-      "effectId": "3fd49bbd-b8f5-5419-bda0-c15a91b3b00b",
       "effectName": "Phase Boost I",
       "effectTags": [],
       "exclusiveDollId": null,
@@ -45200,7 +45200,7 @@
       ]
     },
     {
-      "effectId": "c585bc03-a1f4-5838-9439-6f4ad8f602fb",
+      "effectId": "34506821-2d66-53a9-91e6-465b8d6484ab",
       "effectName": "Positive Incentive",
       "effectTags": [],
       "exclusiveDollId": null,
@@ -45209,7 +45209,7 @@
       "interactions": []
     },
     {
-      "effectId": "34506821-2d66-53a9-91e6-465b8d6484ab",
+      "effectId": "c585bc03-a1f4-5838-9439-6f4ad8f602fb",
       "effectName": "Positive Incentive",
       "effectTags": [],
       "exclusiveDollId": null,
@@ -45524,6 +45524,15 @@
       "interactions": []
     },
     {
+      "effectId": "aef6b60e-c720-50bd-8128-9f4e0fb9f5ea",
+      "effectName": "Prairie Hunter",
+      "effectTags": [],
+      "exclusiveDollId": null,
+      "exclusiveDollName": null,
+      "sources": [],
+      "interactions": []
+    },
+    {
       "effectId": "7a9f901f-fb65-57ee-9435-beed397d405d",
       "effectName": "Prairie Hunter",
       "effectTags": [],
@@ -45561,15 +45570,6 @@
     },
     {
       "effectId": "e69a50f8-bc69-5f89-b8d9-9af8ea9e5d35",
-      "effectName": "Prairie Hunter",
-      "effectTags": [],
-      "exclusiveDollId": null,
-      "exclusiveDollName": null,
-      "sources": [],
-      "interactions": []
-    },
-    {
-      "effectId": "aef6b60e-c720-50bd-8128-9f4e0fb9f5ea",
       "effectName": "Prairie Hunter",
       "effectTags": [],
       "exclusiveDollId": null,
@@ -48845,7 +48845,7 @@
       "interactions": []
     },
     {
-      "effectId": "c3b2bfd0-2fa3-5df5-92a4-7f3a5f778f2a",
+      "effectId": "4a85cfe2-a2d7-513b-9099-7a63a42c01ca",
       "effectName": "Resonance",
       "effectTags": [],
       "exclusiveDollId": null,
@@ -48854,7 +48854,7 @@
       "interactions": []
     },
     {
-      "effectId": "4a85cfe2-a2d7-513b-9099-7a63a42c01ca",
+      "effectId": "c3b2bfd0-2fa3-5df5-92a4-7f3a5f778f2a",
       "effectName": "Resonance",
       "effectTags": [],
       "exclusiveDollId": null,
@@ -48936,7 +48936,7 @@
       "interactions": []
     },
     {
-      "effectId": "0ba1fee5-e277-58b8-ba38-a827f32e5bcd",
+      "effectId": "de3d42bc-d69d-5e8f-99f4-831a468306ef",
       "effectName": "Restorative Adjustment",
       "effectTags": [],
       "exclusiveDollId": null,
@@ -48945,7 +48945,7 @@
       "interactions": []
     },
     {
-      "effectId": "de3d42bc-d69d-5e8f-99f4-831a468306ef",
+      "effectId": "0ba1fee5-e277-58b8-ba38-a827f32e5bcd",
       "effectName": "Restorative Adjustment",
       "effectTags": [],
       "exclusiveDollId": null,
@@ -49107,15 +49107,6 @@
       "interactions": []
     },
     {
-      "effectId": "166d30d6-f556-5fa9-956c-aa3f3bccf5ff",
-      "effectName": "Retorhynchus",
-      "effectTags": [],
-      "exclusiveDollId": null,
-      "exclusiveDollName": null,
-      "sources": [],
-      "interactions": []
-    },
-    {
       "effectId": "5453d639-2b31-586f-9bcb-2b2f9a38c7cc",
       "effectName": "Retorhynchus",
       "effectTags": [],
@@ -49133,6 +49124,15 @@
           "ownerDollName": null
         }
       ]
+    },
+    {
+      "effectId": "166d30d6-f556-5fa9-956c-aa3f3bccf5ff",
+      "effectName": "Retorhynchus",
+      "effectTags": [],
+      "exclusiveDollId": null,
+      "exclusiveDollName": null,
+      "sources": [],
+      "interactions": []
     },
     {
       "effectId": "7709ca07-35a0-5435-ae80-fe10e340f989",
@@ -50101,7 +50101,7 @@
       ]
     },
     {
-      "effectId": "efc246e3-ecbb-57ab-862a-f5ce6912cbfd",
+      "effectId": "7ef410a7-09ea-53fd-8093-175c6b85ee31",
       "effectName": "Safeguard I",
       "effectTags": [],
       "exclusiveDollId": null,
@@ -50110,7 +50110,7 @@
       "interactions": []
     },
     {
-      "effectId": "7ef410a7-09ea-53fd-8093-175c6b85ee31",
+      "effectId": "efc246e3-ecbb-57ab-862a-f5ce6912cbfd",
       "effectName": "Safeguard I",
       "effectTags": [],
       "exclusiveDollId": null,
@@ -51237,6 +51237,15 @@
       "interactions": []
     },
     {
+      "effectId": "64e41f06-e3f8-5418-bddb-9309985604fd",
+      "effectName": "Seeking Strike",
+      "effectTags": [],
+      "exclusiveDollId": null,
+      "exclusiveDollName": null,
+      "sources": [],
+      "interactions": []
+    },
+    {
       "effectId": "d6e6e9f7-070f-5528-8ff8-568890f0a40e",
       "effectName": "Seeking Strike",
       "effectTags": [],
@@ -51247,15 +51256,6 @@
     },
     {
       "effectId": "69713140-d8d7-5104-aab9-cac2879db8d0",
-      "effectName": "Seeking Strike",
-      "effectTags": [],
-      "exclusiveDollId": null,
-      "exclusiveDollName": null,
-      "sources": [],
-      "interactions": []
-    },
-    {
-      "effectId": "64e41f06-e3f8-5418-bddb-9309985604fd",
       "effectName": "Seeking Strike",
       "effectTags": [],
       "exclusiveDollId": null,
@@ -51385,6 +51385,15 @@
       "interactions": []
     },
     {
+      "effectId": "3370c8b5-9db4-5d6c-8351-4a7bc3d87a60",
+      "effectName": "Self-Diagnosis",
+      "effectTags": [],
+      "exclusiveDollId": "24c0af2f-0506-5314-a4a9-7d4da3c4e8a7",
+      "exclusiveDollName": "Andoris",
+      "sources": [],
+      "interactions": []
+    },
+    {
       "effectId": "5be3be5e-758d-50f4-9910-e5431c7d20f3",
       "effectName": "Self-Diagnosis",
       "effectTags": [],
@@ -51406,15 +51415,6 @@
           "skillType": "Passive"
         }
       ],
-      "interactions": []
-    },
-    {
-      "effectId": "3370c8b5-9db4-5d6c-8351-4a7bc3d87a60",
-      "effectName": "Self-Diagnosis",
-      "effectTags": [],
-      "exclusiveDollId": "24c0af2f-0506-5314-a4a9-7d4da3c4e8a7",
-      "exclusiveDollName": "Andoris",
-      "sources": [],
       "interactions": []
     },
     {
@@ -52731,6 +52731,60 @@
       "interactions": []
     },
     {
+      "effectId": "e1c6b16e-41d5-5dd2-867a-60e348239e95",
+      "effectName": "Shock",
+      "effectTags": [],
+      "exclusiveDollId": "4f083544-80f0-5833-bfac-5fc50827ec27",
+      "exclusiveDollName": "Mosin-Nagant",
+      "sources": [
+        {
+          "kind": "skill",
+          "relation": "gains",
+          "levels": [
+            1,
+            2
+          ],
+          "snippet": "Every 3 times this skill is used, gain [effect:e1c6b16e-41d5-5dd2-867a-60e348239e95]",
+          "dollId": "4f083544-80f0-5833-bfac-5fc50827ec27",
+          "dollName": "Mosin-Nagant",
+          "skillId": "10330701",
+          "skillName": "Positive Mindset",
+          "skillType": "Active"
+        },
+        {
+          "kind": "vertebrae",
+          "relation": "gains",
+          "snippet": "Every 2 times this skill is used, gain [effect:e1c6b16e-41d5-5dd2-867a-60e348239e95]",
+          "dollId": "4f083544-80f0-5833-bfac-5fc50827ec27",
+          "dollName": "Mosin-Nagant",
+          "level": 2,
+          "segment": 5
+        }
+      ],
+      "interactions": [
+        {
+          "kind": "key",
+          "relation": "conditional",
+          "snippet": "\">Positive Mindset</span>, if the user has [effect:e1c6b16e-41d5-5dd2-867a-60e348239e95], their attacks ignore <span style=\"color: rgb(242, 108, 28)",
+          "keyId": "d937a6f8-310b-59d1-a7e3-ba7b548d3a2d",
+          "keyTitle": "Fixed Key - Positive Mindset",
+          "keyType": "Fixed Key",
+          "level": 6,
+          "dollId": "4f083544-80f0-5833-bfac-5fc50827ec27",
+          "dollName": "Mosin-Nagant"
+        }
+      ]
+    },
+    {
+      "effectId": "8ec7b8c1-e771-52d6-addf-8fb8dfb28b93",
+      "effectName": "Shock",
+      "effectTags": [],
+      "exclusiveDollId": "4f083544-80f0-5833-bfac-5fc50827ec27",
+      "exclusiveDollName": "Mosin-Nagant",
+      "sources": [],
+      "interactions": []
+    },
+    {
       "effectId": "f91455fa-32f0-5cb1-a090-330eef8c8c6a",
       "effectName": "Shock",
       "effectTags": [],
@@ -52812,65 +52866,11 @@
       ]
     },
     {
-      "effectId": "e1c6b16e-41d5-5dd2-867a-60e348239e95",
-      "effectName": "Shock",
-      "effectTags": [],
-      "exclusiveDollId": "4f083544-80f0-5833-bfac-5fc50827ec27",
-      "exclusiveDollName": "Mosin-Nagant",
-      "sources": [
-        {
-          "kind": "skill",
-          "relation": "gains",
-          "levels": [
-            1,
-            2
-          ],
-          "snippet": "Every 3 times this skill is used, gain [effect:e1c6b16e-41d5-5dd2-867a-60e348239e95]",
-          "dollId": "4f083544-80f0-5833-bfac-5fc50827ec27",
-          "dollName": "Mosin-Nagant",
-          "skillId": "10330701",
-          "skillName": "Positive Mindset",
-          "skillType": "Active"
-        },
-        {
-          "kind": "vertebrae",
-          "relation": "gains",
-          "snippet": "Every 2 times this skill is used, gain [effect:e1c6b16e-41d5-5dd2-867a-60e348239e95]",
-          "dollId": "4f083544-80f0-5833-bfac-5fc50827ec27",
-          "dollName": "Mosin-Nagant",
-          "level": 2,
-          "segment": 5
-        }
-      ],
-      "interactions": [
-        {
-          "kind": "key",
-          "relation": "conditional",
-          "snippet": "\">Positive Mindset</span>, if the user has [effect:e1c6b16e-41d5-5dd2-867a-60e348239e95], their attacks ignore <span style=\"color: rgb(242, 108, 28)",
-          "keyId": "d937a6f8-310b-59d1-a7e3-ba7b548d3a2d",
-          "keyTitle": "Fixed Key - Positive Mindset",
-          "keyType": "Fixed Key",
-          "level": 6,
-          "dollId": "4f083544-80f0-5833-bfac-5fc50827ec27",
-          "dollName": "Mosin-Nagant"
-        }
-      ]
-    },
-    {
       "effectId": "418456d3-eda0-56b4-a9b6-19ff06ac6f10",
       "effectName": "Shock",
       "effectTags": [],
       "exclusiveDollId": null,
       "exclusiveDollName": null,
-      "sources": [],
-      "interactions": []
-    },
-    {
-      "effectId": "8ec7b8c1-e771-52d6-addf-8fb8dfb28b93",
-      "effectName": "Shock",
-      "effectTags": [],
-      "exclusiveDollId": "4f083544-80f0-5833-bfac-5fc50827ec27",
-      "exclusiveDollName": "Mosin-Nagant",
       "sources": [],
       "interactions": []
     },
@@ -52965,25 +52965,6 @@
       "interactions": []
     },
     {
-      "effectId": "43057047-cffd-552b-9a85-b8ae463e9c82",
-      "effectName": "Short-Circuit - Burnshield",
-      "effectTags": [],
-      "exclusiveDollId": null,
-      "exclusiveDollName": null,
-      "sources": [
-        {
-          "kind": "effect",
-          "relation": "gains",
-          "snippet": "When HP is reduced below 10%, gains [effect:43057047-cffd-552b-9a85-b8ae463e9c82]",
-          "effectId": "eb40b05f-9531-56b3-ae60-56e35f78b438",
-          "effectName": "Last Gasp",
-          "ownerDollId": null,
-          "ownerDollName": null
-        }
-      ],
-      "interactions": []
-    },
-    {
       "effectId": "3930dca6-18e3-502b-a99d-294eff6ffea3",
       "effectName": "Short-Circuit - Burnshield",
       "effectTags": [],
@@ -53014,6 +52995,34 @@
     {
       "effectId": "1210a3a3-5305-5142-8cfe-85b74413a696",
       "effectName": "Short-Circuit - Burnshield",
+      "effectTags": [],
+      "exclusiveDollId": null,
+      "exclusiveDollName": null,
+      "sources": [],
+      "interactions": []
+    },
+    {
+      "effectId": "43057047-cffd-552b-9a85-b8ae463e9c82",
+      "effectName": "Short-Circuit - Burnshield",
+      "effectTags": [],
+      "exclusiveDollId": null,
+      "exclusiveDollName": null,
+      "sources": [
+        {
+          "kind": "effect",
+          "relation": "gains",
+          "snippet": "When HP is reduced below 10%, gains [effect:43057047-cffd-552b-9a85-b8ae463e9c82]",
+          "effectId": "eb40b05f-9531-56b3-ae60-56e35f78b438",
+          "effectName": "Last Gasp",
+          "ownerDollId": null,
+          "ownerDollName": null
+        }
+      ],
+      "interactions": []
+    },
+    {
+      "effectId": "bd609333-3696-5c0b-849c-e4895fea610d",
+      "effectName": "Short-Circuit - Electroscorpion",
       "effectTags": [],
       "exclusiveDollId": null,
       "exclusiveDollName": null,
@@ -53065,15 +53074,6 @@
           "ownerDollName": null
         }
       ],
-      "interactions": []
-    },
-    {
-      "effectId": "bd609333-3696-5c0b-849c-e4895fea610d",
-      "effectName": "Short-Circuit - Electroscorpion",
-      "effectTags": [],
-      "exclusiveDollId": null,
-      "exclusiveDollName": null,
-      "sources": [],
       "interactions": []
     },
     {
@@ -53152,6 +53152,15 @@
       "interactions": []
     },
     {
+      "effectId": "284b46ab-ba63-5f0e-8906-e5350e4b13f4",
+      "effectName": "Short-Circuit - Serpent King",
+      "effectTags": [],
+      "exclusiveDollId": null,
+      "exclusiveDollName": null,
+      "sources": [],
+      "interactions": []
+    },
+    {
       "effectId": "03bcd88f-9c9d-528a-8f57-007f05fc9ce6",
       "effectName": "Short-Circuit - Serpent King",
       "effectTags": [],
@@ -53168,15 +53177,6 @@
           "ownerDollName": null
         }
       ],
-      "interactions": []
-    },
-    {
-      "effectId": "284b46ab-ba63-5f0e-8906-e5350e4b13f4",
-      "effectName": "Short-Circuit - Serpent King",
-      "effectTags": [],
-      "exclusiveDollId": null,
-      "exclusiveDollName": null,
-      "sources": [],
       "interactions": []
     },
     {
@@ -53960,6 +53960,15 @@
       "interactions": []
     },
     {
+      "effectId": "b4c2013d-a93d-548d-a9a4-4ecccb4ce6c2",
+      "effectName": "Small Shield",
+      "effectTags": [],
+      "exclusiveDollId": null,
+      "exclusiveDollName": null,
+      "sources": [],
+      "interactions": []
+    },
+    {
       "effectId": "2f5d9e84-10a5-5163-963a-f42e202a7568",
       "effectName": "Small Shield",
       "effectTags": [],
@@ -53980,15 +53989,6 @@
     },
     {
       "effectId": "5ddaaddf-dd9d-5675-9054-e343a7a9048d",
-      "effectName": "Small Shield",
-      "effectTags": [],
-      "exclusiveDollId": null,
-      "exclusiveDollName": null,
-      "sources": [],
-      "interactions": []
-    },
-    {
-      "effectId": "b4c2013d-a93d-548d-a9a4-4ecccb4ce6c2",
       "effectName": "Small Shield",
       "effectTags": [],
       "exclusiveDollId": null,
@@ -54533,6 +54533,15 @@
       "interactions": []
     },
     {
+      "effectId": "18af7f2b-6a9e-5cd2-a03a-c75817b5a51c",
+      "effectName": "Spotlight",
+      "effectTags": [],
+      "exclusiveDollId": null,
+      "exclusiveDollName": null,
+      "sources": [],
+      "interactions": []
+    },
+    {
       "effectId": "bd682562-098b-563f-80c9-81c27d41fee6",
       "effectName": "Spotlight",
       "effectTags": [],
@@ -54570,15 +54579,6 @@
     },
     {
       "effectId": "144bdeba-d2eb-5901-ac09-7d4b3124b085",
-      "effectName": "Spotlight",
-      "effectTags": [],
-      "exclusiveDollId": null,
-      "exclusiveDollName": null,
-      "sources": [],
-      "interactions": []
-    },
-    {
-      "effectId": "18af7f2b-6a9e-5cd2-a03a-c75817b5a51c",
       "effectName": "Spotlight",
       "effectTags": [],
       "exclusiveDollId": null,
@@ -55243,7 +55243,7 @@
       "interactions": []
     },
     {
-      "effectId": "b35ecff7-19cb-5e8b-81e8-edd1b469477d",
+      "effectId": "a50dfff9-4838-54e5-973f-55b16114259a",
       "effectName": "Stability Pursuit",
       "effectTags": [],
       "exclusiveDollId": null,
@@ -55252,7 +55252,7 @@
       "interactions": []
     },
     {
-      "effectId": "a50dfff9-4838-54e5-973f-55b16114259a",
+      "effectId": "b35ecff7-19cb-5e8b-81e8-edd1b469477d",
       "effectName": "Stability Pursuit",
       "effectTags": [],
       "exclusiveDollId": null,
@@ -55306,20 +55306,20 @@
       "interactions": []
     },
     {
-      "effectId": "b3cbef5e-2a95-5322-ae95-27c9f076cef2",
-      "effectName": "Stability Regen",
-      "effectTags": [],
-      "exclusiveDollId": "f415e5f0-2358-567d-956e-187948a8e40a",
-      "exclusiveDollName": "Colphne",
-      "sources": [],
-      "interactions": []
-    },
-    {
       "effectId": "70c3b224-bcba-51a4-a34d-bcf968ce8465",
       "effectName": "Stability Regen",
       "effectTags": [],
       "exclusiveDollId": null,
       "exclusiveDollName": null,
+      "sources": [],
+      "interactions": []
+    },
+    {
+      "effectId": "b3cbef5e-2a95-5322-ae95-27c9f076cef2",
+      "effectName": "Stability Regen",
+      "effectTags": [],
+      "exclusiveDollId": "f415e5f0-2358-567d-956e-187948a8e40a",
+      "exclusiveDollName": "Colphne",
       "sources": [],
       "interactions": []
     },
@@ -55360,7 +55360,7 @@
       "interactions": []
     },
     {
-      "effectId": "f46c2f21-4660-5912-aed0-31187c434148",
+      "effectId": "b8f8b7d4-ad25-5c37-bdc9-5ae040b1ca8f",
       "effectName": "Stage Awakening",
       "effectTags": [],
       "exclusiveDollId": null,
@@ -55369,7 +55369,7 @@
       "interactions": []
     },
     {
-      "effectId": "b8f8b7d4-ad25-5c37-bdc9-5ae040b1ca8f",
+      "effectId": "f46c2f21-4660-5912-aed0-31187c434148",
       "effectName": "Stage Awakening",
       "effectTags": [],
       "exclusiveDollId": null,
@@ -55645,8 +55645,26 @@
           "effectName": "Observation Advantage",
           "ownerDollId": "99085e2d-963f-5322-b460-0b4841e08cb1",
           "ownerDollName": "Tololo"
+        },
+        {
+          "kind": "effect",
+          "relation": "mentions",
+          "snippet": "Prioritised as the attack target by [effect:71fd529a-d0c1-58e3-af8a-a0e1f796df53]",
+          "effectId": "6c151fbd-6a08-5aee-9aa6-52f907d64b71",
+          "effectName": "Gravitational Mark",
+          "ownerDollId": "99085e2d-963f-5322-b460-0b4841e08cb1",
+          "ownerDollName": "Tololo"
         }
       ]
+    },
+    {
+      "effectId": "59d57970-f113-5e0f-817b-2b1fd971432b",
+      "effectName": "Steady",
+      "effectTags": [],
+      "exclusiveDollId": null,
+      "exclusiveDollName": null,
+      "sources": [],
+      "interactions": []
     },
     {
       "effectId": "20c22306-c7a4-5340-884c-54a54473ae80",
@@ -55706,15 +55724,6 @@
       ]
     },
     {
-      "effectId": "59d57970-f113-5e0f-817b-2b1fd971432b",
-      "effectName": "Steady",
-      "effectTags": [],
-      "exclusiveDollId": null,
-      "exclusiveDollName": null,
-      "sources": [],
-      "interactions": []
-    },
-    {
       "effectId": "a2fc621d-8169-5625-a913-5ffaf331aa8d",
       "effectName": "Steady",
       "effectTags": [],
@@ -55767,98 +55776,6 @@
           "skillId": "10340801",
           "skillName": "Battlefield Insight",
           "skillType": "Passive"
-        }
-      ],
-      "interactions": []
-    },
-    {
-      "effectId": "c055d4b2-ce58-51f2-8863-58541d9e0580",
-      "effectName": "Stealth",
-      "effectTags": [],
-      "exclusiveDollId": "99362148-bc71-519f-ac45-44a115cd1bec",
-      "exclusiveDollName": "Leva",
-      "sources": [
-        {
-          "kind": "key",
-          "relation": "gains",
-          "snippet": "After using the active skill [effect:99d90c97-eb35-5b60-97b8-9c5871649521], Leva gains [effect:c055d4b2-ce58-51f2-8863-58541d9e0580] for <span style=\"color: rgb(242, 108, 28)",
-          "keyId": "9b9a4263-48a3-589d-8648-281fae8a5d2a",
-          "keyTitle": "Fixed Key - Concealment Plan",
-          "keyType": "Fixed Key",
-          "level": 4,
-          "dollId": "99362148-bc71-519f-ac45-44a115cd1bec",
-          "dollName": "Leva"
-        }
-      ],
-      "interactions": []
-    },
-    {
-      "effectId": "b402ad48-30c8-5820-b067-897a34b5a962",
-      "effectName": "Stealth",
-      "effectTags": [],
-      "exclusiveDollId": "99362148-bc71-519f-ac45-44a115cd1bec",
-      "exclusiveDollName": "Leva",
-      "sources": [],
-      "interactions": []
-    },
-    {
-      "effectId": "b9b7429e-e281-53cc-9c7d-e06cbd87e36e",
-      "effectName": "Stealth",
-      "effectTags": [],
-      "exclusiveDollId": "f217222b-ce2c-5ad1-9165-6c8ec94aab9b",
-      "exclusiveDollName": "Sextans",
-      "sources": [],
-      "interactions": []
-    },
-    {
-      "effectId": "39a2cb03-7e3f-521b-925e-adccc4bbdc5e",
-      "effectName": "Stealth",
-      "effectTags": [],
-      "exclusiveDollId": "e3d25747-0dc5-5cef-9c7a-e12f06115e03",
-      "exclusiveDollName": "Nemesis: Gnosis",
-      "sources": [
-        {
-          "kind": "key",
-          "relation": "gains",
-          "snippet": "Upon gaining [effect:938ce4a2-ef22-5eb4-8592-3951fda8a003], gain [effect:39a2cb03-7e3f-521b-925e-adccc4bbdc5e] for <span style=\"color: rgb(242, 108, 28)",
-          "keyId": "d457883f-5f93-5cef-ab6f-5505f82a5450",
-          "keyTitle": "Fixed Key - Drifter's Instinct",
-          "keyType": "Fixed Key",
-          "level": 3,
-          "dollId": "e3d25747-0dc5-5cef-9c7a-e12f06115e03",
-          "dollName": "Nemesis: Gnosis"
-        }
-      ],
-      "interactions": []
-    },
-    {
-      "effectId": "38c20e54-dc68-5e40-ae68-5f6a9e8b25d4",
-      "effectName": "Stealth",
-      "effectTags": [],
-      "exclusiveDollId": "e3d25747-0dc5-5cef-9c7a-e12f06115e03",
-      "exclusiveDollName": "Nemesis: Gnosis",
-      "sources": [],
-      "interactions": []
-    },
-    {
-      "effectId": "379bb8ec-99d9-5f9e-931a-db14c817fa29",
-      "effectName": "Stealth",
-      "effectTags": [],
-      "exclusiveDollId": "f217222b-ce2c-5ad1-9165-6c8ec94aab9b",
-      "exclusiveDollName": "Sextans",
-      "sources": [
-        {
-          "kind": "skill",
-          "relation": "gains",
-          "levels": [
-            3
-          ],
-          "snippet": "In addition, Sextans gains [effect:379bb8ec-99d9-5f9e-931a-db14c817fa29] for 2 turns",
-          "dollId": "f217222b-ce2c-5ad1-9165-6c8ec94aab9b",
-          "dollName": "Sextans",
-          "skillId": "10730401",
-          "skillName": "Midnight Vespers",
-          "skillType": "Ultimate"
         }
       ],
       "interactions": []
@@ -55931,6 +55848,98 @@
           "skillType": "Ultimate"
         }
       ],
+      "interactions": []
+    },
+    {
+      "effectId": "39a2cb03-7e3f-521b-925e-adccc4bbdc5e",
+      "effectName": "Stealth",
+      "effectTags": [],
+      "exclusiveDollId": "e3d25747-0dc5-5cef-9c7a-e12f06115e03",
+      "exclusiveDollName": "Nemesis: Gnosis",
+      "sources": [
+        {
+          "kind": "key",
+          "relation": "gains",
+          "snippet": "Upon gaining [effect:938ce4a2-ef22-5eb4-8592-3951fda8a003], gain [effect:39a2cb03-7e3f-521b-925e-adccc4bbdc5e] for <span style=\"color: rgb(242, 108, 28)",
+          "keyId": "d457883f-5f93-5cef-ab6f-5505f82a5450",
+          "keyTitle": "Fixed Key - Drifter's Instinct",
+          "keyType": "Fixed Key",
+          "level": 3,
+          "dollId": "e3d25747-0dc5-5cef-9c7a-e12f06115e03",
+          "dollName": "Nemesis: Gnosis"
+        }
+      ],
+      "interactions": []
+    },
+    {
+      "effectId": "379bb8ec-99d9-5f9e-931a-db14c817fa29",
+      "effectName": "Stealth",
+      "effectTags": [],
+      "exclusiveDollId": "f217222b-ce2c-5ad1-9165-6c8ec94aab9b",
+      "exclusiveDollName": "Sextans",
+      "sources": [
+        {
+          "kind": "skill",
+          "relation": "gains",
+          "levels": [
+            3
+          ],
+          "snippet": "In addition, Sextans gains [effect:379bb8ec-99d9-5f9e-931a-db14c817fa29] for 2 turns",
+          "dollId": "f217222b-ce2c-5ad1-9165-6c8ec94aab9b",
+          "dollName": "Sextans",
+          "skillId": "10730401",
+          "skillName": "Midnight Vespers",
+          "skillType": "Ultimate"
+        }
+      ],
+      "interactions": []
+    },
+    {
+      "effectId": "c055d4b2-ce58-51f2-8863-58541d9e0580",
+      "effectName": "Stealth",
+      "effectTags": [],
+      "exclusiveDollId": "99362148-bc71-519f-ac45-44a115cd1bec",
+      "exclusiveDollName": "Leva",
+      "sources": [
+        {
+          "kind": "key",
+          "relation": "gains",
+          "snippet": "After using the active skill [effect:99d90c97-eb35-5b60-97b8-9c5871649521], Leva gains [effect:c055d4b2-ce58-51f2-8863-58541d9e0580] for <span style=\"color: rgb(242, 108, 28)",
+          "keyId": "9b9a4263-48a3-589d-8648-281fae8a5d2a",
+          "keyTitle": "Fixed Key - Concealment Plan",
+          "keyType": "Fixed Key",
+          "level": 4,
+          "dollId": "99362148-bc71-519f-ac45-44a115cd1bec",
+          "dollName": "Leva"
+        }
+      ],
+      "interactions": []
+    },
+    {
+      "effectId": "b402ad48-30c8-5820-b067-897a34b5a962",
+      "effectName": "Stealth",
+      "effectTags": [],
+      "exclusiveDollId": "99362148-bc71-519f-ac45-44a115cd1bec",
+      "exclusiveDollName": "Leva",
+      "sources": [],
+      "interactions": []
+    },
+    {
+      "effectId": "b9b7429e-e281-53cc-9c7d-e06cbd87e36e",
+      "effectName": "Stealth",
+      "effectTags": [],
+      "exclusiveDollId": "f217222b-ce2c-5ad1-9165-6c8ec94aab9b",
+      "exclusiveDollName": "Sextans",
+      "sources": [],
+      "interactions": []
+    },
+    {
+      "effectId": "38c20e54-dc68-5e40-ae68-5f6a9e8b25d4",
+      "effectName": "Stealth",
+      "effectTags": [],
+      "exclusiveDollId": "e3d25747-0dc5-5cef-9c7a-e12f06115e03",
+      "exclusiveDollName": "Nemesis: Gnosis",
+      "sources": [],
       "interactions": []
     },
     {
@@ -56289,7 +56298,7 @@
       "interactions": []
     },
     {
-      "effectId": "7e3de724-fd69-56f8-a00d-e6afff9b0d2d",
+      "effectId": "0574dc5e-1459-507a-93a9-e207c4ea3a5f",
       "effectName": "Strategic Realignment",
       "effectTags": [],
       "exclusiveDollId": "1cbe0f37-3803-56c8-bfc5-220c23baaa98",
@@ -56298,7 +56307,7 @@
       "interactions": []
     },
     {
-      "effectId": "0574dc5e-1459-507a-93a9-e207c4ea3a5f",
+      "effectId": "7e3de724-fd69-56f8-a00d-e6afff9b0d2d",
       "effectName": "Strategic Realignment",
       "effectTags": [],
       "exclusiveDollId": "1cbe0f37-3803-56c8-bfc5-220c23baaa98",
@@ -56608,98 +56617,6 @@
       "exclusiveDollName": null,
       "sources": [],
       "interactions": []
-    },
-    {
-      "effectId": "d63da5c2-fa6c-5343-86fe-ff59b704899f",
-      "effectName": "Stun",
-      "effectTags": [],
-      "exclusiveDollId": null,
-      "exclusiveDollName": null,
-      "sources": [
-        {
-          "kind": "effect",
-          "relation": "applies",
-          "snippet": "At the end of the action, applies 1 of the following effects (randomly chosen from the following: [effect:acfbef98-bf41-52ef-8220-44e21a544ebc], [effect:199b2cfe-0eec-54eb-a010-48879ce5c3f7], [effect:7cbdfffe-1142-58f8-975d-ad427f1bbe84], or [effect:d63da5c2-fa6c-5343-86fe-ff59b704899f]) to 2 ran…",
-          "effectId": "da74edd3-d8c0-56ae-b364-2ef131b94c8f",
-          "effectName": "Master's Wordplay",
-          "ownerDollId": null,
-          "ownerDollName": null
-        }
-      ],
-      "interactions": []
-    },
-    {
-      "effectId": "447ad7ce-e3cf-51f7-9c3d-96bfd07de9fa",
-      "effectName": "Stun",
-      "effectTags": [],
-      "exclusiveDollId": null,
-      "exclusiveDollName": null,
-      "sources": [],
-      "interactions": [
-        {
-          "kind": "effect",
-          "relation": "conditional",
-          "snippet": "Immune to damage and gains [effect:447ad7ce-e3cf-51f7-9c3d-96bfd07de9fa] during Stability Break for 3 turns",
-          "effectId": "30310998-72e3-58f8-8c2b-72fdcf93f10a",
-          "effectName": "Black Rook",
-          "ownerDollId": null,
-          "ownerDollName": null
-        },
-        {
-          "kind": "effect",
-          "relation": "conditional",
-          "snippet": "Immune to damage and gains [effect:447ad7ce-e3cf-51f7-9c3d-96bfd07de9fa] during Stability Break for 3 turns",
-          "effectId": "3c4753ec-9117-5b13-9d17-749bca701fbb",
-          "effectName": "White Rook",
-          "ownerDollId": null,
-          "ownerDollName": null
-        },
-        {
-          "kind": "effect",
-          "relation": "conditional",
-          "snippet": "Immune to damage and gains [effect:447ad7ce-e3cf-51f7-9c3d-96bfd07de9fa] during Stability Break for 3 turns",
-          "effectId": "3ef5263f-752b-53a9-aeea-dc62d65a26a5",
-          "effectName": "White Pawn",
-          "ownerDollId": null,
-          "ownerDollName": null
-        },
-        {
-          "kind": "effect",
-          "relation": "conditional",
-          "snippet": "Immune to damage and gains [effect:447ad7ce-e3cf-51f7-9c3d-96bfd07de9fa] during Stability Break for 3 turns",
-          "effectId": "586df97f-153d-5b18-9278-f14a90586354",
-          "effectName": "White Knight",
-          "ownerDollId": null,
-          "ownerDollName": null
-        },
-        {
-          "kind": "effect",
-          "relation": "conditional",
-          "snippet": "Immune to damage and gains [effect:447ad7ce-e3cf-51f7-9c3d-96bfd07de9fa] during Stability Break for 3 turns",
-          "effectId": "73b661e4-91c8-5ef4-bc4b-8fa0903932e6",
-          "effectName": "White Bishop",
-          "ownerDollId": null,
-          "ownerDollName": null
-        },
-        {
-          "kind": "effect",
-          "relation": "conditional",
-          "snippet": "Immune to damage and gains [effect:447ad7ce-e3cf-51f7-9c3d-96bfd07de9fa] during Stability Break for 3 turns",
-          "effectId": "7c5358b2-c233-5f0b-b4a7-5333cd7081c8",
-          "effectName": "Black Bishop",
-          "ownerDollId": null,
-          "ownerDollName": null
-        },
-        {
-          "kind": "effect",
-          "relation": "conditional",
-          "snippet": "Immune to damage and gains [effect:447ad7ce-e3cf-51f7-9c3d-96bfd07de9fa] during Stability Break for 3 turns",
-          "effectId": "f54de481-4494-57ee-8488-ea5d0d236598",
-          "effectName": "Black Knight",
-          "ownerDollId": null,
-          "ownerDollName": null
-        }
-      ]
     },
     {
       "effectId": "8bb22f8c-aac5-568e-a7ce-7b0a4703e672",
@@ -57163,7 +57080,7 @@
       ]
     },
     {
-      "effectId": "508f188c-fab4-5957-a11a-9082832d44c8",
+      "effectId": "a19667a9-3a59-5a8b-af0d-645b157b237e",
       "effectName": "Stun",
       "effectTags": [],
       "exclusiveDollId": null,
@@ -57172,13 +57089,96 @@
       "interactions": []
     },
     {
-      "effectId": "a19667a9-3a59-5a8b-af0d-645b157b237e",
+      "effectId": "d63da5c2-fa6c-5343-86fe-ff59b704899f",
+      "effectName": "Stun",
+      "effectTags": [],
+      "exclusiveDollId": null,
+      "exclusiveDollName": null,
+      "sources": [
+        {
+          "kind": "effect",
+          "relation": "applies",
+          "snippet": "At the end of the action, applies 1 of the following effects (randomly chosen from the following: [effect:acfbef98-bf41-52ef-8220-44e21a544ebc], [effect:199b2cfe-0eec-54eb-a010-48879ce5c3f7], [effect:7cbdfffe-1142-58f8-975d-ad427f1bbe84], or [effect:d63da5c2-fa6c-5343-86fe-ff59b704899f]) to 2 ran…",
+          "effectId": "da74edd3-d8c0-56ae-b364-2ef131b94c8f",
+          "effectName": "Master's Wordplay",
+          "ownerDollId": null,
+          "ownerDollName": null
+        }
+      ],
+      "interactions": []
+    },
+    {
+      "effectId": "447ad7ce-e3cf-51f7-9c3d-96bfd07de9fa",
       "effectName": "Stun",
       "effectTags": [],
       "exclusiveDollId": null,
       "exclusiveDollName": null,
       "sources": [],
-      "interactions": []
+      "interactions": [
+        {
+          "kind": "effect",
+          "relation": "conditional",
+          "snippet": "Immune to damage and gains [effect:447ad7ce-e3cf-51f7-9c3d-96bfd07de9fa] during Stability Break for 3 turns",
+          "effectId": "30310998-72e3-58f8-8c2b-72fdcf93f10a",
+          "effectName": "Black Rook",
+          "ownerDollId": null,
+          "ownerDollName": null
+        },
+        {
+          "kind": "effect",
+          "relation": "conditional",
+          "snippet": "Immune to damage and gains [effect:447ad7ce-e3cf-51f7-9c3d-96bfd07de9fa] during Stability Break for 3 turns",
+          "effectId": "3c4753ec-9117-5b13-9d17-749bca701fbb",
+          "effectName": "White Rook",
+          "ownerDollId": null,
+          "ownerDollName": null
+        },
+        {
+          "kind": "effect",
+          "relation": "conditional",
+          "snippet": "Immune to damage and gains [effect:447ad7ce-e3cf-51f7-9c3d-96bfd07de9fa] during Stability Break for 3 turns",
+          "effectId": "3ef5263f-752b-53a9-aeea-dc62d65a26a5",
+          "effectName": "White Pawn",
+          "ownerDollId": null,
+          "ownerDollName": null
+        },
+        {
+          "kind": "effect",
+          "relation": "conditional",
+          "snippet": "Immune to damage and gains [effect:447ad7ce-e3cf-51f7-9c3d-96bfd07de9fa] during Stability Break for 3 turns",
+          "effectId": "586df97f-153d-5b18-9278-f14a90586354",
+          "effectName": "White Knight",
+          "ownerDollId": null,
+          "ownerDollName": null
+        },
+        {
+          "kind": "effect",
+          "relation": "conditional",
+          "snippet": "Immune to damage and gains [effect:447ad7ce-e3cf-51f7-9c3d-96bfd07de9fa] during Stability Break for 3 turns",
+          "effectId": "73b661e4-91c8-5ef4-bc4b-8fa0903932e6",
+          "effectName": "White Bishop",
+          "ownerDollId": null,
+          "ownerDollName": null
+        },
+        {
+          "kind": "effect",
+          "relation": "conditional",
+          "snippet": "Immune to damage and gains [effect:447ad7ce-e3cf-51f7-9c3d-96bfd07de9fa] during Stability Break for 3 turns",
+          "effectId": "7c5358b2-c233-5f0b-b4a7-5333cd7081c8",
+          "effectName": "Black Bishop",
+          "ownerDollId": null,
+          "ownerDollName": null
+        },
+        {
+          "kind": "effect",
+          "relation": "conditional",
+          "snippet": "Immune to damage and gains [effect:447ad7ce-e3cf-51f7-9c3d-96bfd07de9fa] during Stability Break for 3 turns",
+          "effectId": "f54de481-4494-57ee-8488-ea5d0d236598",
+          "effectName": "Black Knight",
+          "ownerDollId": null,
+          "ownerDollName": null
+        }
+      ]
     },
     {
       "effectId": "d6ad4b99-9fb9-5452-a1f3-d5755d8dc537",
@@ -57283,6 +57283,15 @@
       "interactions": []
     },
     {
+      "effectId": "508f188c-fab4-5957-a11a-9082832d44c8",
+      "effectName": "Stun",
+      "effectTags": [],
+      "exclusiveDollId": null,
+      "exclusiveDollName": null,
+      "sources": [],
+      "interactions": []
+    },
+    {
       "effectId": "63c5dd72-57ea-5bcb-b6e6-f28eeba5382d",
       "effectName": "Stun",
       "effectTags": [],
@@ -57330,6 +57339,51 @@
       "effectTags": [],
       "exclusiveDollId": "ae1f0285-d861-5444-89d4-3cbb2820dcff",
       "exclusiveDollName": "Mityl",
+      "sources": [],
+      "interactions": []
+    },
+    {
+      "effectId": "fc18a613-ce4c-576b-9182-95a622dedbcf",
+      "effectName": "Sturdy Guardian",
+      "effectTags": [],
+      "exclusiveDollId": null,
+      "exclusiveDollName": null,
+      "sources": [],
+      "interactions": []
+    },
+    {
+      "effectId": "35db934d-6c4d-5a69-8419-a2449f9a94b0",
+      "effectName": "Sturdy Guardian",
+      "effectTags": [],
+      "exclusiveDollId": null,
+      "exclusiveDollName": null,
+      "sources": [],
+      "interactions": []
+    },
+    {
+      "effectId": "9714f533-d4ed-5acd-b17e-e84953ed5a32",
+      "effectName": "Sturdy Guardian",
+      "effectTags": [],
+      "exclusiveDollId": null,
+      "exclusiveDollName": null,
+      "sources": [],
+      "interactions": []
+    },
+    {
+      "effectId": "1303a72a-ddfd-5780-9dd1-7185d91de4fc",
+      "effectName": "Sturdy Guardian",
+      "effectTags": [],
+      "exclusiveDollId": null,
+      "exclusiveDollName": null,
+      "sources": [],
+      "interactions": []
+    },
+    {
+      "effectId": "7a5ec63d-d68c-5fb1-8109-638c5674fab1",
+      "effectName": "Sturdy Guardian",
+      "effectTags": [],
+      "exclusiveDollId": null,
+      "exclusiveDollName": null,
       "sources": [],
       "interactions": []
     },
@@ -57389,51 +57443,6 @@
     },
     {
       "effectId": "3603ad2a-fc53-5b2d-9a71-12a29cc05d59",
-      "effectName": "Sturdy Guardian",
-      "effectTags": [],
-      "exclusiveDollId": null,
-      "exclusiveDollName": null,
-      "sources": [],
-      "interactions": []
-    },
-    {
-      "effectId": "fc18a613-ce4c-576b-9182-95a622dedbcf",
-      "effectName": "Sturdy Guardian",
-      "effectTags": [],
-      "exclusiveDollId": null,
-      "exclusiveDollName": null,
-      "sources": [],
-      "interactions": []
-    },
-    {
-      "effectId": "35db934d-6c4d-5a69-8419-a2449f9a94b0",
-      "effectName": "Sturdy Guardian",
-      "effectTags": [],
-      "exclusiveDollId": null,
-      "exclusiveDollName": null,
-      "sources": [],
-      "interactions": []
-    },
-    {
-      "effectId": "9714f533-d4ed-5acd-b17e-e84953ed5a32",
-      "effectName": "Sturdy Guardian",
-      "effectTags": [],
-      "exclusiveDollId": null,
-      "exclusiveDollName": null,
-      "sources": [],
-      "interactions": []
-    },
-    {
-      "effectId": "1303a72a-ddfd-5780-9dd1-7185d91de4fc",
-      "effectName": "Sturdy Guardian",
-      "effectTags": [],
-      "exclusiveDollId": null,
-      "exclusiveDollName": null,
-      "sources": [],
-      "interactions": []
-    },
-    {
-      "effectId": "7a5ec63d-d68c-5fb1-8109-638c5674fab1",
       "effectName": "Sturdy Guardian",
       "effectTags": [],
       "exclusiveDollId": null,
@@ -57583,7 +57592,7 @@
       ]
     },
     {
-      "effectId": "1f7b0167-93e1-5aba-a5ee-c1c0ae946dc6",
+      "effectId": "e6a5ba4e-a4b4-54db-ac74-582b5974e8d1",
       "effectName": "Sufficient Energy",
       "effectTags": [],
       "exclusiveDollId": null,
@@ -57592,7 +57601,7 @@
       "interactions": []
     },
     {
-      "effectId": "e6a5ba4e-a4b4-54db-ac74-582b5974e8d1",
+      "effectId": "1f7b0167-93e1-5aba-a5ee-c1c0ae946dc6",
       "effectName": "Sufficient Energy",
       "effectTags": [],
       "exclusiveDollId": null,
@@ -58903,7 +58912,7 @@
       "interactions": []
     },
     {
-      "effectId": "c19826df-bc8d-5622-a461-6cb4b6010e5e",
+      "effectId": "e235e029-03bd-5df9-9bb7-27d08532e607",
       "effectName": "Suppress",
       "effectTags": [],
       "exclusiveDollId": null,
@@ -58912,7 +58921,7 @@
       "interactions": []
     },
     {
-      "effectId": "e235e029-03bd-5df9-9bb7-27d08532e607",
+      "effectId": "c19826df-bc8d-5622-a461-6cb4b6010e5e",
       "effectName": "Suppress",
       "effectTags": [],
       "exclusiveDollId": null,
@@ -59241,6 +59250,15 @@
       "interactions": []
     },
     {
+      "effectId": "823c2aa2-12bb-5c84-8b38-2411d6ab9e5a",
+      "effectName": "Swamp",
+      "effectTags": [],
+      "exclusiveDollId": null,
+      "exclusiveDollName": null,
+      "sources": [],
+      "interactions": []
+    },
+    {
       "effectId": "45a974e1-2e3c-5377-865f-544b4665d394",
       "effectName": "Swamp",
       "effectTags": [],
@@ -59261,15 +59279,6 @@
     },
     {
       "effectId": "a7754d83-9ad7-53d2-80b4-e4d523b273ef",
-      "effectName": "Swamp",
-      "effectTags": [],
-      "exclusiveDollId": null,
-      "exclusiveDollName": null,
-      "sources": [],
-      "interactions": []
-    },
-    {
-      "effectId": "823c2aa2-12bb-5c84-8b38-2411d6ab9e5a",
       "effectName": "Swamp",
       "effectTags": [],
       "exclusiveDollId": null,
@@ -59514,6 +59523,15 @@
       "interactions": []
     },
     {
+      "effectId": "eabd42f1-1fda-5be2-ab18-f3096930f04a",
+      "effectName": "Swiftness",
+      "effectTags": [],
+      "exclusiveDollId": null,
+      "exclusiveDollName": null,
+      "sources": [],
+      "interactions": []
+    },
+    {
       "effectId": "1ab83940-c991-5433-9c01-f004aa5df407",
       "effectName": "Swiftness",
       "effectTags": [],
@@ -59533,15 +59551,6 @@
       "interactions": []
     },
     {
-      "effectId": "eabd42f1-1fda-5be2-ab18-f3096930f04a",
-      "effectName": "Swiftness",
-      "effectTags": [],
-      "exclusiveDollId": null,
-      "exclusiveDollName": null,
-      "sources": [],
-      "interactions": []
-    },
-    {
       "effectId": "6dae5e1c-0126-569c-a8d3-fa70afdb9a9d",
       "effectName": "Sync",
       "effectTags": [],
@@ -59552,6 +59561,15 @@
     },
     {
       "effectId": "37e0d3a3-e602-5dfc-a622-57a168a2b6f7",
+      "effectName": "Sync",
+      "effectTags": [],
+      "exclusiveDollId": "ac6fa408-f95c-57f2-a250-a264166efb29",
+      "exclusiveDollName": "Asteria",
+      "sources": [],
+      "interactions": []
+    },
+    {
+      "effectId": "6c6f5449-032c-59f9-8995-8ba0f354540e",
       "effectName": "Sync",
       "effectTags": [],
       "exclusiveDollId": "ac6fa408-f95c-57f2-a250-a264166efb29",
@@ -59617,15 +59635,6 @@
       ]
     },
     {
-      "effectId": "6c6f5449-032c-59f9-8995-8ba0f354540e",
-      "effectName": "Sync",
-      "effectTags": [],
-      "exclusiveDollId": "ac6fa408-f95c-57f2-a250-a264166efb29",
-      "exclusiveDollName": "Asteria",
-      "sources": [],
-      "interactions": []
-    },
-    {
       "effectId": "a33d4577-a778-50ea-9f91-73e66186dbb9",
       "effectName": "Synchrony",
       "effectTags": [],
@@ -59653,7 +59662,7 @@
       "interactions": []
     },
     {
-      "effectId": "52946e4a-bb6e-5673-aa27-d91091646829",
+      "effectId": "fd756885-6da4-5330-b02a-aaf4586d9b66",
       "effectName": "System Linkage",
       "effectTags": [],
       "exclusiveDollId": null,
@@ -59662,7 +59671,16 @@
       "interactions": []
     },
     {
-      "effectId": "fd756885-6da4-5330-b02a-aaf4586d9b66",
+      "effectId": "33f74946-7c65-5ffb-9756-f5f214cd1eed",
+      "effectName": "System Linkage",
+      "effectTags": [],
+      "exclusiveDollId": null,
+      "exclusiveDollName": null,
+      "sources": [],
+      "interactions": []
+    },
+    {
+      "effectId": "52946e4a-bb6e-5673-aa27-d91091646829",
       "effectName": "System Linkage",
       "effectTags": [],
       "exclusiveDollId": null,
@@ -59681,15 +59699,6 @@
     },
     {
       "effectId": "6c04a617-7379-59e4-830e-bdeb057aa75c",
-      "effectName": "System Linkage",
-      "effectTags": [],
-      "exclusiveDollId": null,
-      "exclusiveDollName": null,
-      "sources": [],
-      "interactions": []
-    },
-    {
-      "effectId": "33f74946-7c65-5ffb-9756-f5f214cd1eed",
       "effectName": "System Linkage",
       "effectTags": [],
       "exclusiveDollId": null,
@@ -60202,6 +60211,29 @@
       "interactions": []
     },
     {
+      "effectId": "1dc27f7b-f01b-5033-8088-c8612a05333a",
+      "effectName": "Taunt",
+      "effectTags": [],
+      "exclusiveDollId": "c8395bba-8c62-50df-a395-c860f8056e31",
+      "exclusiveDollName": "Koleda",
+      "sources": [],
+      "interactions": [
+        {
+          "kind": "summon-skill",
+          "relation": "conditional",
+          "levels": [
+            1
+          ],
+          "snippet": "immune to [effect:63c5dd72-57ea-5bcb-b6e6-f28eeba5382d], [effect:1dc27f7b-f01b-5033-8088-c8612a05333a], [effect:9ee68357-e26b-5142-9172-41202edc4703], displacement and movement debuffs",
+          "dollId": "c8395bba-8c62-50df-a395-c860f8056e31",
+          "dollName": "Koleda",
+          "summonName": "The Sinner",
+          "skillName": "Gear Shift",
+          "skillType": null
+        }
+      ]
+    },
+    {
       "effectId": "c1ae8249-3470-5d86-8e91-a4ce9c1f9147",
       "effectName": "Taunt",
       "effectTags": [],
@@ -60600,29 +60632,6 @@
         }
       ],
       "interactions": []
-    },
-    {
-      "effectId": "1dc27f7b-f01b-5033-8088-c8612a05333a",
-      "effectName": "Taunt",
-      "effectTags": [],
-      "exclusiveDollId": "c8395bba-8c62-50df-a395-c860f8056e31",
-      "exclusiveDollName": "Koleda",
-      "sources": [],
-      "interactions": [
-        {
-          "kind": "summon-skill",
-          "relation": "conditional",
-          "levels": [
-            1
-          ],
-          "snippet": "immune to [effect:63c5dd72-57ea-5bcb-b6e6-f28eeba5382d], [effect:1dc27f7b-f01b-5033-8088-c8612a05333a], [effect:9ee68357-e26b-5142-9172-41202edc4703], displacement and movement debuffs",
-          "dollId": "c8395bba-8c62-50df-a395-c860f8056e31",
-          "dollName": "Koleda",
-          "summonName": "The Sinner",
-          "skillName": "Gear Shift",
-          "skillType": null
-        }
-      ]
     },
     {
       "effectId": "df20e61a-edd6-52f1-a1cb-408e739cfd4d",
@@ -61279,7 +61288,7 @@
       "interactions": []
     },
     {
-      "effectId": "f2586366-c487-5a0f-8e13-257f3b94ae91",
+      "effectId": "80cbc808-0b52-5800-a422-a01c505e87be",
       "effectName": "Thermal Progression Advancement",
       "effectTags": [],
       "exclusiveDollId": null,
@@ -61288,7 +61297,7 @@
       "interactions": []
     },
     {
-      "effectId": "80cbc808-0b52-5800-a422-a01c505e87be",
+      "effectId": "f2586366-c487-5a0f-8e13-257f3b94ae91",
       "effectName": "Thermal Progression Advancement",
       "effectTags": [],
       "exclusiveDollId": null,
@@ -61588,6 +61597,15 @@
       "interactions": []
     },
     {
+      "effectId": "eac8fd31-96f3-538b-908f-739278a4a7e9",
+      "effectName": "Thunderpool",
+      "effectTags": [],
+      "exclusiveDollId": null,
+      "exclusiveDollName": null,
+      "sources": [],
+      "interactions": []
+    },
+    {
       "effectId": "e2812439-45ad-5b22-9e96-eeb632229e15",
       "effectName": "Thunderpool",
       "effectTags": [],
@@ -61605,15 +61623,6 @@
           "ownerDollName": null
         }
       ]
-    },
-    {
-      "effectId": "eac8fd31-96f3-538b-908f-739278a4a7e9",
-      "effectName": "Thunderpool",
-      "effectTags": [],
-      "exclusiveDollId": null,
-      "exclusiveDollName": null,
-      "sources": [],
-      "interactions": []
     },
     {
       "effectId": "53cf7768-0a1e-503b-b4ca-b1748b4f413b",
@@ -61672,7 +61681,7 @@
       "interactions": []
     },
     {
-      "effectId": "2a560fba-61dc-5659-9ceb-dec7bea800d8",
+      "effectId": "b8f2c50f-bb66-5e31-b35c-ccfccc355596",
       "effectName": "Tide of Battle",
       "effectTags": [],
       "exclusiveDollId": null,
@@ -61681,7 +61690,7 @@
       "interactions": []
     },
     {
-      "effectId": "b8f2c50f-bb66-5e31-b35c-ccfccc355596",
+      "effectId": "2a560fba-61dc-5659-9ceb-dec7bea800d8",
       "effectName": "Tide of Battle",
       "effectTags": [],
       "exclusiveDollId": null,
@@ -61876,6 +61885,15 @@
       "interactions": []
     },
     {
+      "effectId": "1628dea5-4628-599a-84b0-979692bc5a0b",
+      "effectName": "Timely Gift",
+      "effectTags": [],
+      "exclusiveDollId": null,
+      "exclusiveDollName": null,
+      "sources": [],
+      "interactions": []
+    },
+    {
       "effectId": "452a7520-408f-5e09-b7d1-544a67792a58",
       "effectName": "Timely Gift",
       "effectTags": [],
@@ -61921,16 +61939,34 @@
       "interactions": []
     },
     {
-      "effectId": "1628dea5-4628-599a-84b0-979692bc5a0b",
-      "effectName": "Timely Gift",
+      "effectId": "bb4772d4-7a28-52ca-97ee-ad78852b57d0",
+      "effectName": "Tin Soldier",
       "effectTags": [],
-      "exclusiveDollId": null,
-      "exclusiveDollName": null,
+      "exclusiveDollId": "91d16c70-f1c1-5924-a0e4-2ebeeef72e4c",
+      "exclusiveDollName": "Lewis",
       "sources": [],
       "interactions": []
     },
     {
-      "effectId": "bb4772d4-7a28-52ca-97ee-ad78852b57d0",
+      "effectId": "61f72647-ca0d-5b0e-9de9-36349479ba53",
+      "effectName": "Tin Soldier",
+      "effectTags": [],
+      "exclusiveDollId": "91d16c70-f1c1-5924-a0e4-2ebeeef72e4c",
+      "exclusiveDollName": "Lewis",
+      "sources": [],
+      "interactions": []
+    },
+    {
+      "effectId": "331601f7-8f00-56e9-9b46-f5bf599757a5",
+      "effectName": "Tin Soldier",
+      "effectTags": [],
+      "exclusiveDollId": "91d16c70-f1c1-5924-a0e4-2ebeeef72e4c",
+      "exclusiveDollName": "Lewis",
+      "sources": [],
+      "interactions": []
+    },
+    {
+      "effectId": "938bdf27-a670-5469-80bc-5fbb0470c5b9",
       "effectName": "Tin Soldier",
       "effectTags": [],
       "exclusiveDollId": "91d16c70-f1c1-5924-a0e4-2ebeeef72e4c",
@@ -62038,33 +62074,6 @@
           "skillType": "Passive"
         }
       ]
-    },
-    {
-      "effectId": "61f72647-ca0d-5b0e-9de9-36349479ba53",
-      "effectName": "Tin Soldier",
-      "effectTags": [],
-      "exclusiveDollId": "91d16c70-f1c1-5924-a0e4-2ebeeef72e4c",
-      "exclusiveDollName": "Lewis",
-      "sources": [],
-      "interactions": []
-    },
-    {
-      "effectId": "331601f7-8f00-56e9-9b46-f5bf599757a5",
-      "effectName": "Tin Soldier",
-      "effectTags": [],
-      "exclusiveDollId": "91d16c70-f1c1-5924-a0e4-2ebeeef72e4c",
-      "exclusiveDollName": "Lewis",
-      "sources": [],
-      "interactions": []
-    },
-    {
-      "effectId": "938bdf27-a670-5469-80bc-5fbb0470c5b9",
-      "effectName": "Tin Soldier",
-      "effectTags": [],
-      "exclusiveDollId": "91d16c70-f1c1-5924-a0e4-2ebeeef72e4c",
-      "exclusiveDollName": "Lewis",
-      "sources": [],
-      "interactions": []
     },
     {
       "effectId": "11413f5b-bf61-5f0e-9e88-a9148d78a88f",
@@ -62195,6 +62204,15 @@
       ]
     },
     {
+      "effectId": "352fd3fa-fabd-5ea9-87f0-ce1aa79d2678",
+      "effectName": "Titan-Fort Ultimate Buff 1",
+      "effectTags": [],
+      "exclusiveDollId": null,
+      "exclusiveDollName": null,
+      "sources": [],
+      "interactions": []
+    },
+    {
       "effectId": "e6c3e42e-68ad-530c-931c-be670e3e431f",
       "effectName": "Titan-Fort Ultimate Buff 1",
       "effectTags": [],
@@ -62205,15 +62223,6 @@
     },
     {
       "effectId": "312c01a0-1a37-5ca4-a5f6-9879f302a6d2",
-      "effectName": "Titan-Fort Ultimate Buff 1",
-      "effectTags": [],
-      "exclusiveDollId": null,
-      "exclusiveDollName": null,
-      "sources": [],
-      "interactions": []
-    },
-    {
-      "effectId": "352fd3fa-fabd-5ea9-87f0-ce1aa79d2678",
       "effectName": "Titan-Fort Ultimate Buff 1",
       "effectTags": [],
       "exclusiveDollId": null,
@@ -62978,25 +62987,6 @@
       ]
     },
     {
-      "effectId": "3f05bbab-cce5-59a0-ba8e-c0b8e99c563b",
-      "effectName": "Toxin Inundation",
-      "effectTags": [],
-      "exclusiveDollId": "2c8e47d4-5acd-5f81-b075-5379fefd7e17",
-      "exclusiveDollName": "Mechty",
-      "sources": [
-        {
-          "kind": "effect",
-          "relation": "applies",
-          "snippet": "Before the attack, applies [effect:3f05bbab-cce5-59a0-ba8e-c0b8e99c563b] to all enemy units within range for 1 turn",
-          "effectId": "adb0d83b-586d-5d91-9ca3-2466db36384d",
-          "effectName": "Waking Ricochet",
-          "ownerDollId": "2c8e47d4-5acd-5f81-b075-5379fefd7e17",
-          "ownerDollName": "Mechty"
-        }
-      ],
-      "interactions": []
-    },
-    {
       "effectId": "784a9d7f-6b22-58e0-85db-371a8ce95283",
       "effectName": "Toxin Inundation",
       "effectTags": [],
@@ -63109,6 +63099,25 @@
           "dollName": "Basti",
           "summonName": "Cutie",
           "path": "summon.unitInfoLevel2"
+        }
+      ],
+      "interactions": []
+    },
+    {
+      "effectId": "3f05bbab-cce5-59a0-ba8e-c0b8e99c563b",
+      "effectName": "Toxin Inundation",
+      "effectTags": [],
+      "exclusiveDollId": "2c8e47d4-5acd-5f81-b075-5379fefd7e17",
+      "exclusiveDollName": "Mechty",
+      "sources": [
+        {
+          "kind": "effect",
+          "relation": "applies",
+          "snippet": "Before the attack, applies [effect:3f05bbab-cce5-59a0-ba8e-c0b8e99c563b] to all enemy units within range for 1 turn",
+          "effectId": "adb0d83b-586d-5d91-9ca3-2466db36384d",
+          "effectName": "Waking Ricochet",
+          "ownerDollId": "2c8e47d4-5acd-5f81-b075-5379fefd7e17",
+          "ownerDollName": "Mechty"
         }
       ],
       "interactions": []
@@ -63780,6 +63789,15 @@
       "interactions": []
     },
     {
+      "effectId": "402595fa-a1f6-532d-82b8-aac6aa662d8f",
+      "effectName": "Unresponsive Therapy II",
+      "effectTags": [],
+      "exclusiveDollId": null,
+      "exclusiveDollName": null,
+      "sources": [],
+      "interactions": []
+    },
+    {
       "effectId": "d8eb5cd4-547a-5c84-92cc-8a8e9e5d5480",
       "effectName": "Unresponsive Therapy II",
       "effectTags": [],
@@ -63789,8 +63807,8 @@
       "interactions": []
     },
     {
-      "effectId": "402595fa-a1f6-532d-82b8-aac6aa662d8f",
-      "effectName": "Unresponsive Therapy II",
+      "effectId": "ed72fc85-b279-5d43-8b30-f5a0a3a26090",
+      "effectName": "Unresponsive Therapy III",
       "effectTags": [],
       "exclusiveDollId": null,
       "exclusiveDollName": null,
@@ -63808,15 +63826,6 @@
     },
     {
       "effectId": "33f8744f-5337-5e58-a723-b8947a9fdbba",
-      "effectName": "Unresponsive Therapy III",
-      "effectTags": [],
-      "exclusiveDollId": null,
-      "exclusiveDollName": null,
-      "sources": [],
-      "interactions": []
-    },
-    {
-      "effectId": "ed72fc85-b279-5d43-8b30-f5a0a3a26090",
       "effectName": "Unresponsive Therapy III",
       "effectTags": [],
       "exclusiveDollId": null,
@@ -65223,6 +65232,15 @@
       "interactions": []
     },
     {
+      "effectId": "ea452154-d998-5fb2-88e1-0c04d6bb74a3",
+      "effectName": "Vulnerable II",
+      "effectTags": [],
+      "exclusiveDollId": "3e50f95f-8f3d-5586-8b02-48b31d5d4d2e",
+      "exclusiveDollName": "Eagletta",
+      "sources": [],
+      "interactions": []
+    },
+    {
       "effectId": "09ca0900-d151-559c-a473-21407460be39",
       "effectName": "Vulnerable II",
       "effectTags": [],
@@ -65300,15 +65318,6 @@
           "segment": 3
         }
       ],
-      "interactions": []
-    },
-    {
-      "effectId": "ea452154-d998-5fb2-88e1-0c04d6bb74a3",
-      "effectName": "Vulnerable II",
-      "effectTags": [],
-      "exclusiveDollId": "3e50f95f-8f3d-5586-8b02-48b31d5d4d2e",
-      "exclusiveDollName": "Eagletta",
-      "sources": [],
       "interactions": []
     },
     {
@@ -65607,7 +65616,7 @@
       "interactions": []
     },
     {
-      "effectId": "d6b58274-5ee5-53ac-bd9e-5e1b3fd02e4b",
+      "effectId": "d76cac2e-99df-5145-beaf-96ecde6f935b",
       "effectName": "Weak Signal",
       "effectTags": [],
       "exclusiveDollId": null,
@@ -65616,7 +65625,7 @@
       "interactions": []
     },
     {
-      "effectId": "d76cac2e-99df-5145-beaf-96ecde6f935b",
+      "effectId": "d6b58274-5ee5-53ac-bd9e-5e1b3fd02e4b",
       "effectName": "Weak Signal",
       "effectTags": [],
       "exclusiveDollId": null,
@@ -66055,6 +66064,15 @@
       "interactions": []
     },
     {
+      "effectId": "910bb029-c24a-5fa6-b38f-184c97ad082d",
+      "effectName": "Willpower Drain",
+      "effectTags": [],
+      "exclusiveDollId": null,
+      "exclusiveDollName": null,
+      "sources": [],
+      "interactions": []
+    },
+    {
       "effectId": "3b28dc18-7254-53c9-b9fa-cfda38b073f7",
       "effectName": "Willpower Drain",
       "effectTags": [],
@@ -66065,15 +66083,6 @@
     },
     {
       "effectId": "91e7af30-bf0d-5eb4-a709-a6cb72b2f2ea",
-      "effectName": "Willpower Drain",
-      "effectTags": [],
-      "exclusiveDollId": null,
-      "exclusiveDollName": null,
-      "sources": [],
-      "interactions": []
-    },
-    {
-      "effectId": "910bb029-c24a-5fa6-b38f-184c97ad082d",
       "effectName": "Willpower Drain",
       "effectTags": [],
       "exclusiveDollId": null,
@@ -66658,6 +66667,38 @@
       "foundIn": "Qiuhua/vertebrae:2"
     },
     {
+      "effectId": "c38f553c-d3be-55eb-9cb1-df3281710693",
+      "foundIn": "Springfield/Path of Protection:description"
+    },
+    {
+      "effectId": "c38f553c-d3be-55eb-9cb1-df3281710693",
+      "foundIn": "Springfield/Path of Protection:descriptionLevel2"
+    },
+    {
+      "effectId": "c38f553c-d3be-55eb-9cb1-df3281710693",
+      "foundIn": "Springfield/Path of Protection:descriptionLevel3"
+    },
+    {
+      "effectId": "c38f553c-d3be-55eb-9cb1-df3281710693",
+      "foundIn": "Springfield/Eagle's Vigilance:description"
+    },
+    {
+      "effectId": "c38f553c-d3be-55eb-9cb1-df3281710693",
+      "foundIn": "Springfield/Eagle's Vigilance:descriptionLevel2"
+    },
+    {
+      "effectId": "c38f553c-d3be-55eb-9cb1-df3281710693",
+      "foundIn": "Springfield/Eagle's Vigilance:descriptionLevel3"
+    },
+    {
+      "effectId": "c38f553c-d3be-55eb-9cb1-df3281710693",
+      "foundIn": "Springfield/vertebrae:2"
+    },
+    {
+      "effectId": "c38f553c-d3be-55eb-9cb1-df3281710693",
+      "foundIn": "Springfield/summon:Elsin/Peck:description"
+    },
+    {
       "effectId": "980ecb73-c867-5e83-a9dd-cc6993a5f00c",
       "foundIn": "Klukai/Devastating Drift:descriptionLevel2"
     },
@@ -66790,38 +66831,6 @@
       "foundIn": "Loreley/weaponImprint:effect"
     },
     {
-      "effectId": "c38f553c-d3be-55eb-9cb1-df3281710693",
-      "foundIn": "Springfield/Path of Protection:description"
-    },
-    {
-      "effectId": "c38f553c-d3be-55eb-9cb1-df3281710693",
-      "foundIn": "Springfield/Path of Protection:descriptionLevel2"
-    },
-    {
-      "effectId": "c38f553c-d3be-55eb-9cb1-df3281710693",
-      "foundIn": "Springfield/Path of Protection:descriptionLevel3"
-    },
-    {
-      "effectId": "c38f553c-d3be-55eb-9cb1-df3281710693",
-      "foundIn": "Springfield/Eagle's Vigilance:description"
-    },
-    {
-      "effectId": "c38f553c-d3be-55eb-9cb1-df3281710693",
-      "foundIn": "Springfield/Eagle's Vigilance:descriptionLevel2"
-    },
-    {
-      "effectId": "c38f553c-d3be-55eb-9cb1-df3281710693",
-      "foundIn": "Springfield/Eagle's Vigilance:descriptionLevel3"
-    },
-    {
-      "effectId": "c38f553c-d3be-55eb-9cb1-df3281710693",
-      "foundIn": "Springfield/vertebrae:2"
-    },
-    {
-      "effectId": "c38f553c-d3be-55eb-9cb1-df3281710693",
-      "foundIn": "Springfield/summon:Elsin/Peck:description"
-    },
-    {
       "effectId": "ba9131a5-1f61-5b0e-84f6-0cd026557763",
       "foundIn": "weapon:Nighttide Nocturne:effect"
     },
@@ -66874,6 +66883,10 @@
       "foundIn": "key:Fixed Key - Improving Every Day"
     },
     {
+      "effectId": "bd0e4d2f-e59f-518d-9c7d-8d28cbf7606f",
+      "foundIn": "effect:Good Luck"
+    },
+    {
       "effectId": "980ecb73-c867-5e83-a9dd-cc6993a5f00c",
       "foundIn": "effect:Fang"
     },
@@ -66884,10 +66897,6 @@
     {
       "effectId": "bd0e4d2f-e59f-518d-9c7d-8d28cbf7606f",
       "foundIn": "effect:Bad Luck"
-    },
-    {
-      "effectId": "bd0e4d2f-e59f-518d-9c7d-8d28cbf7606f",
-      "foundIn": "effect:Good Luck"
     },
     {
       "effectId": "70694711-ee68-548f-9760-5253b6ccdc7c",

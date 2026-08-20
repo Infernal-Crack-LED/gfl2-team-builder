@@ -108,6 +108,7 @@ for (const [alias, canonical] of [
   ["Themis' Game", 'Silent Sanction'], // Welrod's sig
   ['Dazzling Sparkles', 'Sparkling Centerstage'], // Yoohee's sig
   ['Law of Causality', 'Cause and Effect'], // Phaetusa's sig, cross-referenced on Sextans' tab
+  ['Echoes of Sorrow', "Banshee's Whisper"], // maintainer-confirmed (Cheeta's tab)
 ]) {
   const target = weaponByNorm.get(norm(canonical as string));
   if (target) {

@@ -42,7 +42,7 @@ import {
 } from './data';
 import { GameIcon } from './components/GameIcon';
 import { StaticKeyCard } from './components/KeyCard';
-import { RichText } from './components/RichText';
+import { CnMark, RichText } from './components/RichText';
 import {
   RecCardPreview,
   type RecCardPreviewData,
@@ -97,6 +97,7 @@ function SkillSection({ skill }: { skill: Skill }) {
           <GameIcon className="unit-skill-icon" src={skill.imageUrl} />
         )}
         {skill.name ?? 'Skill'}
+        <CnMark text={skill.name} />
       </h3>
       {skill.skillTags && skill.skillTags.length > 0 && (
         <div className="unit-skill-tags">
@@ -163,7 +164,12 @@ function EffectEntry({ effect }: { effect: Effect }) {
 
   return (
     <li>
-      <strong>{effect.effectName ?? 'Unknown'}</strong>
+      <strong>
+        {effect.effectName ?? 'Unknown'}
+        {/* details are HTML-stripped before RichText, so the auto-badge
+            can't match them — badge the raw field up here instead */}
+        <CnMark text={[effect.effectName, effect.effectDetails]} />
+      </strong>
       {upgrades.length > 0 && (
         <div className="pills small unit-skill-tabs">
           <button
@@ -637,6 +643,7 @@ export function DollPage({ slug }: { slug: string | null }) {
                 <h3>
                   {v.segment != null ? `V${v.segment}` : 'Vertebra'}
                   {v.name ? ` — ${v.name}` : ''}
+                  <CnMark text={v.name} />
                 </h3>
                 <RichText text={v.effect} />
               </div>

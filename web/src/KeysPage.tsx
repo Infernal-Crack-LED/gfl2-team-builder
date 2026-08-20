@@ -26,7 +26,7 @@ import {
 } from './data';
 import { FilterRow } from './components/FilterRow';
 import { GameIcon } from './components/GameIcon';
-import { RichText } from './components/RichText';
+import { CnMark, RichText } from './components/RichText';
 import { hrefForBuilder, hrefForDoll, onSpaLinkClick } from './router';
 
 interface KeyFilterState {
@@ -108,7 +108,10 @@ function KeyCard({ row }: { row: KeyRow }) {
           </div>
         )}
         <div className="keycard-titles">
-          <h3 className="keycard-title">{title}</h3>
+          <h3 className="keycard-title">
+            {title}
+            <CnMark text={[key.keyTitle, key.displayTitle]} />
+          </h3>
           <div className="keycard-meta">
             {doll ? (
               <a

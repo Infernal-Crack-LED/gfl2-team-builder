@@ -11,12 +11,40 @@
 import {
   getEffectById,
   getEffectDetails,
+  isCnTranslated,
   resolveEffectMarkers,
   type MarkerKind,
   type TextRef,
   type TextSegment,
 } from '../data';
 import { stripHtml } from '../../../src/share/html';
+
+const CN_TL_TOOLTIP =
+  'Translated from CN — subject to change on Global release';
+
+/**
+ * Hover badge for text the datamine translated by hand from the CN client.
+ * Renders nothing when the text is not in the registry, so it can be placed
+ * unconditionally next to any name: <>{skill.name}<CnMark text={skill.name} /></>.
+ * Pass an array to badge when ANY of several fields is registry-translated.
+ */
+export function CnMark({
+  text,
+}: {
+  text: string | null | undefined | (string | null | undefined)[];
+}) {
+  const hit = Array.isArray(text)
+    ? text.some((t) => isCnTranslated(t))
+    : isCnTranslated(text);
+  if (!hit) {
+    return null;
+  }
+  return (
+    <sup className="cn-tl" data-tooltip={CN_TL_TOOLTIP}>
+      *
+    </sup>
+  );
+}
 
 /** Tooltip prefix per marker kind — tells the reader what a reference points at. */
 const KIND_LABEL: Record<MarkerKind, string> = {
@@ -178,6 +206,7 @@ export function RichText({
       {paragraphs.map((p, i) => (
         <p key={i}>
           <RichTextInline text={p} />
+          {i === paragraphs.length - 1 && <CnMark text={text} />}
         </p>
       ))}
     </div>
