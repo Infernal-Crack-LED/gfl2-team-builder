@@ -25,7 +25,11 @@ import { createHash } from 'node:crypto';
 //    Room's own chevron mark (every card draws it, so every card changed).
 // 6: Dandegate-era purge — content ids, art and text all changed sources
 //    (datamine cutover), so every cached card is stale by construction.
-export const RENDERER_VERSION = 6;
+// 7: v6 cards rendered with placeholder portraits and missing fixed-key
+//    chips (relative art paths + slot-from-level fix landed after the
+//    cutover deploy); the payloads are unchanged, so only a version bump
+//    retires the broken cached renders.
+export const RENDERER_VERSION = 7;
 
 export type RenderKind = 'build' | 'team' | 'rec' | 'weapon';
 
