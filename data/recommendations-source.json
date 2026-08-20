@@ -1,0 +1,1849 @@
+{
+ "alva": {
+  "attachments": {
+   "mainSet": "Freeze Boost",
+   "setEffect": "When dealing Freeze damage, the damage is increased by 20%.",
+   "substats": "ATK% > ATK > CRIT% > CRIT DMG%"
+  },
+  "keys": {
+   "alternatives": [
+    "Fixed Key 5 - Rise Anew"
+   ],
+   "primary": [
+    "Fixed Key 2 - Logistics Specialist",
+    "Fixed Key 4 - Late Bloomer",
+    "Fixed Key 6 - Bonechill"
+   ]
+  },
+  "path": [
+   {
+    "note": "Provides a decent boost to DPS for Ice units for a relatively cheap cost",
+    "step": "R1"
+   },
+   {
+    "note": "Assuming in GS where there's 7 turns, it allows V5 and below Makiatto to use S1 on the 4th turn instead of S2. CI gain could potentially affect skill rotations for future Ice units, leading to more optimized damage output",
+    "step": "V2"
+   },
+   {
+    "note": "Significantly increases DPS for Ice units. Not only was the Shield amount increased, but the damage buffs doubled too. However, this is more of a supportive buff rather than a DPS upgrade for Alva",
+    "step": "V6"
+   }
+  ],
+  "weapons": [
+   "6P33",
+   "Golden Melody",
+   "Planeta"
+  ]
+ },
+ "andoris": {
+  "attachments": {
+   "mainSet": "Electric Boost",
+   "setEffect": "When dealing Electric damage, the damage is increased by 20%.",
+   "substats": "Damage: ATK% > ATK > CRIT% > CRIT DMG%\nTank: HP% > DEF% > HP > DEF"
+  },
+  "keys": {
+   "alternatives": [
+    "Fixed Key 4 - Tuned Connection",
+    "Fixed Key 6 -Advanced Scouting"
+   ],
+   "primary": [
+    "Fixed Key 1 - Careful Listening",
+    "Fixed Key 5 - Shared Intelligence"
+   ]
+  },
+  "path": [
+   {
+    "note": null,
+    "step": "V1"
+   },
+   {
+    "note": "Increases atk up to 30% when allies do Electric damage if there are 3 Auto-Turret on the field. Massively increases damage for all Electric Dolls \n\nTip: Andoris only apply positive charges to ally dolls and their summons, which also extends to her cleanse. For healing/cleansing neutral units (such as the ones in the Tumorhynchus - Massacre GS boss), other Dolls like Ksenia will be needed.\n\nTip: Building Andoris into a tank stats can increase her survivability for harder content. However hard content is niche and usually when players encounter hard content they use dolls like Springfield ect. If you use Andoris purely as electric support for gunsmoke you can build her into damage. This way you will be able to share her attachment sets with other dolls (Electric boost with Jiangyu, Phaze Strike with any other AR).",
+    "step": "V6"
+   }
+  ],
+  "weapons": [
+   "Aglaea",
+   "G36K-KSK"
+  ]
+ },
+ "asteria": {
+  "attachments": {
+   "mainSet": "Close Assault",
+   "setEffect": "Damage dealt is increased by 12%. When dealing melee damage, damage is additionally increased by 24%.",
+   "substats": "ATK% > ATK > CRIT% > CRIT DMG%"
+  },
+  "keys": {
+   "alternatives": [],
+   "primary": [
+    "Fixed Key 1 - Invisible Guardian",
+    "Fixed Key 3 - Goliath Domain",
+    "Fixed Key 6 - Path of Pursuit"
+   ]
+  },
+  "path": [],
+  "weapons": [
+   "Compass of Repentance",
+   "6P71",
+   "Planeta"
+  ]
+ },
+ "balthilde": {
+  "attachments": {
+   "mainSet": "Physical Boost",
+   "setEffect": "When dealing Physical damage, the damage is increased by 20%.",
+   "substats": "DEF% > DEF > ATK% > ATK"
+  },
+  "keys": {
+   "alternatives": [],
+   "primary": [
+    "Fixed Key 1 - Cannot Spit It Out",
+    "Fixed Key 2 - Impatient",
+    "Fixed Key 6 - Mechanical Control"
+   ]
+  },
+  "path": [],
+  "weapons": [
+   "Njörðr",
+   "Mjölnir",
+   "Optical Illusion"
+  ]
+ },
+ "basti": {
+  "attachments": {
+   "mainSet": "Corrosion Boost",
+   "setEffect": "When dealing Corrosion damage, the damage is increased by 20%.",
+   "substats": "ATK% > ATK > CRIT% > CRIT DMG%"
+  },
+  "keys": {
+   "alternatives": [
+    "Fixed Key 5 - Scary Gift"
+   ],
+   "primary": [
+    "Fixed Key 2 - Street Art",
+    "Fixed Key 3 - Pain Dependency"
+   ]
+  },
+  "path": [],
+  "weapons": [
+   "Requiem of Doom",
+   "Hestia",
+   "Papa-Figo"
+  ]
+ },
+ "belka": {
+  "attachments": {
+   "mainSet": "Electric Boost",
+   "setEffect": "When dealing Electric damage, the damage is increased by 20%.",
+   "substats": "ATK% > ATK > CRIT% > CRIT DMG%"
+  },
+  "keys": {
+   "alternatives": [
+    "Fixed Key 6 - Deciding Motive",
+    "Fixed Key 5 - Desired Praise"
+   ],
+   "primary": [
+    "Fixed Key 3 - Atmosphere Booster",
+    "Fixed Key 4 - Raised Tail"
+   ]
+  },
+  "path": [
+   {
+    "note": null,
+    "step": "V3"
+   },
+   {
+    "note": null,
+    "step": "V6"
+   }
+  ],
+  "weapons": [
+   "Sylvan Elf",
+   "Leaping Tiger",
+   "Golden Melody"
+  ]
+ },
+ "centaureissi": {
+  "attachments": {
+   "mainSet": "Emergency Repair",
+   "setEffect": "If the allied unit's HP is fully healed by an active skill, restores 2 points of their Stability Index. Triggers up to once per turn.",
+   "substats": "ATK% > ATK > HP% > DEF%"
+  },
+  "keys": {
+   "alternatives": [],
+   "primary": [
+    "Fixed Key 5 - Thorough Preperation",
+    "Fixed Key 6 - Lucky Menu"
+   ]
+  },
+  "path": [
+   {
+    "note": "Grants useful damage buffs on Action Support. Not effective if there are other units already applying Blazing Assault II and Damage Up II, the buffs uptime is very bad and might conflict with other ATK II buffers on the team.\n\nRecommendation: V0",
+    "step": "V1"
+   }
+  ],
+  "weapons": [
+   "Guerno",
+   "Golden Melody",
+   "Maid's Rules"
+  ]
+ },
+ "cheeta": {
+  "attachments": {
+   "mainSet": "Phase Strike",
+   "setEffect": "Deals 15% increased damage to targets with Phase Element debuffs.",
+   "substats": "ATK% > ATK > HP% > DEF%"
+  },
+  "keys": {
+   "alternatives": [
+    "Fixed Key 5 - Genius Support Plan"
+   ],
+   "primary": [
+    "Fixed Key 1 - Legitimate Research Expenses",
+    "Fixed Key 2 - Super Useful Invention",
+    "Fixed Key 3 - Goldfinger"
+   ]
+  },
+  "path": [],
+  "weapons": [
+   "Echoes of Sorrow",
+   "Classified Manuscript",
+   "Svarog"
+  ]
+ },
+ "cheyanne": {
+  "attachments": {
+   "mainSet": "Physical Boost",
+   "setEffect": "When dealing Phsyical damage, the damage is increased by 20%.",
+   "substats": "ATK% > ATK > CRIT% > CRIT DMG%"
+  },
+  "keys": {
+   "alternatives": [
+    "Fixed Key 6 - Full Attention",
+    "Fixed Key 4 - Antisocial"
+   ],
+   "primary": [
+    "Fixed Key 5 - Mental Resilience"
+   ]
+  },
+  "path": [],
+  "weapons": [
+   "Night-Wayfaring Cardamom",
+   "Bittersweet Caramel",
+   "Samosek"
+  ]
+ },
+ "colphne": {
+  "attachments": {
+   "mainSet": "Emergency Repair",
+   "setEffect": "If the allied unit's HP is fully healed by an active skill, restores 2 points of their Stability Index. Triggers up to once per turn.",
+   "substats": "ATK% > ATK > HP% > DEF%"
+  },
+  "keys": {
+   "alternatives": [
+    "Fixed Key 4 - Combat Medic",
+    "Fixed Key 5 - Recovery at Rest"
+   ],
+   "primary": [
+    "Fixed Key 1 - Doctor's Orders",
+    "Fixed Key 2 - Quick Surgery",
+    "Fixed Key 3 - Emergency Express"
+   ]
+  },
+  "path": [],
+  "weapons": [
+   "Papa-Figo",
+   "Hestia"
+  ]
+ },
+ "daiyan": {
+  "attachments": {
+   "mainSet": "Physical Boost",
+   "setEffect": "When dealing Phsyical damage, the damage is increased by 20%.",
+   "substats": "ATK% > ATK > CRIT% > CRIT DMG%"
+  },
+  "keys": {
+   "alternatives": [],
+   "primary": [
+    "Fixed Key 1 - Echoing Melody",
+    "Fixed Key 2 - Unfulfilled Dreams",
+    "Fixed Key 4 - Serene Serenade"
+   ]
+  },
+  "path": [
+   {
+    "note": "With 3 additional permanent Tuning stacks, Ultimate can be used every turn. Daiyan also gains an additional 30% DEF ignore with her Expansion Key",
+    "step": "V3"
+   },
+   {
+    "note": "Enhances the damage multiplier of Daiyan's Interception and passive, hence increasing her damage\n\nRecommendation: V0 > V3",
+    "step": "V4"
+   }
+  ],
+  "weapons": [
+   "AK-15",
+   "Heavy Strings",
+   "Planeta"
+  ]
+ },
+ "dushevnaya": {
+  "attachments": {
+   "mainSet": "Phase Strike",
+   "setEffect": "Deals 15% increased damage to targets with Phase element debuffs.",
+   "substats": "ATK% > ATK > CRIT% > CRIT DMG%"
+  },
+  "keys": {
+   "alternatives": [
+    "Fixed Key 1 - Lance of Longinus",
+    "Fixed Key 3 - Magical Support",
+    "Fixed Key 4 - Courageous Claymore"
+   ],
+   "primary": [
+    "Fixed Key 2 - Adventurer's Will"
+   ]
+  },
+  "path": [
+   {
+    "note": "Doubles the damage boost provided by Passive, and applies Vulnerable II which boosts overall team damage.\n\nRecommendation: V0 > V6",
+    "step": "V6"
+   }
+  ],
+  "weapons": [
+   "Eulogistic Verse",
+   "Bittersweet Caramel",
+   "Samosek"
+  ]
+ },
+ "eagletta": {
+  "attachments": {
+   "mainSet": "Freeze Boost",
+   "setEffect": "When dealing Freeze damage, the damage is increased by 20%.",
+   "substats": "ATK% > ATK > CRIT% > CRIT DMG%"
+  },
+  "keys": {
+   "alternatives": [
+    "Fixed Key 2 - Lord of the Sky",
+    "Fixed Key 4 - Ruler of the Firmament",
+    "Fixed Key 6 - Into Uncharted Ground"
+   ],
+   "primary": [
+    "Fixed Key 5 - Wings Against the Wind"
+   ]
+  },
+  "path": [],
+  "weapons": [
+   "Argent Wing Pisty",
+   "Hestia",
+   "Papa-Figo"
+  ]
+ },
+ "faelynn": {
+  "attachments": {
+   "mainSet": "Corrosion Boost",
+   "setEffect": "When dealing Corrosion damage, the damage is increased by 20%.",
+   "substats": "ATK% > ATK > CRIT% > CRIT DMG%"
+  },
+  "keys": {
+   "alternatives": [
+    "Fixed Key 2 - Piloerection"
+   ],
+   "primary": [
+    "Fixed Key 1 - Dango Finisher",
+    "Fixed Key 4 - Predator's Footwork",
+    "Fixed Key 6 - Scenting"
+   ]
+  },
+  "path": [],
+  "weapons": [
+   "Capitoline",
+   "Bristlefang Beast",
+   "Skylla"
+  ]
+ },
+ "faye": {
+  "attachments": {
+   "mainSet": "Physical Boost",
+   "setEffect": "When dealing Physical damage, the damage is increased by 20%.",
+   "substats": "ATK% > ATK > CRIT% > CRIT DMG%"
+  },
+  "keys": {
+   "alternatives": [
+    "Fixed Key 4 - Emergency Plans",
+    "Fixed Key 6 - In the Fracas"
+   ],
+   "primary": [
+    "Fixed Key 2 - All-In Slash",
+    "Fixed Key 3 - Rescue Response Supplies"
+   ]
+  },
+  "path": [
+   {
+    "note": "Increased DEF Ignore from Rend stacks and faster Rend stacking, increasing Faye's damage",
+    "step": "V1"
+   },
+   {
+    "note": "S2 now applies Gash debuffs, providing another damage source for Faye",
+    "step": "V2"
+   },
+   {
+    "note": "Greatly increases Ultimate's application of Gash and uptime of Gash, further increasing Faye's damage",
+    "step": "V4"
+   }
+  ],
+  "weapons": [
+   "Hestia",
+   "Papa-Figo",
+   "CZ75"
+  ]
+ },
+ "florence": {
+  "attachments": {
+   "mainSet": "Summon Boost",
+   "setEffect": "When the user's summoned entity is on the battlefield, the damage dealt by both the user and their summon is increased by 20%",
+   "substats": "ATK% > ATK > CRIT% > CRIT DMG%"
+  },
+  "keys": {
+   "alternatives": [],
+   "primary": [
+    "Fixed Key 1 - Fatal Thrill",
+    "Fixed Key 3 - Sensitivity Boost",
+    "Fixed Key 4 - Riposte's Reward"
+   ]
+  },
+  "path": [
+   {
+    "note": "Allows Florence to use Ultimate every 3 turns instead of 2 turns due to decreased Confectance Index consumption. This lets her use S2 more frequently",
+    "step": "V1"
+   },
+   {
+    "note": "Ensures 100% uptime on Stimulant as Florence can use Ultimate without Stimulant running out of duration",
+    "step": "V3"
+   },
+   {
+    "note": "Doubles damage multiplier of Counterattack and increases the ATK boost, which massively boosts Florence's damage",
+    "step": "V6"
+   }
+  ],
+  "weapons": [
+   "Iaso",
+   "Hestia",
+   "Papa-Figo"
+  ]
+ },
+ "groza": {
+  "attachments": {
+   "mainSet": "Allay Support",
+   "setEffect": "When using defense skills, additionally applies Area Defense II to allied units for 2 turns.",
+   "substats": "ATK% > HP% > DEF% > ATK"
+  },
+  "keys": {
+   "alternatives": [
+    "Fixed Key 2 - Controlled Advance"
+   ],
+   "primary": [
+    "Fixed Key 1 - Multidimensional Assessment",
+    "Fixed Key 4 - Firepower Superiority",
+    "Fixed Key 6 - Principles of Evasion"
+   ]
+  },
+  "path": [],
+  "weapons": [
+   "Guerno",
+   "Golden Melody",
+   "OTs-14"
+  ]
+ },
+ "harpsy": {
+  "attachments": {
+   "mainSet": "Corrosion Boost",
+   "setEffect": "When dealing Corrosion damage, the damage is increased by 20%.",
+   "substats": "ATK% > ATK > CRIT% > CRIT DMG%"
+  },
+  "keys": {
+   "alternatives": [],
+   "primary": [
+    "Fixed Key 4 - Ally’s Power",
+    "Fixed Key 5 - Courage Unleashed"
+   ]
+  },
+  "path": [],
+  "weapons": [
+   "Svarog",
+   "Antinomy",
+   "Löwenjunges"
+  ]
+ },
+ "helen": {
+  "attachments": {
+   "mainSet": "Freeze Boost",
+   "setEffect": "When dealing Freeze damage, the damage is increased by 20%.",
+   "substats": "CRIT DMG% > ATK% > DEF % > ATK"
+  },
+  "keys": {
+   "alternatives": [],
+   "primary": [
+    "Fixed Key 1 - The Two-Headed Spy",
+    "Fixed Key 2 - Frostbite Bloom"
+   ]
+  },
+  "path": [],
+  "weapons": [
+   "Silent Aegis",
+   "Expeditionary Pigeon",
+   "Mezzaluna"
+  ]
+ },
+ "jiangyu": {
+  "attachments": {
+   "mainSet": "Electric Boost",
+   "setEffect": "When dealing Electric damage, the damage is increased by 20%.",
+   "substats": "ATK% > ATK > CRIT% > CRIT DMG%"
+  },
+  "keys": {
+   "alternatives": [],
+   "primary": [
+    "Fixed Key 2",
+    "Fixed Key 5",
+    "Fixed Key 4"
+   ]
+  },
+  "path": [
+   {
+    "note": "Small boost of personal damage and stab damage.",
+    "step": "V1"
+   },
+   {
+    "note": "Ults more often to give better cleanse and positive charge uptime.",
+    "step": "V2"
+   },
+   {
+    "note": "Significant boost for electro team including more defence ignore.\n\nRecommendation: V0 > V6\n\nTip: Stacks of Chi only being consumed by Jiangyu basic attack and skills. If she performs support attack/interception, their stability damage is affected by Chi stacks without consuming them; resulting in high stability damage.\n\nTip: Jiangyu only apply positive charges to ally dolls and their summons, which also extends to her cleanse. For healing/cleansing neutral units (such as the ones in the Tumorhynchus - Massacre GS boss), other Dolls like Ksenia will be needed.\n\nDisclamer: Jiangyu does not simply replace Andoris, its more complicated because of how Leva works. Removing Andoris means removing negative charge, forcing Leva to use Fixed Key 5. As Leva performs Support Attack on negative charge applications; Fixed Key 5 will often result in Leva hitting into enemies with remaining Stability Index, which will cause a big loss in damage due to Leva's Overclock Strike converting her stability damage into damage on stability broken enemies.",
+    "step": "V6"
+   }
+  ],
+  "weapons": [
+   "Leaping Tiger",
+   "Golden Melody",
+   "Planeta"
+  ]
+ },
+ "klukai": {
+  "attachments": {
+   "mainSet": "Corrosion Boost",
+   "setEffect": "When dealing Corrosion damage, the damage is increased by 20%.",
+   "substats": "ATK% > ATK > CRIT% > CRIT DMG%"
+  },
+  "keys": {
+   "alternatives": [
+    "Fixed Key 6 - Moment of Doom"
+   ],
+   "primary": [
+    "Fixed Key 2 - One Fell Swoop",
+    "Fixed Key 4 - Strong Support",
+    "Fixed Key 5 - Limit Break"
+   ]
+  },
+  "path": [
+   {
+    "note": "Allows Klukai to activate Ultimate against boss enemies twice",
+    "step": "V3"
+   },
+   {
+    "note": "Automatically detonates Corrosive Infusion and Toxic Infiltration with no requirements. Massively boosts Klukai's damage\n\nDisclaimer: It is not recommended for players to stop at V3 Klukai. It is a suggested breakthrough to stop at if it is not possible to get V6 Klukai within one banner\n\nPost key update: massive increase of ST damage, AOE damage, area of aoe coverage. Drone attacks after every cast of the ult which makes V3 more valuable than before.",
+    "step": "V6"
+   }
+  ],
+  "weapons": [
+   "Skylla (Please get V6 first)",
+   "Planeta",
+   "Golden Melody"
+  ]
+ },
+ "koleda": {
+  "attachments": {
+   "mainSet": "Summon Boost",
+   "setEffect": "When the user's summoned entity is on the battlefield, the damage dealt by both the user and their summon is increased by 20%",
+   "substats": "ATK% > ATK > CRIT% > CRIT DMG%"
+  },
+  "keys": {
+   "alternatives": [
+    "Fixed Key 6 - Those Who Cling to Life, Dies"
+   ],
+   "primary": [
+    "Fixed Key 1 - Creed",
+    "Fixed Key 5 - Remember the Name"
+   ]
+  },
+  "path": [
+   {
+    "note": null,
+    "step": "V1"
+   },
+   {
+    "note": null,
+    "step": "R1"
+   },
+   {
+    "note": null,
+    "step": "V3"
+   },
+   {
+    "note": null,
+    "step": "V4"
+   },
+   {
+    "note": null,
+    "step": "V5"
+   },
+   {
+    "note": null,
+    "step": "V6"
+   }
+  ],
+  "weapons": [
+   "Chernobog",
+   "Capitoline",
+   "Planeta"
+  ]
+ },
+ "krolik": {
+  "attachments": {
+   "mainSet": "Close Assault",
+   "setEffect": "Damage dealt is increased by 12%. When dealing melee damage, damage is additionally increased by 24%.",
+   "substats": "ATK% > ATK > CRIT% > CRIT DMG%"
+  },
+  "keys": {
+   "alternatives": [
+    "Fixed Key 1 - Momentary Focus"
+   ],
+   "primary": [
+    "Fixed Key 2 - Fierce Predator",
+    "Fixed Key 3 - Blazing Fury",
+    "Fixed Key 5 - Instinctive Pursuit"
+   ]
+  },
+  "path": [],
+  "weapons": [
+   "Crowned Jackelope",
+   "Rectrix",
+   "Hare"
+  ]
+ },
+ "ksenia": {
+  "attachments": {
+   "mainSet": "Emergency Repair",
+   "setEffect": "If the allied unit's HP is fully healed by an active skill, restores 2 points of their Stability Index. Triggers up to once per turn.",
+   "substats": "ATK% > ATK > HP% > DEF%"
+  },
+  "keys": {
+   "alternatives": [],
+   "primary": [
+    "Fixed Key 1 - Win-Win Partnership",
+    "Fixed Key 4 - Mutual Benefit",
+    "Fixed Key 6 - Discount Guide"
+   ]
+  },
+  "path": [],
+  "weapons": [
+   "Stechkin",
+   "Papa-Figo",
+   "Hestia"
+  ]
+ },
+ "lainie": {
+  "attachments": {
+   "mainSet": "Physical Boost",
+   "setEffect": "When dealing Physical damage, the damage is increased by 20%.",
+   "substats": "V0-V2: ATK%/ATK/CRIT/CDMG% (Muzzle), 2 pieces ATK%/ATK/HP% and 1 piece ATK%/ATK/CRIT\nV3+: ATK%/ATK/CRIT/CDMG% (Muzzle), ATK%/ATK/HP% (Others)"
+  },
+  "keys": {
+   "alternatives": [
+    "Fixed Key 5"
+   ],
+   "primary": [
+    "Fixed Key 1",
+    "Fixed Key 6"
+   ]
+  },
+  "path": [
+   {
+    "note": "Boosts Lainie's damage",
+    "step": "V1"
+   },
+   {
+    "note": "As the weapon grants DEF ignore, the damage boost it gives is comparable to V1",
+    "step": "R1"
+   },
+   {
+    "note": "Boosts def down aura from 20% to 40% which might be enough to break 300% or 400% of def treshholds in physical team",
+    "step": "V3"
+   },
+   {
+    "note": "Massively boosts Lainie's damage",
+    "step": "V6"
+   },
+   {
+    "note": "As DEF ignore scales, the damage boost it gives is comparable to V6",
+    "step": "R6"
+   }
+  ],
+  "weapons": [
+   "Perihelion",
+   "Svarog"
+  ]
+ },
+ "lenna": {
+  "attachments": {
+   "mainSet": "Phase Strike",
+   "setEffect": "Deals 15% increased damage to targets with Phase Element debuffs.",
+   "substats": "ATK% > ATK > CRIT% > CRIT DMG%"
+  },
+  "keys": {
+   "alternatives": [
+    "Fixed Key 1 - Skillful Strategem"
+   ],
+   "primary": [
+    "Fixed Key 2 - SSStylish Action",
+    "Fixed Key 4 - I Need More Power",
+    "Fixed Key 5 - Driving Force"
+   ]
+  },
+  "path": [
+   {
+    "note": "Allows for 100% uptime on Lenna's Ultimate and Ultimate Briliance buff. After exp key release V1 became a must for electro team. Permanent Electric Arc means constant dispel on the boss and permanent Ultimate Briliance means tons of damage and stab damage for electro team.\n\nRecommendation: V0 > V1",
+    "step": "V1"
+   }
+  ],
+  "weapons": [
+   "Schlitzohr",
+   "Svarog",
+   "Löwenjunges"
+  ]
+ },
+ "leva": {
+  "attachments": {
+   "mainSet": "Electric Boost",
+   "setEffect": "When dealing Electric damage, the damage is increased by 20%.",
+   "substats": "ATK% > ATK > CRIT% > CRIT DMG%"
+  },
+  "keys": {
+   "alternatives": [
+    "Fixed Key 3 - Play It By Ear",
+    "Fixed Key 5 - Rational Reaction"
+   ],
+   "primary": [
+    "Fixed Key 1 - Mature Aplomb (Optional at V6)",
+    "Fixed Key 2 - Fox's Smile",
+    "Fixed Key 6 - Always Prepare"
+   ]
+  },
+  "path": [
+   {
+    "note": "Increases Leva Support Attack count and improves Ult cycling, significantly improving her DMG output",
+    "step": "V1"
+   },
+   {
+    "note": "Greatly improves Superconductive Strike's damage output",
+    "step": "V3"
+   },
+   {
+    "note": "Increases Superconductive Strike's damage mutlipliers, significantly improving Leva's damage against Stability Broken enemies",
+    "step": "V5"
+   },
+   {
+    "note": "Allows Leva to use Superconductive Strike after any skill, massively increasing her damage output",
+    "step": "V6"
+   }
+  ],
+  "weapons": [
+   "Schlitzohr",
+   "Svarog",
+   "Juggernaut"
+  ]
+ },
+ "lewis": {
+  "attachments": {
+   "mainSet": "Burn Boost",
+   "setEffect": "When dealing Burn damage, the damage is increased by 20%.",
+   "substats": "ATK% > ATK > CRIT% > CRIT DMG%"
+  },
+  "keys": {
+   "alternatives": [
+    "Fixed Key 2 - Secret Of Spreading Smiles",
+    "Fixed Key 3 - Protector of Innocence"
+   ],
+   "primary": [
+    "Fixed Key 1 - Idealistic Designer",
+    "Fixed Key 6 - Guardian Of The Cloud",
+    "Fixed Key 4 - Sunny Imagination"
+   ]
+  },
+  "path": [
+   {
+    "note": "changes Lewis rotation, she ults more often, deal more damage and more Volley Fire, resulting more embers as well as QH stacks",
+    "step": "V2"
+   },
+   {
+    "note": "considerable amount of personal damage and best MG weapon in the game so far",
+    "step": "R1"
+   },
+   {
+    "note": "changes Tin Soldier's Order buff, making it work on turns instead of attack count. This improves Lewis damage",
+    "step": "V3"
+   },
+   {
+    "note": "Changes how often Lewis uses extra Volley Fire from Tin Soldier's Ranks, making her use additional Volley Fire every turn. This Volley Fire contributes to Searing Flame making Embers buff come sooner. Spikes Lewis damage for a LOT.\n\nTIP: while V2R1 provides biggest spike of the damage its still not a dramatic increase. Fire team hypercarry is QH and best way to increase fire team damage is increase QH damage. Consider saving dupes for incoming units by stopping on V0 or go for V6. \n\nTIP: Lewis V6 was used on CN server a lot because she is less dependant on seasonal buff and on fire team compared to QH. Lewis also can revive your water units who start to fell off due to lack of new dolls or keys. Lewis synergy with team of SF V1, Tololo V2+ and Nikketa V1+ is very solid. Take a note that you will need special set of keys for that and hence you will need a source of overburn. You can use your own QH and DSR later. Alternatevely you can use mixed team of SF V1+ Tll V2+ QJ and Vivi V1+ for good results. Also take a note that Lewis can synergise with corrosion units aoe attacks",
+    "step": "V6"
+   }
+  ],
+  "weapons": [
+   "Toysmith",
+   "Njörðr",
+   "Mjölnir"
+  ]
+ },
+ "lind": {
+  "attachments": {
+   "mainSet": "Corrosion Boost",
+   "setEffect": "When dealing Corrosion damage, the damage is increased by 20%.",
+   "substats": "ATK% > ATK > CRIT% > CRIT DMG%"
+  },
+  "keys": {
+   "alternatives": [
+    "Fixed Key 3 - Radio Invitation",
+    "Fixed Key 5 - Dessert Therapy"
+   ],
+   "primary": [
+    "Fixed Key 4 - Civilized Judgement",
+    "Fixed Key 6 - Withdrawal Reaction"
+   ]
+  },
+  "path": [
+   {
+    "note": "Increases the potency and max stacks of Sugar, providing Lind an additional 50% boost in Corrosion damage dealt",
+    "step": "V1"
+   },
+   {
+    "note": "Allows Lind to apply Honey Trap every turn",
+    "step": "V3"
+   },
+   {
+    "note": "Allows her to use Ultimate → S2 every turn instead of Ultimate → S1, then S2 on the following turn",
+    "step": "V6"
+   }
+  ],
+  "weapons": [
+   "Thorn Criterion",
+   "Expeditionary Pigeon",
+   "Mezzaluna"
+  ]
+ },
+ "littara": {
+  "attachments": {
+   "mainSet": "Physical Boost",
+   "setEffect": "When dealing Physical damage, the damage is increased by 20%.",
+   "substats": "ATK% > ATK > CRIT% > CRIT DMG%"
+  },
+  "keys": {
+   "alternatives": [],
+   "primary": [
+    "Fixed Key 1 - Strategic Planning",
+    "Fixed Key 2 - Gaining Experience",
+    "Fixed Key 6 - Aggressive Attack"
+   ]
+  },
+  "path": [],
+  "weapons": [
+   "Optical Illusion",
+   "Mjölnir",
+   "Pecheneg-SP"
+  ]
+ },
+ "liushih": {
+  "attachments": {
+   "mainSet": "Summon Boost",
+   "setEffect": "When the user's summoned entity is on the battlefield, the damage dealt by both the user and their summon is increased by 20%",
+   "substats": "600 ATK > HP% > HP > CRIT% > CRIT DMG%"
+  },
+  "keys": {
+   "alternatives": [
+    "Fixed Key 3 - No Expense Spared"
+   ],
+   "primary": [
+    "Fixed Key 1 - Perfect Synergy",
+    "Fixed Key 2 - Deadeye",
+    "Fixed Key 6 - Rallying Cry"
+   ]
+  },
+  "path": [
+   {
+    "note": "two additional Point-Defense Autocannon casts per turn, 2 points of Confectance Index per turn resulting Liushih no longer relying on Fixed Key 6 and ally summons. Big boost of damage",
+    "step": "V1"
+   },
+   {
+    "note": "Big flat HP boost, Pegasus dmg boost",
+    "step": "R1"
+   },
+   {
+    "note": "damage boost",
+    "step": "V3"
+   },
+   {
+    "note": "damage boost\n\nTIP: V2 allows Liushih to apply Tideway tiles every turn. This can be handy in Hydro teams as SF and Nikketa cant apply Hydro weakness every turn. Also V2 allows her to move Pegasus without losing damage\n\nTIP: Liushih initial ATK on remoulding 60, affection 5, max level, max neural helix and max dispatch is 585. She lacks 16 more to get maximum multiplier increase from passive. You can achieve this value by covenant or giving her atk stat food. Her CRIT stat should be high enough with common keys and other attachments to get ger to 70%. Fixed key 2 provides 30% of crit on V0, 60% of crit on V6. On V6 you need only 20% additional CRIT to make her skills 100% critical.\n\nTIP: A lot of Liushih damage comes from Pegasus and all Liushih damage is based on HP. New summon set is the only good set for her. Its wise to prepare a separate set of common keys for her. Her own key is the best option. Peri and Mechty keys are good for Liushih damage but does not affect Pegasus. Florence key increases summon ATK which is not useful.",
+    "step": "V6"
+   }
+  ],
+  "weapons": [
+   "Shadow Runner",
+   "General Liu Rifle",
+   "Bittersweet Caramel"
+  ]
+ },
+ "loreley": {
+  "attachments": {
+   "mainSet": "Burn Boost",
+   "setEffect": "When dealing Burn damage, the damage is increased by 20%.",
+   "substats": "ATK% > ATK > CRIT% > CRIT DMG%"
+  },
+  "keys": {
+   "alternatives": [
+    "Fixed Key 2",
+    "Fixed Key 4"
+   ],
+   "primary": [
+    "Fixed Key 1",
+    "Fixed Key 3"
+   ]
+  },
+  "path": [],
+  "weapons": [
+   "Tidal Nocturne",
+   "Bittersweet Caramel",
+   "Samosek"
+  ]
+ },
+ "lotta": {
+  "attachments": {
+   "mainSet": "Freeze Boost",
+   "setEffect": "When dealing Freeze damage, the damage is increased by 20%.",
+   "substats": "ATK% > ATK > CRIT% > CRIT DMG%"
+  },
+  "keys": {
+   "alternatives": [
+    "Fixed Key 6 - Soothing Touch"
+   ],
+   "primary": [
+    "Fixed Key 1 - Silent Cheer",
+    "Fixed Key 3 - Trembling Aim",
+    "Fixed Key 5 - Bold Shout"
+   ]
+  },
+  "path": [],
+  "weapons": [
+   "Heart Seeker",
+   "Expeditionary Pigeon",
+   "Mezzaluna"
+  ]
+ },
+ "makiatto": {
+  "attachments": {
+   "mainSet": "Freeze Boost",
+   "setEffect": "When dealing Freeze damage, the damage is increased by 20%.",
+   "substats": "ATK% > ATK > CRIT% > CRIT DMG%"
+  },
+  "keys": {
+   "alternatives": [
+    "Fixed Key 3 - Indomitable Lone Wolf",
+    "Fixed Key 5 - Heated Caramel"
+   ],
+   "primary": [
+    "Fixed Key 1 - Additional Intelligence",
+    "Fixed Key 2 - Freeze with Milk Foam",
+    "Fixed Key 6 - Absolute Concentration"
+   ]
+  },
+  "path": [
+   {
+    "note": "Increases S1 damage multiplier from 160% to 2x100%, with an added +80% CRIT DMG and guaranteed CRIT on the second damage instance. This is a significant boost to Makiatto's damage",
+    "step": "V1"
+   },
+   {
+    "note": null,
+    "step": "R1"
+   },
+   {
+    "note": "Increases the number of Interceptions from 2 to 3. Do get R1 first though",
+    "step": "V2"
+   },
+   {
+    "note": "Increases the number of Interceptions from 3 to 4. Allows for 100% uptime on S1 instead of being forced to use S2 to regenerate Confectance Index\n\nRecommendation: V0>V1>R1>V2>V6, R1 is also a good pick up since its a very good generalist RF gun to share accross RF users.",
+    "step": "V6"
+   }
+  ],
+  "weapons": [
+   "Bittersweet Caramel",
+   "Eulogistic Verse",
+   "Samosek"
+  ]
+ },
+ "mechty": {
+  "attachments": {
+   "mainSet": "Corrosion Boost",
+   "setEffect": "When dealing Corrosion damage, the damage is increased by 20%.",
+   "substats": "ATK% > ATK > CRIT% > CRIT DMG%"
+  },
+  "keys": {
+   "alternatives": [],
+   "primary": [
+    "Fixed Key 1 - Dream Fragment",
+    "Fixed Key 3 - Horror Movie Night",
+    "Fixed Key 5 - Loser's Spirit"
+   ]
+  },
+  "path": [
+   {
+    "note": "Increases Corrosion damage dealt by allies by 25%, which increases Klukai's damage\n\nDisclaimer: As Mechty's other Vertebraes do not provide any significant damage boosts for herself or her allies, it is not recommended to pull for V6. One copy is sufficient for most players",
+    "step": "V6"
+   }
+  ],
+  "weapons": [
+   "Daydream",
+   "Skylla",
+   "Guerno"
+  ]
+ },
+ "mityl": {
+  "attachments": {
+   "mainSet": "Summon Boost",
+   "setEffect": "When the user's summoned entity is on the battlefield, the damage dealt by both the user and their summon is increased by 20%",
+   "substats": "ATK% > ATK > CRIT% > CRIT DMG%"
+  },
+  "keys": {
+   "alternatives": [
+    "Fixed Key 1 - Cinematic Presentation"
+   ],
+   "primary": [
+    "Fixed Key 4 - Crying Scene",
+    "Fixed Key 5 - Hop on the Hype Train",
+    "Fixed Key 6 - Truth or Lie?"
+   ]
+  },
+  "path": [],
+  "weapons": [
+   "Fluffy Nova",
+   "Juggernaut",
+   "Svarog"
+  ]
+ },
+ "nagant": {
+  "attachments": {
+   "mainSet": "Phase Strike",
+   "setEffect": "Deals 15% increased damage to targets with Phase Element debuffs.",
+   "substats": "ATK% > ATK > CRIT% > CRIT DMG%"
+  },
+  "keys": {
+   "alternatives": [],
+   "primary": [
+    "Fixed Key 2 - Veteran's Experience",
+    "Fixed Key 4 - Legend of Guardians",
+    "Fixed Key 6 - Bullet of Justice"
+   ]
+  },
+  "path": [],
+  "weapons": [
+   "Hestia",
+   "Papa-Figo",
+   "Nagant M1895"
+  ]
+ },
+ "nemesis": {
+  "attachments": {
+   "mainSet": "Phase Strike",
+   "setEffect": "Deals 15% increased damage to targets with Phase Element debuffs.",
+   "substats": "ATK% > ATK > CRIT% > CRIT DMG%"
+  },
+  "keys": {
+   "alternatives": [
+    "Fixed Key 4 - Silent Catastrophe"
+   ],
+   "primary": [
+    "Fixed Key 1 - Potent Curse",
+    "Fixed Key 2 - Changing Fortune",
+    "Fixed Key 5 - Fated Calamity"
+   ]
+  },
+  "path": [],
+  "weapons": [
+   "Arcana",
+   "Samosek",
+   "Bittersweet Caramel"
+  ]
+ },
+ "nikketa": {
+  "attachments": {
+   "mainSet": "Hydro Boost",
+   "setEffect": "When dealing Hydro damage, the damage is increased by 20%.",
+   "substats": "ATK% > ATK > CRIT% > CRIT DMG%"
+  },
+  "keys": {
+   "alternatives": [
+    "Fixed Key 6 - Oppressive Air"
+   ],
+   "primary": [
+    "Fixed Key 1 - Righteous Doll",
+    "Fixed Key 2 - Messenger of Justice",
+    "Fixed Key 4 - Just Desserts"
+   ]
+  },
+  "path": [
+   {
+    "note": "Allows Nikketa to always use S2 and Ultimate on every turn except for the first instead of alternating between S1 and S2/Ultimate. Take note that Extra Action is detrimental in cases where buffs are turn based, as this causes the buff to run out faster",
+    "step": "V1"
+   },
+   {
+    "note": "Increases the number of Counterattack, and subsequently, Righteous Verdict performed by 1 per round, as well as doubling the damage increase given to damage dealt outside of one's turn, which significantly boosts Nikketa's damage",
+    "step": "V3"
+   },
+   {
+    "note": "Since Guilt is not consumed, all Righteous Verdict will deal an additional attack (instead of only the first one). It also increases damage based on Confectance Index consumed, which significantly boosts Nikketa's damage",
+    "step": "V6"
+   }
+  ],
+  "weapons": [
+   "Bittersweet Caramel",
+   "Samosek",
+   "Guardian Silverwing"
+  ]
+ },
+ "ots-14": {
+  "attachments": {
+   "mainSet": "Any Phase Boost",
+   "setEffect": "OTs-14 deals Omni damage. Any 20% phase set (not physical) will work on her.",
+   "substats": "ATK% > CRIT DMG% > ATK > CRIT%"
+  },
+  "keys": {
+   "alternatives": [
+    "Fixed Key 6 - Thirst for Destruction"
+   ],
+   "primary": [
+    "Fixed Key 3 - Single-Minded Obsession"
+   ]
+  },
+  "path": [
+   {
+    "note": "A very powerful general-purpose weapon, suitable for OTs and other AR's",
+    "step": "R1"
+   },
+   {
+    "note": null,
+    "step": "V4"
+   },
+   {
+    "note": null,
+    "step": "V5"
+   },
+   {
+    "note": "V2, V4, V5 are strong dupes but can only be considered as stopping points before getting V6 on rerun. V6's benefits are dependent on the team composition due to the different Cell Reconstruction bonuses in each form. The major ones to consider are: Freeze(high atk buff), Corrosion(Reprocs corro DOTs, high investment) and Hydro(High atk/hp buffs with many summons, high investment). In other teams Reconstruction Zero is better due to weak bonuses in other forms and Zero's exceptionally high damage output.\n\nTIP: OTs rotation depends on V's (skill count starts from Basic attack 1, Ultimate is 4):\nV0-V1: 32, 31, 32, 34 (second action after support), 31, 32, 34 (last action)\nV2+: Use Total Suppression on turns 1-3 → Support doll moves first and deal small damage in the fourth turn → OTs ults on turn 4 as second action, small damage done is converted into Overload Burst and is discarded → Turn 4 and 5 damage accumulated into charge on turn 5 → OTs accumulate damage on turns 6 normally → OTs ults as last action on turn 7 \n32, 32, 32, 34 (second action after support), 32, 32, 34 (last action)\n\nTIP: OTs accumulates team damage and use it to deal fixed damage. This means usual damage reductions or immunities will not lower damage of Overload Burst. This also means OTs will always do average more than 10% of whole party damage on V0 and more than 25% of party damage on V6. This feature means she should be futureproof so is very good for vertical investment.\n\nTIP: OTs is considered an Omni doll all the time despite her Cell Reconstruction state. This means even if she has Ice Reconstruction in Ice team or Zero Reconstruction due to fixed key, she will be a valid target for Lewis' dolls. As an Omni dolll OTs benefits from any 20% phase set (not physical) in any team.\n\nTIP: Omni damage takes strongest buffs from the team and exploits weakest resistances on the enemy. OTs separately picks the strongest phase buffs. Here is an example:\n1. Damage increase: 70% Hydro, 40% Electric, 30% Ice\n2. Critical Damage: 20% Ice, 10% Electric\n3. 30% Electric Attack Power\n The final buffs will be: 70% increased damage, 20% increased critical damage, and 30% increased attack (Note that non-element specific buffs such as Atk Up and Damage Up always applies to OTs. Element buffs such as Blazing Assault and Burning Tide also always applies to OTs as these buffs a NOT element specific).\nNote: Unlike attachment sets, remoulding flowers are subject to the above damage buff rules(e.g. OTs in Hydro team will gain bonuses from hydro boost but not corro boost). Due to this, its recommended to go for universal effects such as Ichor Conversion, Headhunter and so on.\nAfter collecting strongest buffs OTs will do damage to the target according to its weakest phase tolerance and simply ignore any elemental immunity as long as its not complete phase damage immunity.",
+    "step": "V6"
+   }
+  ],
+  "weapons": [
+   "Capitoline",
+   "Planeta",
+   "Golden Melody"
+  ]
+ },
+ "papasha": {
+  "attachments": {
+   "mainSet": "Physical Boost",
+   "setEffect": "When dealing Physical damage, the damage is increased by 20%.",
+   "substats": "ATK% > ATK > CRIT% > CRIT DMG%"
+  },
+  "keys": {
+   "alternatives": [
+    "Fixed Key 6 - Strength in Unity"
+   ],
+   "primary": [
+    "Fixed Key 1 - Glory With Us",
+    "Fixed Key 3 - Unwavering Conviction",
+    "Fixed Key 4 - Final Assault"
+   ]
+  },
+  "path": [],
+  "weapons": [
+   "Svarog",
+   "Classified Manuscript"
+  ]
+ },
+ "peri": {
+  "attachments": {
+   "mainSet": "Burn Boost",
+   "setEffect": "When dealing Burn damage, the damage is increased by 20%.",
+   "substats": "HP% > HP > ATK% > CRIT DMG%"
+  },
+  "keys": {
+   "alternatives": [
+    "Fixed Key 5"
+   ],
+   "primary": [
+    "Fixed Key 1",
+    "Fixed Key 2",
+    "Fixed Key 6"
+   ]
+  },
+  "path": [
+   {
+    "note": "Allows Peri to activate more instances of her basic attack (Passionate Gift)",
+    "step": "V1"
+   },
+   {
+    "note": "Increases CRIT DMG of Peri's normal attacks. As the bulk of Peri's damage comes from her enhanced basic attack, this significantly boosts Peri's damage\n\nDisclaimer: Upon the release of Peri Expansion Key she became way more usable in fire team. V1 is very important for her performance because it increase amount of QH stacks.",
+    "step": "V6"
+   }
+  ],
+  "weapons": [
+   "Amanita",
+   "Banshee's Whisper",
+   "Classified Manuscript"
+  ]
+ },
+ "peritya": {
+  "attachments": {
+   "mainSet": "Phase Strike",
+   "setEffect": "Deals 15% increased damage to targets with Phase Element debuffs.",
+   "substats": "ATK% > ATK > CRIT% > CRIT DMG%"
+  },
+  "keys": {
+   "alternatives": [
+    "Fixed Key 5 - A Brief Respite"
+   ],
+   "primary": [
+    "Fixed Key 1 - Temporary System Maintenance",
+    "Fixed Key 2 - Impromptu Cat and Mouse Game",
+    "Fixed Key 6 - Friendly Contact"
+   ]
+  },
+  "path": [],
+  "weapons": [
+   "Optical Illusion",
+   "Mjölnir",
+   "Pecheneg-SP"
+  ]
+ },
+ "phaetusa": {
+  "attachments": {
+   "mainSet": "Close Assault",
+   "setEffect": "Damage dealt is increased by 12%. When dealing melee damage, damage is additionally increased by 24%.",
+   "substats": "ATK% > ATK > CRIT% > CRIT DMG%"
+  },
+  "keys": {
+   "alternatives": [
+    "Fixed Key 5 - Keeper of the Boundary"
+   ],
+   "primary": [
+    "Fixed Key 3 - Blade of Doom",
+    "Fixed Key 2 - Drifter’s Resolve",
+    "Fixed Key 1 - Frosted Veins"
+   ]
+  },
+  "path": [
+   {
+    "note": null,
+    "step": "V1"
+   },
+   {
+    "note": null,
+    "step": "R1"
+   },
+   {
+    "note": null,
+    "step": "V3"
+   },
+   {
+    "note": null,
+    "step": "V4"
+   },
+   {
+    "note": null,
+    "step": "V6"
+   }
+  ],
+  "weapons": [
+   "Law of Causality",
+   "Rectrix",
+   "Crowned Jackelope"
+  ]
+ },
+ "qiongjiu": {
+  "attachments": {
+   "mainSet": "Phase Strike",
+   "setEffect": "Deals 15% increased damage to targets with Phase Element debuffs.",
+   "substats": "ATK% > ATK > CRIT% > CRIT DMG%"
+  },
+  "keys": {
+   "alternatives": [
+    "Fixed Key 1 - Concentration"
+   ],
+   "primary": [
+    "Fixed Key 3 - Targeted Training",
+    "Fixed Key 4 - Point of Vulnerability",
+    "Fixed Key 5 - Necessary Adjustments"
+   ]
+  },
+  "path": [
+   {
+    "note": "Allows Qiongjiu to act as a reliable Overburn proc unit for Sharkry to exploit with her Fixed Key 2 (Thermal Feedback)\n\nV4/5: Boosts overall team damage. Not effective if there are other units already applying Vulnerable I and Damage Up II",
+    "step": "V3"
+   },
+   {
+    "note": null,
+    "step": "V4"
+   },
+   {
+    "note": null,
+    "step": "V5"
+   }
+  ],
+  "weapons": [
+   "Golden Melody",
+   "Guerno",
+   "Heavy Strings"
+  ]
+ },
+ "qiuhua": {
+  "attachments": {
+   "mainSet": "Burn Boost",
+   "setEffect": "When dealing Burn damage, the damage is increased by 20%.",
+   "substats": "ATK% > ATK > CRIT% > CRIT DMG%"
+  },
+  "keys": {
+   "alternatives": [
+    "Fixed Key 2",
+    "Fixed Key 3",
+    "Fixed Key 6"
+   ],
+   "primary": [
+    "Fixed Key 1",
+    "Fixed Key 4"
+   ]
+  },
+  "path": [
+   {
+    "note": "Doubles the speed of gaining Scorch Mark, as well as increasing the damage dealt per Scorch Mark. This massively boosts Qiuhua's damage\n\nDisclaimer: Qiuhua is very much a V0 or V6 unit. All other Vertebraes do not provide significant damage boosts for her compared to V6\n\nTIP: On R1 Lind sig is better than R1 QH sig. QH sig on R3 is better than Lind sig R1 by <2%",
+    "step": "V6"
+   }
+  ],
+  "weapons": [
+   "Thorn Criterion",
+   "Trailblazer",
+   "Expeditionary Pigeon"
+  ]
+ },
+ "robella": {
+  "attachments": {
+   "mainSet": "Freeze Boost",
+   "setEffect": "When dealing Freeze damage, the damage is increased by 20%.",
+   "substats": "ATK% > ATK > CRIT% > CRIT DMG%"
+  },
+  "keys": {
+   "alternatives": [
+    "Fixed Key 3 - Extra Attention",
+    "Fixed Key 4 - Less Than a Dinergate",
+    "Fixed Key 6 - Inner Calm"
+   ],
+   "primary": [
+    "Fixed Key 1 - Guard Vent",
+    "Fixed Key 2 - Third-gen Neural Cloud"
+   ]
+  },
+  "path": [
+   {
+    "note": null,
+    "step": "V1"
+   },
+   {
+    "note": null,
+    "step": "V3"
+   },
+   {
+    "note": "Ensures 100% uptime on Radiant Ascension",
+    "step": "V5"
+   },
+   {
+    "note": "Massively boosts Robella's damage as Exposed Weakness has no stack limit. Robella's damage can scale infinitely if there is no turn limit",
+    "step": "V6"
+   }
+  ],
+  "weapons": [
+   "Svarog",
+   "Wanderer's Magnum",
+   "Juggernaut"
+  ]
+ },
+ "sabrina": {
+  "attachments": {
+   "mainSet": "Phase Strike",
+   "setEffect": "Deals 15% increased damage to targets with Phase Element debuffs.",
+   "substats": "ATK% > DEF% > HP% > ATK"
+  },
+  "keys": {
+   "alternatives": [
+    "Fixed Key 5 - Calorie Overload",
+    "Fixed Key 6 - Weird-Tasting Health Recipe"
+   ],
+   "primary": [
+    "Fixed Key 1 - Eating is a Blessing",
+    "Fixed Key 2 - Delicious Sharing",
+    "Fixed Key 4 - Eat Well, Sleep Well"
+   ]
+  },
+  "path": [],
+  "weapons": [
+   "Mezzaluna",
+   "Expeditionary Pigeon",
+   "Heart Seeker"
+  ]
+ },
+ "sakura": {
+  "attachments": {
+   "mainSet": "Burn Boost",
+   "setEffect": "When dealing Burn damage, the damage is increased by 20%.",
+   "substats": "ATK% > ATK > CRIT% > CRIT DMG%"
+  },
+  "keys": {
+   "alternatives": [
+    "Fixed Key 3 - Apologize From The Heart",
+    "Fixed Key 6 - Improving Everyday",
+    "Fixed Key 2 - Just In Time Logistics"
+   ],
+   "primary": [
+    "Fixed Key 1 - Hard Work and Guts",
+    "Fixed Key 4 - Jinxed by Nature"
+   ]
+  },
+  "path": [],
+  "weapons": [
+   "Crimson Covenant",
+   "Svarog",
+   "Classified Manuscript"
+  ]
+ },
+ "sextans": {
+  "attachments": {
+   "mainSet": "Close Assault",
+   "setEffect": "Damage dealt is increased by 12%. When dealing melee damage, damage is additionally increased by 24%.",
+   "substats": "ATK% > ATK > CRIT% > CRIT DMG%"
+  },
+  "keys": {
+   "alternatives": [
+    "Fixed Key 2 - Silent Inscription",
+    "Fixed Key 3 - Pocket Watch Calibration"
+   ],
+   "primary": [
+    "Fixed Key 1 - Contractor's Bond",
+    "Fixed Key 4 - Withering Oath",
+    "Fixed Key 6 - Black Swan's Feather"
+   ]
+  },
+  "path": [],
+  "weapons": [
+   "Twilight Rose",
+   "Law of Causality",
+   "Crowned Jackelope"
+  ]
+ },
+ "sharkry": {
+  "attachments": {
+   "mainSet": "Phase Strike",
+   "setEffect": "Deals 15% increased damage to targets with Phase Element debuffs.",
+   "substats": "ATK% > ATK > CRIT% > CRIT DMG%"
+  },
+  "keys": {
+   "alternatives": [
+    "Fixed Key 3 - Deadly Allure"
+   ],
+   "primary": [
+    "Fixed Key 1 - Devilish Whisper",
+    "Fixed Key 2 - Thermal Feedback",
+    "Fixed Key 4 - Idol Training Day"
+   ]
+  },
+  "path": [],
+  "weapons": [
+   "Planeta",
+   "Golden Melody",
+   "Guerno"
+  ]
+ },
+ "soppo": {
+  "attachments": {
+   "mainSet": "Phase Strike",
+   "setEffect": "Deals 15% increased damage to targets with Phase Element debuffs.",
+   "substats": "ATK% > ATK > CRIT% > CRIT DMG%"
+  },
+  "keys": {
+   "alternatives": [
+    "Fixed Key 2 - Want Another Bite?"
+   ],
+   "primary": [
+    "Fixed Key 1 - This Is My Turf",
+    "Fixed Key 5 - Killing Frenzy",
+    "Fixed Key 6 - Pack Synergy"
+   ]
+  },
+  "path": [],
+  "weapons": [
+   "Capitoline",
+   "Skysunderer's Howl",
+   "Golden Melody"
+  ]
+ },
+ "springfield": {
+  "attachments": {
+   "mainSet": "Hydro Boost",
+   "setEffect": "When dealing Hydro damage, the damage is increased by 20%.",
+   "substats": "HP% > HP > ATK% > ATK (Below V6)\nHP% > HP > CRIT% > CRIT DMG% (V6)"
+  },
+  "keys": {
+   "alternatives": [
+    "Fixed Key 1 - Coalesced Core",
+    "Fixed Key 2 - Intel Acquisition"
+   ],
+   "primary": [
+    "Fixed Key 3 - Airborne link",
+    "Fixed Key 5 - Behind Her Smile"
+   ]
+  },
+  "path": [
+   {
+    "note": "One of the essential pieces for Tololo to act thrice in a turn (with the other being Tololo V2)",
+    "step": "V1"
+   },
+   {
+    "note": "Allows her Ultimate and S2 to apply a teamwide ATK Up II buff, as well as also increasing Hydro damage for everyone and increasing the potency of Deep-Rooted Bonds",
+    "step": "R1"
+   },
+   {
+    "note": "Allows Springfield to use Ultimate → S2 on the first turn instead of only being able to either use her Ultimate or her S2",
+    "step": "V2"
+   },
+   {
+    "note": "Significantly boosts Taryz's damage by increasing Hydro damage dealt and adding an Action Support to it",
+    "step": "V3"
+   },
+   {
+    "note": "Massively boosts Taryz's damage by doubling its multipliers, increasing its Action Support count, and allows Taryz to apply a debuff that increases Hydro damage dealt\n\nTIP: Liushih R1 has HP as a base stat which boosts SF V6 damage. If your team does not require ATK Up II buff you can swap SF R1 with Liu R1",
+    "step": "V6"
+   }
+  ],
+  "weapons": [
+   "Faithpiercer",
+   "Bittersweet Caramel",
+   "Samosek"
+  ]
+ },
+ "suomi": {
+  "attachments": {
+   "mainSet": "Phase Strike",
+   "setEffect": "Deals 15% increased damage to targets with Phase element debuffs.",
+   "substats": "ATK% > ATK > HP% > DEF%\n\n(It's recommended to stack her ATK until it's at least equal to your party member's HP to maximize her shield she grants on her Ultimate)"
+  },
+  "keys": {
+   "alternatives": [
+    "Fixed Key 3 - Positive Feedback",
+    "Fixed Key 5 - Immovable"
+   ],
+   "primary": [
+    "Fixed Key 1 - Unyielding Momentum",
+    "Fixed Key 2 - Little Guardian",
+    "Fixed Key 6 - Logistics Support in Progress"
+   ]
+  },
+  "path": [
+   {
+    "note": "Boosts Suomi's defensive capabilities by giving her a party heal and several defensive buffs.",
+    "step": "V1"
+   },
+   {
+    "note": "Increases the amount of damage a Shield can take, as well as increasing damage dealt by Freeze units",
+    "step": "R1"
+   },
+   {
+    "note": "Increases damage dealt by Freeze units when they have a Shield.",
+    "step": "V2"
+   }
+  ],
+  "weapons": [
+   "Unspoken Calling",
+   "Classified Manuscript",
+   "Juggernaut"
+  ]
+ },
+ "tololo": {
+  "attachments": {
+   "mainSet": "Phase Strike",
+   "setEffect": "Deals 15% increased damage to targets with Phase Element debuffs.",
+   "substats": "ATK% > ATK > CRIT% > CRIT DMG%"
+  },
+  "keys": {
+   "alternatives": [
+    "Fixed Key 4 - Retrograde Motion"
+   ],
+   "primary": [
+    "Fixed Key 1 - Comet Tail Transit",
+    "Fixed Key 2 - Principles of Observational Astronomy",
+    "Fixed Key 3"
+   ]
+  },
+  "path": [
+   {
+    "note": "One of the essential pieces for Tololo to act thrice in a turn (with the other being Springfield V1)",
+    "step": "V2"
+   },
+   {
+    "note": null,
+    "step": "V3"
+   },
+   {
+    "note": "Allows Tololo to hit significantly harder during Extra Action thanks to the 4 new buffs she gain\n\nV3/5: Increases Annihilation Star's damage and CRIT DMG provided by Lightspike respectively, allowing Tololo to hit harder",
+    "step": "V4"
+   },
+   {
+    "note": null,
+    "step": "V5"
+   }
+  ],
+  "weapons": [
+   "Planeta",
+   "Guerno",
+   "Golden Melody"
+  ]
+ },
+ "ullrid": {
+  "attachments": {
+   "mainSet": "Close Assault",
+   "setEffect": "Damage dealt is increased by 12%. When dealing melee damage, damage is additionally increased by 24%.",
+   "substats": "ATK% > ATK > CRIT% > CRIT DMG%"
+  },
+  "keys": {
+   "alternatives": [
+    "Fixed Key 5 - Oppression"
+   ],
+   "primary": [
+    "Fixed Key 1 - Swift Action",
+    "Fixed Key 2 - Predation",
+    "Fixed Key 3 - Appropriate Caution"
+   ]
+  },
+  "path": [
+   {
+    "note": null,
+    "step": "R1"
+   },
+   {
+    "note": "Significant change to Ullrid rotation with tier 2 expansion key, ult can now consume 6 stacks of hunter's talent and restore 6 CI meaning Ulrid will have 3 S2 + Ult every turn.",
+    "step": "V4"
+   },
+   {
+    "note": "Ullrid can move 2+ tiles before every attack, +20% ATK boost.\n\nRecommendation: V0>R1>V4",
+    "step": "V5"
+   },
+   {
+    "note": null,
+    "step": "V6"
+   }
+  ],
+  "weapons": [
+   "Rectrix",
+   "Pluma Edge",
+   "Crowned Jackelope"
+  ]
+ },
+ "vector": {
+  "attachments": {
+   "mainSet": "Burn Boost",
+   "setEffect": "When dealing Burn damage, the damage is increased by 20%.",
+   "substats": "ATK% > ATK > CRIT% > CRIT DMG%"
+  },
+  "keys": {
+   "alternatives": [
+    "Fixed Key 1",
+    "Fixed Key 3",
+    "Fixed Key 4"
+   ],
+   "primary": [
+    "Fixed Key 2",
+    "Fixed Key 6"
+   ]
+  },
+  "path": [
+   {
+    "note": "Allows all Support attacks that deal Burn damage activate an additional time. This includes Qiongjiu, Qiuhua, Sharkry, and Vector herself",
+    "step": "V1"
+   },
+   {
+    "note": "Increases Burn damage dealt, increases damage dealt by allies before attacking, and increases damage dealt by single target Support attacks. These are all useful buffs that boosts a Burn team's damage significantly",
+    "step": "R1"
+   },
+   {
+    "note": "Allows Vector to dispel debuffs for all allies, which is useful in Gunsmoke, and also boost team damage thanks to Blazing Assault II\n\nTip: Expansion key allows Vector to ult every second turn and maintain ult and V2 buffs for an entire fight.\nNote: Vector uptime is not 100%, she has a small window of end turn on 2, 4, 6 rounds when dolls dont have atk2 buff. This may affect QH damage as her dot damage happens on end of turn.",
+    "step": "V2"
+   }
+  ],
+  "weapons": [
+   "Banshee's Whisper",
+   "Classified Manuscript",
+   "Svarog"
+  ]
+ },
+ "vepley": {
+  "attachments": {
+   "mainSet": "Physical Boost",
+   "setEffect": "When dealing Physical damage, the damage is increased by 20%.",
+   "substats": "ATK% > ATK > CRIT% > CRIT DMG%"
+  },
+  "keys": {
+   "alternatives": [
+    "Fixed Key 2 - Contamination Zone Tour",
+    "Fixed Key 5 - Stress Resistance Training",
+    "Fixed Key 6 - Stage Commitment"
+   ],
+   "primary": [
+    "Fixed Key 1 - Safe Distance Viewing",
+    "Fixed Key 3 - Fortune of an Idol"
+   ]
+  },
+  "path": [],
+  "weapons": [
+   "Heart Seeker",
+   "Expeditionary Pigeon",
+   "Mezzaluna"
+  ]
+ },
+ "voymastina": {
+  "attachments": {
+   "mainSet": "Close Assault",
+   "setEffect": "Damage dealt is increased by 12%. When dealing melee damage, damage is additionally increased by 24%.",
+   "substats": "ATK% > ATK > CRIT% > CRIT DMG%"
+  },
+  "keys": {
+   "alternatives": [
+    "Fixed Key 3",
+    "Fixed Key 4"
+   ],
+   "primary": [
+    "Fixed Key 5",
+    "Fixed Key 6"
+   ]
+  },
+  "path": [
+   {
+    "note": "Increases Voy aoe capabilities and lets you clear stages in seconds",
+    "step": "V3"
+   },
+   {
+    "note": "Drastically increases Voy damage\n\nTip: Voy requires def penetration to deal her maximum damage. CN players minmaxing 400% of def penetration. To acchieve numbers this high Voy V6R1 requires V1R1 Yoohee, V3+ Lainie (40% def pen), Klukay V2+ (15% def pen) and Lind (15% def pen). Recently with physical units buffs they were replacing corro units in Voy team. To balance out loss of def penetration you will need V6R5 Voy for maximum Voy damage. Be mindful that bosses can have their own def pen debuffs \n\nTip: melee set wins over physical set by 2-3% of overall damage. If you already have your own maxed physical set - use it. If you want to farm a set for Voy after melee set is released its better to farm melee set. Also melee set is easier to pass around to other AR dolls.",
+    "step": "V6"
+   }
+  ],
+  "weapons": [
+   "AK-15",
+   "Planeta",
+   "Golden Melody"
+  ]
+ },
+ "welrod": {
+  "attachments": {
+   "mainSet": "Corrosion Boost",
+   "setEffect": "When dealing Corrosion damage, the damage is increased by 20%.",
+   "substats": "HP% > HP > ATK% > ATK"
+  },
+  "keys": {
+   "alternatives": [
+    "Fixed Key 5 - The Final Problem",
+    "Fixed Key 2 - Preliminary Evidence Gathering",
+    "Fixed Key 4 - Hellhound Hunt"
+   ],
+   "primary": [
+    "Fixed Key 1 - Master Detective's Aura",
+    "Fixed Key 3 - Honkaku Logic",
+    "Fixed Key 6 - Two-in-One Detective"
+   ]
+  },
+  "path": [],
+  "weapons": [
+   "Themis’ Game",
+   "Hestia",
+   "Papa-Figo"
+  ]
+ },
+ "yoohee": {
+  "attachments": {
+   "mainSet": "Physical Boost",
+   "setEffect": "When dealing Physical damage, the damage is increased by 20%.",
+   "substats": "ATK% > ATK > CRIT% > CRIT DMG%"
+  },
+  "keys": {
+   "alternatives": [],
+   "primary": [
+    "Fixed Key 1",
+    "Fixed Key 3",
+    "Fixed Key 6"
+   ]
+  },
+  "path": [
+   {
+    "note": "Makes everyone shred Stability faster and hit harder. Most importantly, it greatly increases the frequency of procs of Best Dancer and Troupe's Core, the latter buff being the crucial buff for Physical teams",
+    "step": "V1"
+   },
+   {
+    "note": "Allows Yoohee to function in other element teams thanks to Defense Down II",
+    "step": "V2"
+   },
+   {
+    "note": "Ensures best uptime on Troupe's Core (6/7 turns) and grants an additional usage of S1 once a turn if Best Dancer is triggered",
+    "step": "V3"
+   },
+   {
+    "note": "Doubles effects of Dance Steps for self and increases ATK based on number of buffs applied to other allies, which significantly boosts Yoohee's damage. Also grants a 25% CRIT DMG when dealing Physical damage for all allies when Best Dancer is triggered, which also significantly boosts damage for Physical DPS units",
+    "step": "V6"
+   }
+  ],
+  "weapons": [
+   "Dazzling Sparkles",
+   "Planeta",
+   "Golden Melody"
+  ]
+ },
+ "zhaohui": {
+  "attachments": {
+   "mainSet": "Phase Strike",
+   "setEffect": "Deals 15% increased damage to targets with Phase element debuffs.",
+   "substats": "ATK% > ATK > CRIT% > CRIT DMG%"
+  },
+  "keys": {
+   "alternatives": [
+    "Fixed Key 6 - Dry Humor"
+   ],
+   "primary": [
+    "Fixed Key 1 - Weakness Exposed",
+    "Fixed Key 2 - Detest Evil",
+    "Fixed Key 4 - Light of Justice"
+   ]
+  },
+  "path": [
+   {
+    "note": "Allows Zhaohui to teleport other allies, or even the entire team",
+    "step": "V3"
+   },
+   {
+    "note": "Significantly boosts Zhaohui's damage\n\nDisclaimer: Due to Zhaohui's poor damage even at V6, it is not recommended for players to pull for her",
+    "step": "V6"
+   }
+  ],
+  "weapons": [
+   "Juggernaut",
+   "Classified Manuscript",
+   "Svarog"
+  ]
+ }
+}
