@@ -1964,8 +1964,12 @@ td {
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
 }
 
+/* Centered in the bar: the strip is narrower than the workspace whenever the
+   squad is short of a full 5, and left-aligned slots left a lopsided gap on the
+   right. Only here — the grid-aligned strip elsewhere still starts at the edge. */
 .teambuilder-squad-sticky .teambuilder-squad {
   margin-bottom: 0;
+  justify-content: center;
 }
 
 .teambuilder-pick {
