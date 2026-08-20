@@ -54,8 +54,8 @@ export const PHASE_COLORS: Record<string, string> = {
   Hydro: '#0075f8',
   Electric: '#e0b04b',
   Freeze: '#00c8e0',
-  Corrosion: '#00e554',
-  Omni: '#bc1eb1',
+  Corrosion: '#8679e8',
+  Resonance: '#e52955',
 };
 
 /**

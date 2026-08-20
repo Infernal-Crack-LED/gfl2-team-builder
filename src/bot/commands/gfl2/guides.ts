@@ -15,11 +15,6 @@ const GROUPS: {
     name: '🔧 Databases & tools',
     links: [
       {
-        label: 'dandegate.net',
-        url: 'https://dandegate.net',
-        note: 'database, dolls, weapons, and more',
-      },
-      {
         label: 'ReTempest TapTap Page',
         url: 'https://www.taptap.cn/user/674589071',
         note: 'GFL2 news and updates on TapTap',

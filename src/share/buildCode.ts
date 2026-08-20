@@ -228,6 +228,14 @@ export interface RecBuild {
   stats?: string[];
   /** Free-text author notes, drawn verbatim on the card. */
   notes?: string;
+  /**
+   * Provenance: 'sheet' marks the UNMODIFIED default recommendation as
+   * served by /api/v1/rec-defaults (sourced from the GFL2 Official Release
+   * Info Compilation). The card creator drops this on the first user edit
+   * and never re-adds it, so only untouched defaults carry the attribution
+   * footer.
+   */
+  src?: 'sheet';
 }
 
 export function encodeRecBuild(build: RecBuild): string {
@@ -312,6 +320,9 @@ export function decodeRecBuild(code: string): RecBuild | null {
       if (stats.length <= MAX_STAT_PREFS && stats.length === b.stats.length) {
         result.stats = stats;
       }
+    }
+    if (b.src === 'sheet') {
+      result.src = 'sheet';
     }
     if (typeof b.notes === 'string' && b.notes.length > 0) {
       // Trim rather than reject an over-long note: the cap is a layout

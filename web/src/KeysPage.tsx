@@ -262,8 +262,7 @@ export function KeysPage() {
         <h1>Keys</h1>
         <p className="muted">
           Every Fixed, Expansion, and Common key in Girls&apos; Frontline 2:
-          Exilium. Affinity keys are omitted — they are a flat affinity-level
-          stat reward, not a build choice.
+          Exilium.
         </p>
       </header>
 

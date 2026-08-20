@@ -4315,6 +4315,16 @@ summary.teameffect-tier-title:hover {
   overflow: hidden;
 }
 
+/* Untouched sheet defaults only — mirrors the canvas attribution footer. */
+.rec-card-attribution {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 12px 36px 0;
+  color: #8b93a3;
+  font-size: 14px;
+}
+
 /* FOOTER_H 28 — bottom breathing room. */
 .rec-card-foot {
   height: 28px;

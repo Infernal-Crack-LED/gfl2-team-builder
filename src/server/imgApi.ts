@@ -222,6 +222,7 @@ async function renderPayload(
       dollClass: doll?.class ?? null,
       dollPhase: doll?.phase ?? null,
       dollRarity: doll?.rarity ?? null,
+      official: r.src === 'sheet',
       breakpoints: r.bp,
       optimal: r.opt ?? null,
       weapons: r.ws.map((id, i) => ({

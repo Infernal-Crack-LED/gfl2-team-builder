@@ -881,6 +881,12 @@ interface RecState {
   commonKeys: string[];
   statPrefs: string[];
   notes: string;
+  /**
+   * True only for an UNTOUCHED default recommendation (src:'sheet' on the
+   * decoded code). Any user edit clears it permanently — reverting fields
+   * back by hand does not restore it.
+   */
+  official: boolean;
 }
 
 function emptyRec(): RecState {
@@ -895,6 +901,7 @@ function emptyRec(): RecState {
     commonKeys: [],
     statPrefs: [...DEFAULT_STAT_PREFS],
     notes: '',
+    official: false,
   };
 }
 
@@ -952,6 +959,7 @@ function recStateFromBuild(doll: Doll, decoded: RecBuild): RecState {
       .filter((s) => (STAT_PREF_OPTIONS as readonly string[]).includes(s))
       .slice(0, MAX_STAT_PREFS),
     notes: decoded.notes ?? '',
+    official: decoded.src === 'sheet',
   };
 }
 
@@ -1080,6 +1088,9 @@ function RecCardTool({ onNotice }: { onNotice: (m: string | null) => void }) {
     if (notes) {
       payload.notes = notes.slice(0, MAX_REC_NOTES);
     }
+    if (rec.official) {
+      payload.src = 'sheet';
+    }
     return encodeRecBuild(payload);
   }, [doll, rec]);
 
@@ -1093,6 +1104,7 @@ function RecCardTool({ onNotice }: { onNotice: (m: string | null) => void }) {
       .filter((k): k is Key => k !== undefined)
       .map(fixedKeySlot)
       .filter((n): n is number => n !== null);
+    const official = rec.official;
     const expKey = rec.expansionKey
       ? dollKeys.find((k) => k.id === rec.expansionKey)
       : undefined;
@@ -1119,6 +1131,7 @@ function RecCardTool({ onNotice }: { onNotice: (m: string | null) => void }) {
         ),
       statPrefs: rec.statPrefs,
       notes: rec.notes.trim() || null,
+      official,
       portraitUrl: doll.avatarUrl,
     };
   }, [doll, rec, dollKeys, commonKeys]);
@@ -1150,7 +1163,7 @@ function RecCardTool({ onNotice }: { onNotice: (m: string | null) => void }) {
   const fixedKeys = dollKeys.filter((k) => k.keyType === 'Fixed Key');
   const expansionKeys = dollKeys.filter((k) => k.keyType === 'Expansion Key');
   const patch = (next: Partial<RecState>) =>
-    setRec((prev) => (prev ? { ...prev, ...next } : prev));
+    setRec((prev) => (prev ? { ...prev, ...next, official: false } : prev));
 
   const toggleCapped = (list: string[], id: string, cap: number): string[] =>
     list.includes(id)

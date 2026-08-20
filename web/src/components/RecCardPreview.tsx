@@ -58,6 +58,8 @@ export interface RecCardPreviewData {
   commonKeySources: string[];
   statPrefs: string[];
   notes: string | null;
+  /** Untouched sheet default — shows the attribution footer with icon. */
+  official?: boolean;
   portraitUrl: string | null;
 }
 
@@ -94,6 +96,7 @@ function recCardHeight(data: RecCardPreviewData): number {
     keys +
     (SEC_CONTENT_DROP + META_LINE) + // stats
     notes +
+    (data.official ? 30 : 0) + // attribution footer (sheet defaults only)
     FOOTER_H
   );
 }
@@ -313,6 +316,26 @@ export function RecCardPreview({ data }: { data: RecCardPreviewData }) {
                 </p>
               </div>
             </>
+          )}
+
+          {data.official && (
+            <div className="rec-card-attribution">
+              <svg
+                width="14"
+                height="14"
+                viewBox="0 0 16 16"
+                aria-hidden="true"
+              >
+                <rect width="16" height="16" rx="3" fill="#21a463" />
+                <rect x="3.5" y="3.5" width="9" height="9" fill="#fff" />
+                <rect x="3.5" y="6.3" width="9" height="1.4" fill="#21a463" />
+                <rect x="3.5" y="9.4" width="9" height="1.4" fill="#21a463" />
+                <rect x="7.3" y="3.5" width="1.4" height="9" fill="#21a463" />
+              </svg>
+              <span>
+                Recommendation from GFL2 Official Release Info Compilation
+              </span>
+            </div>
           )}
 
           <div className="rec-card-foot" />

@@ -14,12 +14,8 @@ export function CreditsPage() {
         <h2>Data Sources</h2>
         <ul>
           <li>
-            Game data from{' '}
-            <a href="https://dandegate.net" target="_blank" rel="noreferrer">
-              dandegate.net
-            </a>{' '}
-            — community-maintained GFL2 database. Skill and key icons are
-            mirrored from it and served from this site.
+            Game data and art are extracted directly from the Girls&apos;
+            Frontline 2: Exilium game client.
           </li>
           <li>
             Class, phase, ammo and Imago factor icons from{' '}
@@ -37,7 +33,8 @@ export function CreditsPage() {
             .
           </li>
           <li>
-            Default recommendation builds from the{' '}
+            Default recommendation builds, and select values the client
+            doesn&apos;t state, from the{' '}
             <a
               href="https://docs.google.com/spreadsheets/d/1DogyU3K7ZXw2qbhP1EhRXIAw5nCyIV5G5e-QWviBZME/edit?usp=sharing"
               target="_blank"
@@ -45,8 +42,8 @@ export function CreditsPage() {
             >
               GFL2 Official Release Info Compilation
             </a>{' '}
-            — community-maintained spreadsheet covering release schedules and
-            recommended builds.
+            — community-maintained spreadsheet, used with its maintainers&apos;
+            permission.
           </li>
         </ul>
         <p className="muted">

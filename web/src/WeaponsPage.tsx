@@ -42,7 +42,7 @@ export function WeaponsPage() {
         </p>
       </header>
 
-      <WeaponFilters filterResult={filterResult} defaultOpen={false} />
+      <WeaponFilters filterResult={filterResult} defaultOpen={true} />
       <WeaponCards weapons={filterResult.weapons} />
     </div>
   );

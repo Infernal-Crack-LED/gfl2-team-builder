@@ -544,6 +544,8 @@ export function createServer(): Hono {
       ws: arr(row.weaponIds),
       sets: arr(row.setNames),
       keys: arr(row.fixedKeyIds),
+      // marks the untouched default — the card creator drops this on edit
+      src: 'sheet',
     };
     if (row.optimal) {
       payload.opt = row.optimal;

@@ -2,9 +2,10 @@
 
 Discord bot + team-building website for **Girls' Frontline 2: Exilium**.
 
-Data sourced from [dandegate.net](https://dandegate.net) — see
-[investigation-dandegate-sync.md](./investigation-dandegate-sync.md) for the
-API investigation and design notes.
+Game data and art are extracted directly from the game client by the
+companion datamine pipeline (see `../CUTOVER.md` in the parent workspace).
+The former Dandegate sync (`npm run sync`) is retired; content updates flow
+through `npm run seed:datamine`.
 
 ## Setup
 

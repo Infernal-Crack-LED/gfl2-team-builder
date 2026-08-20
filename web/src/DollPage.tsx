@@ -297,6 +297,7 @@ function buildRecCardPreviewData(
     dollRarity: doll.rarity,
     breakpoints: build.bp,
     optimal: build.opt ?? null,
+    official: build.src === 'sheet',
     weapons: build.ws
       .map((id) => getWeaponById(id))
       .filter((w): w is NonNullable<typeof w> => w !== undefined)

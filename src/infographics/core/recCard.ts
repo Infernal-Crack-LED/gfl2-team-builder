@@ -97,6 +97,8 @@ export interface RecCardData {
   statPrefs: string[];
   /** Free-text author notes, or null — the section is omitted when null. */
   notes: string | null;
+  /** Untouched sheet default — draws the attribution footer with icon. */
+  official?: boolean;
   /** Square-cropped portrait canvas (opaque to the core), or null. */
   portrait: unknown | null;
   /** Shared site-icon image for the brand mark (opaque to the core). */
@@ -141,6 +143,10 @@ function statsHeight(): number {
   return SEC_CONTENT_DROP + META_LINE;
 }
 
+function attributionHeight(data: RecCardData): number {
+  return data.official ? 30 : 0;
+}
+
 function notesHeight(data: RecCardData): number {
   if (!data.notes) {
     return 0;
@@ -161,6 +167,7 @@ export function recCardHeight(data: RecCardData): number {
     keysHeight(data) +
     statsHeight() +
     notesHeight(data) +
+    attributionHeight(data) +
     FOOTER_H
   );
 }
@@ -538,5 +545,33 @@ export function drawRecCard(ctx: Canvas2DLike, data: RecCardData): void {
         y + SEC_CONTENT_DROP + NOTES_PAD + (i + 1) * NOTES_LINE - 7
       );
     });
+  }
+
+  // Attribution footer — ONLY on an untouched sheet default. The little
+  // sheet glyph is drawn inline (green rounded rect + white grid), no
+  // external asset.
+  if (data.official) {
+    const fy = h - FOOTER_H - 6;
+    const icon = 16;
+    ctx.fillStyle = '#21a463';
+    roundRect(ctx, PAD, fy - icon + 3, icon, icon, 3);
+    ctx.fill();
+    ctx.fillStyle = '#ffffff';
+    const gx = PAD + 3.5;
+    const gy = fy - icon + 6.5;
+    ctx.fillRect(gx, gy, 9, 9);
+    ctx.fillStyle = '#21a463';
+    ctx.fillRect(gx, gy + 2.8, 9, 1.4);
+    ctx.fillRect(gx, gy + 5.9, 9, 1.4);
+    ctx.fillRect(gx + 3.8, gy, 1.4, 9);
+    ctx.fillStyle = COLORS.muted;
+    ctx.font = `400 14px ${FONT}`;
+    ctx.textAlign = 'left';
+    ctx.textBaseline = 'alphabetic';
+    ctx.fillText(
+      'Recommendation from GFL2 Official Release Info Compilation',
+      PAD + icon + 8,
+      fy
+    );
   }
 }

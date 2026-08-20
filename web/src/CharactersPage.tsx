@@ -40,7 +40,7 @@ export function CharactersPage() {
         </p>
       </header>
 
-      <DollFilters filterResult={filterResult} defaultOpen={false} />
+      <DollFilters filterResult={filterResult} defaultOpen={true} />
       <DollCards dolls={filterResult.dolls} mode="navigation" />
     </div>
   );

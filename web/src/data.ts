@@ -628,7 +628,14 @@ export const PHASE_OPTIONS: readonly FilterOption[] = [
     icon: ICON('phase-corrosion'),
     colored: true,
   },
-  { id: 'omni', label: 'Omni', icon: ICON('phase-omni'), colored: true },
+  // The game's EN localisation for the phase fans called Omni is
+  // "Resonance" (Phase Element - Resonance) — maintainer-confirmed.
+  {
+    id: 'resonance',
+    label: 'Resonance',
+    icon: ICON('phase-omni'),
+    colored: true,
+  },
 ];
 
 // Option ids MUST be the lowercased data values — the filters match by exact
@@ -726,6 +733,8 @@ export const PHASE_COLORS: Record<string, string> = {
   Hydro: '#0075f8',
   Electric: '#e0b04b',
   Freeze: '#00c8e0',
-  Corrosion: '#00e554',
-  Omni: '#bc1eb1',
+  // light purple sampled from the corrosion phase icon (maintainer request)
+  Corrosion: '#8679e8',
+  // the client's own Resonance Damage colour
+  Resonance: '#e52955',
 };
