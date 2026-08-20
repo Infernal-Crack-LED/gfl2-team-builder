@@ -1,1059 +1,6 @@
 {
-  "syncedAt": "2026-08-20T09:02:39.861Z",
+  "syncedAt": "2026-08-20T09:09:54.802Z",
   "keys": [
-    {
-      "id": "b97c9183-61f2-5dde-ab86-f64e7b5f84a5",
-      "keyTitle": "Fixed Key - Lord of the Sky",
-      "displayTitle": "Lord of the Sky",
-      "keyType": "Fixed Key",
-      "level": 1,
-      "attributes": null,
-      "effect": "Before an active attack, cleanse 1 buff from the target.",
-      "materials": null,
-      "dollId": "3e50f95f-8f3d-5586-8b02-48b31d5d4d2e",
-      "imageUrl": "/game-assets/keys/10810901-lord-of-the-sky.webp",
-      "regionTag": "cn",
-      "searchTags": []
-    },
-    {
-      "id": "47a55fc0-bab6-51a4-8c8f-7c48bed6dc4a",
-      "keyTitle": "Common Key - Two-Pronged Attack",
-      "displayTitle": "Two-Pronged Attack",
-      "keyType": "Common Key",
-      "level": null,
-      "attributes": [
-        {
-          "name": "Crit Rate",
-          "value": "2%"
-        },
-        {
-          "name": "Attack Boost",
-          "value": "2%"
-        }
-      ],
-      "effect": null,
-      "materials": null,
-      "dollId": null,
-      "imageUrl": "/game-assets/keys/92003-two-pronged-attack.webp",
-      "regionTag": "en",
-      "searchTags": []
-    },
-    {
-      "id": "6b9a4b5e-099b-5566-9cff-6a56ebad2a6c",
-      "keyTitle": "Common Key - Physical Conditioning",
-      "displayTitle": "Physical Conditioning",
-      "keyType": "Common Key",
-      "level": null,
-      "attributes": [
-        {
-          "name": "Attack Boost",
-          "value": "2%"
-        },
-        {
-          "name": "Health Boost",
-          "value": "2%"
-        }
-      ],
-      "effect": null,
-      "materials": null,
-      "dollId": null,
-      "imageUrl": "/game-assets/keys/92004-physical-conditioning.webp",
-      "regionTag": "en",
-      "searchTags": []
-    },
-    {
-      "id": "ccb6c57d-c51e-59f2-bfef-68b8ca4f99e4",
-      "keyTitle": "Common Key - Caramel Overload",
-      "displayTitle": "Caramel Overload",
-      "keyType": "Common Key",
-      "level": null,
-      "attributes": [
-        {
-          "name": "Attack Boost",
-          "value": "2%"
-        },
-        {
-          "name": "Defense Boost",
-          "value": "2%"
-        }
-      ],
-      "effect": null,
-      "materials": null,
-      "dollId": null,
-      "imageUrl": "/game-assets/keys/92005-caramel-overload.webp",
-      "regionTag": "en",
-      "searchTags": []
-    },
-    {
-      "id": "e9b09abc-86fd-533b-94a5-c6c21d3d0bdb",
-      "keyTitle": "Common Key - Vibrant Tremolo",
-      "displayTitle": "Vibrant Tremolo",
-      "keyType": "Common Key",
-      "level": null,
-      "attributes": [
-        {
-          "name": "Crit Rate",
-          "value": "3%"
-        },
-        {
-          "name": "Attack Boost",
-          "value": "3%"
-        }
-      ],
-      "effect": null,
-      "materials": null,
-      "dollId": null,
-      "imageUrl": "/game-assets/keys/91001-vibrant-tremolo.webp",
-      "regionTag": "en",
-      "searchTags": []
-    },
-    {
-      "id": "02d8af3b-f34b-5122-b522-53e594731a65",
-      "keyTitle": "Common Key - Black Tea Breve",
-      "displayTitle": "Black Tea Breve",
-      "keyType": "Common Key",
-      "level": null,
-      "attributes": [
-        {
-          "name": "Crit Rate",
-          "value": "3%"
-        },
-        {
-          "name": "Attack Boost",
-          "value": "3%"
-        }
-      ],
-      "effect": null,
-      "materials": null,
-      "dollId": null,
-      "imageUrl": "/game-assets/keys/91002-black-tea-breve.webp",
-      "regionTag": "en",
-      "searchTags": []
-    },
-    {
-      "id": "5a0d8d1e-e0b6-5624-9b8d-ae62349bb65d",
-      "keyTitle": "Common Key - Violent Assault",
-      "displayTitle": "Violent Assault",
-      "keyType": "Common Key",
-      "level": null,
-      "attributes": [
-        {
-          "name": "Attack Boost",
-          "value": "3%"
-        },
-        {
-          "name": "Defense Boost",
-          "value": "3%"
-        }
-      ],
-      "effect": null,
-      "materials": null,
-      "dollId": null,
-      "imageUrl": "/game-assets/keys/91003-violent-assault.webp",
-      "regionTag": "en",
-      "searchTags": []
-    },
-    {
-      "id": "78c7dc72-8e2a-5dd4-9d1c-a9ad4dd6ff29",
-      "keyTitle": "Common Key - Sanguine Expectations",
-      "displayTitle": "Sanguine Expectations",
-      "keyType": "Common Key",
-      "level": null,
-      "attributes": [
-        {
-          "name": "Crit Rate",
-          "value": "3%"
-        },
-        {
-          "name": "Attack Boost",
-          "value": "3%"
-        }
-      ],
-      "effect": null,
-      "materials": null,
-      "dollId": null,
-      "imageUrl": "/game-assets/keys/91004-sanguine-expectations.webp",
-      "regionTag": "en",
-      "searchTags": []
-    },
-    {
-      "id": "7e930290-13cb-5230-b71b-8492031f9e4b",
-      "keyTitle": "Common Key - Teddy Bear Costume",
-      "displayTitle": "Teddy Bear Costume",
-      "keyType": "Common Key",
-      "level": null,
-      "attributes": [
-        {
-          "name": "Attack Boost",
-          "value": "3%"
-        },
-        {
-          "name": "Health Boost",
-          "value": "3%"
-        }
-      ],
-      "effect": null,
-      "materials": null,
-      "dollId": null,
-      "imageUrl": "/game-assets/keys/91005-teddy-bear-costume.webp",
-      "regionTag": "en",
-      "searchTags": []
-    },
-    {
-      "id": "d8bdbe1f-1f4c-5544-a462-427b46f34332",
-      "keyTitle": "Common Key - The Force of Bravery",
-      "displayTitle": "The Force of Bravery",
-      "keyType": "Common Key",
-      "level": null,
-      "attributes": [
-        {
-          "name": "Crit Rate",
-          "value": "3%"
-        },
-        {
-          "name": "Attack Boost",
-          "value": "3%"
-        }
-      ],
-      "effect": null,
-      "materials": null,
-      "dollId": null,
-      "imageUrl": "/game-assets/keys/91006-the-force-of-bravery.webp",
-      "regionTag": "en",
-      "searchTags": []
-    },
-    {
-      "id": "a73d5d2c-f798-5cac-9083-2bcf4e204f44",
-      "keyTitle": "Common Key - Pixie Cape",
-      "displayTitle": "Pixie Cape",
-      "keyType": "Common Key",
-      "level": null,
-      "attributes": [
-        {
-          "name": "Attack Boost",
-          "value": "3%"
-        },
-        {
-          "name": "Defense Boost",
-          "value": "3%"
-        }
-      ],
-      "effect": null,
-      "materials": null,
-      "dollId": null,
-      "imageUrl": "/game-assets/keys/91007-pixie-cape.webp",
-      "regionTag": "en",
-      "searchTags": []
-    },
-    {
-      "id": "977b0032-45cd-570f-9cc4-07a6b79be42b",
-      "keyTitle": "Common Key - Almighty Wish Machine",
-      "displayTitle": "Almighty Wish Machine",
-      "keyType": "Common Key",
-      "level": null,
-      "attributes": [
-        {
-          "name": "Attack Boost",
-          "value": "3%"
-        },
-        {
-          "name": "Health Boost",
-          "value": "3%"
-        }
-      ],
-      "effect": null,
-      "materials": null,
-      "dollId": null,
-      "imageUrl": "/game-assets/keys/91008-almighty-wish-machine.webp",
-      "regionTag": "en",
-      "searchTags": []
-    },
-    {
-      "id": "c393daaa-6f31-50ac-999e-147a4db99e58",
-      "keyTitle": "Common Key - Righteous Aid",
-      "displayTitle": "Righteous Aid",
-      "keyType": "Common Key",
-      "level": null,
-      "attributes": [
-        {
-          "name": "Attack Boost",
-          "value": "3%"
-        },
-        {
-          "name": "Health Boost",
-          "value": "3%"
-        }
-      ],
-      "effect": null,
-      "materials": null,
-      "dollId": null,
-      "imageUrl": "/game-assets/keys/91009-righteous-aid.webp",
-      "regionTag": "en",
-      "searchTags": []
-    },
-    {
-      "id": "70d48479-fe78-5f6a-8dcb-fe55a03a931a",
-      "keyTitle": "Common Key - Tacit Lookout",
-      "displayTitle": "Tacit Lookout",
-      "keyType": "Common Key",
-      "level": null,
-      "attributes": [
-        {
-          "name": "Crit Rate",
-          "value": "3%"
-        },
-        {
-          "name": "Attack Boost",
-          "value": "3%"
-        }
-      ],
-      "effect": null,
-      "materials": null,
-      "dollId": null,
-      "imageUrl": "/game-assets/keys/91010-tacit-lookout.webp",
-      "regionTag": "en",
-      "searchTags": []
-    },
-    {
-      "id": "a1861629-1c90-50e3-884c-428b989b9a5c",
-      "keyTitle": "Common Key - Essential Hot Beverages",
-      "displayTitle": "Essential Hot Beverages",
-      "keyType": "Common Key",
-      "level": 7,
-      "attributes": [
-        {
-          "name": "Health Boost",
-          "value": "5%"
-        }
-      ],
-      "effect": "At the end of action, applies [effect:4d217318-41ae-54b3-b40c-2d60a81a3794] to the closest allied unit without [effect:4d217318-41ae-54b3-b40c-2d60a81a3794]. This effect has a <span style=\"color: rgb(242, 108, 28);\">2-turn</span> cooldown.",
-      "materials": null,
-      "dollId": "fb12e551-6e4b-5554-a1a4-122b989dcd7a",
-      "imageUrl": "/game-assets/keys/10280907-essential-hot-beverages.webp",
-      "regionTag": "en",
-      "searchTags": []
-    },
-    {
-      "id": "5195eebe-129a-5bc6-b476-470596193549",
-      "keyTitle": "Expansion Key - Will To Protect",
-      "displayTitle": "Will To Protect",
-      "keyType": "Expansion Key",
-      "level": 8,
-      "attributes": null,
-      "effect": "At the start of battle and after using the Ultimate Skill <span style=\"color: rgb(52, 135, 224);\">Afternoon Tea Break</span>, applies [effect:70fc4cbf-ccb5-50a3-8c34-f698b198d7af] to Centaureissi for <span style=\"color: rgb(242, 108, 28);\">2 rounds</span>. After using the active skill <span style=\"color: rgb(52, 135, 224);\">Zucchero's Special Drink</span>, applies [effect:17d25819-3288-5ad3-aa13-89a1dd7ddd48] to all allied units for <span style=\"color: rgb(242, 108, 28);\">2 turns</span>. \nWhen Centaureissi performs a Support Attack to cover an attack that deals <span style=\"color: rgb(230, 113, 41);\">Burn damage</span> launched by allied units, Centaureissi gains <span style=\"color: rgb(242, 108, 28);\">1 point</span> of Confectance Index. This effect can be triggered up to <span style=\"color: rgb(242, 108, 28);\">once</span> per turn.",
-      "materials": null,
-      "dollId": "fb12e551-6e4b-5554-a1a4-122b989dcd7a",
-      "imageUrl": "/game-assets/keys/10280908-will-to-protect.webp",
-      "regionTag": "en",
-      "searchTags": []
-    },
-    {
-      "id": "1e686f41-19ae-5b3a-b4a6-fc148dfdbd5f",
-      "keyTitle": "Fixed Key - Let Everything Simmer",
-      "displayTitle": "Let Everything Simmer",
-      "keyType": "Fixed Key",
-      "level": 1,
-      "attributes": null,
-      "effect": "While on Hydro tiles, defense is increased by <span style=\"color: rgb(242, 108, 28);\">30%</span>, gaining immunity to displacement effects from enemy units and all abnormal Hydro terrain effects.",
-      "materials": null,
-      "dollId": "0c028851-b809-5b30-8575-54a446c131d8",
-      "imageUrl": "/game-assets/keys/10290901-let-everything-simmer.webp",
-      "regionTag": "en",
-      "searchTags": []
-    },
-    {
-      "id": "294d21ff-cc22-5e19-8779-b59a8a5f7b50",
-      "keyTitle": "Fixed Key - Eating is a Blessing",
-      "displayTitle": "Eating is a Blessing",
-      "keyType": "Fixed Key",
-      "level": 2,
-      "attributes": null,
-      "effect": "When under attack, defense is increased by <span style=\"color: rgb(242, 108, 28);\">20%</span>.",
-      "materials": null,
-      "dollId": "0c028851-b809-5b30-8575-54a446c131d8",
-      "imageUrl": "/game-assets/keys/10290902-eating-is-a-blessing.webp",
-      "regionTag": "en",
-      "searchTags": []
-    },
-    {
-      "id": "83ed9cf8-06a8-5eb8-8a71-d371e965051b",
-      "keyTitle": "Fixed Key - Eat Well, Sleep Well",
-      "displayTitle": "Eat Well, Sleep Well",
-      "keyType": "Fixed Key",
-      "level": 3,
-      "attributes": null,
-      "effect": "When Confectance Index is not full, recovers <span style=\"color: rgb(242, 108, 28);\">2 points</span> of stability index for <span style=\"color: rgb(242, 108, 28);\">each point</span> of Confectance Index gained.",
-      "materials": null,
-      "dollId": "0c028851-b809-5b30-8575-54a446c131d8",
-      "imageUrl": "/game-assets/keys/10290903-eat-well-sleep-well.webp",
-      "regionTag": "en",
-      "searchTags": []
-    },
-    {
-      "id": "8775a048-ebdb-5837-8a4e-ceedc3593456",
-      "keyTitle": "Common Key - Canned Energy Drink",
-      "displayTitle": "Canned Energy Drink",
-      "keyType": "Common Key",
-      "level": null,
-      "attributes": [
-        {
-          "name": "Attack Boost",
-          "value": "3%"
-        },
-        {
-          "name": "Defense Boost",
-          "value": "3%"
-        }
-      ],
-      "effect": null,
-      "materials": null,
-      "dollId": null,
-      "imageUrl": "/game-assets/keys/91011-canned-energy-drink.webp",
-      "regionTag": "en",
-      "searchTags": []
-    },
-    {
-      "id": "179ca881-7ee9-527f-a33a-ec5d04d1d89c",
-      "keyTitle": "Common Key - Hidden Gamebreaker",
-      "displayTitle": "Hidden Gamebreaker",
-      "keyType": "Common Key",
-      "level": null,
-      "attributes": [
-        {
-          "name": "Attack Boost",
-          "value": "3%"
-        },
-        {
-          "name": "Health Boost",
-          "value": "3%"
-        }
-      ],
-      "effect": null,
-      "materials": null,
-      "dollId": null,
-      "imageUrl": "/game-assets/keys/91012-hidden-gamebreaker.webp",
-      "regionTag": "en",
-      "searchTags": []
-    },
-    {
-      "id": "6526e587-ab7e-5ec0-8a00-35868db31788",
-      "keyTitle": "Common Key - Belief in Effort",
-      "displayTitle": "Belief in Effort",
-      "keyType": "Common Key",
-      "level": null,
-      "attributes": [
-        {
-          "name": "Attack Boost",
-          "value": "3%"
-        },
-        {
-          "name": "Health Boost",
-          "value": "3%"
-        }
-      ],
-      "effect": null,
-      "materials": null,
-      "dollId": null,
-      "imageUrl": "/game-assets/keys/91013-belief-in-effort.webp",
-      "regionTag": "en",
-      "searchTags": []
-    },
-    {
-      "id": "7d1a59a8-ff39-5c60-9a7f-ecadfbc7a2aa",
-      "keyTitle": "Common Key - Power of Accommodation",
-      "displayTitle": "Power of Accommodation",
-      "keyType": "Common Key",
-      "level": null,
-      "attributes": [
-        {
-          "name": "Attack Boost",
-          "value": "3%"
-        },
-        {
-          "name": "Health Boost",
-          "value": "3%"
-        }
-      ],
-      "effect": null,
-      "materials": null,
-      "dollId": null,
-      "imageUrl": "/game-assets/keys/91014-power-of-accommodation.webp",
-      "regionTag": "en",
-      "searchTags": []
-    },
-    {
-      "id": "ddaf18bf-86c0-54eb-a663-6aaac30f366e",
-      "keyTitle": "Common Key - Might Makes Right",
-      "displayTitle": "Might Makes Right",
-      "keyType": "Common Key",
-      "level": null,
-      "attributes": [
-        {
-          "name": "Attack Boost",
-          "value": "5%"
-        }
-      ],
-      "effect": null,
-      "materials": null,
-      "dollId": null,
-      "imageUrl": "/game-assets/keys/901035-might-makes-right.webp",
-      "regionTag": "en",
-      "searchTags": []
-    },
-    {
-      "id": "322a5b23-5a41-55db-aaad-46f1abbb9cda",
-      "keyTitle": "Common Key - Soul Chord",
-      "displayTitle": "Soul Chord",
-      "keyType": "Common Key",
-      "level": null,
-      "attributes": [
-        {
-          "name": "Crit Rate",
-          "value": "3%"
-        },
-        {
-          "name": "Attack Boost",
-          "value": "3%"
-        }
-      ],
-      "effect": null,
-      "materials": null,
-      "dollId": null,
-      "imageUrl": "/game-assets/keys/91021-soul-chord.webp",
-      "regionTag": "en",
-      "searchTags": []
-    },
-    {
-      "id": "6720d801-2e66-5673-b78c-60a50d3d3536",
-      "keyTitle": "Fixed Key - Confidence Booster",
-      "displayTitle": "Confidence Booster",
-      "keyType": "Fixed Key",
-      "level": 2,
-      "attributes": null,
-      "effect": "Increase damage dealt to enemy targets with Freeze debuffs by <span style=\"color: rgb(242, 108, 28);\">10%</span>.",
-      "materials": null,
-      "dollId": "c64a052e-af81-5f28-bef7-33d487a1c45d",
-      "imageUrl": "/game-assets/keys/10410902-confidence-booster.webp",
-      "regionTag": "en",
-      "searchTags": []
-    },
-    {
-      "id": "a06fd4bb-bfb4-5013-85b3-94f50ee32f17",
-      "keyTitle": "Common Key - Today's Menu",
-      "displayTitle": "Today's Menu",
-      "keyType": "Common Key",
-      "level": null,
-      "attributes": [
-        {
-          "name": "Attack Boost",
-          "value": "3%"
-        },
-        {
-          "name": "Defense Boost",
-          "value": "3%"
-        }
-      ],
-      "effect": null,
-      "materials": null,
-      "dollId": null,
-      "imageUrl": "/game-assets/keys/91015-todays-menu.webp",
-      "regionTag": "en",
-      "searchTags": []
-    },
-    {
-      "id": "99c8b9d7-8890-5254-b271-d9bb807b9b91",
-      "keyTitle": "Fixed Key - Fox's Smile",
-      "displayTitle": "Fox's Smile",
-      "keyType": "Fixed Key",
-      "level": 2,
-      "attributes": null,
-      "effect": "Damage dealt to enemy units in Stability Break is increased by <span style=\"color: rgb(242, 108, 28);\">7%</span>.",
-      "materials": null,
-      "dollId": "99362148-bc71-519f-ac45-44a115cd1bec",
-      "imageUrl": "/game-assets/keys/10560902-foxs-smile.webp",
-      "regionTag": "en",
-      "searchTags": []
-    },
-    {
-      "id": "eba4f991-7a6e-539b-bc3f-b76f822baf8d",
-      "keyTitle": "Fixed Key - Play It by Ear",
-      "displayTitle": "Play It by Ear",
-      "keyType": "Fixed Key",
-      "level": 3,
-      "attributes": null,
-      "effect": "Before [effect:3b272b42-e40a-5972-972c-c224e9b20aac], Leva cleanses <span style=\"color: rgb(242, 108, 28);\">1 buff</span> on the target.",
-      "materials": null,
-      "dollId": "99362148-bc71-519f-ac45-44a115cd1bec",
-      "imageUrl": "/game-assets/keys/10560903-play-it-by-ear.webp",
-      "regionTag": "en",
-      "searchTags": []
-    },
-    {
-      "id": "9b9a4263-48a3-589d-8648-281fae8a5d2a",
-      "keyTitle": "Fixed Key - Concealment Plan",
-      "displayTitle": "Concealment Plan",
-      "keyType": "Fixed Key",
-      "level": 4,
-      "attributes": null,
-      "effect": "After using the active skill [effect:99d90c97-eb35-5b60-97b8-9c5871649521], Leva gains [effect:c055d4b2-ce58-51f2-8863-58541d9e0580] for <span style=\"color: rgb(242, 108, 28);\">1 turn</span>.",
-      "materials": null,
-      "dollId": "99362148-bc71-519f-ac45-44a115cd1bec",
-      "imageUrl": "/game-assets/keys/10560904-concealment-plan.webp",
-      "regionTag": "en",
-      "searchTags": []
-    },
-    {
-      "id": "2278cb2c-9340-5029-97b4-2271091edd77",
-      "keyTitle": "Fixed Key - Rational Reaction",
-      "displayTitle": "Rational Reaction",
-      "keyType": "Fixed Key",
-      "level": 5,
-      "attributes": null,
-      "effect": "Before an allied unit makes an active attack, Leva applies [effect:c197d947-74e7-58f0-9b25-edf999701acb] to enemy units within range for <span style=\"color: rgb(242, 108, 28);\">1 turn</span>.",
-      "materials": null,
-      "dollId": "99362148-bc71-519f-ac45-44a115cd1bec",
-      "imageUrl": "/game-assets/keys/10560905-rational-reaction.webp",
-      "regionTag": "en",
-      "searchTags": []
-    },
-    {
-      "id": "fc6a3c4b-e7de-5899-b2dd-e1e959c1e7fd",
-      "keyTitle": "Fixed Key - Always Prepared",
-      "displayTitle": "Always Prepared",
-      "keyType": "Fixed Key",
-      "level": 6,
-      "attributes": null,
-      "effect": "At the start of the battle, Leva gains [effect:e999d46f-2f34-5224-8785-2e6ae0afbbaf] for <span style=\"color: rgb(242, 108, 28);\">3 turns</span>.",
-      "materials": null,
-      "dollId": "99362148-bc71-519f-ac45-44a115cd1bec",
-      "imageUrl": "/game-assets/keys/10560906-always-prepared.webp",
-      "regionTag": "en",
-      "searchTags": []
-    },
-    {
-      "id": "4d209cc8-a7a5-58f3-9819-9b7ef279b920",
-      "keyTitle": "Common Key - Elite Agent",
-      "displayTitle": "Elite Agent",
-      "keyType": "Common Key",
-      "level": 7,
-      "attributes": [
-        {
-          "name": "Attack Boost",
-          "value": "5%"
-        }
-      ],
-      "effect": "Damage dealt to enemy units with Electric debuffs is increased by <span style=\"color: rgb(242, 108, 28);\">7%</span>.",
-      "materials": null,
-      "dollId": "99362148-bc71-519f-ac45-44a115cd1bec",
-      "imageUrl": "/game-assets/keys/10560907-elite-agent.webp",
-      "regionTag": "en",
-      "searchTags": []
-    },
-    {
-      "id": "6eff512c-fe55-5d4b-b736-f35b27ef5aec",
-      "keyTitle": "Fixed Key - OGAS' Might",
-      "displayTitle": "OGAS' Might",
-      "keyType": "Fixed Key",
-      "level": 6,
-      "attributes": null,
-      "effect": "Critical damage dealt to enemy units with <span style=\"color: rgb(242, 108, 28);\">0 or lower</span> defense is increased by <span style=\"color: rgb(242, 108, 28);\">5%</span>.",
-      "materials": null,
-      "dollId": "18891422-2fae-5d58-aa9a-c164ab0650cd",
-      "imageUrl": "/game-assets/keys/10580906-ogas-might.webp",
-      "regionTag": "en",
-      "searchTags": []
-    },
-    {
-      "id": "b2f9eed2-64e3-583c-afb5-3b65e5328707",
-      "keyTitle": "Common Key - Petite Powerhouse",
-      "displayTitle": "Petite Powerhouse",
-      "keyType": "Common Key",
-      "level": null,
-      "attributes": [
-        {
-          "name": "Attack Boost",
-          "value": "3%"
-        },
-        {
-          "name": "Health Boost",
-          "value": "3%"
-        }
-      ],
-      "effect": null,
-      "materials": null,
-      "dollId": null,
-      "imageUrl": "/game-assets/keys/91016-petite-powerhouse.webp",
-      "regionTag": "en",
-      "searchTags": []
-    },
-    {
-      "id": "6a433036-c983-50e0-bef8-c17565d9d027",
-      "keyTitle": "Common Key - Proper Guo Bao Rou",
-      "displayTitle": "Proper Guo Bao Rou",
-      "keyType": "Common Key",
-      "level": null,
-      "attributes": [
-        {
-          "name": "Attack Boost",
-          "value": "3%"
-        },
-        {
-          "name": "Health Boost",
-          "value": "3%"
-        }
-      ],
-      "effect": null,
-      "materials": null,
-      "dollId": null,
-      "imageUrl": "/game-assets/keys/91017-proper-guo-bao-rou.webp",
-      "regionTag": "en",
-      "searchTags": []
-    },
-    {
-      "id": "5f9e4bb1-0fa1-57c5-a6c6-fe524be53e01",
-      "keyTitle": "Common Key - Fortress Gatekeeper",
-      "displayTitle": "Fortress Gatekeeper",
-      "keyType": "Common Key",
-      "level": null,
-      "attributes": [
-        {
-          "name": "Attack Boost",
-          "value": "2%"
-        },
-        {
-          "name": "Defense Boost",
-          "value": "2%"
-        }
-      ],
-      "effect": null,
-      "materials": null,
-      "dollId": null,
-      "imageUrl": "/game-assets/keys/92006-fortress-gatekeeper.webp",
-      "regionTag": "en",
-      "searchTags": []
-    },
-    {
-      "id": "3fff887c-8b55-53eb-966b-73e150710bdc",
-      "keyTitle": "Common Key - In The Name of Righteousness",
-      "displayTitle": "In The Name of Righteousness",
-      "keyType": "Common Key",
-      "level": null,
-      "attributes": [
-        {
-          "name": "Crit Rate",
-          "value": "3%"
-        },
-        {
-          "name": "Attack Boost",
-          "value": "3%"
-        }
-      ],
-      "effect": null,
-      "materials": null,
-      "dollId": null,
-      "imageUrl": "/game-assets/keys/91019-in-the-name-of-righteousness.webp",
-      "regionTag": "en",
-      "searchTags": []
-    },
-    {
-      "id": "ff716a4e-40c0-586e-a907-6e1c8e04f0bf",
-      "keyTitle": "Common Key - Disaster Movie Buff",
-      "displayTitle": "Disaster Movie Buff",
-      "keyType": "Common Key",
-      "level": null,
-      "attributes": [
-        {
-          "name": "Attack Boost",
-          "value": "3%"
-        },
-        {
-          "name": "Health Boost",
-          "value": "3%"
-        }
-      ],
-      "effect": null,
-      "materials": null,
-      "dollId": null,
-      "imageUrl": "/game-assets/keys/91020-disaster-movie-buff.webp",
-      "regionTag": "en",
-      "searchTags": []
-    },
-    {
-      "id": "d85b9d0e-93b5-55e5-abb4-095cfc0cf9ef",
-      "keyTitle": "Common Key - Familiar Stranger",
-      "displayTitle": "Familiar Stranger",
-      "keyType": "Common Key",
-      "level": null,
-      "attributes": [
-        {
-          "name": "Attack Boost",
-          "value": "3%"
-        },
-        {
-          "name": "Health Boost",
-          "value": "3%"
-        }
-      ],
-      "effect": null,
-      "materials": null,
-      "dollId": null,
-      "imageUrl": "/game-assets/keys/91022-familiar-stranger.webp",
-      "regionTag": "en",
-      "searchTags": []
-    },
-    {
-      "id": "1cb25100-c7a5-509f-bee7-8534ebf98461",
-      "keyTitle": "Common Key - Prank Hunter",
-      "displayTitle": "Prank Hunter",
-      "keyType": "Common Key",
-      "level": null,
-      "attributes": [
-        {
-          "name": "Attack Boost",
-          "value": "3%"
-        },
-        {
-          "name": "Defense Boost",
-          "value": "3%"
-        }
-      ],
-      "effect": null,
-      "materials": null,
-      "dollId": null,
-      "imageUrl": "/game-assets/keys/91023-prank-hunter.webp",
-      "regionTag": "en",
-      "searchTags": []
-    },
-    {
-      "id": "1edfdce5-2764-5ef7-913b-99ebcefc91aa",
-      "keyTitle": "Common Key - Opposed To Violence",
-      "displayTitle": "Opposed To Violence",
-      "keyType": "Common Key",
-      "level": null,
-      "attributes": [
-        {
-          "name": "Crit Rate",
-          "value": "3%"
-        },
-        {
-          "name": "Attack Boost",
-          "value": "3%"
-        }
-      ],
-      "effect": null,
-      "materials": null,
-      "dollId": null,
-      "imageUrl": "/game-assets/keys/91024-opposed-to-violence.webp",
-      "regionTag": "en",
-      "searchTags": []
-    },
-    {
-      "id": "0d59eca3-24d7-5356-834e-722827348141",
-      "keyTitle": "Common Key - Hidden Edge",
-      "displayTitle": "Hidden Edge",
-      "keyType": "Common Key",
-      "level": null,
-      "attributes": [
-        {
-          "name": "Attack Boost",
-          "value": "3%"
-        },
-        {
-          "name": "Health Boost",
-          "value": "3%"
-        }
-      ],
-      "effect": null,
-      "materials": null,
-      "dollId": null,
-      "imageUrl": "/game-assets/keys/91025-hidden-edge.webp",
-      "regionTag": "en",
-      "searchTags": []
-    },
-    {
-      "id": "57591779-9321-5e9c-853f-8941260c4980",
-      "keyTitle": "Common Key - New Era's Nemesis",
-      "displayTitle": "New Era's Nemesis",
-      "keyType": "Common Key",
-      "level": null,
-      "attributes": [
-        {
-          "name": "Crit Rate",
-          "value": "3%"
-        },
-        {
-          "name": "Attack Boost",
-          "value": "3%"
-        }
-      ],
-      "effect": null,
-      "materials": null,
-      "dollId": null,
-      "imageUrl": "/game-assets/keys/91026-new-eras-nemesis.webp",
-      "regionTag": "en",
-      "searchTags": []
-    },
-    {
-      "id": "1faeb224-567e-52d7-91ec-d564989d704b",
-      "keyTitle": "Common Key - Indomitable Exile",
-      "displayTitle": "Indomitable Exile",
-      "keyType": "Common Key",
-      "level": null,
-      "attributes": [
-        {
-          "name": "Attack Boost",
-          "value": "3%"
-        },
-        {
-          "name": "Health Boost",
-          "value": "3%"
-        }
-      ],
-      "effect": null,
-      "materials": null,
-      "dollId": null,
-      "imageUrl": "/game-assets/keys/91028-indomitable-exile.webp",
-      "regionTag": "en",
-      "searchTags": []
-    },
-    {
-      "id": "b44c8601-99ed-504e-8473-c23c870f74b9",
-      "keyTitle": "Common Key - Spooky Tale-Teller",
-      "displayTitle": "Spooky Tale-Teller",
-      "keyType": "Common Key",
-      "level": null,
-      "attributes": [
-        {
-          "name": "Attack Boost",
-          "value": "3%"
-        },
-        {
-          "name": "Defense Boost",
-          "value": "3%"
-        }
-      ],
-      "effect": null,
-      "materials": null,
-      "dollId": null,
-      "imageUrl": "/game-assets/keys/91029-spooky-tale-teller.webp",
-      "regionTag": "en",
-      "searchTags": []
-    },
-    {
-      "id": "cbf6acbe-c908-5dc0-92e7-3d3ed0b4290a",
-      "keyTitle": "Common Key - ECG Flutter",
-      "displayTitle": "ECG Flutter",
-      "keyType": "Common Key",
-      "level": null,
-      "attributes": [
-        {
-          "name": "Attack Boost",
-          "value": "3%"
-        },
-        {
-          "name": "Health Boost",
-          "value": "3%"
-        }
-      ],
-      "effect": null,
-      "materials": null,
-      "dollId": null,
-      "imageUrl": "/game-assets/keys/91030-ecg-flutter.webp",
-      "regionTag": "en",
-      "searchTags": []
-    },
-    {
-      "id": "51088053-d3c1-5842-9798-4df66e91f2b7",
-      "keyTitle": "Common Key - Paradox Equation",
-      "displayTitle": "Paradox Equation",
-      "keyType": "Common Key",
-      "level": null,
-      "attributes": [
-        {
-          "name": "Attack Boost",
-          "value": "3%"
-        },
-        {
-          "name": "Defense Boost",
-          "value": "3%"
-        }
-      ],
-      "effect": null,
-      "materials": null,
-      "dollId": null,
-      "imageUrl": "/game-assets/keys/91031-paradox-equation.webp",
-      "regionTag": "en",
-      "searchTags": []
-    },
-    {
-      "id": "06968f39-6476-5816-9d73-b607fcf7fc75",
-      "keyTitle": "Common Key - Stacks of Cash",
-      "displayTitle": "Stacks of Cash",
-      "keyType": "Common Key",
-      "level": null,
-      "attributes": [
-        {
-          "name": "Crit Rate",
-          "value": "3%"
-        },
-        {
-          "name": "Health Boost",
-          "value": "3%"
-        }
-      ],
-      "effect": null,
-      "materials": null,
-      "dollId": null,
-      "imageUrl": "/game-assets/keys/91033-stacks-of-cash.webp",
-      "regionTag": "en",
-      "searchTags": []
-    },
-    {
-      "id": "25614051-c0c8-5f9b-8f33-0ad01afe9b51",
-      "keyTitle": "Common Key - Reverberating Melody",
-      "displayTitle": "Reverberating Melody",
-      "keyType": "Common Key",
-      "level": null,
-      "attributes": [
-        {
-          "name": "Attack Boost",
-          "value": "2%"
-        },
-        {
-          "name": "Health Boost",
-          "value": "2%"
-        }
-      ],
-      "effect": null,
-      "materials": null,
-      "dollId": null,
-      "imageUrl": "/game-assets/keys/92001-reverberating-melody.webp",
-      "regionTag": "en",
-      "searchTags": []
-    },
-    {
-      "id": "8fc61269-9a1c-53da-935f-65936c9b885f",
-      "keyTitle": "Common Key - Ice Velvet Latte",
-      "displayTitle": "Ice Velvet Latte",
-      "keyType": "Common Key",
-      "level": null,
-      "attributes": [
-        {
-          "name": "Attack Boost",
-          "value": "2%"
-        },
-        {
-          "name": "Defense Boost",
-          "value": "2%"
-        }
-      ],
-      "effect": null,
-      "materials": null,
-      "dollId": null,
-      "imageUrl": "/game-assets/keys/92002-ice-velvet-latte.webp",
-      "regionTag": "en",
-      "searchTags": []
-    },
     {
       "id": "c064fa6d-a2f0-56c4-b688-b2229bc825b8",
       "keyTitle": "Common Key - Delicious Canned Herring",
@@ -2382,20 +1329,6 @@
       "searchTags": []
     },
     {
-      "id": "0ce40f87-59a3-5789-be25-afd1ccd70abc",
-      "keyTitle": "Fixed Key - Focused Gaze",
-      "displayTitle": "Focused Gaze",
-      "keyType": "Fixed Key",
-      "level": 2,
-      "attributes": null,
-      "effect": "When this unit is under the effects of [effect:eb9e108c-0b1d-5f8f-aa50-cbf2ed9cc4cc], gain immunity to all displacement effects from enemy units.",
-      "materials": null,
-      "dollId": "9ec7b7d3-a457-59ec-8a12-f67be6e01956",
-      "imageUrl": "/game-assets/keys/10080902-focused-gaze.webp",
-      "regionTag": "en",
-      "searchTags": []
-    },
-    {
       "id": "cc4a53cd-b624-5501-8b06-4ca54ce79a49",
       "keyTitle": "Fixed Key - Potent Curse",
       "displayTitle": "Potent Curse",
@@ -3056,34 +1989,6 @@
       "searchTags": []
     },
     {
-      "id": "d35df43b-d294-56f3-9641-b274018baf5a",
-      "keyTitle": "Expansion Key - Captured Starlight",
-      "displayTitle": "Captured Starlight",
-      "keyType": "Expansion Key",
-      "level": 8,
-      "attributes": null,
-      "effect": "After using an active skill, Tololo gains <span style=\"color: rgb(242, 108, 28);\">2 points</span> of Confectance Index. If an allied unit (apart from Tololo) deals Hydro damage, the cooldown of the active skill <span style=\"color: rgb(52, 135, 224);\">Black Hole Inversion</span> is reduced by <span style=\"color: rgb(242, 108, 28);\">1 turn</span>.",
-      "materials": null,
-      "dollId": "99085e2d-963f-5322-b460-0b4841e08cb1",
-      "imageUrl": "/game-assets/keys/10250908-captured-starlight.webp",
-      "regionTag": "en",
-      "searchTags": []
-    },
-    {
-      "id": "4c4c188d-2e26-5c0e-bb2a-64ade96d4fdb",
-      "keyTitle": "Fixed Key - Efficient Processing",
-      "displayTitle": "Efficient Processing",
-      "keyType": "Fixed Key",
-      "level": 2,
-      "attributes": null,
-      "effect": "When [effect:4d217318-41ae-54b3-b40c-2d60a81a3794] is triggered, randomly cleanses <span style=\"color: rgb(242, 108, 28);\">1</span> buff from the attacker. Before [effect:4d217318-41ae-54b3-b40c-2d60a81a3794] is triggered, cleanses <span style=\"color: rgb(242, 108, 28);\">2</span> debuffs from the buff holder(s).",
-      "materials": null,
-      "dollId": "fb12e551-6e4b-5554-a1a4-122b989dcd7a",
-      "imageUrl": "/game-assets/keys/10280902-efficient-processing.webp",
-      "regionTag": "en",
-      "searchTags": []
-    },
-    {
       "id": "4fa0afa4-c3c0-5958-bb36-2c9013a789c4",
       "keyTitle": "Expansion Key - Feline Shadow",
       "displayTitle": "Feline Shadow",
@@ -3314,6 +2219,29 @@
       "materials": null,
       "dollId": "37b71c17-1ef2-5e20-9e6f-d8ced78afd15",
       "imageUrl": "/game-assets/keys/10230907-artistic-inspiration.webp",
+      "regionTag": "en",
+      "searchTags": []
+    },
+    {
+      "id": "47a55fc0-bab6-51a4-8c8f-7c48bed6dc4a",
+      "keyTitle": "Common Key - Two-Pronged Attack",
+      "displayTitle": "Two-Pronged Attack",
+      "keyType": "Common Key",
+      "level": null,
+      "attributes": [
+        {
+          "name": "Crit Rate",
+          "value": "2%"
+        },
+        {
+          "name": "Attack Boost",
+          "value": "2%"
+        }
+      ],
+      "effect": null,
+      "materials": null,
+      "dollId": null,
+      "imageUrl": "/game-assets/keys/92003-two-pronged-attack.webp",
       "regionTag": "en",
       "searchTags": []
     },
@@ -3552,16 +2480,16 @@
       "searchTags": []
     },
     {
-      "id": "aa9b4fce-6396-59a7-a959-8c4fe8f83792",
-      "keyTitle": "Fixed Key - Pre-Meal Dessert",
-      "displayTitle": "Pre-Meal Dessert",
-      "keyType": "Fixed Key",
-      "level": 1,
+      "id": "d35df43b-d294-56f3-9641-b274018baf5a",
+      "keyTitle": "Expansion Key - Captured Starlight",
+      "displayTitle": "Captured Starlight",
+      "keyType": "Expansion Key",
+      "level": 8,
       "attributes": null,
-      "effect": "At the start of the battle, gains <span style=\"color: rgb(242, 108, 28);\">3 points</span> of Confectance Index.",
+      "effect": "After using an active skill, Tololo gains <span style=\"color: rgb(242, 108, 28);\">2 points</span> of Confectance Index. If an allied unit (apart from Tololo) deals Hydro damage, the cooldown of the active skill <span style=\"color: rgb(52, 135, 224);\">Black Hole Inversion</span> is reduced by <span style=\"color: rgb(242, 108, 28);\">1 turn</span>.",
       "materials": null,
-      "dollId": "fb12e551-6e4b-5554-a1a4-122b989dcd7a",
-      "imageUrl": "/game-assets/keys/10280901-pre-meal-dessert.webp",
+      "dollId": "99085e2d-963f-5322-b460-0b4841e08cb1",
+      "imageUrl": "/game-assets/keys/10250908-captured-starlight.webp",
       "regionTag": "en",
       "searchTags": []
     },
@@ -3572,7 +2500,7 @@
       "keyType": "Expansion Key",
       "level": 9,
       "attributes": null,
-      "effect": "战斗开始时，获得<span style=\"color: rgb(242, 108, 28);\">3层</span>[effect:6a4b4b4f-3677-5e95-bea3-f79c6cdc2cac]。托洛洛行动结束时，获得<span style=\"color: rgb(242, 108, 28);\">1层</span>[effect:43d84e39-e035-5e96-902c-32b1af2d4490]，持续<span style=\"color: rgb(242, 108, 28);\">1个大回合</span>。若场上[effect:71fd529a-d0c1-58e3-af8a-a0e1f796df53]数量未达上限，则消耗<span style=\"color: rgb(242, 108, 28);\">1层</span>[effect:6a4b4b4f-3677-5e95-bea3-f79c6cdc2cac]，在自身周围召唤1个[effect:71fd529a-d0c1-58e3-af8a-a0e1f796df53]，持续<span style=\"color: rgb(242, 108, 28);\">2个大回合</span>。每间隔<span style=\"color: rgb(242, 108, 28);\">1回合</span>开始时，获得<span style=\"color: rgb(242, 108, 28);\">3层</span>[effect:6a4b4b4f-3677-5e95-bea3-f79c6cdc2cac]。托洛洛主动攻击后，对目标施加<span style=\"color: rgb(242, 108, 28);\">1层</span>[effect:6c151fbd-6a08-5aee-9aa6-52f907d64b71]。[effect:71fd529a-d0c1-58e3-af8a-a0e1f796df53]造成伤害后，托洛洛对目标施加<span style=\"color: rgb(242, 108, 28);\">1层</span>[effect:f2689bfe-203d-5aa8-b1fb-585061e4226a]，自身获得<span style=\"color: rgb(242, 108, 28);\">1层</span>[effect:f352d0a0-cd6a-5411-966c-978cccf76d72]。",
+      "effect": "At the start of battle, gains <span style=\"color: rgb(242, 108, 28);\">3 stacks</span> of [effect:6a4b4b4f-3677-5e95-bea3-f79c6cdc2cac]. At the end of Tololo's action, gains <span style=\"color: rgb(242, 108, 28);\">1 stack</span> of [effect:43d84e39-e035-5e96-902c-32b1af2d4490], lasting <span style=\"color: rgb(242, 108, 28);\">1 round</span>. If the number of [effect:71fd529a-d0c1-58e3-af8a-a0e1f796df53] on the field has not reached its limit, consumes <span style=\"color: rgb(242, 108, 28);\">1 stack</span> of [effect:6a4b4b4f-3677-5e95-bea3-f79c6cdc2cac] to summon 1 [effect:71fd529a-d0c1-58e3-af8a-a0e1f796df53] in the surrounding area, lasting <span style=\"color: rgb(242, 108, 28);\">2 rounds</span>. Every <span style=\"color: rgb(242, 108, 28);\">2 rounds</span>, at the start of the round, gains <span style=\"color: rgb(242, 108, 28);\">3 stacks</span> of [effect:6a4b4b4f-3677-5e95-bea3-f79c6cdc2cac]. After Tololo performs an active attack, applies <span style=\"color: rgb(242, 108, 28);\">1 stack</span> of [effect:6c151fbd-6a08-5aee-9aa6-52f907d64b71] to the target. After [effect:71fd529a-d0c1-58e3-af8a-a0e1f796df53] deals damage, Tololo applies <span style=\"color: rgb(242, 108, 28);\">1 stack</span> of [effect:f2689bfe-203d-5aa8-b1fb-585061e4226a] to the target and gains <span style=\"color: rgb(242, 108, 28);\">1 stack</span> of [effect:f352d0a0-cd6a-5411-966c-978cccf76d72].",
       "materials": null,
       "dollId": "99085e2d-963f-5322-b460-0b4841e08cb1",
       "imageUrl": "/game-assets/keys/10250909-captured-starlight.webp",
@@ -3767,6 +2695,29 @@
       "searchTags": []
     },
     {
+      "id": "6b9a4b5e-099b-5566-9cff-6a56ebad2a6c",
+      "keyTitle": "Common Key - Physical Conditioning",
+      "displayTitle": "Physical Conditioning",
+      "keyType": "Common Key",
+      "level": null,
+      "attributes": [
+        {
+          "name": "Attack Boost",
+          "value": "2%"
+        },
+        {
+          "name": "Health Boost",
+          "value": "2%"
+        }
+      ],
+      "effect": null,
+      "materials": null,
+      "dollId": null,
+      "imageUrl": "/game-assets/keys/92004-physical-conditioning.webp",
+      "regionTag": "en",
+      "searchTags": []
+    },
+    {
       "id": "5d7ca9e3-f80a-5771-8dd2-51a8870cdbca",
       "keyTitle": "Fixed Key - Point of Vulnerability",
       "displayTitle": "Point of Vulnerability",
@@ -3810,6 +2761,34 @@
       "materials": null,
       "dollId": "089780f5-e1ee-50b5-95a7-b8df4198562b",
       "imageUrl": "/game-assets/keys/10270908-ruined-gem.webp",
+      "regionTag": "en",
+      "searchTags": []
+    },
+    {
+      "id": "aa9b4fce-6396-59a7-a959-8c4fe8f83792",
+      "keyTitle": "Fixed Key - Pre-Meal Dessert",
+      "displayTitle": "Pre-Meal Dessert",
+      "keyType": "Fixed Key",
+      "level": 1,
+      "attributes": null,
+      "effect": "At the start of the battle, gains <span style=\"color: rgb(242, 108, 28);\">3 points</span> of Confectance Index.",
+      "materials": null,
+      "dollId": "fb12e551-6e4b-5554-a1a4-122b989dcd7a",
+      "imageUrl": "/game-assets/keys/10280901-pre-meal-dessert.webp",
+      "regionTag": "en",
+      "searchTags": []
+    },
+    {
+      "id": "4c4c188d-2e26-5c0e-bb2a-64ade96d4fdb",
+      "keyTitle": "Fixed Key - Efficient Processing",
+      "displayTitle": "Efficient Processing",
+      "keyType": "Fixed Key",
+      "level": 2,
+      "attributes": null,
+      "effect": "When [effect:4d217318-41ae-54b3-b40c-2d60a81a3794] is triggered, randomly cleanses <span style=\"color: rgb(242, 108, 28);\">1</span> buff from the attacker. Before [effect:4d217318-41ae-54b3-b40c-2d60a81a3794] is triggered, cleanses <span style=\"color: rgb(242, 108, 28);\">2</span> debuffs from the buff holder(s).",
+      "materials": null,
+      "dollId": "fb12e551-6e4b-5554-a1a4-122b989dcd7a",
+      "imageUrl": "/game-assets/keys/10280902-efficient-processing.webp",
       "regionTag": "en",
       "searchTags": []
     },
@@ -3866,48 +2845,6 @@
       "materials": null,
       "dollId": "fb12e551-6e4b-5554-a1a4-122b989dcd7a",
       "imageUrl": "/game-assets/keys/10280906-comforting-blend.webp",
-      "regionTag": "en",
-      "searchTags": []
-    },
-    {
-      "id": "6921e0a2-dc69-5cc5-af58-23eef7cd329d",
-      "keyTitle": "Fixed Key - Delicious Sharing",
-      "displayTitle": "Delicious Sharing",
-      "keyType": "Fixed Key",
-      "level": 4,
-      "attributes": null,
-      "effect": "At the start of the battle, gains <span style=\"color: rgb(242, 108, 28);\">3 points</span> of Confectance Index.",
-      "materials": null,
-      "dollId": "0c028851-b809-5b30-8575-54a446c131d8",
-      "imageUrl": "/game-assets/keys/10290904-delicious-sharing.webp",
-      "regionTag": "en",
-      "searchTags": []
-    },
-    {
-      "id": "1495b78f-89f7-5281-a117-440469c2307b",
-      "keyTitle": "Fixed Key - Calorie Overload",
-      "displayTitle": "Calorie Overload",
-      "keyType": "Fixed Key",
-      "level": 5,
-      "attributes": null,
-      "effect": "The effective range of <span style=\"color: rgb(52, 135, 224);\">Delicious Feast</span> changes to <span style=\"color: rgb(242, 108, 28);\">1 tile</span>, the skill targets tiles instead of units and pulls all enemies <span style=\"color: rgb(242, 108, 28);\">1 tile</span> toward the center. Damage dealt increases to <span style=\"color: rgb(242, 108, 28);\">100%</span> of attack.",
-      "materials": null,
-      "dollId": "0c028851-b809-5b30-8575-54a446c131d8",
-      "imageUrl": "/game-assets/keys/10290905-calorie-overload.webp",
-      "regionTag": "en",
-      "searchTags": []
-    },
-    {
-      "id": "14f6de90-ebd5-5924-ae82-ecc1e789cd50",
-      "keyTitle": "Fixed Key - Weird-Tasting Health Recipe",
-      "displayTitle": "Weird-Tasting Health Recipe",
-      "keyType": "Fixed Key",
-      "level": 6,
-      "attributes": null,
-      "effect": "The active skill <span style=\"color: rgb(52, 135, 224);\">Meal Preparation</span> is modified to affect <span style=\"color: rgb(242, 108, 28);\">5 tiles around self</span>, and no longer applies [effect:29752bc3-2116-543a-aa37-c4cf524b2dcd]. It now applies [effect:c1ae8249-3470-5d86-8e91-a4ce9c1f9147] to up to <span style=\"color: rgb(242, 108, 28);\">2</span> targets for <span style=\"color: rgb(242, 108, 28);\">1 turn</span>. The cooldown is increased to <span style=\"color: rgb(242, 108, 28);\">3 turns</span>.",
-      "materials": null,
-      "dollId": "0c028851-b809-5b30-8575-54a446c131d8",
-      "imageUrl": "/game-assets/keys/10290906-weird-tasting-health-recipe.webp",
       "regionTag": "en",
       "searchTags": []
     },
@@ -4015,6 +2952,29 @@
       "searchTags": []
     },
     {
+      "id": "ccb6c57d-c51e-59f2-bfef-68b8ca4f99e4",
+      "keyTitle": "Common Key - Caramel Overload",
+      "displayTitle": "Caramel Overload",
+      "keyType": "Common Key",
+      "level": null,
+      "attributes": [
+        {
+          "name": "Attack Boost",
+          "value": "2%"
+        },
+        {
+          "name": "Defense Boost",
+          "value": "2%"
+        }
+      ],
+      "effect": null,
+      "materials": null,
+      "dollId": null,
+      "imageUrl": "/game-assets/keys/92005-caramel-overload.webp",
+      "regionTag": "en",
+      "searchTags": []
+    },
+    {
       "id": "d2eea947-d338-51ce-a7cb-16ff1aace275",
       "keyTitle": "Fixed Key - Lasting Legacy",
       "displayTitle": "Lasting Legacy",
@@ -4044,20 +3004,6 @@
       "materials": null,
       "dollId": "1d6835a0-b848-5988-84bc-1a632e626a4e",
       "imageUrl": "/game-assets/keys/10320907-shattering-stone-and-silk.webp",
-      "regionTag": "en",
-      "searchTags": []
-    },
-    {
-      "id": "1e20aacc-ba14-53e0-94a1-949d6b48881e",
-      "keyTitle": "Fixed Key - Absolute Concentration",
-      "displayTitle": "Absolute Concentration",
-      "keyType": "Fixed Key",
-      "level": 6,
-      "attributes": null,
-      "effect": "Increases attack by <span style=\"color: rgb(242, 108, 28);\">10%</span> at the start of the battle. This effect lasts until HP drops below <span style=\"color: rgb(242, 108, 28);\">100%</span> for the first time.",
-      "materials": null,
-      "dollId": "c68c3d17-9c78-5261-b114-6043c2be9434",
-      "imageUrl": "/game-assets/keys/10340906-absolute-concentration.webp",
       "regionTag": "en",
       "searchTags": []
     },
@@ -4273,6 +3219,20 @@
       "materials": null,
       "dollId": "c68c3d17-9c78-5261-b114-6043c2be9434",
       "imageUrl": "/game-assets/keys/10340905-heated-caramel.webp",
+      "regionTag": "en",
+      "searchTags": []
+    },
+    {
+      "id": "1e20aacc-ba14-53e0-94a1-949d6b48881e",
+      "keyTitle": "Fixed Key - Absolute Concentration",
+      "displayTitle": "Absolute Concentration",
+      "keyType": "Fixed Key",
+      "level": 6,
+      "attributes": null,
+      "effect": "Increases attack by <span style=\"color: rgb(242, 108, 28);\">10%</span> at the start of the battle. This effect lasts until HP drops below <span style=\"color: rgb(242, 108, 28);\">100%</span> for the first time.",
+      "materials": null,
+      "dollId": "c68c3d17-9c78-5261-b114-6043c2be9434",
+      "imageUrl": "/game-assets/keys/10340906-absolute-concentration.webp",
       "regionTag": "en",
       "searchTags": []
     },
@@ -4698,6 +3658,29 @@
       "searchTags": []
     },
     {
+      "id": "e9b09abc-86fd-533b-94a5-c6c21d3d0bdb",
+      "keyTitle": "Common Key - Vibrant Tremolo",
+      "displayTitle": "Vibrant Tremolo",
+      "keyType": "Common Key",
+      "level": null,
+      "attributes": [
+        {
+          "name": "Crit Rate",
+          "value": "3%"
+        },
+        {
+          "name": "Attack Boost",
+          "value": "3%"
+        }
+      ],
+      "effect": null,
+      "materials": null,
+      "dollId": null,
+      "imageUrl": "/game-assets/keys/91001-vibrant-tremolo.webp",
+      "regionTag": "en",
+      "searchTags": []
+    },
+    {
       "id": "01ebe834-afb1-5f72-9290-0a76815a6918",
       "keyTitle": "Expansion Key - Determined Pursuit",
       "displayTitle": "Determined Pursuit",
@@ -4899,6 +3882,29 @@
       "searchTags": []
     },
     {
+      "id": "02d8af3b-f34b-5122-b522-53e594731a65",
+      "keyTitle": "Common Key - Black Tea Breve",
+      "displayTitle": "Black Tea Breve",
+      "keyType": "Common Key",
+      "level": null,
+      "attributes": [
+        {
+          "name": "Crit Rate",
+          "value": "3%"
+        },
+        {
+          "name": "Attack Boost",
+          "value": "3%"
+        }
+      ],
+      "effect": null,
+      "materials": null,
+      "dollId": null,
+      "imageUrl": "/game-assets/keys/91002-black-tea-breve.webp",
+      "regionTag": "en",
+      "searchTags": []
+    },
+    {
       "id": "4f757348-0ac0-5c0d-8ae3-9fe505edc37c",
       "keyTitle": "Fixed Key - Logistics Support In Progress",
       "displayTitle": "Logistics Support In Progress",
@@ -5087,6 +4093,29 @@
       "materials": null,
       "dollId": "c64a052e-af81-5f28-bef7-33d487a1c45d",
       "imageUrl": "/game-assets/keys/10410903-trembling-aim.webp",
+      "regionTag": "en",
+      "searchTags": []
+    },
+    {
+      "id": "5a0d8d1e-e0b6-5624-9b8d-ae62349bb65d",
+      "keyTitle": "Common Key - Violent Assault",
+      "displayTitle": "Violent Assault",
+      "keyType": "Common Key",
+      "level": null,
+      "attributes": [
+        {
+          "name": "Attack Boost",
+          "value": "3%"
+        },
+        {
+          "name": "Defense Boost",
+          "value": "3%"
+        }
+      ],
+      "effect": null,
+      "materials": null,
+      "dollId": null,
+      "imageUrl": "/game-assets/keys/91003-violent-assault.webp",
       "regionTag": "en",
       "searchTags": []
     },
@@ -5470,25 +4499,6 @@
       "searchTags": []
     },
     {
-      "id": "19c32197-6314-5504-88db-b31ceb9d43cf",
-      "keyTitle": "Common Key - Meticulous Attention",
-      "displayTitle": "Meticulous Attention",
-      "keyType": "Common Key",
-      "level": 7,
-      "attributes": [
-        {
-          "name": "Health Boost",
-          "value": "5%"
-        }
-      ],
-      "effect": "At the start of the turn, if stability is not full, gains [effect:47023060-9b32-5449-ad31-61138f1b3523] for <span style=\"color: rgb(242, 108, 28);\">1 turn</span>.",
-      "materials": null,
-      "dollId": "b4192e1a-eedc-5c7b-8b91-70cf7e83a9c1",
-      "imageUrl": "/game-assets/keys/10470907-meticulous-attention.webp",
-      "regionTag": "en",
-      "searchTags": []
-    },
-    {
       "id": "cd714443-a60a-5fb2-9d21-6ff43620d686",
       "keyTitle": "Fixed Key - Negative Motivation",
       "displayTitle": "Negative Motivation",
@@ -5737,6 +4747,25 @@
       "searchTags": []
     },
     {
+      "id": "19c32197-6314-5504-88db-b31ceb9d43cf",
+      "keyTitle": "Common Key - Meticulous Attention",
+      "displayTitle": "Meticulous Attention",
+      "keyType": "Common Key",
+      "level": 7,
+      "attributes": [
+        {
+          "name": "Health Boost",
+          "value": "5%"
+        }
+      ],
+      "effect": "At the start of the turn, if stability is not full, gains [effect:47023060-9b32-5449-ad31-61138f1b3523] for <span style=\"color: rgb(242, 108, 28);\">1 turn</span>.",
+      "materials": null,
+      "dollId": "b4192e1a-eedc-5c7b-8b91-70cf7e83a9c1",
+      "imageUrl": "/game-assets/keys/10470907-meticulous-attention.webp",
+      "regionTag": "en",
+      "searchTags": []
+    },
+    {
       "id": "e665d9f7-173b-5ae4-9e42-5d986836e9ad",
       "keyTitle": "Expansion Key - Watching Each Other",
       "displayTitle": "Watching Each Other",
@@ -5803,6 +4832,29 @@
       "materials": null,
       "dollId": "f4eab065-9ccd-59bf-9809-ae627cc4c5a6",
       "imageUrl": "/game-assets/keys/10480904-fragrant-stir-fry.webp",
+      "regionTag": "en",
+      "searchTags": []
+    },
+    {
+      "id": "78c7dc72-8e2a-5dd4-9d1c-a9ad4dd6ff29",
+      "keyTitle": "Common Key - Sanguine Expectations",
+      "displayTitle": "Sanguine Expectations",
+      "keyType": "Common Key",
+      "level": null,
+      "attributes": [
+        {
+          "name": "Crit Rate",
+          "value": "3%"
+        },
+        {
+          "name": "Attack Boost",
+          "value": "3%"
+        }
+      ],
+      "effect": null,
+      "materials": null,
+      "dollId": null,
+      "imageUrl": "/game-assets/keys/91004-sanguine-expectations.webp",
       "regionTag": "en",
       "searchTags": []
     },
@@ -6205,25 +5257,6 @@
       "searchTags": []
     },
     {
-      "id": "bb9dde29-e87e-5391-857f-3e1d26d9592f",
-      "keyTitle": "Common Key - Defender",
-      "displayTitle": "Defender",
-      "keyType": "Common Key",
-      "level": 7,
-      "attributes": [
-        {
-          "name": "Attack Boost",
-          "value": "5%"
-        }
-      ],
-      "effect": "When this unit has a Hydro buff, critical rate is increased by <span style=\"color: rgb(242, 108, 28);\">10%</span>.",
-      "materials": null,
-      "dollId": "8acdb7f4-c66e-5011-a174-ed8a870fbbed",
-      "imageUrl": "/game-assets/keys/10550907-defender.webp",
-      "regionTag": "en",
-      "searchTags": []
-    },
-    {
       "id": "d1bc804f-e14c-52be-8341-2bc1d364ee97",
       "keyTitle": "Expansion Key - Sleepberserking Syndrome",
       "displayTitle": "Sleepberserking Syndrome",
@@ -6514,6 +5547,29 @@
       "searchTags": []
     },
     {
+      "id": "7e930290-13cb-5230-b71b-8492031f9e4b",
+      "keyTitle": "Common Key - Teddy Bear Costume",
+      "displayTitle": "Teddy Bear Costume",
+      "keyType": "Common Key",
+      "level": null,
+      "attributes": [
+        {
+          "name": "Attack Boost",
+          "value": "3%"
+        },
+        {
+          "name": "Health Boost",
+          "value": "3%"
+        }
+      ],
+      "effect": null,
+      "materials": null,
+      "dollId": null,
+      "imageUrl": "/game-assets/keys/91005-teddy-bear-costume.webp",
+      "regionTag": "en",
+      "searchTags": []
+    },
+    {
       "id": "4141a43f-24ee-5326-8c02-66b8f9d7a04b",
       "keyTitle": "Fixed Key - Infectious Emotions",
       "displayTitle": "Infectious Emotions",
@@ -6673,16 +5729,21 @@
       "searchTags": []
     },
     {
-      "id": "45a614df-6be7-513d-b36f-d60c5d5b9d6e",
-      "keyTitle": "Fixed Key - Angel's Kindness",
-      "displayTitle": "Angel's Kindness",
-      "keyType": "Fixed Key",
-      "level": 4,
-      "attributes": null,
-      "effect": "Before making an active attack, cleanses <span style=\"color: rgb(242, 108, 28);\">1</span> buff on the target.",
+      "id": "bb9dde29-e87e-5391-857f-3e1d26d9592f",
+      "keyTitle": "Common Key - Defender",
+      "displayTitle": "Defender",
+      "keyType": "Common Key",
+      "level": 7,
+      "attributes": [
+        {
+          "name": "Attack Boost",
+          "value": "5%"
+        }
+      ],
+      "effect": "When this unit has a Hydro buff, critical rate is increased by <span style=\"color: rgb(242, 108, 28);\">10%</span>.",
       "materials": null,
-      "dollId": "b819b610-cad9-58f1-ba38-b2ef1f5a98db",
-      "imageUrl": "/game-assets/keys/10690904-angels-kindness.webp",
+      "dollId": "8acdb7f4-c66e-5011-a174-ed8a870fbbed",
+      "imageUrl": "/game-assets/keys/10550907-defender.webp",
       "regionTag": "en",
       "searchTags": []
     },
@@ -6715,6 +5776,29 @@
       "searchTags": []
     },
     {
+      "id": "d8bdbe1f-1f4c-5544-a462-427b46f34332",
+      "keyTitle": "Common Key - The Force of Bravery",
+      "displayTitle": "The Force of Bravery",
+      "keyType": "Common Key",
+      "level": null,
+      "attributes": [
+        {
+          "name": "Crit Rate",
+          "value": "3%"
+        },
+        {
+          "name": "Attack Boost",
+          "value": "3%"
+        }
+      ],
+      "effect": null,
+      "materials": null,
+      "dollId": null,
+      "imageUrl": "/game-assets/keys/91006-the-force-of-bravery.webp",
+      "regionTag": "en",
+      "searchTags": []
+    },
+    {
       "id": "0879de78-a89d-515d-8c44-c2e69223cafb",
       "keyTitle": "Expansion Key - Electric Espionage",
       "displayTitle": "Electric Espionage",
@@ -6725,34 +5809,6 @@
       "materials": null,
       "dollId": "99362148-bc71-519f-ac45-44a115cd1bec",
       "imageUrl": "/game-assets/keys/10560908-electric-espionage.webp",
-      "regionTag": "en",
-      "searchTags": []
-    },
-    {
-      "id": "398df193-7979-5f66-acad-790545509b2c",
-      "keyTitle": "Fixed Key - Guard Vent",
-      "displayTitle": "Guard Vent",
-      "keyType": "Fixed Key",
-      "level": 1,
-      "attributes": null,
-      "effect": "Before allied units with [effect:61fe23de-74e3-5bce-b994-b5079f13c4f6] launch active attacks or Interceptions, Robella applies [effect:2512e71d-366d-56b0-b188-d9334710a0ec] to the targeted enemy for <span style=\"color: rgb(242, 108, 28);\">2 turns</span>.",
-      "materials": null,
-      "dollId": "b86cdb8b-46c9-5686-928f-b20013ac0861",
-      "imageUrl": "/game-assets/keys/10570901-guard-vent.webp",
-      "regionTag": "en",
-      "searchTags": []
-    },
-    {
-      "id": "5a935b37-920f-5f79-9619-ec2c9bf1b181",
-      "keyTitle": "Fixed Key - Third-Gen Neural Cloud",
-      "displayTitle": "Third-Gen Neural Cloud",
-      "keyType": "Fixed Key",
-      "level": 2,
-      "attributes": null,
-      "effect": "At the end of action, if Robella has [effect:ebf25bed-d084-5dd8-b5d7-8d562d75f5e2], she gains [effect:a49e11e5-8e00-5674-8b76-80f009b5377b] for <span style=\"color: rgb(242, 108, 28);\">1 turn</span>.",
-      "materials": null,
-      "dollId": "b86cdb8b-46c9-5686-928f-b20013ac0861",
-      "imageUrl": "/game-assets/keys/10570902-third-gen-neural-cloud.webp",
       "regionTag": "en",
       "searchTags": []
     },
@@ -7136,6 +6192,29 @@
       "searchTags": []
     },
     {
+      "id": "a73d5d2c-f798-5cac-9083-2bcf4e204f44",
+      "keyTitle": "Common Key - Pixie Cape",
+      "displayTitle": "Pixie Cape",
+      "keyType": "Common Key",
+      "level": null,
+      "attributes": [
+        {
+          "name": "Attack Boost",
+          "value": "3%"
+        },
+        {
+          "name": "Defense Boost",
+          "value": "3%"
+        }
+      ],
+      "effect": null,
+      "materials": null,
+      "dollId": null,
+      "imageUrl": "/game-assets/keys/91007-pixie-cape.webp",
+      "regionTag": "en",
+      "searchTags": []
+    },
+    {
       "id": "c13459e4-48ab-530a-bb99-358f98201db7",
       "keyTitle": "Fixed Key - Domain Mistress",
       "displayTitle": "Domain Mistress",
@@ -7342,20 +6421,6 @@
       "searchTags": []
     },
     {
-      "id": "84c857b2-0821-5eaf-9b55-89ff9f7b73f4",
-      "keyTitle": "Fixed Key - Devil's Tempo",
-      "displayTitle": "Devil's Tempo",
-      "keyType": "Fixed Key",
-      "level": 5,
-      "attributes": null,
-      "effect": "At the start of the battle, gains [effect:1759441d-f63f-55f7-a290-df1ed24acbcd] for <span style=\"color: rgb(242, 108, 28);\">1 turn</span>.",
-      "materials": null,
-      "dollId": "b819b610-cad9-58f1-ba38-b2ef1f5a98db",
-      "imageUrl": "/game-assets/keys/10690905-devils-tempo.webp",
-      "regionTag": "en",
-      "searchTags": []
-    },
-    {
       "id": "abf7aebe-08b9-5ee2-8b45-08fcbb5e9861",
       "keyTitle": "Fixed Key - Protector of Innocence",
       "displayTitle": "Protector of Innocence",
@@ -7380,6 +6445,29 @@
       "materials": null,
       "dollId": "91d16c70-f1c1-5924-a0e4-2ebeeef72e4c",
       "imageUrl": "/game-assets/keys/10620904-sunny-imagination.webp",
+      "regionTag": "en",
+      "searchTags": []
+    },
+    {
+      "id": "977b0032-45cd-570f-9cc4-07a6b79be42b",
+      "keyTitle": "Common Key - Almighty Wish Machine",
+      "displayTitle": "Almighty Wish Machine",
+      "keyType": "Common Key",
+      "level": null,
+      "attributes": [
+        {
+          "name": "Attack Boost",
+          "value": "3%"
+        },
+        {
+          "name": "Health Boost",
+          "value": "3%"
+        }
+      ],
+      "effect": null,
+      "materials": null,
+      "dollId": null,
+      "imageUrl": "/game-assets/keys/91008-almighty-wish-machine.webp",
       "regionTag": "en",
       "searchTags": []
     },
@@ -7651,6 +6739,29 @@
       "searchTags": []
     },
     {
+      "id": "c393daaa-6f31-50ac-999e-147a4db99e58",
+      "keyTitle": "Common Key - Righteous Aid",
+      "displayTitle": "Righteous Aid",
+      "keyType": "Common Key",
+      "level": null,
+      "attributes": [
+        {
+          "name": "Attack Boost",
+          "value": "3%"
+        },
+        {
+          "name": "Health Boost",
+          "value": "3%"
+        }
+      ],
+      "effect": null,
+      "materials": null,
+      "dollId": null,
+      "imageUrl": "/game-assets/keys/91009-righteous-aid.webp",
+      "regionTag": "en",
+      "searchTags": []
+    },
+    {
       "id": "ce54f2b7-8095-5399-8b28-bfb307b64cdb",
       "keyTitle": "Expansion Key - Explorer of Excitement",
       "displayTitle": "Explorer of Excitement",
@@ -7848,6 +6959,29 @@
       "materials": null,
       "dollId": "b3c85ec2-e55c-55e1-83c7-0572343336ea",
       "imageUrl": "/game-assets/keys/10660905-lordslayer.webp",
+      "regionTag": "en",
+      "searchTags": []
+    },
+    {
+      "id": "70d48479-fe78-5f6a-8dcb-fe55a03a931a",
+      "keyTitle": "Common Key - Tacit Lookout",
+      "displayTitle": "Tacit Lookout",
+      "keyType": "Common Key",
+      "level": null,
+      "attributes": [
+        {
+          "name": "Crit Rate",
+          "value": "3%"
+        },
+        {
+          "name": "Attack Boost",
+          "value": "3%"
+        }
+      ],
+      "effect": null,
+      "materials": null,
+      "dollId": null,
+      "imageUrl": "/game-assets/keys/91010-tacit-lookout.webp",
       "regionTag": "en",
       "searchTags": []
     },
@@ -8119,6 +7253,81 @@
       "searchTags": []
     },
     {
+      "id": "a1861629-1c90-50e3-884c-428b989b9a5c",
+      "keyTitle": "Common Key - Essential Hot Beverages",
+      "displayTitle": "Essential Hot Beverages",
+      "keyType": "Common Key",
+      "level": 7,
+      "attributes": [
+        {
+          "name": "Health Boost",
+          "value": "5%"
+        }
+      ],
+      "effect": "At the end of action, applies [effect:4d217318-41ae-54b3-b40c-2d60a81a3794] to the closest allied unit without [effect:4d217318-41ae-54b3-b40c-2d60a81a3794]. This effect has a <span style=\"color: rgb(242, 108, 28);\">2-turn</span> cooldown.",
+      "materials": null,
+      "dollId": "fb12e551-6e4b-5554-a1a4-122b989dcd7a",
+      "imageUrl": "/game-assets/keys/10280907-essential-hot-beverages.webp",
+      "regionTag": "en",
+      "searchTags": []
+    },
+    {
+      "id": "5195eebe-129a-5bc6-b476-470596193549",
+      "keyTitle": "Expansion Key - Will To Protect",
+      "displayTitle": "Will To Protect",
+      "keyType": "Expansion Key",
+      "level": 8,
+      "attributes": null,
+      "effect": "At the start of battle and after using the Ultimate Skill <span style=\"color: rgb(52, 135, 224);\">Afternoon Tea Break</span>, applies [effect:70fc4cbf-ccb5-50a3-8c34-f698b198d7af] to Centaureissi for <span style=\"color: rgb(242, 108, 28);\">2 rounds</span>. After using the active skill <span style=\"color: rgb(52, 135, 224);\">Zucchero's Special Drink</span>, applies [effect:17d25819-3288-5ad3-aa13-89a1dd7ddd48] to all allied units for <span style=\"color: rgb(242, 108, 28);\">2 turns</span>. \nWhen Centaureissi performs a Support Attack to cover an attack that deals <span style=\"color: rgb(230, 113, 41);\">Burn damage</span> launched by allied units, Centaureissi gains <span style=\"color: rgb(242, 108, 28);\">1 point</span> of Confectance Index. This effect can be triggered up to <span style=\"color: rgb(242, 108, 28);\">once</span> per turn.",
+      "materials": null,
+      "dollId": "fb12e551-6e4b-5554-a1a4-122b989dcd7a",
+      "imageUrl": "/game-assets/keys/10280908-will-to-protect.webp",
+      "regionTag": "en",
+      "searchTags": []
+    },
+    {
+      "id": "1e686f41-19ae-5b3a-b4a6-fc148dfdbd5f",
+      "keyTitle": "Fixed Key - Let Everything Simmer",
+      "displayTitle": "Let Everything Simmer",
+      "keyType": "Fixed Key",
+      "level": 1,
+      "attributes": null,
+      "effect": "While on Hydro tiles, defense is increased by <span style=\"color: rgb(242, 108, 28);\">30%</span>, gaining immunity to displacement effects from enemy units and all abnormal Hydro terrain effects.",
+      "materials": null,
+      "dollId": "0c028851-b809-5b30-8575-54a446c131d8",
+      "imageUrl": "/game-assets/keys/10290901-let-everything-simmer.webp",
+      "regionTag": "en",
+      "searchTags": []
+    },
+    {
+      "id": "294d21ff-cc22-5e19-8779-b59a8a5f7b50",
+      "keyTitle": "Fixed Key - Eating is a Blessing",
+      "displayTitle": "Eating is a Blessing",
+      "keyType": "Fixed Key",
+      "level": 2,
+      "attributes": null,
+      "effect": "When under attack, defense is increased by <span style=\"color: rgb(242, 108, 28);\">20%</span>.",
+      "materials": null,
+      "dollId": "0c028851-b809-5b30-8575-54a446c131d8",
+      "imageUrl": "/game-assets/keys/10290902-eating-is-a-blessing.webp",
+      "regionTag": "en",
+      "searchTags": []
+    },
+    {
+      "id": "83ed9cf8-06a8-5eb8-8a71-d371e965051b",
+      "keyTitle": "Fixed Key - Eat Well, Sleep Well",
+      "displayTitle": "Eat Well, Sleep Well",
+      "keyType": "Fixed Key",
+      "level": 3,
+      "attributes": null,
+      "effect": "When Confectance Index is not full, recovers <span style=\"color: rgb(242, 108, 28);\">2 points</span> of stability index for <span style=\"color: rgb(242, 108, 28);\">each point</span> of Confectance Index gained.",
+      "materials": null,
+      "dollId": "0c028851-b809-5b30-8575-54a446c131d8",
+      "imageUrl": "/game-assets/keys/10290903-eat-well-sleep-well.webp",
+      "regionTag": "en",
+      "searchTags": []
+    },
+    {
       "id": "be0a1019-2007-5632-8361-f19c1c968b99",
       "keyTitle": "Fixed Key - Pain Threshold",
       "displayTitle": "Pain Threshold",
@@ -8143,6 +7352,20 @@
       "materials": null,
       "dollId": "b819b610-cad9-58f1-ba38-b2ef1f5a98db",
       "imageUrl": "/game-assets/keys/10690903-enchanting-dream.webp",
+      "regionTag": "en",
+      "searchTags": []
+    },
+    {
+      "id": "84c857b2-0821-5eaf-9b55-89ff9f7b73f4",
+      "keyTitle": "Fixed Key - Devil's Tempo",
+      "displayTitle": "Devil's Tempo",
+      "keyType": "Fixed Key",
+      "level": 5,
+      "attributes": null,
+      "effect": "At the start of the battle, gains [effect:1759441d-f63f-55f7-a290-df1ed24acbcd] for <span style=\"color: rgb(242, 108, 28);\">1 turn</span>.",
+      "materials": null,
+      "dollId": "b819b610-cad9-58f1-ba38-b2ef1f5a98db",
+      "imageUrl": "/game-assets/keys/10690905-devils-tempo.webp",
       "regionTag": "en",
       "searchTags": []
     },
@@ -8190,20 +7413,6 @@
       "materials": null,
       "dollId": "88f5fe7e-8b2f-5fe4-9eb2-632a2aaba1bc",
       "imageUrl": "/game-assets/keys/10700901-stop-im-shy.webp",
-      "regionTag": "en",
-      "searchTags": []
-    },
-    {
-      "id": "32ca0594-efd3-5264-8a52-4ee27f0230dc",
-      "keyTitle": "Fixed Key - Liberated Self",
-      "displayTitle": "Liberated Self",
-      "keyType": "Fixed Key",
-      "level": 2,
-      "attributes": null,
-      "effect": "Immune to Taunt, Infatuated and Fear. Gains immunity to one instance of AoE damage every <span style=\"color: rgb(242, 108, 28);\">3 turns</span>.",
-      "materials": null,
-      "dollId": "88f5fe7e-8b2f-5fe4-9eb2-632a2aaba1bc",
-      "imageUrl": "/game-assets/keys/10700902-liberated-self.webp",
       "regionTag": "en",
       "searchTags": []
     },
@@ -8428,20 +7637,6 @@
       "searchTags": []
     },
     {
-      "id": "879dd5f5-f7ef-5c54-a54e-c1c3113bfaa5",
-      "keyTitle": "Fixed Key - Resilient Heart",
-      "displayTitle": "Resilient Heart",
-      "keyType": "Fixed Key",
-      "level": 4,
-      "attributes": null,
-      "effect": "[effect:7b4d7ed8-0b51-53e1-b644-8ccb042a641e] is immune to control effects.",
-      "materials": null,
-      "dollId": "dd60231f-48b9-5852-8ea1-5a3c52650d78",
-      "imageUrl": "/game-assets/keys/10720904-resilient-heart.webp",
-      "regionTag": "en",
-      "searchTags": []
-    },
-    {
       "id": "34237ae5-68c1-5281-a5c1-bed45e15bb02",
       "keyTitle": "Fixed Key - Premium Overhaul",
       "displayTitle": "Premium Overhaul",
@@ -8485,6 +7680,29 @@
       "materials": null,
       "dollId": "dd60231f-48b9-5852-8ea1-5a3c52650d78",
       "imageUrl": "/game-assets/keys/10720907-big-money-girl.webp",
+      "regionTag": "en",
+      "searchTags": []
+    },
+    {
+      "id": "8775a048-ebdb-5837-8a4e-ceedc3593456",
+      "keyTitle": "Common Key - Canned Energy Drink",
+      "displayTitle": "Canned Energy Drink",
+      "keyType": "Common Key",
+      "level": null,
+      "attributes": [
+        {
+          "name": "Attack Boost",
+          "value": "3%"
+        },
+        {
+          "name": "Defense Boost",
+          "value": "3%"
+        }
+      ],
+      "effect": null,
+      "materials": null,
+      "dollId": null,
+      "imageUrl": "/game-assets/keys/91011-canned-energy-drink.webp",
       "regionTag": "en",
       "searchTags": []
     },
@@ -8957,25 +8175,6 @@
       "searchTags": []
     },
     {
-      "id": "02ddd525-6b86-5519-a295-6d29a297d141",
-      "keyTitle": "Common Key - One Who Looks Up to the Sky",
-      "displayTitle": "One Who Looks Up to the Sky",
-      "keyType": "Common Key",
-      "level": 7,
-      "attributes": [
-        {
-          "name": "Attack Boost",
-          "value": "5%"
-        }
-      ],
-      "effect": "ATK +5% / When using an Ultimate Skill, damage dealt this turn is increased by 10%.",
-      "materials": null,
-      "dollId": "ac6fa408-f95c-57f2-a250-a264166efb29",
-      "imageUrl": "/game-assets/keys/10800907-one-who-looks-up-to-the-sky.webp",
-      "regionTag": "cn",
-      "searchTags": []
-    },
-    {
       "id": "9f66411d-8f2d-5bde-bcc3-d48c01f21713",
       "keyTitle": "Fixed Key - Trendsetter",
       "displayTitle": "Trendsetter",
@@ -9034,6 +8233,29 @@
       "dollId": "d8661706-7a29-5545-b8b1-7b42fd041994",
       "imageUrl": "/game-assets/keys/10780901-dango-finisher.webp",
       "regionTag": "cn",
+      "searchTags": []
+    },
+    {
+      "id": "179ca881-7ee9-527f-a33a-ec5d04d1d89c",
+      "keyTitle": "Common Key - Hidden Gamebreaker",
+      "displayTitle": "Hidden Gamebreaker",
+      "keyType": "Common Key",
+      "level": null,
+      "attributes": [
+        {
+          "name": "Attack Boost",
+          "value": "3%"
+        },
+        {
+          "name": "Health Boost",
+          "value": "3%"
+        }
+      ],
+      "effect": null,
+      "materials": null,
+      "dollId": null,
+      "imageUrl": "/game-assets/keys/91012-hidden-gamebreaker.webp",
+      "regionTag": "en",
       "searchTags": []
     },
     {
@@ -9310,6 +8532,784 @@
       "dollId": "ac6fa408-f95c-57f2-a250-a264166efb29",
       "imageUrl": "/game-assets/keys/10800906-path-of-pursuit.webp",
       "regionTag": "cn",
+      "searchTags": []
+    },
+    {
+      "id": "02ddd525-6b86-5519-a295-6d29a297d141",
+      "keyTitle": "Common Key - One Who Looks Up to the Sky",
+      "displayTitle": "One Who Looks Up to the Sky",
+      "keyType": "Common Key",
+      "level": 7,
+      "attributes": [
+        {
+          "name": "Attack Boost",
+          "value": "5%"
+        }
+      ],
+      "effect": "ATK +5% / When using an Ultimate Skill, damage dealt this turn is increased by 10%.",
+      "materials": null,
+      "dollId": "ac6fa408-f95c-57f2-a250-a264166efb29",
+      "imageUrl": "/game-assets/keys/10800907-one-who-looks-up-to-the-sky.webp",
+      "regionTag": "cn",
+      "searchTags": []
+    },
+    {
+      "id": "b97c9183-61f2-5dde-ab86-f64e7b5f84a5",
+      "keyTitle": "Fixed Key - Lord of the Sky",
+      "displayTitle": "Lord of the Sky",
+      "keyType": "Fixed Key",
+      "level": 1,
+      "attributes": null,
+      "effect": "Before an active attack, cleanse 1 buff from the target.",
+      "materials": null,
+      "dollId": "3e50f95f-8f3d-5586-8b02-48b31d5d4d2e",
+      "imageUrl": "/game-assets/keys/10810901-lord-of-the-sky.webp",
+      "regionTag": "cn",
+      "searchTags": []
+    },
+    {
+      "id": "6526e587-ab7e-5ec0-8a00-35868db31788",
+      "keyTitle": "Common Key - Belief in Effort",
+      "displayTitle": "Belief in Effort",
+      "keyType": "Common Key",
+      "level": null,
+      "attributes": [
+        {
+          "name": "Attack Boost",
+          "value": "3%"
+        },
+        {
+          "name": "Health Boost",
+          "value": "3%"
+        }
+      ],
+      "effect": null,
+      "materials": null,
+      "dollId": null,
+      "imageUrl": "/game-assets/keys/91013-belief-in-effort.webp",
+      "regionTag": "en",
+      "searchTags": []
+    },
+    {
+      "id": "7d1a59a8-ff39-5c60-9a7f-ecadfbc7a2aa",
+      "keyTitle": "Common Key - Power of Accommodation",
+      "displayTitle": "Power of Accommodation",
+      "keyType": "Common Key",
+      "level": null,
+      "attributes": [
+        {
+          "name": "Attack Boost",
+          "value": "3%"
+        },
+        {
+          "name": "Health Boost",
+          "value": "3%"
+        }
+      ],
+      "effect": null,
+      "materials": null,
+      "dollId": null,
+      "imageUrl": "/game-assets/keys/91014-power-of-accommodation.webp",
+      "regionTag": "en",
+      "searchTags": []
+    },
+    {
+      "id": "ddaf18bf-86c0-54eb-a663-6aaac30f366e",
+      "keyTitle": "Common Key - Might Makes Right",
+      "displayTitle": "Might Makes Right",
+      "keyType": "Common Key",
+      "level": null,
+      "attributes": [
+        {
+          "name": "Attack Boost",
+          "value": "5%"
+        }
+      ],
+      "effect": null,
+      "materials": null,
+      "dollId": null,
+      "imageUrl": "/game-assets/keys/901035-might-makes-right.webp",
+      "regionTag": "en",
+      "searchTags": []
+    },
+    {
+      "id": "322a5b23-5a41-55db-aaad-46f1abbb9cda",
+      "keyTitle": "Common Key - Soul Chord",
+      "displayTitle": "Soul Chord",
+      "keyType": "Common Key",
+      "level": null,
+      "attributes": [
+        {
+          "name": "Crit Rate",
+          "value": "3%"
+        },
+        {
+          "name": "Attack Boost",
+          "value": "3%"
+        }
+      ],
+      "effect": null,
+      "materials": null,
+      "dollId": null,
+      "imageUrl": "/game-assets/keys/91021-soul-chord.webp",
+      "regionTag": "en",
+      "searchTags": []
+    },
+    {
+      "id": "6720d801-2e66-5673-b78c-60a50d3d3536",
+      "keyTitle": "Fixed Key - Confidence Booster",
+      "displayTitle": "Confidence Booster",
+      "keyType": "Fixed Key",
+      "level": 2,
+      "attributes": null,
+      "effect": "Increase damage dealt to enemy targets with Freeze debuffs by <span style=\"color: rgb(242, 108, 28);\">10%</span>.",
+      "materials": null,
+      "dollId": "c64a052e-af81-5f28-bef7-33d487a1c45d",
+      "imageUrl": "/game-assets/keys/10410902-confidence-booster.webp",
+      "regionTag": "en",
+      "searchTags": []
+    },
+    {
+      "id": "a06fd4bb-bfb4-5013-85b3-94f50ee32f17",
+      "keyTitle": "Common Key - Today's Menu",
+      "displayTitle": "Today's Menu",
+      "keyType": "Common Key",
+      "level": null,
+      "attributes": [
+        {
+          "name": "Attack Boost",
+          "value": "3%"
+        },
+        {
+          "name": "Defense Boost",
+          "value": "3%"
+        }
+      ],
+      "effect": null,
+      "materials": null,
+      "dollId": null,
+      "imageUrl": "/game-assets/keys/91015-todays-menu.webp",
+      "regionTag": "en",
+      "searchTags": []
+    },
+    {
+      "id": "99c8b9d7-8890-5254-b271-d9bb807b9b91",
+      "keyTitle": "Fixed Key - Fox's Smile",
+      "displayTitle": "Fox's Smile",
+      "keyType": "Fixed Key",
+      "level": 2,
+      "attributes": null,
+      "effect": "Damage dealt to enemy units in Stability Break is increased by <span style=\"color: rgb(242, 108, 28);\">7%</span>.",
+      "materials": null,
+      "dollId": "99362148-bc71-519f-ac45-44a115cd1bec",
+      "imageUrl": "/game-assets/keys/10560902-foxs-smile.webp",
+      "regionTag": "en",
+      "searchTags": []
+    },
+    {
+      "id": "eba4f991-7a6e-539b-bc3f-b76f822baf8d",
+      "keyTitle": "Fixed Key - Play It by Ear",
+      "displayTitle": "Play It by Ear",
+      "keyType": "Fixed Key",
+      "level": 3,
+      "attributes": null,
+      "effect": "Before [effect:3b272b42-e40a-5972-972c-c224e9b20aac], Leva cleanses <span style=\"color: rgb(242, 108, 28);\">1 buff</span> on the target.",
+      "materials": null,
+      "dollId": "99362148-bc71-519f-ac45-44a115cd1bec",
+      "imageUrl": "/game-assets/keys/10560903-play-it-by-ear.webp",
+      "regionTag": "en",
+      "searchTags": []
+    },
+    {
+      "id": "9b9a4263-48a3-589d-8648-281fae8a5d2a",
+      "keyTitle": "Fixed Key - Concealment Plan",
+      "displayTitle": "Concealment Plan",
+      "keyType": "Fixed Key",
+      "level": 4,
+      "attributes": null,
+      "effect": "After using the active skill [effect:99d90c97-eb35-5b60-97b8-9c5871649521], Leva gains [effect:c055d4b2-ce58-51f2-8863-58541d9e0580] for <span style=\"color: rgb(242, 108, 28);\">1 turn</span>.",
+      "materials": null,
+      "dollId": "99362148-bc71-519f-ac45-44a115cd1bec",
+      "imageUrl": "/game-assets/keys/10560904-concealment-plan.webp",
+      "regionTag": "en",
+      "searchTags": []
+    },
+    {
+      "id": "2278cb2c-9340-5029-97b4-2271091edd77",
+      "keyTitle": "Fixed Key - Rational Reaction",
+      "displayTitle": "Rational Reaction",
+      "keyType": "Fixed Key",
+      "level": 5,
+      "attributes": null,
+      "effect": "Before an allied unit makes an active attack, Leva applies [effect:c197d947-74e7-58f0-9b25-edf999701acb] to enemy units within range for <span style=\"color: rgb(242, 108, 28);\">1 turn</span>.",
+      "materials": null,
+      "dollId": "99362148-bc71-519f-ac45-44a115cd1bec",
+      "imageUrl": "/game-assets/keys/10560905-rational-reaction.webp",
+      "regionTag": "en",
+      "searchTags": []
+    },
+    {
+      "id": "fc6a3c4b-e7de-5899-b2dd-e1e959c1e7fd",
+      "keyTitle": "Fixed Key - Always Prepared",
+      "displayTitle": "Always Prepared",
+      "keyType": "Fixed Key",
+      "level": 6,
+      "attributes": null,
+      "effect": "At the start of the battle, Leva gains [effect:e999d46f-2f34-5224-8785-2e6ae0afbbaf] for <span style=\"color: rgb(242, 108, 28);\">3 turns</span>.",
+      "materials": null,
+      "dollId": "99362148-bc71-519f-ac45-44a115cd1bec",
+      "imageUrl": "/game-assets/keys/10560906-always-prepared.webp",
+      "regionTag": "en",
+      "searchTags": []
+    },
+    {
+      "id": "4d209cc8-a7a5-58f3-9819-9b7ef279b920",
+      "keyTitle": "Common Key - Elite Agent",
+      "displayTitle": "Elite Agent",
+      "keyType": "Common Key",
+      "level": 7,
+      "attributes": [
+        {
+          "name": "Attack Boost",
+          "value": "5%"
+        }
+      ],
+      "effect": "Damage dealt to enemy units with Electric debuffs is increased by <span style=\"color: rgb(242, 108, 28);\">7%</span>.",
+      "materials": null,
+      "dollId": "99362148-bc71-519f-ac45-44a115cd1bec",
+      "imageUrl": "/game-assets/keys/10560907-elite-agent.webp",
+      "regionTag": "en",
+      "searchTags": []
+    },
+    {
+      "id": "6eff512c-fe55-5d4b-b736-f35b27ef5aec",
+      "keyTitle": "Fixed Key - OGAS' Might",
+      "displayTitle": "OGAS' Might",
+      "keyType": "Fixed Key",
+      "level": 6,
+      "attributes": null,
+      "effect": "Critical damage dealt to enemy units with <span style=\"color: rgb(242, 108, 28);\">0 or lower</span> defense is increased by <span style=\"color: rgb(242, 108, 28);\">5%</span>.",
+      "materials": null,
+      "dollId": "18891422-2fae-5d58-aa9a-c164ab0650cd",
+      "imageUrl": "/game-assets/keys/10580906-ogas-might.webp",
+      "regionTag": "en",
+      "searchTags": []
+    },
+    {
+      "id": "b2f9eed2-64e3-583c-afb5-3b65e5328707",
+      "keyTitle": "Common Key - Petite Powerhouse",
+      "displayTitle": "Petite Powerhouse",
+      "keyType": "Common Key",
+      "level": null,
+      "attributes": [
+        {
+          "name": "Attack Boost",
+          "value": "3%"
+        },
+        {
+          "name": "Health Boost",
+          "value": "3%"
+        }
+      ],
+      "effect": null,
+      "materials": null,
+      "dollId": null,
+      "imageUrl": "/game-assets/keys/91016-petite-powerhouse.webp",
+      "regionTag": "en",
+      "searchTags": []
+    },
+    {
+      "id": "6a433036-c983-50e0-bef8-c17565d9d027",
+      "keyTitle": "Common Key - Proper Guo Bao Rou",
+      "displayTitle": "Proper Guo Bao Rou",
+      "keyType": "Common Key",
+      "level": null,
+      "attributes": [
+        {
+          "name": "Attack Boost",
+          "value": "3%"
+        },
+        {
+          "name": "Health Boost",
+          "value": "3%"
+        }
+      ],
+      "effect": null,
+      "materials": null,
+      "dollId": null,
+      "imageUrl": "/game-assets/keys/91017-proper-guo-bao-rou.webp",
+      "regionTag": "en",
+      "searchTags": []
+    },
+    {
+      "id": "5f9e4bb1-0fa1-57c5-a6c6-fe524be53e01",
+      "keyTitle": "Common Key - Fortress Gatekeeper",
+      "displayTitle": "Fortress Gatekeeper",
+      "keyType": "Common Key",
+      "level": null,
+      "attributes": [
+        {
+          "name": "Attack Boost",
+          "value": "2%"
+        },
+        {
+          "name": "Defense Boost",
+          "value": "2%"
+        }
+      ],
+      "effect": null,
+      "materials": null,
+      "dollId": null,
+      "imageUrl": "/game-assets/keys/92006-fortress-gatekeeper.webp",
+      "regionTag": "en",
+      "searchTags": []
+    },
+    {
+      "id": "3fff887c-8b55-53eb-966b-73e150710bdc",
+      "keyTitle": "Common Key - In The Name of Righteousness",
+      "displayTitle": "In The Name of Righteousness",
+      "keyType": "Common Key",
+      "level": null,
+      "attributes": [
+        {
+          "name": "Crit Rate",
+          "value": "3%"
+        },
+        {
+          "name": "Attack Boost",
+          "value": "3%"
+        }
+      ],
+      "effect": null,
+      "materials": null,
+      "dollId": null,
+      "imageUrl": "/game-assets/keys/91019-in-the-name-of-righteousness.webp",
+      "regionTag": "en",
+      "searchTags": []
+    },
+    {
+      "id": "ff716a4e-40c0-586e-a907-6e1c8e04f0bf",
+      "keyTitle": "Common Key - Disaster Movie Buff",
+      "displayTitle": "Disaster Movie Buff",
+      "keyType": "Common Key",
+      "level": null,
+      "attributes": [
+        {
+          "name": "Attack Boost",
+          "value": "3%"
+        },
+        {
+          "name": "Health Boost",
+          "value": "3%"
+        }
+      ],
+      "effect": null,
+      "materials": null,
+      "dollId": null,
+      "imageUrl": "/game-assets/keys/91020-disaster-movie-buff.webp",
+      "regionTag": "en",
+      "searchTags": []
+    },
+    {
+      "id": "d85b9d0e-93b5-55e5-abb4-095cfc0cf9ef",
+      "keyTitle": "Common Key - Familiar Stranger",
+      "displayTitle": "Familiar Stranger",
+      "keyType": "Common Key",
+      "level": null,
+      "attributes": [
+        {
+          "name": "Attack Boost",
+          "value": "3%"
+        },
+        {
+          "name": "Health Boost",
+          "value": "3%"
+        }
+      ],
+      "effect": null,
+      "materials": null,
+      "dollId": null,
+      "imageUrl": "/game-assets/keys/91022-familiar-stranger.webp",
+      "regionTag": "en",
+      "searchTags": []
+    },
+    {
+      "id": "1cb25100-c7a5-509f-bee7-8534ebf98461",
+      "keyTitle": "Common Key - Prank Hunter",
+      "displayTitle": "Prank Hunter",
+      "keyType": "Common Key",
+      "level": null,
+      "attributes": [
+        {
+          "name": "Attack Boost",
+          "value": "3%"
+        },
+        {
+          "name": "Defense Boost",
+          "value": "3%"
+        }
+      ],
+      "effect": null,
+      "materials": null,
+      "dollId": null,
+      "imageUrl": "/game-assets/keys/91023-prank-hunter.webp",
+      "regionTag": "en",
+      "searchTags": []
+    },
+    {
+      "id": "1edfdce5-2764-5ef7-913b-99ebcefc91aa",
+      "keyTitle": "Common Key - Opposed To Violence",
+      "displayTitle": "Opposed To Violence",
+      "keyType": "Common Key",
+      "level": null,
+      "attributes": [
+        {
+          "name": "Crit Rate",
+          "value": "3%"
+        },
+        {
+          "name": "Attack Boost",
+          "value": "3%"
+        }
+      ],
+      "effect": null,
+      "materials": null,
+      "dollId": null,
+      "imageUrl": "/game-assets/keys/91024-opposed-to-violence.webp",
+      "regionTag": "en",
+      "searchTags": []
+    },
+    {
+      "id": "0d59eca3-24d7-5356-834e-722827348141",
+      "keyTitle": "Common Key - Hidden Edge",
+      "displayTitle": "Hidden Edge",
+      "keyType": "Common Key",
+      "level": null,
+      "attributes": [
+        {
+          "name": "Attack Boost",
+          "value": "3%"
+        },
+        {
+          "name": "Health Boost",
+          "value": "3%"
+        }
+      ],
+      "effect": null,
+      "materials": null,
+      "dollId": null,
+      "imageUrl": "/game-assets/keys/91025-hidden-edge.webp",
+      "regionTag": "en",
+      "searchTags": []
+    },
+    {
+      "id": "57591779-9321-5e9c-853f-8941260c4980",
+      "keyTitle": "Common Key - New Era's Nemesis",
+      "displayTitle": "New Era's Nemesis",
+      "keyType": "Common Key",
+      "level": null,
+      "attributes": [
+        {
+          "name": "Crit Rate",
+          "value": "3%"
+        },
+        {
+          "name": "Attack Boost",
+          "value": "3%"
+        }
+      ],
+      "effect": null,
+      "materials": null,
+      "dollId": null,
+      "imageUrl": "/game-assets/keys/91026-new-eras-nemesis.webp",
+      "regionTag": "en",
+      "searchTags": []
+    },
+    {
+      "id": "1faeb224-567e-52d7-91ec-d564989d704b",
+      "keyTitle": "Common Key - Indomitable Exile",
+      "displayTitle": "Indomitable Exile",
+      "keyType": "Common Key",
+      "level": null,
+      "attributes": [
+        {
+          "name": "Attack Boost",
+          "value": "3%"
+        },
+        {
+          "name": "Health Boost",
+          "value": "3%"
+        }
+      ],
+      "effect": null,
+      "materials": null,
+      "dollId": null,
+      "imageUrl": "/game-assets/keys/91028-indomitable-exile.webp",
+      "regionTag": "en",
+      "searchTags": []
+    },
+    {
+      "id": "b44c8601-99ed-504e-8473-c23c870f74b9",
+      "keyTitle": "Common Key - Spooky Tale-Teller",
+      "displayTitle": "Spooky Tale-Teller",
+      "keyType": "Common Key",
+      "level": null,
+      "attributes": [
+        {
+          "name": "Attack Boost",
+          "value": "3%"
+        },
+        {
+          "name": "Defense Boost",
+          "value": "3%"
+        }
+      ],
+      "effect": null,
+      "materials": null,
+      "dollId": null,
+      "imageUrl": "/game-assets/keys/91029-spooky-tale-teller.webp",
+      "regionTag": "en",
+      "searchTags": []
+    },
+    {
+      "id": "cbf6acbe-c908-5dc0-92e7-3d3ed0b4290a",
+      "keyTitle": "Common Key - ECG Flutter",
+      "displayTitle": "ECG Flutter",
+      "keyType": "Common Key",
+      "level": null,
+      "attributes": [
+        {
+          "name": "Attack Boost",
+          "value": "3%"
+        },
+        {
+          "name": "Health Boost",
+          "value": "3%"
+        }
+      ],
+      "effect": null,
+      "materials": null,
+      "dollId": null,
+      "imageUrl": "/game-assets/keys/91030-ecg-flutter.webp",
+      "regionTag": "en",
+      "searchTags": []
+    },
+    {
+      "id": "51088053-d3c1-5842-9798-4df66e91f2b7",
+      "keyTitle": "Common Key - Paradox Equation",
+      "displayTitle": "Paradox Equation",
+      "keyType": "Common Key",
+      "level": null,
+      "attributes": [
+        {
+          "name": "Attack Boost",
+          "value": "3%"
+        },
+        {
+          "name": "Defense Boost",
+          "value": "3%"
+        }
+      ],
+      "effect": null,
+      "materials": null,
+      "dollId": null,
+      "imageUrl": "/game-assets/keys/91031-paradox-equation.webp",
+      "regionTag": "en",
+      "searchTags": []
+    },
+    {
+      "id": "06968f39-6476-5816-9d73-b607fcf7fc75",
+      "keyTitle": "Common Key - Stacks of Cash",
+      "displayTitle": "Stacks of Cash",
+      "keyType": "Common Key",
+      "level": null,
+      "attributes": [
+        {
+          "name": "Crit Rate",
+          "value": "3%"
+        },
+        {
+          "name": "Health Boost",
+          "value": "3%"
+        }
+      ],
+      "effect": null,
+      "materials": null,
+      "dollId": null,
+      "imageUrl": "/game-assets/keys/91033-stacks-of-cash.webp",
+      "regionTag": "en",
+      "searchTags": []
+    },
+    {
+      "id": "25614051-c0c8-5f9b-8f33-0ad01afe9b51",
+      "keyTitle": "Common Key - Reverberating Melody",
+      "displayTitle": "Reverberating Melody",
+      "keyType": "Common Key",
+      "level": null,
+      "attributes": [
+        {
+          "name": "Attack Boost",
+          "value": "2%"
+        },
+        {
+          "name": "Health Boost",
+          "value": "2%"
+        }
+      ],
+      "effect": null,
+      "materials": null,
+      "dollId": null,
+      "imageUrl": "/game-assets/keys/92001-reverberating-melody.webp",
+      "regionTag": "en",
+      "searchTags": []
+    },
+    {
+      "id": "8fc61269-9a1c-53da-935f-65936c9b885f",
+      "keyTitle": "Common Key - Ice Velvet Latte",
+      "displayTitle": "Ice Velvet Latte",
+      "keyType": "Common Key",
+      "level": null,
+      "attributes": [
+        {
+          "name": "Attack Boost",
+          "value": "2%"
+        },
+        {
+          "name": "Defense Boost",
+          "value": "2%"
+        }
+      ],
+      "effect": null,
+      "materials": null,
+      "dollId": null,
+      "imageUrl": "/game-assets/keys/92002-ice-velvet-latte.webp",
+      "regionTag": "en",
+      "searchTags": []
+    },
+    {
+      "id": "0ce40f87-59a3-5789-be25-afd1ccd70abc",
+      "keyTitle": "Fixed Key - Focused Gaze",
+      "displayTitle": "Focused Gaze",
+      "keyType": "Fixed Key",
+      "level": 2,
+      "attributes": null,
+      "effect": "When this unit is under the effects of [effect:eb9e108c-0b1d-5f8f-aa50-cbf2ed9cc4cc], gain immunity to all displacement effects from enemy units.",
+      "materials": null,
+      "dollId": "9ec7b7d3-a457-59ec-8a12-f67be6e01956",
+      "imageUrl": "/game-assets/keys/10080902-focused-gaze.webp",
+      "regionTag": "en",
+      "searchTags": []
+    },
+    {
+      "id": "6921e0a2-dc69-5cc5-af58-23eef7cd329d",
+      "keyTitle": "Fixed Key - Delicious Sharing",
+      "displayTitle": "Delicious Sharing",
+      "keyType": "Fixed Key",
+      "level": 4,
+      "attributes": null,
+      "effect": "At the start of the battle, gains <span style=\"color: rgb(242, 108, 28);\">3 points</span> of Confectance Index.",
+      "materials": null,
+      "dollId": "0c028851-b809-5b30-8575-54a446c131d8",
+      "imageUrl": "/game-assets/keys/10290904-delicious-sharing.webp",
+      "regionTag": "en",
+      "searchTags": []
+    },
+    {
+      "id": "1495b78f-89f7-5281-a117-440469c2307b",
+      "keyTitle": "Fixed Key - Calorie Overload",
+      "displayTitle": "Calorie Overload",
+      "keyType": "Fixed Key",
+      "level": 5,
+      "attributes": null,
+      "effect": "The effective range of <span style=\"color: rgb(52, 135, 224);\">Delicious Feast</span> changes to <span style=\"color: rgb(242, 108, 28);\">1 tile</span>, the skill targets tiles instead of units and pulls all enemies <span style=\"color: rgb(242, 108, 28);\">1 tile</span> toward the center. Damage dealt increases to <span style=\"color: rgb(242, 108, 28);\">100%</span> of attack.",
+      "materials": null,
+      "dollId": "0c028851-b809-5b30-8575-54a446c131d8",
+      "imageUrl": "/game-assets/keys/10290905-calorie-overload.webp",
+      "regionTag": "en",
+      "searchTags": []
+    },
+    {
+      "id": "14f6de90-ebd5-5924-ae82-ecc1e789cd50",
+      "keyTitle": "Fixed Key - Weird-Tasting Health Recipe",
+      "displayTitle": "Weird-Tasting Health Recipe",
+      "keyType": "Fixed Key",
+      "level": 6,
+      "attributes": null,
+      "effect": "The active skill <span style=\"color: rgb(52, 135, 224);\">Meal Preparation</span> is modified to affect <span style=\"color: rgb(242, 108, 28);\">5 tiles around self</span>, and no longer applies [effect:29752bc3-2116-543a-aa37-c4cf524b2dcd]. It now applies [effect:c1ae8249-3470-5d86-8e91-a4ce9c1f9147] to up to <span style=\"color: rgb(242, 108, 28);\">2</span> targets for <span style=\"color: rgb(242, 108, 28);\">1 turn</span>. The cooldown is increased to <span style=\"color: rgb(242, 108, 28);\">3 turns</span>.",
+      "materials": null,
+      "dollId": "0c028851-b809-5b30-8575-54a446c131d8",
+      "imageUrl": "/game-assets/keys/10290906-weird-tasting-health-recipe.webp",
+      "regionTag": "en",
+      "searchTags": []
+    },
+    {
+      "id": "45a614df-6be7-513d-b36f-d60c5d5b9d6e",
+      "keyTitle": "Fixed Key - Angel's Kindness",
+      "displayTitle": "Angel's Kindness",
+      "keyType": "Fixed Key",
+      "level": 4,
+      "attributes": null,
+      "effect": "Before making an active attack, cleanses <span style=\"color: rgb(242, 108, 28);\">1</span> buff on the target.",
+      "materials": null,
+      "dollId": "b819b610-cad9-58f1-ba38-b2ef1f5a98db",
+      "imageUrl": "/game-assets/keys/10690904-angels-kindness.webp",
+      "regionTag": "en",
+      "searchTags": []
+    },
+    {
+      "id": "398df193-7979-5f66-acad-790545509b2c",
+      "keyTitle": "Fixed Key - Guard Vent",
+      "displayTitle": "Guard Vent",
+      "keyType": "Fixed Key",
+      "level": 1,
+      "attributes": null,
+      "effect": "Before allied units with [effect:61fe23de-74e3-5bce-b994-b5079f13c4f6] launch active attacks or Interceptions, Robella applies [effect:2512e71d-366d-56b0-b188-d9334710a0ec] to the targeted enemy for <span style=\"color: rgb(242, 108, 28);\">2 turns</span>.",
+      "materials": null,
+      "dollId": "b86cdb8b-46c9-5686-928f-b20013ac0861",
+      "imageUrl": "/game-assets/keys/10570901-guard-vent.webp",
+      "regionTag": "en",
+      "searchTags": []
+    },
+    {
+      "id": "5a935b37-920f-5f79-9619-ec2c9bf1b181",
+      "keyTitle": "Fixed Key - Third-Gen Neural Cloud",
+      "displayTitle": "Third-Gen Neural Cloud",
+      "keyType": "Fixed Key",
+      "level": 2,
+      "attributes": null,
+      "effect": "At the end of action, if Robella has [effect:ebf25bed-d084-5dd8-b5d7-8d562d75f5e2], she gains [effect:a49e11e5-8e00-5674-8b76-80f009b5377b] for <span style=\"color: rgb(242, 108, 28);\">1 turn</span>.",
+      "materials": null,
+      "dollId": "b86cdb8b-46c9-5686-928f-b20013ac0861",
+      "imageUrl": "/game-assets/keys/10570902-third-gen-neural-cloud.webp",
+      "regionTag": "en",
+      "searchTags": []
+    },
+    {
+      "id": "32ca0594-efd3-5264-8a52-4ee27f0230dc",
+      "keyTitle": "Fixed Key - Liberated Self",
+      "displayTitle": "Liberated Self",
+      "keyType": "Fixed Key",
+      "level": 2,
+      "attributes": null,
+      "effect": "Immune to Taunt, Infatuated and Fear. Gains immunity to one instance of AoE damage every <span style=\"color: rgb(242, 108, 28);\">3 turns</span>.",
+      "materials": null,
+      "dollId": "88f5fe7e-8b2f-5fe4-9eb2-632a2aaba1bc",
+      "imageUrl": "/game-assets/keys/10700902-liberated-self.webp",
+      "regionTag": "en",
+      "searchTags": []
+    },
+    {
+      "id": "879dd5f5-f7ef-5c54-a54e-c1c3113bfaa5",
+      "keyTitle": "Fixed Key - Resilient Heart",
+      "displayTitle": "Resilient Heart",
+      "keyType": "Fixed Key",
+      "level": 4,
+      "attributes": null,
+      "effect": "[effect:7b4d7ed8-0b51-53e1-b644-8ccb042a641e] is immune to control effects.",
+      "materials": null,
+      "dollId": "dd60231f-48b9-5852-8ea1-5a3c52650d78",
+      "imageUrl": "/game-assets/keys/10720904-resilient-heart.webp",
+      "regionTag": "en",
       "searchTags": []
     },
     {
