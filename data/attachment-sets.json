@@ -1,11 +1,6 @@
 {
-  "syncedAt": "2026-08-20T10:56:38.229Z",
+  "syncedAt": "2026-08-20T11:06:17.889Z",
   "attachmentSets": [
-    {
-      "name": "Allay Support",
-      "piecesRequired": 3,
-      "description": "When using defense skills, additionally applies [effect:b266201] to allied units for 2 turns."
-    },
     {
       "name": "Burn Boost",
       "piecesRequired": 3,
@@ -80,6 +75,11 @@
       "name": "Ultimate Pursuit",
       "piecesRequired": 3,
       "description": "Increases the damage, healing, and shield effects of Ultimate skills by 5%. Gains 1 stack after each use of an Ultimate skill, up to a maximum of 4 stacks."
+    },
+    {
+      "name": "Allay Support",
+      "piecesRequired": 3,
+      "description": "When using defense skills, additionally applies [effect:b266201] to allied units for 2 turns."
     }
   ]
 }

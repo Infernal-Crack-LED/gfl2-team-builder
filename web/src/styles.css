@@ -1554,37 +1554,13 @@ td {
   vertical-align: 1px;
 }
 
-/* Skill range grid: hidden by default, pops over the "Range" meta entry on
-   hover. The image is generated at display size (integer cell pixels), so
-   it renders at natural size — never scaled, tiles always even. */
-.unit-range-anchor {
-  position: relative;
-  cursor: help;
-  text-decoration: underline dotted;
-  text-underline-offset: 3px;
-}
-
-.unit-range-pop {
-  display: none;
-  position: absolute;
-  bottom: calc(100% + 6px);
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 200;
-  padding: 6px;
-  background: var(--panel);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
-  pointer-events: none;
-}
-
-.unit-range-pop img {
-  display: block;
-}
-
-.unit-range-anchor:hover .unit-range-pop {
-  display: block;
+/* Skill range grid: floated into the top-right corner of the skill card's
+   title area, so surrounding content wraps and never overlaps. Generated at
+   display size (integer cell pixels) — never CSS-scaled, tiles stay even. */
+.unit-skill-range {
+  float: right;
+  margin: 0 0 8px 10px;
+  border-radius: 4px;
 }
 
 /* Remolding pattern: a pill row (core, slots, stat boosts) over the six

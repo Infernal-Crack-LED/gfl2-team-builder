@@ -89,9 +89,23 @@ function SkillSection({ skill }: { skill: Skill }) {
     skill.descriptionLevel4,
   ];
   const currentDesc = descriptions[level - 1] ?? skill.description;
+  // pipeline-rendered range grid, floated into the title corner; the image
+  // is generated at display size (integer cell pixels), never CSS-scaled
+  const rangeLevelKey = `rangeImageUrlLevel${level}` as const;
+  const rangeImg =
+    (level > 1 ? (skill[rangeLevelKey] as string | null) : null) ??
+    skill.rangeImageUrl;
 
   return (
     <div className="unit-skill">
+      {rangeImg && (
+        <img
+          className="unit-skill-range"
+          src={rangeImg}
+          alt="Skill range grid"
+          loading="lazy"
+        />
+      )}
       <h3>
         {skill.imageUrl && (
           <GameIcon className="unit-skill-icon" src={skill.imageUrl} />
@@ -135,36 +149,19 @@ function SkillSection({ skill }: { skill: Skill }) {
 
       <RichText text={currentDesc} className="unit-skill-desc" />
 
-      {/* Skill metadata. The Range entry doubles as the hover anchor for
-          the pipeline-rendered grid (shown at its natural size — the image
-          is generated at display size so tiles stay even); level tabs swap
-          in the level's grid when it differs. */}
-      {(() => {
-        const levelKey = `rangeImageUrlLevel${level}` as const;
-        const rangeImg =
-          (level > 1 ? (skill[levelKey] as string | null) : null) ??
-          skill.rangeImageUrl;
-        return (
-          <div className="unit-skill-meta">
-            {skill.stabilityDamage != null && (
-              <span>Stability: {skill.stabilityDamage}</span>
-            )}
-            {skill.cooldown != null && <span>Cooldown: {skill.cooldown}</span>}
-            {(skill.rangeValue != null || rangeImg) && (
-              <span className={rangeImg ? 'unit-range-anchor' : undefined}>
-                Range
-                {skill.rangeValue != null ? `: ${skill.rangeValue}` : ''}
-                {skill.effectiveArea ? ` (${skill.effectiveArea})` : ''}
-                {rangeImg && (
-                  <span className="unit-range-pop">
-                    <img src={rangeImg} alt="Skill range grid" loading="lazy" />
-                  </span>
-                )}
-              </span>
-            )}
-          </div>
-        );
-      })()}
+      {/* Skill metadata */}
+      <div className="unit-skill-meta">
+        {skill.stabilityDamage != null && (
+          <span>Stability: {skill.stabilityDamage}</span>
+        )}
+        {skill.cooldown != null && <span>Cooldown: {skill.cooldown}</span>}
+        {skill.rangeValue != null && (
+          <span>
+            Range: {skill.rangeValue}
+            {skill.effectiveArea ? ` (${skill.effectiveArea})` : ''}
+          </span>
+        )}
+      </div>
     </div>
   );
 }
