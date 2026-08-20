@@ -109,6 +109,12 @@
    "setEffect": "When dealing Physical damage, the damage is increased by 20%.",
    "substats": "DEF% > DEF > ATK% > ATK"
   },
+  "explanation": [
+   {
+    "refs": [],
+    "text": "As Bathilde's Vertebrae can be acquired for free, she does not require a suggested path"
+   }
+  ],
   "keys": {
    "alternatives": [],
    "primary": [
@@ -181,6 +187,14 @@
    "setEffect": "When dealing Electric damage, the damage is increased by 20%.",
    "substats": "ATK% > ATK > CRIT% > CRIT DMG%"
   },
+  "explanation": [
+   {
+    "refs": [
+     "V3"
+    ],
+    "text": "Disclaimer: It is not recommended for players to pull for V3/6 as the damage boosts are not signficant enough. One copy is enough for most players"
+   }
+  ],
   "keys": {
    "alternatives": [
     "Fixed Key 6 - Deciding Motive",
@@ -193,11 +207,11 @@
   },
   "path": [
    {
-    "note": null,
+    "note": "Her V3/6 gives her the highest increase in damage, at 33% and 20% respectively",
     "step": "V3"
    },
    {
-    "note": null,
+    "note": "Her V3/6 gives her the highest increase in damage, at 33% and 20% respectively",
     "step": "V6"
    }
   ],
@@ -250,6 +264,12 @@
    "setEffect": "Deals 15% increased damage to targets with Phase Element debuffs.",
    "substats": "ATK% > ATK > HP% > DEF%"
   },
+  "explanation": [
+   {
+    "refs": [],
+    "text": "Being a 4* unit, Cheeta does not require a suggested path"
+   }
+  ],
   "keys": {
    "alternatives": [
     "Fixed Key 5 - Genius Support Plan"
@@ -295,6 +315,12 @@
    "setEffect": "If the allied unit's HP is fully healed by an active skill, restores 2 points of their Stability Index. Triggers up to once per turn.",
    "substats": "ATK% > ATK > HP% > DEF%"
   },
+  "explanation": [
+   {
+    "refs": [],
+    "text": "Being a 4* unit, Colphne does not require a suggested path"
+   }
+  ],
   "keys": {
    "alternatives": [
     "Fixed Key 4 - Combat Medic",
@@ -402,6 +428,15 @@
    "setEffect": "When dealing Freeze damage, the damage is increased by 20%.",
    "substats": "ATK% > ATK > CRIT% > CRIT DMG%"
   },
+  "explanation": [
+   {
+    "refs": [
+     "V0",
+     "V1"
+    ],
+    "text": "TIP: Skill rotation on V0: 3114 > 11121 > 31121 > 114 > 311121 > 1121 > 3114\nSkill rotation on V1+: 3114 > 11121 > repeat"
+   }
+  ],
   "keys": {
    "alternatives": [
     "Fixed Key 2 - Lord of the Sky",
@@ -518,6 +553,12 @@
    "setEffect": "When using defense skills, additionally applies Area Defense II to allied units for 2 turns.",
    "substats": "ATK% > HP% > DEF% > ATK"
   },
+  "explanation": [
+   {
+    "refs": [],
+    "text": "Being a 4* unit, Groza does not require a suggested path"
+   }
+  ],
   "keys": {
    "alternatives": [
     "Fixed Key 2 - Controlled Advance"
@@ -570,6 +611,17 @@
    "setEffect": "When dealing Freeze damage, the damage is increased by 20%.",
    "substats": "CRIT DMG% > ATK% > DEF % > ATK"
   },
+  "explanation": [
+   {
+    "refs": [
+     "V0",
+     "V3",
+     "V6",
+     "R1"
+    ],
+    "text": "V0 > V3 (fully featured as support) > V6 (damage) > R1 (significant on V6 for more damage from def)"
+   }
+  ],
   "keys": {
    "alternatives": [],
    "primary": [
@@ -743,6 +795,12 @@
    "setEffect": "Damage dealt is increased by 12%. When dealing melee damage, damage is additionally increased by 24%.",
    "substats": "ATK% > ATK > CRIT% > CRIT DMG%"
   },
+  "explanation": [
+   {
+    "refs": [],
+    "text": "Being a 4* unit, Krolik does not require a suggested path"
+   }
+  ],
   "keys": {
    "alternatives": [
     "Fixed Key 1 - Momentary Focus"
@@ -766,6 +824,12 @@
    "setEffect": "If the allied unit's HP is fully healed by an active skill, restores 2 points of their Stability Index. Triggers up to once per turn.",
    "substats": "ATK% > ATK > HP% > DEF%"
   },
+  "explanation": [
+   {
+    "refs": [],
+    "text": "Being a 4* unit, Ksenia does not require a suggested path"
+   }
+  ],
   "keys": {
    "alternatives": [],
    "primary": [
@@ -1005,6 +1069,12 @@
    "setEffect": "When dealing Physical damage, the damage is increased by 20%.",
    "substats": "ATK% > ATK > CRIT% > CRIT DMG%"
   },
+  "explanation": [
+   {
+    "refs": [],
+    "text": "Being a 4* unit, Littara does not require a suggested path"
+   }
+  ],
   "keys": {
    "alternatives": [],
    "primary": [
@@ -1085,6 +1155,21 @@
    "setEffect": "When dealing Burn damage, the damage is increased by 20%.",
    "substats": "ATK% > ATK > CRIT% > CRIT DMG%"
   },
+  "explanation": [
+   {
+    "refs": [
+     "V2"
+    ],
+    "text": "V2 is a very strong buff for support capabilities, makes Loreley very strong universal support"
+   },
+   {
+    "refs": [
+     "R1",
+     "V2"
+    ],
+    "text": "R1 apply ATK II buff. If you have Vector V2 you already have it 100% uptime\nImportant correction: Vector uptime is not 100%, she has a small window of end turn on 2, 4, 6 rounds when dolls dont have atk2 buff. This may affect QH damage as her dot damage happens on end of turn."
+   }
+  ],
   "keys": {
    "alternatives": [
     "Fixed Key 2",
@@ -1108,6 +1193,12 @@
    "setEffect": "When dealing Freeze damage, the damage is increased by 20%.",
    "substats": "ATK% > ATK > CRIT% > CRIT DMG%"
   },
+  "explanation": [
+   {
+    "refs": [],
+    "text": "As Lotta's Vertebrae can be acquired for free, she does not require a suggested path"
+   }
+  ],
   "keys": {
    "alternatives": [
     "Fixed Key 6 - Soothing Touch"
@@ -1241,6 +1332,12 @@
    "setEffect": "Deals 15% increased damage to targets with Phase Element debuffs.",
    "substats": "ATK% > ATK > CRIT% > CRIT DMG%"
   },
+  "explanation": [
+   {
+    "refs": [],
+    "text": "Being a 4* unit, Nagant does not require a suggested path"
+   }
+  ],
   "keys": {
    "alternatives": [],
    "primary": [
@@ -1262,6 +1359,12 @@
    "setEffect": "Deals 15% increased damage to targets with Phase Element debuffs.",
    "substats": "ATK% > ATK > CRIT% > CRIT DMG%"
   },
+  "explanation": [
+   {
+    "refs": [],
+    "text": "Being a 4* unit, Nemesis does not require a suggested path"
+   }
+  ],
   "keys": {
    "alternatives": [
     "Fixed Key 4 - Silent Catastrophe"
@@ -1388,6 +1491,12 @@
    "setEffect": "When dealing Physical damage, the damage is increased by 20%.",
    "substats": "ATK% > ATK > CRIT% > CRIT DMG%"
   },
+  "explanation": [
+   {
+    "refs": [],
+    "text": "As Papasha's Vertebrae can be acquired for free, she does not require a suggested path"
+   }
+  ],
   "keys": {
    "alternatives": [
     "Fixed Key 6 - Strength in Unity"
@@ -1450,6 +1559,12 @@
    "setEffect": "Deals 15% increased damage to targets with Phase Element debuffs.",
    "substats": "ATK% > ATK > CRIT% > CRIT DMG%"
   },
+  "explanation": [
+   {
+    "refs": [],
+    "text": "As Peritya has no significant breakthroughs, she does not require a suggested path"
+   }
+  ],
   "keys": {
    "alternatives": [
     "Fixed Key 5 - A Brief Respite"
@@ -1473,6 +1588,34 @@
    "setEffect": "Damage dealt is increased by 12%. When dealing melee damage, damage is additionally increased by 24%.",
    "substats": "ATK% > ATK > CRIT% > CRIT DMG%"
   },
+  "explanation": [
+   {
+    "refs": [
+     "V1",
+     "R1",
+     "V3",
+     "V4",
+     "V6"
+    ],
+    "text": "V1 > R1 > V3 (significant boost) > V4 (significant boost) > V6"
+   },
+   {
+    "refs": [],
+    "text": "Tip: Lacerations damage is considered melee and procs Phaetusa passive CI gain"
+   },
+   {
+    "refs": [
+     "V0"
+    ],
+    "text": "Tip: Damage multiplier of Twin paradise formula looks like this on V0: 90 + (bladereso x10%)\nThen you multiply that by reso stack\n1 stack = 2x damage\n2 stacks = 3x damage\n3 stacks = 4x damage"
+   },
+   {
+    "refs": [
+     "V6"
+    ],
+    "text": "Tip: V6 ult multiplier formula: ((120 + 20 × 3) × (1 + 3) + 200) × 2 = 1840"
+   }
+  ],
   "keys": {
    "alternatives": [
     "Fixed Key 5 - Keeper of the Boundary"
@@ -1639,6 +1782,12 @@
    "setEffect": "Deals 15% increased damage to targets with Phase Element debuffs.",
    "substats": "ATK% > DEF% > HP% > ATK"
   },
+  "explanation": [
+   {
+    "refs": [],
+    "text": "As Sabrina's Vertebrae can be acquired for free, she does not require a suggested path"
+   }
+  ],
   "keys": {
    "alternatives": [
     "Fixed Key 5 - Calorie Overload",
@@ -1738,6 +1887,12 @@
    "setEffect": "Deals 15% increased damage to targets with Phase Element debuffs.",
    "substats": "ATK% > ATK > CRIT% > CRIT DMG%"
   },
+  "explanation": [
+   {
+    "refs": [],
+    "text": "Being a 4* unit, Sharkry does not require a suggested path"
+   }
+  ],
   "keys": {
    "alternatives": [
     "Fixed Key 3 - Deadly Allure"
@@ -2033,6 +2188,12 @@
    "setEffect": "When dealing Physical damage, the damage is increased by 20%.",
    "substats": "ATK% > ATK > CRIT% > CRIT DMG%"
   },
+  "explanation": [
+   {
+    "refs": [],
+    "text": "As Vepley has no significant breakthroughs, she does not require a suggested path"
+   }
+  ],
   "keys": {
    "alternatives": [
     "Fixed Key 2 - Contamination Zone Tour",
@@ -2108,6 +2269,12 @@
    "setEffect": "When dealing Corrosion damage, the damage is increased by 20%.",
    "substats": "HP% > HP > ATK% > ATK"
   },
+  "explanation": [
+   {
+    "refs": [],
+    "text": "TIP: Welrod is a unit based on sustain and her damage scales on damage taken. If Boss does no damage Welrod damage will be low."
+   }
+  ],
   "keys": {
    "alternatives": [
     "Fixed Key 5 - The Final Problem",
