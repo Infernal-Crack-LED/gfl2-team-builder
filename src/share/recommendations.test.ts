@@ -88,3 +88,67 @@ describe('hydrateRecommendation explanation handling', () => {
     expect(rec?.notes).toHaveLength(1);
   });
 });
+
+describe('vertical investment display rules', () => {
+  it('shows only the steps the sheet explains', () => {
+    // A step reaches `path` from the marker row OR the explanation blob. When
+    // it has both, the explanation wins; a marker with no explanation renders
+    // as a chip with nothing beside it, so it moves out of the path.
+    const rec = hydrateRecommendation(
+      'x',
+      {
+        path: [
+          { step: 'V0', note: 'good at zero' },
+          { step: 'R1', note: 'refine it' },
+          { step: 'V4', note: null },
+          { step: 'V5', note: null },
+          { step: 'V6', note: 'capstone' },
+        ],
+      },
+      NO_LOOKUPS
+    );
+    expect(rec?.explainedSteps.map((s) => s.step)).toEqual(['V0', 'R1', 'V6']);
+    // ...but the declared breakpoints are not thrown away.
+    expect(rec?.markerSteps).toEqual(['V4', 'V5']);
+  });
+
+  it('reads "does not require a suggested path" as the section content', () => {
+    const rec = hydrateRecommendation(
+      'x',
+      {
+        explanation: [
+          { text: 'Being a 4* unit, Cheeta does not require a suggested path' },
+        ],
+      },
+      NO_LOOKUPS
+    );
+    expect(rec?.noPath?.kind).toBe('no-path');
+    expect(rec?.explainedSteps).toEqual([]);
+  });
+
+  it('recognises the other wordings the authors use for it', () => {
+    for (const text of [
+      "As Sabrina's Vertebrae can be acquired for free, she does not require a suggested path",
+      'As Peritya has no significant breakthroughs, she does not require a suggested path',
+    ]) {
+      expect(classifyExplanation({ text }).kind).toBe('no-path');
+    }
+  });
+
+  it('keeps a marker-only path visible rather than blanking the section', () => {
+    // Koleda: six declared breakpoints, none written up. Dropping them all
+    // would discard what the sheet does say.
+    const rec = hydrateRecommendation(
+      'x',
+      {
+        path: [
+          { step: 'V1', note: null },
+          { step: 'V6', note: null },
+        ],
+      },
+      NO_LOOKUPS
+    );
+    expect(rec?.explainedSteps).toEqual([]);
+    expect(rec?.markerSteps).toEqual(['V1', 'V6']);
+  });
+});

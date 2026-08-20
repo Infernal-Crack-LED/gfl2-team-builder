@@ -540,7 +540,11 @@ describe('community recommendations', () => {
       blocks += (row.explanation ?? []).length;
       const rec = hydrateRecommendation(slug, row, noLookups);
       if (rec) {
-        routed += (rec.verdict ? 1 : 0) + rec.caveats.length + rec.notes.length;
+        routed +=
+          (rec.verdict ? 1 : 0) +
+          (rec.noPath ? 1 : 0) +
+          rec.caveats.length +
+          rec.notes.length;
       }
     }
     expect(blocks).toBeGreaterThan(30);

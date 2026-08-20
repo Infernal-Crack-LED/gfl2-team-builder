@@ -11,6 +11,7 @@
  *      real trait and effect text. Half the roster has no prose from the
  *      sheet, and that join is what keeps those pages worth reading.
  */
+import { GameIcon } from './GameIcon';
 import { RichText } from './RichText';
 import {
   RECOMMENDATION_CREDIT,
@@ -19,7 +20,19 @@ import {
 } from '../recommendations';
 import { onSpaLinkClick } from '../router';
 
-function LinkRow({ item, rank }: { item: RecLink; rank?: number }) {
+function LinkRow({
+  item,
+  rank,
+  art,
+}: {
+  item: RecLink;
+  rank?: number;
+  /**
+   * Weapon art is wide (512×256) with transparency and letterboxes; key icons
+   * are square tiles. Same slot, two aspect ratios.
+   */
+  art: 'weapon' | 'key';
+}) {
   const name = item.href ? (
     <a href={item.href} onClick={onSpaLinkClick(item.href)}>
       {item.label}
@@ -29,19 +42,32 @@ function LinkRow({ item, rank }: { item: RecLink; rank?: number }) {
   );
   return (
     <li className="recbuild-item">
-      <div className="recbuild-item-head">
-        {rank !== undefined && <span className="recbuild-rank">{rank}</span>}
-        <span className="recbuild-item-name">{name}</span>
-        {item.meta && <span className="recbuild-item-meta">{item.meta}</span>}
-        {/* The sheet's own aside, e.g. "Please get V6 first" — the
-            maintainers' advice, kept verbatim rather than dropped. */}
-        {item.aside && (
-          <span className="recbuild-item-aside">{item.aside}</span>
+      <div className={`recbuild-item-art recbuild-item-art-${art}`}>
+        {item.icon ? (
+          // alt="" — the name is right beside it as real text, so announcing
+          // the art again is noise to a screen reader.
+          <GameIcon src={item.icon} alt="" />
+        ) : (
+          <span className="recbuild-item-art-empty" aria-hidden="true">
+            ?
+          </span>
         )}
       </div>
-      {item.detail && (
-        <RichText text={item.detail} className="recbuild-item-detail" />
-      )}
+      <div className="recbuild-item-body">
+        <div className="recbuild-item-head">
+          {rank !== undefined && <span className="recbuild-rank">{rank}</span>}
+          <span className="recbuild-item-name">{name}</span>
+          {item.meta && <span className="recbuild-item-meta">{item.meta}</span>}
+          {/* The sheet's own aside, e.g. "Please get V6 first" — the
+              maintainers' advice, kept verbatim rather than dropped. */}
+          {item.aside && (
+            <span className="recbuild-item-aside">{item.aside}</span>
+          )}
+        </div>
+        {item.detail && (
+          <RichText text={item.detail} className="recbuild-item-detail" />
+        )}
+      </div>
     </li>
   );
 }
@@ -113,58 +139,85 @@ export function RecommendationPanel({
         </p>
       </header>
 
-      {(rec.path.length > 0 || rec.verdict || rec.caveats.length > 0) && (
-        <Section
-          title="Vertical investment"
-          hint={
-            rec.path.length === 0 || rec.hasNotes
-              ? undefined
-              : 'The sheet lists these breakpoints without further comment.'
-          }
-        >
-          {/* The verdict is the sheet's one-line answer to "how far do I go?".
+      <Section title="Vertical investment">
+        {/* The verdict is the sheet's one-line answer to "how far do I go?".
               It leads the section because it is the most useful sentence here
               and it summarises the steps below it. */}
-          {rec.verdict && (
-            <p className="recbuild-verdict">
-              <span className="recbuild-verdict-label">Recommended</span>
-              <span className="recbuild-verdict-value">{rec.verdict.text}</span>
+        {rec.verdict && (
+          <p className="recbuild-verdict">
+            <span className="recbuild-verdict-label">Recommended</span>
+            <span className="recbuild-verdict-value">{rec.verdict.text}</span>
+          </p>
+        )}
+
+        {/* The authors' answer when the answer is "there isn't one" — for a
+              Standard unit, one whose vertebrae are free, or one with no
+              breakthrough worth chasing. That IS this section's content, so it
+              stands in for the step list. */}
+        {rec.noPath && <p className="recbuild-prose">{rec.noPath.text}</p>}
+
+        {rec.explainedSteps.length > 0 && (
+          <ol className="recbuild-path">
+            {rec.explainedSteps.map((s) => (
+              <li key={s.step}>
+                <span className="recbuild-step">{s.step}</span>
+                <span className="recbuild-step-note">{s.note}</span>
+              </li>
+            ))}
+          </ol>
+        )}
+
+        {/* Breakpoints the sheet marks but never writes up. Kept as a list
+              rather than as empty rows in the path above: they are real
+              information, just not descriptions. */}
+        {rec.markerSteps.length > 0 && (
+          <p className="recbuild-markers">
+            <span className="recbuild-markers-label">
+              {rec.explainedSteps.length > 0
+                ? 'Also marked'
+                : 'Marked breakpoints'}
+            </span>
+            {rec.markerSteps.map((s) => (
+              <span className="recbuild-ref" key={s}>
+                {s}
+              </span>
+            ))}
+            <span className="recbuild-markers-hint">
+              listed without an explanation
+            </span>
+          </p>
+        )}
+
+        {/* Nothing at all: say so, rather than leaving a bare heading. */}
+        {rec.explainedSteps.length === 0 &&
+          rec.markerSteps.length === 0 &&
+          !rec.noPath &&
+          !rec.verdict && (
+            <p className="recbuild-empty">
+              The {RECOMMENDATION_CREDIT.sheetName} hasn’t published a vertical
+              investment path for {dollName} yet.
             </p>
           )}
 
-          {rec.path.length > 0 && (
-            <ol className="recbuild-path">
-              {rec.path.map((s) => (
-                <li key={s.step} className={s.note ? '' : 'recbuild-path-bare'}>
-                  <span className="recbuild-step">{s.step}</span>
-                  {s.note && (
-                    <span className="recbuild-step-note">{s.note}</span>
-                  )}
-                </li>
-              ))}
-            </ol>
-          )}
-
-          {/* Caveats qualify the path, so they sit with it rather than in the
+        {/* Caveats qualify the path, so they sit with it rather than in the
               notes below — a "do not stop at V3" warning is useless three
               sections away from V3. */}
-          {rec.caveats.map((c, i) => (
-            <div className="recbuild-caveat" key={i}>
-              <span className="recbuild-caveat-label">Caveat</span>
-              <div>
-                <p className="recbuild-prose">{c.text}</p>
-                <StepRefs refs={c.refs} />
-              </div>
+        {rec.caveats.map((c, i) => (
+          <div className="recbuild-caveat" key={i}>
+            <span className="recbuild-caveat-label">Caveat</span>
+            <div>
+              <p className="recbuild-prose">{c.text}</p>
+              <StepRefs refs={c.refs} />
             </div>
-          ))}
-        </Section>
-      )}
+          </div>
+        ))}
+      </Section>
 
       {rec.weapons.length > 0 && (
         <Section title="Weapons" hint="In the sheet's order of preference.">
           <ul className="recbuild-list">
             {rec.weapons.map((w, i) => (
-              <LinkRow key={w.label} item={w} rank={i + 1} />
+              <LinkRow key={w.label} item={w} rank={i + 1} art="weapon" />
             ))}
           </ul>
         </Section>
@@ -175,7 +228,7 @@ export function RecommendationPanel({
           {primary.length > 0 && (
             <ul className="recbuild-list">
               {primary.map((k) => (
-                <LinkRow key={k.label} item={k} />
+                <LinkRow key={k.label} item={k} art="key" />
               ))}
             </ul>
           )}
@@ -184,7 +237,7 @@ export function RecommendationPanel({
               <p className="recbuild-subsection-label">Alternatives</p>
               <ul className="recbuild-list recbuild-list-alt">
                 {alternatives.map((k) => (
-                  <LinkRow key={k.label} item={k} />
+                  <LinkRow key={k.label} item={k} art="key" />
                 ))}
               </ul>
             </div>

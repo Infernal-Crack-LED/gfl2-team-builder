@@ -66,6 +66,7 @@ function weaponLink(w: Weapon): RecLink {
     href: `/weapons/${w.slug}`,
     detail: gameText(w.effect),
     meta: [w.rarity, w.trait].filter(Boolean).join(' · ') || null,
+    icon: w.imageUrl,
   };
 }
 
@@ -106,6 +107,7 @@ function lookupsFor(doll: Doll): RecLookups {
         href: null, // keys have no detail page of their own yet
         detail: gameText(match.effect),
         meta: match.level ? `Slot ${match.level}` : match.keyType,
+        icon: match.imageUrl,
       };
     },
   };

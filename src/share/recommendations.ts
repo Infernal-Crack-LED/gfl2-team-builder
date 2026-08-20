@@ -66,6 +66,7 @@ export interface RecommendationSource {
  */
 export type RecExplanationKind =
   | 'verdict' // "Recommendation: V0 > V3" — where to stop investing
+  | 'no-path' // "Being a 4* unit, she does not require a suggested path"
   | 'caveat' // "Disclaimer: ..." — a qualification on the advice
   | 'tip' // "TIP: ..." — mechanics, rotations, interactions
   | 'note'; // anything else the authors wrote
@@ -82,6 +83,13 @@ export interface RecExplanation {
 // and "Disclaimer"/"Disclamer" appear, so the patterns tolerate the variants
 // rather than silently demoting a mis-typed block to an unlabelled note.
 const VERDICT_RE = /^\s*recomm?[ae]nd[ae]tion\s*:\s*/i;
+/*
+ * The authors answer "what is her path?" with "she hasn't got one, and here is
+ * why" — for a Standard unit, for one whose vertebrae are free, or for one with
+ * no breakthrough worth chasing. That IS the section's content, so it stands in
+ * for the step list rather than being filed away as a general note.
+ */
+const NO_PATH_RE = /\bdoes not require a suggested path\b/i;
 const CAVEAT_RE = /^\s*disclai?mer\s*:\s*/i;
 const TIP_RE = /^\s*tips?\s*:\s*/i;
 
@@ -93,6 +101,9 @@ export function classifyExplanation(
   const refs = (block.refs ?? []).filter(
     (r): r is string => typeof r === 'string' && r !== ''
   );
+  if (NO_PATH_RE.test(raw)) {
+    return { kind: 'no-path', text: raw, refs };
+  }
   for (const [kind, re] of [
     ['verdict', VERDICT_RE],
     ['caveat', CAVEAT_RE],
@@ -116,15 +127,34 @@ export interface RecLink {
   meta: string | null;
   /** The sheet's own parenthetical aside, e.g. "Please get V6 first". */
   aside?: string | null;
+  /**
+   * Game art for the thing, as the URL appears in the data. Rendered through
+   * <GameIcon>, which points it at the local mirror — never the CDN.
+   */
+  icon?: string | null;
 }
 
 export interface HydratedRecommendation {
   slug: string;
   path: RecPathStep[];
-  /** True when at least one step carries prose — 28 of 62 dolls have none. */
+  /** True when at least one step carries prose. */
   hasNotes: boolean;
+  /**
+   * The steps worth rendering as a path: those the sheet actually explains.
+   *
+   * A step reaches `path` from either the marker row (a bare "V4" chip) or the
+   * Explanation blob. A marker with no explanation is a breakpoint the authors
+   * declared but never wrote up, and rendering it is a chip with nothing beside
+   * it — so when a step has both, the explanation wins and the bare ones move
+   * to `markerSteps` instead of being dropped outright.
+   */
+  explainedSteps: RecPathStep[];
+  /** Declared breakpoints the sheet never explained — shown, but as a list. */
+  markerSteps: string[];
   /** The one-line "where to stop" verdict, when the sheet states one. */
   verdict: RecExplanation | null;
+  /** "Being a 4* unit, she does not require a suggested path" — stands in. */
+  noPath: RecExplanation | null;
   /** Qualifications on the advice — shown with the path they qualify. */
   caveats: RecExplanation[];
   /** Everything else: mechanics, rotations, interactions. */
@@ -292,10 +322,13 @@ export function hydrateRecommendation(
     .map(classifyExplanation)
     .filter((b) => b.text !== '');
   let verdict: RecExplanation | null = null;
+  let noPath: RecExplanation | null = null;
   const caveats: RecExplanation[] = [];
   const notes: RecExplanation[] = [];
   for (const block of classified) {
-    if (block.kind === 'verdict' && verdict === null) {
+    if (block.kind === 'no-path' && noPath === null) {
+      noPath = block;
+    } else if (block.kind === 'verdict' && verdict === null) {
       verdict = block;
     } else if (block.kind === 'caveat') {
       caveats.push(block);
@@ -308,7 +341,10 @@ export function hydrateRecommendation(
     slug,
     path,
     hasNotes: path.some((s) => s.note !== null),
+    explainedSteps: path.filter((s) => s.note !== null),
+    markerSteps: path.filter((s) => s.note === null).map((s) => s.step),
     verdict,
+    noPath,
     caveats,
     notes,
     weapons,
@@ -324,6 +360,7 @@ export function hydrateRecommendation(
   const empty =
     hydrated.path.length === 0 &&
     verdict === null &&
+    noPath === null &&
     caveats.length === 0 &&
     notes.length === 0 &&
     hydrated.weapons.length === 0 &&
