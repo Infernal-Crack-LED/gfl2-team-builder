@@ -12,7 +12,10 @@
  * canvas renderer.
  */
 
-export const BUILD_VERSION = 2;
+// v3: content ids are now datamine-derived (UUIDv5 of the game's own ids).
+// Every v2 code embeds Dandegate UUIDs that no longer exist, so old codes
+// must be REJECTED, not decoded against ids that mean something different.
+export const BUILD_VERSION = 3;
 
 // --- Isomorphic base64url ---------------------------------------------------
 

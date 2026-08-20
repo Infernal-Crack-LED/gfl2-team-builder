@@ -15,7 +15,7 @@ import {
 } from './buildCode';
 
 const dollBuild = {
-  v: 2 as const,
+  v: 3 as const,
   doll: 'alva',
   weapon: '6d890f29-636c-4f04-bb2d-f91e3ff014fa',
   keys: ['6d402750-28ac-497f-9dcc-7e9c774a01fb'],
@@ -53,7 +53,7 @@ describe('doll build codec', () => {
   it('returns null when required fields are missing or mistyped', () => {
     expect(
       decodeDollBuild(
-        b64urlEncode(JSON.stringify({ v: 2, keys: [], vert: [] }))
+        b64urlEncode(JSON.stringify({ v: 3, keys: [], vert: [] }))
       )
     ).toBeNull();
     expect(
@@ -69,7 +69,7 @@ describe('doll build codec', () => {
 
 describe('team build codec', () => {
   const team = {
-    v: 2 as const,
+    v: 3 as const,
     s: [{ d: 'alva', w: 'x', k: ['y'], t: [1] }, null, { d: 'tololo' }],
   };
 
@@ -84,20 +84,20 @@ describe('team build codec', () => {
     ).toBeNull();
     expect(
       decodeTeamBuild(
-        b64urlEncode(JSON.stringify({ v: 2, s: Array(6).fill(null) }))
+        b64urlEncode(JSON.stringify({ v: 3, s: Array(6).fill(null) }))
       )
     ).toBeNull();
   });
 
   it('returns null on a slot with a bad doll slug', () => {
     expect(
-      decodeTeamBuild(b64urlEncode(JSON.stringify({ v: 2, s: [{ d: 5 }] })))
+      decodeTeamBuild(b64urlEncode(JSON.stringify({ v: 3, s: [{ d: 5 }] })))
     ).toBeNull();
   });
 
   it('roundtrips a slot carrying a full build', () => {
     const full = {
-      v: 2 as const,
+      v: 3 as const,
       s: [
         {
           d: 'alva',
@@ -116,13 +116,13 @@ describe('team build codec', () => {
 
   it('rejects build fields that break their own limits', () => {
     const bad = (slot: Record<string, unknown>) =>
-      decodeTeamBuild(b64urlEncode(JSON.stringify({ v: 2, s: [slot] })));
+      decodeTeamBuild(b64urlEncode(JSON.stringify({ v: 3, s: [slot] })));
     // >4 stat prefs, >3 common keys, and non-string members are all refused.
     expect(bad({ d: 'alva', st: ['a', 'b', 'c', 'd', 'e'] })).toBeNull();
     expect(bad({ d: 'alva', ck: ['a', 'b', 'c', 'd'] })).toBeNull();
     expect(bad({ d: 'alva', ck: [1] })).toBeNull();
     // An out-of-range refinement is DROPPED, not fatal — same as DollBuild.
-    expect(bad({ d: 'alva', cal: 9 })).toEqual({ v: 2, s: [{ d: 'alva' }] });
+    expect(bad({ d: 'alva', cal: 9 })).toEqual({ v: 3, s: [{ d: 'alva' }] });
     // An over-long attachment set name is fatal, like the other caps here.
     expect(bad({ d: 'alva', as: 'x'.repeat(65) })).toBeNull();
   });
@@ -131,7 +131,7 @@ describe('team build codec', () => {
 describe('team slot ↔ doll build', () => {
   it('roundtrips a full build through a slot', () => {
     const build = {
-      v: 2 as const,
+      v: 3 as const,
       doll: 'alva',
       weapon: 'weapon-id',
       keys: ['k1'],
@@ -147,7 +147,7 @@ describe('team slot ↔ doll build', () => {
 
   it('reads a legacy doll-only slot as an empty build', () => {
     expect(dollBuildFromTeamSlot({ d: 'alva', w: 'weapon-id' })).toEqual({
-      v: 2,
+      v: 3,
       doll: 'alva',
       weapon: 'weapon-id',
       keys: [],
@@ -163,7 +163,7 @@ describe('team slot ↔ doll build', () => {
   it('omits empty fields from the slot so codes stay short', () => {
     expect(
       teamSlotFromDollBuild({
-        v: 2,
+        v: 3,
         doll: 'alva',
         weapon: null,
         keys: [],
@@ -179,7 +179,7 @@ describe('team slot ↔ doll build', () => {
 
 describe('rec build codec', () => {
   const rec = {
-    v: 2 as const,
+    v: 3 as const,
     card: 'rec' as const,
     doll: 'alva',
     bp: ['V0', 'R1', 'V3', 'V6', 'R6'],
@@ -277,12 +277,12 @@ describe('decodeAnyBuild', () => {
   it('distinguishes doll, team and rec builds', () => {
     expect(decodeAnyBuild(encodeDollBuild(dollBuild))?.kind).toBe('build');
     expect(
-      decodeAnyBuild(encodeTeamBuild({ v: 2, s: [{ d: 'alva' }] }))?.kind
+      decodeAnyBuild(encodeTeamBuild({ v: 3, s: [{ d: 'alva' }] }))?.kind
     ).toBe('team');
     expect(
       decodeAnyBuild(
         encodeRecBuild({
-          v: 2,
+          v: 3,
           card: 'rec',
           doll: 'alva',
           bp: ['V0'],

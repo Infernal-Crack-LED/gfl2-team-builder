@@ -23,7 +23,9 @@ import { createHash } from 'node:crypto';
 //    fresh hashes, so adding it needed no bump.
 // 5: brand-mark icon switches from the shared nikkesim bars to Refitting
 //    Room's own chevron mark (every card draws it, so every card changed).
-export const RENDERER_VERSION = 5;
+// 6: Dandegate-era purge — content ids, art and text all changed sources
+//    (datamine cutover), so every cached card is stale by construction.
+export const RENDERER_VERSION = 6;
 
 export type RenderKind = 'build' | 'team' | 'rec' | 'weapon';
 
