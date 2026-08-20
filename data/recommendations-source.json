@@ -41,6 +41,22 @@
    "setEffect": "When dealing Electric damage, the damage is increased by 20%.",
    "substats": "Damage: ATK% > ATK > CRIT% > CRIT DMG%\nTank: HP% > DEF% > HP > DEF"
   },
+  "explanation": [
+   {
+    "refs": [
+     "V1"
+    ],
+    "text": "V1 (?): V1 significantly boosts Auto-Turret's damage. However, the new passive for Auto-Turret means that it is applying Negative Charge at the start of the turn instead of the end. This decreases Leva's damage as her Action Support are triggered by Negative Charge application. Ideally, her Action Support should be triggered only at the end as Leva gains extra damage when hitting Stability broken enemies"
+   },
+   {
+    "refs": [],
+    "text": "Tip: Andoris only apply positive charges to ally dolls and their summons, which also extends to her cleanse. For healing/cleansing neutral units (such as the ones in the Tumorhynchus - Massacre GS boss), other Dolls like Ksenia will be needed."
+   },
+   {
+    "refs": [],
+    "text": "Tip: Building Andoris into a tank stats can increase her survivability for harder content. However hard content is niche and usually when players encounter hard content they use dolls like Springfield ect. If you use Andoris purely as electric support for gunsmoke you can build her into damage. This way you will be able to share her attachment sets with other dolls (Electric boost with Jiangyu, Phaze Strike with any other AR)."
+   }
+  ],
   "keys": {
    "alternatives": [
     "Fixed Key 4 - Tuned Connection",
@@ -57,7 +73,7 @@
     "step": "V1"
    },
    {
-    "note": "Increases atk up to 30% when allies do Electric damage if there are 3 Auto-Turret on the field. Massively increases damage for all Electric Dolls \n\nTip: Andoris only apply positive charges to ally dolls and their summons, which also extends to her cleanse. For healing/cleansing neutral units (such as the ones in the Tumorhynchus - Massacre GS boss), other Dolls like Ksenia will be needed.\n\nTip: Building Andoris into a tank stats can increase her survivability for harder content. However hard content is niche and usually when players encounter hard content they use dolls like Springfield ect. If you use Andoris purely as electric support for gunsmoke you can build her into damage. This way you will be able to share her attachment sets with other dolls (Electric boost with Jiangyu, Phaze Strike with any other AR).",
+    "note": "Increases atk up to 30% when allies do Electric damage if there are 3 Auto-Turret on the field. Massively increases damage for all Electric Dolls",
     "step": "V6"
    }
   ],
@@ -114,6 +130,14 @@
    "setEffect": "When dealing Corrosion damage, the damage is increased by 20%.",
    "substats": "ATK% > ATK > CRIT% > CRIT DMG%"
   },
+  "explanation": [
+   {
+    "refs": [
+     "V4"
+    ],
+    "text": "TIP: Alleviation Dependence from V4 has interesting interaction with Grudge, Alleviation Dependence prevents Grudge stacks from being consumed meaning Basti can do up to 5 special support attacks after one ult"
+   }
+  ],
   "keys": {
    "alternatives": [
     "Fixed Key 5 - Scary Gift"
@@ -123,7 +147,28 @@
     "Fixed Key 3 - Pain Dependency"
    ]
   },
-  "path": [],
+  "path": [
+   {
+    "note": "A very solid V0 corrosion support",
+    "step": "V0"
+   },
+   {
+    "note": "Provides same buff value as Mechy sig, Basti deals more damage on higher dupes and her sig can help with that",
+    "step": "R1"
+   },
+   {
+    "note": "Peak of Basti support potential",
+    "step": "V3"
+   },
+   {
+    "note": "Big increase of Basti damage",
+    "step": "V5"
+   },
+   {
+    "note": "Increase of Basti damage",
+    "step": "V6"
+   }
+  ],
   "weapons": [
    "Requiem of Doom",
    "Hestia",
@@ -168,6 +213,14 @@
    "setEffect": "If the allied unit's HP is fully healed by an active skill, restores 2 points of their Stability Index. Triggers up to once per turn.",
    "substats": "ATK% > ATK > HP% > DEF%"
   },
+  "explanation": [
+   {
+    "refs": [
+     "V0"
+    ],
+    "text": "Recommendation: V0"
+   }
+  ],
   "keys": {
    "alternatives": [],
    "primary": [
@@ -177,7 +230,11 @@
   },
   "path": [
    {
-    "note": "Grants useful damage buffs on Action Support. Not effective if there are other units already applying Blazing Assault II and Damage Up II, the buffs uptime is very bad and might conflict with other ATK II buffers on the team.\n\nRecommendation: V0",
+    "note": "Decent healer and very good cleanser for fire, her expansion key gives another layer of team protection and some minor fire buffs.",
+    "step": "V0"
+   },
+   {
+    "note": "Grants useful damage buffs on Action Support. Not effective if there are other units already applying Blazing Assault II and Damage Up II, the buffs uptime is very bad and might conflict with other ATK II buffers on the team.",
     "step": "V1"
    }
   ],
@@ -261,6 +318,15 @@
    "setEffect": "When dealing Phsyical damage, the damage is increased by 20%.",
    "substats": "ATK% > ATK > CRIT% > CRIT DMG%"
   },
+  "explanation": [
+   {
+    "refs": [
+     "V0",
+     "V3"
+    ],
+    "text": "Recommendation: V0 > V3"
+   }
+  ],
   "keys": {
    "alternatives": [],
    "primary": [
@@ -271,11 +337,15 @@
   },
   "path": [
    {
+    "note": "Good high mobility dps on a budget price, her tier 2 expansion key bumps this value up even more and makes her a top tier budget dps.",
+    "step": "V0"
+   },
+   {
     "note": "With 3 additional permanent Tuning stacks, Ultimate can be used every turn. Daiyan also gains an additional 30% DEF ignore with her Expansion Key",
     "step": "V3"
    },
    {
-    "note": "Enhances the damage multiplier of Daiyan's Interception and passive, hence increasing her damage\n\nRecommendation: V0 > V3",
+    "note": "Enhances the damage multiplier of Daiyan's Interception and passive, hence increasing her damage",
     "step": "V4"
    }
   ],
@@ -291,6 +361,15 @@
    "setEffect": "Deals 15% increased damage to targets with Phase element debuffs.",
    "substats": "ATK% > ATK > CRIT% > CRIT DMG%"
   },
+  "explanation": [
+   {
+    "refs": [
+     "V0",
+     "V6"
+    ],
+    "text": "Recommendation: V0 > V6"
+   }
+  ],
   "keys": {
    "alternatives": [
     "Fixed Key 1 - Lance of Longinus",
@@ -303,7 +382,11 @@
   },
   "path": [
    {
-    "note": "Doubles the damage boost provided by Passive, and applies Vulnerable II which boosts overall team damage.\n\nRecommendation: V0 > V6",
+    "note": "With her expansion key, she can be somewhat a decent buffer for ice although not amazing.",
+    "step": "V0"
+   },
+   {
+    "note": "Doubles the damage boost provided by Passive, and applies Vulnerable II which boosts overall team damage.",
     "step": "V6"
    }
   ],
@@ -465,7 +548,16 @@
     "Fixed Key 5 - Courage Unleashed"
    ]
   },
-  "path": [],
+  "path": [
+   {
+    "note": "Allows to apply Wide area Boost ♂Wide Muscle Boost♂ more effectively",
+    "step": "V1"
+   },
+   {
+    "note": "Max damage",
+    "step": "V6"
+   }
+  ],
   "weapons": [
    "Svarog",
    "Antinomy",
@@ -498,6 +590,27 @@
    "setEffect": "When dealing Electric damage, the damage is increased by 20%.",
    "substats": "ATK% > ATK > CRIT% > CRIT DMG%"
   },
+  "explanation": [
+   {
+    "refs": [
+     "V0",
+     "V6"
+    ],
+    "text": "Recommendation: V0 > V6"
+   },
+   {
+    "refs": [],
+    "text": "Tip: Stacks of Chi only being consumed by Jiangyu basic attack and skills. If she performs support attack/interception, their stability damage is affected by Chi stacks without consuming them; resulting in high stability damage."
+   },
+   {
+    "refs": [],
+    "text": "Tip: Jiangyu only apply positive charges to ally dolls and their summons, which also extends to her cleanse. For healing/cleansing neutral units (such as the ones in the Tumorhynchus - Massacre GS boss), other Dolls like Ksenia will be needed."
+   },
+   {
+    "refs": [],
+    "text": "Disclamer: Jiangyu does not simply replace Andoris, its more complicated because of how Leva works. Removing Andoris means removing negative charge, forcing Leva to use Fixed Key 5. As Leva performs Support Attack on negative charge applications; Fixed Key 5 will often result in Leva hitting into enemies with remaining Stability Index, which will cause a big loss in damage due to Leva's Overclock Strike converting her stability damage into damage on stability broken enemies."
+   }
+  ],
   "keys": {
    "alternatives": [],
    "primary": [
@@ -508,6 +621,10 @@
   },
   "path": [
    {
+    "note": "Fully operational electro support with big stab damage",
+    "step": "V0"
+   },
+   {
     "note": "Small boost of personal damage and stab damage.",
     "step": "V1"
    },
@@ -516,7 +633,7 @@
     "step": "V2"
    },
    {
-    "note": "Significant boost for electro team including more defence ignore.\n\nRecommendation: V0 > V6\n\nTip: Stacks of Chi only being consumed by Jiangyu basic attack and skills. If she performs support attack/interception, their stability damage is affected by Chi stacks without consuming them; resulting in high stability damage.\n\nTip: Jiangyu only apply positive charges to ally dolls and their summons, which also extends to her cleanse. For healing/cleansing neutral units (such as the ones in the Tumorhynchus - Massacre GS boss), other Dolls like Ksenia will be needed.\n\nDisclamer: Jiangyu does not simply replace Andoris, its more complicated because of how Leva works. Removing Andoris means removing negative charge, forcing Leva to use Fixed Key 5. As Leva performs Support Attack on negative charge applications; Fixed Key 5 will often result in Leva hitting into enemies with remaining Stability Index, which will cause a big loss in damage due to Leva's Overclock Strike converting her stability damage into damage on stability broken enemies.",
+    "note": "Significant boost for electro team including more defence ignore.",
     "step": "V6"
    }
   ],
@@ -532,6 +649,21 @@
    "setEffect": "When dealing Corrosion damage, the damage is increased by 20%.",
    "substats": "ATK% > ATK > CRIT% > CRIT DMG%"
   },
+  "explanation": [
+   {
+    "refs": [
+     "V3",
+     "V6"
+    ],
+    "text": "Disclaimer: It is not recommended for players to stop at V3 Klukai. It is a suggested breakthrough to stop at if it is not possible to get V6 Klukai within one banner"
+   },
+   {
+    "refs": [
+     "V3"
+    ],
+    "text": "Post key update: massive increase of ST damage, AOE damage, area of aoe coverage. Drone attacks after every cast of the ult which makes V3 more valuable than before."
+   }
+  ],
   "keys": {
    "alternatives": [
     "Fixed Key 6 - Moment of Doom"
@@ -548,7 +680,7 @@
     "step": "V3"
    },
    {
-    "note": "Automatically detonates Corrosive Infusion and Toxic Infiltration with no requirements. Massively boosts Klukai's damage\n\nDisclaimer: It is not recommended for players to stop at V3 Klukai. It is a suggested breakthrough to stop at if it is not possible to get V6 Klukai within one banner\n\nPost key update: massive increase of ST damage, AOE damage, area of aoe coverage. Drone attacks after every cast of the ult which makes V3 more valuable than before.",
+    "note": "Automatically detonates Corrosive Infusion and Toxic Infiltration with no requirements. Massively boosts Klukai's damage",
     "step": "V6"
    }
   ],
@@ -697,6 +829,15 @@
    "setEffect": "Deals 15% increased damage to targets with Phase Element debuffs.",
    "substats": "ATK% > ATK > CRIT% > CRIT DMG%"
   },
+  "explanation": [
+   {
+    "refs": [
+     "V0",
+     "V1"
+    ],
+    "text": "Recommendation: V0 > V1"
+   }
+  ],
   "keys": {
    "alternatives": [
     "Fixed Key 1 - Skillful Strategem"
@@ -709,7 +850,7 @@
   },
   "path": [
    {
-    "note": "Allows for 100% uptime on Lenna's Ultimate and Ultimate Briliance buff. After exp key release V1 became a must for electro team. Permanent Electric Arc means constant dispel on the boss and permanent Ultimate Briliance means tons of damage and stab damage for electro team.\n\nRecommendation: V0 > V1",
+    "note": "Allows for 100% uptime on Lenna's Ultimate and Ultimate Briliance buff. After exp key release V1 became a must for electro team. Permanent Electric Arc means constant dispel on the boss and permanent Ultimate Briliance means tons of damage and stab damage for electro team.",
     "step": "V1"
    }
   ],
@@ -766,6 +907,23 @@
    "setEffect": "When dealing Burn damage, the damage is increased by 20%.",
    "substats": "ATK% > ATK > CRIT% > CRIT DMG%"
   },
+  "explanation": [
+   {
+    "refs": [
+     "V0",
+     "V6"
+    ],
+    "text": "TIP: while V2R1 provides biggest spike of the damage its still not a dramatic increase. Fire team hypercarry is QH and best way to increase fire team damage is increase QH damage. Consider saving dupes for incoming units by stopping on V0 or go for V6."
+   },
+   {
+    "refs": [
+     "V6",
+     "V1",
+     "V2"
+    ],
+    "text": "TIP: Lewis V6 was used on CN server a lot because she is less dependant on seasonal buff and on fire team compared to QH. Lewis also can revive your water units who start to fell off due to lack of new dolls or keys. Lewis synergy with team of SF V1, Tololo V2+ and Nikketa V1+ is very solid. Take a note that you will need special set of keys for that and hence you will need a source of overburn. You can use your own QH and DSR later. Alternatevely you can use mixed team of SF V1+ Tll V2+ QJ and Vivi V1+ for good results. Also take a note that Lewis can synergise with corrosion units aoe attacks"
+   }
+  ],
   "keys": {
    "alternatives": [
     "Fixed Key 2 - Secret Of Spreading Smiles",
@@ -779,19 +937,23 @@
   },
   "path": [
    {
-    "note": "changes Lewis rotation, she ults more often, deal more damage and more Volley Fire, resulting more embers as well as QH stacks",
-    "step": "V2"
+    "note": "small generation of embers, provides good dmg for V0 character and single target attacks to proc QJ attacks",
+    "step": "V0"
    },
    {
     "note": "considerable amount of personal damage and best MG weapon in the game so far",
     "step": "R1"
    },
    {
+    "note": "changes Lewis rotation, she ults more often, deal more damage and more Volley Fire, resulting more embers as well as QH stacks",
+    "step": "V2"
+   },
+   {
     "note": "changes Tin Soldier's Order buff, making it work on turns instead of attack count. This improves Lewis damage",
     "step": "V3"
    },
    {
-    "note": "Changes how often Lewis uses extra Volley Fire from Tin Soldier's Ranks, making her use additional Volley Fire every turn. This Volley Fire contributes to Searing Flame making Embers buff come sooner. Spikes Lewis damage for a LOT.\n\nTIP: while V2R1 provides biggest spike of the damage its still not a dramatic increase. Fire team hypercarry is QH and best way to increase fire team damage is increase QH damage. Consider saving dupes for incoming units by stopping on V0 or go for V6. \n\nTIP: Lewis V6 was used on CN server a lot because she is less dependant on seasonal buff and on fire team compared to QH. Lewis also can revive your water units who start to fell off due to lack of new dolls or keys. Lewis synergy with team of SF V1, Tololo V2+ and Nikketa V1+ is very solid. Take a note that you will need special set of keys for that and hence you will need a source of overburn. You can use your own QH and DSR later. Alternatevely you can use mixed team of SF V1+ Tll V2+ QJ and Vivi V1+ for good results. Also take a note that Lewis can synergise with corrosion units aoe attacks",
+    "note": "Changes how often Lewis uses extra Volley Fire from Tin Soldier's Ranks, making her use additional Volley Fire every turn. This Volley Fire contributes to Searing Flame making Embers buff come sooner. Spikes Lewis damage for a LOT.",
     "step": "V6"
    }
   ],
@@ -864,6 +1026,25 @@
    "setEffect": "When the user's summoned entity is on the battlefield, the damage dealt by both the user and their summon is increased by 20%",
    "substats": "600 ATK > HP% > HP > CRIT% > CRIT DMG%"
   },
+  "explanation": [
+   {
+    "refs": [
+     "V2"
+    ],
+    "text": "TIP: V2 allows Liushih to apply Tideway tiles every turn. This can be handy in Hydro teams as SF and Nikketa cant apply Hydro weakness every turn. Also V2 allows her to move Pegasus without losing damage"
+   },
+   {
+    "refs": [
+     "V0",
+     "V6"
+    ],
+    "text": "TIP: Liushih initial ATK on remoulding 60, affection 5, max level, max neural helix and max dispatch is 585. She lacks 16 more to get maximum multiplier increase from passive. You can achieve this value by covenant or giving her atk stat food. Her CRIT stat should be high enough with common keys and other attachments to get ger to 70%. Fixed key 2 provides 30% of crit on V0, 60% of crit on V6. On V6 you need only 20% additional CRIT to make her skills 100% critical."
+   },
+   {
+    "refs": [],
+    "text": "TIP: A lot of Liushih damage comes from Pegasus and all Liushih damage is based on HP. New summon set is the only good set for her. Its wise to prepare a separate set of common keys for her. Her own key is the best option. Peri and Mechty keys are good for Liushih damage but does not affect Pegasus. Florence key increases summon ATK which is not useful."
+   }
+  ],
   "keys": {
    "alternatives": [
     "Fixed Key 3 - No Expense Spared"
@@ -888,7 +1069,7 @@
     "step": "V3"
    },
    {
-    "note": "damage boost\n\nTIP: V2 allows Liushih to apply Tideway tiles every turn. This can be handy in Hydro teams as SF and Nikketa cant apply Hydro weakness every turn. Also V2 allows her to move Pegasus without losing damage\n\nTIP: Liushih initial ATK on remoulding 60, affection 5, max level, max neural helix and max dispatch is 585. She lacks 16 more to get maximum multiplier increase from passive. You can achieve this value by covenant or giving her atk stat food. Her CRIT stat should be high enough with common keys and other attachments to get ger to 70%. Fixed key 2 provides 30% of crit on V0, 60% of crit on V6. On V6 you need only 20% additional CRIT to make her skills 100% critical.\n\nTIP: A lot of Liushih damage comes from Pegasus and all Liushih damage is based on HP. New summon set is the only good set for her. Its wise to prepare a separate set of common keys for her. Her own key is the best option. Peri and Mechty keys are good for Liushih damage but does not affect Pegasus. Florence key increases summon ATK which is not useful.",
+    "note": "damage boost",
     "step": "V6"
    }
   ],
@@ -950,6 +1131,18 @@
    "setEffect": "When dealing Freeze damage, the damage is increased by 20%.",
    "substats": "ATK% > ATK > CRIT% > CRIT DMG%"
   },
+  "explanation": [
+   {
+    "refs": [
+     "V0",
+     "V1",
+     "R1",
+     "V2",
+     "V6"
+    ],
+    "text": "Recommendation: V0>V1>R1>V2>V6, R1 is also a good pick up since its a very good generalist RF gun to share accross RF users."
+   }
+  ],
   "keys": {
    "alternatives": [
     "Fixed Key 3 - Indomitable Lone Wolf",
@@ -975,7 +1168,7 @@
     "step": "V2"
    },
    {
-    "note": "Increases the number of Interceptions from 3 to 4. Allows for 100% uptime on S1 instead of being forced to use S2 to regenerate Confectance Index\n\nRecommendation: V0>V1>R1>V2>V6, R1 is also a good pick up since its a very good generalist RF gun to share accross RF users.",
+    "note": "Increases the number of Interceptions from 3 to 4. Allows for 100% uptime on S1 instead of being forced to use S2 to regenerate Confectance Index",
     "step": "V6"
    }
   ],
@@ -991,6 +1184,14 @@
    "setEffect": "When dealing Corrosion damage, the damage is increased by 20%.",
    "substats": "ATK% > ATK > CRIT% > CRIT DMG%"
   },
+  "explanation": [
+   {
+    "refs": [
+     "V6"
+    ],
+    "text": "Disclaimer: As Mechty's other Vertebraes do not provide any significant damage boosts for herself or her allies, it is not recommended to pull for V6. One copy is sufficient for most players"
+   }
+  ],
   "keys": {
    "alternatives": [],
    "primary": [
@@ -1001,7 +1202,7 @@
   },
   "path": [
    {
-    "note": "Increases Corrosion damage dealt by allies by 25%, which increases Klukai's damage\n\nDisclaimer: As Mechty's other Vertebraes do not provide any significant damage boosts for herself or her allies, it is not recommended to pull for V6. One copy is sufficient for most players",
+    "note": "Increases Corrosion damage dealt by allies by 25%, which increases Klukai's damage",
     "step": "V6"
    }
   ],
@@ -1117,18 +1318,47 @@
  "ots-14": {
   "attachments": {
    "mainSet": "Any Phase Boost",
-   "setEffect": "OTs-14 deals Omni damage. Any 20% phase set (not physical) will work on her.",
+   "setEffect": "OTs-14 deals Resonance damage. Any 20% phase set (not physical) will work on her.",
    "substats": "ATK% > CRIT DMG% > ATK > CRIT%"
   },
+  "explanation": [
+   {
+    "refs": [
+     "V0",
+     "V1",
+     "V2"
+    ],
+    "text": "TIP: OTs rotation depends on V's (skill count starts from Basic attack 1, Ultimate is 4):\nV0-V1: 32, 31, 32, 34 (second action after support), 31, 32, 34 (last action)\nV2+: Use Total Suppression on turns 1-3 → Support doll moves first and deal small damage in the fourth turn → OTs ults on turn 4 as second action, small damage done is converted into Overload Pulse and is discarded → Turn 4 and 5 damage accumulated into charge on turn 5 → OTs accumulate damage on turns 6 normally → OTs ults as last action on turn 7 \n32, 32, 32, 34 (second action after support), 32, 32, 34 (last action)"
+   },
+   {
+    "refs": [
+     "V0",
+     "V6"
+    ],
+    "text": "TIP: OTs accumulates team damage and use it to deal fixed damage. This means usual damage reductions or immunities will not lower damage of Overload Pulse. This also means OTs will always do average more than 10% of whole party damage on V0 and more than 25% of party damage on V6. This feature means she should be futureproof so is very good for vertical investment."
+   },
+   {
+    "refs": [],
+    "text": "TIP: OTs is considered an Resonance doll all the time despite her Cellular Reconfiguration state. This means even if she has Ice Reconfiguration in Ice team or Zero Reconfiguration due to fixed key, she will be a valid target for Lewis' dolls. As an Resonance dolll OTs benefits from any 20% phase set (not physical) in any team."
+   },
+   {
+    "refs": [],
+    "text": "TIP: Resonance damage takes strongest buffs from the team and exploits weakest resistances on the enemy. OTs separately picks the strongest phase buffs. Here is an example:\n1. Damage increase: 70% Hydro, 40% Electric, 30% Ice\n2. Critical Damage: 20% Ice, 10% Electric\n3. 30% Electric Attack Power\n The final buffs will be: 70% increased damage, 20% increased critical damage, and 30% increased attack (Note that non-element specific buffs such as Atk Up and Damage Up always applies to OTs. Element buffs such as Blazing Assault and Burning Tide also always applies to OTs as these buffs a NOT element specific).\nNote: Unlike attachment sets, remoulding flowers are subject to the above damage buff rules(e.g. OTs in Hydro team will gain bonuses from hydro boost but not corro boost). Due to this, its recommended to go for universal effects such as Ichor Conversion, Headhunter and so on.\nAfter collecting strongest buffs OTs will do damage to the target according to its weakest phase tolerance and simply ignore any elemental immunity as long as its not complete phase damage immunity."
+   }
+  ],
   "keys": {
    "alternatives": [
-    "Fixed Key 6 - Thirst for Destruction"
+    "Fixed Key 6 - Destructive Desire"
    ],
    "primary": [
     "Fixed Key 3 - Single-Minded Obsession"
    ]
   },
   "path": [
+   {
+    "note": "Good damage for V0, teamwide damage accumulation and crit damage boost, versatile subdps. However your teams will likely still perform better with dedicated supports such as Springfield for Hydro ect. Electro and Fire are pretty restrictive teams to slot her in. OTs also suffers from wheelchair borrow syndrome as her V6 is very strong and common borrow target. On the other hand, while future V0 Dolls are competitive with V0 OTs, they are less flexible as they do not benefit from elements other than their own, unlike her. On V0 OTs uses Zero Cellular Reconfiguration.",
+    "step": "V0"
+   },
    {
     "note": "A very powerful general-purpose weapon, suitable for OTs and other AR's",
     "step": "R1"
@@ -1142,7 +1372,7 @@
     "step": "V5"
    },
    {
-    "note": "V2, V4, V5 are strong dupes but can only be considered as stopping points before getting V6 on rerun. V6's benefits are dependent on the team composition due to the different Cell Reconstruction bonuses in each form. The major ones to consider are: Freeze(high atk buff), Corrosion(Reprocs corro DOTs, high investment) and Hydro(High atk/hp buffs with many summons, high investment). In other teams Reconstruction Zero is better due to weak bonuses in other forms and Zero's exceptionally high damage output.\n\nTIP: OTs rotation depends on V's (skill count starts from Basic attack 1, Ultimate is 4):\nV0-V1: 32, 31, 32, 34 (second action after support), 31, 32, 34 (last action)\nV2+: Use Total Suppression on turns 1-3 → Support doll moves first and deal small damage in the fourth turn → OTs ults on turn 4 as second action, small damage done is converted into Overload Burst and is discarded → Turn 4 and 5 damage accumulated into charge on turn 5 → OTs accumulate damage on turns 6 normally → OTs ults as last action on turn 7 \n32, 32, 32, 34 (second action after support), 32, 32, 34 (last action)\n\nTIP: OTs accumulates team damage and use it to deal fixed damage. This means usual damage reductions or immunities will not lower damage of Overload Burst. This also means OTs will always do average more than 10% of whole party damage on V0 and more than 25% of party damage on V6. This feature means she should be futureproof so is very good for vertical investment.\n\nTIP: OTs is considered an Omni doll all the time despite her Cell Reconstruction state. This means even if she has Ice Reconstruction in Ice team or Zero Reconstruction due to fixed key, she will be a valid target for Lewis' dolls. As an Omni dolll OTs benefits from any 20% phase set (not physical) in any team.\n\nTIP: Omni damage takes strongest buffs from the team and exploits weakest resistances on the enemy. OTs separately picks the strongest phase buffs. Here is an example:\n1. Damage increase: 70% Hydro, 40% Electric, 30% Ice\n2. Critical Damage: 20% Ice, 10% Electric\n3. 30% Electric Attack Power\n The final buffs will be: 70% increased damage, 20% increased critical damage, and 30% increased attack (Note that non-element specific buffs such as Atk Up and Damage Up always applies to OTs. Element buffs such as Blazing Assault and Burning Tide also always applies to OTs as these buffs a NOT element specific).\nNote: Unlike attachment sets, remoulding flowers are subject to the above damage buff rules(e.g. OTs in Hydro team will gain bonuses from hydro boost but not corro boost). Due to this, its recommended to go for universal effects such as Ichor Conversion, Headhunter and so on.\nAfter collecting strongest buffs OTs will do damage to the target according to its weakest phase tolerance and simply ignore any elemental immunity as long as its not complete phase damage immunity.",
+    "note": "V2, V4, V5 are strong dupes but can only be considered as stopping points before getting V6 on rerun. V6's benefits are dependent on the team composition due to the different Cellular Reconfiguration bonuses in each form. The major ones to consider are: Freeze(high atk buff), Corrosion(Reprocs corro DOTs, high investment) and Hydro(High atk/hp buffs with many summons, high investment). In other teams Reconfiguration Zero is better due to weak bonuses in other forms and Zero's exceptionally high damage output.",
     "step": "V6"
    }
   ],
@@ -1180,6 +1410,14 @@
    "setEffect": "When dealing Burn damage, the damage is increased by 20%.",
    "substats": "HP% > HP > ATK% > CRIT DMG%"
   },
+  "explanation": [
+   {
+    "refs": [
+     "V1"
+    ],
+    "text": "Disclaimer: Upon the release of Peri Expansion Key she became way more usable in fire team. V1 is very important for her performance because it increase amount of QH stacks."
+   }
+  ],
   "keys": {
    "alternatives": [
     "Fixed Key 5"
@@ -1196,7 +1434,7 @@
     "step": "V1"
    },
    {
-    "note": "Increases CRIT DMG of Peri's normal attacks. As the bulk of Peri's damage comes from her enhanced basic attack, this significantly boosts Peri's damage\n\nDisclaimer: Upon the release of Peri Expansion Key she became way more usable in fire team. V1 is very important for her performance because it increase amount of QH stacks.",
+    "note": "Increases CRIT DMG of Peri's normal attacks. As the bulk of Peri's damage comes from her enhanced basic attack, this significantly boosts Peri's damage",
     "step": "V6"
    }
   ],
@@ -1291,15 +1529,15 @@
   },
   "path": [
    {
-    "note": "Allows Qiongjiu to act as a reliable Overburn proc unit for Sharkry to exploit with her Fixed Key 2 (Thermal Feedback)\n\nV4/5: Boosts overall team damage. Not effective if there are other units already applying Vulnerable I and Damage Up II",
+    "note": "Allows Qiongjiu to act as a reliable Overburn proc unit for Sharkry to exploit with her Fixed Key 2 (Thermal Feedback)",
     "step": "V3"
    },
    {
-    "note": null,
+    "note": "Boosts overall team damage. Not effective if there are other units already applying Vulnerable I and Damage Up II",
     "step": "V4"
    },
    {
-    "note": null,
+    "note": "Boosts overall team damage. Not effective if there are other units already applying Vulnerable I and Damage Up II",
     "step": "V5"
    }
   ],
@@ -1315,6 +1553,22 @@
    "setEffect": "When dealing Burn damage, the damage is increased by 20%.",
    "substats": "ATK% > ATK > CRIT% > CRIT DMG%"
   },
+  "explanation": [
+   {
+    "refs": [
+     "V0",
+     "V6"
+    ],
+    "text": "Disclaimer: Qiuhua is very much a V0 or V6 unit. All other Vertebraes do not provide significant damage boosts for her compared to V6"
+   },
+   {
+    "refs": [
+     "R1",
+     "R3"
+    ],
+    "text": "TIP: On R1 Lind sig is better than R1 QH sig. QH sig on R3 is better than Lind sig R1 by <2%"
+   }
+  ],
   "keys": {
    "alternatives": [
     "Fixed Key 2",
@@ -1328,7 +1582,7 @@
   },
   "path": [
    {
-    "note": "Doubles the speed of gaining Scorch Mark, as well as increasing the damage dealt per Scorch Mark. This massively boosts Qiuhua's damage\n\nDisclaimer: Qiuhua is very much a V0 or V6 unit. All other Vertebraes do not provide significant damage boosts for her compared to V6\n\nTIP: On R1 Lind sig is better than R1 QH sig. QH sig on R3 is better than Lind sig R1 by <2%",
+    "note": "Doubles the speed of gaining Scorch Mark, as well as increasing the damage dealt per Scorch Mark. This massively boosts Qiuhua's damage",
     "step": "V6"
    }
   ],
@@ -1357,11 +1611,11 @@
   },
   "path": [
    {
-    "note": null,
+    "note": "Significantly boosts Robella's damage",
     "step": "V1"
    },
    {
-    "note": null,
+    "note": "Significantly boosts Robella's damage",
     "step": "V3"
    },
    {
@@ -1433,6 +1687,20 @@
    "setEffect": "Damage dealt is increased by 12%. When dealing melee damage, damage is additionally increased by 24%.",
    "substats": "ATK% > ATK > CRIT% > CRIT DMG%"
   },
+  "explanation": [
+   {
+    "refs": [],
+    "text": "TIP: Various blades may be used depending on the situation.\nSignature: best option for support Sex\nFaetussa: best stats for damage\nBP Hare: best stab damage in case you need to maximise it.\nUlrid: tricky signature. It provides CI but for use that CI Sex needs blade party. If you use blade party you likely have Ulrid and Ulrid needs her signature more. Niche pick."
+   },
+   {
+    "refs": [],
+    "text": "TIP: Passive is a bit misleading. Sex consumes CI on ally blade attack to release Blood Mark. However this Blood mark will NOT occur if its conditions are not met. Target has to either stand on Electric tiles AFTER the attack resolves or already have Scarlet Insignia debuff."
+   },
+   {
+    "refs": [],
+    "text": "TIP: (outdated after tile rework, elec tiles no longer disappear after triggering) To proc Blood Mark target have to stay on Electric tiles after the attack or have Scarlet Insignia. This means AOE blade attacks will proc tile reaction, remove the tiles and if target has no Scarlet Insignia, Blade Mark attack will not occur. To fix this either attack with single target blade attack first or use fixed key 5 on Sex to generate Voltage tiles after AOE attack. This way Sex will apply Scarlet Insignia to the target and following AOE blade attacks will proc Blood Mark."
+   }
+  ],
   "keys": {
    "alternatives": [
     "Fixed Key 2 - Silent Inscription",
@@ -1444,7 +1712,20 @@
     "Fixed Key 6 - Black Swan's Feather"
    ]
   },
-  "path": [],
+  "path": [
+   {
+    "note": "Very good support for its price. Capable of doing good damage, apply defdown and do a lot of stab damage. With tile rework electro tiles can also reduce amount of boss stab.",
+    "step": "V0"
+   },
+   {
+    "note": "Good buffs for electric units and melee damage. Trait allows Sex to cast 7 lightnings per turn, however you need a blade dolls or Ulrid with signature to proc it. Plus, seventh lightning damage is quite small.",
+    "step": "R1"
+   },
+   {
+    "note": "V's between 1 and 5 provide various buffs but not not significant enough to justify investment. V6 removes limit of Sex lightnings allowing her to do very significant damage if you can provide her with blade attacks.",
+    "step": "V6"
+   }
+  ],
   "weapons": [
    "Twilight Rose",
    "Law of Causality",
@@ -1503,6 +1784,15 @@
    "setEffect": "When dealing Hydro damage, the damage is increased by 20%.",
    "substats": "HP% > HP > ATK% > ATK (Below V6)\nHP% > HP > CRIT% > CRIT DMG% (V6)"
   },
+  "explanation": [
+   {
+    "refs": [
+     "R1",
+     "V6"
+    ],
+    "text": "TIP: Liushih R1 has HP as a base stat which boosts SF V6 damage. If your team does not require ATK Up II buff you can swap SF R1 with Liu R1"
+   }
+  ],
   "keys": {
    "alternatives": [
     "Fixed Key 1 - Coalesced Core",
@@ -1531,7 +1821,11 @@
     "step": "V3"
    },
    {
-    "note": "Massively boosts Taryz's damage by doubling its multipliers, increasing its Action Support count, and allows Taryz to apply a debuff that increases Hydro damage dealt\n\nTIP: Liushih R1 has HP as a base stat which boosts SF V6 damage. If your team does not require ATK Up II buff you can swap SF R1 with Liu R1",
+    "note": "It is not listed above as there is no space left but V5 allows for 100% uptime on Deep-Rooted Bonds",
+    "step": "V5"
+   },
+   {
+    "note": "Massively boosts Taryz's damage by doubling its multipliers, increasing its Action Support count, and allows Taryz to apply a debuff that increases Hydro damage dealt",
     "step": "V6"
    }
   ],
@@ -1547,6 +1841,14 @@
    "setEffect": "Deals 15% increased damage to targets with Phase element debuffs.",
    "substats": "ATK% > ATK > HP% > DEF%\n\n(It's recommended to stack her ATK until it's at least equal to your party member's HP to maximize her shield she grants on her Ultimate)"
   },
+  "explanation": [
+   {
+    "refs": [
+     "V0"
+    ],
+    "text": "Recomendation: V0"
+   }
+  ],
   "keys": {
    "alternatives": [
     "Fixed Key 3 - Positive Feedback",
@@ -1560,6 +1862,10 @@
   },
   "path": [
    {
+    "note": "Great sustain unit with her shield and good stability damage, her expansion key helps boost her job of protecting the team even more while giving some minor ice buffs.",
+    "step": "V0"
+   },
+   {
     "note": "Boosts Suomi's defensive capabilities by giving her a party heal and several defensive buffs.",
     "step": "V1"
    },
@@ -1570,6 +1876,10 @@
    {
     "note": "Increases damage dealt by Freeze units when they have a Shield.",
     "step": "V2"
+   },
+   {
+    "note": "Give her more stability damage.",
+    "step": "V5"
    }
   ],
   "weapons": [
@@ -1600,15 +1910,15 @@
     "step": "V2"
    },
    {
-    "note": null,
+    "note": "Increases Annihilation Star's damage and CRIT DMG provided by Lightspike respectively, allowing Tololo to hit harder",
     "step": "V3"
    },
    {
-    "note": "Allows Tololo to hit significantly harder during Extra Action thanks to the 4 new buffs she gain\n\nV3/5: Increases Annihilation Star's damage and CRIT DMG provided by Lightspike respectively, allowing Tololo to hit harder",
+    "note": "Allows Tololo to hit significantly harder during Extra Action thanks to the 4 new buffs she gain",
     "step": "V4"
    },
    {
-    "note": null,
+    "note": "Increases Annihilation Star's damage and CRIT DMG provided by Lightspike respectively, allowing Tololo to hit harder",
     "step": "V5"
    }
   ],
@@ -1624,6 +1934,20 @@
    "setEffect": "Damage dealt is increased by 12%. When dealing melee damage, damage is additionally increased by 24%.",
    "substats": "ATK% > ATK > CRIT% > CRIT DMG%"
   },
+  "explanation": [
+   {
+    "refs": [],
+    "text": "V0R1: Very unique as the only unit in the game has heavy reliant on her sig weapon for her skill rotation (very much recommend to have at least her SR version of the blade). Her tier 2 expansion key makes her among the few best of budget dps at the current point of writing."
+   },
+   {
+    "refs": [
+     "V0",
+     "R1",
+     "V4"
+    ],
+    "text": "Recommendation: V0>R1>V4"
+   }
+  ],
   "keys": {
    "alternatives": [
     "Fixed Key 5 - Oppression"
@@ -1644,7 +1968,7 @@
     "step": "V4"
    },
    {
-    "note": "Ullrid can move 2+ tiles before every attack, +20% ATK boost.\n\nRecommendation: V0>R1>V4",
+    "note": "Ullrid can move 2+ tiles before every attack, +20% ATK boost.",
     "step": "V5"
    },
    {
@@ -1664,6 +1988,14 @@
    "setEffect": "When dealing Burn damage, the damage is increased by 20%.",
    "substats": "ATK% > ATK > CRIT% > CRIT DMG%"
   },
+  "explanation": [
+   {
+    "refs": [
+     "V2"
+    ],
+    "text": "Tip: Expansion key allows Vector to ult every second turn and maintain ult and V2 buffs for an entire fight.\nNote: Vector uptime is not 100%, she has a small window of end turn on 2, 4, 6 rounds when dolls dont have atk2 buff. This may affect QH damage as her dot damage happens on end of turn."
+   }
+  ],
   "keys": {
    "alternatives": [
     "Fixed Key 1",
@@ -1685,7 +2017,7 @@
     "step": "R1"
    },
    {
-    "note": "Allows Vector to dispel debuffs for all allies, which is useful in Gunsmoke, and also boost team damage thanks to Blazing Assault II\n\nTip: Expansion key allows Vector to ult every second turn and maintain ult and V2 buffs for an entire fight.\nNote: Vector uptime is not 100%, she has a small window of end turn on 2, 4, 6 rounds when dolls dont have atk2 buff. This may affect QH damage as her dot damage happens on end of turn.",
+    "note": "Allows Vector to dispel debuffs for all allies, which is useful in Gunsmoke, and also boost team damage thanks to Blazing Assault II",
     "step": "V2"
    }
   ],
@@ -1725,6 +2057,25 @@
    "setEffect": "Damage dealt is increased by 12%. When dealing melee damage, damage is additionally increased by 24%.",
    "substats": "ATK% > ATK > CRIT% > CRIT DMG%"
   },
+  "explanation": [
+   {
+    "refs": [
+     "V6"
+    ],
+    "text": "Tip: Every V significantly increase Voy damage and her V6 increase it drastically"
+   },
+   {
+    "refs": [
+     "V3",
+     "V2"
+    ],
+    "text": "Tip: Voy requires def penetration to deal her maximum damage. CN players minmaxing 400% of def penetration. To acchieve numbers this high Voy V6R1 requires V1R1 Yoohee, V3+ Lainie (40% def pen), Klukay V2+ (15% def pen) and Lind (15% def pen). Recently with physical units buffs they were replacing corro units in Voy team. To balance out loss of def penetration you will need V6R5 Voy for maximum Voy damage. Be mindful that bosses can have their own def pen debuffs"
+   },
+   {
+    "refs": [],
+    "text": "Tip: melee set wins over physical set by 2-3% of overall damage. If you already have your own maxed physical set - use it. If you want to farm a set for Voy after melee set is released its better to farm melee set. Also melee set is easier to pass around to other AR dolls."
+   }
+  ],
   "keys": {
    "alternatives": [
     "Fixed Key 3",
@@ -1741,7 +2092,7 @@
     "step": "V3"
    },
    {
-    "note": "Drastically increases Voy damage\n\nTip: Voy requires def penetration to deal her maximum damage. CN players minmaxing 400% of def penetration. To acchieve numbers this high Voy V6R1 requires V1R1 Yoohee, V3+ Lainie (40% def pen), Klukay V2+ (15% def pen) and Lind (15% def pen). Recently with physical units buffs they were replacing corro units in Voy team. To balance out loss of def penetration you will need V6R5 Voy for maximum Voy damage. Be mindful that bosses can have their own def pen debuffs \n\nTip: melee set wins over physical set by 2-3% of overall damage. If you already have your own maxed physical set - use it. If you want to farm a set for Voy after melee set is released its better to farm melee set. Also melee set is easier to pass around to other AR dolls.",
+    "note": "Drastically increases Voy damage",
     "step": "V6"
    }
   ],
@@ -1820,6 +2171,14 @@
    "setEffect": "Deals 15% increased damage to targets with Phase element debuffs.",
    "substats": "ATK% > ATK > CRIT% > CRIT DMG%"
   },
+  "explanation": [
+   {
+    "refs": [
+     "V6"
+    ],
+    "text": "Disclaimer: Due to Zhaohui's poor damage even at V6, it is not recommended for players to pull for her"
+   }
+  ],
   "keys": {
    "alternatives": [
     "Fixed Key 6 - Dry Humor"
@@ -1836,7 +2195,7 @@
     "step": "V3"
    },
    {
-    "note": "Significantly boosts Zhaohui's damage\n\nDisclaimer: Due to Zhaohui's poor damage even at V6, it is not recommended for players to pull for her",
+    "note": "Significantly boosts Zhaohui's damage",
     "step": "V6"
    }
   ],
