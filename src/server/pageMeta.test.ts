@@ -186,7 +186,11 @@ describe('injectPageMeta', () => {
     expect(doll).toBeDefined();
     const { html } = render(`/characters/${doll!.slug}`);
     expect(html).toContain(
-      `<title>${escapeHtml(dollPageMeta(doll!).title)}</title>`
+      `<title>${escapeHtml(
+        dollPageMeta(doll!, {
+          hasRecommendation: recommendationFor(doll!) !== null,
+        }).title
+      )}</title>`
     );
     expect(html).toContain(
       `<link rel="canonical" href="https://refittingroom.app/characters/${doll!.slug}" />`
@@ -614,5 +618,36 @@ describe('community recommendations', () => {
     for (const slug of Object.keys(source)) {
       expect(slugs.has(slug), `${slug} is not a doll`).toBe(true);
     }
+  });
+});
+
+describe('doll page meta', () => {
+  it('advertises the build only on pages that carry one', () => {
+    // "<doll> build" is the highest-intent query these pages can win, but
+    // promising it where the sheet has no recommendation is a mismatch that
+    // costs more in bounce than the keyword gains.
+    const withRec = allDolls().find((d) => recommendationFor(d) !== null);
+    const withoutRec = allDolls().find((d) => recommendationFor(d) === null);
+    expect(withRec).toBeDefined();
+    expect(withoutRec, 'every doll has a recommendation now').toBeDefined();
+
+    const a = resolvePage(url(`/characters/${withRec!.slug}`)).meta;
+    expect(a.title).toContain('Build');
+    expect(a.description).toContain('Recommended build');
+
+    const b = resolvePage(url(`/characters/${withoutRec!.slug}`)).meta;
+    expect(b.title).not.toContain('Build');
+  });
+
+  it('keeps every doll title distinct and within a sane length', () => {
+    const titles = new Set<string>();
+    for (const doll of allDolls()) {
+      const { title } = resolvePage(url(`/characters/${doll.slug}`)).meta;
+      titles.add(title);
+      // Google truncates around 60; this keeps the doll name and "Build"
+      // — the parts that matter — inside the visible window.
+      expect(title.length, `${doll.slug}: "${title}"`).toBeLessThanOrEqual(60);
+    }
+    expect(titles.size).toBe(allDolls().length);
   });
 });
