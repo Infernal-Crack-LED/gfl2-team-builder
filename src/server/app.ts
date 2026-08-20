@@ -28,7 +28,12 @@ import {
   anonExpiryCutoff,
   clientIpFromForwardedFor,
 } from './anonShare.js';
-import { cacheControlFor, etagFor, isNotModified } from './httpCache.js';
+import {
+  acceptsBrotli,
+  cacheControlFor,
+  etagFor,
+  isNotModified,
+} from './httpCache.js';
 import { injectRootBody } from './htmlHead.js';
 import { registerImgApi } from './imgApi.js';
 import { noJsBodyFor } from './noJsBody.js';
@@ -618,8 +623,24 @@ export function createServer(): Hono {
     if (hasExtension) {
       const stat = existsSync(filePath) ? statSync(filePath) : null;
       if (stat?.isFile()) {
-        const etag = etagFor(stat);
+        // Prefer the brotli sibling `npm run precompress` wrote, when the
+        // client asked for it. The Content-Type and the validator still
+        // describe the ORIGINAL file — only the transfer encoding changes —
+        // so `Vary: Accept-Encoding` is required for shared caches.
+        const brotli =
+          acceptsBrotli(c.req.header('accept-encoding')) &&
+          existsSync(`${filePath}.br`)
+            ? statSync(`${filePath}.br`)
+            : null;
+        const encoding = brotli ? 'br' : undefined;
+        const etag = etagFor(stat, encoding);
         const cacheControl = cacheControlFor(urlPath);
+        const headers: Record<string, string> = {
+          'Cache-Control': cacheControl,
+          ETag: etag,
+          'Last-Modified': stat.mtime.toUTCString(),
+          Vary: 'Accept-Encoding',
+        };
         if (
           isNotModified(
             etag,
@@ -630,18 +651,13 @@ export function createServer(): Hono {
         ) {
           // last-modified rides the 304 so an IMS-driven client can re-anchor
           // its next conditional request.
-          return c.body(null, 304, {
-            ETag: etag,
-            'Cache-Control': cacheControl,
-            'Last-Modified': stat.mtime.toUTCString(),
-          });
+          return c.body(null, 304, headers);
         }
-        const body = await readFile(filePath);
+        const body = await readFile(brotli ? `${filePath}.br` : filePath);
         return c.body(body, 200, {
+          ...headers,
           'Content-Type': getMimeType(filePath) ?? 'application/octet-stream',
-          'Cache-Control': cacheControl,
-          ETag: etag,
-          'Last-Modified': stat.mtime.toUTCString(),
+          ...(brotli ? { 'Content-Encoding': 'br' } : {}),
         });
       }
       // Extension-ful 404: a real missing file, not an SPA route.
