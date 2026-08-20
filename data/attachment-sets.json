@@ -1,85 +1,85 @@
 {
-  "syncedAt": "2026-08-20T08:00:00.000Z",
+  "syncedAt": "2026-08-20T08:37:37.649Z",
   "attachmentSets": [
     {
-      "description": "When using defense skills, additionally applies [effect:b266201] to allied units for 2 turns.",
       "name": "Allay Support",
-      "piecesRequired": 3
+      "piecesRequired": 3,
+      "description": "When using defense skills, additionally applies [effect:b266201] to allied units for 2 turns."
     },
     {
-      "description": "When dealing Burn damage, the damage is increased by 20%.",
       "name": "Burn Boost",
-      "piecesRequired": 3
+      "piecesRequired": 3,
+      "description": "When dealing Burn damage, the damage is increased by 20%."
     },
     {
-      "description": "Damage dealt is increased by 12%. When dealing melee damage, damage is additionally increased by 24%.",
       "name": "Close Assault",
-      "piecesRequired": 3
+      "piecesRequired": 3,
+      "description": "Damage dealt is increased by 12%. When dealing melee damage, damage is additionally increased by 24%."
     },
     {
-      "description": "When dealing Corrosion damage, the damage is increased by 20%.",
       "name": "Corrosion Boost",
-      "piecesRequired": 3
+      "piecesRequired": 3,
+      "description": "When dealing Corrosion damage, the damage is increased by 20%."
     },
     {
-      "description": "When enemy target is not near Cover, increases targeted damage by 10%. When enemy target is near Cover, increases AoE damage by 10%.",
       "name": "Double Strategy",
-      "piecesRequired": 3
+      "piecesRequired": 3,
+      "description": "When enemy target is not near Cover, increases targeted damage by 10%. When enemy target is near Cover, increases AoE damage by 10%."
     },
     {
-      "description": "When dealing Electric damage, the damage is increased by 20%.",
       "name": "Electric Boost",
-      "piecesRequired": 3
+      "piecesRequired": 3,
+      "description": "When dealing Electric damage, the damage is increased by 20%."
     },
     {
-      "description": "If the allied unit’s HP is fully healed by an active skill, restores 2 points of their stability index. Triggers up to once per turn.",
       "name": "Emergency Repair",
-      "piecesRequired": 3
+      "piecesRequired": 3,
+      "description": "If the allied unit’s HP is fully healed by an active skill, restores 2 points of their stability index. Triggers up to once per turn."
     },
     {
-      "description": "When dealing Freeze damage, the damage is increased by 20%.",
       "name": "Freeze Boost",
-      "piecesRequired": 3
+      "piecesRequired": 3,
+      "description": "When dealing Freeze damage, the damage is increased by 20%."
     },
     {
-      "description": "When dealing Hydro damage, the damage is increased by 20%.",
       "name": "Hydro Boost",
-      "piecesRequired": 3
+      "piecesRequired": 3,
+      "description": "When dealing Hydro damage, the damage is increased by 20%."
     },
     {
-      "description": "If the active skill exploits a phase weakness, gains [effect:b214101] for 1 turn before the attack. If it exploits two phase weaknesses, increases damage dealt by 10%.",
       "name": "Phase Resonance",
-      "piecesRequired": 3
+      "piecesRequired": 3,
+      "description": "If the active skill exploits a phase weakness, gains [effect:b214101] for 1 turn before the attack. If it exploits two phase weaknesses, increases damage dealt by 10%."
     },
     {
-      "description": "Deals 15% increased damage to targets with Phase Element debuffs.",
       "name": "Phase Strike",
-      "piecesRequired": 3
+      "piecesRequired": 3,
+      "description": "Deals 15% increased damage to targets with Phase Element debuffs."
     },
     {
-      "description": "When dealing Physical damage, the damage is increased by 20%.",
       "name": "Physical Boost",
-      "piecesRequired": 3
+      "piecesRequired": 3,
+      "description": "When dealing Physical damage, the damage is increased by 20%."
     },
     {
-      "description": "When this unit has a shield-type effect, damage taken is reduced by 15% and healing received is increased by 15%.",
       "name": "Shielded Recovery",
-      "piecesRequired": 3
+      "piecesRequired": 3,
+      "description": "When this unit has a shield-type effect, damage taken is reduced by 15% and healing received is increased by 15%."
     },
     {
-      "description": "When this unit's [effect:k900240] are on the battlefield, damage dealt by this unit and this unit's [effect:k900240] is increased by 20%.",
       "name": "Summon Boost",
-      "piecesRequired": 3
+      "piecesRequired": 3,
+      "description": "When this unit's [effect:k900240] are on the battlefield, damage dealt by this unit and this unit's [effect:k900240] is increased by 20%."
     },
     {
-      "description": "When using Support Attacks, Interceptions, Counterattacks, or other means of attacks from passive effects to deal damage outside of this unit's turn, damage dealt is increased by 25%.",
       "name": "Tactical Calculus",
-      "piecesRequired": 3
+      "piecesRequired": 3,
+      "description": "When using Support Attacks, Interceptions, Counterattacks, or other means of attacks from passive effects to deal damage outside of this unit's turn, damage dealt is increased by 25%."
     },
     {
-      "description": "Increases the damage, healing, and shield effects of Ultimate skills by 5%. Gains 1 stack after each use of an Ultimate skill, up to a maximum of 4 stacks.",
       "name": "Ultimate Pursuit",
-      "piecesRequired": 3
+      "piecesRequired": 3,
+      "description": "Increases the damage, healing, and shield effects of Ultimate skills by 5%. Gains 1 stack after each use of an Ultimate skill, up to a maximum of 4 stacks."
     }
   ]
 }
