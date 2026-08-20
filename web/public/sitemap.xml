@@ -341,7 +341,7 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://refittingroom.app/weapons/ak-12</loc>
+    <loc>https://refittingroom.app/weapons/ak12</loc>
     <priority>0.6</priority>
   </url>
   <url>
@@ -354,6 +354,10 @@
   </url>
   <url>
     <loc>https://refittingroom.app/weapons/arcana</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://refittingroom.app/weapons/argent-wing-pisty</loc>
     <priority>0.6</priority>
   </url>
   <url>
@@ -382,10 +386,6 @@
   </url>
   <url>
     <loc>https://refittingroom.app/weapons/chernobog</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://refittingroom.app/weapons/chinchilla-nova</loc>
     <priority>0.6</priority>
   </url>
   <url>
@@ -537,11 +537,11 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://refittingroom.app/weapons/m4a1-sopmod-ii</loc>
+    <loc>https://refittingroom.app/weapons/maids-rules</loc>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://refittingroom.app/weapons/maids-rules</loc>
+    <loc>https://refittingroom.app/weapons/mark-two-manual-pistol</loc>
     <priority>0.6</priority>
   </url>
   <url>
@@ -589,11 +589,15 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://refittingroom.app/weapons/nikonov-assault-rifle-94</loc>
+    <loc>https://refittingroom.app/weapons/nikonova-94</loc>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://refittingroom.app/weapons/njrr</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://refittingroom.app/weapons/nova-chinchilla</loc>
     <priority>0.6</priority>
   </url>
   <url>
@@ -602,10 +606,6 @@
   </url>
   <url>
     <loc>https://refittingroom.app/weapons/ots-14</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://refittingroom.app/weapons/p90</loc>
     <priority>0.6</priority>
   </url>
   <url>
@@ -673,7 +673,7 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://refittingroom.app/weapons/retired-ak-12</loc>
+    <loc>https://refittingroom.app/weapons/retired-ak12</loc>
     <priority>0.6</priority>
   </url>
   <url>
@@ -753,7 +753,7 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://refittingroom.app/weapons/retired-m4a1-sopmod-ii</loc>
+    <loc>https://refittingroom.app/weapons/retired-mark-two-manual-pistol</loc>
     <priority>0.6</priority>
   </url>
   <url>
@@ -785,15 +785,11 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://refittingroom.app/weapons/retired-nikonov-assault-rifle-94</loc>
+    <loc>https://refittingroom.app/weapons/retired-nikonova-94</loc>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://refittingroom.app/weapons/retired-ots-14</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://refittingroom.app/weapons/retired-p90</loc>
     <priority>0.6</priority>
   </url>
   <url>
@@ -825,7 +821,19 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://refittingroom.app/weapons/retired-sg-12</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://refittingroom.app/weapons/retired-special-operations-modular-rifle</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://refittingroom.app/weapons/retired-sportivo-calibro-12</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://refittingroom.app/weapons/retired-st-ar-15</loc>
     <priority>0.6</priority>
   </url>
   <url>
@@ -853,7 +861,7 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://refittingroom.app/weapons/retired-type-12-double-barrel-shotgun</loc>
+    <loc>https://refittingroom.app/weapons/retired-type-90-pdw</loc>
     <priority>0.6</priority>
   </url>
   <url>
@@ -869,15 +877,15 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://refittingroom.app/weapons/retired-ump40</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://refittingroom.app/weapons/retired-ump45</loc>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://refittingroom.app/weapons/retired-ump9</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://refittingroom.app/weapons/retired-universal-submachine-gun-40</loc>
     <priority>0.6</priority>
   </url>
   <url>
@@ -890,10 +898,6 @@
   </url>
   <url>
     <loc>https://refittingroom.app/weapons/retired-w-2000</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://refittingroom.app/weapons/retired-welrod-mkii</loc>
     <priority>0.6</priority>
   </url>
   <url>
@@ -913,15 +917,19 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://refittingroom.app/weapons/sg-12</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://refittingroom.app/weapons/sibyl</loc>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://refittingroom.app/weapons/silent-conviction</loc>
+    <loc>https://refittingroom.app/weapons/silent-sanction</loc>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://refittingroom.app/weapons/silver-winged-pistis</loc>
+    <loc>https://refittingroom.app/weapons/sky-shattering-howl</loc>
     <priority>0.6</priority>
   </url>
   <url>
@@ -929,15 +937,19 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://refittingroom.app/weapons/skysunderers-howl</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
     <loc>https://refittingroom.app/weapons/sparkling-centerstage</loc>
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://refittingroom.app/weapons/special-operations-modular-rifle</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://refittingroom.app/weapons/sportivo-calibro-12</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://refittingroom.app/weapons/st-ar-15</loc>
     <priority>0.6</priority>
   </url>
   <url>
@@ -993,7 +1005,7 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://refittingroom.app/weapons/type-12-double-barrel-shotgun</loc>
+    <loc>https://refittingroom.app/weapons/type-90-pdw</loc>
     <priority>0.6</priority>
   </url>
   <url>
@@ -1009,15 +1021,15 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://refittingroom.app/weapons/ump40</loc>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://refittingroom.app/weapons/ump45</loc>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://refittingroom.app/weapons/ump9</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://refittingroom.app/weapons/universal-submachine-gun-40</loc>
     <priority>0.6</priority>
   </url>
   <url>
@@ -1038,10 +1050,6 @@
   </url>
   <url>
     <loc>https://refittingroom.app/weapons/wanderers-magnum</loc>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://refittingroom.app/weapons/welrod-mkii</loc>
     <priority>0.6</priority>
   </url>
   <url>
