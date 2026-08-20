@@ -17,6 +17,7 @@
  */
 
 import { readFile, writeFile } from 'node:fs/promises';
+import { stripHtml } from '../share/html.js';
 import { join } from 'node:path';
 
 // --- Types ---
@@ -393,9 +394,13 @@ function collectStrings(value: unknown, out: string[]): void {
  * newlines that break JSON.parse. Extract plain text either way.
  */
 export function normalizeDetails(raw: string): string {
-  const trimmed = raw.trim();
+  // Strip HTML first: the datamine ships colour spans inline, and tag-rule
+  // regexes measure prose distance (`restores?[^.]{0,30}HP`) — a 60-char
+  // span in the middle silently defeats them.
+  const stripped = stripHtml(raw) ?? '';
+  const trimmed = stripped.trim();
   if (!trimmed.startsWith('{')) {
-    return raw;
+    return stripped;
   }
   try {
     const out: string[] = [];

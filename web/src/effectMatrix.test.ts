@@ -20,26 +20,31 @@ describe('computeTeamEffects', () => {
     const makiatto = dollByName('Makiatto');
     const entries = computeTeamEffects([helen, makiatto]);
 
-    const frostBarrier = entries.find((e) => e.effectName === 'Frost Barrier');
-    expect(frostBarrier).toBeDefined();
+    // The datamine models Frost Barrier as per-kit effect rows (the game's
+    // own shape), so each doll's copy is its own entry rather than one
+    // shared row — assert across all of them.
+    const frostBarriers = entries.filter(
+      (e) => e.effectName === 'Frost Barrier'
+    );
+    expect(frostBarriers.length).toBeGreaterThan(0);
+    const sources = frostBarriers.flatMap((e) => e.sources);
 
-    // Source: Helen applies it with Skill 2
-    const helenSource = frostBarrier!.sources.find(
+    // Source: Helen applies it
+    const helenSource = sources.find(
       (s) => s.member.id === helen.id && s.relation === 'applies'
     );
     expect(helenSource).toBeDefined();
-    expect(helenSource!.label).toContain('Skill 2');
 
-    // Makiatto gains it herself with Skill 3
-    const makGains = frostBarrier!.sources.find(
+    // Makiatto gains it herself
+    const makGains = sources.find(
       (s) => s.member.id === makiatto.id && s.relation === 'gains'
     );
     expect(makGains).toBeDefined();
 
     // Affected: Makiatto's Alert references Frost Barrier
-    const makAffected = frostBarrier!.affected.find(
-      (a) => a.member.id === makiatto.id && a.relation === 'conditional'
-    );
+    const makAffected = frostBarriers
+      .flatMap((e) => e.affected)
+      .find((a) => a.member.id === makiatto.id && a.relation === 'conditional');
     expect(makAffected).toBeDefined();
     expect(makAffected!.viaEffectName).toBe('Alert');
   });

@@ -4,6 +4,7 @@
  * blobs that the sync pipeline stores verbatim.
  */
 import { describe, expect, it } from 'vitest';
+import { stripHtml } from '../../src/share/html';
 import {
   allDolls,
   allEffects,
@@ -77,17 +78,19 @@ describe('resolveEffectMarkers', () => {
         }
       }
     }
-    expect(kinds).toEqual(
-      new Set(['effect', 'summon', 'dollSkill', 'skillsummon', 'key'])
-    );
+    // The datamine emits four kinds; Dandegate's 'skillsummon' is extinct
+    // (summon-owned skills are modelled on the summon blocks instead).
+    expect(kinds).toEqual(new Set(['effect', 'summon', 'dollSkill', 'key']));
   });
 
   it('resolves pipe-form markers (UUID|doll:slug) by UUID', () => {
-    const text = allGameText().find(
-      (t) => t.includes('|doll:') && !t.includes('[effect:humiliation-mark')
+    // The datamine never emits the pipe form, but historical text might —
+    // the codec keeps resolving it by UUID.
+    const anyEffect = allEffects.find((e) => e.effectName);
+    expect(anyEffect).toBeDefined();
+    const segments = resolveEffectMarkers(
+      `gains [effect:${anyEffect!.id}|doll:alva]`
     );
-    expect(text).toBeDefined();
-    const segments = resolveEffectMarkers(text!);
     expect(
       segments.some((seg) => typeof seg !== 'string' && seg.resolved)
     ).toBe(true);
@@ -125,15 +128,39 @@ describe('getEffectDetails', () => {
   it('never surfaces a serialized blob as prose', () => {
     for (const text of allGameText()) {
       expect(text).not.toMatch(/"(mainDetails|upgradeDetails|upgradeName)"/);
-      expect(text.trimStart().startsWith('{')).toBe(false);
+      // JSON-blob shape specifically; a kept literal placeholder ("{0} …")
+      // is visible-by-policy, not a serialized object.
+      expect(text.trimStart().startsWith('{"')).toBe(false);
     }
   });
 
   it('splits the JSON form into base text plus V-level upgrades', () => {
-    const brumal = allEffects.find((e) => e.effectName === 'Brumal Barrier');
-    expect(brumal).toBeDefined();
-    const { main, upgrades } = getEffectDetails(brumal!);
-
+    // The datamine ships plain text (V-level rewrites are separate effect
+    // rows), so the JSON form no longer occurs in data — but stored codes
+    // and hand-edited rows may still carry it, and the parser keeps working.
+    const { main, upgrades } = getEffectDetails({
+      id: 'x',
+      effectName: 'Fixture',
+      effectDetails: JSON.stringify({
+        mainDetails: '<p>Considered a Shield.</p>',
+        upgrades: [
+          {
+            upgradeName: 'V3',
+            upgradeDetails: 'Considered a Shield. More.',
+            order: 1,
+          },
+          {
+            upgradeName: 'V6',
+            upgradeDetails: 'Considered a Shield. Most.',
+            order: 2,
+          },
+        ],
+      }),
+      effectTags: [],
+      dollId: null,
+      regionTag: null,
+      preview: null,
+    });
     expect(main).toContain('Considered a Shield');
     expect(main).not.toContain('mainDetails');
     expect(upgrades.map((u) => u.name)).toEqual(['V3', 'V6']);
@@ -148,7 +175,8 @@ describe('getEffectDetails', () => {
     );
     expect(plain).toBeDefined();
     const { main, upgrades } = getEffectDetails(plain!);
-    expect(main).toBe(plain!.effectDetails);
+    // colour spans are presentation; the details reader returns prose
+    expect(main).toBe(stripHtml(plain!.effectDetails));
     expect(upgrades).toEqual([]);
   });
 });

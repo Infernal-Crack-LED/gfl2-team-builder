@@ -69,6 +69,63 @@ export function RenderText({ segments }: { segments: TextSegment[] }) {
   );
 }
 
+// --- Colour runs ------------------------------------------------------------
+// The datamine converts the game's own highlight tags into exactly one HTML
+// shape: `<span style="color: rgb(r, g, b);">…</span>`. That is the ONLY tag
+// we render as styling; everything else is stripped. Runs never nest.
+
+const COLOR_SPAN_RE =
+  /<span style="color: (rgb\(\d+, \d+, \d+\));">([\s\S]*?)<\/span>/g;
+
+interface ColorRun {
+  color: string | null;
+  text: string;
+}
+
+/** Split one paragraph into colour runs; unknown tags are stripped. */
+function colorRuns(paragraph: string): ColorRun[] {
+  const runs: ColorRun[] = [];
+  let last = 0;
+  for (const m of paragraph.matchAll(COLOR_SPAN_RE)) {
+    const idx = m.index ?? 0;
+    if (idx > last) {
+      runs.push({ color: null, text: paragraph.slice(last, idx) });
+    }
+    runs.push({ color: m[1] ?? null, text: m[2] ?? '' });
+    last = idx + m[0].length;
+  }
+  if (last < paragraph.length) {
+    runs.push({ color: null, text: paragraph.slice(last) });
+  }
+  return runs
+    .map((r) => ({ ...r, text: stripHtml(r.text) ?? '' }))
+    .filter((r) => r.text !== '');
+}
+
+/**
+ * One paragraph of game text, inline: colour highlights preserved, markers
+ * resolved, every other tag stripped. The building block for both RichText
+ * and single-line call sites (card previews).
+ */
+export function RichTextInline({ text }: { text: string | null | undefined }) {
+  if (!text) {
+    return null;
+  }
+  return (
+    <>
+      {colorRuns(text).map((run, i) =>
+        run.color ? (
+          <span key={i} style={{ color: run.color }}>
+            <RenderText segments={resolveEffectMarkers(run.text)} />
+          </span>
+        ) : (
+          <RenderText key={i} segments={resolveEffectMarkers(run.text)} />
+        )
+      )}
+    </>
+  );
+}
+
 /**
  * Full game text → paragraphs. Handles both already-stripped fields (skill
  * descriptions, stripped during sync) and the raw HTML blobs the sync
@@ -85,18 +142,25 @@ export function RichText({
   text: string | null | undefined;
   className?: string;
 }) {
-  const clean = stripHtml(text);
-  if (!clean) {
+  if (!text) {
     return null;
   }
-  // stripHtml turns </p>, <br> and </li> into newlines — those are the
-  // paragraph breaks the source HTML intended.
-  const paragraphs = clean.split('\n').filter((p) => p.trim() !== '');
+  // Block breaks first (the same ones stripHtml collapses), so colour spans
+  // are split per paragraph; stripping happens per run inside RichTextInline.
+  const paragraphs = text
+    .replace(/<\/p>/gi, '\n')
+    .replace(/<br\s*\/?>/gi, '\n')
+    .replace(/<\/li>/gi, '\n')
+    .split('\n')
+    .filter((p) => stripHtml(p) != null);
+  if (paragraphs.length === 0) {
+    return null;
+  }
   return (
     <div className={className}>
       {paragraphs.map((p, i) => (
         <p key={i}>
-          <RenderText segments={resolveEffectMarkers(p)} />
+          <RichTextInline text={p} />
         </p>
       ))}
     </div>

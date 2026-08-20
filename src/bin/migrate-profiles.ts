@@ -6,12 +6,11 @@
  *
  *   npm run migrate:profiles                                  # dry run
  *   npm run migrate:profiles -- --execute
- *   npm run migrate:profiles -- --old data --new ../out-app   # (defaults)
+ *   npm run migrate:profiles -- --old data/_dandegate-backup --new ../out-app   # (defaults)
  *
- * IMPORTANT: `--old` must point at the DANDEGATE-ERA artifacts. Run this
- * BEFORE `seed:datamine --execute --export` overwrites data/*.json, or pass
- * a snapshot directory (e.g. `git show` the pre-cutover data/ into a temp
- * dir).
+ * IMPORTANT: `--old` must point at the DANDEGATE-ERA artifacts. The default
+ * is the frozen snapshot in data/_dandegate-backup/ (gitignored, on disk),
+ * so the migration works regardless of what data/*.json currently holds.
  *
  * Mapping is structural, never by-name-fuzzy:
  *   - doll slugs are stable across the cutover (same slugify of same names)
@@ -282,7 +281,7 @@ function mapKey(
 
 async function main() {
   const execute = process.argv.includes('--execute');
-  const oldDir = path.resolve(argValue('--old', 'data'));
+  const oldDir = path.resolve(argValue('--old', 'data/_dandegate-backup'));
   const newDir = path.resolve(argValue('--new', '../out-app'));
   const { weaponMap, keyMap, dollSlugs } = buildIdMap(oldDir, newDir);
   console.log(

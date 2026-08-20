@@ -6,9 +6,9 @@
  * container. Download/copy of the PNG lives in CardImageActions.
  */
 import { useRef } from 'react';
-import { assetUrl, resolveEffectMarkers } from '../data';
+import { assetUrl } from '../data';
 import { CardImageActions } from './CardImageActions';
-import { RenderText } from './RichText';
+import { RichTextInline } from './RichText';
 
 /** Cards are stamped with the DOMAIN — mirrors CARD_WORDMARK in core/theme.ts. */
 const CARD_WORDMARK = 'refittingroom.app';
@@ -133,11 +133,7 @@ export function WeaponCardPreview({ data }: { data: WeaponCardPreviewData }) {
                   'weapon-card-body' + (data.trait ? '' : ' muted-value')
                 }
               >
-                {data.trait ? (
-                  <RenderText segments={resolveEffectMarkers(data.trait)} />
-                ) : (
-                  '—'
-                )}
+                {data.trait ? <RichTextInline text={data.trait} /> : '—'}
               </p>
             </div>
             <div className="weapon-card-section">
@@ -147,11 +143,7 @@ export function WeaponCardPreview({ data }: { data: WeaponCardPreviewData }) {
                   'weapon-card-body' + (data.effect ? '' : ' muted-value')
                 }
               >
-                {data.effect ? (
-                  <RenderText segments={resolveEffectMarkers(data.effect)} />
-                ) : (
-                  '—'
-                )}
+                {data.effect ? <RichTextInline text={data.effect} /> : '—'}
               </p>
             </div>
             {data.counterparts.length > 0 && (

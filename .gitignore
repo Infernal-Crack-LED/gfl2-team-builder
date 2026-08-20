@@ -35,3 +35,4 @@ scratchpad/
 
 # python bytecode
 __pycache__/
+data/_dandegate-backup/

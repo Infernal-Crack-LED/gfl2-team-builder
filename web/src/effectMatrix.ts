@@ -154,6 +154,21 @@ for (const entry of matrixEffects) {
   matrixByEffectId.set(entry.effectId, entry);
 }
 
+// Name index: the datamine models per-kit copies of shared-vocabulary
+// effects (each doll's Frost Barrier is its own row, citations point at the
+// shared row), so edges for one NAMED mechanic are spread over several ids.
+// The panel treats the name as the identity — exactly what the curated
+// dataset did when it kept one row per name.
+const matrixByEffectName = new Map<string, MatrixEffectJson[]>();
+for (const entry of matrixEffects) {
+  if (!entry.effectName) {
+    continue;
+  }
+  const list = matrixByEffectName.get(entry.effectName) ?? [];
+  list.push(entry);
+  matrixByEffectName.set(entry.effectName, list);
+}
+
 /** Reverse index: effect X → matrix entries whose sources say X confers them. */
 const grantedByEffect = new Map<
   string,
@@ -414,8 +429,17 @@ export function computeTeamEffects(
       }
     }
 
-    if (matrixEntry) {
-      for (const edge of matrixEntry.interactions) {
+    // Interactions live on whichever same-named copy the citing text points
+    // at (usually the shared one); gather them across the whole name group.
+    const entryName =
+      matrixEntry?.effectName ?? effectNameById.get(effectId) ?? null;
+    const nameGroup = entryName
+      ? (matrixByEffectName.get(entryName) ?? [])
+      : matrixEntry
+        ? [matrixEntry]
+        : [];
+    for (const groupEntry of nameGroup) {
+      for (const edge of groupEntry.interactions) {
         if (edge.kind === 'effect') {
           // An effect references this one — attribute to whoever carries it
           const carrierId = edge.effectId;
@@ -488,10 +512,49 @@ export function computeTeamEffects(
     });
   }
 
-  entries.sort(
+  // One row per NAME: per-kit copies of the same mechanic collapse into a
+  // single entry (the curated dataset's shape), deduping repeated edges.
+  const byName = new Map<string, TeamEffectEntry>();
+  const merged: TeamEffectEntry[] = [];
+  for (const entry of entries) {
+    const existing = byName.get(entry.effectName);
+    if (!existing) {
+      byName.set(entry.effectName, entry);
+      merged.push(entry);
+      continue;
+    }
+    const seenSrc = new Set(
+      existing.sources.map((s) => `${s.member.id}:${s.relation}:${s.label}`)
+    );
+    for (const s of entry.sources) {
+      const key = `${s.member.id}:${s.relation}:${s.label}`;
+      if (!seenSrc.has(key)) {
+        seenSrc.add(key);
+        existing.sources.push(s);
+      }
+    }
+    const seenAff = new Set(
+      existing.affected.map(
+        (a) =>
+          `${a.member.id}:${a.relation}:${a.viaEffectName ?? ''}:${a.label}`
+      )
+    );
+    for (const a of entry.affected) {
+      const key = `${a.member.id}:${a.relation}:${a.viaEffectName ?? ''}:${a.label}`;
+      if (!seenAff.has(key)) {
+        seenAff.add(key);
+        existing.affected.push(a);
+      }
+    }
+    existing.effectTags = [
+      ...new Set([...existing.effectTags, ...entry.effectTags]),
+    ];
+  }
+
+  merged.sort(
     (a, b) =>
       b.affected.length - a.affected.length ||
       a.effectName.localeCompare(b.effectName)
   );
-  return entries;
+  return merged;
 }

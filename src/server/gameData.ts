@@ -10,6 +10,7 @@
 import { readFileSync } from 'node:fs';
 import path from 'node:path';
 import { GENERIC_COMMON_KEYS } from '../share/genericKeys.js';
+import { stripHtml } from '../share/html.js';
 import {
   indexNamedRows,
   markersToText,
@@ -199,7 +200,10 @@ function markerName(kind: MarkerKind, id: string): string | null {
  * would leave the crawler a sentence with a hole where the visitor reads a name.
  */
 export function resolveMarkerText(text: string): string {
-  return markersToText(text, markerName);
+  // Strip first: game text now carries colour spans (rendered by the web's
+  // RichText); plain-text surfaces — canvas cards, crawler bodies — must
+  // never show literal tags.
+  return markersToText(stripHtml(text) ?? '', markerName);
 }
 
 export function getKey(id: string): KeyEntry | undefined {
