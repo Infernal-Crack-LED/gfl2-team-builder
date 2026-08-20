@@ -46,6 +46,7 @@ interface DollEntry {
 interface WeaponEntry {
   id: string;
   name: string;
+  imprintDollId: string | null;
 }
 interface KeyEntry {
   id: string;
@@ -98,13 +99,33 @@ function norm(s: string): string {
 const dollBySlug = new Map(dolls.map((d) => [d.slug, d]));
 const weaponByNorm = new Map(weapons.map((w) => [norm(w.name), w]));
 // Known sheet-side spellings of weapon names. Anything not listed here stays
-// UNRESOLVED and is reported — never fuzzy-matched.
-for (const [alias, canonical] of [['Crowned Jackelope', 'Crowned Jackalope']]) {
+// UNRESOLVED and is reported — never fuzzy-matched. The three fan names are
+// maintainer-confirmed as those dolls' signature weapons (client names on
+// the right).
+for (const [alias, canonical] of [
+  ['Crowned Jackelope', 'Crowned Jackalope'],
+  ['AK-15', '6P71'], // Voymastina's sig
+  ["Themis' Game", 'Silent Sanction'], // Welrod's sig
+  ['Dazzling Sparkles', 'Sparkling Centerstage'], // Yoohee's sig
+  ['Law of Causality', 'Cause and Effect'], // Phaetusa's sig, cross-referenced on Sextans' tab
+]) {
   const target = weaponByNorm.get(norm(canonical as string));
   if (target) {
     weaponByNorm.set(norm(alias as string), target);
   }
 }
+/** Doll id -> her signature weapon. The sheet routinely lists the sig under
+ * a fan/pre-release name (maintainer-confirmed: "AK-15" IS Voymastina's 6P71,
+ * "Themis' Game" IS Welrod's Silent Sanction, …), so an unresolved weapon
+ * token falls back to the tab's own sig — but only once, and only when the
+ * sig isn't already among the resolved picks. */
+const sigByDollId = new Map<string, WeaponEntry>();
+for (const w of weapons) {
+  if (w.imprintDollId) {
+    sigByDollId.set(w.imprintDollId, w);
+  }
+}
+
 const setByNorm = new Map(attachmentSets.map((s) => [norm(s.name), s.name]));
 // Known sheet-side shorthand of set names.
 setByNorm.set(norm('Allay Support'), 'Ally Support');
@@ -222,10 +243,23 @@ async function main() {
 
     const weaponIds: string[] = [];
     const missingWeapons: string[] = [];
-    for (const name of (rec.weapons ?? []).slice(0, MAX_WEAPONS)) {
+    const assumedSig: string[] = [];
+    const sig = sigByDollId.get(doll.id);
+    for (const raw of (rec.weapons ?? []).slice(0, MAX_WEAPONS)) {
+      // strip trailing commentary: "Skylla (Please get V6 first)"
+      const name = raw.replace(/\s*\(.*\)\s*$/, '');
       const w = weaponByNorm.get(norm(name));
       if (w) {
-        weaponIds.push(w.id);
+        if (!weaponIds.includes(w.id)) {
+          weaponIds.push(w.id);
+        }
+      } else if (
+        sig &&
+        !weaponIds.includes(sig.id) &&
+        assumedSig.length === 0
+      ) {
+        weaponIds.push(sig.id);
+        assumedSig.push(`${name} -> sig "${sig.name}"`);
       } else {
         missingWeapons.push(name);
       }
@@ -264,6 +298,7 @@ async function main() {
       `${slug}: bp [${breakpoints.join(' > ')}], ${weaponIds.length} weapons, ` +
         `${setNames.length} sets, ${fixedKeyIds.length} fixed / ${commonKeyIds.length} common` +
         `${resolved.expansionKeyId ? ' / 1 expansion' : ''}, stats [${statPrefs.join(' > ')}]` +
+        (assumedSig.length ? `  ASSUMED: ${assumedSig.join('; ')}` : '') +
         (problems.length ? `  UNRESOLVED: ${problems.join('; ')}` : '')
     );
     if (problems.length) {
