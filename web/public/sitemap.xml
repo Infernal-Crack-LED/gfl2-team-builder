@@ -49,6 +49,10 @@
     <priority>0.2</priority>
   </url>
   <url>
+    <loc>https://refittingroom.app/usage</loc>
+    <priority>0.3</priority>
+  </url>
+  <url>
     <loc>https://refittingroom.app/characters/alva</loc>
     <priority>0.7</priority>
   </url>

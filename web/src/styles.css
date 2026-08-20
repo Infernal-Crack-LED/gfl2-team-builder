@@ -1075,6 +1075,28 @@ td {
   text-decoration: underline;
 }
 
+/* Site-wide fair-use / non-affiliation notice. Quieter and narrower than the
+   link row above it — it has to be legible on every page without competing
+   with the page itself. */
+.site-footer-legal {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 0 20px 24px;
+  text-align: center;
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.6;
+}
+
+.site-footer-legal a {
+  color: var(--muted);
+  text-decoration: underline;
+}
+
+.site-footer-legal a:hover {
+  color: var(--accent);
+}
+
 /* ---- Dev page ("made by Max") ---- */
 .dev-hero {
   margin: 8px 0 22px;
@@ -1677,6 +1699,43 @@ td {
 
 /* Weapon detail identity pills reuse .unit-idents/.unit-ident. */
 
+/* Imprint panel: the doll gets a portrait card (the mirror of the doll page's
+   imprint block, which shows the weapon's art), with the imprint bonus text
+   underneath it. */
+.weaponpage-imprint-doll {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  margin-bottom: 10px;
+  background: var(--panel2);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  text-decoration: none;
+  transition: border-color 0.15s;
+}
+
+.weaponpage-imprint-doll:hover {
+  border-color: var(--accent);
+}
+
+.weaponpage-imprint-portrait {
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+}
+
+.weaponpage-imprint-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-size: 13px;
+}
+
+.weaponpage-imprint-info .muted {
+  font-size: 11px;
+}
+
 /* ---- Team Builder Page ---- */
 .teambuilder-controls {
   display: flex;
@@ -1884,11 +1943,25 @@ td {
 }
 
 /* Squad strip sticks on scroll so the selected dolls stay reachable while
-   browsing the grid. */
+   browsing the grid. It needs a surface of its own: the slots are separate
+   cards with 10px gaps between them, so an unpainted container let the doll
+   grid scroll through the gaps and around the ends of the row. The bar is
+   what's floating — the slots just sit on it. */
 .teambuilder-squad-sticky {
   position: sticky;
-  top: 76px;
+  /* Flush against the bottom of the sticky nav (~49px tall at the widths where
+     this is sticky at all — it goes static under 1100px). The old 76px left a
+     band of page between nav and bar that the doll grid scrolled through, which
+     defeats the point of giving the bar a surface. Tucking 1px under the nav is
+     safe: the nav's z-index is 100 against this bar's 10. */
+  top: 48px;
   z-index: 10;
+  padding: 10px;
+  margin-bottom: 16px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
 }
 
 .teambuilder-squad-sticky .teambuilder-squad {
@@ -1958,12 +2031,11 @@ td {
     grid-row: auto;
   }
 
+  /* Stacked, the strip scrolls with the page — nothing floats over the grid,
+     so it drops the lifted look and keeps only the frame's spacing. */
   .teambuilder-squad-sticky {
     position: static;
-  }
-
-  .teambuilder-squad-sticky .teambuilder-squad {
-    margin-bottom: 16px;
+    box-shadow: none;
   }
 
   .teambuilder-side {
@@ -2492,6 +2564,15 @@ summary.teameffect-tier-title:hover {
   margin-bottom: 8px;
 }
 
+/* The global reset zeroes every margin, which runs consecutive paragraphs of
+   legal copy together into one wall. These pages are the one place on the site
+   with multi-paragraph prose, so they put the gaps back. */
+.legal-page section p + p,
+.legal-page section ul + p,
+.legal-page section p + ul {
+  margin-top: 10px;
+}
+
 .legal-page ul {
   padding-left: 20px;
 }
@@ -2503,6 +2584,32 @@ summary.teameffect-tier-title:hover {
 .legal-caps {
   text-transform: uppercase;
   font-size: 0.85em;
+}
+
+/* File and path names in legal copy — the browser default monospace runs a
+   size larger than the surrounding text, which reads as a shout. */
+.legal-page code {
+  font-size: 0.92em;
+  padding: 1px 5px;
+  background: var(--panel2);
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  color: var(--text);
+}
+
+/* ---- Usage page ---- */
+/* The copy-paste attribution blocks: set apart from the prose around them so
+   it's obvious where the wording starts and stops. */
+.usage-attribution {
+  background: var(--panel2);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--accent);
+  border-radius: 8px;
+  padding: 10px 14px;
+  margin: 8px 0;
+  color: var(--text);
+  font-size: 13px;
+  line-height: 1.6;
 }
 
 /* ---- Page Fallback (Loading) ---- */
@@ -3094,7 +3201,9 @@ summary.teameffect-tier-title:hover {
   margin-top: 4px;
 }
 
-/* Sig weapon counterpart cards. */
+/* The doll page's frame around the shared counterpart grid — a sub-block of
+   the imprint panel, so it gets a rule and a label the weapon page's own
+   <section> heading already provides. */
 .dollpage-counterparts {
   margin-top: 16px;
   padding-top: 12px;
@@ -3106,21 +3215,24 @@ summary.teameffect-tier-title:hover {
   margin-bottom: 8px;
 }
 
-.dollpage-counterparts-grid {
+/* ---- Weapon counterpart cards (doll + weapon detail pages) ---- */
+/* Rendered by components/WeaponCounterparts.tsx on both pages — the classes
+   carry no page prefix precisely because neither page owns them. */
+.counterpart-grid {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
 }
 
-.dollpage-counterpart-link {
+.counterpart-link {
   text-decoration: none;
 }
 
-.dollpage-counterpart-link:hover .dollpage-counterpart-card {
+.counterpart-link:hover .counterpart-card {
   border-color: var(--accent);
 }
 
-.dollpage-counterpart-card {
+.counterpart-card {
   display: flex;
   align-items: center;
   gap: 10px;
@@ -3130,22 +3242,33 @@ summary.teameffect-tier-title:hover {
   border-radius: 10px;
   transition: border-color 0.15s;
   min-width: 200px;
+  height: 100%;
 }
 
-.dollpage-counterpart-img {
+.counterpart-img {
   width: 64px;
   height: 32px;
   flex-shrink: 0;
 }
 
-.dollpage-counterpart-info {
+.counterpart-info {
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
   gap: 2px;
 }
 
-.dollpage-counterpart-info strong {
+.counterpart-info strong {
   font-size: 13px;
+}
+
+/* The tier label, on the weapon page's three-card row: this is the only thing
+   telling "the Standard version" from "the Retired one" at a glance. */
+.counterpart-relation {
+  font-size: 10px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--muted);
 }
 
 /* A labelled sub-block inside a builder panel — the refinement row under the

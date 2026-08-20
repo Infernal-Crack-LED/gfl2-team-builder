@@ -64,6 +64,9 @@ const PrivacyPage = lazy(() =>
 const TermsPage = lazy(() =>
   import('./TermsPage').then((m) => ({ default: m.TermsPage }))
 );
+const UsagePage = lazy(() =>
+  import('./UsagePage').then((m) => ({ default: m.UsagePage }))
+);
 
 function PageFallback() {
   return (
@@ -112,6 +115,8 @@ function Root() {
           <PrivacyPage />
         ) : route === 'terms' ? (
           <TermsPage />
+        ) : route === 'usage' ? (
+          <UsagePage />
         ) : (
           <HomePage />
         )}

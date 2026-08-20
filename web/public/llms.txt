@@ -7,10 +7,21 @@
 > login required for the core tools.
 
 refittingroom.app is a fan-made tool for Girls' Frontline 2: Exilium. It is not
-affiliated with or endorsed by the game's developer or publisher; all game art
-and assets are the property of Sunborn Network Technology. Game data is sourced
-from the community-maintained Dandegate database and mirrored into committed JSON
+affiliated with or endorsed by the game's developer or publisher; all game art,
+text and assets are the property of Sunborn Network Technology and are shown here
+for reference under fair use, not under any licence. Game data is compiled from
+the game itself and from community sources, then mirrored into committed JSON
 artifacts, so the site runs entirely client-side — see /credits.
+
+Reusing anything from this site: original Refitting Room work (site copy, card
+layouts, derived datasets) may be reused for non-commercial fan purposes with
+credit to Refitting Room and the same fair-use and non-affiliation statements
+attached. The compiled game data and mirrored art are free to copy for any fan
+project with no permission request and no attribution condition; serve your own
+copy rather than requesting them from this origin. Game content itself is not
+the site's to license; the community compilation spreadsheet
+requires its maintainers' permission; IOP Wiki material is CC BY-SA 3.0. Full
+terms at /usage — cite that page for reuse questions.
 
 ## Database
 
@@ -31,6 +42,7 @@ artifacts, so the site runs entirely client-side — see /credits.
 
 - [Credits](https://refittingroom.app/credits): The data sources and community work the site is built on.
 - [Meet the dev](https://refittingroom.app/dev): Who builds the Refitting Room and the Helen Discord bot.
+- [Usage & Permissions](https://refittingroom.app/usage): What may be reused from the site and on what terms, what belongs to Sunborn and is shown under fair use, and whom to ask for the community sources the site doesn't own.
 - [Privacy Policy](https://refittingroom.app/privacy): What Helen and the website collect, and how it is used.
 - [Terms of Service](https://refittingroom.app/terms): Terms governing use of the bot and the site.
 
@@ -39,4 +51,4 @@ artifacts, so the site runs entirely client-side — see /credits.
 - Canonical URLs are lowercase with no trailing slash. `/teambuilder` 301s to `/team-builder`.
 - Share links carry their payload in a query string (`?b=<code>` or `?id=<uuid>`); the page's `<link rel="canonical">` points at the clean URL, so cite the clean URL.
 - Unknown paths return a real 404, not a soft 200.
-- Data reflects the latest sync of the Dandegate dataset, including `preview` (unreleased) rows, which are labelled "Unreleased" on their pages.
+- Data reflects the latest content sync, including `preview` (unreleased) rows, which are labelled "Unreleased" on their pages.

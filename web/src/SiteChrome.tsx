@@ -36,6 +36,7 @@ const AUTHED_NAV: { route: Route; label: string } = {
 const MENU: { route: Route; label: string }[] = [
   { route: 'dev', label: 'Meet the dev' },
   { route: 'credits', label: 'Credits' },
+  { route: 'usage', label: 'Usage & permissions' },
   { route: 'privacy', label: 'Privacy' },
   { route: 'terms', label: 'Terms' },
 ];
@@ -288,6 +289,10 @@ export function SiteFooter() {
           Credits
         </a>
         {' · '}
+        <a href={hrefFor('usage')} onClick={(e) => navClick(e, 'usage')}>
+          Usage
+        </a>
+        {' · '}
         <a href={hrefFor('privacy')} onClick={(e) => navClick(e, 'privacy')}>
           Privacy
         </a>
@@ -296,6 +301,17 @@ export function SiteFooter() {
           Terms
         </a>
         {' · '}Refitting Room
+      </div>
+
+      {/* The fair-use notice belongs on every page, not only on /credits: this
+          is the site-wide statement that the game content shown throughout
+          isn't ours, and it has to be where a visitor lands, whichever page
+          that is. */}
+      <div className="site-footer-legal">
+        Unofficial fan project — not affiliated with, endorsed by, or sponsored
+        by Sunborn Network Technology. Game data, text and art are the property
+        of their respective owners and are shown here for reference under fair
+        use.
       </div>
     </footer>
   );

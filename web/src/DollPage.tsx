@@ -40,6 +40,10 @@ import {
   type Weapon,
 } from './data';
 import { GameIcon } from './components/GameIcon';
+import {
+  CounterpartCards,
+  counterpartsOf,
+} from './components/WeaponCounterparts';
 import { StaticKeyCard } from './components/KeyCard';
 import { CnMark, RichText } from './components/RichText';
 import {
@@ -219,14 +223,14 @@ function EffectEntry({
   );
 }
 
-/** Renders the elite counterpart card for a weapon. */
+/**
+ * The elite counterpart of a doll's imprint weapon. The cards themselves come
+ * from the shared component the weapon page also renders — this only picks the
+ * one relation that belongs on a doll's page and hides itself when there is
+ * none (an inline block inside the imprint panel, not a section of its own).
+ */
 function SigWeaponCounterparts({ weapon }: { weapon: Weapon }) {
-  const counterparts: {
-    label: string;
-    blob: Record<string, unknown> | null;
-  }[] = [{ label: 'Elite', blob: weapon.eliteCounterpart }].filter(
-    (c) => c.blob != null
-  );
+  const counterparts = counterpartsOf(weapon, ['Elite']);
 
   if (counterparts.length === 0) {
     return null;
@@ -235,60 +239,7 @@ function SigWeaponCounterparts({ weapon }: { weapon: Weapon }) {
   return (
     <div className="dollpage-counterparts">
       <span className="label">Counterparts</span>
-      <div className="dollpage-counterparts-grid">
-        {counterparts.map((c) => {
-          const id = c.blob!.id as string | undefined;
-          const resolved = id ? getWeaponById(id) : undefined;
-          const slug = resolved?.slug;
-          const name = (c.blob!.name as string | undefined) ?? c.label;
-          const rarity = (c.blob!.rarity as string | undefined) ?? null;
-          const imageUrl = (c.blob!.imageUrl as string | undefined) ?? null;
-
-          const inner = (
-            <div className="dollpage-counterpart-card">
-              {imageUrl ? (
-                <GameIcon
-                  className="portrait portrait-contain dollpage-counterpart-img"
-                  src={imageUrl}
-                  alt={name}
-                />
-              ) : (
-                <div
-                  className="portrait portrait-empty dollpage-counterpart-img"
-                  aria-hidden="true"
-                >
-                  ?
-                </div>
-              )}
-              <div className="dollpage-counterpart-info">
-                <strong>{name}</strong>
-                {rarity && (
-                  <span
-                    className={
-                      'unit-ident' + (rarity === 'Elite' ? ' elite' : '')
-                    }
-                  >
-                    {rarity}
-                  </span>
-                )}
-              </div>
-            </div>
-          );
-
-          return slug ? (
-            <a
-              key={c.label}
-              href={hrefForWeapon(slug)}
-              onClick={onSpaLinkClick(hrefForWeapon(slug))}
-              className="dollpage-counterpart-link"
-            >
-              {inner}
-            </a>
-          ) : (
-            <div key={c.label}>{inner}</div>
-          );
-        })}
-      </div>
+      <CounterpartCards counterparts={counterparts} />
     </div>
   );
 }

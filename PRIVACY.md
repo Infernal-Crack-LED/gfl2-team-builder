@@ -30,7 +30,7 @@ Collected information is used solely to operate Helen's features and the Site �
 ## Third parties
 
 - **Hosting** — Helen, the Site, and the database run on cloud infrastructure (Railway); data is stored in a PostgreSQL database there.
-- **Public game data sources** — Helen and the Site fetch public GFL2 data from [dandegate.net](https://dandegate.net). **No personal data is sent to them**; we only read their public data.
+- **Game data sources** — GFL2 game data and art are compiled ahead of time and shipped with the Site, and the images are served from our own origin. Browsing the Site therefore sends **nothing about you to any game-data source**: those requests happen on the maintainer's machine, not in your browser. Where the data comes from, and who owns it, is set out on [Credits](https://refittingroom.app/credits) and [Usage & Permissions](https://refittingroom.app/usage).
 - **Discord** — the Site uses Discord's OAuth2 for sign-in. Discord's use of your data is governed by their [Privacy Policy](https://discord.com/privacy).
 
 ## Data retention

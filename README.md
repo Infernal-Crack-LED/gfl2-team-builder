@@ -99,3 +99,56 @@ render time.
 | `npm run typecheck`           | Type-check without emitting                                     |
 | `npm run lint`                | Run ESLint                                                      |
 | `npm run format`              | Run Prettier                                                    |
+
+## Content ownership and reuse
+
+The site's public statement lives at [`/usage`](https://refittingroom.app/usage)
+(`web/src/UsagePage.tsx`) — that page is the canonical wording; this section is
+the short version for anyone reading the repo.
+
+- **Game data, text and art** (doll and weapon names, portraits, weapon art,
+  skill/key icons, skill text, stat values) are the property of **Sunborn
+  Network Technology**. They are shown for identification, commentary and
+  reference in a free, non-commercial fan tool, under **fair use** — not under a
+  licence, and not sublicensable by this project.
+- **IOP Wiki material** (`web/public/gfl2-icons/`, catalogued in
+  `src/sync/wikiIcons.ts`) is CC BY-SA 3.0. Anyone may reuse it on those terms;
+  attribution to IOP Wiki and the licence link are mandatory, credited on
+  `/credits` and `/usage`.
+- **The community compilation spreadsheet** (default recommendation builds, plus
+  values the client doesn't state) is used **with its maintainers' permission,
+  granted to this project**. That permission does not travel with the data — ask
+  them, not us.
+- **Original work built here** — site copy, the infographics card layouts
+  (`src/infographics/`), the derived datasets (`data/effect-matrix.json`, effect
+  tagging/grouping, slugs, orderings) and the share-code format — may be reused
+  for non-commercial fan purposes with visible credit to the Refitting Room and
+  the same fair-use / non-affiliation statements carried along.
+- **The compilation itself is unrestricted.** Copy `data/*.json` and
+  `web/public/game-assets/` and use them in any fan project — no permission
+  request, no attribution condition. Serve your own copy rather than requesting
+  assets from refittingroom.app, whose paths are rewritten on every content sync.
+  Excluded: `data/recommendations-source.json` (spreadsheet) and
+  `web/public/gfl2-icons/` (IOP Wiki, CC BY-SA 3.0).
+
+Rights holders who want something removed or credited differently: open an issue
+and it happens.
+
+## License
+
+The source code is licensed under the
+[PolyForm Noncommercial License 1.0.0](https://polyformproject.org/licenses/noncommercial/1.0.0)
+— free to read, fork, modify, and self-host for any noncommercial purpose;
+commercial use is not permitted. If you use this code, the license requires you
+to carry this notice with it:
+
+> Required Notice: Copyright Maxwell Sutton — Refitting Room (https://refittingroom.app)
+
+The license covers this project's own code only. Mirrored game art
+(`web/public/game-assets/`), IOP Wiki icons (`web/public/gfl2-icons/`, CC BY-SA
+3.0) and the compiled game data (`data/`) belong to their respective owners and
+are excluded — see [LICENSE](./LICENSE) for the full scope and attributions, and
+[`/usage`](https://refittingroom.app/usage) for the site-facing version.
+
+Use of the hosted bot and site is governed separately by [TERMS.md](./TERMS.md)
+and [PRIVACY.md](./PRIVACY.md).

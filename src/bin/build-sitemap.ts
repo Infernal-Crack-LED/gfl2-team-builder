@@ -33,6 +33,7 @@ const ROUTE_PRIORITY: Record<string, number> = {
   infographics: 0.7,
   credits: 0.3,
   dev: 0.3,
+  usage: 0.3,
   privacy: 0.2,
   terms: 0.2,
 };

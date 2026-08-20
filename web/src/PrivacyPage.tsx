@@ -96,13 +96,14 @@ export function PrivacyPage() {
             PostgreSQL database there.
           </li>
           <li>
-            <strong>Public game data sources</strong> &mdash; Helen and the Site
-            fetch public GFL2 data from{' '}
-            <a href="https://dandegate.net" target="_blank" rel="noreferrer">
-              dandegate.net
-            </a>
-            . <strong>No personal data is sent to them</strong>; we only read
-            their public data.
+            <strong>Game data sources</strong> &mdash; GFL2 game data and art
+            are compiled ahead of time and shipped with the Site, and the images
+            are served from our own origin. Browsing the Site therefore sends{' '}
+            <strong>nothing about you to any game-data source</strong>: those
+            requests happen on the maintainer&rsquo;s machine, not in your
+            browser. Where the data comes from, and who owns it, is set out on{' '}
+            <a href="/credits">Credits</a> and{' '}
+            <a href="/usage">Usage &amp; Permissions</a>.
           </li>
           <li>
             <strong>Discord</strong> &mdash; the Site uses Discord&rsquo;s

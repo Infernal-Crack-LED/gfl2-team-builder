@@ -23,7 +23,8 @@ export type Route =
   | 'credits'
   | 'dev'
   | 'privacy'
-  | 'terms';
+  | 'terms'
+  | 'usage';
 
 // Flat list of nav/analytics routes. Parameterized routes (/characters/<slug>,
 // /weapons/<slug>) are excluded — hrefFor('character') would produce a dead
@@ -44,6 +45,7 @@ export const ROUTES: Route[] = [
   'dev',
   'privacy',
   'terms',
+  'usage',
 ];
 
 // Map the first path segment to a Route. Unknown segments → home.
@@ -99,6 +101,9 @@ export function routeFromPath(pathname: string): Route {
   }
   if (seg === 'terms') {
     return 'terms';
+  }
+  if (seg === 'usage') {
+    return 'usage';
   }
   return 'home';
 }

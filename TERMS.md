@@ -22,7 +22,13 @@ Server administrators are responsible for how Helen is configured and used withi
 
 ## Third-party data
 
-Helen and the Site display game information aggregated from public third-party sources (primarily [dandegate.net](https://dandegate.net)). This information is provided for convenience and **may be inaccurate, incomplete, or out of date**. It is not official, and we make no guarantees about it. All game names, data, and imagery belong to their respective owners.
+Helen and the Site display game information compiled from the game itself and from community sources (credited on [Credits](https://refittingroom.app/credits)). This information is provided for convenience and **may be inaccurate, incomplete, or out of date**. It is not official, and we make no guarantees about it. All game names, data, and imagery belong to their respective owners.
+
+## Intellectual property and fair use
+
+Game names, text, art, icons and data shown by Helen and the Site are the property of **Sunborn Network Technology** and its affiliates. They are reproduced here for identification, commentary and reference in a free, non-commercial fan tool, under **fair use**. This is not a licence, and the maintainer claims no ownership of any game content and grants no rights in it.
+
+Original work created for this project — the site's own copy, its card layouts, and the datasets compiled or derived here — may be reused for non-commercial fan purposes with credit to the Refitting Room, provided the same fair-use and non-affiliation statements travel with it. Material sourced from the community compilation spreadsheet or from IOP Wiki carries its own terms, which the maintainer cannot grant on those owners' behalf. See [Usage & Permissions](https://refittingroom.app/usage) for the full breakdown and for how to request a takedown.
 
 ## Availability
 

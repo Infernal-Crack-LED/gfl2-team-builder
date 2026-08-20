@@ -112,6 +112,12 @@ export const ROUTE_META = {
       'The terms governing use of the Helen Discord bot and the Refitting Room website.',
     label: 'Terms',
   },
+  usage: {
+    title: 'Usage & Permissions — Refitting Room',
+    description:
+      "What you may reuse from the Refitting Room and on what terms, which material belongs to Sunborn and is shown under fair use, and whom to ask for the community sources this site doesn't own.",
+    label: 'Usage',
+  },
 } satisfies Record<string, PageMeta>;
 
 export type RouteKey = keyof typeof ROUTE_META;

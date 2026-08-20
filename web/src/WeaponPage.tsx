@@ -3,10 +3,14 @@
  * vanishes. Sets its own document head.
  */
 import { useEffect } from 'react';
-import { getDollById, getWeaponById, getWeaponBySlug } from './data';
+import { getDollById, getWeaponBySlug } from './data';
 import { GameIcon } from './components/GameIcon';
 import { RichText } from './components/RichText';
-import { hrefFor, hrefForDoll, hrefForWeapon, onSpaLinkClick } from './router';
+import {
+  CounterpartCards,
+  counterpartsOf,
+} from './components/WeaponCounterparts';
+import { hrefFor, hrefForDoll, onSpaLinkClick } from './router';
 import { escapeJsonLd } from './jsonLd';
 import { setDetailMeta, weaponPageMeta } from './useDocumentHead';
 
@@ -58,26 +62,9 @@ export function WeaponPage({ slug }: { slug: string | null }) {
     ? getDollById(weapon.imprintDollId)
     : undefined;
 
-  // Resolve counterpart links. Detail routes are keyed by slug (see
-  // router.slugFromPath), so return the counterpart's slug, not its id —
-  // an id-based href would land on "Weapon not found".
-  const resolveCounterpart = (
-    cp: Record<string, unknown> | null
-  ): { slug: string; name: string } | null => {
-    if (!cp) {
-      return null;
-    }
-    const id = cp.id as string | undefined;
-    if (!id) {
-      return null;
-    }
-    const w = getWeaponById(id);
-    return w ? { slug: w.slug, name: w.name } : null;
-  };
-
-  const elite = resolveCounterpart(weapon.eliteCounterpart);
-  const standard = resolveCounterpart(weapon.standardCounterpart);
-  const retired = resolveCounterpart(weapon.retiredCounterpart);
+  // Counterpart resolution (blob id → the real weapon row, for its slug, art
+  // and rarity) is shared with the doll page — see components/WeaponCounterparts.
+  const counterparts = counterpartsOf(weapon);
 
   return (
     <div className="app weaponpage">
@@ -169,12 +156,36 @@ export function WeaponPage({ slug }: { slug: string | null }) {
       <section className="unit-section unit-panel">
         <h2>Imprint Doll</h2>
         {imprintDoll ? (
-          <div>
+          <div className="weaponpage-imprint">
+            {/* Portrait + name as one link, mirroring the counterpart cards:
+                the doll is the subject of this panel, so she gets a face. */}
             <a
+              className="weaponpage-imprint-doll"
               href={hrefForDoll(imprintDoll.slug)}
               onClick={onSpaLinkClick(hrefForDoll(imprintDoll.slug))}
             >
-              {imprintDoll.name}
+              {imprintDoll.avatarUrl ? (
+                <GameIcon
+                  className="portrait weaponpage-imprint-portrait"
+                  src={imprintDoll.avatarUrl}
+                  alt={imprintDoll.name}
+                />
+              ) : (
+                <div
+                  className="portrait portrait-empty weaponpage-imprint-portrait"
+                  aria-hidden="true"
+                >
+                  ?
+                </div>
+              )}
+              <span className="weaponpage-imprint-info">
+                <strong>{imprintDoll.name}</strong>
+                <span className="muted">
+                  {[imprintDoll.class, imprintDoll.phase, imprintDoll.rarity]
+                    .filter(Boolean)
+                    .join(' · ')}
+                </span>
+              </span>
             </a>
             <RichText text={weapon.imprintDescription} className="muted" />
           </div>
@@ -186,42 +197,8 @@ export function WeaponPage({ slug }: { slug: string | null }) {
       {/* Counterparts */}
       <section className="unit-section unit-panel">
         <h2>Counterparts</h2>
-        {elite || standard || retired ? (
-          <ul>
-            {elite && (
-              <li>
-                Elite:{' '}
-                <a
-                  href={hrefForWeapon(elite.slug)}
-                  onClick={onSpaLinkClick(hrefForWeapon(elite.slug))}
-                >
-                  {elite.name}
-                </a>
-              </li>
-            )}
-            {standard && (
-              <li>
-                Standard:{' '}
-                <a
-                  href={hrefForWeapon(standard.slug)}
-                  onClick={onSpaLinkClick(hrefForWeapon(standard.slug))}
-                >
-                  {standard.name}
-                </a>
-              </li>
-            )}
-            {retired && (
-              <li>
-                Retired:{' '}
-                <a
-                  href={hrefForWeapon(retired.slug)}
-                  onClick={onSpaLinkClick(hrefForWeapon(retired.slug))}
-                >
-                  {retired.name}
-                </a>
-              </li>
-            )}
-          </ul>
+        {counterparts.length > 0 ? (
+          <CounterpartCards counterparts={counterparts} showRelation />
         ) : (
           <p className="muted">No counterpart data.</p>
         )}
