@@ -38,6 +38,8 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "import:recs": "tsx src/bin/import-recommendations.ts",
+    "seed:datamine": "tsx src/bin/seed-from-datamine.ts",
+    "purge:dandegate": "tsx src/bin/purge-dandegate.ts",
     "prepare": "husky"
   },
   "engines": {

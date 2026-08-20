@@ -22,6 +22,9 @@ export const dolls = pgTable('dolls', {
   phase: text('phase'),
   rarity: text('rarity'),
   ammoTypes: jsonb('ammo_types'),
+  // Datamine-native weakness pair (GunData f65/f57); rendered on the doll page
+  weaknessAmmo: text('weakness_ammo'),
+  weaknessPhase: text('weakness_phase'),
   weaponImprintType: text('weapon_imprint_type'),
   weaponImprint: jsonb('weapon_imprint'),
   avatarUrl: text('avatar_url'),

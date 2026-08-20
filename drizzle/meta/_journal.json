@@ -36,6 +36,13 @@
       "when": 1787064263165,
       "tag": "0004_dry_moon_knight",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1787204660357,
+      "tag": "0005_bizarre_the_liberteens",
+      "breakpoints": true
     }
   ]
 }
