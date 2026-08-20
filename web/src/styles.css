@@ -1554,19 +1554,37 @@ td {
   vertical-align: 1px;
 }
 
-/* Skill range grid (pipeline-rendered): small, crisp, zooms on hover. */
-.unit-skill-range {
-  display: block;
-  margin-top: 8px;
-  max-height: 96px;
-  width: auto;
-  image-rendering: pixelated;
-  border-radius: 4px;
-  transition: max-height 0.15s ease;
+/* Skill range grid: hidden by default, pops over the "Range" meta entry on
+   hover. The image is generated at display size (integer cell pixels), so
+   it renders at natural size — never scaled, tiles always even. */
+.unit-range-anchor {
+  position: relative;
+  cursor: help;
+  text-decoration: underline dotted;
+  text-underline-offset: 3px;
 }
 
-.unit-skill-range:hover {
-  max-height: 250px;
+.unit-range-pop {
+  display: none;
+  position: absolute;
+  bottom: calc(100% + 6px);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 200;
+  padding: 6px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
+  pointer-events: none;
+}
+
+.unit-range-pop img {
+  display: block;
+}
+
+.unit-range-anchor:hover .unit-range-pop {
+  display: block;
 }
 
 /* Remolding pattern: a pill row (core, slots, stat boosts) over the six
