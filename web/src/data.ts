@@ -20,7 +20,6 @@ import {
   type EffectDetails,
 } from '../../src/share/html';
 export type { EffectDetails, EffectUpgrade } from '../../src/share/html';
-import { GENERIC_COMMON_KEYS } from '../../src/share/genericKeys';
 import {
   indexNamedRows,
   splitMarkers,
@@ -229,11 +228,17 @@ const keysData = keysJson as unknown as KeysFile;
 const effectsData = effectsJson as unknown as EffectsFile;
 const attachmentSetsData = attachmentSetsJson as unknown as AttachmentSetsFile;
 
-export const allDolls: Doll[] = dollsData.dolls;
+// Newest doll first, site-wide: gun ids are sequential by release, so the
+// id is the release order (maintainer preference); name breaks ties.
+export const allDolls: Doll[] = [...dollsData.dolls].sort(
+  (a, b) =>
+    (b.gunDataId ?? 0) - (a.gunDataId ?? 0) || a.name.localeCompare(b.name)
+);
 export const allWeapons: Weapon[] = weaponsData.weapons;
-// Generic common keys are maintained in code (Dandegate doesn't carry them),
-// merged here so a re-sync never drops them from the builder's picker.
-export const allKeys: Key[] = [...keysData.keys, ...GENERIC_COMMON_KEYS];
+// The datamine carries the real shared common-key pool, so the synthetic
+// generics that papered over Dandegate's gap are retired (maintainer call
+// 2026-08-20).
+export const allKeys: Key[] = keysData.keys;
 export const allEffects: Effect[] = effectsData.effects;
 /** Attachment set bonuses, alphabetical — the builder's set dropdown. */
 export const allAttachmentSets: AttachmentSet[] =

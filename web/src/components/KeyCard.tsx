@@ -10,6 +10,7 @@
 import type { Key } from '../data';
 import { GameIcon } from './GameIcon';
 import { RichText } from './RichText';
+import { keyLevelChip } from '../../../src/share/keyLabels';
 
 export function KeyCardBody({ keyData }: { keyData: Key }) {
   return (
@@ -26,8 +27,10 @@ export function KeyCardBody({ keyData }: { keyData: Key }) {
           </span>
         )}
         <strong>{keyData.displayTitle ?? keyData.keyTitle ?? 'Key'}</strong>
-        {keyData.level != null && (
-          <span className="muted">Lv{keyData.level}</span>
+        {keyLevelChip(keyData.keyType, keyData.level) != null && (
+          <span className="muted">
+            {keyLevelChip(keyData.keyType, keyData.level)}
+          </span>
         )}
       </span>
       {keyData.attributes && keyData.attributes.length > 0 && (

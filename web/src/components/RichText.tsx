@@ -82,6 +82,22 @@ interface ColorRun {
   text: string;
 }
 
+/**
+ * Strip tags/entities WITHOUT trimming — a run's leading/trailing spaces are
+ * the separators between coloured and plain text ("For each <span>1 tile
+ * </span> removed"); stripHtml's trim would fuse the words together.
+ */
+function stripInline(text: string): string {
+  return text
+    .replace(/<[^>]+>/g, '')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'")
+    .replace(/&nbsp;/g, ' ')
+    .replace(/&amp;/g, '&');
+}
+
 /** Split one paragraph into colour runs; unknown tags are stripped. */
 function colorRuns(paragraph: string): ColorRun[] {
   const runs: ColorRun[] = [];
@@ -98,7 +114,7 @@ function colorRuns(paragraph: string): ColorRun[] {
     runs.push({ color: null, text: paragraph.slice(last) });
   }
   return runs
-    .map((r) => ({ ...r, text: stripHtml(r.text) ?? '' }))
+    .map((r) => ({ ...r, text: stripInline(r.text) }))
     .filter((r) => r.text !== '');
 }
 
@@ -152,6 +168,7 @@ export function RichText({
     .replace(/<br\s*\/?>/gi, '\n')
     .replace(/<\/li>/gi, '\n')
     .split('\n')
+    .map((p) => p.trim())
     .filter((p) => stripHtml(p) != null);
   if (paragraphs.length === 0) {
     return null;

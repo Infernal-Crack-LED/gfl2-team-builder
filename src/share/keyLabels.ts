@@ -3,7 +3,7 @@
  * renderer so the two can never disagree about what a card says.
  *
  * DOM-free and dependency-free — imported by both the web bundle and the Node
- * server, same contract as buildCode.ts / genericKeys.ts.
+ * server, same contract as buildCode.ts.
  */
 
 /** The shape both `web/src/data.ts` Key and `src/server/gameData.ts` KeyEntry satisfy. */
@@ -32,9 +32,34 @@ export function fixedKeySlot(key: KeyLike): number | null {
 }
 
 /**
+ * The little chip next to a key title. `level` is the game's SLOT number,
+ * which means different things per type (maintainer-specified):
+ *   - Fixed keys:     the key NUMBER (slot 1–6) → "Fixed Key 3"
+ *   - Expansion keys: slot 8 is the base key (no chip), slot 9 its second
+ *                     tier → "Lv.2"
+ *   - Common keys:    slot 7, but commons have no levels → no chip
+ * Returns null for "show no chip".
+ */
+export function keyLevelChip(
+  keyType: string | null,
+  level: number | null | undefined
+): string | null {
+  if (level == null) {
+    return null;
+  }
+  if (keyType === 'Fixed Key') {
+    return `Fixed Key ${level}`;
+  }
+  if (keyType === 'Expansion Key' && level === 9) {
+    return 'Lv.2';
+  }
+  return null;
+}
+
+/**
  * How a common key is identified on a share card: by the DOLL it is sourced
  * from, since that is how players refer to them ("Suomi's common"). The
- * stat-only generics (see genericKeys.ts) have no source doll, so they name
+ * stat-only pool keys have no source doll, so they name
  * themselves instead.
  */
 export function commonKeySource(

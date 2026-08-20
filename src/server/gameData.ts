@@ -9,7 +9,6 @@
  */
 import { readFileSync } from 'node:fs';
 import path from 'node:path';
-import { GENERIC_COMMON_KEYS } from '../share/genericKeys.js';
 import { stripHtml } from '../share/html.js';
 import {
   indexNamedRows,
@@ -108,12 +107,10 @@ const weaponBySlug = new Map(weaponsFile.weapons.map((w) => [w.slug, w]));
 const effectNameById = new Map(
   effectsFile.effects.map((e) => [e.id, e.effectName])
 );
-// Generic common keys live in code (Dandegate doesn't carry them) — merged so
-// share codes referencing them validate and resolve on the image API.
-const keyById = new Map<string, KeyEntry>([
-  ...keysFile.keys.map((k) => [k.id, k] as const),
-  ...GENERIC_COMMON_KEYS.map((k) => [k.id, k] as const),
-]);
+// Synthetic generic keys retired — the datamine ships the real pool.
+const keyById = new Map<string, KeyEntry>(
+  keysFile.keys.map((k) => [k.id, k] as const)
+);
 
 const setByName = new Map(setsFile.attachmentSets.map((s) => [s.name, s]));
 

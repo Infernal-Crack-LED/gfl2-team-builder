@@ -11,6 +11,7 @@
  * row, AND across rows, empty row = inactive. Search matches the key title,
  * its effect text, the owning doll's name, and the sync's search tags.
  */
+import { keyLevelChip } from '../../src/share/keyLabels';
 import { useMemo, useState } from 'react';
 import {
   browsableKeys,
@@ -76,13 +77,14 @@ const ROWS: KeyRow[] = browsableKeys.map((key) => {
   };
 });
 
-// Doll name first, then level, then title — stable and readable in every
-// section. Keys with no owning doll (the generic common keys) sort first.
+// Newest doll first (gun ids are sequential by release), then slot, then
+// title. Keys with no owning doll — the shared pool — sort after the doll
+// sections, alphabetically.
 function compareRows(a: KeyRow, b: KeyRow): number {
-  const an = a.doll?.name ?? '';
-  const bn = b.doll?.name ?? '';
-  if (an !== bn) {
-    return an.localeCompare(bn);
+  const aid = a.doll?.gunDataId ?? -1;
+  const bid = b.doll?.gunDataId ?? -1;
+  if (aid !== bid) {
+    return bid - aid;
   }
   if ((a.key.level ?? 0) !== (b.key.level ?? 0)) {
     return (a.key.level ?? 0) - (b.key.level ?? 0);
@@ -118,8 +120,10 @@ function KeyCard({ row }: { row: KeyRow }) {
             ) : (
               <span className="muted">Any doll</span>
             )}
-            {key.level != null && (
-              <span className="keycard-level">Lv.{key.level}</span>
+            {keyLevelChip(key.keyType, key.level) != null && (
+              <span className="keycard-level">
+                {keyLevelChip(key.keyType, key.level)}
+              </span>
             )}
           </div>
         </div>
