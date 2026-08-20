@@ -234,7 +234,28 @@ export const allDolls: Doll[] = [...dollsData.dolls].sort(
   (a, b) =>
     (b.gunDataId ?? 0) - (a.gunDataId ?? 0) || a.name.localeCompare(b.name)
 );
-export const allWeapons: Weapon[] = weaponsData.weapons;
+// Weapon order (maintainer-specified): signature Elites first, by their
+// imprint doll's release (gun ids are sequential by release), then the
+// doll-less Elites, then everything else in data order.
+const dollReleaseById = new Map(
+  dollsData.dolls.map((d) => [d.id, d.gunDataId ?? 0])
+);
+export const allWeapons: Weapon[] = [...weaponsData.weapons].sort((a, b) => {
+  const rank = (w: Weapon): number =>
+    w.rarity === 'Elite' ? (w.imprintDollId ? 0 : 1) : 2;
+  if (rank(a) !== rank(b)) {
+    return rank(a) - rank(b);
+  }
+  if (rank(a) === 0) {
+    const ar = dollReleaseById.get(a.imprintDollId!) ?? 0;
+    const br = dollReleaseById.get(b.imprintDollId!) ?? 0;
+    if (ar !== br) {
+      return br - ar; // newest doll's signature first
+    }
+  }
+  // stable within rank: keep the data file's order
+  return weaponsData.weapons.indexOf(a) - weaponsData.weapons.indexOf(b);
+});
 // The datamine carries the real shared common-key pool, so the synthetic
 // generics that papered over Dandegate's gap are retired (maintainer call
 // 2026-08-20).
