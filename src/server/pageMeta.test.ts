@@ -19,9 +19,11 @@ import {
 } from '../share/facets';
 import { HOME_FEATURES, HOME_HERO } from '../share/homeContent';
 import {
+  RECOMMENDATION_CREDIT,
   hydrateRecommendation,
   type RecommendationSource,
 } from '../share/recommendations';
+import { recommendationFor } from './recommendations';
 import { dev } from '../share/siteIdentity';
 import { stripHtml } from '../share/html';
 import {
@@ -549,6 +551,59 @@ describe('community recommendations', () => {
     }
     expect(blocks).toBeGreaterThan(30);
     expect(routed).toBe(blocks);
+  });
+
+  it('puts the recommendation in the crawlable doll body', () => {
+    // The reason this work exists: "<doll> build" is the query these pages
+    // answer, and until the panel was server-rendered the whole answer was
+    // JS-only — visible to a visitor, invisible to Bing and to AI crawlers.
+    const doll = allDolls().find((d) => recommendationFor(d) !== null);
+    expect(doll).toBeDefined();
+    const rec = recommendationFor(doll!)!;
+    const body = noJsBodyFor(resolvePage(url(`/characters/${doll!.slug}`)));
+
+    expect(body).toContain('Recommended build');
+    // The credit is not optional and not deferred to a footer.
+    expect(body).toContain(escapeHtml(RECOMMENDATION_CREDIT.lead));
+    expect(body).toContain(RECOMMENDATION_CREDIT.sheetUrl);
+    for (const w of rec.weapons) {
+      expect(body, w.label).toContain(escapeHtml(w.label));
+    }
+    for (const k of rec.keys.primary) {
+      expect(body, k.label).toContain(escapeHtml(k.label));
+    }
+  });
+
+  it('never leaks a raw marker into the recommendation body', () => {
+    // Effect text is resolved through the same marker table the React panel
+    // uses; an unresolved `[effect:<uuid>]` in the indexed copy would be text
+    // the visitor never sees.
+    for (const doll of allDolls()) {
+      if (!recommendationFor(doll)) {
+        continue;
+      }
+      const body = noJsBodyFor(resolvePage(url(`/characters/${doll.slug}`)));
+      expect(body, doll.slug).not.toMatch(/\[(effect|key|dollSkill|summon):/);
+    }
+  });
+
+  it('renders the same steps the panel would — explanation wins', () => {
+    // A marker with no explanation is not a step description, so it must not
+    // appear as one in the indexed copy either.
+    const doll = allDolls().find((d) => {
+      const r = recommendationFor(d);
+      return r && r.markerSteps.length > 0 && r.explainedSteps.length > 0;
+    });
+    expect(
+      doll,
+      'no doll has both explained and marker-only steps'
+    ).toBeDefined();
+    const rec = recommendationFor(doll!)!;
+    const body = noJsBodyFor(resolvePage(url(`/characters/${doll!.slug}`)));
+    for (const s of rec.explainedSteps) {
+      expect(body, s.step).toContain(escapeHtml(s.note ?? ''));
+    }
+    expect(body).toContain('listed without an explanation');
   });
 
   it('covers the dolls the sheet has rows for, and no others', () => {
