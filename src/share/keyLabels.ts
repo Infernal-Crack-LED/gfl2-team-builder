@@ -11,15 +11,21 @@ export interface KeyLike {
   keyTitle: string | null;
   displayTitle: string | null;
   dollId: string | null;
+  level?: number | null;
 }
 
 /**
- * The slot number of a fixed key: Dandegate encodes it ONLY in the display
- * title ("Fixed Key 3 - Meal Prep" → 3), there is no numeric field. Returns
- * null for anything that doesn't match, so a re-sync that changes the title
- * format degrades to "no number" rather than to a wrong one.
+ * The slot number of a fixed key. The datamine stores it as `level` (1–6,
+ * the game's own slot order); the Dandegate-era data encoded it ONLY in the
+ * display title ("Fixed Key 3 - Meal Prep" → 3), kept as the fallback for
+ * old artifacts. Returns null when neither yields a slot, so a title-format
+ * change degrades to "no number" rather than to a wrong one.
  */
 export function fixedKeySlot(key: KeyLike): number | null {
+  const level = key.level;
+  if (typeof level === 'number' && level >= 1 && level <= 6) {
+    return level;
+  }
   const match = /^Fixed Key\s+(\d+)\b/i.exec(key.displayTitle ?? '');
   const n = match ? Number(match[1]) : NaN;
   return Number.isFinite(n) ? n : null;

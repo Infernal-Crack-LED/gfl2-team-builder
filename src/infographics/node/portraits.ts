@@ -118,6 +118,13 @@ function load(
   if (!imageUrl) {
     return Promise.resolve(null);
   }
+  // The datamine dataset stores art as site-relative paths
+  // (/game-assets/...); fetch() needs an absolute URL, so resolve against
+  // the site itself. Local dev without SITE_URL falls back to the vite port.
+  if (imageUrl.startsWith('/')) {
+    const base = process.env.SITE_URL ?? 'http://localhost:5173';
+    imageUrl = `${base.replace(/\/$/, '')}${imageUrl}`;
+  }
   // Mode is part of the cache key: the same URL decoded two ways is two
   // different images.
   const cacheKey = `${mode}:${imageUrl}`;

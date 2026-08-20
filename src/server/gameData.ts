@@ -85,6 +85,8 @@ export interface KeyEntry {
   keyTitle: string | null;
   displayTitle: string | null;
   dollId: string | null;
+  /** Fixed keys: the slot number (1–6). */
+  level?: number | null;
 }
 
 function loadJson<T>(file: string): T {
