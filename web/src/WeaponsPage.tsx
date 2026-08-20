@@ -9,6 +9,7 @@ import {
   useWeaponFilter,
 } from './components/WeaponGrid';
 import { escapeJsonLd } from './jsonLd';
+import { FacetLinks } from './components/FacetLinks';
 
 export function WeaponsPage() {
   const filterResult = useWeaponFilter();
@@ -42,6 +43,7 @@ export function WeaponsPage() {
         </p>
       </header>
 
+      <FacetLinks groups={['type']} />
       <WeaponFilters filterResult={filterResult} defaultOpen={true} />
       <WeaponCards weapons={filterResult.weapons} />
     </div>

@@ -10,6 +10,7 @@
 import { readFileSync } from 'node:fs';
 import path from 'node:path';
 import { stripHtml } from '../share/html.js';
+import { FACET_GROUPS, facetsFor, type Facet } from '../share/facets.js';
 import {
   indexNamedRows,
   markersToText,
@@ -42,6 +43,13 @@ export interface DollEntry {
   preview: boolean | null;
   bio: string | null;
   skills: DollSkillEntry[] | null;
+  /** The signature weapon this doll imprints — named on her builder page. */
+  weaponImprint?: {
+    id: string;
+    name: string | null;
+    trait: string | null;
+    effect: string | null;
+  } | null;
 }
 
 export interface WeaponEntry {
@@ -79,6 +87,12 @@ export interface AttachmentSetEntry {
   description: string;
 }
 
+/** One stat line on a key ("Attack Boost", "2%"). */
+export interface KeyAttribute {
+  name: string | null;
+  value: string | number | null;
+}
+
 export interface KeyEntry {
   id: string;
   keyTitle: string | null;
@@ -86,15 +100,23 @@ export interface KeyEntry {
   dollId: string | null;
   /** Fixed keys: the slot number (1–6). */
   level?: number | null;
+  // Fields below are read by the no-JS /keys body (noJsBody.ts).
+  keyType?: string | null;
+  attributes?: KeyAttribute[] | null;
+  effect?: string | null;
 }
 
 function loadJson<T>(file: string): T {
   return JSON.parse(readFileSync(path.resolve('data', file), 'utf8')) as T;
 }
 
-const dollsFile = loadJson<{ dolls: DollEntry[] }>('dolls.json');
-const weaponsFile = loadJson<{ weapons: WeaponEntry[] }>('weapons.json');
-const keysFile = loadJson<{ keys: KeyEntry[] }>('keys.json');
+const dollsFile = loadJson<{ dolls: DollEntry[]; syncedAt?: string }>(
+  'dolls.json'
+);
+const weaponsFile = loadJson<{ weapons: WeaponEntry[]; syncedAt?: string }>(
+  'weapons.json'
+);
+const keysFile = loadJson<{ keys: KeyEntry[]; syncedAt?: string }>('keys.json');
 const effectsFile = loadJson<{ effects: EffectEntry[] }>('effects.json');
 const setsFile = loadJson<{ attachmentSets: AttachmentSetEntry[] }>(
   'attachment-sets.json'
@@ -138,6 +160,88 @@ export function allDolls(): readonly DollEntry[] {
 
 export function allWeapons(): readonly WeaponEntry[] {
   return weaponsFile.weapons;
+}
+
+export function allKeys(): readonly KeyEntry[] {
+  return keysFile.keys;
+}
+
+/**
+ * The date the committed game data was last synced, as `YYYY-MM-DD` — the
+ * `<lastmod>` the sitemap reports for every data-derived page.
+ *
+ * Derived from the artifacts themselves, never from the clock: the sitemap has
+ * a drift test that compares the committed file byte-for-byte against a fresh
+ * render, and a `new Date()` here would make that test fail every midnight.
+ * Google ignores lastmod site-wide once it catches a site reporting one it
+ * doesn't believe, so this reports only what actually changed the data.
+ */
+export function dataSyncedAt(): string | null {
+  const stamps = [
+    dollsFile.syncedAt,
+    weaponsFile.syncedAt,
+    keysFile.syncedAt,
+  ].filter((s): s is string => typeof s === 'string' && s !== '');
+  if (stamps.length === 0) {
+    return null;
+  }
+  const latest = stamps.sort().at(-1) ?? '';
+  const date = latest.slice(0, 10);
+  return /^\d{4}-\d{2}-\d{2}$/.test(date) ? date : null;
+}
+
+// --- Facets -----------------------------------------------------------------
+
+/**
+ * Every facet page the site serves, built from the committed rows so the
+ * taxonomy can never name a category the data no longer has. Computed once at
+ * boot: the row sets are build inputs, not runtime state.
+ */
+const ALL_FACETS: Facet[] = FACET_GROUPS.flatMap((group) =>
+  facetsFor(
+    group,
+    (group.entity === 'doll'
+      ? dollsFile.dolls
+      : weaponsFile.weapons) as unknown as Record<string, unknown>[]
+  )
+);
+
+const facetByPath = new Map(ALL_FACETS.map((f) => [f.path, f]));
+
+export function allFacets(): readonly Facet[] {
+  return ALL_FACETS;
+}
+
+/** The facet for a `/characters/class/sentinel`-shaped path, if it is one. */
+export function getFacet(path: string): Facet | undefined {
+  return facetByPath.get(path);
+}
+
+/** Facets of one group, for the links a catalogue page lists. */
+export function facetsInGroup(key: string): Facet[] {
+  return ALL_FACETS.filter((f) => f.group.key === key);
+}
+
+/** The rows a facet page lists, in name order. */
+export function facetMembers(facet: Facet): (DollEntry | WeaponEntry)[] {
+  const rows =
+    facet.group.entity === 'doll'
+      ? (dollsFile.dolls as (DollEntry | WeaponEntry)[])
+      : (weaponsFile.weapons as (DollEntry | WeaponEntry)[]);
+  return rows
+    .filter(
+      (r) =>
+        (r as unknown as Record<string, unknown>)[facet.group.field] ===
+        facet.value
+    )
+    .sort((a, b) => a.name.localeCompare(b.name));
+}
+
+/** Every fixed key that belongs to one doll, in slot order. */
+export function fixedKeysForDoll(dollId: string): KeyEntry[] {
+  return keysFile.keys
+    .filter((k) => k.dollId === dollId && k.keyType === 'Fixed Key')
+    .sort((a, b) => (a.level ?? 0) - (b.level ?? 0));
 }
 
 // --- `[<kind>:<id>]` marker resolution ------------------------------------

@@ -27,7 +27,10 @@ describe('sitemap', () => {
     }
   });
 
-  it('lists every route the server serves a 200 for, except /saved', () => {
+  it('lists every route the server serves a 200 for, except the unlisted', () => {
+    // /saved is per-visitor and noindex; /dev is an about-the-author page that
+    // does not need crawl budget nominated for it.
+    const unlisted = new Set(['saved', 'dev']);
     const xml = generateSitemap();
     for (const key of Object.keys(ROUTE_META)) {
       const path =
@@ -37,7 +40,7 @@ describe('sitemap', () => {
             ? '/tools/infographics'
             : `/${key}`;
       const listed = xml.includes(`<loc>${SITE}${path}</loc>`);
-      expect(listed, key).toBe(key !== 'saved');
+      expect(listed, key).toBe(!unlisted.has(key));
     }
   });
 

@@ -14,6 +14,7 @@ export type Route =
   | 'character'
   | 'weapons'
   | 'weapon'
+  | 'facet'
   | 'team-builder'
   | 'builder'
   | 'keys'
@@ -59,12 +60,18 @@ export function routeFromPath(pathname: string): Route {
     return 'home';
   }
   if (seg === 'characters') {
-    // If a second segment exists, this is a detail page
+    // Three segments is a facet (/characters/class/sentinel); two is a doll.
     const parts = pathname.replace(/^\/+|\/+$/g, '').split('/');
+    if (parts.length > 2) {
+      return 'facet';
+    }
     return parts.length > 1 ? 'character' : 'characters';
   }
   if (seg === 'weapons') {
     const parts = pathname.replace(/^\/+|\/+$/g, '').split('/');
+    if (parts.length > 2) {
+      return 'facet';
+    }
     return parts.length > 1 ? 'weapon' : 'weapons';
   }
   if (seg === 'team-builder' || seg === 'teambuilder') {

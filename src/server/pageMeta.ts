@@ -51,13 +51,21 @@ import {
 } from './htmlHead.js';
 import {
   getDoll,
+  getFacet,
   getWeaponBySlug,
   type DollEntry,
   type WeaponEntry,
 } from './gameData.js';
+import {
+  facetDescription,
+  facetHeading,
+  facetTitle,
+  type Facet,
+} from '../share/facets.js';
 
 /** What kind of page a URL resolved to — picks the no-JS body and crumbs. */
-export type PageKind = 'route' | 'doll' | 'weapon' | 'builder' | 'not-found';
+export type PageKind =
+  'route' | 'doll' | 'weapon' | 'builder' | 'facet' | 'not-found';
 
 export interface ResolvedPage {
   kind: PageKind;
@@ -68,6 +76,7 @@ export interface ResolvedPage {
   status: 200 | 404;
   doll?: DollEntry;
   weapon?: WeaponEntry;
+  facet?: Facet;
 }
 
 /**
@@ -133,6 +142,24 @@ export function resolvePage(url: URL): ResolvedPage {
 
   const first = segs[0] ?? '';
   const second = segs[1];
+
+  // Facets are three-segment paths under a catalogue (/characters/class/
+  // sentinel), so they must be checked BEFORE the detail branches below, which
+  // treat any third segment as a 404. An unknown facet value — or one whose
+  // membership fell under MIN_FACET_MEMBERS — is a real 404, not a soft page.
+  if (segs.length === 3 && (first === 'characters' || first === 'weapons')) {
+    const facet = getFacet(canonicalPath);
+    return facet
+      ? {
+          kind: 'facet',
+          key: `${facet.group.key}/${facet.slug}`,
+          meta: facetPageMeta(facet),
+          canonicalPath,
+          status: 200,
+          facet,
+        }
+      : notFound();
+  }
 
   if (first === 'characters' && second !== undefined) {
     if (segs.length > 2) {
@@ -211,6 +238,15 @@ export function resolvePage(url: URL): ResolvedPage {
   }
 
   return notFound();
+}
+
+/** Title/description/label for a facet page, from the shared taxonomy. */
+function facetPageMeta(facet: Facet): PageMeta {
+  return {
+    title: facetTitle(facet),
+    description: facetDescription(facet),
+    label: facetHeading(facet),
+  };
 }
 
 /** `%20`-style escapes decoded, malformed sequences left alone (never throws). */
@@ -319,6 +355,17 @@ export function breadcrumbFor(page: ResolvedPage): Crumb[] | null {
         return [home, crumb('weapons'), leaf];
       case 'builder':
         return [home, crumb('tools'), crumb('builder'), leaf];
+      case 'facet':
+        // A facet sits directly under its catalogue: Home › Characters ›
+        // Sentinel dolls. The group ("class") gets no crumb of its own —
+        // /characters/class is not a page.
+        return [
+          home,
+          crumb(
+            page.facet?.group.entity === 'weapon' ? 'weapons' : 'characters'
+          ),
+          leaf,
+        ];
       default:
         break;
     }

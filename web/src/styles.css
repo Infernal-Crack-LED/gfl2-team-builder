@@ -1642,6 +1642,60 @@ td {
   gap: 8px;
 }
 
+/* ---- Facet links ----
+   "Browse by class/phase/weapon type" on the catalogue pages. Rendered both by
+   FacetLinks.tsx and by the server's no-JS body, so the class names here have
+   to satisfy both. */
+.facet-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 8px 12px;
+  margin-bottom: 12px;
+}
+
+.facet-row-label {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+  flex: 0 0 auto;
+}
+
+.facet-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.facet-links a {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 6px;
+  padding: 4px 10px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--panel2);
+  color: var(--text);
+  font-size: 13px;
+  text-decoration: none;
+}
+
+.facet-links a:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.facet-count {
+  color: var(--muted);
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+}
+
+.facet-links a:hover .facet-count {
+  color: inherit;
+}
+
 /* ---- Weapons Page ---- */
 .weapons-page header {
   margin-bottom: 16px;

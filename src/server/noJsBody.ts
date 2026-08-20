@@ -3,9 +3,13 @@
  *
  * A crawler that does not execute JS sees `<div id="root"></div>` and nothing
  * else — the entire site is one empty shell to it. These functions render the
- * content of the four pages that exist to BE indexed (the two catalogues and
- * the two detail pages) as plain server HTML, so the doll names, kits and
- * weapon traits are in the response body.
+ * content of every page that exists to BE indexed — the landing page, the three
+ * catalogues (characters, weapons, keys) and the three detail pages (doll,
+ * weapon, builder) — as plain server HTML, so the doll names, kits, weapon
+ * traits and key effects are in the response body.
+ *
+ * Google renders JS on a second, budgeted pass; Bing and most AI crawlers
+ * largely do not. Everything indexable therefore ships in the first response.
  *
  * Same-source rule: every string here comes from the same committed
  * `data/*.json` rows the React pages import (via gameData.ts), so the crawler
@@ -18,11 +22,25 @@
  */
 import { stripHtml } from '../share/html.js';
 import {
+  HOME_FEATURES,
+  HOME_HERO,
+  HOME_SECTION_TITLE,
+} from '../share/homeContent.js';
+import { dev } from '../share/siteIdentity.js';
+import { facetHeading, introFor, type Facet } from '../share/facets.js';
+import {
   allDolls,
+  allKeys,
   allWeapons,
+  facetMembers,
+  facetsInGroup,
+  fixedKeysForDoll,
   getDollById,
+  getWeapon,
+  keyDisplayName,
   resolveMarkerText,
   type DollEntry,
+  type KeyEntry,
   type WeaponEntry,
 } from './gameData.js';
 import { escapeHtml } from './htmlHead.js';
@@ -75,25 +93,305 @@ const TOOLS_LINKS =
   '<a href="/team-builder">Team builder</a>' +
   '</div></section>';
 
+/**
+ * `/` — the hero line and the six feature cards, from the same
+ * `share/homeContent.ts` the React landing page renders. The landing page is
+ * the site's authority page for brand and "gfl2 team builder" queries, and it
+ * is also the top of the internal link graph: these six links are how a crawler
+ * that starts at the root reaches the two catalogues at all.
+ */
+function homeBody(): string {
+  const features = HOME_FEATURES.map(
+    (f) =>
+      `<a class="home-feature" href="${f.href}">` +
+      `<h2>${escapeHtml(f.title)}</h2>` +
+      `<p>${escapeHtml(f.blurb)}</p>` +
+      `<span class="home-feature-cta">${escapeHtml(f.cta)} →</span>` +
+      '</a>'
+  ).join('');
+  return (
+    '<div class="app home-page">' +
+    '<section class="home-hero"><h1>Refitting Room</h1>' +
+    `<p>${escapeHtml(HOME_HERO)}</p>` +
+    '<div class="home-cta-row">' +
+    '<a class="btn-solid" href="/team-builder">Build a Team</a>' +
+    '<a class="btn-outline" href="/characters">Browse Characters</a>' +
+    '</div></section>' +
+    '<section class="home-section">' +
+    `<h2 class="home-section-title">${escapeHtml(HOME_SECTION_TITLE)}</h2>` +
+    `<div class="home-feature-grid">${features}</div>` +
+    '</section>' +
+    // The two callouts, and specifically the nikkesim.app one: that is half of
+    // a reciprocal link between two sites the same person runs, and the other
+    // half is already in nikkesim's own server-rendered body. A link only the
+    // React tree emits is a link no crawler ever counts.
+    callout('Meet ' + dev.helen.name, dev.helen.blurb, {
+      href: dev.helen.addToServer,
+      label: `Add ${dev.helen.name} to your server`,
+    }) +
+    callout(dev.nikkesim.name, dev.nikkesim.blurb, {
+      href: dev.nikkesim.url,
+      label: `Visit ${dev.nikkesim.name}`,
+    }) +
+    '</div>'
+  );
+}
+
+/** One `.home-callout` block — heading, blurb, and its outbound link. */
+function callout(
+  heading: string,
+  blurb: string,
+  link: { href: string; label: string }
+): string {
+  return (
+    '<section class="home-callout"><div class="home-callout-body">' +
+    `<h2>${escapeHtml(heading)}</h2>` +
+    `<p>${escapeHtml(blurb)}</p>` +
+    `<a href="${escapeHtml(link.href)}">${escapeHtml(link.label)}</a>` +
+    '</div></section>'
+  );
+}
+
+/**
+ * A key's stat lines, in the same `.keycard-attrs` shape KeyCard.tsx renders so
+ * the body is styled for the moment it is on screen before React boots.
+ */
+function keyAttributes(key: KeyEntry): string {
+  const rows = (key.attributes ?? [])
+    .filter((a) => a.name && a.value !== null && a.value !== undefined)
+    .map(
+      (a) =>
+        `<span class="keycard-attr-name">${escapeHtml(a.name ?? '')}</span>` +
+        `<span class="keycard-attr-value">${escapeHtml(String(a.value))}</span>`
+    )
+    .join('');
+  return rows ? `<div class="keycard-attrs">${rows}</div>` : '';
+}
+
+/**
+ * `/keys` — all three key pools with their stats and effect text.
+ *
+ * The keys page carries a whole database (590 rows) that a crawler could not
+ * see at all: it is the one catalogue with no per-row page of its own, so this
+ * body is the ONLY indexable copy. Fixed keys link back to the doll that owns
+ * them, which also makes this page a second crawl path into /characters/<slug>.
+ */
+function keysBody(): string {
+  const order = ['Fixed Key', 'Expansion Key', 'Common Key'];
+  const byType = new Map<string, KeyEntry[]>();
+  for (const key of allKeys()) {
+    const type = key.keyType ?? 'Key';
+    const bucket = byType.get(type);
+    if (bucket) {
+      bucket.push(key);
+    } else {
+      byType.set(type, [key]);
+    }
+  }
+
+  const groups = order
+    .filter((type) => byType.has(type))
+    .map((type) => {
+      const rows = (byType.get(type) ?? [])
+        .map((key) => {
+          const owner = getDollById(key.dollId ?? null);
+          const effect = text(key.effect);
+          return (
+            '<div class="keycard">' +
+            `<div class="keycard-head"><h3>${escapeHtml(keyDisplayName(key))}</h3>` +
+            (key.level
+              ? `<span class="keycard-level">Slot ${key.level}</span>`
+              : '') +
+            '</div>' +
+            (owner
+              ? `<p class="muted"><a href="/characters/${encodeURIComponent(owner.slug)}">${escapeHtml(owner.name)}</a></p>`
+              : '') +
+            keyAttributes(key) +
+            (effect ? `<p class="keycard-effect">${effect}</p>` : '') +
+            '</div>'
+          );
+        })
+        .join('');
+      return `<h2>${escapeHtml(type)}s</h2><div class="keygrid">${rows}</div>`;
+    })
+    .join('');
+
+  return (
+    '<div class="app keys-page"><header><h1>Keys</h1>' +
+    '<p class="muted">Every fixed, expansion, and common key, with its stats and effects.</p>' +
+    `</header>${groups}</div>`
+  );
+}
+
+/**
+ * `/builder/<slug>` — the doll's fixed keys and signature weapon.
+ *
+ * Deliberately NOT a copy of the doll page: that one words her skills and bio,
+ * this one words her keys and imprint. 63 builder URLs that differed only by a
+ * name in the title were thin near-duplicates; giving each one the content its
+ * own title promises is what makes them worth indexing.
+ */
+function builderBody(doll: DollEntry): string {
+  const keys = fixedKeysForDoll(doll.id)
+    .map((key) => {
+      const effect = text(key.effect);
+      return (
+        '<div class="keycard">' +
+        `<div class="keycard-head"><h3>${escapeHtml(keyDisplayName(key))}</h3>` +
+        (key.level
+          ? `<span class="keycard-level">Slot ${key.level}</span>`
+          : '') +
+        '</div>' +
+        keyAttributes(key) +
+        (effect ? `<p class="keycard-effect">${effect}</p>` : '') +
+        '</div>'
+      );
+    })
+    .join('');
+
+  const imprint = doll.weaponImprint ?? null;
+  // By id, never by slugifying the name: the weapon rows are the same dataset,
+  // so a real join cannot drift the way a reconstructed slug would.
+  const imprintWeapon = imprint ? getWeapon(imprint.id) : undefined;
+  const imprintInner = imprint?.name
+    ? `<h3>${
+        imprintWeapon
+          ? `<a href="/weapons/${encodeURIComponent(imprintWeapon.slug)}">${escapeHtml(imprint.name)}</a>`
+          : escapeHtml(imprint.name)
+      }</h3>` +
+      (imprint.trait
+        ? `<p class="muted">${escapeHtml(imprint.trait)}</p>`
+        : '') +
+      (text(imprint.effect) ? `<p>${text(imprint.effect)}</p>` : '')
+    : '';
+
+  return (
+    '<div class="app dollbuilder-page">' +
+    crumbs(
+      [
+        { href: '/tools', label: 'Tools' },
+        { href: '/builder', label: 'Doll Builder' },
+      ],
+      `${doll.name} Builder`
+    ) +
+    `<div class="unit-header"><div class="unit-meta"><h1>${escapeHtml(doll.name)} Builder</h1>` +
+    `<p class="muted">Plan ${escapeHtml(doll.name)}'s weapon, keys, attachment sets and vertebra segments.</p>` +
+    idents([doll.class, doll.phase, doll.weaponImprintType, doll.rarity]) +
+    '</div></div>' +
+    section('Fixed keys', keys) +
+    section('Signature weapon', imprintInner) +
+    `<section class="unit-section"><h2>Full profile</h2><div class="unit-tools">` +
+    `<a href="/characters/${encodeURIComponent(doll.slug)}">${escapeHtml(doll.name)}'s kit and stats</a>` +
+    '</div></section>' +
+    TOOLS_LINKS +
+    '</div>'
+  );
+}
+
+/** One doll's card, as a real link. Shared by /characters and its facets. */
+function dollCard(d: DollEntry): string {
+  const tags = [d.class, d.phase, d.rarity].filter(Boolean).join(' · ');
+  return (
+    `<a class="dollcard" href="/characters/${encodeURIComponent(d.slug)}">` +
+    '<div class="dollcard-body">' +
+    `<div class="dollcard-name">${escapeHtml(d.name)}</div>` +
+    (tags ? `<div class="dollcard-meta">${escapeHtml(tags)}</div>` : '') +
+    '</div></a>'
+  );
+}
+
+/** One weapon's card. Shared by /weapons and its facets. */
+function weaponCard(w: WeaponEntry): string {
+  const tags = [w.weaponType, w.rarity].filter(Boolean).join(' · ');
+  return (
+    `<a class="weaponcard" href="/weapons/${encodeURIComponent(w.slug)}">` +
+    '<div class="dollcard-body">' +
+    `<div class="dollcard-name">${escapeHtml(w.name)}</div>` +
+    (tags ? `<div class="dollcard-meta">${escapeHtml(tags)}</div>` : '') +
+    '</div></a>'
+  );
+}
+
+/**
+ * The facet links for a catalogue page — "Browse by class: Sentinel, Support…".
+ *
+ * This is what keeps the 17 facet pages from being orphans that only the
+ * sitemap knows about: a crawler reaching /characters finds every one of them
+ * as a real link, and the facet pages link back. Nothing depends on the
+ * sitemap alone for discovery.
+ */
+function facetLinks(groups: string[]): string {
+  return groups
+    .map((key) => {
+      const facets = facetsInGroup(key);
+      if (facets.length === 0) {
+        return '';
+      }
+      const label = key === 'type' ? 'weapon type' : key;
+      const links = facets
+        .map(
+          (f) =>
+            `<a href="${f.path}">${escapeHtml(f.value)} <span class="facet-count">${f.count}</span></a>`
+        )
+        .join('');
+      return (
+        `<div class="facet-row"><span class="facet-row-label">Browse by ${escapeHtml(label)}</span>` +
+        `<div class="facet-links">${links}</div></div>`
+      );
+    })
+    .join('');
+}
+
 /** `/characters` — every doll as a real link. THIS is the crawl hub. */
 function charactersBody(): string {
   const cards = [...allDolls()]
     .sort((a, b) => a.name.localeCompare(b.name))
-    .map((d) => {
-      const tags = [d.class, d.phase, d.rarity].filter(Boolean).join(' · ');
-      return (
-        `<a class="dollcard" href="/characters/${encodeURIComponent(d.slug)}">` +
-        '<div class="dollcard-body">' +
-        `<div class="dollcard-name">${escapeHtml(d.name)}</div>` +
-        (tags ? `<div class="dollcard-meta">${escapeHtml(tags)}</div>` : '') +
-        '</div></a>'
-      );
-    })
+    .map(dollCard)
     .join('');
   return (
     '<div class="app characters-page"><header><h1>Characters</h1>' +
     '<p class="muted">Browse every doll. Filter by class, phase, weapon type, and more.</p>' +
-    `</header><div class="dollgrid">${cards}</div></div>`
+    `</header>${facetLinks(['class', 'phase'])}<div class="dollgrid">${cards}</div></div>`
+  );
+}
+
+/**
+ * `/characters/class/<slug>` and friends — the complete membership of one
+ * facet. The list IS the content: the guide sites answer these queries with
+ * three examples inside a tier list, and this answers with all of them.
+ */
+function facetBody(facet: Facet): string {
+  const members = facetMembers(facet);
+  const cards = members
+    .map((m) =>
+      facet.group.entity === 'doll'
+        ? dollCard(m as DollEntry)
+        : weaponCard(m as WeaponEntry)
+    )
+    .join('');
+  const parentLabel = facet.group.entity === 'doll' ? 'Characters' : 'Weapons';
+  const siblings = facetsInGroup(facet.group.key).filter(
+    (f) => f.slug !== facet.slug
+  );
+  const related = siblings.length
+    ? '<section class="unit-section"><h2>Related</h2><div class="unit-tools">' +
+      siblings
+        .map((f) => `<a href="${f.path}">${escapeHtml(facetHeading(f))}</a>`)
+        .join('') +
+      `<a href="${facet.group.base}">All ${escapeHtml(parentLabel.toLowerCase())}</a>` +
+      '</div></section>'
+    : '';
+
+  return (
+    '<div class="app characters-page">' +
+    crumbs(
+      [{ href: facet.group.base, label: parentLabel }],
+      facetHeading(facet)
+    ) +
+    `<header><h1>${escapeHtml(facetHeading(facet))}</h1>` +
+    `<p class="muted">${escapeHtml(introFor(facet))}</p>` +
+    `<p class="muted">${members.length} ${escapeHtml(facet.group.noun)}.</p>` +
+    `</header><div class="dollgrid">${cards}</div>${related}</div>`
   );
 }
 
@@ -101,21 +399,12 @@ function charactersBody(): string {
 function weaponsBody(): string {
   const cards = [...allWeapons()]
     .sort((a, b) => a.name.localeCompare(b.name))
-    .map((w) => {
-      const tags = [w.weaponType, w.rarity].filter(Boolean).join(' · ');
-      return (
-        `<a class="weaponcard" href="/weapons/${encodeURIComponent(w.slug)}">` +
-        '<div class="dollcard-body">' +
-        `<div class="dollcard-name">${escapeHtml(w.name)}</div>` +
-        (tags ? `<div class="dollcard-meta">${escapeHtml(tags)}</div>` : '') +
-        '</div></a>'
-      );
-    })
+    .map(weaponCard)
     .join('');
   return (
     '<div class="app weapons-page"><header><h1>Weapons</h1>' +
     '<p class="muted">Browse every weapon. Filter by rarity, type, and primary attribute.</p>' +
-    `</header><div class="dollgrid">${cards}</div></div>`
+    `</header>${facetLinks(['type'])}<div class="dollgrid">${cards}</div></div>`
   );
 }
 
@@ -210,8 +499,10 @@ function weaponBody(weapon: WeaponEntry): string {
 }
 
 /**
- * The no-JS body for a resolved page, or '' when that page has none (tools,
- * legal pages, 404s — nothing there is a crawl target that JS-off changes).
+ * The no-JS body for a resolved page, or '' when that page has none — the
+ * remaining routes are interactive tools (/team-builder, /tools/infographics)
+ * and legal/credits pages whose text is short enough that Google's render pass
+ * covers them, plus 404s. Nothing there is a ranking target.
  */
 export function noJsBodyFor(page: ResolvedPage): string {
   if (page.status !== 200) {
@@ -223,11 +514,23 @@ export function noJsBodyFor(page: ResolvedPage): string {
   if (page.kind === 'weapon' && page.weapon) {
     return weaponBody(page.weapon);
   }
+  if (page.kind === 'builder' && page.doll) {
+    return builderBody(page.doll);
+  }
+  if (page.kind === 'facet' && page.facet) {
+    return facetBody(page.facet);
+  }
   if (page.kind === 'route' && page.key === 'characters') {
     return charactersBody();
   }
   if (page.kind === 'route' && page.key === 'weapons') {
     return weaponsBody();
+  }
+  if (page.kind === 'route' && page.key === 'keys') {
+    return keysBody();
+  }
+  if (page.kind === 'route' && page.key === 'home') {
+    return homeBody();
   }
   return '';
 }
