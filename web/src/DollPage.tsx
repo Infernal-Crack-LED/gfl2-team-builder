@@ -148,6 +148,23 @@ function SkillSection({ skill }: { skill: Skill }) {
           </span>
         )}
       </div>
+
+      {/* Range grid, rendered by the data pipeline from the client's own
+          shape tables. Level tabs swap in the level's grid when it differs. */}
+      {(() => {
+        const levelKey = `rangeImageUrlLevel${level}` as const;
+        const rangeImg =
+          (level > 1 ? (skill[levelKey] as string | null) : null) ??
+          skill.rangeImageUrl;
+        return rangeImg ? (
+          <img
+            className="unit-skill-range"
+            src={rangeImg}
+            alt="Skill range grid"
+            loading="lazy"
+          />
+        ) : null;
+      })()}
     </div>
   );
 }

@@ -60,6 +60,11 @@ export interface Skill {
   cooldown: number | string | null;
   rangeValue: number | string | null;
   effectiveArea: string | null;
+  /** Range/area grid rendered from the client's own shape tables. */
+  rangeImageUrl?: string | null;
+  rangeImageUrlLevel2?: string | null;
+  rangeImageUrlLevel3?: string | null;
+  rangeImageUrlLevel4?: string | null;
   [key: string]: unknown;
 }
 

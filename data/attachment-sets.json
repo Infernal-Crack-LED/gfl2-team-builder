@@ -1,31 +1,6 @@
 {
-  "syncedAt": "2026-08-20T10:36:50.182Z",
+  "syncedAt": "2026-08-20T10:46:22.924Z",
   "attachmentSets": [
-    {
-      "name": "Allay Support",
-      "piecesRequired": 3,
-      "description": "When using defense skills, additionally applies [effect:b266201] to allied units for 2 turns."
-    },
-    {
-      "name": "Burn Boost",
-      "piecesRequired": 3,
-      "description": "When dealing Burn damage, the damage is increased by 20%."
-    },
-    {
-      "name": "Close Assault",
-      "piecesRequired": 3,
-      "description": "Damage dealt is increased by 12%. When dealing melee damage, damage is additionally increased by 24%."
-    },
-    {
-      "name": "Corrosion Boost",
-      "piecesRequired": 3,
-      "description": "When dealing Corrosion damage, the damage is increased by 20%."
-    },
-    {
-      "name": "Double Strategy",
-      "piecesRequired": 3,
-      "description": "When enemy target is not near Cover, increases targeted damage by 10%. When enemy target is near Cover, increases AoE damage by 10%."
-    },
     {
       "name": "Electric Boost",
       "piecesRequired": 3,
@@ -80,6 +55,31 @@
       "name": "Ultimate Pursuit",
       "piecesRequired": 3,
       "description": "Increases the damage, healing, and shield effects of Ultimate skills by 5%. Gains 1 stack after each use of an Ultimate skill, up to a maximum of 4 stacks."
+    },
+    {
+      "name": "Allay Support",
+      "piecesRequired": 3,
+      "description": "When using defense skills, additionally applies [effect:b266201] to allied units for 2 turns."
+    },
+    {
+      "name": "Burn Boost",
+      "piecesRequired": 3,
+      "description": "When dealing Burn damage, the damage is increased by 20%."
+    },
+    {
+      "name": "Close Assault",
+      "piecesRequired": 3,
+      "description": "Damage dealt is increased by 12%. When dealing melee damage, damage is additionally increased by 24%."
+    },
+    {
+      "name": "Corrosion Boost",
+      "piecesRequired": 3,
+      "description": "When dealing Corrosion damage, the damage is increased by 20%."
+    },
+    {
+      "name": "Double Strategy",
+      "piecesRequired": 3,
+      "description": "When enemy target is not near Cover, increases targeted damage by 10%. When enemy target is near Cover, increases AoE damage by 10%."
     }
   ]
 }

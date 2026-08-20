@@ -1554,6 +1554,21 @@ td {
   vertical-align: 1px;
 }
 
+/* Skill range grid (pipeline-rendered): small, crisp, zooms on hover. */
+.unit-skill-range {
+  display: block;
+  margin-top: 8px;
+  max-height: 96px;
+  width: auto;
+  image-rendering: pixelated;
+  border-radius: 4px;
+  transition: max-height 0.15s ease;
+}
+
+.unit-skill-range:hover {
+  max-height: 250px;
+}
+
 /* Remolding pattern: a pill row (core, slots, stat boosts) over the six
    imago stages. Vertebrae reuse .unit-keys-grid / .unit-key-card. */
 .unit-remold-summary {
