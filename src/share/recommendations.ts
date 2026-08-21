@@ -52,6 +52,8 @@ export interface RecExplanationSource {
 /** A raw row as it appears in data/recommendations-source.json. */
 export interface RecommendationSource {
   path?: RecPathStep[] | null;
+  /** Google `gid` of this doll's tab, when the sheet's index lists her. */
+  sheetGid?: string | null;
   explanation?: RecExplanationSource[] | null;
   weapons?: string[] | null;
   attachments?: Partial<RecAttachments> | null;
@@ -159,6 +161,8 @@ export interface HydratedRecommendation {
   caveats: RecExplanation[];
   /** Everything else: mechanics, rotations, interactions. */
   notes: RecExplanation[];
+  /** Where to cite this doll's analysis — her tab, or the sheet root. */
+  sheetUrl: string;
   weapons: RecLink[];
   keys: { primary: RecLink[]; alternatives: RecLink[] };
   attachments: RecAttachments;
@@ -223,6 +227,20 @@ export function splitAside(raw: string): {
     return { name: raw.trim(), aside: null };
   }
   return { name: m[1].trim(), aside: (m[2] ?? '').trim() || null };
+}
+
+/**
+ * The citation link for one doll: her own tab when the sheet's Quick Links
+ * index names her, the spreadsheet root otherwise.
+ *
+ * Degrades rather than misleads — a wrong `gid` would land the reader on some
+ * other doll's analysis while claiming to be hers, which is worse for the
+ * maintainers than one extra click.
+ */
+export function sheetUrlFor(gid: string | null | undefined): string {
+  return typeof gid === 'string' && /^\d+$/.test(gid)
+    ? `${RECOMMENDATION_CREDIT.sheetUrl.split('/edit')[0]}/edit?gid=${gid}#gid=${gid}`
+    : RECOMMENDATION_CREDIT.sheetUrl;
 }
 
 /** Shown wherever recommendations are rendered. Not optional — see the header. */
@@ -345,6 +363,7 @@ export function hydrateRecommendation(
     markerSteps: path.filter((s) => s.note === null).map((s) => s.step),
     verdict,
     noPath,
+    sheetUrl: sheetUrlFor(source.sheetGid),
     caveats,
     notes,
     weapons,

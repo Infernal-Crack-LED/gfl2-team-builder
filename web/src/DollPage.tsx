@@ -358,7 +358,9 @@ export function DollPage({ slug }: { slug: string | null }) {
   // Set document head for this doll
   useEffect(() => {
     if (doll) {
-      const meta = dollPageMeta(doll);
+      const meta = dollPageMeta(doll, {
+        hasRecommendation: recommendationFor(doll) !== null,
+      });
       setDetailMeta(meta.title, meta.description);
 
       // JSON-LD

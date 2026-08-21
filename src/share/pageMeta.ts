@@ -143,11 +143,32 @@ export const NOT_FOUND_META: PageMeta = {
 // calls them for the crawler head, off the same data/*.json rows.
 
 /** `/characters/<slug>` — a doll's profile. */
-export function dollPageMeta(doll: {
-  name: string;
-  class?: string | null;
-  phase?: string | null;
-}): PageMeta {
+export function dollPageMeta(
+  doll: {
+    name: string;
+    class?: string | null;
+    phase?: string | null;
+  },
+  opts?: {
+    /**
+     * Whether the page actually carries a community build recommendation.
+     *
+     * "<doll> build" is the highest-intent query these pages can win, and the
+     * page now answers it — but only for the dolls the GFL2 Info Sheet covers.
+     * Promising a build in the title of a page that has none is the kind of
+     * mismatch that costs more in bounce than the keyword gains, so the two
+     * dolls without one keep the kit-and-stats wording.
+     */
+    hasRecommendation?: boolean;
+  }
+): PageMeta {
+  if (opts?.hasRecommendation) {
+    return {
+      title: `${doll.name} Build — GFL2 Weapons, Keys & Kit`,
+      description: `Recommended build for ${doll.name} in Girls' Frontline 2: Exilium — weapons, keys, attachments and vertical investment, plus her full kit, skills and stats.`,
+      label: doll.name,
+    };
+  }
   return {
     title: `${doll.name} — GFL2 Doll Kit & Stats`,
     description: `${doll.name}: ${doll.class ?? 'Unknown class'} ${doll.phase ?? ''} doll in Girls' Frontline 2: Exilium. View skills, keys, and stats.`,

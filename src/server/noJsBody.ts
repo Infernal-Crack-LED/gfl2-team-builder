@@ -29,6 +29,11 @@ import {
 import { dev } from '../share/siteIdentity.js';
 import { facetHeading, introFor, type Facet } from '../share/facets.js';
 import {
+  RECOMMENDATION_CREDIT,
+  type RecLink,
+} from '../share/recommendations.js';
+import { recommendationFor } from './recommendations.js';
+import {
   allDolls,
   allKeys,
   allWeapons,
@@ -342,6 +347,140 @@ function facetLinks(groups: string[]): string {
     .join('');
 }
 
+/**
+ * The community build recommendation, as server HTML.
+ *
+ * This is the crawl-facing half of the panel React renders on the doll page,
+ * and the reason the recommendation work exists: "<doll> build" is the query
+ * these pages answer, and until this existed the entire answer was
+ * JS-only — visible to a visitor, invisible to Bing and to every AI crawler.
+ *
+ * Same hydration the React panel uses (share/recommendations.ts, bound to the
+ * server rows by server/recommendations.ts), so the crawler cannot be shown a
+ * weapon the visitor is not.
+ *
+ * The credit is NOT optional and NOT deferred to a footer: this is the GFL2
+ * Info Sheet maintainers' analysis, used under permission that does not travel
+ * onward, and it leads the section here exactly as it does in the React panel.
+ */
+function recommendationSection(doll: DollEntry): string {
+  const rec = recommendationFor(doll);
+  if (!rec) {
+    return '';
+  }
+
+  const linkRow = (item: RecLink, rank?: number): string => {
+    const name = item.href
+      ? `<a href="${item.href}">${escapeHtml(item.label)}</a>`
+      : escapeHtml(item.label);
+    const detail = text(item.detail);
+    return (
+      '<li class="recbuild-item">' +
+      '<div class="recbuild-item-head">' +
+      (rank === undefined ? '' : `<span class="recbuild-rank">${rank}</span>`) +
+      `<span class="recbuild-item-name">${name}</span>` +
+      (item.meta
+        ? `<span class="recbuild-item-meta">${escapeHtml(item.meta)}</span>`
+        : '') +
+      (item.aside
+        ? `<span class="recbuild-item-aside">${escapeHtml(item.aside)}</span>`
+        : '') +
+      '</div>' +
+      (detail ? `<p class="recbuild-item-detail">${detail}</p>` : '') +
+      '</li>'
+    );
+  };
+
+  const list = (items: RecLink[], ranked: boolean): string =>
+    items.length
+      ? `<ul class="recbuild-list">${items
+          .map((it, i) => linkRow(it, ranked ? i + 1 : undefined))
+          .join('')}</ul>`
+      : '';
+
+  const prose = (blocks: { text: string; refs: string[] }[]): string =>
+    blocks
+      .map(
+        (b) =>
+          `<p class="recbuild-prose">${escapeHtml(b.text)}</p>` +
+          (b.refs.length
+            ? `<p class="recbuild-refs">Concerns ${b.refs
+                .map(
+                  (r) => `<span class="recbuild-ref">${escapeHtml(r)}</span>`
+                )
+                .join('')}</p>`
+            : '')
+      )
+      .join('');
+
+  // Vertical investment: the verdict leads, then the steps the sheet
+  // explains, then the breakpoints it marks without explaining.
+  const investment =
+    (rec.verdict
+      ? `<p class="recbuild-verdict">Recommended: ${escapeHtml(rec.verdict.text)}</p>`
+      : '') +
+    (rec.noPath
+      ? `<p class="recbuild-prose">${escapeHtml(rec.noPath.text)}</p>`
+      : '') +
+    (rec.explainedSteps.length
+      ? `<ol class="recbuild-path">${rec.explainedSteps
+          .map(
+            (s) =>
+              '<li>' +
+              `<span class="recbuild-step">${escapeHtml(s.step)}</span>` +
+              `<span class="recbuild-step-note">${escapeHtml(s.note ?? '')}</span>` +
+              '</li>'
+          )
+          .join('')}</ol>`
+      : '') +
+    (rec.markerSteps.length
+      ? `<p class="recbuild-markers">Also marked ${rec.markerSteps
+          .map((s) => `<span class="recbuild-ref">${escapeHtml(s)}</span>`)
+          .join('')} — listed without an explanation</p>`
+      : '') +
+    prose(rec.caveats);
+
+  const a = rec.attachments;
+  const attachments =
+    (a.mainSet
+      ? `<div class="recbuild-item"><div class="recbuild-item-head">` +
+        `<span class="recbuild-item-name">${escapeHtml(a.mainSet)}</span></div>` +
+        (text(a.setEffect)
+          ? `<p class="recbuild-item-detail">${text(a.setEffect)}</p>`
+          : '') +
+        '</div>'
+      : '') +
+    (a.substats
+      ? `<p class="recbuild-substats">Substats ${escapeHtml(a.substats)}</p>`
+      : '');
+
+  const sub = (title: string, inner: string): string =>
+    inner
+      ? `<div class="recbuild-section"><h3>${title}</h3>${inner}</div>`
+      : '';
+
+  return (
+    '<section class="unit-section unit-panel recbuild-panel">' +
+    '<h2>Recommended build</h2>' +
+    `<p class="recbuild-credit">${escapeHtml(RECOMMENDATION_CREDIT.lead)} ` +
+    `<a href="${escapeHtml(rec.sheetUrl)}" target="_blank" rel="noreferrer">` +
+    `View ${escapeHtml(doll.name)} on the ${escapeHtml(RECOMMENDATION_CREDIT.sheetName)}</a></p>` +
+    sub('Vertical investment', investment) +
+    sub('Weapons', list(rec.weapons, true)) +
+    sub(
+      'Keys',
+      list(rec.keys.primary, false) +
+        (rec.keys.alternatives.length
+          ? '<p class="recbuild-subsection-label">Alternatives</p>' +
+            list(rec.keys.alternatives, false)
+          : '')
+    ) +
+    sub('Attachments', attachments) +
+    sub(`Notes on playing ${escapeHtml(doll.name)}`, prose(rec.notes)) +
+    '</section>'
+  );
+}
+
 /** `/characters` — every doll as a real link. THIS is the crawl hub. */
 function charactersBody(): string {
   const cards = [...allDolls()]
@@ -453,6 +592,7 @@ function dollBody(doll: DollEntry): string {
       doll.preview ? 'Unreleased' : null,
     ]) +
     '</div></div>' +
+    recommendationSection(doll) +
     section('Skills', skills) +
     section('Bio', bio ? `<p>${bio}</p>` : '') +
     `<section class="unit-section"><h2>Build</h2><div class="unit-tools">` +

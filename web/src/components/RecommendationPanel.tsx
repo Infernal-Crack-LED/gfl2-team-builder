@@ -129,11 +129,7 @@ export function RecommendationPanel({
         <h2>Recommended build</h2>
         <p className="recbuild-credit">
           {RECOMMENDATION_CREDIT.lead} <br />
-          <a
-            href={RECOMMENDATION_CREDIT.sheetUrl}
-            target="_blank"
-            rel="noreferrer"
-          >
+          <a href={rec.sheetUrl} target="_blank" rel="noreferrer">
             View {dollName} on the {RECOMMENDATION_CREDIT.sheetName}
           </a>
         </p>

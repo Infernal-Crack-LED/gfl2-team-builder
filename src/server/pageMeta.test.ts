@@ -19,9 +19,12 @@ import {
 } from '../share/facets';
 import { HOME_FEATURES, HOME_HERO } from '../share/homeContent';
 import {
+  RECOMMENDATION_CREDIT,
   hydrateRecommendation,
+  sheetUrlFor,
   type RecommendationSource,
 } from '../share/recommendations';
+import { recommendationFor } from './recommendations';
 import { dev } from '../share/siteIdentity';
 import { stripHtml } from '../share/html';
 import {
@@ -184,7 +187,11 @@ describe('injectPageMeta', () => {
     expect(doll).toBeDefined();
     const { html } = render(`/characters/${doll!.slug}`);
     expect(html).toContain(
-      `<title>${escapeHtml(dollPageMeta(doll!).title)}</title>`
+      `<title>${escapeHtml(
+        dollPageMeta(doll!, {
+          hasRecommendation: recommendationFor(doll!) !== null,
+        }).title
+      )}</title>`
     );
     expect(html).toContain(
       `<link rel="canonical" href="https://refittingroom.app/characters/${doll!.slug}" />`
@@ -551,6 +558,59 @@ describe('community recommendations', () => {
     expect(routed).toBe(blocks);
   });
 
+  it('puts the recommendation in the crawlable doll body', () => {
+    // The reason this work exists: "<doll> build" is the query these pages
+    // answer, and until the panel was server-rendered the whole answer was
+    // JS-only — visible to a visitor, invisible to Bing and to AI crawlers.
+    const doll = allDolls().find((d) => recommendationFor(d) !== null);
+    expect(doll).toBeDefined();
+    const rec = recommendationFor(doll!)!;
+    const body = noJsBodyFor(resolvePage(url(`/characters/${doll!.slug}`)));
+
+    expect(body).toContain('Recommended build');
+    // The credit is not optional and not deferred to a footer.
+    expect(body).toContain(escapeHtml(RECOMMENDATION_CREDIT.lead));
+    expect(body).toContain(escapeHtml(rec.sheetUrl));
+    for (const w of rec.weapons) {
+      expect(body, w.label).toContain(escapeHtml(w.label));
+    }
+    for (const k of rec.keys.primary) {
+      expect(body, k.label).toContain(escapeHtml(k.label));
+    }
+  });
+
+  it('never leaks a raw marker into the recommendation body', () => {
+    // Effect text is resolved through the same marker table the React panel
+    // uses; an unresolved `[effect:<uuid>]` in the indexed copy would be text
+    // the visitor never sees.
+    for (const doll of allDolls()) {
+      if (!recommendationFor(doll)) {
+        continue;
+      }
+      const body = noJsBodyFor(resolvePage(url(`/characters/${doll.slug}`)));
+      expect(body, doll.slug).not.toMatch(/\[(effect|key|dollSkill|summon):/);
+    }
+  });
+
+  it('renders the same steps the panel would — explanation wins', () => {
+    // A marker with no explanation is not a step description, so it must not
+    // appear as one in the indexed copy either.
+    const doll = allDolls().find((d) => {
+      const r = recommendationFor(d);
+      return r && r.markerSteps.length > 0 && r.explainedSteps.length > 0;
+    });
+    expect(
+      doll,
+      'no doll has both explained and marker-only steps'
+    ).toBeDefined();
+    const rec = recommendationFor(doll!)!;
+    const body = noJsBodyFor(resolvePage(url(`/characters/${doll!.slug}`)));
+    for (const s of rec.explainedSteps) {
+      expect(body, s.step).toContain(escapeHtml(s.note ?? ''));
+    }
+    expect(body).toContain('listed without an explanation');
+  });
+
   it('covers the dolls the sheet has rows for, and no others', () => {
     const source = JSON.parse(
       readFileSync(path.resolve('data', 'recommendations-source.json'), 'utf8')
@@ -558,6 +618,68 @@ describe('community recommendations', () => {
     const slugs = new Set(allDolls().map((d) => d.slug));
     for (const slug of Object.keys(source)) {
       expect(slugs.has(slug), `${slug} is not a doll`).toBe(true);
+    }
+  });
+});
+
+describe('doll page meta', () => {
+  it('advertises the build only on pages that carry one', () => {
+    // "<doll> build" is the highest-intent query these pages can win, but
+    // promising it where the sheet has no recommendation is a mismatch that
+    // costs more in bounce than the keyword gains.
+    const withRec = allDolls().find((d) => recommendationFor(d) !== null);
+    const withoutRec = allDolls().find((d) => recommendationFor(d) === null);
+    expect(withRec).toBeDefined();
+    expect(withoutRec, 'every doll has a recommendation now').toBeDefined();
+
+    const a = resolvePage(url(`/characters/${withRec!.slug}`)).meta;
+    expect(a.title).toContain('Build');
+    expect(a.description).toContain('Recommended build');
+
+    const b = resolvePage(url(`/characters/${withoutRec!.slug}`)).meta;
+    expect(b.title).not.toContain('Build');
+  });
+
+  it('keeps every doll title distinct and within a sane length', () => {
+    const titles = new Set<string>();
+    for (const doll of allDolls()) {
+      const { title } = resolvePage(url(`/characters/${doll.slug}`)).meta;
+      titles.add(title);
+      // Google truncates around 60; this keeps the doll name and "Build"
+      // — the parts that matter — inside the visible window.
+      expect(title.length, `${doll.slug}: "${title}"`).toBeLessThanOrEqual(60);
+    }
+    expect(titles.size).toBe(allDolls().length);
+  });
+});
+
+describe('sheet citation links', () => {
+  it("cites a doll's own tab when the sheet indexes her", () => {
+    const withGid = allDolls()
+      .map((d) => recommendationFor(d))
+      .find((r) => r !== null && r.sheetUrl !== RECOMMENDATION_CREDIT.sheetUrl);
+    expect(withGid, 'no doll resolved a per-tab gid').toBeDefined();
+    expect(withGid!.sheetUrl).toMatch(/[?#]gid=\d+/);
+  });
+
+  it('falls back to the sheet root rather than guessing a tab', () => {
+    // The Quick Links index does not name every doll. A wrong gid would land
+    // the reader on someone else's analysis while claiming to be hers, which
+    // is worse for the maintainers than one extra click.
+    expect(sheetUrlFor(null)).toBe(RECOMMENDATION_CREDIT.sheetUrl);
+    expect(sheetUrlFor(undefined)).toBe(RECOMMENDATION_CREDIT.sheetUrl);
+    expect(sheetUrlFor('not-a-gid')).toBe(RECOMMENDATION_CREDIT.sheetUrl);
+    expect(sheetUrlFor('123')).toContain('gid=123');
+  });
+
+  it('never emits a citation link outside the credited spreadsheet', () => {
+    for (const doll of allDolls()) {
+      const rec = recommendationFor(doll);
+      if (rec) {
+        expect(rec.sheetUrl, doll.slug).toMatch(
+          /^https:\/\/docs\.google\.com\/spreadsheets\/d\/1DogyU3K7ZXw2qbhP1EhRXIAw5nCyIV5G5e-QWviBZME\//
+        );
+      }
     }
   });
 });

@@ -56,6 +56,7 @@ import {
   type DollEntry,
   type WeaponEntry,
 } from './gameData.js';
+import { recommendationFor } from './recommendations.js';
 import {
   facetDescription,
   facetHeading,
@@ -170,7 +171,9 @@ export function resolvePage(url: URL): ResolvedPage {
       ? {
           kind: 'doll',
           key: doll.slug,
-          meta: dollPageMeta(doll),
+          meta: dollPageMeta(doll, {
+            hasRecommendation: recommendationFor(doll) !== null,
+          }),
           canonicalPath,
           status: 200,
           doll,
