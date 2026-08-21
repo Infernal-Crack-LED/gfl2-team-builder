@@ -42,7 +42,8 @@
     "seed:datamine": "tsx src/bin/seed-from-datamine.ts",
     "purge:dandegate": "tsx src/bin/purge-dandegate.ts",
     "migrate:profiles": "tsx src/bin/migrate-profiles.ts",
-    "prepare": "husky"
+    "prepare": "husky",
+    "indexnow": "tsx src/bin/indexnow.ts"
   },
   "engines": {
     "node": ">=20"

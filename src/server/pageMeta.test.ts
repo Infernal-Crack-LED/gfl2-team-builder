@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { readFileSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
 import path from 'node:path';
 import {
   breadcrumbFor,
@@ -25,6 +25,7 @@ import {
   type RecommendationSource,
 } from '../share/recommendations';
 import { recommendationFor } from './recommendations';
+import { INDEXNOW_KEY, INDEXNOW_KEY_FILE } from '../share/indexnow';
 import { dev } from '../share/siteIdentity';
 import { stripHtml } from '../share/html';
 import {
@@ -681,5 +682,27 @@ describe('sheet citation links', () => {
         );
       }
     }
+  });
+});
+
+describe('IndexNow key file', () => {
+  it('is published at the exact path the payload claims', () => {
+    // The protocol's only verification is that this origin serves a file
+    // matching the submitted key. Key present but file missing is a 403 on
+    // every submission, and nothing else surfaces it.
+    const file = path.resolve('web', 'public', INDEXNOW_KEY_FILE);
+    expect(existsSync(file), `${INDEXNOW_KEY_FILE} is not in web/public`).toBe(
+      true
+    );
+    expect(readFileSync(file, 'utf8').trim()).toBe(INDEXNOW_KEY);
+  });
+
+  it('is not accidentally excluded from the sitemap crawl surface', () => {
+    // It is a verification artifact, not a page — it must NOT be listed.
+    const sitemap = readFileSync(
+      path.resolve('web', 'public', 'sitemap.xml'),
+      'utf8'
+    );
+    expect(sitemap).not.toContain(INDEXNOW_KEY);
   });
 });

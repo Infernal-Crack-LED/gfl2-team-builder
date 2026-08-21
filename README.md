@@ -124,6 +124,7 @@ render time.
 | `npm run sync`                | Retired dandegate data sync (superseded by `seed:datamine`)     |
 | `npm run icons`               | Fetch wiki UI icons and mirror CDN game art (`--force` to redo) |
 | `npm run sitemap`             | Regenerate `web/public/sitemap.xml` (drift-tested)              |
+| `npm run indexnow`            | Tell IndexNow which pages changed (dry run; `-- --submit`)      |
 | `npm run precompress`         | Brotli-precompress `dist/` (runs inside `build:web`)            |
 | `npm run derive`              | Rebuild `data/effect-matrix.json` from the JSON artifacts       |
 | `npm run derive:report`       | Rebuild the matrix and print the QA classification report       |
