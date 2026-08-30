@@ -141,6 +141,8 @@ echo "→ dispatching $(basename "$PACKET") to $MODEL ($MODE mode) …" >&2
 # PYTHONUTF8: on Windows the CLI otherwise decodes stdin as the console
 # codepage (cp1252) and multibyte UTF-8 in the packet becomes lone
 # surrogates that kill the request at serialization time.
+# KIMI_CODE_EXPERIMENTAL_FLAG is legacy (pre-1.x needed it for --agent-file
+# in -p mode); kept because it is harmless on >= 1.x and older CLIs may linger.
 RAW="$(printf '%s' "$PROMPT" | KIMI_CODE_EXPERIMENTAL_FLAG=1 PYTHONUTF8=1 "$KIMI" --print \
   --input-format text \
   --model "$MODEL" \
