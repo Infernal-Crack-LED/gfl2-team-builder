@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import {
-  ELEMENT_ORDER,
+  analysisElements,
   buildAnalysisValues,
   buildSheetValues,
   v6CountsByElement,
@@ -107,26 +107,39 @@ describe('buildAnalysisValues', () => {
     }),
   ];
 
+  it('aggregates over the elements present, in site order, plus unknowns', () => {
+    expect(analysisElements(columns)).toEqual(['Burn', 'Corrosion']);
+    expect(
+      analysisElements([
+        ...columns,
+        { name: 'OTs-14', slug: 'ots-14', element: 'Resonance' },
+      ])
+    ).toEqual(['Burn', 'Corrosion', 'Resonance']);
+  });
+
   it('builds the per-player matrix sorted by total V6 desc', () => {
-    const { values } = buildAnalysisValues(columns, roster);
+    const { values, elements } = buildAnalysisValues(columns, roster);
     expect(values[1]).toEqual([
       'Username',
-      ...ELEMENT_ORDER,
+      ...elements,
       'Total V6',
       'Dolls submitted',
     ]);
     // alice: Burn 2, Corrosion 1, total 3; bob: Burn 1, total 1
     expect(values[2]?.[0]).toBe('alice');
-    expect(values[2]?.[ELEMENT_ORDER.indexOf('Burn') + 1]).toBe('2');
-    expect(values[2]?.[ELEMENT_ORDER.length + 1]).toBe('3');
+    expect(values[2]?.[elements.indexOf('Burn') + 1]).toBe('2');
+    expect(values[2]?.[elements.length + 1]).toBe('3');
     expect(values[3]?.[0]).toBe('bob');
   });
 
   it('ranks the top-10 block per element at the reported row', () => {
-    const { values, topHeaderRow } = buildAnalysisValues(columns, roster);
+    const { values, elements, topHeaderRow } = buildAnalysisValues(
+      columns,
+      roster
+    );
     const header = values[topHeaderRow];
-    expect(header?.slice(0, 2)).toEqual(['Physical', 'V6s']);
-    const burnCol = ELEMENT_ORDER.indexOf('Burn') * 3;
+    expect(header?.slice(0, 2)).toEqual(['Burn', 'V6s']);
+    const burnCol = elements.indexOf('Burn') * 3;
     expect(values[topHeaderRow + 1]?.[burnCol]).toBe('alice');
     expect(values[topHeaderRow + 1]?.[burnCol + 1]).toBe('2');
     expect(values[topHeaderRow + 2]?.[burnCol]).toBe('bob');

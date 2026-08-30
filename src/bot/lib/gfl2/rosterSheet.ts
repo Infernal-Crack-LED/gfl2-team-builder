@@ -132,10 +132,27 @@ export function v6CountsByElement(
 
 export interface AnalysisLayout {
   values: string[][];
+  /** Elements the analysis actually aggregates over, in display order. */
+  elements: string[];
   /** Row index of the top-10 per-element block header (element names). */
   topHeaderRow: number;
   /** Row index of the 'V6 COUNT PER DOLL' section title. */
   perDollTitleRow: number;
+}
+
+/**
+ * Elements the analysis aggregates over: ELEMENT_ORDER filtered to what the
+ * columns actually contain, plus anything new appended — so a GL release of
+ * an element outside ELEMENT_ORDER (e.g. Resonance, CN-only today) can never
+ * be silently dropped from the matrix or the top-10 blocks.
+ */
+export function analysisElements(columns: DollColumn[]): string[] {
+  const present = new Set(columns.map((c) => c.element));
+  const known = ELEMENT_ORDER.filter((e) => present.has(e));
+  const extra = [...present]
+    .filter((e) => !(ELEMENT_ORDER as readonly string[]).includes(e))
+    .sort();
+  return [...known, ...extra];
 }
 
 /**
@@ -147,6 +164,7 @@ export function buildAnalysisValues(
   columns: DollColumn[],
   members: SheetMember[]
 ): AnalysisLayout {
+  const elements = analysisElements(columns);
   const sorted = [...members].sort(memberSort);
   const perMember = sorted.map((m) => ({
     member: m,
@@ -158,13 +176,13 @@ export function buildAnalysisValues(
 
   // Section 1 — V6 matrix: one row per player, one column per element.
   rows.push(['V6 COUNT PER PLAYER PER ELEMENT']);
-  rows.push(['Username', ...ELEMENT_ORDER, 'Total V6', 'Dolls submitted']);
+  rows.push(['Username', ...elements, 'Total V6', 'Dolls submitted']);
   for (const { member, counts, submitted } of [...perMember].sort(
     (a, b) =>
       [...b.counts.values()].reduce((s, n) => s + n, 0) -
       [...a.counts.values()].reduce((s, n) => s + n, 0)
   )) {
-    const perElement = ELEMENT_ORDER.map((e) => counts.get(e) ?? 0);
+    const perElement = elements.map((e) => counts.get(e) ?? 0);
     rows.push([
       displayName(member),
       ...perElement.map(String),
@@ -179,11 +197,11 @@ export function buildAnalysisValues(
   rows.push(['TOP 10 BY V6 COUNT PER ELEMENT']);
   const topHeaderRow = rows.length;
   const blockHeader: string[] = [];
-  for (const element of ELEMENT_ORDER) {
+  for (const element of elements) {
     blockHeader.push(element, 'V6s', '');
   }
   rows.push(blockHeader);
-  const ranked = ELEMENT_ORDER.map((element) =>
+  const ranked = elements.map((element) =>
     perMember
       .map(({ member, counts }) => ({
         name: displayName(member),
@@ -226,7 +244,7 @@ export function buildAnalysisValues(
     rows.push([c.element, c.name, String(v6), String(submitted)]);
   }
 
-  return { values: rows, topHeaderRow, perDollTitleRow };
+  return { values: rows, elements, topHeaderRow, perDollTitleRow };
 }
 
 // ---- formatting ----
@@ -370,13 +388,16 @@ export function vertebraeFormatRequests(
         fields: 'userEnteredFormat(backgroundColor,textFormat)',
       },
     });
-    // Data cells: light tint so the grouping reads down the whole grid.
+    // Data cells: light tint so the grouping reads down the whole grid. The
+    // span is deliberately generous: values are cleared on every sync but
+    // formats are not, so a fixed floor stops stale tint from outliving a
+    // member roster that shrank.
     requests.push({
       repeatCell: {
         range: {
           sheetId,
           startRowIndex: 2,
-          endRowIndex: 2 + Math.max(memberCount, 1),
+          endRowIndex: 2 + Math.max(memberCount, 100),
           startColumnIndex: startCol,
           endColumnIndex: endCol,
         },
@@ -428,11 +449,11 @@ export function analysisFormatRequests(
   sheetId: number,
   layout: AnalysisLayout
 ): unknown[] {
-  const { topHeaderRow, perDollTitleRow } = layout;
+  const { elements, topHeaderRow, perDollTitleRow } = layout;
   const requests: unknown[] = [];
 
   // Matrix element header cells (row 2, after Username).
-  ELEMENT_ORDER.forEach((element, i) => {
+  elements.forEach((element, i) => {
     requests.push({
       repeatCell: {
         range: {
@@ -457,7 +478,7 @@ export function analysisFormatRequests(
   });
 
   // Top-10 block headers, one colored pair of cells per element.
-  ELEMENT_ORDER.forEach((element, i) => {
+  elements.forEach((element, i) => {
     requests.push({
       repeatCell: {
         range: {
