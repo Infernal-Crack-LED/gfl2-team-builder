@@ -43,10 +43,13 @@ export async function extractRosterImages(
     headers['x-api-key'] = process.env.ROSTER_OCR_KEY;
   }
 
+  // Bounded: a hung OCR service must fail the command visibly, not leave the
+  // deferred reply "thinking" until the interaction token dies (~15 min).
   const res = await fetch(`${base}/extract`, {
     method: 'POST',
     headers,
     body: form,
+    signal: AbortSignal.timeout(90_000),
   });
   if (!res.ok) {
     throw new Error(`OCR service ${res.status}: ${await res.text()}`);

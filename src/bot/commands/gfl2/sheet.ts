@@ -1,5 +1,5 @@
 import { MessageFlags, SlashCommandBuilder } from 'discord.js';
-import { and, eq } from 'drizzle-orm';
+import { and, eq, sql } from 'drizzle-orm';
 import type { Command } from '../../types.js';
 import { db } from '../../../db/index.js';
 import { platoons } from '../../../db/schema.js';
@@ -49,15 +49,16 @@ export const command: Command = {
       return;
     }
 
-    const existing = await db.query.platoons.findFirst({
-      where: and(
-        eq(platoons.guildId, interaction.guildId),
-        eq(platoons.name, name)
-      ),
-    });
+    // Case-insensitive: /roster resolves names case-insensitively and the
+    // unique index is on lower(name), so 'Alpha' and 'alpha' are one platoon.
+    const byName = and(
+      eq(platoons.guildId, interaction.guildId),
+      sql`lower(${platoons.name}) = ${name.toLowerCase()}`
+    );
+    const existing = await db.query.platoons.findFirst({ where: byName });
     if (existing) {
       await interaction.reply(
-        `📋 Roster sheet for **${name}**: ${spreadsheetUrl(existing.sheetId)}`
+        `📋 Roster sheet for **${existing.name}**: ${spreadsheetUrl(existing.sheetId)}`
       );
       return;
     }
@@ -80,22 +81,22 @@ export const command: Command = {
     // A concurrent /sheet with the same name may have won the insert; use
     // whichever row is in the DB so both callers get the same link.
     const platoon =
-      row ??
-      (await db.query.platoons.findFirst({
-        where: and(
-          eq(platoons.guildId, interaction.guildId),
-          eq(platoons.name, name)
-        ),
-      }));
+      row ?? (await db.query.platoons.findFirst({ where: byName }));
     if (!platoon) {
       throw new Error('platoon insert raced and lookup failed');
     }
 
+    // Seed the headers/formatting — but a transient Google hiccup must not
+    // eat the link: the sheet catches up on the next submission anyway.
     if (platoon.sheetId === sheetId) {
-      await syncPlatoonSheet(platoon.id, platoon.sheetId); // write the header row
+      try {
+        await syncPlatoonSheet(platoon.id, platoon.sheetId);
+      } catch (error) {
+        console.error('[sheet] initial sync failed', error);
+      }
     }
     await interaction.editReply(
-      `📋 Created roster sheet for **${name}**: ${spreadsheetUrl(platoon.sheetId)}\n` +
+      `📋 Created roster sheet for **${platoon.name}**: ${spreadsheetUrl(platoon.sheetId)}\n` +
         'Players: set your identity with `/username`, then submit screenshots with `/roster`.'
     );
   },

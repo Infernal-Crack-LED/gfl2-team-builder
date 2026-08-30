@@ -1,3 +1,4 @@
+import { sql } from 'drizzle-orm';
 import {
   boolean,
   index,
@@ -184,7 +185,9 @@ export const infographics = pgTable('infographics', {
 /**
  * Platoons — one per (guild, name). Each platoon owns one Google Sheet
  * (created by /sheet) that mirrors its members' vertebrae data. A guild can
- * have several platoons, hence the name in the key.
+ * have several platoons, hence the name in the key. The unique index is on
+ * lower(name): /roster resolves platoon names case-insensitively, so
+ * case-variant duplicates must be impossible to create.
  */
 export const platoons = pgTable(
   'platoons',
@@ -198,7 +201,12 @@ export const platoons = pgTable(
       .notNull()
       .defaultNow(),
   },
-  (t) => [uniqueIndex('platoons_guild_id_name_uq').on(t.guildId, t.name)]
+  (t) => [
+    uniqueIndex('platoons_guild_id_name_uq').on(
+      t.guildId,
+      sql`lower(${t.name})`
+    ),
+  ]
 );
 
 /**

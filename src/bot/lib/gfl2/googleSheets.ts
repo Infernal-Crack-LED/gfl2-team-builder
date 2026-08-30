@@ -13,8 +13,11 @@ const TOKEN_URL = 'https://oauth2.googleapis.com/token';
 const SCOPES =
   'https://www.googleapis.com/auth/spreadsheets https://www.googleapis.com/auth/drive';
 
-/** The one tab every roster spreadsheet has. */
+/** The member-facing tab every roster spreadsheet has. */
 export const ROSTER_TAB = 'Vertebrae';
+
+/** The protected analysis tab (bot-written aggregates for platoon leads). */
+export const ANALYSIS_TAB = 'Analysis';
 
 interface ServiceAccount {
   client_email: string;
@@ -117,7 +120,10 @@ export async function createRosterSpreadsheet(title: string): Promise<string> {
       method: 'POST',
       body: JSON.stringify({
         properties: { title },
-        sheets: [{ properties: { title: ROSTER_TAB } }],
+        sheets: [
+          { properties: { title: ROSTER_TAB } },
+          { properties: { title: ANALYSIS_TAB } },
+        ],
       }),
     }
   )) as { spreadsheetId: string };
@@ -133,24 +139,73 @@ export async function createRosterSpreadsheet(title: string): Promise<string> {
   return created.spreadsheetId;
 }
 
-/** Replace the roster tab's contents with `values` (row-major strings). */
-export async function writeRosterValues(
+/** Replace one tab's contents with `values` (row-major strings). */
+export async function writeTabValues(
   spreadsheetId: string,
+  tab: string,
   values: string[][]
 ): Promise<void> {
   const base = `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values`;
   // Clear first so rows removed from the roster don't linger.
-  await googleFetch(`${base}/${encodeURIComponent(ROSTER_TAB)}:clear`, {
+  await googleFetch(`${base}/${encodeURIComponent(tab)}:clear`, {
     method: 'POST',
     body: '{}',
   });
   await googleFetch(
-    `${base}/${encodeURIComponent(`${ROSTER_TAB}!A1`)}?valueInputOption=RAW`,
+    `${base}/${encodeURIComponent(`${tab}!A1`)}?valueInputOption=RAW`,
     {
       method: 'PUT',
       body: JSON.stringify({ values }),
     }
   );
+}
+
+export interface SheetTabMeta {
+  sheetId: number;
+  title: string;
+  protected: boolean;
+}
+
+/** Tab ids/titles and whether each already carries a protected range. */
+export async function getSheetTabs(
+  spreadsheetId: string
+): Promise<SheetTabMeta[]> {
+  const meta = (await googleFetch(
+    `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}?fields=sheets(properties(sheetId,title),protectedRanges(protectedRangeId))`,
+    { method: 'GET' }
+  )) as {
+    sheets?: {
+      properties: { sheetId: number; title: string };
+      protectedRanges?: { protectedRangeId: number }[];
+    }[];
+  };
+  return (meta.sheets ?? []).map((s) => ({
+    sheetId: s.properties.sheetId,
+    title: s.properties.title,
+    protected: (s.protectedRanges ?? []).length > 0,
+  }));
+}
+
+/** Raw spreadsheets.batchUpdate — formatting, merges, new tabs, protection. */
+export async function batchUpdateSheet(
+  spreadsheetId: string,
+  requests: unknown[]
+): Promise<void> {
+  if (requests.length === 0) {
+    return;
+  }
+  await googleFetch(
+    `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}:batchUpdate`,
+    {
+      method: 'POST',
+      body: JSON.stringify({ requests }),
+    }
+  );
+}
+
+/** The service account's own identity — the sole editor of protected ranges. */
+export function serviceAccountEmail(): string {
+  return serviceAccount().client_email;
 }
 
 export function spreadsheetUrl(spreadsheetId: string): string {

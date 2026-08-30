@@ -50,6 +50,13 @@
       "when": 1788079255236,
       "tag": "0006_open_golden_guardian",
       "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1788081498277,
+      "tag": "0007_outstanding_crystal",
+      "breakpoints": true
     }
   ]
 }

@@ -40,6 +40,7 @@ async def extract(request: Request, files: list[UploadFile]):
         try:
             dolls = ocr.extract(data)
             images.append({"dolls": dolls})
-        except ValueError as e:  # undecodable image — report it, keep the rest
-            images.append({"dolls": [], "error": str(e)})
+        except Exception as e:  # noqa: BLE001 — one bad image must not fail the batch
+            print(f"[extract] {f.filename}: {type(e).__name__}: {e}", flush=True)
+            images.append({"dolls": [], "error": f"{type(e).__name__}: {e}"})
     return {"images": images}

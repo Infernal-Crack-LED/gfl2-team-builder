@@ -4,7 +4,7 @@ import {
   SlashCommandBuilder,
   type Attachment,
 } from 'discord.js';
-import { eq } from 'drizzle-orm';
+import { eq, sql } from 'drizzle-orm';
 import type { Command } from '../../types.js';
 import { db } from '../../../db/index.js';
 import {
@@ -231,11 +231,16 @@ export const command: Command = {
         if (!existing || doll.vertebrae !== null) {
           bySlug.set(matched.slug, { name: matched.name, doll });
         }
-        if (doll.vertebrae === null) {
-          warnings.push(
-            `Couldn't read the vertebrae badge for **${matched.name}** — stored as unknown.`
-          );
-        }
+      }
+    }
+    // Warn only for dolls whose SURVIVING reading has no badge — a duplicate
+    // card that did read fine (or a value already in the DB, which the upsert
+    // coalesces to) makes the bad reading harmless.
+    for (const { name, doll } of bySlug.values()) {
+      if (doll.vertebrae === null) {
+        warnings.push(
+          `Couldn't read the vertebrae badge for **${name}** — kept your previously stored level, if any.`
+        );
       }
     }
 
@@ -261,10 +266,13 @@ export const command: Command = {
         })
         .onConflictDoUpdate({
           target: [rosterDolls.discordId, rosterDolls.dollSlug],
+          // Coalesce: a null reading (unreadable badge, missed power/level)
+          // is strictly worse information than whatever is already stored —
+          // never regress a known value to null across submissions.
           set: {
-            vertebrae: doll.vertebrae,
-            power: doll.power,
-            level: doll.level,
+            vertebrae: sql`coalesce(excluded.vertebrae, ${rosterDolls.vertebrae})`,
+            power: sql`coalesce(excluded.power, ${rosterDolls.power})`,
+            level: sql`coalesce(excluded.level, ${rosterDolls.level})`,
             updatedAt: now,
           },
         });
