@@ -558,6 +558,17 @@ export async function syncPlatoonSheet(
     vertebrae: vertById.get(id) ?? new Map(),
   }));
 
+  await writePlatoonSpreadsheet(sheetId, sheetMembers);
+}
+
+/**
+ * Write both tabs + formatting for a member list that is already in hand —
+ * the DB-free half of syncPlatoonSheet, also used by demo/seed scripts.
+ */
+export async function writePlatoonSpreadsheet(
+  sheetId: string,
+  sheetMembers: SheetMember[]
+): Promise<void> {
   const columns = await sheetDollColumns();
 
   // Tab discovery + creation. Older spreadsheets may predate the Analysis
