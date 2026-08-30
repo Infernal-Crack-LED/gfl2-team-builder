@@ -43,6 +43,13 @@
       "when": 1787204660357,
       "tag": "0005_bizarre_the_liberteens",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1788079255236,
+      "tag": "0006_open_golden_guardian",
+      "breakpoints": true
     }
   ]
 }
