@@ -95,7 +95,9 @@ fi
 # export cannot force a code review back onto the blind profile.
 if detect_code_review "$PACKET"; then
   MODE="code-review"
-  AGENT_FILE="$SCRIPT_DIR/kimi-code-review-agent.md"
+  # kimi-cli >= 1.x parses agent specs as pure YAML; the old .md
+  # frontmatter profile no longer loads. Same read-only contract.
+  AGENT_FILE="$SCRIPT_DIR/kimi-code-review-agent.yaml"
 else
   MODE="blind"
   AGENT_FILE="${KIMI_AGENT_FILE:-$SCRIPT_DIR/kimi-blind-agent.md}"
@@ -136,7 +138,15 @@ echo "→ dispatching $(basename "$PACKET") to $MODEL ($MODE mode) …" >&2
 # --auto" / "--yolo", verified live 2026-08-02), so neither is passed.
 # stream-json gives one JSON object per line on stdout; the model's reply is
 # the assistant message(s). stderr carries thinking + progress (discarded).
-RAW="$(KIMI_CODE_EXPERIMENTAL_FLAG=1 "$KIMI" -p "$PROMPT" \
+# kimi-cli >= 1.x: -p alone is no longer non-interactive; --print is required
+# for headless runs and is what --output-format needs. The prompt goes in on
+# STDIN (--input-format text), not as -p: a packet-sized argv blows past the
+# ~32K CreateProcess limit on Windows and the dispatch dies with no message.
+# PYTHONUTF8: on Windows the CLI otherwise decodes stdin as the console
+# codepage (cp1252) and multibyte UTF-8 in the packet becomes lone
+# surrogates that kill the request at serialization time.
+RAW="$(printf '%s' "$PROMPT" | KIMI_CODE_EXPERIMENTAL_FLAG=1 PYTHONUTF8=1 "$KIMI" --print \
+  --input-format text \
   --model "$MODEL" \
   --agent-file "$AGENT_FILE" \
   --output-format stream-json \
@@ -150,7 +160,12 @@ RAW="$(KIMI_CODE_EXPERIMENTAL_FLAG=1 "$KIMI" -p "$PROMPT" \
 # "content":"<json string>"} — a plain string, so `last` yields the JSON. No
 # block-array content was observed, so this extraction needs no code-review
 # special-casing.
-RESULT_TEXT="$(printf '%s\n' "$RAW" | jq -rs '[.[] | select(.role == "assistant") | .content // empty] | last // empty' 2>/dev/null)" || true
+# kimi-cli >= 1.x wraps assistant content in a block array
+# ([{type:"think",...},{type:"text","text":...}]); older CLIs sent a plain
+# string. Handle both: join the text blocks, pass strings through.
+RESULT_TEXT="$(printf '%s\n' "$RAW" | jq -rs '[.[] | select(.role == "assistant") | .content // empty
+  | if type == "array" then (map(select(.type? == "text") | .text) | join("")) else . end
+  | select(length > 0)] | last // empty' 2>/dev/null)" || true
 if [[ -z "$RESULT_TEXT" ]]; then
   echo "❌ kimi returned no assistant message" >&2
   printf '%s\n' "$RAW" | head -c 1000 >&2 || true
