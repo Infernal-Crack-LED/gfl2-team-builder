@@ -175,6 +175,11 @@ export interface Key {
   displayTitle: string | null;
   keyType: string | null;
   level: number | null;
+  /** Fixed keys: the in-game "Fixed Key N" numbering (unlock order); `level`
+   * is a different internal ordering, permuted on 19 dolls. */
+  displaySlot: number | null;
+  /** Fixed keys: the doll level the slot unlocks at (20/20/30/30/40/40). */
+  unlockLevel: number | null;
   attributes: KeyAttribute[] | null;
   effect: string | null;
   materials: Record<string, unknown> | null;

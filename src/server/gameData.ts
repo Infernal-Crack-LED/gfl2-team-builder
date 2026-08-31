@@ -98,8 +98,10 @@ export interface KeyEntry {
   keyTitle: string | null;
   displayTitle: string | null;
   dollId: string | null;
-  /** Fixed keys: the slot number (1–6). */
+  /** Fixed keys: the datamine's internal slot digit (icon ordering). */
   level?: number | null;
+  /** Fixed keys: the in-game "Fixed Key N" numbering (unlock order). */
+  displaySlot?: number | null;
   // Fields below are read by the no-JS /keys body (noJsBody.ts).
   keyType?: string | null;
   attributes?: KeyAttribute[] | null;
@@ -241,7 +243,10 @@ export function facetMembers(facet: Facet): (DollEntry | WeaponEntry)[] {
 export function fixedKeysForDoll(dollId: string): KeyEntry[] {
   return keysFile.keys
     .filter((k) => k.dollId === dollId && k.keyType === 'Fixed Key')
-    .sort((a, b) => (a.level ?? 0) - (b.level ?? 0));
+    .sort(
+      (a, b) =>
+        (a.displaySlot ?? a.level ?? 0) - (b.displaySlot ?? b.level ?? 0)
+    );
 }
 
 // --- `[<kind>:<id>]` marker resolution ------------------------------------

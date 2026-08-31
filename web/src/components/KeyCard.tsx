@@ -30,9 +30,13 @@ export function KeyCardBody({ keyData }: { keyData: Key }) {
           {keyData.displayTitle ?? keyData.keyTitle ?? 'Key'}
           <CnMark text={[keyData.displayTitle, keyData.keyTitle]} />
         </strong>
-        {keyLevelChip(keyData.keyType, keyData.level) != null && (
+        {keyLevelChip(keyData.keyType, keyData.displaySlot ?? keyData.level) !=
+          null && (
           <span className="muted">
-            {keyLevelChip(keyData.keyType, keyData.level)}
+            {keyLevelChip(
+              keyData.keyType,
+              keyData.displaySlot ?? keyData.level
+            )}
           </span>
         )}
       </span>

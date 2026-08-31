@@ -1,11 +1,6 @@
 {
-  "syncedAt": "2026-08-20T21:45:20.642Z",
+  "syncedAt": "2026-08-31T10:36:42.498Z",
   "attachmentSets": [
-    {
-      "name": "Tactical Calculus",
-      "piecesRequired": 3,
-      "description": "When using Support Attacks, Interceptions, Counterattacks, or other means of attacks from passive effects to deal damage outside of this unit's turn, damage dealt is increased by 25%."
-    },
     {
       "name": "Ultimate Pursuit",
       "piecesRequired": 3,
@@ -80,6 +75,11 @@
       "name": "Summon Boost",
       "piecesRequired": 3,
       "description": "When this unit's [effect:k900240] are on the battlefield, damage dealt by this unit and this unit's [effect:k900240] is increased by 20%."
+    },
+    {
+      "name": "Tactical Calculus",
+      "piecesRequired": 3,
+      "description": "When using Support Attacks, Interceptions, Counterattacks, or other means of attacks from passive effects to deal damage outside of this unit's turn, damage dealt is increased by 25%."
     }
   ]
 }

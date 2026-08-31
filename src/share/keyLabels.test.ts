@@ -58,3 +58,42 @@ describe('fixedKeyLabel', () => {
     expect(fixedKeyLabel(key)).toBe('Meal Prep');
   });
 });
+
+describe('fixedKeySlot', () => {
+  it('prefers displaySlot: it is the in-game numbering, level is not', () => {
+    // Springfield's Intel Acquisition: internal level digit 3, but the game
+    // (and both community sheets) number it Fixed Key 2 — the two orderings
+    // are permuted on 19 of 62 dolls.
+    expect(
+      fixedKeySlot({
+        keyTitle: 'Intel Acquisition',
+        displayTitle: 'Intel Acquisition',
+        dollId: 'doll-1047',
+        level: 3,
+        displaySlot: 2,
+      })
+    ).toBe(2);
+  });
+
+  it('falls back to level for pre-displaySlot data', () => {
+    expect(
+      fixedKeySlot({
+        keyTitle: 'Meal Prep',
+        displayTitle: 'Meal Prep',
+        dollId: 'doll-1',
+        level: 4,
+      })
+    ).toBe(4);
+  });
+
+  it('ignores an out-of-range displaySlot rather than trusting it', () => {
+    expect(
+      fixedKeySlot({
+        keyTitle: 'Meal Prep',
+        displayTitle: 'Fixed Key 3 - Meal Prep',
+        dollId: 'doll-1',
+        displaySlot: 0,
+      })
+    ).toBe(3);
+  });
+});

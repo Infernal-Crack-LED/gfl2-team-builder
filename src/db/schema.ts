@@ -82,6 +82,11 @@ export const keys = pgTable('keys', {
   displayTitle: text('display_title'),
   keyType: text('key_type'),
   level: integer('level'),
+  // Fixed keys: level is the datamine's internal slot digit (icon URLs embed
+  // it); displaySlot is the in-game "Fixed Key N" numbering (permuted on 19
+  // dolls) and unlockLevel the doll level the slot opens at (20/20/30/30/40/40).
+  displaySlot: integer('display_slot'),
+  unlockLevel: integer('unlock_level'),
   attributes: jsonb('attributes'),
   effect: text('effect'),
   materials: jsonb('materials'),

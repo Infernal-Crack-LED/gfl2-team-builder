@@ -88,7 +88,10 @@ function lookupsFor(doll: Doll): RecLookups {
       const match =
         // Prefer the slot: it is unambiguous within one doll's six keys.
         (slot !== null
-          ? dollKeys.find((k) => k.keyType === 'Fixed Key' && k.level === slot)
+          ? dollKeys.find(
+              (k) =>
+                k.keyType === 'Fixed Key' && (k.displaySlot ?? k.level) === slot
+            )
           : undefined) ??
         // Otherwise fall back to a name match anywhere in the pool, which is
         // how expansion and common keys resolve.
@@ -106,7 +109,10 @@ function lookupsFor(doll: Doll): RecLookups {
         label: title,
         href: null, // keys have no detail page of their own yet
         detail: gameText(match.effect),
-        meta: match.level ? `Slot ${match.level}` : match.keyType,
+        meta:
+          (match.displaySlot ?? match.level) != null
+            ? `Slot ${match.displaySlot ?? match.level}`
+            : match.keyType,
         icon: match.imageUrl,
       };
     },
