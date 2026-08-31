@@ -12,6 +12,15 @@
  * canvas renderer.
  */
 
+import {
+  MAX_ROTATION_COND_LEN,
+  MAX_ROTATION_NOTES,
+  MAX_ROTATION_TURN_LEN,
+  MAX_ROTATION_TURNS,
+  MAX_ROTATION_VERT_LEN,
+  trimRotation,
+} from './rotation.js';
+
 // v3: content ids are now datamine-derived (UUIDv5 of the game's own ids).
 // Every v2 code embeds Dandegate UUIDs that no longer exist, so old codes
 // must be REJECTED, not decoded against ids that mean something different.
@@ -84,6 +93,12 @@ export interface DollBuild {
    * name is the primary key on our side too (see db/schema.ts).
    */
   set?: string | null;
+  /**
+   * Turn-by-turn rotation: T1-first, up to 7 turns, each turn a free-text
+   * list of skill entries ("Ult, S2"). See share/rotation.ts for the caps
+   * and trimming rules shared with the renderers.
+   */
+  rot?: string[];
 }
 
 const MAX_SLUG = 64;
@@ -93,6 +108,27 @@ const MAX_KEYS = 12;
 const MAX_VERT = 6;
 const MAX_STAT_PREFS = 4;
 const MAX_STAT_LABEL = 32;
+
+/**
+ * Wire guard for a `rot` field: an array of at most 7 strings within the
+ * per-turn cap, trailing-trimmed. Returns null when the field is malformed
+ * or empty — callers decide whether that drops the field (doll/rec codes)
+ * or rejects the whole code (team codes, per their stricter contract).
+ */
+function decodeRotationField(v: unknown): string[] | null {
+  if (!Array.isArray(v) || v.length > MAX_ROTATION_TURNS) {
+    return null;
+  }
+  const turns = v.filter(
+    (t): t is string =>
+      typeof t === 'string' && t.length <= MAX_ROTATION_TURN_LEN
+  );
+  if (turns.length !== v.length) {
+    return null;
+  }
+  const trimmed = trimRotation(turns);
+  return trimmed.length > 0 ? trimmed : null;
+}
 
 export function encodeDollBuild(build: DollBuild): string {
   return b64urlEncode(JSON.stringify(build));
@@ -164,6 +200,10 @@ export function decodeDollBuild(code: string): DollBuild | null {
     ) {
       result.set = b.set as string | null;
     }
+    const rot = decodeRotationField(b.rot);
+    if (rot) {
+      result.rot = rot;
+    }
     return result;
   } catch {
     return null;
@@ -198,6 +238,34 @@ export const MAX_REC_SETS = 3;
 /** Rec keys are PRIORITY lists — all six slots/picks, in unlock order. */
 export const MAX_REC_KEYS = 6;
 export const MAX_REC_NOTES = 280;
+/** Rotation variants a rec card shows side by side (the sheet tops out at 5). */
+export const MAX_REC_ROTATIONS = 5;
+/** Per-key condition text cap — a layout budget (longest sheet cell is 145). */
+export const MAX_KEY_CONDITION = 160;
+
+/** One CONDITIONAL fixed-key pick: the key plus when to take it. */
+export interface RecConditionalKey {
+  /** Fixed key id. */
+  k: string;
+  /** When to take the key, e.g. 'Use if you need to dispel buffs'. */
+  c?: string;
+}
+
+/**
+ * One recommended rotation variant — a COLUMN on the rec card. The sheet
+ * writes one rotation per vertebrae range and condition ("V2 - V6 (with
+ * Expansion Key)"), so a variant is turns plus that context and its notes.
+ */
+export interface RecRotation {
+  /** Turn 1..7 skill entries (same shape/caps as DollBuild.rot). */
+  t: string[];
+  /** Vertebrae range this variant applies to, e.g. 'V2 - V6'. */
+  v?: string;
+  /** Condition, e.g. 'with Expansion Key and Springfield'. */
+  c?: string;
+  /** Author notes for this variant. */
+  n?: string;
+}
 
 /**
  * A recommendation card's payload: not a snapshot of one build but ADVICE
@@ -218,8 +286,11 @@ export interface RecBuild {
   ws: string[];
   /** Recommended attachment set names, best first (up to 3). */
   sets: string[];
-  /** Fixed key ids in PRIORITY (unlock) order, up to 6 — not a slot cap. */
+  /** Fixed key ids in PRIORITY (unlock) order, up to 6 — not a slot cap.
+   * These are the RECOMMENDED picks; conditional ones ride in `condKeys`. */
   keys: string[];
+  /** Conditional fixed keys with their condition text (up to 6). */
+  condKeys?: RecConditionalKey[];
   /** Selected expansion key id. */
   exp?: string | null;
   /** Common key ids in priority order (up to 6). */
@@ -229,6 +300,12 @@ export interface RecBuild {
   /** Free-text author notes, drawn verbatim on the card. */
   notes?: string;
   /**
+   * Recommended rotation VARIANTS, one card column each (up to
+   * MAX_REC_ROTATIONS) — the sheet lists one rotation per vertebrae range /
+   * condition, and the card shows them side by side.
+   */
+  rots?: RecRotation[];
+  /**
    * Provenance: 'sheet' marks the UNMODIFIED default recommendation as
    * served by /api/v1/rec-defaults (sourced from the GFL2 Official Release
    * Info Compilation). The card creator drops this on the first user edit
@@ -236,6 +313,13 @@ export interface RecBuild {
    * footer.
    */
   src?: 'sheet';
+  /**
+   * Rotation/fixed-key provenance: 'sheet' marks the untouched defaults
+   * sourced from the GFL2 EN Gunsmoke Frontline Doll Info sheet (served by
+   * /api/v1/rec-defaults alongside `src`). Dropped on the first user edit,
+   * same contract as `src` — it gates the Gunsmoke attribution footer.
+   */
+  gs?: 'sheet';
 }
 
 export function encodeRecBuild(build: RecBuild): string {
@@ -321,8 +405,62 @@ export function decodeRecBuild(code: string): RecBuild | null {
         result.stats = stats;
       }
     }
+    if (Array.isArray(b.condKeys)) {
+      const condKeys: RecConditionalKey[] = [];
+      for (const raw of b.condKeys.slice(0, MAX_REC_KEYS)) {
+        if (!raw || typeof raw !== 'object') {
+          continue;
+        }
+        const ck = raw as Record<string, unknown>;
+        if (typeof ck.k !== 'string' || ck.k.length === 0) {
+          continue;
+        }
+        const out: RecConditionalKey = { k: ck.k };
+        // Condition text is trimmed to its layout cap, like the notes.
+        if (typeof ck.c === 'string' && ck.c.length > 0) {
+          out.c = ck.c.slice(0, MAX_KEY_CONDITION);
+        }
+        condKeys.push(out);
+      }
+      if (condKeys.length > 0) {
+        result.condKeys = condKeys;
+      }
+    }
+    if (Array.isArray(b.rots)) {
+      const rots: RecRotation[] = [];
+      for (const raw of b.rots.slice(0, MAX_REC_ROTATIONS)) {
+        if (!raw || typeof raw !== 'object') {
+          continue;
+        }
+        const r = raw as Record<string, unknown>;
+        // A variant with no turns renders nothing — dropped, like the
+        // context strings are trimmed to their layout caps rather than
+        // rejected (same rationale as the notes cap below).
+        const t = decodeRotationField(r.t);
+        if (!t) {
+          continue;
+        }
+        const rot: RecRotation = { t };
+        if (typeof r.v === 'string' && r.v.length > 0) {
+          rot.v = r.v.slice(0, MAX_ROTATION_VERT_LEN);
+        }
+        if (typeof r.c === 'string' && r.c.length > 0) {
+          rot.c = r.c.slice(0, MAX_ROTATION_COND_LEN);
+        }
+        if (typeof r.n === 'string' && r.n.length > 0) {
+          rot.n = r.n.slice(0, MAX_ROTATION_NOTES);
+        }
+        rots.push(rot);
+      }
+      if (rots.length > 0) {
+        result.rots = rots;
+      }
+    }
     if (b.src === 'sheet') {
       result.src = 'sheet';
+    }
+    if (b.gs === 'sheet') {
+      result.gs = 'sheet';
     }
     if (typeof b.notes === 'string' && b.notes.length > 0) {
       // Trim rather than reject an over-long note: the cap is a layout
@@ -358,6 +496,7 @@ export interface TeamSlot {
   st?: string[]; // ordered stat preferences
   ck?: string[]; // common key ids
   as?: string | null; // attachment set bonus, by name
+  rot?: string[]; // turn-by-turn rotation (see DollBuild.rot)
 }
 
 export interface TeamBuild {
@@ -466,6 +605,20 @@ export function decodeTeamBuild(code: string): TeamBuild | null {
         }
         slot.as = s.as;
       }
+      if (Array.isArray(s.rot)) {
+        const rot = decodeRotationField(s.rot);
+        // A malformed rotation rejects the whole code (strict, like the
+        // other slot fields); a merely-empty one just contributes nothing.
+        if (
+          rot === null &&
+          s.rot.some((t) => typeof t !== 'string' || t.trim() !== '')
+        ) {
+          return null;
+        }
+        if (rot) {
+          slot.rot = rot;
+        }
+      }
       slots.push(slot);
     }
     return { v: BUILD_VERSION, s: slots };
@@ -500,6 +653,9 @@ export function teamSlotFromDollBuild(build: DollBuild): TeamSlot {
   if (build.set != null) {
     slot.as = build.set;
   }
+  if (build.rot && build.rot.length > 0) {
+    slot.rot = build.rot;
+  }
   return slot;
 }
 
@@ -516,6 +672,7 @@ export function dollBuildFromTeamSlot(slot: TeamSlot): DollBuild {
     ck: slot.ck ?? [],
     exp: slot.ex ?? null,
     set: slot.as ?? null,
+    rot: slot.rot ?? [],
   };
 }
 

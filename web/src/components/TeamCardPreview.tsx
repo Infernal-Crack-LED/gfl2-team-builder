@@ -19,6 +19,7 @@ import {
 import type { Doll } from '../data';
 import type { DollBuild } from '../../../src/share/buildCode';
 import { commonKeySource, fixedKeySlot } from '../../../src/share/keyLabels';
+import { rotationSummary } from '../../../src/share/rotation';
 import { CardImageActions } from './CardImageActions';
 
 /** Cards are stamped with the DOMAIN — mirrors CARD_WORDMARK in core/theme.ts. */
@@ -47,7 +48,10 @@ const EMPTY_BODY_H = 96;
 const PREVIEW_SCALE = 0.55;
 
 function slotHeight(slot: TeamCardSlotData): number {
-  const lines = BASE_META_LINES + (slot.expansionKey ? 1 : 0);
+  const lines =
+    BASE_META_LINES +
+    (slot.expansionKey ? 1 : 0) +
+    (rotationSummary(slot.rotation) ? 1 : 0);
   return META_TOP + (lines - 1) * META_LINE + META_BOTTOM_PAD + PANEL_INSET;
 }
 
@@ -75,6 +79,8 @@ export interface TeamCardSlotData {
   expansionKey: string | null;
   commonKeys: string[];
   statPrefs: string[];
+  /** Turn-by-turn rotation — shown as one summarized meta line. */
+  rotation?: string[];
   portraitUrl: string | null;
 }
 
@@ -122,6 +128,7 @@ export function teamCardSlot(
         commonKeySource(k, k.dollId ? getDollById(k.dollId)?.name : null)
       ),
     statPrefs: build?.stats ?? [],
+    rotation: build?.rot ?? [],
     portraitUrl: doll.avatarUrl,
   };
 }
@@ -252,6 +259,15 @@ function SlotRow({ slot }: { slot: TeamCardSlotData }) {
               }
             />
           </div>
+          {/* Rotation is ABSENT, not "—", when the build carries none. */}
+          {rotationSummary(slot.rotation) && (
+            <div className="team-card-meta-row">
+              <MetaField
+                label="ROTATION"
+                value={rotationSummary(slot.rotation)}
+              />
+            </div>
+          )}
         </div>
       </div>
     </div>

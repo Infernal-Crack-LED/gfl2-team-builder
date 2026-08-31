@@ -49,6 +49,11 @@ import {
   commonKeySource,
   fixedKeySlot,
 } from '../../src/share/keyLabels';
+import {
+  MAX_ROTATION_TURN_LEN,
+  MAX_ROTATION_TURNS,
+  normalizeRotation,
+} from '../../src/share/rotation';
 import { BUILD_KIND, mintShareId, useAuth } from './auth';
 import { SaveProfileControl } from './components/SaveProfileControl';
 import { ShortLinkExpiryHint } from './components/ShortLinkExpiryHint';
@@ -83,6 +88,13 @@ interface BuildState {
   attachmentSet: string | null;
   statPrefs: string[];
   commonKeys: string[];
+  /** Rotation turn texts — always MAX_ROTATION_TURNS entries in the UI. */
+  rot: string[];
+}
+
+/** UI-side turn list is always 7 entries; the codecs trim trailing blanks. */
+function padTurns(turns: string[] | undefined): string[] {
+  return Array.from({ length: MAX_ROTATION_TURNS }, (_, i) => turns?.[i] ?? '');
 }
 
 /** Resolved, stripped effect text for card bodies. */
@@ -206,6 +218,7 @@ export function DollBuilder({
       ck?: string[];
       exp?: string | null;
       set?: string | null;
+      rot?: string[];
     }): BuildState => {
       const validFixedKeys = new Set(
         dollKeys.filter((k) => k.keyType === 'Fixed Key').map((k) => k.id)
@@ -244,6 +257,8 @@ export function DollBuilder({
         commonKeys: (build.ck ?? [])
           .filter((id) => validCommonKeys.has(id))
           .slice(0, MAX_COMMON_KEYS),
+        // Free text — normalized to the caps rather than validated away.
+        rot: padTurns(normalizeRotation(build.rot ?? [])),
       };
     },
     [dollKeys, vertebrae, commonKeys]
@@ -269,6 +284,7 @@ export function DollBuilder({
           attachmentSet: null,
           statPrefs: [...DEFAULT_STAT_PREFS],
           commonKeys: [],
+          rot: padTurns(undefined),
         };
   });
 
@@ -341,8 +357,8 @@ export function DollBuilder({
 
   // The canonical DollBuild for the current selections — what gets encoded
   // for saves and share links, and what the embedding host is handed.
-  const payload = useMemo(
-    (): DollBuild => ({
+  const payload = useMemo((): DollBuild => {
+    const out: DollBuild = {
       v: BUILD_VERSION,
       doll: doll.slug,
       weapon: build.weapon,
@@ -353,9 +369,13 @@ export function DollBuilder({
       ck: build.commonKeys,
       exp: build.expansionKey,
       set: build.attachmentSet,
-    }),
-    [doll, build]
-  );
+    };
+    const rot = normalizeRotation(build.rot);
+    if (rot.length > 0) {
+      out.rot = rot;
+    }
+    return out;
+  }, [doll, build]);
 
   const getCode = useCallback(() => encodeDollBuild(payload), [payload]);
 
@@ -508,6 +528,7 @@ export function DollBuilder({
       refinement: build.refinement,
       attachmentSet: build.attachmentSet,
       statPrefs: build.statPrefs,
+      rotation: normalizeRotation(build.rot),
     };
   }, [doll, build, dollKeys, commonKeys, selectedWeapon]);
 
@@ -949,6 +970,33 @@ export function DollBuilder({
               </button>
             );
           })}
+        </div>
+      </section>
+
+      {/* Rotation — free text, drawn as a band on the share card when set */}
+      <section className="unit-section unit-panel">
+        <h2>Rotation</h2>
+        <p className="muted dollbuilder-hint">
+          Optional turn-by-turn opener (T1–T7). One or more skills per turn,
+          comma-separated — e.g. "Ult, S2".
+        </p>
+        <div className="infog-rot-grid">
+          {Array.from({ length: MAX_ROTATION_TURNS }, (_, i) => (
+            <label key={i} className="infog-rot-turn">
+              <span className="infog-rot-turn-label">T{i + 1}</span>
+              <input
+                type="text"
+                maxLength={MAX_ROTATION_TURN_LEN}
+                placeholder="—"
+                value={build.rot[i] ?? ''}
+                onChange={(e) => {
+                  const rot = [...build.rot];
+                  rot[i] = e.target.value;
+                  setBuild((prev) => ({ ...prev, rot }));
+                }}
+              />
+            </label>
+          ))}
         </div>
       </section>
 

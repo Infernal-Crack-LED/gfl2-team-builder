@@ -8,6 +8,10 @@
  * lives in CardImageActions, shared with the squad and rec previews.
  */
 import { useRef } from 'react';
+import {
+  splitRotationEntries,
+  trimRotation,
+} from '../../../src/share/rotation';
 import { assetUrl, PHASE_COLORS } from '../data';
 import { CardImageActions } from './CardImageActions';
 
@@ -30,6 +34,8 @@ export interface BuildCardPreviewData {
   /** Attachment set bonus name, shown inline in the weapon row. */
   attachmentSet: string | null;
   statPrefs: string[];
+  /** Turn-by-turn rotation — grows a band below the OG layout when filled. */
+  rotation?: string[];
 }
 
 /** Cards are stamped with the DOMAIN — mirrors CARD_WORDMARK in core/theme.ts. */
@@ -37,6 +43,30 @@ const CARD_WORDMARK = 'refittingroom.app';
 
 /** Site accent, the fallback tint for an unknown/missing element. */
 const SITE_ACCENT = '#5b9dff';
+
+/** Rotation-band geometry — mirrors core/buildCard.ts buildCardHeight. */
+const BUILD_CARD_H = 630;
+const ROT_ENTRY_TOP = 96;
+const ROT_ENTRY_LINE = 26;
+const ROT_BOTTOM_PAD = 22;
+/** Must match `transform: scale(…)` on .build-card. */
+const PREVIEW_SCALE = 0.55;
+
+function buildCardHeight(turns: string[]): number {
+  if (turns.length === 0) {
+    return BUILD_CARD_H;
+  }
+  const maxEntries = Math.max(
+    1,
+    ...turns.map((t) => splitRotationEntries(t).length)
+  );
+  return (
+    BUILD_CARD_H +
+    ROT_ENTRY_TOP +
+    (maxEntries - 1) * ROT_ENTRY_LINE +
+    ROT_BOTTOM_PAD
+  );
+}
 
 export function BuildCardPreview({ data }: { data: BuildCardPreviewData }) {
   const cardRef = useRef<HTMLDivElement>(null);
@@ -65,10 +95,16 @@ export function BuildCardPreview({ data }: { data: BuildCardPreviewData }) {
     keyRows.push({ title: 'Expansion Key', value: data.expansionKeyName });
   }
 
+  const rotTurns = trimRotation(data.rotation);
+  const cardH = buildCardHeight(rotTurns);
+
   return (
     <div className="card-preview-wrapper">
-      <div className="card-preview-scale">
-        <div ref={cardRef} className="build-card">
+      <div
+        className="card-preview-scale"
+        style={{ height: Math.ceil(cardH * PREVIEW_SCALE) }}
+      >
+        <div ref={cardRef} className="build-card" style={{ height: cardH }}>
           {/* Accent stripe — the doll's element color */}
           <div className="build-card-stripe" style={{ background: accent }} />
 
@@ -213,6 +249,39 @@ export function BuildCardPreview({ data }: { data: BuildCardPreviewData }) {
               </p>
             </div>
           </div>
+
+          {/* Rotation band — below the OG layout; mirrors core/buildCard.ts */}
+          {rotTurns.length > 0 && (
+            <div className="build-card-rotation">
+              <span className="build-card-label">ROTATION</span>
+              <div className="build-card-rotcols">
+                {rotTurns.map((turn, i) => {
+                  const entries = splitRotationEntries(turn);
+                  return (
+                    <div key={i} className="build-card-rotcol">
+                      <span
+                        className="build-card-rotturn"
+                        style={{ color: accent }}
+                      >
+                        T{i + 1}
+                      </span>
+                      {entries.length === 0 ? (
+                        <span className="build-card-rotentry muted-value">
+                          —
+                        </span>
+                      ) : (
+                        entries.map((entry, j) => (
+                          <span key={j} className="build-card-rotentry">
+                            {entry}
+                          </span>
+                        ))
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          )}
         </div>
       </div>
 

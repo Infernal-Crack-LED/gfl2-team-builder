@@ -18,6 +18,7 @@ import {
   drawContained,
   type Canvas2DLike,
 } from './canvas2d.js';
+import { splitRotationEntries, trimRotation } from '../../share/rotation.js';
 import {
   COLORS,
   FONT,
@@ -28,6 +29,43 @@ import {
 
 export const BUILD_CARD_W = 1200;
 export const BUILD_CARD_H = 630;
+
+/**
+ * Rotation band, appended BELOW the fixed 1200×630 layout when a rotation is
+ * present: one column per turn (T1..T7), the turn's skill entries stacked
+ * inside its column. Cards without a rotation keep the exact OG geometry.
+ */
+const ROT_PAD_X = 60; // matches the portrait/stats margins
+const ROT_LABEL_DROP = 40; // band top → "ROTATION" label baseline
+const ROT_TLABEL_DROP = 68; // band top → T1..T7 baseline
+const ROT_ENTRY_TOP = 96; // band top → first entry baseline
+const ROT_ENTRY_LINE = 26;
+const ROT_BOTTOM_PAD = 22;
+
+/** Turn columns the band draws — trailing empty turns dropped. */
+function rotationTurns(data: BuildCardData): string[] {
+  return trimRotation(data.rotation);
+}
+
+/** Card height: the OG constant, plus the rotation band when present. The
+ * band's height depends only on the turn strings, so the HTML preview can
+ * mirror it without a canvas (same contract as recCardHeight). */
+export function buildCardHeight(data: BuildCardData): number {
+  const turns = rotationTurns(data);
+  if (turns.length === 0) {
+    return BUILD_CARD_H;
+  }
+  const maxEntries = Math.max(
+    1,
+    ...turns.map((t) => splitRotationEntries(t).length)
+  );
+  return (
+    BUILD_CARD_H +
+    ROT_ENTRY_TOP +
+    (maxEntries - 1) * ROT_ENTRY_LINE +
+    ROT_BOTTOM_PAD
+  );
+}
 
 /** Plain data struct — the node side resolves ids/urls into this shape. */
 export interface BuildCardData {
@@ -52,6 +90,9 @@ export interface BuildCardData {
   vert: number[];
   /** Ordered stat preference labels (up to 4), or empty. */
   statPrefs: string[];
+  /** Turn-by-turn rotation (T1-first, entries comma-separated); the card
+   * grows a rotation band below the OG layout when any turn is filled. */
+  rotation?: string[];
   /** Square-cropped portrait canvas (opaque to the core), or null. */
   portrait: unknown | null;
   /** Shared site-icon image for the brand mark (opaque to the core), or null. */
@@ -142,9 +183,9 @@ function labelledRow(
 export function drawBuildCard(ctx: Canvas2DLike, data: BuildCardData): void {
   const accent = phaseAccent(data.dollPhase);
 
-  // Background
+  // Background — the full computed height, not just the OG rectangle.
   ctx.fillStyle = COLORS.bg;
-  ctx.fillRect(0, 0, BUILD_CARD_W, BUILD_CARD_H);
+  ctx.fillRect(0, 0, BUILD_CARD_W, buildCardHeight(data));
   // Accent stripe along the top, in the doll's element color.
   ctx.fillStyle = accent;
   ctx.fillRect(0, 0, BUILD_CARD_W, 6);
@@ -334,5 +375,42 @@ export function drawBuildCard(ctx: Canvas2DLike, data: BuildCardData): void {
   } else {
     ctx.fillStyle = COLORS.text;
     fitText(ctx, data.statPrefs.join(' > '), rx, 606, rw, '400', 20, FONT);
+  }
+
+  // ---- Rotation band (below the OG layout; see buildCardHeight) ----
+  const turns = rotationTurns(data);
+  if (turns.length > 0) {
+    const y0 = BUILD_CARD_H;
+    groupLabel(ctx, 'Rotation', ROT_PAD_X, y0 + ROT_LABEL_DROP);
+    const colW = (BUILD_CARD_W - 2 * ROT_PAD_X) / turns.length;
+    turns.forEach((turn, i) => {
+      const cx = ROT_PAD_X + i * colW;
+      ctx.fillStyle = accent;
+      ctx.font = `700 18px ${FONT}`;
+      ctx.textAlign = 'left';
+      ctx.textBaseline = 'alphabetic';
+      ctx.fillText(`T${i + 1}`, cx, y0 + ROT_TLABEL_DROP);
+      const entries = splitRotationEntries(turn);
+      if (entries.length === 0) {
+        // Interior empty turn: a real "no action", shown as a muted dash.
+        ctx.fillStyle = COLORS.muted;
+        ctx.font = `400 18px ${FONT}`;
+        ctx.fillText(MUTED_PLACEHOLDER, cx, y0 + ROT_ENTRY_TOP);
+        return;
+      }
+      ctx.fillStyle = COLORS.text;
+      entries.forEach((entry, j) => {
+        fitText(
+          ctx,
+          entry,
+          cx,
+          y0 + ROT_ENTRY_TOP + j * ROT_ENTRY_LINE,
+          colW - 18,
+          '400',
+          18,
+          FONT
+        );
+      });
+    });
   }
 }

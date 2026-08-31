@@ -9,8 +9,8 @@ import './fonts.js';
 import { createCanvas } from '@napi-rs/canvas';
 import type { Canvas2DLike } from '../core/canvas2d.js';
 import {
-  BUILD_CARD_H,
   BUILD_CARD_W,
+  buildCardHeight,
   drawBuildCard,
   type BuildCardData,
 } from '../core/buildCard.js';
@@ -97,7 +97,7 @@ function makeCard(w: number, h: number) {
 export async function renderBuildCardPng(data: BuildCardData): Promise<Buffer> {
   assertFontsLive();
   const siteIcon = await loadSiteIcon();
-  const { canvas, ctx } = makeCard(BUILD_CARD_W, BUILD_CARD_H);
+  const { canvas, ctx } = makeCard(BUILD_CARD_W, buildCardHeight(data));
   drawBuildCard(ctx, { ...data, siteIcon });
   return canvas.encode('png');
 }

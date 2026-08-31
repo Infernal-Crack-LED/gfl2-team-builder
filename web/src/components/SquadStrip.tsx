@@ -55,6 +55,7 @@ export function defaultBuildFor(doll: Doll): DollBuild {
     ck: [],
     exp: null,
     set: null,
+    rot: [],
   };
 }
 
@@ -77,6 +78,7 @@ export function canonicalBuild(build: DollBuild): string {
     ck: build.ck ?? [],
     exp: build.exp ?? null,
     set: build.set ?? null,
+    rot: build.rot ?? [],
   });
 }
 

@@ -29,6 +29,10 @@ import { createHash } from 'node:crypto';
 //    chips (relative art paths + slot-from-level fix landed after the
 //    cutover deploy); the payloads are unchanged, so only a version bump
 //    retires the broken cached renders.
+// 7 also covers the ROTATION sections (all three cards) and the Gunsmoke
+//    attribution footer: they draw only when the new payload fields are
+//    present, and a payload carrying them hashes fresh — so adding them
+//    needed no bump.
 export const RENDERER_VERSION = 7;
 
 export type RenderKind = 'build' | 'team' | 'rec' | 'weapon';
