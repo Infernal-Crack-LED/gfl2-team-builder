@@ -1,0 +1,9 @@
+# kimi-cli >= 1.x agent spec for the blind gate profile (the old markdown
+# frontmatter format no longer parses — the CLI loads agent specs as pure
+# YAML). tools: [] preserves the blindness boundary: the model cannot read
+# the repo or any file; everything it may use is in the packet.
+version: 1
+agent:
+  name: 'kimi-blind-reviewer'
+  system_prompt_path: ./kimi-blind-system.md
+  tools: []

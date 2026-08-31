@@ -33,7 +33,7 @@ The author is whoever wrote the code — normally you, the driver.
 - The role body lives in `.claude/agents/code-review.md` (pinned to Opus). The packet = role body +
   materials; the bridges prepend `.claude/subagent-non-negotiables.md` themselves.
 - All three bridges auto-detect the `# code-review` packet heading and run the reviewer SIGHTED with
-  read-only repo access — Kimi via the `scripts/gates/kimi-code-review-agent.md` profile, Claude via
+  read-only repo access — Kimi via the `scripts/gates/kimi-code-review-agent.yaml` profile, Claude via
   `--allowedTools "Read,Grep,Glob,Bash"`, Qwen via `--approval-mode default` (headless: reads need no
   confirmation, writes/shell can't be confirmed and are auto-denied). Detection wins over a stale
   `KIMI_AGENT_FILE`, so a code review can never be forced back onto a blind profile.

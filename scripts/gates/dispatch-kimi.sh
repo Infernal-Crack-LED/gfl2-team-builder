@@ -9,34 +9,32 @@ set -euo pipefail
 # the packet's role heading in its first 10 lines:
 #
 #   BLIND (default — every packet that does not start with "# code-review"):
-#     runs the blind agent profile (kimi-blind-agent.md, `tools: []`), which
-#     leaves the model with no tools at all (verified 2026-07-26: it cannot
-#     read files), and prepends the no-tools preamble. Generic gates may
-#     override the profile with KIMI_AGENT_FILE (e.g. logic-gate's
-#     scripts/gates/kimi-gate-agent.md — also `tools: []`).
+#     runs the blind agent profile (kimi-blind-agent.yaml, `tools: []`), which
+#     leaves the model with no tools at all, and prepends the no-tools
+#     preamble. Generic gates may override the profile with KIMI_AGENT_FILE —
+#     the override must be a kimi-cli >= 1.x YAML agent spec.
 #
 #   CODE-REVIEW (packet starts with "# code-review"):
 #     the sighted post-op review (.claude/skills/code-review). Runs the sighted
-#     profile (kimi-code-review-agent.md, `tools: [Read, Grep, Glob, Bash]`)
-#     and omits the no-tools preamble. Write/Edit are NOT in the profile — the
-#     reviewer stays findings-only (Bash is governed by the role body's "never
+#     profile (kimi-code-review-agent.yaml: ReadFile/Glob/Grep/Shell) and omits
+#     the no-tools preamble. Write/edit tools are NOT in the profile — the
+#     reviewer stays findings-only (Shell is governed by the role body's "never
 #     edit, never mutate" instruction). Detection WINS over KIMI_AGENT_FILE: a
 #     code-review packet always gets the sighted profile even if the caller
 #     still exports the old blind gate profile.
 #
-# Both modes prepend the subagent non-negotiables, run the full prompt through
-# `kimi -p`, extract the assistant text from the stream-json envelope, strip
-# markdown fences, validate it parses as JSON, and write to <result-out.json>.
+# Both modes prepend the subagent non-negotiables, pipe the full prompt to
+# `kimi --print` on STDIN, extract the assistant text from the stream-json
+# envelope, strip markdown fences, validate it parses as JSON, and write to
+# <result-out.json>.
 #
 # The model field is injected into the result so the verdict can report provenance.
 #
-# Model names are config.toml aliases, e.g. `kimi-code/k3` (see
+# Model names are ~/.kimi/config.toml aliases, e.g. `kimi-code/k3` (see
 # .claude/skills/code-review/SKILL.md for the canonical routing).
 #
-# NOTE: --agent-file requires the v2 engine in -p mode, hence
-# KIMI_CODE_EXPERIMENTAL_FLAG=1 below. Long dispatches (a ~44KB blind packet)
-# take minutes — carve this script out of any short STOP-DON'T-WAIT timeout,
-# same as dispatch-claude.sh.
+# NOTE: long dispatches (a ~44KB packet) take minutes — carve this script out
+# of any short STOP-DON'T-WAIT timeout, same as dispatch-claude.sh.
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
@@ -54,9 +52,9 @@ detect_code_review() {
 }
 
 # Agent profile: selected by mode once the packet is known (see below) — the
-# sighted kimi-code-review-agent.md for code-review packets, the
-# blind profile otherwise; generic gates (logic-gate) override the BLIND
-# profile with KIMI_AGENT_FILE=scripts/gates/kimi-gate-agent.md.
+# sighted kimi-code-review-agent.yaml for code-review packets, the blind
+# profile (kimi-blind-agent.yaml) otherwise; generic gates may override the
+# BLIND profile with KIMI_AGENT_FILE=<their own YAML agent spec>.
 
 # Resolve the kimi binary: PATH first, then the default install location.
 KIMI="$(command -v kimi || true)"
@@ -95,10 +93,12 @@ fi
 # export cannot force a code review back onto the blind profile.
 if detect_code_review "$PACKET"; then
   MODE="code-review"
-  AGENT_FILE="$SCRIPT_DIR/kimi-code-review-agent.md"
+  # kimi-cli >= 1.x parses agent specs as pure YAML; the old .md
+  # frontmatter profile no longer loads. Same read-only contract.
+  AGENT_FILE="$SCRIPT_DIR/kimi-code-review-agent.yaml"
 else
   MODE="blind"
-  AGENT_FILE="${KIMI_AGENT_FILE:-$SCRIPT_DIR/kimi-blind-agent.md}"
+  AGENT_FILE="${KIMI_AGENT_FILE:-$SCRIPT_DIR/kimi-blind-agent.yaml}"
 fi
 
 # Build the full prompt: mode preamble + non-negotiables + the packet.
@@ -130,13 +130,21 @@ echo "→ dispatching $(basename "$PACKET") to $MODEL ($MODE mode) …" >&2
 
 # Dispatch: the tool set is bounded by the agent PROFILE, not a permission flag —
 #   blind       — tools: [] (the model has no tools at all).
-#   code-review — tools: [Read, Grep, Glob, Bash] (Write/Edit never exist).
-# -p mode is non-interactive and auto-runs the profile's tools on its own; the
-# interactive approval flags are REJECTED with -p ("Cannot combine --prompt with
-# --auto" / "--yolo", verified live 2026-08-02), so neither is passed.
+#   code-review — ReadFile/Glob/Grep/Shell (write tools never exist).
+# --print is non-interactive and auto-approves the profile's tools on its own.
 # stream-json gives one JSON object per line on stdout; the model's reply is
 # the assistant message(s). stderr carries thinking + progress (discarded).
-RAW="$(KIMI_CODE_EXPERIMENTAL_FLAG=1 "$KIMI" -p "$PROMPT" \
+# kimi-cli >= 1.x: -p alone is no longer non-interactive; --print is required
+# for headless runs and is what --output-format needs. The prompt goes in on
+# STDIN (--input-format text), not as -p: a packet-sized argv blows past the
+# ~32K CreateProcess limit on Windows and the dispatch dies with no message.
+# PYTHONUTF8: on Windows the CLI otherwise decodes stdin as the console
+# codepage (cp1252) and multibyte UTF-8 in the packet becomes lone
+# surrogates that kill the request at serialization time.
+# KIMI_CODE_EXPERIMENTAL_FLAG is legacy (pre-1.x needed it for --agent-file
+# in -p mode); kept because it is harmless on >= 1.x and older CLIs may linger.
+RAW="$(printf '%s' "$PROMPT" | KIMI_CODE_EXPERIMENTAL_FLAG=1 PYTHONUTF8=1 "$KIMI" --print \
+  --input-format text \
   --model "$MODEL" \
   --agent-file "$AGENT_FILE" \
   --output-format stream-json \
@@ -150,7 +158,12 @@ RAW="$(KIMI_CODE_EXPERIMENTAL_FLAG=1 "$KIMI" -p "$PROMPT" \
 # "content":"<json string>"} — a plain string, so `last` yields the JSON. No
 # block-array content was observed, so this extraction needs no code-review
 # special-casing.
-RESULT_TEXT="$(printf '%s\n' "$RAW" | jq -rs '[.[] | select(.role == "assistant") | .content // empty] | last // empty' 2>/dev/null)" || true
+# kimi-cli >= 1.x wraps assistant content in a block array
+# ([{type:"think",...},{type:"text","text":...}]); older CLIs sent a plain
+# string. Handle both: join the text blocks, pass strings through.
+RESULT_TEXT="$(printf '%s\n' "$RAW" | jq -rs '[.[] | select(.role == "assistant") | .content // empty
+  | if type == "array" then (map(select(.type? == "text") | .text) | join("")) else . end
+  | select(length > 0)] | last // empty' 2>/dev/null)" || true
 if [[ -z "$RESULT_TEXT" ]]; then
   echo "❌ kimi returned no assistant message" >&2
   printf '%s\n' "$RAW" | head -c 1000 >&2 || true

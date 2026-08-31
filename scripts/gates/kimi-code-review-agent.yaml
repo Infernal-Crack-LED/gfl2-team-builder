@@ -1,0 +1,15 @@
+# kimi-cli >= 1.x agent spec for the sighted code-review profile (the old
+# markdown-frontmatter format in kimi-code-review-agent.md predates the CLI's
+# YAML agent-spec format and no longer parses). Same contract: read-only
+# tools only — ReadFile/Glob/Grep plus Shell for fast read-only checks,
+# governed by the role body's "never edit, never mutate" instruction.
+# Write/StrReplace tools are never listed, so they do not exist.
+version: 1
+agent:
+  name: 'kimi-code-reviewer'
+  system_prompt_path: ./kimi-code-review-system.md
+  tools:
+    - 'kimi_cli.tools.file:ReadFile'
+    - 'kimi_cli.tools.file:Glob'
+    - 'kimi_cli.tools.file:Grep'
+    - 'kimi_cli.tools.shell:Shell'
