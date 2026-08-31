@@ -1,6 +1,6 @@
 {
-  "id": "322e39e6-56c3-4714-a01e-0cc5bc47559d",
-  "prevId": "a7d953de-a1eb-4972-9c46-235db80cb711",
+  "id": "d6707a47-0d7b-4da4-a1b3-de247677ece4",
+  "prevId": "322e39e6-56c3-4714-a01e-0cc5bc47559d",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
@@ -550,6 +550,18 @@
         },
         "level": {
           "name": "level",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "display_slot": {
+          "name": "display_slot",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "unlock_level": {
+          "name": "unlock_level",
           "type": "integer",
           "primaryKey": false,
           "notNull": false

@@ -42,6 +42,7 @@
     "import:gunsmoke": "tsx src/bin/import-gunsmoke.ts",
     "seed:datamine": "tsx src/bin/seed-from-datamine.ts",
     "purge:dandegate": "tsx src/bin/purge-dandegate.ts",
+    "demo:sheet": "tsx src/bin/demo-sheet.ts",
     "migrate:profiles": "tsx src/bin/migrate-profiles.ts",
     "prepare": "husky",
     "indexnow": "tsx src/bin/indexnow.ts"

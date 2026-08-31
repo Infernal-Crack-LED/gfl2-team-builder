@@ -54,8 +54,15 @@
     {
       "idx": 7,
       "version": "7",
-      "when": 1788172301371,
-      "tag": "0007_add-key-display-slots",
+      "when": 1788172203784,
+      "tag": "0007_dashing_angel",
+      "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "7",
+      "when": 1788204686433,
+      "tag": "0008_add-key-display-slots",
       "breakpoints": true
     }
   ]

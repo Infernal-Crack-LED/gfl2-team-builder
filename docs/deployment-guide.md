@@ -134,6 +134,41 @@ After Helen reaches ~75 server installs:
    - Terms of Service URL: `https://refittingroom.app/terms`
 3. Submit for review.
 
+### 9. Platoon roster (/sheet, /username, /roster)
+
+The roster feature needs two things the dashboard has to provide:
+
+1. **Roster OCR service** — deploy `ocr-service/` as a new Railway service in
+   the same project (root directory `ocr-service`, Dockerfile build — the
+   `ocr-service/railway.json` is already wired). Set `OCR_API_KEY` to a random
+   secret on it. It reads GFL2 roster screenshots and returns doll name,
+   vertebrae level, and power; models are baked into the image at build time.
+
+2. **Google service account** — in a Google Cloud project, enable the
+   **Sheets API** and **Drive API**, create a service account, and download a
+   JSON key. The bot creates one spreadsheet per platoon and shares it as
+   anyone-with-the-link **editor**.
+
+3. **Know the sheet-creation limitation** — service accounts have zero
+   Drive storage (Apr 2025) and cannot create or own spreadsheets; even
+   creating into a human-shared folder fails with `storageQuotaExceeded`
+   (verified live 2026-08-30). So platoon leads create a blank Google Sheet
+   themselves, share it with the service account's email as **Editor**, and
+   run `/sheet name:<x> url:<link>`. A plain `/sheet` replies with exactly
+   those instructions when creation is quota-blocked — nothing to configure.
+
+Then set on the **bot service**:
+
+```
+GOOGLE_SERVICE_ACCOUNT_JSON=<the whole key-file JSON, one line>
+ROSTER_OCR_URL=https://<ocr service domain>
+ROSTER_OCR_KEY=<same value as OCR_API_KEY above>
+```
+
+Both halves fail soft: without the Google vars `/sheet` says it's not
+configured; without the OCR vars `/roster` does. `/username` always works
+(it only touches Postgres).
+
 ---
 
 ## Quick reference

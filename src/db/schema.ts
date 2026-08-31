@@ -1,3 +1,4 @@
+import { sql } from 'drizzle-orm';
 import {
   boolean,
   index,
@@ -215,6 +216,94 @@ export const infographics = pgTable('infographics', {
     .notNull()
     .defaultNow(),
 });
+
+/**
+ * Platoons — one per (guild, name). Each platoon owns one Google Sheet
+ * (created by /sheet) that mirrors its members' vertebrae data. A guild can
+ * have several platoons, hence the name in the key. The unique index is on
+ * lower(name): /roster resolves platoon names case-insensitively, so
+ * case-variant duplicates must be impossible to create.
+ */
+export const platoons = pgTable(
+  'platoons',
+  {
+    id: uuid('id').primaryKey().defaultRandom(),
+    guildId: text('guild_id').notNull(),
+    name: text('name').notNull(),
+    sheetId: text('sheet_id').notNull(),
+    createdBy: text('created_by').notNull(),
+    createdAt: timestamp('created_at', { withTimezone: true })
+      .notNull()
+      .defaultNow(),
+  },
+  (t) => [
+    uniqueIndex('platoons_guild_id_name_uq').on(
+      t.guildId,
+      sql`lower(${t.name})`
+    ),
+  ]
+);
+
+/**
+ * Platoon membership — a player joins a platoon implicitly the first time
+ * they submit /roster into it.
+ */
+export const platoonMembers = pgTable(
+  'platoon_members',
+  {
+    id: uuid('id').primaryKey().defaultRandom(),
+    platoonId: uuid('platoon_id').notNull(),
+    discordId: text('discord_id').notNull(),
+    joinedAt: timestamp('joined_at', { withTimezone: true })
+      .notNull()
+      .defaultNow(),
+  },
+  (t) => [
+    uniqueIndex('platoon_members_platoon_discord_uq').on(
+      t.platoonId,
+      t.discordId
+    ),
+    index('platoon_members_discord_id_idx').on(t.discordId),
+  ]
+);
+
+/**
+ * In-game identity per Discord user (set via /username). Global, not
+ * per-guild: a player's game account is the same everywhere.
+ */
+export const rosterPlayers = pgTable('roster_players', {
+  discordId: text('discord_id').primaryKey(),
+  username: text('username').notNull(),
+  playerId: text('player_id').notNull(),
+  updatedAt: timestamp('updated_at', { withTimezone: true })
+    .notNull()
+    .defaultNow(),
+});
+
+/**
+ * Per-player doll state read from /roster screenshots. One row per
+ * (discordId, dollSlug); resubmitting a doll overwrites it. Power/level are
+ * collected but not yet surfaced on the sheet. `vertebrae` is null when the
+ * badge glyph could not be read (the card was still worth keeping for power).
+ */
+export const rosterDolls = pgTable(
+  'roster_dolls',
+  {
+    id: uuid('id').primaryKey().defaultRandom(),
+    discordId: text('discord_id').notNull(),
+    dollSlug: text('doll_slug').notNull(),
+    vertebrae: integer('vertebrae'),
+    power: integer('power'),
+    level: integer('level'),
+    updatedAt: timestamp('updated_at', { withTimezone: true })
+      .notNull()
+      .defaultNow(),
+  },
+  (t) => [
+    uniqueIndex('roster_dolls_discord_slug_uq').on(t.discordId, t.dollSlug),
+    index('roster_dolls_discord_id_idx').on(t.discordId),
+  ]
+);
 
 /**
  * User profiles — saved client blobs (e.g. team-builder squads) keyed by
