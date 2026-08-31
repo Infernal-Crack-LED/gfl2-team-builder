@@ -1,6 +1,6 @@
 {
-  "id": "e7ad7d72-cf8c-4bcc-bbdd-d3791553fe0d",
-  "prevId": "60bc4670-575e-4874-ab31-2a2a3c163987",
+  "id": "322e39e6-56c3-4714-a01e-0cc5bc47559d",
+  "prevId": "a7d953de-a1eb-4972-9c46-235db80cb711",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
@@ -31,6 +31,66 @@
           "type": "timestamp",
           "primaryKey": false,
           "notNull": false,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.doll_gunsmoke_guides": {
+      "name": "doll_gunsmoke_guides",
+      "schema": "",
+      "columns": {
+        "doll_slug": {
+          "name": "doll_slug",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "class_tab": {
+          "name": "class_tab",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "fixed_keys": {
+          "name": "fixed_keys",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'[]'::jsonb"
+        },
+        "common_keys": {
+          "name": "common_keys",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'{}'::jsonb"
+        },
+        "rotations": {
+          "name": "rotations",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'[]'::jsonb"
+        },
+        "source": {
+          "name": "source",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'sheet'"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
           "default": "now()"
         }
       },

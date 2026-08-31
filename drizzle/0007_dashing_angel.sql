@@ -33,6 +33,6 @@ CREATE TABLE "roster_players" (
 --> statement-breakpoint
 CREATE UNIQUE INDEX "platoon_members_platoon_discord_uq" ON "platoon_members" USING btree ("platoon_id","discord_id");--> statement-breakpoint
 CREATE INDEX "platoon_members_discord_id_idx" ON "platoon_members" USING btree ("discord_id");--> statement-breakpoint
-CREATE UNIQUE INDEX "platoons_guild_id_name_uq" ON "platoons" USING btree ("guild_id","name");--> statement-breakpoint
+CREATE UNIQUE INDEX "platoons_guild_id_name_uq" ON "platoons" USING btree ("guild_id",lower("name"));--> statement-breakpoint
 CREATE UNIQUE INDEX "roster_dolls_discord_slug_uq" ON "roster_dolls" USING btree ("discord_id","doll_slug");--> statement-breakpoint
 CREATE INDEX "roster_dolls_discord_id_idx" ON "roster_dolls" USING btree ("discord_id");

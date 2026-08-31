@@ -151,6 +151,36 @@ export const dollRecommendations = pgTable('doll_recommendations', {
 });
 
 /**
+ * Per-doll Gunsmoke Frontline guide data — rotations and key picks parsed
+ * from the community Gunsmoke Frontline Doll Info sheet by
+ * src/bin/import-gunsmoke.ts (fetch via src/sync/gunsmoke-sheet.ts). Keyed by
+ * doll SLUG. Unlike `doll_recommendations` (rec-card defaults), this keeps
+ * the full guide: per-vertebrae rotations with conditions, fixed keys split
+ * recommended/conditional with their condition text, and common-key tiers.
+ *
+ * jsonb shapes:
+ *   fixedKeys:  [{slot, title, description, tier: 'recommended'|'conditional',
+ *                 condition, keyId}]       // keyId resolved from data/keys.json
+ *   commonKeys: {note, bestInSlot: [{label, keyId}], goodAlternatives: [...],
+ *                conditional: [...]}       // keyId when label names a doll
+ *   rotations:  [{label, vertebrae, condition, turns: (string|null)[7], notes}]
+ *
+ * `source` guards manual curation the same way as doll_recommendations: the
+ * importer only overwrites 'sheet' rows unless --force is passed.
+ */
+export const dollGunsmokeGuides = pgTable('doll_gunsmoke_guides', {
+  dollSlug: text('doll_slug').primaryKey(),
+  classTab: text('class_tab'),
+  fixedKeys: jsonb('fixed_keys').notNull().default([]),
+  commonKeys: jsonb('common_keys').notNull().default({}),
+  rotations: jsonb('rotations').notNull().default([]),
+  source: text('source').notNull().default('sheet'),
+  updatedAt: timestamp('updated_at', { withTimezone: true })
+    .notNull()
+    .defaultNow(),
+});
+
+/**
  * Sync audit log — one row per `npm run sync` invocation. `sources` carries
  * counts per entity type plus any errors encountered.
  */
