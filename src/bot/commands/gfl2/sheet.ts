@@ -5,6 +5,10 @@ import { db } from '../../../db/index.js';
 import { platoons } from '../../../db/schema.js';
 import {
   createRosterSpreadsheet,
+  extractSpreadsheetId,
+  isQuotaError,
+  prepareLinkedSpreadsheet,
+  serviceAccountEmail,
   sheetsConfigured,
   spreadsheetUrl,
 } from '../../lib/gfl2/googleSheets.js';
@@ -22,6 +26,14 @@ export const command: Command = {
         .setDescription('Platoon name (a server can have several platoons)')
         .setRequired(true)
         .setMaxLength(80)
+    )
+    .addStringOption((option) =>
+      option
+        .setName('url')
+        .setDescription(
+          'Link an existing Google Sheet (create one, share it with the bot as editor, paste its link)'
+        )
+        .setMaxLength(200)
     ),
   execute: async (interaction) => {
     if (!interaction.inGuild()) {
@@ -64,9 +76,50 @@ export const command: Command = {
     }
 
     await interaction.deferReply();
-    const sheetId = await createRosterSpreadsheet(
-      `GFL2 Platoon Roster — ${name}`
-    );
+
+    // Two ways to a spreadsheet: link one a human created and shared with
+    // the bot (always works), or have the bot create one (works only for
+    // identities that can own Drive files — plain service accounts cannot,
+    // they have zero Drive storage, so that path fails with a quota error
+    // and we answer with the link-a-sheet instructions instead).
+    let sheetId: string;
+    const rawUrl = interaction.options.getString('url');
+    if (rawUrl !== null) {
+      const parsed = extractSpreadsheetId(rawUrl);
+      if (!parsed) {
+        await interaction.editReply(
+          `That doesn't look like a Google Sheets link. Paste the sheet's URL (docs.google.com/spreadsheets/d/…).`
+        );
+        return;
+      }
+      try {
+        await prepareLinkedSpreadsheet(parsed);
+      } catch (error) {
+        console.error('[sheet] linking failed', error);
+        await interaction.editReply(
+          `I can't reach that sheet. Share it with **${serviceAccountEmail()}** as an **Editor**, then run this command again.`
+        );
+        return;
+      }
+      sheetId = parsed;
+    } else {
+      try {
+        sheetId = await createRosterSpreadsheet(
+          `GFL2 Platoon Roster — ${name}`
+        );
+      } catch (error) {
+        if (isQuotaError(error)) {
+          await interaction.editReply(
+            'I cannot create sheets myself (Google gives bot accounts no Drive storage). Two-minute fix:\n' +
+              '1. Create a blank Google Sheet in your own Drive\n' +
+              `2. Share it with **${serviceAccountEmail()}** as an **Editor**\n` +
+              `3. Rerun \`/sheet name:${name} url:<the sheet's link>\``
+          );
+          return;
+        }
+        throw error;
+      }
+    }
     const [row] = await db
       .insert(platoons)
       .values({

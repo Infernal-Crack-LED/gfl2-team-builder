@@ -258,3 +258,58 @@ export function serviceAccountEmail(): string {
 export function spreadsheetUrl(spreadsheetId: string): string {
   return `https://docs.google.com/spreadsheets/d/${spreadsheetId}`;
 }
+
+/** Spreadsheet ID from a docs.google.com URL (or an ID passed through). */
+export function extractSpreadsheetId(input: string): string | null {
+  const fromUrl = /\/spreadsheets\/d\/([A-Za-z0-9_-]{20,})/.exec(input);
+  if (fromUrl?.[1]) {
+    return fromUrl[1];
+  }
+  return /^[A-Za-z0-9_-]{20,}$/.test(input.trim()) ? input.trim() : null;
+}
+
+/** True when a create failed because the service account cannot own files. */
+export function isQuotaError(error: unknown): boolean {
+  return (
+    error instanceof Error && error.message.includes('storageQuotaExceeded')
+  );
+}
+
+/**
+ * Shape a HUMAN-created spreadsheet for roster use: rename the default first
+ * tab to the roster tab, add the analysis tab, and open link-sharing. This is
+ * the plain-service-account path — the account cannot own files (zero Drive
+ * quota), so a person creates the sheet, shares it with the service account
+ * as editor, and the bot takes over the contents.
+ * Throws if the sheet is unreachable (not shared with the service account).
+ */
+export async function prepareLinkedSpreadsheet(
+  spreadsheetId: string
+): Promise<void> {
+  const tabs = await getSheetTabs(spreadsheetId);
+  const requests: unknown[] = [];
+  if (!tabs.some((t) => t.title === ROSTER_TAB)) {
+    const first = tabs[0];
+    if (!first) {
+      throw new Error(`spreadsheet ${spreadsheetId} has no tabs`);
+    }
+    requests.push({
+      updateSheetProperties: {
+        properties: { sheetId: first.sheetId, title: ROSTER_TAB },
+        fields: 'title',
+      },
+    });
+  }
+  if (!tabs.some((t) => t.title === ANALYSIS_TAB)) {
+    requests.push({ addSheet: { properties: { title: ANALYSIS_TAB } } });
+  }
+  await batchUpdateSheet(spreadsheetId, requests);
+
+  await googleFetch(
+    `https://www.googleapis.com/drive/v3/files/${spreadsheetId}/permissions?supportsAllDrives=true`,
+    {
+      method: 'POST',
+      body: JSON.stringify({ type: 'anyone', role: 'writer' }),
+    }
+  );
+}

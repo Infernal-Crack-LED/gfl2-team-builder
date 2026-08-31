@@ -17,6 +17,8 @@ import { writeFile } from 'node:fs/promises';
 import { PHASE_COLORS } from '../infographics/core/theme.js';
 import {
   createRosterSpreadsheet,
+  extractSpreadsheetId,
+  prepareLinkedSpreadsheet,
   sheetsConfigured,
   spreadsheetUrl,
 } from '../bot/lib/gfl2/googleSheets.js';
@@ -206,9 +208,24 @@ async function main(): Promise<void> {
     return;
   }
 
-  const sheetId = await createRosterSpreadsheet(
-    'GFL2 Platoon Roster — SAMPLE (mock data)'
-  );
+  // --sheet <url|id>: write into a human-created spreadsheet shared with the
+  // service account (the plain-service-account path, mirroring /sheet's url
+  // option). Without it the script tries to create one, which needs an
+  // identity that can own Drive files.
+  const sheetFlag = process.argv.indexOf('--sheet');
+  let sheetId: string;
+  if (sheetFlag !== -1) {
+    const parsed = extractSpreadsheetId(process.argv[sheetFlag + 1] ?? '');
+    if (!parsed) {
+      throw new Error('--sheet needs a Google Sheets URL or spreadsheet ID');
+    }
+    await prepareLinkedSpreadsheet(parsed);
+    sheetId = parsed;
+  } else {
+    sheetId = await createRosterSpreadsheet(
+      'GFL2 Platoon Roster — SAMPLE (mock data)'
+    );
+  }
   await writePlatoonSpreadsheet(sheetId, members);
   console.log(`sample sheet: ${spreadsheetUrl(sheetId)}`);
 }
