@@ -146,13 +146,21 @@ The roster feature needs two things the dashboard has to provide:
 
 2. **Google service account** — in a Google Cloud project, enable the
    **Sheets API** and **Drive API**, create a service account, and download a
-   JSON key. The bot creates one spreadsheet per platoon under this account
-   and shares it as anyone-with-the-link **editor**.
+   JSON key. The bot creates one spreadsheet per platoon and shares it as
+   anyone-with-the-link **editor**.
+
+3. **A Drive folder shared with the service account** — service accounts
+   have zero Drive storage (Apr 2025), so the bot cannot own spreadsheets.
+   Create a folder in a human Google account's My Drive, share it with the
+   service account's email as **Editor**, and pass its ID (the last path
+   segment of the folder URL). Sheets created there are owned by the folder
+   owner and use their storage quota.
 
 Then set on the **bot service**:
 
 ```
 GOOGLE_SERVICE_ACCOUNT_JSON=<the whole key-file JSON, one line>
+GOOGLE_DRIVE_FOLDER_ID=<shared folder ID>
 ROSTER_OCR_URL=https://<ocr service domain>
 ROSTER_OCR_KEY=<same value as OCR_API_KEY above>
 ```

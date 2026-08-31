@@ -112,31 +112,78 @@ async function googleFetch(url: string, init: RequestInit): Promise<unknown> {
  * so platoon leads can annotate it. The bot's syncs clear and rewrite the
  * whole roster tab, so manual notes belong on other tabs.
  * Returns the spreadsheet ID.
+ *
+ * Service accounts have had ZERO Drive storage since April 2025, so the
+ * account cannot own files: a bare spreadsheets.create fails with
+ * storageQuotaExceeded. The sheet is therefore created INSIDE a folder a
+ * human shared with the service account (GOOGLE_DRIVE_FOLDER_ID) — items
+ * created in a shared My Drive folder are owned by the folder's owner, whose
+ * quota they use. The folder owner must share it with the service account as
+ * an editor.
  */
 export async function createRosterSpreadsheet(title: string): Promise<string> {
-  const created = (await googleFetch(
-    'https://sheets.googleapis.com/v4/spreadsheets',
-    {
-      method: 'POST',
-      body: JSON.stringify({
-        properties: { title },
-        sheets: [
-          { properties: { title: ROSTER_TAB } },
-          { properties: { title: ANALYSIS_TAB } },
-        ],
-      }),
+  const folderId = process.env.GOOGLE_DRIVE_FOLDER_ID;
+  let spreadsheetId: string;
+
+  if (folderId) {
+    // Drive create (Sheets API cannot set a parent), then shape the tabs.
+    const created = (await googleFetch(
+      'https://www.googleapis.com/drive/v3/files?supportsAllDrives=true',
+      {
+        method: 'POST',
+        body: JSON.stringify({
+          name: title,
+          mimeType: 'application/vnd.google-apps.spreadsheet',
+          parents: [folderId],
+        }),
+      }
+    )) as { id: string };
+    spreadsheetId = created.id;
+    // A Drive-created spreadsheet has one default tab ("Sheet1" or a locale
+    // variant) — rename it by ID rather than by title.
+    const tabs = await getSheetTabs(spreadsheetId);
+    const first = tabs[0];
+    if (!first) {
+      throw new Error(`new spreadsheet ${spreadsheetId} has no tabs`);
     }
-  )) as { spreadsheetId: string };
+    await batchUpdateSheet(spreadsheetId, [
+      {
+        updateSheetProperties: {
+          properties: { sheetId: first.sheetId, title: ROSTER_TAB },
+          fields: 'title',
+        },
+      },
+      { addSheet: { properties: { title: ANALYSIS_TAB } } },
+    ]);
+  } else {
+    // Direct create — only works for identities that can own files (a user
+    // OAuth token, or a service account writing into a Workspace shared
+    // drive world). Kept for those setups.
+    const created = (await googleFetch(
+      'https://sheets.googleapis.com/v4/spreadsheets',
+      {
+        method: 'POST',
+        body: JSON.stringify({
+          properties: { title },
+          sheets: [
+            { properties: { title: ROSTER_TAB } },
+            { properties: { title: ANALYSIS_TAB } },
+          ],
+        }),
+      }
+    )) as { spreadsheetId: string };
+    spreadsheetId = created.spreadsheetId;
+  }
 
   await googleFetch(
-    `https://www.googleapis.com/drive/v3/files/${created.spreadsheetId}/permissions`,
+    `https://www.googleapis.com/drive/v3/files/${spreadsheetId}/permissions?supportsAllDrives=true`,
     {
       method: 'POST',
       body: JSON.stringify({ type: 'anyone', role: 'writer' }),
     }
   );
 
-  return created.spreadsheetId;
+  return spreadsheetId;
 }
 
 /** Replace one tab's contents with `values` (row-major strings). */
