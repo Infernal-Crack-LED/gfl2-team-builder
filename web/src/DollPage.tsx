@@ -407,7 +407,12 @@ export function DollPage({ slug }: { slug: string | null }) {
   // Affinity keys are an affinity-level stat reward, not a build choice — the
   // same reason the Keys page hides them (see KEY_TYPE_OPTIONS). Her own
   // common key gets its own panel; fixed and expansion share the Keys grid.
-  const fixedKeys = dollKeys.filter((k) => k.keyType === 'Fixed Key');
+  const fixedKeys = dollKeys
+    .filter((k) => k.keyType === 'Fixed Key')
+    .sort(
+      (a, b) =>
+        (a.displaySlot ?? a.level ?? 0) - (b.displaySlot ?? b.level ?? 0)
+    );
   const expansionKeys = dollKeys.filter((k) => k.keyType === 'Expansion Key');
   const dollCommonKeys = dollKeys.filter((k) => k.keyType === 'Common Key');
   const dollEffects = getDollEffectVariants(doll);

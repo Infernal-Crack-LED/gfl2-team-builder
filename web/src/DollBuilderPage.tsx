@@ -533,7 +533,12 @@ export function DollBuilder({
   }, [doll, build, dollKeys, commonKeys, selectedWeapon]);
 
   // Partition keys by type for the builder sections.
-  const fixedKeys = dollKeys.filter((k) => k.keyType === 'Fixed Key');
+  const fixedKeys = dollKeys
+    .filter((k) => k.keyType === 'Fixed Key')
+    .sort(
+      (a, b) =>
+        (a.displaySlot ?? a.level ?? 0) - (b.displaySlot ?? b.level ?? 0)
+    );
   const expansionKeys = dollKeys.filter((k) => k.keyType === 'Expansion Key');
 
   return (

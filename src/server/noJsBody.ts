@@ -204,8 +204,8 @@ function keysBody(): string {
           return (
             '<div class="keycard">' +
             `<div class="keycard-head"><h3>${escapeHtml(keyDisplayName(key))}</h3>` +
-            (key.level
-              ? `<span class="keycard-level">Slot ${key.level}</span>`
+            ((key.displaySlot ?? key.level)
+              ? `<span class="keycard-level">Slot ${key.displaySlot ?? key.level}</span>`
               : '') +
             '</div>' +
             (owner
@@ -243,8 +243,8 @@ function builderBody(doll: DollEntry): string {
       return (
         '<div class="keycard">' +
         `<div class="keycard-head"><h3>${escapeHtml(keyDisplayName(key))}</h3>` +
-        (key.level
-          ? `<span class="keycard-level">Slot ${key.level}</span>`
+        ((key.displaySlot ?? key.level)
+          ? `<span class="keycard-level">Slot ${key.displaySlot ?? key.level}</span>`
           : '') +
         '</div>' +
         keyAttributes(key) +

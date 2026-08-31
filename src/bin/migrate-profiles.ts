@@ -76,6 +76,7 @@ interface NewKey {
   displayTitle: string | null;
   keyType: string | null;
   level: number | null;
+  displaySlot?: number | null;
   dollId: string | null;
 }
 
@@ -186,8 +187,15 @@ function buildIdMap(oldDir: string, newDir: string) {
     let hit: NewKey | undefined;
     const slotMatch = /^Fixed Key\s+(\d)\b/i.exec(k.displayTitle ?? '');
     if (k.keyType === 'Fixed Key' && slotMatch) {
+      // Dandegate's "Fixed Key N" titles use the IN-GAME numbering, which
+      // is the datamine's displaySlot — not the internal `level` digit (the
+      // two are permuted on 19 dolls; verified against the frozen backup:
+      // Springfield's "Fixed Key 2" is Intel Acquisition = displaySlot 2,
+      // level 3).
       hit = dollKeys.find(
-        (nk) => nk.keyType === 'Fixed Key' && nk.level === Number(slotMatch[1])
+        (nk) =>
+          nk.keyType === 'Fixed Key' &&
+          (nk.displaySlot ?? nk.level) === Number(slotMatch[1])
       );
     }
     if (!hit && k.displayTitle) {

@@ -69,9 +69,14 @@ function lookupsFor(doll: DollEntry): RecLookups {
     keyByLabel: (label: string): RecLink | null => {
       const { slot, name } = parseKeyLabel(label);
       const match =
-        // The slot is unambiguous within one doll's six fixed keys.
+        // The slot is unambiguous within one doll's six fixed keys. Sheet
+        // labels use the in-game numbering = displaySlot, NOT the internal
+        // level digit (the two are permuted on 19 dolls).
         (slot !== null
-          ? dollKeys.find((k) => k.keyType === 'Fixed Key' && k.level === slot)
+          ? dollKeys.find(
+              (k) =>
+                k.keyType === 'Fixed Key' && (k.displaySlot ?? k.level) === slot
+            )
           : undefined) ??
         (name
           ? allKeys().find(
@@ -86,7 +91,10 @@ function lookupsFor(doll: DollEntry): RecLookups {
         label: match.displayTitle ?? match.keyTitle ?? label,
         href: null,
         detail: match.effect ?? null,
-        meta: match.level ? `Slot ${match.level}` : (match.keyType ?? null),
+        meta:
+          (match.displaySlot ?? match.level) != null
+            ? `Slot ${match.displaySlot ?? match.level}`
+            : (match.keyType ?? null),
         icon: null,
       };
     },
