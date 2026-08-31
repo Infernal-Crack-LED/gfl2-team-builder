@@ -351,6 +351,194 @@ describe.skipIf(!FONTS_PRESENT)('card renderers (fonts present)', () => {
     expect(() => drawRecCard(ctx as never, data)).not.toThrow();
   });
 
+  it('build card grows a rotation band and inks it', async () => {
+    const {
+      createCanvas,
+      drawBuildCard,
+      buildCardHeight,
+      BUILD_CARD_W,
+      BUILD_CARD_H,
+    } = await import('./node/render.js');
+    const base = {
+      dollName: 'Alva',
+      dollClass: 'Support',
+      dollPhase: 'Freeze',
+      dollRarity: 'Elite',
+      weaponName: '6P33',
+      weaponImage: null,
+      fixedKeySlots: [1],
+      commonKeySources: [],
+      expansionKeyName: null,
+      vert: [3],
+      refinement: 4,
+      attachmentSet: null,
+      statPrefs: ['ATK'],
+      portrait: null,
+    };
+    // No rotation → the exact OG constant; more entries per turn → taller.
+    expect(buildCardHeight(base)).toBe(BUILD_CARD_H);
+    expect(buildCardHeight({ ...base, rotation: ['', ''] })).toBe(BUILD_CARD_H);
+    const one = buildCardHeight({ ...base, rotation: ['Ult'] });
+    const three = buildCardHeight({ ...base, rotation: ['Ult, S2, S1'] });
+    expect(one).toBeGreaterThan(BUILD_CARD_H);
+    expect(three).toBeGreaterThan(one);
+
+    const data = { ...base, rotation: ['Ult, S1', 'S2', '', 'Ult'] };
+    const canvas = createCanvas(BUILD_CARD_W, buildCardHeight(data));
+    const ctx = canvas.getContext('2d');
+    drawBuildCard(ctx as never, data);
+    const ctx2d = ctx as never as Parameters<typeof inkInRegion>[0];
+    // Turn entries (bright text) inside the band below the OG layout.
+    expect(inkInRegion(ctx2d, 60, BUILD_CARD_H + 74, 1080, 40)).toBeGreaterThan(
+      100
+    );
+  });
+
+  it('team card adds a rotation meta line only when one is set', async () => {
+    const { cardHeight, slotHeight } = await import('./node/render.js');
+    const base = {
+      dollName: 'Alva',
+      weaponName: '6P33',
+      dollPhase: 'Freeze',
+      refinement: 4,
+      attachmentSet: null,
+      vert: [3],
+      fixedKeys: [1],
+      expansionKey: null,
+      commonKeys: [],
+      statPrefs: [],
+      portrait: null,
+    };
+    const withRot = { ...base, rotation: ['Ult, S1', 'S2'] };
+    // Same omitted-not-dashed contract as the expansion-key line.
+    expect(slotHeight(base)).toBeLessThan(slotHeight(withRot));
+    expect(slotHeight({ ...base, rotation: ['', ''] })).toBe(slotHeight(base));
+    expect(cardHeight([withRot, base])).toBe(
+      cardHeight([withRot]) + slotHeight(base)
+    );
+  });
+
+  it('rec card rotation columns and attribution lines budget their own height', async () => {
+    const { createCanvas, drawRecCard, REC_CARD_W, recCardHeight } =
+      await import('./node/render.js');
+    const base = {
+      dollName: 'Alva',
+      dollClass: null,
+      dollPhase: 'Burn',
+      dollRarity: null,
+      breakpoints: [],
+      optimal: null,
+      weapons: [],
+      attachmentSets: [],
+      fixedKeySlots: [],
+      expansionKeyName: null,
+      commonKeySources: [],
+      statPrefs: [],
+      notes: null,
+      portrait: null,
+    };
+    const empty = { vertebrae: null, condition: null, notes: null };
+    const h0 = recCardHeight(base);
+    // Height moves with the turn count, the condition block and the notes
+    // budget — but NOT with a second column of the same depth.
+    const two = recCardHeight({
+      ...base,
+      rotations: [{ ...empty, turns: ['Ult', 'S2'] }],
+    });
+    expect(two).toBeGreaterThan(h0);
+    expect(
+      recCardHeight({
+        ...base,
+        rotations: [
+          { ...empty, turns: ['Ult', 'S2'], vertebrae: 'V0 - V1' },
+          { ...empty, turns: ['Ult', 'S2'], vertebrae: 'V2 - V6' },
+        ],
+      })
+    ).toBe(two);
+    // A deeper second column sets the grid depth.
+    expect(
+      recCardHeight({
+        ...base,
+        rotations: [
+          { ...empty, turns: ['Ult', 'S2'] },
+          { ...empty, turns: ['Ult', 'S2', 'S1', 'Ult'] },
+        ],
+      })
+    ).toBeGreaterThan(two);
+    // Any condition switches on the fixed two-line condition block.
+    expect(
+      recCardHeight({
+        ...base,
+        rotations: [
+          { ...empty, turns: ['Ult', 'S2'], condition: 'with Expansion Key' },
+        ],
+      })
+    ).toBe(two + 36);
+    // Notes stack per variant that has them.
+    expect(
+      recCardHeight({
+        ...base,
+        rotations: [{ ...empty, turns: ['Ult', 'S2'], notes: 'x'.repeat(200) }],
+      })
+    ).toBeGreaterThan(two);
+    // All-empty variants contribute nothing.
+    expect(
+      recCardHeight({ ...base, rotations: [{ ...empty, turns: ['', ''] }] })
+    ).toBe(h0);
+    // Each untouched-default credit adds its own 30px footer line.
+    expect(recCardHeight({ ...base, official: true })).toBe(h0 + 30);
+    expect(recCardHeight({ ...base, official: true, gunsmoke: true })).toBe(
+      h0 + 60
+    );
+    // Conditional keys: one 8+22px row each; a long condition buys a second
+    // 22px line, and a condition-less key still gets its dash row.
+    expect(
+      recCardHeight({
+        ...base,
+        conditionalKeys: [{ slot: 5, condition: 'Use against bosses' }],
+      })
+    ).toBe(h0 + 30);
+    expect(
+      recCardHeight({
+        ...base,
+        conditionalKeys: [
+          { slot: 5, condition: 'x'.repeat(100) },
+          { slot: 3, condition: null },
+        ],
+      })
+    ).toBe(h0 + 52 + 30);
+
+    // And the columns actually ink: turn text under the stats section.
+    const data = {
+      ...base,
+      rotations: [
+        {
+          vertebrae: 'V0 - V1',
+          condition: 'without Expansion Key',
+          turns: ['Ult, S1', 'S2'],
+          notes: null,
+        },
+        {
+          vertebrae: 'V2 - V6',
+          condition: 'with Expansion Key',
+          turns: ['Ult, S2, S1', 'Ult, S2, S1'],
+          notes: 'V3-V6 can do Ult + S2 + Ult on the last turn.',
+        },
+      ],
+      gunsmoke: true,
+    };
+    const h = recCardHeight(data);
+    const canvas = createCanvas(REC_CARD_W, h);
+    const ctx = canvas.getContext('2d');
+    drawRecCard(ctx as never, data);
+    const ctx2d = ctx as never as Parameters<typeof inkInRegion>[0];
+    // The rotation grid sits between the stats section and the notes/credit
+    // footer — probe a wide band in that range for bright turn text.
+    expect(inkInRegion(ctx2d, 36, h - 240, 688, 160)).toBeGreaterThan(100);
+    const png = await canvas.encode('png');
+    expect(png.length).toBeGreaterThan(1000);
+  });
+
   it('pull card renders tiles, the odds ladder and its bars', async () => {
     const { createCanvas, drawPullCard, PULL_CARD_W, pullCardHeight } =
       await import('./node/render.js');

@@ -4233,6 +4233,55 @@ summary.teameffect-tier-title:hover {
   color: #101216;
 }
 
+/* Rotation band, appended below the 630 OG layout when a rotation is set —
+   geometry mirrors core/buildCard.ts (label baseline y0+40, T labels y0+68,
+   entries from y0+96 on 26px lines). The card's inline height comes from
+   BuildCardPreview's buildCardHeight mirror. */
+.build-card-rotation {
+  position: absolute;
+  top: 630px;
+  left: 60px;
+  right: 60px;
+}
+
+.build-card-rotation .build-card-label {
+  margin: 27px 0 0;
+}
+
+.build-card-rotcols {
+  display: flex;
+  margin-top: 8px;
+}
+
+.build-card-rotcol {
+  flex: 1 1 0;
+  min-width: 0;
+  padding-right: 18px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Element-tinted; the inline `color` comes from PHASE_COLORS. */
+.build-card-rotturn {
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 20px;
+  margin-bottom: 8px;
+}
+
+.build-card-rotentry {
+  font-size: 18px;
+  line-height: 26px;
+  color: #e7eaf0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.build-card-rotentry.muted-value {
+  color: #8b93a3;
+}
+
 /* ---- Squad Card Preview (760×dynamic logical, PORTRAIT) ---- */
 /* Geometry mirrors core/teamCard.ts: HEADER_H 128, FOOTER_H 38, a row 186
    (or 212 with an expansion-key line — TeamCardPreview sets each row's height
@@ -4869,6 +4918,52 @@ summary.teameffect-tier-title:hover {
   align-items: center;
 }
 
+/* Conditional fixed keys — one row each under the Fixed chips. Geometry
+   mirrors core/recCard.ts: an 8px row gap (margin), a 64px title gutter, an
+   OUTLINED 28×24 slot chip, then the condition on 22px lines (clamped to
+   the same estimated budget as the canvas, see condKeyLineCount). */
+.rec-card-condkey {
+  margin-top: 8px;
+  padding: 0 36px;
+  display: flex;
+  align-items: flex-start;
+}
+
+/* Element-tinted; the inline `color` comes from PHASE_COLORS. */
+.rec-card-condkey-title {
+  flex: none;
+  width: 64px;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 22px;
+}
+
+/* Outlined counterpart of the filled .rec-card-chip — the inline border and
+   text color come from PHASE_COLORS. */
+.rec-card-condkey-chip {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 24px;
+  margin-right: 10px;
+  font-size: 14px;
+  font-weight: 700;
+  border: 2px solid;
+  border-radius: 6px;
+}
+
+.rec-card-condkey-text {
+  min-width: 0;
+  font-size: 14px;
+  line-height: 22px;
+  color: #8b93a3;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
 .rec-card-metavalue {
   min-width: 0;
   font-size: 18px;
@@ -4881,6 +4976,97 @@ summary.teameffect-tier-title:hover {
 .rec-card-muted {
   color: #8b93a3;
   font-size: 18px;
+}
+
+/* Rotations section — one column per variant beside a shared T1..T7 gutter.
+   Geometry mirrors core/recCard.ts: ROT_HEAD_LINE 30, a fixed 2×18 condition
+   block when any variant has one, ROT_TURN_LINE 28, then per-variant notes
+   on 24px lines after an 8px pad. */
+.rec-card-rotrow {
+  padding: 0 36px;
+  display: flex;
+}
+
+/* The shared gutter: empty on the header/condition rows, T labels on the
+   turn rows (element-tinted via inline `color`). */
+.rec-card-rotgut {
+  flex: none;
+  width: 34px;
+}
+
+.rec-card-rotgut-label {
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.rec-card-rothead {
+  height: 30px;
+  align-items: center;
+}
+
+/* Element-tinted; the inline `color` comes from PHASE_COLORS. */
+.rec-card-rotv {
+  flex: 1 1 0;
+  min-width: 0;
+  padding-right: 10px;
+  font-size: 16px;
+  font-weight: 700;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.rec-card-rotconds {
+  height: 36px;
+  align-items: flex-start;
+}
+
+.rec-card-rotcond {
+  flex: 1 1 0;
+  min-width: 0;
+  padding-right: 10px;
+  font-size: 13px;
+  line-height: 18px;
+  color: #8b93a3;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+
+.rec-card-rotturns {
+  height: 28px;
+  align-items: center;
+}
+
+.rec-card-rotcell {
+  flex: 1 1 0;
+  min-width: 0;
+  padding-right: 10px;
+  font-size: 15px;
+  color: #e7eaf0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.rec-card-rotcell.rec-card-muted {
+  font-size: 15px;
+}
+
+.rec-card-rotnotes {
+  margin-top: 8px;
+  padding: 0 36px;
+}
+
+.rec-card-rotnote {
+  margin: 0;
+  font-size: 15px;
+  line-height: 24px;
+  color: #8b93a3;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 /* Notes panel: 10px padding + 2px border = the canvas's 12px inset; the
@@ -4902,7 +5088,8 @@ summary.teameffect-tier-title:hover {
   overflow: hidden;
 }
 
-/* Untouched sheet defaults only — mirrors the canvas attribution footer. */
+/* Untouched sheet defaults only — mirrors the canvas attribution footer,
+   one 30px line per source sheet. */
 .rec-card-attribution {
   display: flex;
   align-items: center;
@@ -4910,6 +5097,15 @@ summary.teameffect-tier-title:hover {
   margin: 12px 36px 0;
   color: #8b93a3;
   font-size: 14px;
+}
+
+/* The credit must stay one line — the canvas shrink-fits it, the preview
+   ellipsizes — or the two height formulas stop agreeing. */
+.rec-card-attribution span {
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 /* FOOTER_H 28 — bottom breathing room. */
@@ -5483,6 +5679,95 @@ summary.teameffect-tier-title:hover {
 .infog-notes textarea {
   resize: vertical;
   min-height: 72px;
+  font: inherit;
+  font-size: 13px;
+  color: var(--text);
+  background: var(--panel2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 8px 10px;
+}
+
+/* Rotation editor: T1–T7 turn inputs (build, team-slot and rec tools),
+   stacked VERTICALLY — T2 under T1 — so the list reads in turn order. */
+.infog-rot-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  max-width: 340px;
+}
+
+.infog-rot-turn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.infog-rot-turn-label {
+  flex: none;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--muted);
+}
+
+.infog-rot-turn input {
+  flex: 1;
+  min-width: 0;
+  font-size: 13px;
+  padding: 4px 8px;
+}
+
+/* Rec tool only: per-key condition inputs under the conditional-key chips. */
+.infog-condkeys {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.infog-condkey {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.infog-condkey input {
+  flex: 1;
+  min-width: 0;
+  font-size: 13px;
+  padding: 4px 8px;
+}
+
+/* Rec tool only: one bordered block per rotation variant. */
+.infog-rot-block {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 8px;
+  background: var(--panel2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+
+.infog-rot-add {
+  align-self: flex-start;
+}
+
+/* Rec tool only: the rotation's vertebrae/condition context inputs. */
+.infog-rot-context {
+  display: flex;
+  gap: 8px;
+}
+
+.infog-rot-context input {
+  flex: 1;
+  min-width: 0;
+  font-size: 13px;
+  padding: 4px 8px;
+}
+
+.infog-rot-notes {
+  resize: vertical;
+  min-height: 48px;
   font: inherit;
   font-size: 13px;
   color: var(--text);

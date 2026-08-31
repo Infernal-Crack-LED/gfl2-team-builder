@@ -25,6 +25,7 @@ import {
   roundRect,
   type Canvas2DLike,
 } from './canvas2d.js';
+import { rotationSummary } from '../../share/rotation.js';
 import {
   COLORS,
   FONT,
@@ -93,13 +94,19 @@ export interface TeamCardSlot {
   commonKeys: string[];
   /** Ordered stat preferences, highest priority first. */
   statPrefs: string[];
+  /** Turn-by-turn rotation (T1-first); drawn as one summarized meta line. */
+  rotation?: string[];
   /** Square-cropped portrait canvas (opaque to the core), or null. */
   portrait: unknown | null;
 }
 
-/** Meta lines this slot draws — the expansion key's is conditional. */
+/** Meta lines this slot draws — expansion key and rotation are conditional. */
 function metaLineCount(slot: TeamCardSlot): number {
-  return BASE_META_LINES + (slot.expansionKey ? 1 : 0);
+  return (
+    BASE_META_LINES +
+    (slot.expansionKey ? 1 : 0) +
+    (rotationSummary(slot.rotation) ? 1 : 0)
+  );
 }
 
 /**
@@ -358,6 +365,11 @@ function drawSlotRow(ctx: Canvas2DLike, slot: TeamCardSlot, y: number): void {
     'STATS',
     slot.statPrefs.length > 0 ? slot.statPrefs.join(' › ') : null,
   ]);
+  // Rotation is ABSENT (not "—") when the build carries none, like EXP. KEY.
+  const rotation = rotationSummary(slot.rotation);
+  if (rotation) {
+    metaLines.push(['ROTATION', rotation]);
+  }
   metaLines.forEach(([label, value], i) => {
     metaField(ctx, label, value, TEXT_X, y + META_TOP + i * META_LINE, TEXT_W);
   });

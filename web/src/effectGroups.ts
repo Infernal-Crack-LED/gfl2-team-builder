@@ -85,8 +85,8 @@ export function getDollEffectVariants(doll: Doll): EffectVariant[] {
 
   for (const k of getKeysForDoll(doll.id)) {
     const label =
-      k.keyType === 'Fixed Key' && k.level != null
-        ? `Fixed Key ${k.level}`
+      k.keyType === 'Fixed Key' && (k.displaySlot ?? k.level) != null
+        ? `Fixed Key ${k.displaySlot ?? k.level}`
         : (k.displayTitle ?? k.keyTitle ?? 'Key');
     for (const id of markerIds(k.effect)) {
       record(id, RANK_KEY, label);

@@ -65,6 +65,22 @@ describe('doll build codec', () => {
     const b = { ...dollBuild, weapon: null };
     expect(decodeDollBuild(encodeDollBuild(b))).toEqual(b);
   });
+
+  it('roundtrips a rotation, keeping interior gaps', () => {
+    const b = { ...dollBuild, rot: ['Ult, S1', '', 'S2'] };
+    expect(decodeDollBuild(encodeDollBuild(b))).toEqual(b);
+  });
+
+  it('drops a malformed or empty rotation instead of failing the code', () => {
+    const enc = (rot: unknown) =>
+      decodeDollBuild(b64urlEncode(JSON.stringify({ ...dollBuild, rot })));
+    // Trailing-only blanks decode as "no rotation".
+    expect(enc(['', ''])).toEqual(dollBuild);
+    // Non-string turns, an 8th turn, and an over-long turn all drop the field.
+    expect(enc(['Ult', 5])).toEqual(dollBuild);
+    expect(enc(Array.from({ length: 8 }, () => 'S1'))).toEqual(dollBuild);
+    expect(enc(['x'.repeat(81)])).toEqual(dollBuild);
+  });
 });
 
 describe('team build codec', () => {
@@ -125,6 +141,21 @@ describe('team build codec', () => {
     expect(bad({ d: 'alva', cal: 9 })).toEqual({ v: 3, s: [{ d: 'alva' }] });
     // An over-long attachment set name is fatal, like the other caps here.
     expect(bad({ d: 'alva', as: 'x'.repeat(65) })).toBeNull();
+    // A malformed rotation is fatal too; an all-blank one just drops out.
+    expect(bad({ d: 'alva', rot: ['Ult', 5] })).toBeNull();
+    expect(bad({ d: 'alva', rot: ['x'.repeat(81)] })).toBeNull();
+    expect(bad({ d: 'alva', rot: ['', ''] })).toEqual({
+      v: 3,
+      s: [{ d: 'alva' }],
+    });
+  });
+
+  it('roundtrips a slot rotation', () => {
+    const full = {
+      v: 3 as const,
+      s: [{ d: 'alva', rot: ['Ult, S1', '', 'S2'] }],
+    };
+    expect(decodeTeamBuild(encodeTeamBuild(full))).toEqual(full);
   });
 });
 
@@ -141,6 +172,7 @@ describe('team slot ↔ doll build', () => {
       ck: ['ck1'],
       exp: 'exp-id',
       set: 'Ultimate Pursuit',
+      rot: ['Ult, S1', 'S2'],
     };
     expect(dollBuildFromTeamSlot(teamSlotFromDollBuild(build))).toEqual(build);
   });
@@ -157,6 +189,7 @@ describe('team slot ↔ doll build', () => {
       ck: [],
       exp: null,
       set: null,
+      rot: [],
     });
   });
 
@@ -263,6 +296,84 @@ describe('rec build codec', () => {
         b64urlEncode(JSON.stringify({ ...rec, ck: [...six, 'g'] }))
       )?.ck
     ).toBeUndefined();
+  });
+
+  it('roundtrips conditional keys and trims their condition text', () => {
+    const withCond = {
+      ...rec,
+      condKeys: [
+        { k: 'k5', c: 'Use if you need to dispel buffs from the boss' },
+        { k: 'k6' },
+      ],
+    };
+    expect(decodeRecBuild(encodeRecBuild(withCond))).toEqual(withCond);
+    const decoded = decodeRecBuild(
+      b64urlEncode(
+        JSON.stringify({
+          ...rec,
+          condKeys: [
+            { k: 'k5', c: 'x'.repeat(300) },
+            { c: 'no key id' }, // dropped, not fatal
+            ...Array.from({ length: 7 }, () => ({ k: 'kx' })), // capped at 6
+          ],
+        })
+      )
+    );
+    expect(decoded?.condKeys?.[0]?.c).toHaveLength(160);
+    // 9 entries cap to 6 first; the id-less one then drops out of those.
+    expect(decoded?.condKeys).toHaveLength(5);
+    expect(decoded?.condKeys?.every((ck) => ck.k)).toBe(true);
+  });
+
+  it('roundtrips rotation variants with context and provenance', () => {
+    const withRots = {
+      ...rec,
+      rots: [
+        {
+          t: ['Ult, S1', 'S2', 'Ult'],
+          v: 'V0 - V1',
+          c: 'without Expansion Key',
+        },
+        {
+          t: ['Ult, S2, S1'],
+          v: 'V2 - V6',
+          n: 'V3+ can double Ult on the last turn.',
+        },
+      ],
+      gs: 'sheet' as const,
+    };
+    expect(decodeRecBuild(encodeRecBuild(withRots))).toEqual(withRots);
+  });
+
+  it('trims rotation variants to their caps instead of rejecting', () => {
+    const decoded = decodeRecBuild(
+      b64urlEncode(
+        JSON.stringify({
+          ...rec,
+          rots: [
+            // Context strings over their caps are sliced.
+            {
+              t: ['Ult'],
+              v: 'x'.repeat(40),
+              c: 'y'.repeat(200),
+              n: 'z'.repeat(400),
+            },
+            // A variant with no turns is dropped, not fatal.
+            { t: [], v: 'V6' },
+            { t: ['S1'] },
+            // A sixth-plus variant is cut by the array cap.
+            { t: ['S1'] },
+            { t: ['S1'] },
+            { t: ['S1'] },
+          ],
+        })
+      )
+    );
+    expect(decoded?.rots).toHaveLength(4);
+    expect(decoded?.rots?.[0]?.v).toHaveLength(24);
+    expect(decoded?.rots?.[0]?.c).toHaveLength(80);
+    expect(decoded?.rots?.[0]?.n).toHaveLength(280);
+    expect(decoded?.rots?.[1]).toEqual({ t: ['S1'] });
   });
 
   it('trims an over-long note instead of rejecting it', () => {

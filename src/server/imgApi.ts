@@ -156,7 +156,11 @@ function validateRec(rec: RecBuild): void {
       throw new BadRequest(`unknown attachment set: ${s}`);
     }
   }
-  for (const k of [...rec.keys, ...(rec.ck ?? [])]) {
+  for (const k of [
+    ...rec.keys,
+    ...(rec.ck ?? []),
+    ...(rec.condKeys ?? []).map((ck) => ck.k),
+  ]) {
     if (!getKey(k)) {
       throw new BadRequest(`unknown key: ${k}`);
     }
@@ -212,6 +216,13 @@ async function renderPayload(
       .filter((k) => k !== undefined)
       .map(fixedKeySlot)
       .filter((n): n is number => n !== null);
+    // Conditional keys read as slots too; one whose title carries no
+    // parseable slot is dropped, same contract as the chips above.
+    const conditionalKeys = (r.condKeys ?? []).flatMap((ck) => {
+      const key = getKey(ck.k);
+      const slot = key ? fixedKeySlot(key) : null;
+      return slot !== null ? [{ slot, condition: ck.c ?? null }] : [];
+    });
     const commonKeySources = (r.ck ?? [])
       .map((id) => getKey(id))
       .filter((k) => k !== undefined)
@@ -231,12 +242,20 @@ async function renderPayload(
       })),
       attachmentSets: r.sets,
       fixedKeySlots,
+      conditionalKeys,
       expansionKeyName: expKey
         ? (expKey.keyTitle ?? keyDisplayName(expKey))
         : null,
       commonKeySources,
       statPrefs: r.stats ?? [],
       notes: r.notes ?? null,
+      rotations: (r.rots ?? []).map((rot) => ({
+        vertebrae: rot.v ?? null,
+        condition: rot.c ?? null,
+        turns: rot.t,
+        notes: rot.n ?? null,
+      })),
+      gunsmoke: r.gs === 'sheet',
       portrait,
     });
   }
@@ -282,6 +301,7 @@ async function renderPayload(
       refinement: b.cal ?? null,
       attachmentSet: b.set ?? null,
       statPrefs: b.stats ?? [],
+      rotation: b.rot ?? [],
       portrait,
     });
   }
@@ -327,6 +347,7 @@ async function renderPayload(
           : null,
         commonKeys,
         statPrefs: s.st ?? [],
+        rotation: s.rot ?? [],
         portrait,
       };
     })

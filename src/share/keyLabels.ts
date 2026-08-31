@@ -12,16 +12,24 @@ export interface KeyLike {
   displayTitle: string | null;
   dollId: string | null;
   level?: number | null;
+  displaySlot?: number | null;
 }
 
 /**
- * The slot number of a fixed key. The datamine stores it as `level` (1–6,
- * the game's own slot order); the Dandegate-era data encoded it ONLY in the
- * display title ("Fixed Key 3 - Meal Prep" → 3), kept as the fallback for
- * old artifacts. Returns null when neither yields a slot, so a title-format
- * change degrades to "no number" rather than to a wrong one.
+ * The slot number of a fixed key — the in-game "Fixed Key N" numbering both
+ * community sheets use. The datamine ships it as `displaySlot` (TalentKeyData
+ * row-id rank, unlock order). `level` is a DIFFERENT internal ordering — the
+ * display-id digit the icon URLs embed, permuted against displaySlot on 19 of
+ * 62 dolls — kept only as a legacy fallback for pre-displaySlot data, like
+ * the Dandegate-era title encoding ("Fixed Key 3 - Meal Prep" → 3). Returns
+ * null when nothing yields a slot, so a data-shape change degrades to "no
+ * number" rather than to a wrong one.
  */
 export function fixedKeySlot(key: KeyLike): number | null {
+  const slot = key.displaySlot;
+  if (typeof slot === 'number' && slot >= 1 && slot <= 6) {
+    return slot;
+  }
   const level = key.level;
   if (typeof level === 'number' && level >= 1 && level <= 6) {
     return level;

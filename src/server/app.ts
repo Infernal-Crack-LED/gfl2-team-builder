@@ -14,14 +14,29 @@ import { getMimeType } from 'hono/utils/mime';
 import { and, desc, eq, lt, sql } from 'drizzle-orm';
 import { getConnInfo } from '@hono/node-server/conninfo';
 import { db } from '../db/index.js';
-import { dollRecommendations, userProfiles } from '../db/schema.js';
+import {
+  dollGunsmokeGuides,
+  dollRecommendations,
+  userProfiles,
+} from '../db/schema.js';
 import {
   BUILD_VERSION,
   decodeRecBuild,
   encodeRecBuild,
+  MAX_KEY_CONDITION,
+  MAX_REC_KEYS,
+  MAX_REC_ROTATIONS,
   shareProfileName,
   type RecBuild,
+  type RecConditionalKey,
+  type RecRotation,
 } from '../share/buildCode.js';
+import {
+  MAX_ROTATION_COND_LEN,
+  MAX_ROTATION_NOTES,
+  MAX_ROTATION_VERT_LEN,
+  normalizeRotation,
+} from '../share/rotation.js';
 import {
   ANON_OWNER,
   ANON_ROW_CAP,
@@ -519,22 +534,34 @@ export function createServer(): Hono {
     return c.body(null, 204);
   });
 
-  // Community recommendation defaults for the infographics rec card, one row
-  // per doll (imported by src/bin/import-recommendations.ts). Served as a
-  // REC CODE rather than raw fields: the client then reuses its total
-  // decoder for validation, and a hand-edited DB row that breaks the shape
-  // degrades to "no defaults" on both ends instead of a broken tool.
+  // Community recommendation defaults for the infographics rec card, merged
+  // from BOTH community sheets: doll_recommendations (GFL2 Official Release
+  // Info Compilation — breakpoints, weapons, sets, key picks, notes; imported
+  // by src/bin/import-recommendations.ts) and doll_gunsmoke_guides (GFL2 EN
+  // Gunsmoke Frontline Doll Info — the default rotation and its recommended
+  // fixed keys, which OVERRIDE the other sheet's key picks when present;
+  // imported by src/bin/import-gunsmoke.ts). Served as a REC CODE rather
+  // than raw fields: the client then reuses its total decoder for
+  // validation, and a hand-edited DB row that breaks the shape degrades to
+  // "no defaults" on both ends instead of a broken tool.
   app.get('/api/v1/rec-defaults/:slug', async (c) => {
     const slug = c.req.param('slug');
     if (!/^[a-z0-9-]{1,64}$/.test(slug)) {
       return c.json({ error: 'not_found' }, 404);
     }
-    const [row] = await db
-      .select()
-      .from(dollRecommendations)
-      .where(eq(dollRecommendations.dollSlug, slug))
-      .limit(1);
-    if (!row) {
+    const [[row], [guide]] = await Promise.all([
+      db
+        .select()
+        .from(dollRecommendations)
+        .where(eq(dollRecommendations.dollSlug, slug))
+        .limit(1),
+      db
+        .select()
+        .from(dollGunsmokeGuides)
+        .where(eq(dollGunsmokeGuides.dollSlug, slug))
+        .limit(1),
+    ]);
+    if (!row && !guide) {
       return c.json({ error: 'not_found' }, 404);
     }
     const arr = (v: unknown): string[] =>
@@ -545,29 +572,113 @@ export function createServer(): Hono {
       v: BUILD_VERSION,
       card: 'rec',
       doll: slug,
-      bp: arr(row.breakpoints),
-      ws: arr(row.weaponIds),
-      sets: arr(row.setNames),
-      keys: arr(row.fixedKeyIds),
-      // marks the untouched default — the card creator drops this on edit
-      src: 'sheet',
+      bp: arr(row?.breakpoints),
+      ws: arr(row?.weaponIds),
+      sets: arr(row?.setNames),
+      keys: arr(row?.fixedKeyIds),
     };
-    if (row.optimal) {
-      payload.opt = row.optimal;
+    if (row) {
+      // marks the untouched default — the card creator drops this on edit
+      payload.src = 'sheet';
+      if (row.optimal) {
+        payload.opt = row.optimal;
+      }
+      if (row.expansionKeyId) {
+        payload.exp = row.expansionKeyId;
+      }
+      const ck = arr(row.commonKeyIds);
+      if (ck.length > 0) {
+        payload.ck = ck;
+      }
+      const stats = arr(row.statPrefs);
+      if (stats.length > 0) {
+        payload.stats = stats;
+      }
+      if (row.notes) {
+        payload.notes = row.notes;
+      }
     }
-    if (row.expansionKeyId) {
-      payload.exp = row.expansionKeyId;
-    }
-    const ck = arr(row.commonKeyIds);
-    if (ck.length > 0) {
-      payload.ck = ck;
-    }
-    const stats = arr(row.statPrefs);
-    if (stats.length > 0) {
-      payload.stats = stats;
-    }
-    if (row.notes) {
-      payload.notes = row.notes;
+    if (guide) {
+      // jsonb shapes are validated defensively, same spirit as arr() — a
+      // hand-edited row that breaks them contributes nothing. Recommended
+      // keys become the Fixed chips; conditional keys ride separately with
+      // their condition text.
+      let gunsmoke = false;
+      const guideKeys = (Array.isArray(guide.fixedKeys) ? guide.fixedKeys : [])
+        .filter(
+          (k): k is { tier?: unknown; keyId?: unknown; condition?: unknown } =>
+            typeof k === 'object' && k !== null
+        )
+        .filter((k) => typeof k.keyId === 'string');
+      const fixedKeys = guideKeys
+        .filter((k) => k.tier === 'recommended')
+        .map((k) => k.keyId as string)
+        .slice(0, MAX_REC_KEYS);
+      if (fixedKeys.length > 0) {
+        payload.keys = fixedKeys;
+        gunsmoke = true;
+      }
+      const condKeys = guideKeys
+        .filter((k) => k.tier === 'conditional')
+        .map((k): RecConditionalKey => {
+          const out: RecConditionalKey = { k: k.keyId as string };
+          if (typeof k.condition === 'string' && k.condition !== '') {
+            out.c = k.condition.slice(0, MAX_KEY_CONDITION);
+          }
+          return out;
+        })
+        .slice(0, MAX_REC_KEYS);
+      if (condKeys.length > 0) {
+        payload.condKeys = condKeys;
+        gunsmoke = true;
+      }
+      // EVERY rotation variant becomes a card column — the sheet writes one
+      // rotation per vertebrae range / condition.
+      const rotations = (Array.isArray(guide.rotations) ? guide.rotations : [])
+        .slice(0, MAX_REC_ROTATIONS)
+        .flatMap((raw): RecRotation[] => {
+          if (!raw || typeof raw !== 'object') {
+            return [];
+          }
+          const r = raw as {
+            label?: unknown;
+            vertebrae?: unknown;
+            condition?: unknown;
+            turns?: unknown;
+            notes?: unknown;
+          };
+          const turns = Array.isArray(r.turns)
+            ? normalizeRotation(
+                r.turns.map((t) => (typeof t === 'string' ? t : ''))
+              )
+            : [];
+          if (turns.length === 0) {
+            return [];
+          }
+          const rot: RecRotation = { t: turns };
+          if (typeof r.vertebrae === 'string' && r.vertebrae !== '') {
+            rot.v = r.vertebrae.slice(0, MAX_ROTATION_VERT_LEN);
+          }
+          if (typeof r.condition === 'string' && r.condition !== '') {
+            rot.c = r.condition.slice(0, MAX_ROTATION_COND_LEN);
+          } else if (!rot.v && typeof r.label === 'string' && r.label !== '') {
+            // A label the parser couldn't split ("Standard rotation") still
+            // identifies the variant — carry it as the condition text.
+            rot.c = r.label.slice(0, MAX_ROTATION_COND_LEN);
+          }
+          if (typeof r.notes === 'string' && r.notes !== '') {
+            rot.n = r.notes.slice(0, MAX_ROTATION_NOTES);
+          }
+          return [rot];
+        });
+      if (rotations.length > 0) {
+        payload.rots = rotations;
+        gunsmoke = true;
+      }
+      if (gunsmoke) {
+        // Same untouched-default contract as `src`, for the Gunsmoke credit.
+        payload.gs = 'sheet';
+      }
     }
     const code = encodeRecBuild(payload);
     if (!decodeRecBuild(code)) {

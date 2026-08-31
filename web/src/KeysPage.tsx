@@ -86,8 +86,10 @@ function compareRows(a: KeyRow, b: KeyRow): number {
   if (aid !== bid) {
     return bid - aid;
   }
-  if ((a.key.level ?? 0) !== (b.key.level ?? 0)) {
-    return (a.key.level ?? 0) - (b.key.level ?? 0);
+  const aSlot = a.key.displaySlot ?? a.key.level ?? 0;
+  const bSlot = b.key.displaySlot ?? b.key.level ?? 0;
+  if (aSlot !== bSlot) {
+    return aSlot - bSlot;
   }
   return (a.key.keyTitle ?? '').localeCompare(b.key.keyTitle ?? '');
 }
@@ -123,9 +125,10 @@ function KeyCard({ row }: { row: KeyRow }) {
             ) : (
               <span className="muted">Any doll</span>
             )}
-            {keyLevelChip(key.keyType, key.level) != null && (
+            {keyLevelChip(key.keyType, key.displaySlot ?? key.level) !=
+              null && (
               <span className="keycard-level">
-                {keyLevelChip(key.keyType, key.level)}
+                {keyLevelChip(key.keyType, key.displaySlot ?? key.level)}
               </span>
             )}
           </div>

@@ -54,14 +54,18 @@ import {
   encodeRecBuild,
   encodeTeamBuild,
   MAX_BREAKPOINTS,
+  MAX_KEY_CONDITION,
   MAX_REC_KEYS,
   MAX_REC_NOTES,
+  MAX_REC_ROTATIONS,
   MAX_REC_SETS,
   MAX_REC_WEAPONS,
   teamSlotFromDollBuild,
   TEAM_SLOTS,
   type DollBuild,
   type RecBuild,
+  type RecConditionalKey,
+  type RecRotation,
 } from '../../src/share/buildCode';
 import {
   commonKeyLabel,
@@ -69,6 +73,14 @@ import {
   fixedKeyLabel,
   fixedKeySlot,
 } from '../../src/share/keyLabels';
+import {
+  MAX_ROTATION_COND_LEN,
+  MAX_ROTATION_NOTES,
+  MAX_ROTATION_TURN_LEN,
+  MAX_ROTATION_TURNS,
+  MAX_ROTATION_VERT_LEN,
+  normalizeRotation,
+} from '../../src/share/rotation';
 import { BANNERS, summarizePulls } from '../../src/share/gacha';
 import { buildPullCardData } from '../../src/share/pullDisplay';
 import {
@@ -297,6 +309,44 @@ function ChipRow({
   );
 }
 
+/** UI-side turn list is always 7 entries; the codecs trim trailing blanks. */
+function padTurns(turns: string[] | undefined): string[] {
+  return Array.from({ length: MAX_ROTATION_TURNS }, (_, i) => turns?.[i] ?? '');
+}
+
+/**
+ * T1–T7 rotation inputs, shared by the build and rec card tools. Each turn
+ * takes one or more skill entries, comma-separated ("Ult, S2").
+ */
+function RotationTurnsField({
+  turns,
+  onChange,
+}: {
+  turns: string[];
+  onChange: (turns: string[]) => void;
+}) {
+  return (
+    <div className="infog-rot-grid">
+      {Array.from({ length: MAX_ROTATION_TURNS }, (_, i) => (
+        <label key={i} className="infog-rot-turn">
+          <span className="infog-rot-turn-label">T{i + 1}</span>
+          <input
+            type="text"
+            maxLength={MAX_ROTATION_TURN_LEN}
+            placeholder="—"
+            value={turns[i] ?? ''}
+            onChange={(e) => {
+              const next = [...turns];
+              next[i] = e.target.value;
+              onChange(next);
+            }}
+          />
+        </label>
+      ))}
+    </div>
+  );
+}
+
 /** Load-a-saved-profile dropdown; renders nothing when logged out. */
 function LoadSavedControl({
   kind,
@@ -491,6 +541,8 @@ interface BuildState {
   attachmentSet: string | null;
   statPrefs: string[];
   commonKeys: string[];
+  /** Rotation turn texts — always 7 entries in the UI (see padTurns). */
+  rot: string[];
 }
 
 function emptyBuild(doll: Doll): BuildState {
@@ -503,6 +555,7 @@ function emptyBuild(doll: Doll): BuildState {
     attachmentSet: null,
     statPrefs: [...DEFAULT_STAT_PREFS],
     commonKeys: [],
+    rot: padTurns(undefined),
   };
 }
 
@@ -588,6 +641,7 @@ function BuildCardTool({ onNotice }: { onNotice: (m: string | null) => void }) {
         commonKeys: (decoded.ck ?? [])
           .filter((id) => validCommon.has(id))
           .slice(0, MAX_COMMON_KEYS),
+        rot: padTurns(decoded.rot),
       });
       onNotice(null);
     },
@@ -610,6 +664,10 @@ function BuildCardTool({ onNotice }: { onNotice: (m: string | null) => void }) {
       exp: build.expansionKey,
       set: build.attachmentSet,
     };
+    const rot = normalizeRotation(build.rot);
+    if (rot.length > 0) {
+      payload.rot = rot;
+    }
     return encodeDollBuild(payload);
   }, [doll, build]);
 
@@ -653,6 +711,7 @@ function BuildCardTool({ onNotice }: { onNotice: (m: string | null) => void }) {
       refinement: build.refinement,
       attachmentSet: build.attachmentSet,
       statPrefs: build.statPrefs,
+      rotation: normalizeRotation(build.rot),
     };
   }, [doll, build, dollKeys, commonKeys]);
 
@@ -837,6 +896,19 @@ function BuildCardTool({ onNotice }: { onNotice: (m: string | null) => void }) {
             })
           }
         />
+
+        <div className="infog-field">
+          <span className="infog-field-label">
+            Rotation
+            <span className="infog-field-cap">
+              skills per turn, comma-separated
+            </span>
+          </span>
+          <RotationTurnsField
+            turns={build.rot}
+            onChange={(rot) => patch({ rot })}
+          />
+        </div>
       </div>
 
       {previewData && (
@@ -877,16 +949,38 @@ interface RecState {
   weapons: (string | null)[];
   sets: string[];
   keys: string[];
+  /** Conditional fixed keys: key id + when to take it. */
+  condKeys: { id: string; cond: string }[];
   expansionKey: string | null;
   commonKeys: string[];
   statPrefs: string[];
   notes: string;
+  /** Rotation variants, one card column each (up to MAX_REC_ROTATIONS). */
+  rots: RecRotationDraft[];
   /**
    * True only for an UNTOUCHED default recommendation (src:'sheet' on the
    * decoded code). Any user edit clears it permanently — reverting fields
    * back by hand does not restore it.
    */
   official: boolean;
+  /** Same contract for the Gunsmoke sheet's rotation/fixed-key defaults. */
+  gunsmoke: boolean;
+}
+
+/** One rotation variant as edited — turn list always 7 entries in the UI. */
+interface RecRotationDraft {
+  /** Vertebrae range the variant applies to, e.g. 'V2 - V6'. */
+  v: string;
+  /** Condition, e.g. 'with Expansion Key'. */
+  c: string;
+  /** Turn texts (see padTurns). */
+  t: string[];
+  /** Notes for this variant. */
+  n: string;
+}
+
+function emptyRotationDraft(): RecRotationDraft {
+  return { v: '', c: '', t: padTurns(undefined), n: '' };
 }
 
 function emptyRec(): RecState {
@@ -897,11 +991,14 @@ function emptyRec(): RecState {
     weapons: Array.from({ length: MAX_REC_WEAPONS }, () => null),
     sets: [],
     keys: [],
+    condKeys: [],
     expansionKey: null,
     commonKeys: [],
     statPrefs: [...DEFAULT_STAT_PREFS],
     notes: '',
+    rots: [],
     official: false,
+    gunsmoke: false,
   };
 }
 
@@ -950,6 +1047,10 @@ function recStateFromBuild(doll: Doll, decoded: RecBuild): RecState {
     keys: decoded.keys
       .filter((id) => validFixed.has(id))
       .slice(0, MAX_REC_KEYS),
+    condKeys: (decoded.condKeys ?? [])
+      .filter((ck) => validFixed.has(ck.k))
+      .slice(0, MAX_REC_KEYS)
+      .map((ck) => ({ id: ck.k, cond: ck.c ?? '' })),
     expansionKey:
       decoded.exp && validExpansion.has(decoded.exp) ? decoded.exp : null,
     commonKeys: (decoded.ck ?? [])
@@ -959,7 +1060,14 @@ function recStateFromBuild(doll: Doll, decoded: RecBuild): RecState {
       .filter((s) => (STAT_PREF_OPTIONS as readonly string[]).includes(s))
       .slice(0, MAX_STAT_PREFS),
     notes: decoded.notes ?? '',
+    rots: (decoded.rots ?? []).slice(0, MAX_REC_ROTATIONS).map((r) => ({
+      v: r.v ?? '',
+      c: r.c ?? '',
+      t: padTurns(r.t),
+      n: r.n ?? '',
+    })),
     official: decoded.src === 'sheet',
+    gunsmoke: decoded.gs === 'sheet',
   };
 }
 
@@ -1047,6 +1155,7 @@ function RecCardTool({ onNotice }: { onNotice: (m: string | null) => void }) {
         exp: decoded.exp ?? null,
         ck: decoded.ck ?? [],
         stats: decoded.stats ?? [],
+        ...(decoded.rot ? { rots: [{ t: decoded.rot }] } : {}),
       });
       // An explicit load wins over any in-flight defaults fetch.
       chosenSlug.current = null;
@@ -1075,6 +1184,16 @@ function RecCardTool({ onNotice }: { onNotice: (m: string | null) => void }) {
     if (opt) {
       payload.opt = opt;
     }
+    if (rec.condKeys.length > 0) {
+      payload.condKeys = rec.condKeys.slice(0, MAX_REC_KEYS).map((ck) => {
+        const out: RecConditionalKey = { k: ck.id };
+        const cond = ck.cond.trim();
+        if (cond) {
+          out.c = cond.slice(0, MAX_KEY_CONDITION);
+        }
+        return out;
+      });
+    }
     if (rec.expansionKey) {
       payload.exp = rec.expansionKey;
     }
@@ -1088,8 +1207,38 @@ function RecCardTool({ onNotice }: { onNotice: (m: string | null) => void }) {
     if (notes) {
       payload.notes = notes.slice(0, MAX_REC_NOTES);
     }
+    // A variant travels only with turns — context alone renders nothing.
+    const rots = rec.rots
+      .map((r): RecRotation | null => {
+        const t = normalizeRotation(r.t);
+        if (t.length === 0) {
+          return null;
+        }
+        const out: RecRotation = { t };
+        const v = r.v.trim();
+        if (v) {
+          out.v = v.slice(0, MAX_ROTATION_VERT_LEN);
+        }
+        const c = r.c.trim();
+        if (c) {
+          out.c = c.slice(0, MAX_ROTATION_COND_LEN);
+        }
+        const n = r.n.trim();
+        if (n) {
+          out.n = n.slice(0, MAX_ROTATION_NOTES);
+        }
+        return out;
+      })
+      .filter((r): r is RecRotation => r !== null)
+      .slice(0, MAX_REC_ROTATIONS);
+    if (rots.length > 0) {
+      payload.rots = rots;
+    }
     if (rec.official) {
       payload.src = 'sheet';
+    }
+    if (rec.gunsmoke) {
+      payload.gs = 'sheet';
     }
     return encodeRecBuild(payload);
   }, [doll, rec]);
@@ -1122,6 +1271,15 @@ function RecCardTool({ onNotice }: { onNotice: (m: string | null) => void }) {
         .map((w) => ({ name: w.name, imageUrl: w.imageUrl ?? null })),
       attachmentSets: rec.sets,
       fixedKeySlots,
+      // Conditional keys read as slots too; one whose title carries no
+      // parseable slot is dropped, matching the server-side resolution.
+      conditionalKeys: rec.condKeys.flatMap((ck) => {
+        const key = dollKeys.find((k) => k.id === ck.id);
+        const slot = key ? fixedKeySlot(key) : null;
+        return slot !== null
+          ? [{ slot, condition: ck.cond.trim() || null }]
+          : [];
+      }),
       expansionKeyName: expKey ? (expKey.keyTitle ?? keyName(expKey)) : null,
       commonKeySources: rec.commonKeys
         .map((id) => commonKeys.find((k) => k.id === id))
@@ -1131,7 +1289,17 @@ function RecCardTool({ onNotice }: { onNotice: (m: string | null) => void }) {
         ),
       statPrefs: rec.statPrefs,
       notes: rec.notes.trim() || null,
+      rotations: rec.rots
+        .map((r) => ({
+          vertebrae: r.v.trim() || null,
+          condition: r.c.trim() || null,
+          turns: normalizeRotation(r.t),
+          notes: r.n.trim() || null,
+        }))
+        .filter((r) => r.turns.length > 0)
+        .slice(0, MAX_REC_ROTATIONS),
       official,
+      gunsmoke: rec.gunsmoke,
       portraitUrl: doll.avatarUrl,
     };
   }, [doll, rec, dollKeys, commonKeys]);
@@ -1163,7 +1331,11 @@ function RecCardTool({ onNotice }: { onNotice: (m: string | null) => void }) {
   const fixedKeys = dollKeys.filter((k) => k.keyType === 'Fixed Key');
   const expansionKeys = dollKeys.filter((k) => k.keyType === 'Expansion Key');
   const patch = (next: Partial<RecState>) =>
-    setRec((prev) => (prev ? { ...prev, ...next, official: false } : prev));
+    setRec((prev) =>
+      // Any edit permanently drops BOTH untouched-default flags — the card
+      // stops being the sheets' recommendation the moment it's yours.
+      prev ? { ...prev, ...next, official: false, gunsmoke: false } : prev
+    );
 
   const toggleCapped = (list: string[], id: string, cap: number): string[] =>
     list.includes(id)
@@ -1322,6 +1494,62 @@ function RecCardTool({ onNotice }: { onNotice: (m: string | null) => void }) {
         />
 
         <ChipRow
+          label="Conditional keys"
+          cap={MAX_REC_KEYS}
+          options={fixedKeys.map((k) => ({
+            id: k.id,
+            label: fixedKeyLabel(k),
+          }))}
+          selected={rec.condKeys.map((ck) => ck.id)}
+          onToggle={(id) =>
+            patch({
+              condKeys: rec.condKeys.some((ck) => ck.id === id)
+                ? rec.condKeys.filter((ck) => ck.id !== id)
+                : rec.condKeys.length >= MAX_REC_KEYS
+                  ? rec.condKeys
+                  : [...rec.condKeys, { id, cond: '' }],
+            })
+          }
+          empty="This doll has no fixed keys in the synced data."
+          footer={
+            rec.condKeys.length > 0 ? (
+              <div className="infog-condkeys">
+                {rec.condKeys.map((ck) => {
+                  const key = fixedKeys.find((k) => k.id === ck.id);
+                  return (
+                    <label key={ck.id} className="infog-condkey">
+                      <span className="infog-rot-turn-label">
+                        {key ? fixedKeyLabel(key) : ck.id}
+                      </span>
+                      <input
+                        type="text"
+                        maxLength={MAX_KEY_CONDITION}
+                        placeholder="When to take this key…"
+                        value={ck.cond}
+                        onChange={(e) =>
+                          patch({
+                            condKeys: rec.condKeys.map((c) =>
+                              c.id === ck.id
+                                ? { ...c, cond: e.target.value }
+                                : c
+                            ),
+                          })
+                        }
+                      />
+                    </label>
+                  );
+                })}
+              </div>
+            ) : (
+              <p className="muted infog-order">
+                Keys worth taking only in specific teams or fights — each gets a
+                condition line on the card.
+              </p>
+            )
+          }
+        />
+
+        <ChipRow
           label="Expansion key"
           options={expansionKeys.map((k) => ({
             id: k.id,
@@ -1369,6 +1597,80 @@ function RecCardTool({ onNotice }: { onNotice: (m: string | null) => void }) {
             })
           }
         />
+
+        <div className="infog-field">
+          <span className="infog-field-label">
+            Rotations
+            <span className="infog-field-cap">
+              {rec.rots.length}/{MAX_REC_ROTATIONS} · one column per vertebrae
+              range, skills per turn comma-separated
+            </span>
+          </span>
+          {rec.rots.map((rot, idx) => {
+            const patchRot = (next: Partial<RecRotationDraft>) =>
+              patch({
+                rots: rec.rots.map((r, i) =>
+                  i === idx ? { ...r, ...next } : r
+                ),
+              });
+            return (
+              <div key={idx} className="infog-rot-block">
+                <div className="infog-rot-context">
+                  <input
+                    type="text"
+                    maxLength={MAX_ROTATION_VERT_LEN}
+                    placeholder="Vertebrae, e.g. V2 - V6"
+                    aria-label={`Rotation ${idx + 1} vertebrae range`}
+                    value={rot.v}
+                    onChange={(e) => patchRot({ v: e.target.value })}
+                  />
+                  <input
+                    type="text"
+                    maxLength={MAX_ROTATION_COND_LEN}
+                    placeholder="Condition, e.g. with Expansion Key"
+                    aria-label={`Rotation ${idx + 1} condition`}
+                    value={rot.c}
+                    onChange={(e) => patchRot({ c: e.target.value })}
+                  />
+                  <button
+                    type="button"
+                    className="chip"
+                    aria-label={`Remove rotation ${idx + 1}`}
+                    onClick={() =>
+                      patch({ rots: rec.rots.filter((_, i) => i !== idx) })
+                    }
+                  >
+                    ×
+                  </button>
+                </div>
+                <RotationTurnsField
+                  turns={rot.t}
+                  onChange={(t) => patchRot({ t })}
+                />
+                <textarea
+                  className="infog-rot-notes"
+                  value={rot.n}
+                  maxLength={MAX_ROTATION_NOTES}
+                  rows={2}
+                  placeholder="Rotation notes, e.g. alternate S1 targets…"
+                  aria-label={`Rotation ${idx + 1} notes`}
+                  onChange={(e) => patchRot({ n: e.target.value })}
+                />
+              </div>
+            );
+          })}
+          {rec.rots.length < MAX_REC_ROTATIONS && (
+            <button
+              type="button"
+              className="btn-outline infog-rot-add"
+              onClick={() =>
+                patch({ rots: [...rec.rots, emptyRotationDraft()] })
+              }
+            >
+              + Add rotation
+            </button>
+          )}
+        </div>
 
         <label className="infog-field infog-notes">
           <span className="infog-field-label">
