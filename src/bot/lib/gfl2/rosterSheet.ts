@@ -15,7 +15,6 @@
  */
 
 import { eq, inArray } from 'drizzle-orm';
-import { db } from '../../../db/index.js';
 import {
   platoonMembers,
   rosterDolls,
@@ -521,6 +520,10 @@ export async function syncPlatoonSheet(
   platoonId: string,
   sheetId: string
 ): Promise<void> {
+  // Lazy: db/index.js throws without DATABASE_URL at import time, and this
+  // module's pure builders are imported by tests and demo scripts that have
+  // no database. Only the sync itself needs one.
+  const { db } = await import('../../../db/index.js');
   const members = await db
     .select()
     .from(platoonMembers)
