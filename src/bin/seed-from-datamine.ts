@@ -2,9 +2,12 @@
 /**
  * Seed the content tables from the datamine's app-formatted output.
  *
- *   npm run seed:datamine -- --src ../out-app            (dry run, default)
- *   npm run seed:datamine -- --src ../out-app --execute  (write to DB)
- *   npm run seed:datamine -- --src ../out-app --execute --export
+ *   npm run seed:datamine -- --src ../gfl2-datamine/out-app            (dry run, default)
+ *   npm run seed:datamine -- --src ../gfl2-datamine/out-app --execute  (write to DB)
+ *   npm run seed:datamine -- --src ../gfl2-datamine/out-app --execute --export
+ *
+ * To refresh the committed data/*.json without a database at all, see
+ * `npm run export:datamine` (src/bin/export-datamine.ts).
  *
  * Reads `dolls.json`, `weapons.json`, `keys.json`, `effects.json`,
  * `attachment-sets.json` produced by `python -m gfl2dm.appformat` (already in
@@ -23,26 +26,13 @@
  * see purge-dandegate.ts and import-recommendations.ts.
  */
 import 'dotenv/config';
-import { readFile } from 'node:fs/promises';
-import { join, resolve } from 'node:path';
+import { resolve } from 'node:path';
 import { notInArray, sql } from 'drizzle-orm';
 import { db } from '../db/index.js';
 import { attachmentSets, dolls, effects, keys, weapons } from '../db/schema.js';
+import { loadContentFile as loadJson } from '../sync/writeData.js';
 
 type Row = Record<string, unknown>;
-
-async function loadJson(
-  dir: string,
-  file: string,
-  key: string
-): Promise<Row[]> {
-  const payload = JSON.parse(await readFile(join(dir, file), 'utf-8'));
-  const rows = payload[key];
-  if (!Array.isArray(rows)) {
-    throw new Error(`${file} has no array at key "${key}"`);
-  }
-  return rows as Row[];
-}
 
 /** Strip fields that are export-time derivations, not columns. */
 function stripDerived(row: Row, fields: string[]): Row {
@@ -90,7 +80,9 @@ async function main() {
   const execute = args.includes('--execute');
   const doExport = args.includes('--export');
   const srcIdx = args.indexOf('--src');
-  const src = resolve((srcIdx >= 0 && args[srcIdx + 1]) || '../out-app');
+  const src = resolve(
+    (srcIdx >= 0 && args[srcIdx + 1]) || '../gfl2-datamine/out-app'
+  );
 
   const incoming = {
     dolls: await loadJson(src, 'dolls.json', 'dolls'),
@@ -178,17 +170,9 @@ async function main() {
   if (doExport) {
     const { exportJson, DATA_DIR } = await import('../sync/export.js');
     await exportJson();
-    const { deriveEffectMatrix } = await import('../derive/effectMatrix.js');
-    const { deriveEffectTags } = await import('../derive/effectTags.js');
-    await deriveEffectMatrix(DATA_DIR);
-    await deriveEffectTags(DATA_DIR);
-    // sidecar, not DB content: which strings the datamine's manual CN->EN
-    // registry produced, for the site's "translated from CN" badge
-    const { copyFileSync, existsSync } = await import('node:fs');
-    const sidecar = resolve(src, 'cn-translated.json');
-    if (existsSync(sidecar)) {
-      copyFileSync(sidecar, resolve(DATA_DIR, 'cn-translated.json'));
-    }
+    // effect matrix + tags, and the cn-translated.json sidecar (not DB content)
+    const { deriveArtifacts } = await import('../sync/writeData.js');
+    await deriveArtifacts(DATA_DIR, src);
     console.log('Exported data/*.json and derived artifacts.');
   }
 

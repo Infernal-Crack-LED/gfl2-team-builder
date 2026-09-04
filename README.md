@@ -120,7 +120,8 @@ render time.
 
 | Command                       | Description                                                     |
 | ----------------------------- | --------------------------------------------------------------- |
-| `npm run seed:datamine`       | Load the latest datamine export into `data/*.json`              |
+| `npm run seed:datamine`       | Load the latest datamine export into the DB (+ `data/*.json`)   |
+| `npm run export:datamine`     | Write `data/*.json` + derived files from the datamine, no DB    |
 | `npm run sync`                | Retired dandegate data sync (superseded by `seed:datamine`)     |
 | `npm run icons`               | Fetch wiki UI icons and mirror CDN game art (`--force` to redo) |
 | `npm run sitemap`             | Regenerate `web/public/sitemap.xml` (drift-tested)              |
