@@ -1,5 +1,5 @@
 {
-  "syncedAt": "2026-09-04T15:36:45.440Z",
+  "syncedAt": "2026-09-04T17:50:13.246Z",
   "weapons": [
     {
       "id": "b14e4a3b-d9ba-5726-9c0c-86fbea675548",
@@ -5004,7 +5004,7 @@
       "effect": "Increase damage by <span style=\"color: rgb(242, 108, 28);\">1%</span>.",
       "imprintDollId": null,
       "imprintDescription": null,
-      "imageUrl": "/game-assets/weapons/retired-special-operations-modular-rifle.webp",
+      "imageUrl": "/game-assets/weapons/retired-sopmod-ii.webp",
       "eliteCounterpart": {
         "id": "0ceaf92d-8f01-52d4-98cc-3e2daaab075a",
         "name": "Sky-Shattering Howl",
@@ -5034,7 +5034,7 @@
       "effect": "AoE damage dealt is increased by <span style=\"color: rgb(242, 108, 28);\">10%</span>.",
       "imprintDollId": null,
       "imprintDescription": null,
-      "imageUrl": "/game-assets/weapons/special-operations-modular-rifle.webp",
+      "imageUrl": "/game-assets/weapons/sopmod-ii.webp",
       "eliteCounterpart": {
         "id": "0ceaf92d-8f01-52d4-98cc-3e2daaab075a",
         "name": "Sky-Shattering Howl",
@@ -5184,7 +5184,7 @@
       "effect": "Increase damage by <span style=\"color: rgb(242, 108, 28);\">1%</span>.",
       "imprintDollId": null,
       "imprintDescription": null,
-      "imageUrl": "/game-assets/weapons/retired-g41.webp",
+      "imageUrl": "/game-assets/weapons/retired-sturmgewehr-41.webp",
       "eliteCounterpart": {
         "id": "84c657ac-2999-510b-a4cd-98fcab07b2f9",
         "name": "Feral Fang",
@@ -5214,7 +5214,7 @@
       "effect": "Damage dealt to targets on Corrosion tiles is increased by <span style=\"color: rgb(242, 108, 28);\">10%</span>.",
       "imprintDollId": null,
       "imprintDescription": null,
-      "imageUrl": "/game-assets/weapons/g41.webp",
+      "imageUrl": "/game-assets/weapons/sturmgewehr-41.webp",
       "eliteCounterpart": {
         "id": "84c657ac-2999-510b-a4cd-98fcab07b2f9",
         "name": "Feral Fang",
@@ -5270,7 +5270,7 @@
       "effect": "If the active skill does not deal damage, Corrosion damage is increased by <span style=\"color: rgb(242, 108, 28);\">20%</span> for <span style=\"color: rgb(242, 108, 28);\">3 turns</span>. Each time an extra active skill is used to make an attack, Corrosion damage is increased by <span style=\"color: rgb(242, 108, 28);\">5%</span> for <span style=\"color: rgb(242, 108, 28);\">1 turn</span>, to a maximum increase of <span style=\"color: rgb(242, 108, 28);\">15%</span>. After each attack made on the current turn, the damage of the next skill is increased by <span style=\"color: rgb(242, 108, 28);\">4%</span>, to a maximum increase of <span style=\"color: rgb(242, 108, 28);\">16%</span>.",
       "imprintDollId": "d8661706-7a29-5545-b8b1-7b42fd041994",
       "imprintDescription": "Damage dealt to targets with Corrosion debuffs is increased by <span style=\"color: rgb(242, 108, 28);\">2.5%</span> and damage dealt to Paradeus units is increased by <span style=\"color: rgb(242, 108, 28);\">2.5%</span>.",
-      "imageUrl": "/game-assets/weapons/bristlefang-beast.webp",
+      "imageUrl": "/game-assets/weapons/feral-fang.webp",
       "eliteCounterpart": null,
       "standardCounterpart": {
         "id": "564d2ecb-4781-5eac-899d-1929523e298a",
@@ -5300,7 +5300,7 @@
       "effect": "Increase damage by <span style=\"color: rgb(242, 108, 28);\">1%</span>.",
       "imprintDollId": null,
       "imprintDescription": null,
-      "imageUrl": "/game-assets/weapons/retired-ak12.webp",
+      "imageUrl": "/game-assets/weapons/retired-model-12-assault-rifle.webp",
       "eliteCounterpart": {
         "id": "30994401-6b72-5653-bef3-f306db19c162",
         "name": "Chernobog",
@@ -5330,7 +5330,7 @@
       "effect": "If the user has a Hydro buff, the user and their summons' damage dealt is increased by <span style=\"color: rgb(242, 108, 28);\">10%</span>.",
       "imprintDollId": null,
       "imprintDescription": null,
-      "imageUrl": "/game-assets/weapons/ak12.webp",
+      "imageUrl": "/game-assets/weapons/model-12-assault-rifle.webp",
       "eliteCounterpart": {
         "id": "30994401-6b72-5653-bef3-f306db19c162",
         "name": "Chernobog",
@@ -5469,7 +5469,7 @@
     },
     {
       "id": "68125df0-3723-5e4e-94e7-8a57588aa2d9",
-      "name": "Retired Gewehr 36-Compact",
+      "name": "Retired G36C",
       "rarity": "Retired",
       "weaponType": "Assault Rifle",
       "primaryAttribute": "Attack",
@@ -5480,7 +5480,7 @@
       "effect": "Increase damage by <span style=\"color: rgb(242, 108, 28);\">1%</span>.",
       "imprintDollId": null,
       "imprintDescription": null,
-      "imageUrl": null,
+      "imageUrl": "/game-assets/weapons/retired-g36c.webp",
       "eliteCounterpart": {
         "id": "9d4c8bd8-10a8-5fae-974c-93528bbd0fc3",
         "name": "Snotra",
@@ -5488,29 +5488,29 @@
       },
       "standardCounterpart": {
         "id": "89beedc0-1fe2-584c-8e2f-f8feb89075d3",
-        "name": "Gewehr 36-Compact",
+        "name": "G36C",
         "slug": "36"
       },
       "retiredCounterpart": null,
       "gunWeaponDataId": 10821,
       "regionTag": "cn",
       "preview": false,
-      "slug": "retired-gewehr-36-compact"
+      "slug": "retired-g36c"
     },
     {
       "id": "89beedc0-1fe2-584c-8e2f-f8feb89075d3",
-      "name": "Gewehr 36-Compact",
+      "name": "G36C",
       "rarity": "Standard",
       "weaponType": "Assault Rifle",
       "primaryAttribute": "Attack",
       "primaryAttributeStat": 272,
       "secondaryAttribute": null,
       "secondaryAttributeStat": null,
-      "trait": "慰藉",
-      "effect": "持有护盾时造成的伤害提高<span style=\"color: rgb(242, 108, 28);\">10%</span>。",
+      "trait": "Solace",
+      "effect": "While holding a shield, damage dealt is increased by <span style=\"color: rgb(242, 108, 28);\">10%</span>.",
       "imprintDollId": null,
       "imprintDescription": null,
-      "imageUrl": null,
+      "imageUrl": "/game-assets/weapons/g36c.webp",
       "eliteCounterpart": {
         "id": "9d4c8bd8-10a8-5fae-974c-93528bbd0fc3",
         "name": "Snotra",
@@ -5519,13 +5519,13 @@
       "standardCounterpart": null,
       "retiredCounterpart": {
         "id": "68125df0-3723-5e4e-94e7-8a57588aa2d9",
-        "name": "Retired Gewehr 36-Compact",
+        "name": "Retired G36C",
         "slug": "36"
       },
       "gunWeaponDataId": 10822,
       "regionTag": "cn",
       "preview": false,
-      "slug": "gewehr-36-compact"
+      "slug": "g36c"
     },
     {
       "id": "9d4c8bd8-10a8-5fae-974c-93528bbd0fc3",
@@ -5536,20 +5536,20 @@
       "primaryAttributeStat": 383,
       "secondaryAttribute": "Attack Boost",
       "secondaryAttributeStat": "15%",
-      "trait": "孤羽归群",
-      "effect": "持有护盾时造成的伤害提高<span style=\"color: rgb(242, 108, 28);\">20%</span>，暴击伤害提高<span style=\"color: rgb(242, 108, 28);\">15%</span>，且行动支援造成<span style=\"color: rgb(230, 113, 41);\">燃烧伤害</span>后，自身获得<span style=\"color: rgb(242, 108, 28);\">3点</span>导染指数，每个大回合至多触发<span style=\"color: rgb(242, 108, 28);\">1次</span>。",
+      "trait": "Lone Feather's Return",
+      "effect": "While holding a shield, damage dealt is increased by <span style=\"color: rgb(242, 108, 28);\">20%</span> and critical damage by <span style=\"color: rgb(242, 108, 28);\">15%</span>; after a Support Action deals <span style=\"color: rgb(230, 113, 41);\">Burn damage</span>, she gains <span style=\"color: rgb(242, 108, 28);\">3 points</span> of Confectance Index. This triggers at most <span style=\"color: rgb(242, 108, 28);\">once</span> per round.",
       "imprintDollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
-      "imprintDescription": "对拥有燃烧类减益的目标造成伤害提高2.5%，对帕拉蒂斯造成的伤害提高2.5%。",
-      "imageUrl": null,
+      "imprintDescription": "Damage dealt to targets with Burn debuffs is increased by 2.5% and damage dealt to Paradeus units is increased by 2.5%.",
+      "imageUrl": "/game-assets/weapons/snotra.webp",
       "eliteCounterpart": null,
       "standardCounterpart": {
         "id": "89beedc0-1fe2-584c-8e2f-f8feb89075d3",
-        "name": "Gewehr 36-Compact",
+        "name": "G36C",
         "slug": "36"
       },
       "retiredCounterpart": {
         "id": "68125df0-3723-5e4e-94e7-8a57588aa2d9",
-        "name": "Retired Gewehr 36-Compact",
+        "name": "Retired G36C",
         "slug": "36"
       },
       "gunWeaponDataId": 10823,
