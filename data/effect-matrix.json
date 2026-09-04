@@ -1,6 +1,6 @@
 {
   "generator": "effect-matrix/1",
-  "syncedAt": "2026-09-04T15:36:45.547Z",
+  "syncedAt": "2026-09-04T17:50:13.351Z",
   "effects": [
     {
       "effectId": "05d35544-1f14-5a28-b509-778a9f013afc",
@@ -1157,6 +1157,17 @@
         {
           "kind": "key",
           "relation": "mentions",
+          "snippet": "\">4 tiles</span> of [effect:dae390d1-89f4-5748-b100-08fc2ce4199e] and cleanses <span style=\"color: rgb(242, 108, 28)",
+          "keyId": "4ca43dcf-0bc2-5721-be62-663d836cdea2",
+          "keyTitle": "Fixed Key - Nimble Pivot",
+          "keyType": "Fixed Key",
+          "level": 3,
+          "dollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
+          "dollName": "Cecilia"
+        },
+        {
+          "kind": "key",
+          "relation": "mentions",
           "snippet": "\">4 tiles</span> of [effect:dae390d1-89f4-5748-b100-08fc2ce4199e]",
           "keyId": "34237ae5-68c1-5281-a5c1-bed45e15bb02",
           "keyTitle": "Fixed Key - Premium Overhaul",
@@ -1175,17 +1186,6 @@
           "level": 5,
           "dollId": "e3d25747-0dc5-5cef-9c7a-e12f06115e03",
           "dollName": "Nemesis: Gnosis"
-        },
-        {
-          "kind": "key",
-          "relation": "mentions",
-          "snippet": "\">4格</span>[effect:dae390d1-89f4-5748-b100-08fc2ce4199e]并驱散自身<span style=\"color: rgb(242, 108, 28)",
-          "keyId": "4ca43dcf-0bc2-5721-be62-663d836cdea2",
-          "keyTitle": "固键·轻盈转身",
-          "keyType": "Fixed Key",
-          "level": 3,
-          "dollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
-          "dollName": "Cecilia"
         }
       ]
     },
@@ -1598,6 +1598,62 @@
       "exclusiveDollId": null,
       "exclusiveDollName": null,
       "sources": [],
+      "interactions": []
+    },
+    {
+      "effectId": "a37ad66d-0f60-5111-b5a5-4f0f0469e8da",
+      "effectName": "Agitation",
+      "effectTags": [],
+      "exclusiveDollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
+      "exclusiveDollName": "Cecilia",
+      "sources": [
+        {
+          "kind": "effect",
+          "relation": "applies",
+          "snippet": "Selects 1 enemy target within an 8-tile radius and deals AoE Burn damage equal to 100% of attack to it and all enemy targets within a 5×5-tile area around it, applies [effect:08760998-f8d7-51e6-88df-d96ac2c34e68] and [effect:a37ad66d-0f60-5111-b5a5-4f0f0469e8da] to it for 2 turns, and generates […",
+          "effectId": "0658cfe4-731a-53e7-98b6-a8335168e09e",
+          "effectName": "Words of Comfort - AoE",
+          "ownerDollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
+          "ownerDollName": "Cecilia"
+        },
+        {
+          "kind": "effect",
+          "relation": "applies",
+          "snippet": "Selects 1 enemy target within an 8-tile radius and deals AoE Burn damage equal to 70% of attack to it and all enemy targets within a 5×5-tile area around it, applies [effect:08760998-f8d7-51e6-88df-d96ac2c34e68] and [effect:a37ad66d-0f60-5111-b5a5-4f0f0469e8da] to it for 2 turns, and generates [e…",
+          "effectId": "465cd92b-3a70-560e-8162-5753e3aff7c4",
+          "effectName": "Words of Comfort - AoE",
+          "ownerDollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
+          "ownerDollName": "Cecilia"
+        },
+        {
+          "kind": "effect",
+          "relation": "applies",
+          "snippet": "Selects 1 enemy target within an 8-tile radius and deals AoE Burn damage equal to 70% of attack to it and all enemy targets within a 5×5-tile area around it, applies [effect:08760998-f8d7-51e6-88df-d96ac2c34e68] and [effect:a37ad66d-0f60-5111-b5a5-4f0f0469e8da] to it for 2 turns, and generates [e…",
+          "effectId": "7407a85b-5dfe-5873-9f70-c562fff498ca",
+          "effectName": "Words of Comfort - AoE",
+          "ownerDollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
+          "ownerDollName": "Cecilia"
+        }
+      ],
+      "interactions": []
+    },
+    {
+      "effectId": "35a0d4ec-a169-5548-8ed9-c3215fe4174d",
+      "effectName": "Agitation",
+      "effectTags": [],
+      "exclusiveDollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
+      "exclusiveDollName": "Cecilia",
+      "sources": [
+        {
+          "kind": "effect",
+          "relation": "applies",
+          "snippet": "Selects 1 enemy target within an 8-tile radius and deals AoE Burn damage equal to 100% of attack to it and all enemy targets within a 5×5-tile area around it, applies [effect:08760998-f8d7-51e6-88df-d96ac2c34e68] and [effect:35a0d4ec-a169-5548-8ed9-c3215fe4174d] to it for 2 turns, and generates […",
+          "effectId": "0b39b016-60dd-5374-ab0e-cb695a9e88bb",
+          "effectName": "Words of Comfort - AoE",
+          "ownerDollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
+          "ownerDollName": "Cecilia"
+        }
+      ],
       "interactions": []
     },
     {
@@ -14059,20 +14115,20 @@
       "effectTags": [],
       "exclusiveDollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
       "exclusiveDollName": "Cecilia",
-      "sources": [],
-      "interactions": [
+      "sources": [
         {
           "kind": "key",
-          "relation": "mentions",
-          "snippet": "造成范围伤害前，获得[effect:f7e971d4-1d81-5d2a-bf62-10d57fd52202]，持续<span style=\"color: rgb(242, 108, 28)",
+          "relation": "gains",
+          "snippet": "Before dealing AoE damage, gains [effect:f7e971d4-1d81-5d2a-bf62-10d57fd52202] for <span style=\"color: rgb(242, 108, 28)",
           "keyId": "570e57c2-7f8e-572e-88cc-886f242ffc75",
-          "keyTitle": "固键·自我激励",
+          "keyTitle": "Fixed Key - Self-Motivation",
           "keyType": "Fixed Key",
           "level": 6,
           "dollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
           "dollName": "Cecilia"
         }
-      ]
+      ],
+      "interactions": []
     },
     {
       "effectId": "670c19c1-cf66-52c2-9e3d-059dcb3f3f3e",
@@ -23095,6 +23151,17 @@
         {
           "kind": "key",
           "relation": "gains",
+          "snippet": "\">Zucchero's Special Drink</span>, gains [effect:a45309b9-36e9-5091-85e8-c9b634da7086]",
+          "keyId": "15d0c19f-ed4f-5f90-bf3d-85069c6aaac2",
+          "keyTitle": "Expansion Key - Will To Protect",
+          "keyType": "Expansion Key",
+          "level": 9,
+          "dollId": "fb12e551-6e4b-5554-a1a4-122b989dcd7a",
+          "dollName": "Centaureissi"
+        },
+        {
+          "kind": "key",
+          "relation": "gains",
           "snippet": "When Robella has [effect:ebf25bed-d084-5dd8-b5d7-8d562d75f5e2], she gains [effect:a45309b9-36e9-5091-85e8-c9b634da7086] after using the basic attack <span style=\"color: rgb(52, 135, 224)",
           "keyId": "1ab13f6c-e820-5904-9dde-2def2ab38cab",
           "keyTitle": "Expansion Key - Justice Enforcement Calculations",
@@ -23191,6 +23258,21 @@
           "dollName": "Lotta",
           "skillId": "10410401",
           "skillName": "Amplified Courage",
+          "skillType": "Ultimate"
+        },
+        {
+          "kind": "skill",
+          "relation": "gains",
+          "levels": [
+            1,
+            2,
+            3
+          ],
+          "snippet": "Selects 1 enemy target within an 8-tile radius and deals Burn damage equal to 130% of attack to it, and gains [effect:a45309b9-36e9-5091-85e8-c9b634da7086]",
+          "dollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
+          "dollName": "Cecilia",
+          "skillId": "10820401",
+          "skillName": "Reconciliation",
           "skillType": "Ultimate"
         },
         {
@@ -23346,6 +23428,34 @@
           "dollName": "Lenna",
           "skillId": "10130701",
           "skillName": "Leaping Pursuit",
+          "skillType": "Active"
+        },
+        {
+          "kind": "skill",
+          "relation": "gains",
+          "levels": [
+            1,
+            2
+          ],
+          "snippet": "Changes the basic attack Words of Comfort to [effect:7407a85b-5dfe-5873-9f70-c562fff498ca] for 1 round, gains [effect:a45309b9-36e9-5091-85e8-c9b634da7086], and applies [effect:ec24afec-5369-5ad2-9e48-50b8b94ab3ea] to allied Dolls for 2 rounds",
+          "dollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
+          "dollName": "Cecilia",
+          "skillId": "10820501",
+          "skillName": "Positive Response",
+          "skillType": "Active"
+        },
+        {
+          "kind": "skill",
+          "relation": "gains",
+          "levels": [
+            1,
+            2
+          ],
+          "snippet": "Changes the basic attack Words of Comfort to [effect:84d26544-c08e-524a-95b1-ec39ac41c0a1] for 1 round, gains [effect:a45309b9-36e9-5091-85e8-c9b634da7086], and applies [effect:ec24afec-5369-5ad2-9e48-50b8b94ab3ea] to allied Dolls for 2 rounds",
+          "dollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
+          "dollName": "Cecilia",
+          "skillId": "10820701",
+          "skillName": "Desensitization Tactics",
           "skillType": "Active"
         },
         {
@@ -23541,6 +23651,24 @@
         {
           "kind": "vertebrae",
           "relation": "gains",
+          "snippet": "Changes the basic attack Words of Comfort to [effect:0b39b016-60dd-5374-ab0e-cb695a9e88bb] for 1 round, gains [effect:a45309b9-36e9-5091-85e8-c9b634da7086], and applies [effect:ec24afec-5369-5ad2-9e48-50b8b94ab3ea] to allied Dolls for 2 rounds",
+          "dollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
+          "dollName": "Cecilia",
+          "level": 2,
+          "segment": 1
+        },
+        {
+          "kind": "vertebrae",
+          "relation": "gains",
+          "snippet": "Changes the basic attack Words of Comfort to [effect:d83cd9ac-5d7b-54d1-b18d-c3676e8164d5] for 1 round, gains [effect:a45309b9-36e9-5091-85e8-c9b634da7086], and applies [effect:ec24afec-5369-5ad2-9e48-50b8b94ab3ea] to allied Dolls for 2 rounds",
+          "dollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
+          "dollName": "Cecilia",
+          "level": 2,
+          "segment": 2
+        },
+        {
+          "kind": "vertebrae",
+          "relation": "gains",
           "snippet": "If Soppo is in [effect:66422778-b84b-540c-8de1-13484f1a3923], gain 2 stacks of [effect:376050e2-97ac-5aba-8711-3f1e494a1074] Instead of gaining [effect:a45309b9-36e9-5091-85e8-c9b634da7086], gain [effect:5099f29b-80ca-5d6d-8ccf-ee21f9db0a52]",
           "dollId": "71a8251b-d96e-5e59-be83-f80b219e0395",
           "dollName": "Soppo",
@@ -23564,6 +23692,24 @@
           "dollName": "Andoris",
           "level": 3,
           "segment": 6
+        },
+        {
+          "kind": "vertebrae",
+          "relation": "gains",
+          "snippet": "Selects 1 enemy target within an 8-tile radius and deals Burn damage equal to 160% of attack to it, and gains [effect:a45309b9-36e9-5091-85e8-c9b634da7086]",
+          "dollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
+          "dollName": "Cecilia",
+          "level": 2,
+          "segment": 3
+        },
+        {
+          "kind": "vertebrae",
+          "relation": "gains",
+          "snippet": "Selects 1 enemy target within an 8-tile radius and deals Burn damage equal to 160% of attack to it, and gains [effect:a45309b9-36e9-5091-85e8-c9b634da7086]",
+          "dollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
+          "dollName": "Cecilia",
+          "level": 3,
+          "segment": 5
         }
       ],
       "interactions": [
@@ -23648,60 +23794,6 @@
           "ownerDollName": "Tololo"
         },
         {
-          "kind": "key",
-          "relation": "mentions",
-          "snippet": "\">方糖特饮</span>后获得[effect:a45309b9-36e9-5091-85e8-c9b634da7086]。若制胜技能<span style=\"color: rgb(52, 135, 224)",
-          "keyId": "15d0c19f-ed4f-5f90-bf3d-85069c6aaac2",
-          "keyTitle": "Expansion Key - Will To Protect",
-          "keyType": "Expansion Key",
-          "level": 9,
-          "dollId": "fb12e551-6e4b-5554-a1a4-122b989dcd7a",
-          "dollName": "Centaureissi"
-        },
-        {
-          "kind": "skill",
-          "relation": "mentions",
-          "levels": [
-            1,
-            2,
-            3
-          ],
-          "snippet": "选取周围半径8格内的1个敌方目标，对其造成130%攻击力的燃烧伤害，自身获得[effect:a45309b9-36e9-5091-85e8-c9b634da7086]。每进行1次普攻或[effect:40636efe-13a8-51e6-b891-46cea59d0e5c]，下次该技能的伤害系数提高25%。",
-          "dollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
-          "dollName": "Cecilia",
-          "skillId": "10820401",
-          "skillName": "握手言和",
-          "skillType": "Ultimate"
-        },
-        {
-          "kind": "skill",
-          "relation": "mentions",
-          "levels": [
-            1,
-            2
-          ],
-          "snippet": "普攻抚慰之语改为[effect:7407a85b-5dfe-5873-9f70-c562fff498ca]，持续1个大回合，获得[effect:a45309b9-36e9-5091-85e8-c9b634da7086]，并为友方人形施加[effect:ec24afec-5369-5ad2-9e48-50b8b94ab3ea]，持续2个大回合，[effect:ec24afec-5369-5ad2-9e48-50b8b94ab3ea]吸收量为50%施加者攻击力，至多不超过100%目标最大生命值，不可叠加。该技能或主动技能脱敏战术每个大回合至多使用1次。",
-          "dollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
-          "dollName": "Cecilia",
-          "skillId": "10820501",
-          "skillName": "正向回应",
-          "skillType": "Active"
-        },
-        {
-          "kind": "skill",
-          "relation": "mentions",
-          "levels": [
-            1,
-            2
-          ],
-          "snippet": "普攻抚慰之语改为[effect:84d26544-c08e-524a-95b1-ec39ac41c0a1]，持续1个大回合，获得[effect:a45309b9-36e9-5091-85e8-c9b634da7086]，并为友方人形施加[effect:ec24afec-5369-5ad2-9e48-50b8b94ab3ea]，持续2个大回合，[effect:ec24afec-5369-5ad2-9e48-50b8b94ab3ea]吸收量为50%施加者攻击力，至多不超过100%目标最大生命值，不可叠加。该技能或主动技能正向回应每个大回合至多使用1次。",
-          "dollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
-          "dollName": "Cecilia",
-          "skillId": "10820701",
-          "skillName": "脱敏战术",
-          "skillType": "Active"
-        },
-        {
           "kind": "vertebrae",
           "relation": "mentions",
           "snippet": "[effect:a45309b9-36e9-5091-85e8-c9b634da7086] is changed to [effect:5099f29b-80ca-5d6d-8ccf-ee21f9db0a52]",
@@ -23718,42 +23810,6 @@
           "dollName": "Nikketa",
           "level": 2,
           "segment": 1
-        },
-        {
-          "kind": "vertebrae",
-          "relation": "mentions",
-          "snippet": "普攻抚慰之语改为[effect:0b39b016-60dd-5374-ab0e-cb695a9e88bb]，持续1个大回合，获得[effect:a45309b9-36e9-5091-85e8-c9b634da7086]，并为友方人形施加[effect:ec24afec-5369-5ad2-9e48-50b8b94ab3ea]，持续2个大回合，[effect:ec24afec-5369-5ad2-9e48-50b8b94ab3ea]吸收量为50%施加者攻击力，至多不超过100%目标最大生命值，不可叠加。该技能或主动技能脱敏战术每个大回合至多使用1次。",
-          "dollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
-          "dollName": "Cecilia",
-          "level": 2,
-          "segment": 1
-        },
-        {
-          "kind": "vertebrae",
-          "relation": "mentions",
-          "snippet": "普攻抚慰之语改为[effect:d83cd9ac-5d7b-54d1-b18d-c3676e8164d5]，持续1个大回合，获得[effect:a45309b9-36e9-5091-85e8-c9b634da7086]，并为友方人形施加[effect:ec24afec-5369-5ad2-9e48-50b8b94ab3ea]，持续2个大回合，[effect:ec24afec-5369-5ad2-9e48-50b8b94ab3ea]吸收量为50%施加者攻击力，至多不超过100%目标最大生命值，不可叠加。该技能或主动技能正向回应每个大回合至多使用1次。",
-          "dollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
-          "dollName": "Cecilia",
-          "level": 2,
-          "segment": 2
-        },
-        {
-          "kind": "vertebrae",
-          "relation": "mentions",
-          "snippet": "选取周围半径8格内的1个敌方目标，对其造成160%攻击力的燃烧伤害，自身获得[effect:a45309b9-36e9-5091-85e8-c9b634da7086]。每进行1次普攻或[effect:40636efe-13a8-51e6-b891-46cea59d0e5c]，下次该技能的伤害系数提高50%。技能前对目标施加[effect:2d867c4c-347f-5f79-8686-c1576e07ee6c]，持续2回合。",
-          "dollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
-          "dollName": "Cecilia",
-          "level": 2,
-          "segment": 3
-        },
-        {
-          "kind": "vertebrae",
-          "relation": "mentions",
-          "snippet": "选取周围半径8格内的1个敌方目标，对其造成160%攻击力的燃烧伤害，自身获得[effect:a45309b9-36e9-5091-85e8-c9b634da7086]。每进行1次普攻或[effect:40636efe-13a8-51e6-b891-46cea59d0e5c]，下次该技能的伤害系数提高50%。技能后若使用普攻[effect:e382bc8b-c71a-5d0f-9060-629831b9771b]，则造成的伤害提高100%，若自身拥有[effect:0a36a37f-975e-5f14-8500-aa8bf9c55bd4]，暴击率提高100%，暴击伤害提高50%，至多生效2…",
-          "dollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
-          "dollName": "Cecilia",
-          "level": 3,
-          "segment": 5
         }
       ]
     },
@@ -27124,26 +27180,25 @@
       "effectTags": [],
       "exclusiveDollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
       "exclusiveDollName": "Cecilia",
-      "sources": [],
-      "interactions": [
+      "sources": [
         {
           "kind": "skill",
-          "relation": "mentions",
+          "relation": "applies",
           "levels": [
             2,
             3
           ],
-          "snippet": "选取周围半径8格内的1个敌方目标，对其造成160%攻击力的燃烧伤害，自身获得[effect:a45309b9-36e9-5091-85e8-c9b634da7086]。每进行1次普攻或[effect:40636efe-13a8-51e6-b891-46cea59d0e5c]，下次该技能的伤害系数提高50%。技能前对目标施加[effect:2d867c4c-347f-5f79-8686-c1576e07ee6c]，持续2回合。",
+          "snippet": "Before the skill, applies [effect:2d867c4c-347f-5f79-8686-c1576e07ee6c] to the target for 2 turns",
           "dollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
           "dollName": "Cecilia",
           "skillId": "10820401",
-          "skillName": "握手言和",
+          "skillName": "Reconciliation",
           "skillType": "Ultimate"
         },
         {
           "kind": "vertebrae",
-          "relation": "mentions",
-          "snippet": "选取周围半径8格内的1个敌方目标，对其造成160%攻击力的燃烧伤害，自身获得[effect:a45309b9-36e9-5091-85e8-c9b634da7086]。每进行1次普攻或[effect:40636efe-13a8-51e6-b891-46cea59d0e5c]，下次该技能的伤害系数提高50%。技能前对目标施加[effect:2d867c4c-347f-5f79-8686-c1576e07ee6c]，持续2回合。",
+          "relation": "applies",
+          "snippet": "Before the skill, applies [effect:2d867c4c-347f-5f79-8686-c1576e07ee6c] to the target for 2 turns",
           "dollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
           "dollName": "Cecilia",
           "level": 2,
@@ -27151,14 +27206,15 @@
         },
         {
           "kind": "vertebrae",
-          "relation": "mentions",
-          "snippet": "选取周围半径8格内的1个敌方目标，对其造成160%攻击力的燃烧伤害，自身获得[effect:a45309b9-36e9-5091-85e8-c9b634da7086]。每进行1次普攻或[effect:40636efe-13a8-51e6-b891-46cea59d0e5c]，下次该技能的伤害系数提高50%。技能后若使用普攻[effect:e382bc8b-c71a-5d0f-9060-629831b9771b]，则造成的伤害提高100%，若自身拥有[effect:0a36a37f-975e-5f14-8500-aa8bf9c55bd4]，暴击率提高100%，暴击伤害提高50%，至多生效2…",
+          "relation": "applies",
+          "snippet": "Before the skill, applies [effect:2d867c4c-347f-5f79-8686-c1576e07ee6c] to the target for 2 turns",
           "dollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
           "dollName": "Cecilia",
           "level": 3,
           "segment": 5
         }
-      ]
+      ],
+      "interactions": []
     },
     {
       "effectId": "6c67dd1d-f651-5298-9c3a-e95245ac2b16",
@@ -33962,6 +34018,60 @@
         {
           "kind": "effect",
           "relation": "gains",
+          "snippet": "Selects 1 enemy target within an 8-tile radius and deals AoE Burn damage equal to 100% of attack to it and all enemy targets within a 5×5-tile area around it, applies [effect:08760998-f8d7-51e6-88df-d96ac2c34e68] and [effect:35a0d4ec-a169-5548-8ed9-c3215fe4174d] to it for 2 turns, and generates […",
+          "effectId": "0b39b016-60dd-5374-ab0e-cb695a9e88bb",
+          "effectName": "Words of Comfort - AoE",
+          "ownerDollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
+          "ownerDollName": "Cecilia"
+        },
+        {
+          "kind": "effect",
+          "relation": "gains",
+          "snippet": "Selects 1 enemy target within an 8-tile radius and deals AoE Burn damage equal to 100% of attack to it and all enemy targets within a 5×5-tile area around it, applies [effect:08760998-f8d7-51e6-88df-d96ac2c34e68] and [effect:a37ad66d-0f60-5111-b5a5-4f0f0469e8da] to it for 2 turns, and generates […",
+          "effectId": "0658cfe4-731a-53e7-98b6-a8335168e09e",
+          "effectName": "Words of Comfort - AoE",
+          "ownerDollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
+          "ownerDollName": "Cecilia"
+        },
+        {
+          "kind": "effect",
+          "relation": "gains",
+          "snippet": "Selects 1 enemy target within an 8-tile radius and deals AoE Burn damage equal to 70% of attack to it and all enemy targets within a 5×5-tile area around it, applies [effect:08760998-f8d7-51e6-88df-d96ac2c34e68] and [effect:a37ad66d-0f60-5111-b5a5-4f0f0469e8da] to it for 2 turns, and generates [e…",
+          "effectId": "465cd92b-3a70-560e-8162-5753e3aff7c4",
+          "effectName": "Words of Comfort - AoE",
+          "ownerDollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
+          "ownerDollName": "Cecilia"
+        },
+        {
+          "kind": "effect",
+          "relation": "gains",
+          "snippet": "Selects 1 enemy target within an 8-tile radius and deals AoE Burn damage equal to 70% of attack to it and all enemy targets within a 5×5-tile area around it, applies [effect:08760998-f8d7-51e6-88df-d96ac2c34e68] and [effect:a37ad66d-0f60-5111-b5a5-4f0f0469e8da] to it for 2 turns, and generates [e…",
+          "effectId": "7407a85b-5dfe-5873-9f70-c562fff498ca",
+          "effectName": "Words of Comfort - AoE",
+          "ownerDollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
+          "ownerDollName": "Cecilia"
+        },
+        {
+          "kind": "effect",
+          "relation": "gains",
+          "snippet": "Selects 1 enemy target within an 8-tile radius and deals Burn damage equal to 130% of attack to it, applies [effect:08760998-f8d7-51e6-88df-d96ac2c34e68] for 2 turns, generates [effect:8c88b0bb-2566-5017-8fa1-a761e7767164] tiles within a 2-tile radius of it for 2 turns, and gains [effect:432b5774…",
+          "effectId": "d83cd9ac-5d7b-54d1-b18d-c3676e8164d5",
+          "effectName": "Words of Comfort - Targeted",
+          "ownerDollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
+          "ownerDollName": "Cecilia"
+        },
+        {
+          "kind": "effect",
+          "relation": "gains",
+          "snippet": "Selects 1 enemy target within an 8-tile radius and deals Burn damage equal to 130% of attack to it, applies [effect:08760998-f8d7-51e6-88df-d96ac2c34e68] for 2 turns, generates [effect:8c88b0bb-2566-5017-8fa1-a761e7767164] tiles within a 2-tile radius of it for 2 turns, and gains [effect:ebe9dcd4…",
+          "effectId": "8e44dbfa-24c4-502a-8454-5ed8ed19722a",
+          "effectName": "Words of Comfort - Targeted",
+          "ownerDollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
+          "ownerDollName": "Cecilia"
+        },
+        {
+          "kind": "effect",
+          "relation": "gains",
           "snippet": "Upon taking Burn damage, generates [effect:8c88b0bb-2566-5017-8fa1-a761e7767164] tiles within 3 tiles for 2 turns",
           "effectId": "42c5d10f-aed7-5395-9b0e-6f16d133cf1d",
           "effectName": "Smolder",
@@ -34089,62 +34199,7 @@
           "segment": 3
         }
       ],
-      "interactions": [
-        {
-          "kind": "effect",
-          "relation": "mentions",
-          "snippet": "选取周围半径8格内的1个敌方目标，对其及其周围5×5格内的所有敌方目标造成100%攻击力的范围燃烧伤害，并对其施加[effect:08760998-f8d7-51e6-88df-d96ac2c34e68]和[effect:35a0d4ec-a169-5548-8ed9-c3215fe4174d]，持续2回合，并产生[effect:8c88b0bb-2566-5017-8fa1-a761e7767164]地格，持续2回合。",
-          "effectId": "0b39b016-60dd-5374-ab0e-cb695a9e88bb",
-          "effectName": "抚慰之语·范围",
-          "ownerDollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
-          "ownerDollName": "Cecilia"
-        },
-        {
-          "kind": "effect",
-          "relation": "mentions",
-          "snippet": "选取周围半径8格内的1个敌方目标，对其及其周围5×5格内的所有敌方目标造成100%攻击力的范围燃烧伤害，并对其施加[effect:08760998-f8d7-51e6-88df-d96ac2c34e68]和[effect:a37ad66d-0f60-5111-b5a5-4f0f0469e8da]，持续2回合，并产生[effect:8c88b0bb-2566-5017-8fa1-a761e7767164]地格，持续2回合。",
-          "effectId": "0658cfe4-731a-53e7-98b6-a8335168e09e",
-          "effectName": "抚慰之语·范围",
-          "ownerDollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
-          "ownerDollName": "Cecilia"
-        },
-        {
-          "kind": "effect",
-          "relation": "mentions",
-          "snippet": "选取周围半径8格内的1个敌方目标，对其及其周围5×5格内的所有敌方目标造成70%攻击力的范围燃烧伤害，并对其施加[effect:08760998-f8d7-51e6-88df-d96ac2c34e68]和[effect:a37ad66d-0f60-5111-b5a5-4f0f0469e8da]，持续2回合，并产生[effect:8c88b0bb-2566-5017-8fa1-a761e7767164]地格，持续2回合。",
-          "effectId": "465cd92b-3a70-560e-8162-5753e3aff7c4",
-          "effectName": "抚慰之语·范围",
-          "ownerDollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
-          "ownerDollName": "Cecilia"
-        },
-        {
-          "kind": "effect",
-          "relation": "mentions",
-          "snippet": "选取周围半径8格内的1个敌方目标，对其及其周围5×5格内的所有敌方目标造成70%攻击力的范围燃烧伤害，并对其施加[effect:08760998-f8d7-51e6-88df-d96ac2c34e68]和[effect:a37ad66d-0f60-5111-b5a5-4f0f0469e8da]，持续2回合，并产生[effect:8c88b0bb-2566-5017-8fa1-a761e7767164]地格，持续2回合。",
-          "effectId": "7407a85b-5dfe-5873-9f70-c562fff498ca",
-          "effectName": "抚慰之语·范围",
-          "ownerDollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
-          "ownerDollName": "Cecilia"
-        },
-        {
-          "kind": "effect",
-          "relation": "mentions",
-          "snippet": "选取周围半径8格内的1个敌方目标，对其造成130%攻击力的燃烧伤害，施加[effect:08760998-f8d7-51e6-88df-d96ac2c34e68]，持续2回合，并在其周围半径2格内产生[effect:8c88b0bb-2566-5017-8fa1-a761e7767164]地格，持续2回合，自身获得[effect:432b5774-3535-574f-852e-9e5a17daa280]，持续3回合。",
-          "effectId": "d83cd9ac-5d7b-54d1-b18d-c3676e8164d5",
-          "effectName": "抚慰之语·精准",
-          "ownerDollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
-          "ownerDollName": "Cecilia"
-        },
-        {
-          "kind": "effect",
-          "relation": "mentions",
-          "snippet": "选取周围半径8格内的1个敌方目标，对其造成130%攻击力的燃烧伤害，施加[effect:08760998-f8d7-51e6-88df-d96ac2c34e68]，持续2回合，并在其周围半径2格内产生[effect:8c88b0bb-2566-5017-8fa1-a761e7767164]地格，持续2回合，自身获得[effect:ebe9dcd4-f7f7-5595-a5ef-5133167a5854]，持续3回合。",
-          "effectId": "8e44dbfa-24c4-502a-8454-5ed8ed19722a",
-          "effectName": "抚慰之语·精准",
-          "ownerDollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
-          "ownerDollName": "Cecilia"
-        }
-      ]
+      "interactions": []
     },
     {
       "effectId": "cee1f952-ca49-5caa-ae5d-5f7a466e0a1e",
@@ -37708,6 +37763,17 @@
           "ownerDollName": "Asteria"
         },
         {
+          "kind": "key",
+          "relation": "gains",
+          "snippet": "After using an active skill, or performing [effect:40636efe-13a8-51e6-b891-46cea59d0e5c] or [effect:57c18669-1d21-5905-9558-62ec61a4f7a5], deals <span style=\"color: rgb(230, 113, 41)",
+          "keyId": "15d0c19f-ed4f-5f90-bf3d-85069c6aaac2",
+          "keyTitle": "Expansion Key - Will To Protect",
+          "keyType": "Expansion Key",
+          "level": 9,
+          "dollId": "fb12e551-6e4b-5554-a1a4-122b989dcd7a",
+          "dollName": "Centaureissi"
+        },
+        {
           "kind": "skill",
           "relation": "gains",
           "levels": [
@@ -37777,7 +37843,7 @@
         {
           "kind": "key",
           "relation": "mentions",
-          "snippet": "使用主动技能、进行[effect:40636efe-13a8-51e6-b891-46cea59d0e5c]或[effect:57c18669-1d21-5905-9558-62ec61a4f7a5]后，对<span style=\"color: rgb(242, 108, 28)",
+          "snippet": "\">1</span> [effect:57c18669-1d21-5905-9558-62ec61a4f7a5]: if that basic attack dealt targeted damage, [effect:57c18669-1d21-5905-9558-62ec61a4f7a5] deals <span style=\"color: rgb(230, 113, 41)",
           "keyId": "15d0c19f-ed4f-5f90-bf3d-85069c6aaac2",
           "keyTitle": "Expansion Key - Will To Protect",
           "keyType": "Expansion Key",
@@ -41100,6 +41166,58 @@
       "interactions": []
     },
     {
+      "effectId": "1d7ab183-0421-5f1e-bf0c-a705ea229995",
+      "effectName": "Mutual Attunement",
+      "effectTags": [],
+      "exclusiveDollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
+      "exclusiveDollName": "Cecilia",
+      "sources": [
+        {
+          "kind": "skill",
+          "relation": "applies",
+          "levels": [
+            1,
+            2,
+            3
+          ],
+          "snippet": "and applies [effect:1d7ab183-0421-5f1e-bf0c-a705ea229995] to other allied units for 2 turns",
+          "dollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
+          "dollName": "Cecilia",
+          "skillId": "10820801",
+          "skillName": "Safety First Principle",
+          "skillType": "Passive"
+        },
+        {
+          "kind": "vertebrae",
+          "relation": "applies",
+          "snippet": "and applies [effect:1d7ab183-0421-5f1e-bf0c-a705ea229995] to other allied units for 2 turns",
+          "dollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
+          "dollName": "Cecilia",
+          "level": 2,
+          "segment": 4
+        },
+        {
+          "kind": "vertebrae",
+          "relation": "applies",
+          "snippet": "and applies [effect:1d7ab183-0421-5f1e-bf0c-a705ea229995] to other allied units for 2 turns",
+          "dollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
+          "dollName": "Cecilia",
+          "level": 3,
+          "segment": 6
+        }
+      ],
+      "interactions": []
+    },
+    {
+      "effectId": "ac1ade3b-9b98-5401-aac9-7e662582b00e",
+      "effectName": "Mutual Attunement",
+      "effectTags": [],
+      "exclusiveDollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
+      "exclusiveDollName": "Cecilia",
+      "sources": [],
+      "interactions": []
+    },
+    {
       "effectId": "2ea0c32e-614a-5bdc-b9ab-bce445217d37",
       "effectName": "Myopia I",
       "effectTags": [],
@@ -43556,6 +43674,78 @@
           "ownerDollName": null
         },
         {
+          "kind": "effect",
+          "relation": "applies",
+          "snippet": "Selects 1 enemy target within an 8-tile radius and deals AoE Burn damage equal to 100% of attack to it and all enemy targets within a 5×5-tile area around it, applies [effect:08760998-f8d7-51e6-88df-d96ac2c34e68] and [effect:35a0d4ec-a169-5548-8ed9-c3215fe4174d] to it for 2 turns, and generates […",
+          "effectId": "0b39b016-60dd-5374-ab0e-cb695a9e88bb",
+          "effectName": "Words of Comfort - AoE",
+          "ownerDollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
+          "ownerDollName": "Cecilia"
+        },
+        {
+          "kind": "effect",
+          "relation": "applies",
+          "snippet": "Selects 1 enemy target within an 8-tile radius and deals AoE Burn damage equal to 100% of attack to it and all enemy targets within a 5×5-tile area around it, applies [effect:08760998-f8d7-51e6-88df-d96ac2c34e68] and [effect:a37ad66d-0f60-5111-b5a5-4f0f0469e8da] to it for 2 turns, and generates […",
+          "effectId": "0658cfe4-731a-53e7-98b6-a8335168e09e",
+          "effectName": "Words of Comfort - AoE",
+          "ownerDollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
+          "ownerDollName": "Cecilia"
+        },
+        {
+          "kind": "effect",
+          "relation": "applies",
+          "snippet": "Selects 1 enemy target within an 8-tile radius and deals AoE Burn damage equal to 70% of attack to it and all enemy targets within a 5×5-tile area around it, applies [effect:08760998-f8d7-51e6-88df-d96ac2c34e68] and [effect:a37ad66d-0f60-5111-b5a5-4f0f0469e8da] to it for 2 turns, and generates [e…",
+          "effectId": "465cd92b-3a70-560e-8162-5753e3aff7c4",
+          "effectName": "Words of Comfort - AoE",
+          "ownerDollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
+          "ownerDollName": "Cecilia"
+        },
+        {
+          "kind": "effect",
+          "relation": "applies",
+          "snippet": "Selects 1 enemy target within an 8-tile radius and deals AoE Burn damage equal to 70% of attack to it and all enemy targets within a 5×5-tile area around it, applies [effect:08760998-f8d7-51e6-88df-d96ac2c34e68] and [effect:a37ad66d-0f60-5111-b5a5-4f0f0469e8da] to it for 2 turns, and generates [e…",
+          "effectId": "7407a85b-5dfe-5873-9f70-c562fff498ca",
+          "effectName": "Words of Comfort - AoE",
+          "ownerDollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
+          "ownerDollName": "Cecilia"
+        },
+        {
+          "kind": "effect",
+          "relation": "applies",
+          "snippet": "Selects 1 enemy target within an 8-tile radius and deals Burn damage equal to 100% of attack to it, applies [effect:08760998-f8d7-51e6-88df-d96ac2c34e68] for 2 turns, and gains [effect:ebe9dcd4-f7f7-5595-a5ef-5133167a5854] for 3 turns",
+          "effectId": "84d26544-c08e-524a-95b1-ec39ac41c0a1",
+          "effectName": "Words of Comfort - Targeted",
+          "ownerDollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
+          "ownerDollName": "Cecilia"
+        },
+        {
+          "kind": "effect",
+          "relation": "applies",
+          "snippet": "Selects 1 enemy target within an 8-tile radius and deals Burn damage equal to 100% of attack to it, applies [effect:08760998-f8d7-51e6-88df-d96ac2c34e68] for 2 turns, and gains [effect:ebe9dcd4-f7f7-5595-a5ef-5133167a5854] for 3 turns",
+          "effectId": "dd470e49-e6d7-5d21-b3a0-d9da8b72bd2b",
+          "effectName": "Words of Comfort - Targeted",
+          "ownerDollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
+          "ownerDollName": "Cecilia"
+        },
+        {
+          "kind": "effect",
+          "relation": "applies",
+          "snippet": "Selects 1 enemy target within an 8-tile radius and deals Burn damage equal to 130% of attack to it, applies [effect:08760998-f8d7-51e6-88df-d96ac2c34e68] for 2 turns, generates [effect:8c88b0bb-2566-5017-8fa1-a761e7767164] tiles within a 2-tile radius of it for 2 turns, and gains [effect:432b5774…",
+          "effectId": "d83cd9ac-5d7b-54d1-b18d-c3676e8164d5",
+          "effectName": "Words of Comfort - Targeted",
+          "ownerDollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
+          "ownerDollName": "Cecilia"
+        },
+        {
+          "kind": "effect",
+          "relation": "applies",
+          "snippet": "Selects 1 enemy target within an 8-tile radius and deals Burn damage equal to 130% of attack to it, applies [effect:08760998-f8d7-51e6-88df-d96ac2c34e68] for 2 turns, generates [effect:8c88b0bb-2566-5017-8fa1-a761e7767164] tiles within a 2-tile radius of it for 2 turns, and gains [effect:ebe9dcd4…",
+          "effectId": "8e44dbfa-24c4-502a-8454-5ed8ed19722a",
+          "effectName": "Words of Comfort - Targeted",
+          "ownerDollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
+          "ownerDollName": "Cecilia"
+        },
+        {
           "kind": "skill",
           "relation": "applies",
           "levels": [
@@ -43741,78 +43931,6 @@
           "dollName": "Sharkry",
           "level": 2,
           "segment": 1
-        },
-        {
-          "kind": "effect",
-          "relation": "mentions",
-          "snippet": "选取周围半径8格内的1个敌方目标，对其及其周围5×5格内的所有敌方目标造成100%攻击力的范围燃烧伤害，并对其施加[effect:08760998-f8d7-51e6-88df-d96ac2c34e68]和[effect:35a0d4ec-a169-5548-8ed9-c3215fe4174d]，持续2回合，并产生[effect:8c88b0bb-2566-5017-8fa1-a761e7767164]地格，持续2回合。",
-          "effectId": "0b39b016-60dd-5374-ab0e-cb695a9e88bb",
-          "effectName": "抚慰之语·范围",
-          "ownerDollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
-          "ownerDollName": "Cecilia"
-        },
-        {
-          "kind": "effect",
-          "relation": "mentions",
-          "snippet": "选取周围半径8格内的1个敌方目标，对其及其周围5×5格内的所有敌方目标造成100%攻击力的范围燃烧伤害，并对其施加[effect:08760998-f8d7-51e6-88df-d96ac2c34e68]和[effect:a37ad66d-0f60-5111-b5a5-4f0f0469e8da]，持续2回合，并产生[effect:8c88b0bb-2566-5017-8fa1-a761e7767164]地格，持续2回合。",
-          "effectId": "0658cfe4-731a-53e7-98b6-a8335168e09e",
-          "effectName": "抚慰之语·范围",
-          "ownerDollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
-          "ownerDollName": "Cecilia"
-        },
-        {
-          "kind": "effect",
-          "relation": "mentions",
-          "snippet": "选取周围半径8格内的1个敌方目标，对其及其周围5×5格内的所有敌方目标造成70%攻击力的范围燃烧伤害，并对其施加[effect:08760998-f8d7-51e6-88df-d96ac2c34e68]和[effect:a37ad66d-0f60-5111-b5a5-4f0f0469e8da]，持续2回合，并产生[effect:8c88b0bb-2566-5017-8fa1-a761e7767164]地格，持续2回合。",
-          "effectId": "465cd92b-3a70-560e-8162-5753e3aff7c4",
-          "effectName": "抚慰之语·范围",
-          "ownerDollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
-          "ownerDollName": "Cecilia"
-        },
-        {
-          "kind": "effect",
-          "relation": "mentions",
-          "snippet": "选取周围半径8格内的1个敌方目标，对其及其周围5×5格内的所有敌方目标造成70%攻击力的范围燃烧伤害，并对其施加[effect:08760998-f8d7-51e6-88df-d96ac2c34e68]和[effect:a37ad66d-0f60-5111-b5a5-4f0f0469e8da]，持续2回合，并产生[effect:8c88b0bb-2566-5017-8fa1-a761e7767164]地格，持续2回合。",
-          "effectId": "7407a85b-5dfe-5873-9f70-c562fff498ca",
-          "effectName": "抚慰之语·范围",
-          "ownerDollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
-          "ownerDollName": "Cecilia"
-        },
-        {
-          "kind": "effect",
-          "relation": "mentions",
-          "snippet": "选取周围半径8格内的1个敌方目标，对其造成100%攻击力的燃烧伤害，并施加[effect:08760998-f8d7-51e6-88df-d96ac2c34e68]，持续2回合，自身获得[effect:ebe9dcd4-f7f7-5595-a5ef-5133167a5854]，持续3回合。",
-          "effectId": "84d26544-c08e-524a-95b1-ec39ac41c0a1",
-          "effectName": "抚慰之语·精准",
-          "ownerDollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
-          "ownerDollName": "Cecilia"
-        },
-        {
-          "kind": "effect",
-          "relation": "mentions",
-          "snippet": "选取周围半径8格内的1个敌方目标，对其造成100%攻击力的燃烧伤害，并施加[effect:08760998-f8d7-51e6-88df-d96ac2c34e68]，持续2回合，自身获得[effect:ebe9dcd4-f7f7-5595-a5ef-5133167a5854]，持续3回合。",
-          "effectId": "dd470e49-e6d7-5d21-b3a0-d9da8b72bd2b",
-          "effectName": "抚慰之语·精准",
-          "ownerDollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
-          "ownerDollName": "Cecilia"
-        },
-        {
-          "kind": "effect",
-          "relation": "mentions",
-          "snippet": "选取周围半径8格内的1个敌方目标，对其造成130%攻击力的燃烧伤害，施加[effect:08760998-f8d7-51e6-88df-d96ac2c34e68]，持续2回合，并在其周围半径2格内产生[effect:8c88b0bb-2566-5017-8fa1-a761e7767164]地格，持续2回合，自身获得[effect:432b5774-3535-574f-852e-9e5a17daa280]，持续3回合。",
-          "effectId": "d83cd9ac-5d7b-54d1-b18d-c3676e8164d5",
-          "effectName": "抚慰之语·精准",
-          "ownerDollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
-          "ownerDollName": "Cecilia"
-        },
-        {
-          "kind": "effect",
-          "relation": "mentions",
-          "snippet": "选取周围半径8格内的1个敌方目标，对其造成130%攻击力的燃烧伤害，施加[effect:08760998-f8d7-51e6-88df-d96ac2c34e68]，持续2回合，并在其周围半径2格内产生[effect:8c88b0bb-2566-5017-8fa1-a761e7767164]地格，持续2回合，自身获得[effect:ebe9dcd4-f7f7-5595-a5ef-5133167a5854]，持续3回合。",
-          "effectId": "8e44dbfa-24c4-502a-8454-5ed8ed19722a",
-          "effectName": "抚慰之语·精准",
-          "ownerDollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
-          "ownerDollName": "Cecilia"
         }
       ]
     },
@@ -55193,6 +55311,21 @@
             2,
             3
           ],
+          "snippet": "When a basic attack or [effect:40636efe-13a8-51e6-b891-46cea59d0e5c] deals AoE damage, gains 6 points of [effect:8aefaf6b-1b5f-5c42-9f00-67357c3d8612]",
+          "dollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
+          "dollName": "Cecilia",
+          "skillId": "10820801",
+          "skillName": "Safety First Principle",
+          "skillType": "Passive"
+        },
+        {
+          "kind": "skill",
+          "relation": "gains",
+          "levels": [
+            1,
+            2,
+            3
+          ],
           "snippet": "When the effect of [effect:bd0e4d2f-e59f-518d-9c7d-8d28cbf7606f] is triggered without using the Ultimate Skill Grand Isekai Adventure, gains 2 points of [effect:8aefaf6b-1b5f-5c42-9f00-67357c3d8612]",
           "dollId": "0b14ffdd-494a-5b82-86d3-9f884563e019",
           "dollName": "Sakura",
@@ -55223,6 +55356,24 @@
           "dollName": "Loreley",
           "level": 3,
           "segment": 3
+        },
+        {
+          "kind": "vertebrae",
+          "relation": "gains",
+          "snippet": "When a basic attack or [effect:40636efe-13a8-51e6-b891-46cea59d0e5c] deals AoE damage, gains 6 points of [effect:8aefaf6b-1b5f-5c42-9f00-67357c3d8612]",
+          "dollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
+          "dollName": "Cecilia",
+          "level": 2,
+          "segment": 4
+        },
+        {
+          "kind": "vertebrae",
+          "relation": "gains",
+          "snippet": "When a basic attack or [effect:40636efe-13a8-51e6-b891-46cea59d0e5c] deals AoE damage, gains 6 points of [effect:8aefaf6b-1b5f-5c42-9f00-67357c3d8612]",
+          "dollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
+          "dollName": "Cecilia",
+          "level": 3,
+          "segment": 6
         }
       ],
       "interactions": [
@@ -55250,21 +55401,6 @@
           "kind": "skill",
           "relation": "mentions",
           "levels": [
-            1,
-            2,
-            3
-          ],
-          "snippet": "战斗开始时获得[effect:4aa87190-49a8-5e26-8af5-3b1dca46721b]。普攻或[effect:40636efe-13a8-51e6-b891-46cea59d0e5c]造成范围伤害时，获得6点[effect:8aefaf6b-1b5f-5c42-9f00-67357c3d8612]；普攻或[effect:40636efe-13a8-51e6-b891-46cea59d0e5c]造成精准伤害时，获得3点[effect:8aefaf6b-1b5f-5c42-9f00-67357c3d8612]。",
-          "dollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
-          "dollName": "Cecilia",
-          "skillId": "10820801",
-          "skillName": "安全至上原则",
-          "skillType": "Passive"
-        },
-        {
-          "kind": "skill",
-          "relation": "mentions",
-          "levels": [
             3
           ],
           "snippet": "The amount of [effect:8aefaf6b-1b5f-5c42-9f00-67357c3d8612] points gained by all allied Dolls (excluding Loreley herself) is additionally increased by 1",
@@ -55280,24 +55416,6 @@
           "snippet": "When Loreley is on the field, the amount of [effect:8aefaf6b-1b5f-5c42-9f00-67357c3d8612] points gained by all allied Dolls (excluding Loreley herself) is additionally increased by 1",
           "dollId": "b819b610-cad9-58f1-ba38-b2ef1f5a98db",
           "dollName": "Loreley",
-          "level": 3,
-          "segment": 6
-        },
-        {
-          "kind": "vertebrae",
-          "relation": "mentions",
-          "snippet": "战斗开始时获得[effect:4aa87190-49a8-5e26-8af5-3b1dca46721b]。普攻或[effect:40636efe-13a8-51e6-b891-46cea59d0e5c]造成范围伤害时，获得6点[effect:8aefaf6b-1b5f-5c42-9f00-67357c3d8612]；普攻或[effect:40636efe-13a8-51e6-b891-46cea59d0e5c]造成精准伤害时，获得3点[effect:8aefaf6b-1b5f-5c42-9f00-67357c3d8612]。",
-          "dollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
-          "dollName": "Cecilia",
-          "level": 2,
-          "segment": 4
-        },
-        {
-          "kind": "vertebrae",
-          "relation": "mentions",
-          "snippet": "战斗开始时获得[effect:4aa87190-49a8-5e26-8af5-3b1dca46721b]。普攻或[effect:40636efe-13a8-51e6-b891-46cea59d0e5c]造成范围伤害时，获得6点[effect:8aefaf6b-1b5f-5c42-9f00-67357c3d8612]；普攻或[effect:40636efe-13a8-51e6-b891-46cea59d0e5c]造成精准伤害时，获得3点[effect:8aefaf6b-1b5f-5c42-9f00-67357c3d8612]。",
-          "dollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
-          "dollName": "Cecilia",
           "level": 3,
           "segment": 6
         },
@@ -55933,6 +56051,62 @@
       "exclusiveDollId": null,
       "exclusiveDollName": null,
       "sources": [],
+      "interactions": []
+    },
+    {
+      "effectId": "ebe9dcd4-f7f7-5595-a5ef-5133167a5854",
+      "effectName": "Self-Suggestion",
+      "effectTags": [],
+      "exclusiveDollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
+      "exclusiveDollName": "Cecilia",
+      "sources": [
+        {
+          "kind": "effect",
+          "relation": "gains",
+          "snippet": "Selects 1 enemy target within an 8-tile radius and deals Burn damage equal to 100% of attack to it, applies [effect:08760998-f8d7-51e6-88df-d96ac2c34e68] for 2 turns, and gains [effect:ebe9dcd4-f7f7-5595-a5ef-5133167a5854] for 3 turns",
+          "effectId": "84d26544-c08e-524a-95b1-ec39ac41c0a1",
+          "effectName": "Words of Comfort - Targeted",
+          "ownerDollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
+          "ownerDollName": "Cecilia"
+        },
+        {
+          "kind": "effect",
+          "relation": "gains",
+          "snippet": "Selects 1 enemy target within an 8-tile radius and deals Burn damage equal to 100% of attack to it, applies [effect:08760998-f8d7-51e6-88df-d96ac2c34e68] for 2 turns, and gains [effect:ebe9dcd4-f7f7-5595-a5ef-5133167a5854] for 3 turns",
+          "effectId": "dd470e49-e6d7-5d21-b3a0-d9da8b72bd2b",
+          "effectName": "Words of Comfort - Targeted",
+          "ownerDollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
+          "ownerDollName": "Cecilia"
+        },
+        {
+          "kind": "effect",
+          "relation": "gains",
+          "snippet": "Selects 1 enemy target within an 8-tile radius and deals Burn damage equal to 130% of attack to it, applies [effect:08760998-f8d7-51e6-88df-d96ac2c34e68] for 2 turns, generates [effect:8c88b0bb-2566-5017-8fa1-a761e7767164] tiles within a 2-tile radius of it for 2 turns, and gains [effect:ebe9dcd4…",
+          "effectId": "8e44dbfa-24c4-502a-8454-5ed8ed19722a",
+          "effectName": "Words of Comfort - Targeted",
+          "ownerDollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
+          "ownerDollName": "Cecilia"
+        }
+      ],
+      "interactions": []
+    },
+    {
+      "effectId": "432b5774-3535-574f-852e-9e5a17daa280",
+      "effectName": "Self-Suggestion",
+      "effectTags": [],
+      "exclusiveDollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
+      "exclusiveDollName": "Cecilia",
+      "sources": [
+        {
+          "kind": "effect",
+          "relation": "gains",
+          "snippet": "Selects 1 enemy target within an 8-tile radius and deals Burn damage equal to 130% of attack to it, applies [effect:08760998-f8d7-51e6-88df-d96ac2c34e68] for 2 turns, generates [effect:8c88b0bb-2566-5017-8fa1-a761e7767164] tiles within a 2-tile radius of it for 2 turns, and gains [effect:432b5774…",
+          "effectId": "d83cd9ac-5d7b-54d1-b18d-c3676e8164d5",
+          "effectName": "Words of Comfort - Targeted",
+          "ownerDollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
+          "ownerDollName": "Cecilia"
+        }
+      ],
       "interactions": []
     },
     {
@@ -62936,6 +63110,15 @@
         {
           "kind": "effect",
           "relation": "gains",
+          "snippet": "When Cecilia has insufficient Confectance Index for [effect:40636efe-13a8-51e6-b891-46cea59d0e5c], this effect can be consumed to perform 1 additional [effect:40636efe-13a8-51e6-b891-46cea59d0e5c]",
+          "effectId": "80afe3ea-4031-52c1-bb11-bd2c705aa3d5",
+          "effectName": "Vigil",
+          "ownerDollId": "fb12e551-6e4b-5554-a1a4-122b989dcd7a",
+          "ownerDollName": "Centaureissi"
+        },
+        {
+          "kind": "effect",
+          "relation": "gains",
           "snippet": "When enemy units within 9 tiles take targeted damage or AoE damage from allied units, performs 1 instance of [effect:40636efe-13a8-51e6-b891-46cea59d0e5c], dealing Corrosion damage equal to 110% of attack and deals 1 point of stability damage, and recovers 2 points of Confectance Index",
           "effectId": "684f1e9f-6b4e-52ce-bf7a-419d7395faf3",
           "effectName": "Doomguide",
@@ -62968,6 +63151,17 @@
           "effectName": "Honeytrap",
           "ownerDollId": "e915c64c-9d1c-54b4-97fc-6b265fe2df5d",
           "ownerDollName": "Lind"
+        },
+        {
+          "kind": "key",
+          "relation": "gains",
+          "snippet": "After using an active skill, or performing [effect:40636efe-13a8-51e6-b891-46cea59d0e5c] or [effect:57c18669-1d21-5905-9558-62ec61a4f7a5], deals <span style=\"color: rgb(230, 113, 41)",
+          "keyId": "15d0c19f-ed4f-5f90-bf3d-85069c6aaac2",
+          "keyTitle": "Expansion Key - Will To Protect",
+          "keyType": "Expansion Key",
+          "level": 9,
+          "dollId": "fb12e551-6e4b-5554-a1a4-122b989dcd7a",
+          "dollName": "Centaureissi"
         },
         {
           "kind": "skill",
@@ -63127,6 +63321,21 @@
             2,
             3
           ],
+          "snippet": "When an enemy unit within range takes targeted damage from an ally, if she has [effect:bd8d5fd8-886f-5b6b-9324-4ad8d5400784] or [effect:f760543f-c665-5082-b2fb-d828cfe24f51], consumes 3 points of Confectance Index to perform 1 [effect:40636efe-13a8-51e6-b891-46cea59d0e5c] against it, dealing the …",
+          "dollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
+          "dollName": "Cecilia",
+          "skillId": "10820801",
+          "skillName": "Safety First Principle",
+          "skillType": "Passive"
+        },
+        {
+          "kind": "skill",
+          "relation": "gains",
+          "levels": [
+            1,
+            2,
+            3
+          ],
           "snippet": "When an enemy unit within range takes targeted damage from an ally, prioritizes using [effect:40636efe-13a8-51e6-b891-46cea59d0e5c] once, dealing Physical damage equal to 80% of attack and 3 stability damage",
           "dollId": "58b2d229-0202-5f24-864a-d0e1a0844e28",
           "dollName": "Suomi",
@@ -63210,11 +63419,29 @@
         {
           "kind": "vertebrae",
           "relation": "gains",
+          "snippet": "if she has [effect:bd8d5fd8-886f-5b6b-9324-4ad8d5400784] or [effect:f760543f-c665-5082-b2fb-d828cfe24f51], consumes 3 points of Confectance Index to perform 1 [effect:40636efe-13a8-51e6-b891-46cea59d0e5c] against it, dealing the skill effect of her current [effect:e382bc8b-c71a-5d0f-9060-629831b9…",
+          "dollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
+          "dollName": "Cecilia",
+          "level": 3,
+          "segment": 6
+        },
+        {
+          "kind": "vertebrae",
+          "relation": "gains",
           "snippet": "Support effect added: When an allied unit performs an active attack to deal Hydro damage to the target Taryz is following, Taryz performs [effect:40636efe-13a8-51e6-b891-46cea59d0e5c], dealing Hydro damage equal to 20% of Springfield's Max HP and 1 point of stability damage and healing that allie…",
           "dollId": "b4192e1a-eedc-5c7b-8b91-70cf7e83a9c1",
           "dollName": "Springfield",
           "level": 2,
           "segment": 3
+        },
+        {
+          "kind": "vertebrae",
+          "relation": "gains",
+          "snippet": "When an enemy unit within range takes targeted damage from an ally, if she has [effect:bd8d5fd8-886f-5b6b-9324-4ad8d5400784] or [effect:f760543f-c665-5082-b2fb-d828cfe24f51], consumes 3 points of Confectance Index to perform 1 [effect:40636efe-13a8-51e6-b891-46cea59d0e5c] against it, dealing the …",
+          "dollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
+          "dollName": "Cecilia",
+          "level": 2,
+          "segment": 4
         }
       ],
       "interactions": [
@@ -63262,6 +63489,15 @@
           "effectName": "Support Boost I",
           "ownerDollId": "089780f5-e1ee-50b5-95a7-b8df4198562b",
           "ownerDollName": "Qiongjiu"
+        },
+        {
+          "kind": "effect",
+          "relation": "conditional",
+          "snippet": "When Cecilia has insufficient Confectance Index for [effect:40636efe-13a8-51e6-b891-46cea59d0e5c], this effect can be consumed to perform 1 additional [effect:40636efe-13a8-51e6-b891-46cea59d0e5c]",
+          "effectId": "80afe3ea-4031-52c1-bb11-bd2c705aa3d5",
+          "effectName": "Vigil",
+          "ownerDollId": "fb12e551-6e4b-5554-a1a4-122b989dcd7a",
+          "ownerDollName": "Centaureissi"
         },
         {
           "kind": "key",
@@ -63331,6 +63567,21 @@
           "dollName": "Nemesis",
           "skillId": "10080801",
           "skillName": "Remote Observation",
+          "skillType": "Passive"
+        },
+        {
+          "kind": "skill",
+          "relation": "conditional",
+          "levels": [
+            1,
+            2,
+            3
+          ],
+          "snippet": "When a basic attack or [effect:40636efe-13a8-51e6-b891-46cea59d0e5c] deals AoE damage, gains 6 points of [effect:8aefaf6b-1b5f-5c42-9f00-67357c3d8612]",
+          "dollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
+          "dollName": "Cecilia",
+          "skillId": "10820801",
+          "skillName": "Safety First Principle",
           "skillType": "Passive"
         },
         {
@@ -63421,6 +63672,24 @@
           "dollName": "Centaureissi",
           "level": 2,
           "segment": 1
+        },
+        {
+          "kind": "vertebrae",
+          "relation": "conditional",
+          "snippet": "When a basic attack or [effect:40636efe-13a8-51e6-b891-46cea59d0e5c] deals AoE damage, gains 6 points of [effect:8aefaf6b-1b5f-5c42-9f00-67357c3d8612]",
+          "dollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
+          "dollName": "Cecilia",
+          "level": 2,
+          "segment": 4
+        },
+        {
+          "kind": "vertebrae",
+          "relation": "conditional",
+          "snippet": "When a basic attack or [effect:40636efe-13a8-51e6-b891-46cea59d0e5c] deals AoE damage, gains 6 points of [effect:8aefaf6b-1b5f-5c42-9f00-67357c3d8612]",
+          "dollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
+          "dollName": "Cecilia",
+          "level": 3,
+          "segment": 6
         },
         {
           "kind": "vertebrae",
@@ -63528,6 +63797,17 @@
           "dollName": "Voymastina"
         },
         {
+          "kind": "key",
+          "relation": "enhances",
+          "snippet": "When an enemy unit within range takes targeted damage from an ally, the damage dealt by the [effect:40636efe-13a8-51e6-b891-46cea59d0e5c] she performs is changed to <span style=\"color: rgb(230, 113, 41)",
+          "keyId": "15d0c19f-ed4f-5f90-bf3d-85069c6aaac2",
+          "keyTitle": "Expansion Key - Will To Protect",
+          "keyType": "Expansion Key",
+          "level": 9,
+          "dollId": "fb12e551-6e4b-5554-a1a4-122b989dcd7a",
+          "dollName": "Centaureissi"
+        },
+        {
           "kind": "skill",
           "relation": "enhances",
           "levels": [
@@ -63569,6 +63849,38 @@
           "skillId": "10270801",
           "skillName": "Steady Plan",
           "skillType": "Passive"
+        },
+        {
+          "kind": "skill",
+          "relation": "enhances",
+          "levels": [
+            2,
+            3
+          ],
+          "snippet": "Damage dealt by [effect:40636efe-13a8-51e6-b891-46cea59d0e5c] is increased by 40% and its stability damage by 2 points",
+          "dollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
+          "dollName": "Cecilia",
+          "skillId": "10820801",
+          "skillName": "Safety First Principle",
+          "skillType": "Passive"
+        },
+        {
+          "kind": "vertebrae",
+          "relation": "enhances",
+          "snippet": "Damage dealt by [effect:40636efe-13a8-51e6-b891-46cea59d0e5c] is increased by 40% and its stability damage by 2 points",
+          "dollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
+          "dollName": "Cecilia",
+          "level": 2,
+          "segment": 4
+        },
+        {
+          "kind": "vertebrae",
+          "relation": "enhances",
+          "snippet": "Damage dealt by [effect:40636efe-13a8-51e6-b891-46cea59d0e5c] is increased by 40% and its stability damage by 2 points",
+          "dollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
+          "dollName": "Cecilia",
+          "level": 3,
+          "segment": 6
         },
         {
           "kind": "vertebrae",
@@ -63644,15 +63956,6 @@
           "ownerDollName": "Cheeta"
         },
         {
-          "kind": "effect",
-          "relation": "mentions",
-          "snippet": "希丽雅[effect:40636efe-13a8-51e6-b891-46cea59d0e5c]所需的导染指数不足时，可消耗该效果额外进行1次[effect:40636efe-13a8-51e6-b891-46cea59d0e5c]。不可驱散。",
-          "effectId": "80afe3ea-4031-52c1-bb11-bd2c705aa3d5",
-          "effectName": "守望",
-          "ownerDollId": "fb12e551-6e4b-5554-a1a4-122b989dcd7a",
-          "ownerDollName": "Centaureissi"
-        },
-        {
           "kind": "key",
           "relation": "mentions",
           "snippet": "\">2 instances</span> of [effect:40636efe-13a8-51e6-b891-46cea59d0e5c] in <span style=\"color: rgb(242, 108, 28)",
@@ -63686,17 +63989,6 @@
           "dollName": "Cheeta"
         },
         {
-          "kind": "key",
-          "relation": "mentions",
-          "snippet": "当射程内的敌方单位受到来自友方的精准伤害时，进行[effect:40636efe-13a8-51e6-b891-46cea59d0e5c]造成的伤害改为<span style=\"color: rgb(230, 113, 41)",
-          "keyId": "15d0c19f-ed4f-5f90-bf3d-85069c6aaac2",
-          "keyTitle": "Expansion Key - Will To Protect",
-          "keyType": "Expansion Key",
-          "level": 9,
-          "dollId": "fb12e551-6e4b-5554-a1a4-122b989dcd7a",
-          "dollName": "Centaureissi"
-        },
-        {
           "kind": "skill",
           "relation": "mentions",
           "levels": [
@@ -63719,11 +64011,11 @@
             2,
             3
           ],
-          "snippet": "战斗开始时获得[effect:4aa87190-49a8-5e26-8af5-3b1dca46721b]。普攻或[effect:40636efe-13a8-51e6-b891-46cea59d0e5c]造成范围伤害时，获得6点[effect:8aefaf6b-1b5f-5c42-9f00-67357c3d8612]；普攻或[effect:40636efe-13a8-51e6-b891-46cea59d0e5c]造成精准伤害时，获得3点[effect:8aefaf6b-1b5f-5c42-9f00-67357c3d8612]。",
+          "snippet": "For each 1 [effect:40636efe-13a8-51e6-b891-46cea59d0e5c] performed, she gains 3 points of Confectance Index at the start of the next round",
           "dollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
           "dollName": "Cecilia",
           "skillId": "10820801",
-          "skillName": "安全至上原则",
+          "skillName": "Safety First Principle",
           "skillType": "Passive"
         },
         {
@@ -63734,11 +64026,11 @@
             2,
             3
           ],
-          "snippet": "选取周围半径8格内的1个敌方目标，对其造成130%攻击力的燃烧伤害，自身获得[effect:a45309b9-36e9-5091-85e8-c9b634da7086]。每进行1次普攻或[effect:40636efe-13a8-51e6-b891-46cea59d0e5c]，下次该技能的伤害系数提高25%。",
+          "snippet": "For each 1 basic attack or [effect:40636efe-13a8-51e6-b891-46cea59d0e5c] performed, the damage multiplier of this skill's next use is increased by 25%",
           "dollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
           "dollName": "Cecilia",
           "skillId": "10820401",
-          "skillName": "握手言和",
+          "skillName": "Reconciliation",
           "skillType": "Ultimate"
         },
         {
@@ -63775,6 +64067,42 @@
         {
           "kind": "vertebrae",
           "relation": "mentions",
+          "snippet": "For each 1 [effect:40636efe-13a8-51e6-b891-46cea59d0e5c] performed, she gains 3 points of Confectance Index at the start of the next round",
+          "dollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
+          "dollName": "Cecilia",
+          "level": 2,
+          "segment": 4
+        },
+        {
+          "kind": "vertebrae",
+          "relation": "mentions",
+          "snippet": "For each 1 [effect:40636efe-13a8-51e6-b891-46cea59d0e5c] performed, she gains 3 points of Confectance Index at the start of the next round",
+          "dollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
+          "dollName": "Cecilia",
+          "level": 3,
+          "segment": 6
+        },
+        {
+          "kind": "vertebrae",
+          "relation": "mentions",
+          "snippet": "For each 1 basic attack or [effect:40636efe-13a8-51e6-b891-46cea59d0e5c] performed, the damage multiplier of this skill's next use is increased by 50%",
+          "dollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
+          "dollName": "Cecilia",
+          "level": 2,
+          "segment": 3
+        },
+        {
+          "kind": "vertebrae",
+          "relation": "mentions",
+          "snippet": "For each 1 basic attack or [effect:40636efe-13a8-51e6-b891-46cea59d0e5c] performed, the damage multiplier of this skill's next use is increased by 50%",
+          "dollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
+          "dollName": "Cecilia",
+          "level": 3,
+          "segment": 5
+        },
+        {
+          "kind": "vertebrae",
+          "relation": "mentions",
           "snippet": "The effects of [effect:684f1e9f-6b4e-52ce-bf7a-419d7395faf3] are enhanced: the damage multiplier is increased to 110%, number of times [effect:40636efe-13a8-51e6-b891-46cea59d0e5c] can be performed is increased by 1, and Nemesis: Gnosis recovers an additional 1 point of Confectance Index",
           "dollId": "e3d25747-0dc5-5cef-9c7a-e12f06115e03",
           "dollName": "Nemesis: Gnosis",
@@ -63807,42 +64135,6 @@
           "dollName": "Ksenia",
           "level": 3,
           "segment": 4
-        },
-        {
-          "kind": "vertebrae",
-          "relation": "mentions",
-          "snippet": "战斗开始时获得[effect:4aa87190-49a8-5e26-8af5-3b1dca46721b]。普攻或[effect:40636efe-13a8-51e6-b891-46cea59d0e5c]造成范围伤害时，获得6点[effect:8aefaf6b-1b5f-5c42-9f00-67357c3d8612]；普攻或[effect:40636efe-13a8-51e6-b891-46cea59d0e5c]造成精准伤害时，获得3点[effect:8aefaf6b-1b5f-5c42-9f00-67357c3d8612]。",
-          "dollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
-          "dollName": "Cecilia",
-          "level": 2,
-          "segment": 4
-        },
-        {
-          "kind": "vertebrae",
-          "relation": "mentions",
-          "snippet": "战斗开始时获得[effect:4aa87190-49a8-5e26-8af5-3b1dca46721b]。普攻或[effect:40636efe-13a8-51e6-b891-46cea59d0e5c]造成范围伤害时，获得6点[effect:8aefaf6b-1b5f-5c42-9f00-67357c3d8612]；普攻或[effect:40636efe-13a8-51e6-b891-46cea59d0e5c]造成精准伤害时，获得3点[effect:8aefaf6b-1b5f-5c42-9f00-67357c3d8612]。",
-          "dollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
-          "dollName": "Cecilia",
-          "level": 3,
-          "segment": 6
-        },
-        {
-          "kind": "vertebrae",
-          "relation": "mentions",
-          "snippet": "选取周围半径8格内的1个敌方目标，对其造成160%攻击力的燃烧伤害，自身获得[effect:a45309b9-36e9-5091-85e8-c9b634da7086]。每进行1次普攻或[effect:40636efe-13a8-51e6-b891-46cea59d0e5c]，下次该技能的伤害系数提高50%。技能前对目标施加[effect:2d867c4c-347f-5f79-8686-c1576e07ee6c]，持续2回合。",
-          "dollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
-          "dollName": "Cecilia",
-          "level": 2,
-          "segment": 3
-        },
-        {
-          "kind": "vertebrae",
-          "relation": "mentions",
-          "snippet": "选取周围半径8格内的1个敌方目标，对其造成160%攻击力的燃烧伤害，自身获得[effect:a45309b9-36e9-5091-85e8-c9b634da7086]。每进行1次普攻或[effect:40636efe-13a8-51e6-b891-46cea59d0e5c]，下次该技能的伤害系数提高50%。技能后若使用普攻[effect:e382bc8b-c71a-5d0f-9060-629831b9771b]，则造成的伤害提高100%，若自身拥有[effect:0a36a37f-975e-5f14-8500-aa8bf9c55bd4]，暴击率提高100%，暴击伤害提高50%，至多生效2…",
-          "dollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
-          "dollName": "Cecilia",
-          "level": 3,
-          "segment": 5
         }
       ]
     },
@@ -65218,6 +65510,17 @@
       "exclusiveDollName": "Tololo",
       "sources": [
         {
+          "kind": "key",
+          "relation": "gains",
+          "snippet": "before dealing targeted damage, gains [effect:ddb471c9-56a9-50f7-905e-f34013fbff4d] for <span style=\"color: rgb(242, 108, 28)",
+          "keyId": "570e57c2-7f8e-572e-88cc-886f242ffc75",
+          "keyTitle": "Fixed Key - Self-Motivation",
+          "keyType": "Fixed Key",
+          "level": 6,
+          "dollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
+          "dollName": "Cecilia"
+        },
+        {
           "kind": "skill",
           "relation": "gains",
           "levels": [
@@ -65241,19 +65544,7 @@
           "segment": 4
         }
       ],
-      "interactions": [
-        {
-          "kind": "key",
-          "relation": "mentions",
-          "snippet": "\">2回合</span>；造成精准伤害前，获得[effect:ddb471c9-56a9-50f7-905e-f34013fbff4d]，持续<span style=\"color: rgb(242, 108, 28)",
-          "keyId": "570e57c2-7f8e-572e-88cc-886f242ffc75",
-          "keyTitle": "固键·自我激励",
-          "keyType": "Fixed Key",
-          "level": 6,
-          "dollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
-          "dollName": "Cecilia"
-        }
-      ]
+      "interactions": []
     },
     {
       "effectId": "2bd1a198-af4d-5d30-b47c-24ee25bf332e",
@@ -66419,6 +66710,21 @@
             2,
             3
           ],
+          "snippet": "At the start of battle, gains [effect:4aa87190-49a8-5e26-8af5-3b1dca46721b]",
+          "dollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
+          "dollName": "Cecilia",
+          "skillId": "10820801",
+          "skillName": "Safety First Principle",
+          "skillType": "Passive"
+        },
+        {
+          "kind": "skill",
+          "relation": "gains",
+          "levels": [
+            1,
+            2,
+            3
+          ],
           "snippet": "At the start of the battle, gains [effect:4aa87190-49a8-5e26-8af5-3b1dca46721b]",
           "dollId": "91d16c70-f1c1-5924-a0e4-2ebeeef72e4c",
           "dollName": "Lewis",
@@ -66440,6 +66746,24 @@
           "skillId": "10690801",
           "skillName": "Queen's Largesse",
           "skillType": "Passive"
+        },
+        {
+          "kind": "vertebrae",
+          "relation": "gains",
+          "snippet": "At the start of battle, gains [effect:4aa87190-49a8-5e26-8af5-3b1dca46721b]",
+          "dollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
+          "dollName": "Cecilia",
+          "level": 2,
+          "segment": 4
+        },
+        {
+          "kind": "vertebrae",
+          "relation": "gains",
+          "snippet": "At the start of battle, gains [effect:4aa87190-49a8-5e26-8af5-3b1dca46721b]",
+          "dollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
+          "dollName": "Cecilia",
+          "level": 3,
+          "segment": 6
         }
       ],
       "interactions": [
@@ -66457,39 +66781,6 @@
           "skillId": "10690801",
           "skillName": "Queen's Largesse",
           "skillType": "Passive"
-        },
-        {
-          "kind": "skill",
-          "relation": "mentions",
-          "levels": [
-            1,
-            2,
-            3
-          ],
-          "snippet": "战斗开始时获得[effect:4aa87190-49a8-5e26-8af5-3b1dca46721b]。普攻或[effect:40636efe-13a8-51e6-b891-46cea59d0e5c]造成范围伤害时，获得6点[effect:8aefaf6b-1b5f-5c42-9f00-67357c3d8612]；普攻或[effect:40636efe-13a8-51e6-b891-46cea59d0e5c]造成精准伤害时，获得3点[effect:8aefaf6b-1b5f-5c42-9f00-67357c3d8612]。",
-          "dollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
-          "dollName": "Cecilia",
-          "skillId": "10820801",
-          "skillName": "安全至上原则",
-          "skillType": "Passive"
-        },
-        {
-          "kind": "vertebrae",
-          "relation": "mentions",
-          "snippet": "战斗开始时获得[effect:4aa87190-49a8-5e26-8af5-3b1dca46721b]。普攻或[effect:40636efe-13a8-51e6-b891-46cea59d0e5c]造成范围伤害时，获得6点[effect:8aefaf6b-1b5f-5c42-9f00-67357c3d8612]；普攻或[effect:40636efe-13a8-51e6-b891-46cea59d0e5c]造成精准伤害时，获得3点[effect:8aefaf6b-1b5f-5c42-9f00-67357c3d8612]。",
-          "dollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
-          "dollName": "Cecilia",
-          "level": 2,
-          "segment": 4
-        },
-        {
-          "kind": "vertebrae",
-          "relation": "mentions",
-          "snippet": "战斗开始时获得[effect:4aa87190-49a8-5e26-8af5-3b1dca46721b]。普攻或[effect:40636efe-13a8-51e6-b891-46cea59d0e5c]造成范围伤害时，获得6点[effect:8aefaf6b-1b5f-5c42-9f00-67357c3d8612]；普攻或[effect:40636efe-13a8-51e6-b891-46cea59d0e5c]造成精准伤害时，获得3点[effect:8aefaf6b-1b5f-5c42-9f00-67357c3d8612]。",
-          "dollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
-          "dollName": "Cecilia",
-          "level": 3,
-          "segment": 6
         }
       ]
     },
@@ -68786,6 +69077,27 @@
       "interactions": []
     },
     {
+      "effectId": "51a33c71-f778-58ed-b706-be1ad1607381",
+      "effectName": "Twisted Affection",
+      "effectTags": [],
+      "exclusiveDollId": "495bc361-0504-57f6-90cc-192ff68cd0e4",
+      "exclusiveDollName": "Basti",
+      "sources": [
+        {
+          "kind": "key",
+          "relation": "applies",
+          "snippet": "\">Landmine Girl</span>, applies [effect:51a33c71-f778-58ed-b706-be1ad1607381] to the target for <span style=\"color: rgb(242, 108, 28)",
+          "keyId": "04d88ed8-16a1-56e8-b251-7955524638f4",
+          "keyTitle": "Expansion Key - Much-Beloved Cat",
+          "keyType": "Expansion Key",
+          "level": 8,
+          "dollId": "495bc361-0504-57f6-90cc-192ff68cd0e4",
+          "dollName": "Basti"
+        }
+      ],
+      "interactions": []
+    },
+    {
       "effectId": "bdfda865-c2c1-5b54-b602-48992e15a7da",
       "effectName": "Tyrannical Advance",
       "effectTags": [],
@@ -69879,6 +70191,60 @@
           "summonName": "Lainie Projection (temp)",
           "skillName": "Perplexed Reflex",
           "skillType": null
+        }
+      ],
+      "interactions": []
+    },
+    {
+      "effectId": "80afe3ea-4031-52c1-bb11-bd2c705aa3d5",
+      "effectName": "Vigil",
+      "effectTags": [],
+      "exclusiveDollId": "fb12e551-6e4b-5554-a1a4-122b989dcd7a",
+      "exclusiveDollName": "Centaureissi",
+      "sources": [
+        {
+          "kind": "key",
+          "relation": "applies",
+          "snippet": "\">1 point</span> of Confectance Index and applies [effect:80afe3ea-4031-52c1-bb11-bd2c705aa3d5] to Cecilia",
+          "keyId": "15d0c19f-ed4f-5f90-bf3d-85069c6aaac2",
+          "keyTitle": "Expansion Key - Will To Protect",
+          "keyType": "Expansion Key",
+          "level": 9,
+          "dollId": "fb12e551-6e4b-5554-a1a4-122b989dcd7a",
+          "dollName": "Centaureissi"
+        },
+        {
+          "kind": "skill",
+          "relation": "gains",
+          "levels": [
+            1,
+            2,
+            3
+          ],
+          "snippet": "While Centaureissi is on the field, the damage and healing she deals are increased by 100%, the damage multiplier of Cecilia's basic attack and [effect:40636efe-13a8-51e6-b891-46cea59d0e5c] is increased by 30%, and Cecilia can gain the [effect:80afe3ea-4031-52c1-bb11-bd2c705aa3d5] Centaureissi ap…",
+          "dollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
+          "dollName": "Cecilia",
+          "skillId": "10820801",
+          "skillName": "Safety First Principle",
+          "skillType": "Passive"
+        },
+        {
+          "kind": "vertebrae",
+          "relation": "gains",
+          "snippet": "While Centaureissi is on the field, the damage and healing she deals are increased by 100%, the damage multiplier of Cecilia's basic attack and [effect:40636efe-13a8-51e6-b891-46cea59d0e5c] is increased by 30%, and Cecilia can gain the [effect:80afe3ea-4031-52c1-bb11-bd2c705aa3d5] Centaureissi ap…",
+          "dollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
+          "dollName": "Cecilia",
+          "level": 2,
+          "segment": 4
+        },
+        {
+          "kind": "vertebrae",
+          "relation": "gains",
+          "snippet": "While Centaureissi is on the field, the damage and healing she deals are increased by 100%, the damage multiplier of Cecilia's basic attack and [effect:40636efe-13a8-51e6-b891-46cea59d0e5c] is increased by 30%, and Cecilia can gain the [effect:80afe3ea-4031-52c1-bb11-bd2c705aa3d5] Centaureissi ap…",
+          "dollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
+          "dollName": "Cecilia",
+          "level": 3,
+          "segment": 6
         }
       ],
       "interactions": []
@@ -71457,6 +71823,81 @@
       "interactions": []
     },
     {
+      "effectId": "297a3d81-39cd-5dc6-9545-18fca8d670cf",
+      "effectName": "Wholehearted Devotion",
+      "effectTags": [],
+      "exclusiveDollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
+      "exclusiveDollName": "Cecilia",
+      "sources": [
+        {
+          "kind": "skill",
+          "relation": "gains",
+          "levels": [
+            3
+          ],
+          "snippet": "When an enemy unit within range takes targeted damage from an ally, Cecilia gains 1 stack of [effect:297a3d81-39cd-5dc6-9545-18fca8d670cf] for 2 turns",
+          "dollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
+          "dollName": "Cecilia",
+          "skillId": "10820801",
+          "skillName": "Safety First Principle",
+          "skillType": "Passive"
+        },
+        {
+          "kind": "vertebrae",
+          "relation": "gains",
+          "snippet": "When an enemy unit within range takes targeted damage from an ally, Cecilia gains 1 stack of [effect:297a3d81-39cd-5dc6-9545-18fca8d670cf] for 2 turns",
+          "dollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
+          "dollName": "Cecilia",
+          "level": 3,
+          "segment": 6
+        }
+      ],
+      "interactions": [
+        {
+          "kind": "skill",
+          "relation": "conditional",
+          "levels": [
+            1,
+            2,
+            3
+          ],
+          "snippet": "After [effect:40636efe-13a8-51e6-b891-46cea59d0e5c] she gains 1 stack of [effect:297a3d81-39cd-5dc6-9545-18fca8d670cf] for 2 turns and [effect:ec24afec-5369-5ad2-9e48-50b8b94ab3ea] for 2 rounds, whose absorption amount is 50% of the applier's attack, up to a maximum of 100% of the target's Max HP…",
+          "dollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
+          "dollName": "Cecilia",
+          "skillId": "10820801",
+          "skillName": "Safety First Principle",
+          "skillType": "Passive"
+        },
+        {
+          "kind": "vertebrae",
+          "relation": "conditional",
+          "snippet": "After [effect:40636efe-13a8-51e6-b891-46cea59d0e5c] she gains 1 stack of [effect:297a3d81-39cd-5dc6-9545-18fca8d670cf] for 2 turns and [effect:ec24afec-5369-5ad2-9e48-50b8b94ab3ea] for 2 rounds, whose absorption amount is 50% of the applier's attack, up to a maximum of 100% of the target's Max HP…",
+          "dollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
+          "dollName": "Cecilia",
+          "level": 2,
+          "segment": 4
+        },
+        {
+          "kind": "vertebrae",
+          "relation": "conditional",
+          "snippet": "After [effect:40636efe-13a8-51e6-b891-46cea59d0e5c] she gains 1 stack of [effect:297a3d81-39cd-5dc6-9545-18fca8d670cf] for 2 turns and [effect:ec24afec-5369-5ad2-9e48-50b8b94ab3ea] for 2 rounds, whose absorption amount is 50% of the applier's attack, up to a maximum of 100% of the target's Max HP…",
+          "dollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
+          "dollName": "Cecilia",
+          "level": 3,
+          "segment": 6
+        }
+      ]
+    },
+    {
+      "effectId": "873ed7e3-194e-5302-9d25-9ccbe8f2e06c",
+      "effectName": "Wholehearted Devotion",
+      "effectTags": [],
+      "exclusiveDollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
+      "exclusiveDollName": "Cecilia",
+      "sources": [],
+      "interactions": []
+    },
+    {
       "effectId": "35b588d6-0a7e-5a15-ad79-9f4f09348e78",
       "effectName": "Wickedness",
       "effectTags": [],
@@ -71903,6 +72344,371 @@
       ]
     },
     {
+      "effectId": "e382bc8b-c71a-5d0f-9060-629831b9771b",
+      "effectName": "Words of Comfort",
+      "effectTags": [],
+      "exclusiveDollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
+      "exclusiveDollName": "Cecilia",
+      "sources": [],
+      "interactions": [
+        {
+          "kind": "key",
+          "relation": "conditional",
+          "snippet": "After actively using the basic attack [effect:e382bc8b-c71a-5d0f-9060-629831b9771b], gains <span style=\"color: rgb(242, 108, 28)",
+          "keyId": "4ca43dcf-0bc2-5721-be62-663d836cdea2",
+          "keyTitle": "Fixed Key - Nimble Pivot",
+          "keyType": "Fixed Key",
+          "level": 3,
+          "dollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
+          "dollName": "Cecilia"
+        },
+        {
+          "kind": "skill",
+          "relation": "conditional",
+          "levels": [
+            3
+          ],
+          "snippet": "If the basic attack [effect:e382bc8b-c71a-5d0f-9060-629831b9771b] is used after the skill, the damage it deals is increased by 100%, and if she has [effect:0a36a37f-975e-5f14-8500-aa8bf9c55bd4], its critical rate is increased by 100% and its critical damage by 50%",
+          "dollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
+          "dollName": "Cecilia",
+          "skillId": "10820401",
+          "skillName": "Reconciliation",
+          "skillType": "Ultimate"
+        },
+        {
+          "kind": "vertebrae",
+          "relation": "conditional",
+          "snippet": "If the basic attack [effect:e382bc8b-c71a-5d0f-9060-629831b9771b] is used after the skill, the damage it deals is increased by 100%, and if she has [effect:0a36a37f-975e-5f14-8500-aa8bf9c55bd4], its critical rate is increased by 100% and its critical damage by 50%",
+          "dollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
+          "dollName": "Cecilia",
+          "level": 3,
+          "segment": 5
+        },
+        {
+          "kind": "skill",
+          "relation": "enhances",
+          "levels": [
+            1,
+            2,
+            3
+          ],
+          "snippet": "When an enemy unit within range takes targeted damage from an ally, if she has [effect:bd8d5fd8-886f-5b6b-9324-4ad8d5400784] or [effect:f760543f-c665-5082-b2fb-d828cfe24f51], consumes 3 points of Confectance Index to perform 1 [effect:40636efe-13a8-51e6-b891-46cea59d0e5c] against it, dealing the …",
+          "dollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
+          "dollName": "Cecilia",
+          "skillId": "10820801",
+          "skillName": "Safety First Principle",
+          "skillType": "Passive"
+        },
+        {
+          "kind": "vertebrae",
+          "relation": "enhances",
+          "snippet": "if she has [effect:bd8d5fd8-886f-5b6b-9324-4ad8d5400784] or [effect:f760543f-c665-5082-b2fb-d828cfe24f51], consumes 3 points of Confectance Index to perform 1 [effect:40636efe-13a8-51e6-b891-46cea59d0e5c] against it, dealing the skill effect of her current [effect:e382bc8b-c71a-5d0f-9060-629831b9…",
+          "dollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
+          "dollName": "Cecilia",
+          "level": 3,
+          "segment": 6
+        },
+        {
+          "kind": "vertebrae",
+          "relation": "enhances",
+          "snippet": "When an enemy unit within range takes targeted damage from an ally, if she has [effect:bd8d5fd8-886f-5b6b-9324-4ad8d5400784] or [effect:f760543f-c665-5082-b2fb-d828cfe24f51], consumes 3 points of Confectance Index to perform 1 [effect:40636efe-13a8-51e6-b891-46cea59d0e5c] against it, dealing the …",
+          "dollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
+          "dollName": "Cecilia",
+          "level": 2,
+          "segment": 4
+        }
+      ]
+    },
+    {
+      "effectId": "dcc15dfb-0183-51dc-97f8-b66f8c84437c",
+      "effectName": "Words of Comfort",
+      "effectTags": [],
+      "exclusiveDollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
+      "exclusiveDollName": "Cecilia",
+      "sources": [],
+      "interactions": [
+        {
+          "kind": "effect",
+          "relation": "mentions",
+          "snippet": "Comprises [effect:dcc15dfb-0183-51dc-97f8-b66f8c84437c], [effect:465cd92b-3a70-560e-8162-5753e3aff7c4] and [effect:dd470e49-e6d7-5d21-b3a0-d9da8b72bd2b]",
+          "effectId": "e382bc8b-c71a-5d0f-9060-629831b9771b",
+          "effectName": "Words of Comfort",
+          "ownerDollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
+          "ownerDollName": "Cecilia"
+        }
+      ]
+    },
+    {
+      "effectId": "465cd92b-3a70-560e-8162-5753e3aff7c4",
+      "effectName": "Words of Comfort - AoE",
+      "effectTags": [],
+      "exclusiveDollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
+      "exclusiveDollName": "Cecilia",
+      "sources": [],
+      "interactions": [
+        {
+          "kind": "effect",
+          "relation": "mentions",
+          "snippet": "Comprises [effect:dcc15dfb-0183-51dc-97f8-b66f8c84437c], [effect:465cd92b-3a70-560e-8162-5753e3aff7c4] and [effect:dd470e49-e6d7-5d21-b3a0-d9da8b72bd2b]",
+          "effectId": "e382bc8b-c71a-5d0f-9060-629831b9771b",
+          "effectName": "Words of Comfort",
+          "ownerDollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
+          "ownerDollName": "Cecilia"
+        }
+      ]
+    },
+    {
+      "effectId": "0658cfe4-731a-53e7-98b6-a8335168e09e",
+      "effectName": "Words of Comfort - AoE",
+      "effectTags": [],
+      "exclusiveDollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
+      "exclusiveDollName": "Cecilia",
+      "sources": [],
+      "interactions": []
+    },
+    {
+      "effectId": "bd8d5fd8-886f-5b6b-9324-4ad8d5400784",
+      "effectName": "Words of Comfort - AoE",
+      "effectTags": [],
+      "exclusiveDollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
+      "exclusiveDollName": "Cecilia",
+      "sources": [],
+      "interactions": [
+        {
+          "kind": "skill",
+          "relation": "conditional",
+          "levels": [
+            1,
+            2,
+            3
+          ],
+          "snippet": "When an enemy unit within range takes targeted damage from an ally, if she has [effect:bd8d5fd8-886f-5b6b-9324-4ad8d5400784] or [effect:f760543f-c665-5082-b2fb-d828cfe24f51], consumes 3 points of Confectance Index to perform 1 [effect:40636efe-13a8-51e6-b891-46cea59d0e5c] against it, dealing the …",
+          "dollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
+          "dollName": "Cecilia",
+          "skillId": "10820801",
+          "skillName": "Safety First Principle",
+          "skillType": "Passive"
+        },
+        {
+          "kind": "vertebrae",
+          "relation": "conditional",
+          "snippet": "if she has [effect:bd8d5fd8-886f-5b6b-9324-4ad8d5400784] or [effect:f760543f-c665-5082-b2fb-d828cfe24f51], consumes 3 points of Confectance Index to perform 1 [effect:40636efe-13a8-51e6-b891-46cea59d0e5c] against it, dealing the skill effect of her current [effect:e382bc8b-c71a-5d0f-9060-629831b9…",
+          "dollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
+          "dollName": "Cecilia",
+          "level": 3,
+          "segment": 6
+        },
+        {
+          "kind": "vertebrae",
+          "relation": "conditional",
+          "snippet": "When an enemy unit within range takes targeted damage from an ally, if she has [effect:bd8d5fd8-886f-5b6b-9324-4ad8d5400784] or [effect:f760543f-c665-5082-b2fb-d828cfe24f51], consumes 3 points of Confectance Index to perform 1 [effect:40636efe-13a8-51e6-b891-46cea59d0e5c] against it, dealing the …",
+          "dollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
+          "dollName": "Cecilia",
+          "level": 2,
+          "segment": 4
+        }
+      ]
+    },
+    {
+      "effectId": "186542cc-3032-5e95-963b-8b2e787c3589",
+      "effectName": "Words of Comfort - AoE",
+      "effectTags": [],
+      "exclusiveDollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
+      "exclusiveDollName": "Cecilia",
+      "sources": [],
+      "interactions": []
+    },
+    {
+      "effectId": "7407a85b-5dfe-5873-9f70-c562fff498ca",
+      "effectName": "Words of Comfort - AoE",
+      "effectTags": [],
+      "exclusiveDollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
+      "exclusiveDollName": "Cecilia",
+      "sources": [
+        {
+          "kind": "skill",
+          "relation": "gains",
+          "levels": [
+            1
+          ],
+          "snippet": "Changes the basic attack Words of Comfort to [effect:7407a85b-5dfe-5873-9f70-c562fff498ca] for 1 round, gains [effect:a45309b9-36e9-5091-85e8-c9b634da7086], and applies [effect:ec24afec-5369-5ad2-9e48-50b8b94ab3ea] to allied Dolls for 2 rounds",
+          "dollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
+          "dollName": "Cecilia",
+          "skillId": "10820501",
+          "skillName": "Positive Response",
+          "skillType": "Active"
+        }
+      ],
+      "interactions": []
+    },
+    {
+      "effectId": "0b39b016-60dd-5374-ab0e-cb695a9e88bb",
+      "effectName": "Words of Comfort - AoE",
+      "effectTags": [],
+      "exclusiveDollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
+      "exclusiveDollName": "Cecilia",
+      "sources": [
+        {
+          "kind": "skill",
+          "relation": "gains",
+          "levels": [
+            2
+          ],
+          "snippet": "Changes the basic attack Words of Comfort to [effect:0b39b016-60dd-5374-ab0e-cb695a9e88bb] for 1 round, gains [effect:a45309b9-36e9-5091-85e8-c9b634da7086], and applies [effect:ec24afec-5369-5ad2-9e48-50b8b94ab3ea] to allied Dolls for 2 rounds",
+          "dollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
+          "dollName": "Cecilia",
+          "skillId": "10820501",
+          "skillName": "Positive Response",
+          "skillType": "Active"
+        },
+        {
+          "kind": "vertebrae",
+          "relation": "gains",
+          "snippet": "Changes the basic attack Words of Comfort to [effect:0b39b016-60dd-5374-ab0e-cb695a9e88bb] for 1 round, gains [effect:a45309b9-36e9-5091-85e8-c9b634da7086], and applies [effect:ec24afec-5369-5ad2-9e48-50b8b94ab3ea] to allied Dolls for 2 rounds",
+          "dollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
+          "dollName": "Cecilia",
+          "level": 2,
+          "segment": 1
+        }
+      ],
+      "interactions": []
+    },
+    {
+      "effectId": "dd470e49-e6d7-5d21-b3a0-d9da8b72bd2b",
+      "effectName": "Words of Comfort - Targeted",
+      "effectTags": [],
+      "exclusiveDollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
+      "exclusiveDollName": "Cecilia",
+      "sources": [],
+      "interactions": [
+        {
+          "kind": "effect",
+          "relation": "mentions",
+          "snippet": "Comprises [effect:dcc15dfb-0183-51dc-97f8-b66f8c84437c], [effect:465cd92b-3a70-560e-8162-5753e3aff7c4] and [effect:dd470e49-e6d7-5d21-b3a0-d9da8b72bd2b]",
+          "effectId": "e382bc8b-c71a-5d0f-9060-629831b9771b",
+          "effectName": "Words of Comfort",
+          "ownerDollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
+          "ownerDollName": "Cecilia"
+        }
+      ]
+    },
+    {
+      "effectId": "8e44dbfa-24c4-502a-8454-5ed8ed19722a",
+      "effectName": "Words of Comfort - Targeted",
+      "effectTags": [],
+      "exclusiveDollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
+      "exclusiveDollName": "Cecilia",
+      "sources": [],
+      "interactions": []
+    },
+    {
+      "effectId": "f760543f-c665-5082-b2fb-d828cfe24f51",
+      "effectName": "Words of Comfort - Targeted",
+      "effectTags": [],
+      "exclusiveDollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
+      "exclusiveDollName": "Cecilia",
+      "sources": [],
+      "interactions": [
+        {
+          "kind": "skill",
+          "relation": "conditional",
+          "levels": [
+            1,
+            2,
+            3
+          ],
+          "snippet": "When an enemy unit within range takes targeted damage from an ally, if she has [effect:bd8d5fd8-886f-5b6b-9324-4ad8d5400784] or [effect:f760543f-c665-5082-b2fb-d828cfe24f51], consumes 3 points of Confectance Index to perform 1 [effect:40636efe-13a8-51e6-b891-46cea59d0e5c] against it, dealing the …",
+          "dollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
+          "dollName": "Cecilia",
+          "skillId": "10820801",
+          "skillName": "Safety First Principle",
+          "skillType": "Passive"
+        },
+        {
+          "kind": "vertebrae",
+          "relation": "conditional",
+          "snippet": "if she has [effect:bd8d5fd8-886f-5b6b-9324-4ad8d5400784] or [effect:f760543f-c665-5082-b2fb-d828cfe24f51], consumes 3 points of Confectance Index to perform 1 [effect:40636efe-13a8-51e6-b891-46cea59d0e5c] against it, dealing the skill effect of her current [effect:e382bc8b-c71a-5d0f-9060-629831b9…",
+          "dollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
+          "dollName": "Cecilia",
+          "level": 3,
+          "segment": 6
+        },
+        {
+          "kind": "vertebrae",
+          "relation": "conditional",
+          "snippet": "When an enemy unit within range takes targeted damage from an ally, if she has [effect:bd8d5fd8-886f-5b6b-9324-4ad8d5400784] or [effect:f760543f-c665-5082-b2fb-d828cfe24f51], consumes 3 points of Confectance Index to perform 1 [effect:40636efe-13a8-51e6-b891-46cea59d0e5c] against it, dealing the …",
+          "dollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
+          "dollName": "Cecilia",
+          "level": 2,
+          "segment": 4
+        }
+      ]
+    },
+    {
+      "effectId": "a6230243-4142-5a2e-9d08-0d34d1023c06",
+      "effectName": "Words of Comfort - Targeted",
+      "effectTags": [],
+      "exclusiveDollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
+      "exclusiveDollName": "Cecilia",
+      "sources": [],
+      "interactions": []
+    },
+    {
+      "effectId": "84d26544-c08e-524a-95b1-ec39ac41c0a1",
+      "effectName": "Words of Comfort - Targeted",
+      "effectTags": [],
+      "exclusiveDollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
+      "exclusiveDollName": "Cecilia",
+      "sources": [
+        {
+          "kind": "skill",
+          "relation": "gains",
+          "levels": [
+            1
+          ],
+          "snippet": "Changes the basic attack Words of Comfort to [effect:84d26544-c08e-524a-95b1-ec39ac41c0a1] for 1 round, gains [effect:a45309b9-36e9-5091-85e8-c9b634da7086], and applies [effect:ec24afec-5369-5ad2-9e48-50b8b94ab3ea] to allied Dolls for 2 rounds",
+          "dollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
+          "dollName": "Cecilia",
+          "skillId": "10820701",
+          "skillName": "Desensitization Tactics",
+          "skillType": "Active"
+        }
+      ],
+      "interactions": []
+    },
+    {
+      "effectId": "d83cd9ac-5d7b-54d1-b18d-c3676e8164d5",
+      "effectName": "Words of Comfort - Targeted",
+      "effectTags": [],
+      "exclusiveDollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
+      "exclusiveDollName": "Cecilia",
+      "sources": [
+        {
+          "kind": "skill",
+          "relation": "gains",
+          "levels": [
+            2
+          ],
+          "snippet": "Changes the basic attack Words of Comfort to [effect:d83cd9ac-5d7b-54d1-b18d-c3676e8164d5] for 1 round, gains [effect:a45309b9-36e9-5091-85e8-c9b634da7086], and applies [effect:ec24afec-5369-5ad2-9e48-50b8b94ab3ea] to allied Dolls for 2 rounds",
+          "dollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
+          "dollName": "Cecilia",
+          "skillId": "10820701",
+          "skillName": "Desensitization Tactics",
+          "skillType": "Active"
+        },
+        {
+          "kind": "vertebrae",
+          "relation": "gains",
+          "snippet": "Changes the basic attack Words of Comfort to [effect:d83cd9ac-5d7b-54d1-b18d-c3676e8164d5] for 1 round, gains [effect:a45309b9-36e9-5091-85e8-c9b634da7086], and applies [effect:ec24afec-5369-5ad2-9e48-50b8b94ab3ea] to allied Dolls for 2 rounds",
+          "dollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
+          "dollName": "Cecilia",
+          "level": 2,
+          "segment": 2
+        }
+      ],
+      "interactions": []
+    },
+    {
       "effectId": "77bf54a5-2ae6-5443-9755-6142ba457bd1",
       "effectName": "World boss Burn/Electric special effect buff",
       "effectTags": [],
@@ -72126,662 +72932,6 @@
       "exclusiveDollName": null,
       "sources": [],
       "interactions": []
-    },
-    {
-      "effectId": "1d7ab183-0421-5f1e-bf0c-a705ea229995",
-      "effectName": "共济调谐",
-      "effectTags": [],
-      "exclusiveDollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
-      "exclusiveDollName": "Cecilia",
-      "sources": [],
-      "interactions": [
-        {
-          "kind": "skill",
-          "relation": "mentions",
-          "levels": [
-            1,
-            2,
-            3
-          ],
-          "snippet": "当射程内的敌方单位受到来自友方的精准伤害时，若自身拥有[effect:bd8d5fd8-886f-5b6b-9324-4ad8d5400784]或[effect:f760543f-c665-5082-b2fb-d828cfe24f51]，消耗3点导染指数并对其进行1次[effect:40636efe-13a8-51e6-b891-46cea59d0e5c]，造成当前[effect:e382bc8b-c71a-5d0f-9060-629831b9771b]的技能效果，每个大回合至多触发3次，[effect:40636efe-13a8-51e6-b891-46cea59d0e5c]后自身获得…",
-          "dollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
-          "dollName": "Cecilia",
-          "skillId": "10820801",
-          "skillName": "安全至上原则",
-          "skillType": "Passive"
-        },
-        {
-          "kind": "vertebrae",
-          "relation": "mentions",
-          "snippet": "当射程内的敌方单位受到来自友方的精准伤害时，希丽雅获得1层[effect:297a3d81-39cd-5dc6-9545-18fca8d670cf]，持续2回合；若自身拥有[effect:bd8d5fd8-886f-5b6b-9324-4ad8d5400784]或[effect:f760543f-c665-5082-b2fb-d828cfe24f51]，消耗3点导染指数并对其进行1次[effect:40636efe-13a8-51e6-b891-46cea59d0e5c]，造成当前[effect:e382bc8b-c71a-5d0f-9060-629831b9771b]的技能效果，每个大…",
-          "dollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
-          "dollName": "Cecilia",
-          "level": 3,
-          "segment": 6
-        },
-        {
-          "kind": "vertebrae",
-          "relation": "mentions",
-          "snippet": "当射程内的敌方单位受到来自友方的精准伤害时，若自身拥有[effect:bd8d5fd8-886f-5b6b-9324-4ad8d5400784]或[effect:f760543f-c665-5082-b2fb-d828cfe24f51]，消耗3点导染指数并对其进行1次[effect:40636efe-13a8-51e6-b891-46cea59d0e5c]，造成当前[effect:e382bc8b-c71a-5d0f-9060-629831b9771b]的技能效果，每个大回合至多触发3次，[effect:40636efe-13a8-51e6-b891-46cea59d0e5c]后自身获得…",
-          "dollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
-          "dollName": "Cecilia",
-          "level": 2,
-          "segment": 4
-        }
-      ]
-    },
-    {
-      "effectId": "ac1ade3b-9b98-5401-aac9-7e662582b00e",
-      "effectName": "共济调谐",
-      "effectTags": [],
-      "exclusiveDollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
-      "exclusiveDollName": "Cecilia",
-      "sources": [],
-      "interactions": []
-    },
-    {
-      "effectId": "80afe3ea-4031-52c1-bb11-bd2c705aa3d5",
-      "effectName": "守望",
-      "effectTags": [],
-      "exclusiveDollId": "fb12e551-6e4b-5554-a1a4-122b989dcd7a",
-      "exclusiveDollName": "Centaureissi",
-      "sources": [],
-      "interactions": [
-        {
-          "kind": "key",
-          "relation": "mentions",
-          "snippet": "\">1点</span>导染指数，并对希丽雅施加[effect:80afe3ea-4031-52c1-bb11-bd2c705aa3d5]，每个大回合至多触发<span style=\"color: rgb(242, 108, 28)",
-          "keyId": "15d0c19f-ed4f-5f90-bf3d-85069c6aaac2",
-          "keyTitle": "Expansion Key - Will To Protect",
-          "keyType": "Expansion Key",
-          "level": 9,
-          "dollId": "fb12e551-6e4b-5554-a1a4-122b989dcd7a",
-          "dollName": "Centaureissi"
-        },
-        {
-          "kind": "skill",
-          "relation": "mentions",
-          "levels": [
-            1,
-            2,
-            3
-          ],
-          "snippet": "桑朵莱希在场时，其造成的伤害和治疗提高100%，希丽雅普攻与[effect:40636efe-13a8-51e6-b891-46cea59d0e5c]伤害系数提高30%，且可以获得桑朵莱希施加的[effect:80afe3ea-4031-52c1-bb11-bd2c705aa3d5]。",
-          "dollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
-          "dollName": "Cecilia",
-          "skillId": "10820801",
-          "skillName": "安全至上原则",
-          "skillType": "Passive"
-        },
-        {
-          "kind": "vertebrae",
-          "relation": "mentions",
-          "snippet": "桑朵莱希在场时，其造成的伤害和治疗提高100%，希丽雅普攻与[effect:40636efe-13a8-51e6-b891-46cea59d0e5c]伤害系数提高30%，且可以获得桑朵莱希施加的[effect:80afe3ea-4031-52c1-bb11-bd2c705aa3d5]。",
-          "dollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
-          "dollName": "Cecilia",
-          "level": 2,
-          "segment": 4
-        },
-        {
-          "kind": "vertebrae",
-          "relation": "mentions",
-          "snippet": "桑朵莱希在场时，其造成的伤害和治疗提高100%，希丽雅普攻与[effect:40636efe-13a8-51e6-b891-46cea59d0e5c]伤害系数提高30%，且可以获得桑朵莱希施加的[effect:80afe3ea-4031-52c1-bb11-bd2c705aa3d5]。",
-          "dollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
-          "dollName": "Cecilia",
-          "level": 3,
-          "segment": 6
-        }
-      ]
-    },
-    {
-      "effectId": "297a3d81-39cd-5dc6-9545-18fca8d670cf",
-      "effectName": "悉心倾力",
-      "effectTags": [],
-      "exclusiveDollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
-      "exclusiveDollName": "Cecilia",
-      "sources": [],
-      "interactions": [
-        {
-          "kind": "skill",
-          "relation": "mentions",
-          "levels": [
-            1,
-            2,
-            3
-          ],
-          "snippet": "当射程内的敌方单位受到来自友方的精准伤害时，若自身拥有[effect:bd8d5fd8-886f-5b6b-9324-4ad8d5400784]或[effect:f760543f-c665-5082-b2fb-d828cfe24f51]，消耗3点导染指数并对其进行1次[effect:40636efe-13a8-51e6-b891-46cea59d0e5c]，造成当前[effect:e382bc8b-c71a-5d0f-9060-629831b9771b]的技能效果，每个大回合至多触发3次，[effect:40636efe-13a8-51e6-b891-46cea59d0e5c]后自身获得…",
-          "dollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
-          "dollName": "Cecilia",
-          "skillId": "10820801",
-          "skillName": "安全至上原则",
-          "skillType": "Passive"
-        },
-        {
-          "kind": "vertebrae",
-          "relation": "mentions",
-          "snippet": "当射程内的敌方单位受到来自友方的精准伤害时，希丽雅获得1层[effect:297a3d81-39cd-5dc6-9545-18fca8d670cf]，持续2回合；若自身拥有[effect:bd8d5fd8-886f-5b6b-9324-4ad8d5400784]或[effect:f760543f-c665-5082-b2fb-d828cfe24f51]，消耗3点导染指数并对其进行1次[effect:40636efe-13a8-51e6-b891-46cea59d0e5c]，造成当前[effect:e382bc8b-c71a-5d0f-9060-629831b9771b]的技能效果，每个大…",
-          "dollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
-          "dollName": "Cecilia",
-          "level": 3,
-          "segment": 6
-        },
-        {
-          "kind": "vertebrae",
-          "relation": "mentions",
-          "snippet": "当射程内的敌方单位受到来自友方的精准伤害时，若自身拥有[effect:bd8d5fd8-886f-5b6b-9324-4ad8d5400784]或[effect:f760543f-c665-5082-b2fb-d828cfe24f51]，消耗3点导染指数并对其进行1次[effect:40636efe-13a8-51e6-b891-46cea59d0e5c]，造成当前[effect:e382bc8b-c71a-5d0f-9060-629831b9771b]的技能效果，每个大回合至多触发3次，[effect:40636efe-13a8-51e6-b891-46cea59d0e5c]后自身获得…",
-          "dollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
-          "dollName": "Cecilia",
-          "level": 2,
-          "segment": 4
-        }
-      ]
-    },
-    {
-      "effectId": "873ed7e3-194e-5302-9d25-9ccbe8f2e06c",
-      "effectName": "悉心倾力",
-      "effectTags": [],
-      "exclusiveDollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
-      "exclusiveDollName": "Cecilia",
-      "sources": [],
-      "interactions": []
-    },
-    {
-      "effectId": "51a33c71-f778-58ed-b706-be1ad1607381",
-      "effectName": "扭曲的情感",
-      "effectTags": [],
-      "exclusiveDollId": "495bc361-0504-57f6-90cc-192ff68cd0e4",
-      "exclusiveDollName": "Basti",
-      "sources": [],
-      "interactions": [
-        {
-          "kind": "key",
-          "relation": "mentions",
-          "snippet": "\">地雷系少女</span>后对目标施加[effect:51a33c71-f778-58ed-b706-be1ad1607381]，持续<span style=\"color: rgb(242, 108, 28)",
-          "keyId": "04d88ed8-16a1-56e8-b251-7955524638f4",
-          "keyTitle": "跃键·备受宠爱的猫咪",
-          "keyType": "Expansion Key",
-          "level": 8,
-          "dollId": "495bc361-0504-57f6-90cc-192ff68cd0e4",
-          "dollName": "Basti"
-        }
-      ]
-    },
-    {
-      "effectId": "e382bc8b-c71a-5d0f-9060-629831b9771b",
-      "effectName": "抚慰之语",
-      "effectTags": [],
-      "exclusiveDollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
-      "exclusiveDollName": "Cecilia",
-      "sources": [],
-      "interactions": [
-        {
-          "kind": "key",
-          "relation": "mentions",
-          "snippet": "主动使用普攻[effect:e382bc8b-c71a-5d0f-9060-629831b9771b]后，获得<span style=\"color: rgb(242, 108, 28)",
-          "keyId": "4ca43dcf-0bc2-5721-be62-663d836cdea2",
-          "keyTitle": "固键·轻盈转身",
-          "keyType": "Fixed Key",
-          "level": 3,
-          "dollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
-          "dollName": "Cecilia"
-        },
-        {
-          "kind": "skill",
-          "relation": "mentions",
-          "levels": [
-            1,
-            2,
-            3
-          ],
-          "snippet": "当射程内的敌方单位受到来自友方的精准伤害时，若自身拥有[effect:bd8d5fd8-886f-5b6b-9324-4ad8d5400784]或[effect:f760543f-c665-5082-b2fb-d828cfe24f51]，消耗3点导染指数并对其进行1次[effect:40636efe-13a8-51e6-b891-46cea59d0e5c]，造成当前[effect:e382bc8b-c71a-5d0f-9060-629831b9771b]的技能效果，每个大回合至多触发3次，[effect:40636efe-13a8-51e6-b891-46cea59d0e5c]后自身获得…",
-          "dollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
-          "dollName": "Cecilia",
-          "skillId": "10820801",
-          "skillName": "安全至上原则",
-          "skillType": "Passive"
-        },
-        {
-          "kind": "skill",
-          "relation": "mentions",
-          "levels": [
-            3
-          ],
-          "snippet": "选取周围半径8格内的1个敌方目标，对其造成160%攻击力的燃烧伤害，自身获得[effect:a45309b9-36e9-5091-85e8-c9b634da7086]。每进行1次普攻或[effect:40636efe-13a8-51e6-b891-46cea59d0e5c]，下次该技能的伤害系数提高50%。技能后若使用普攻[effect:e382bc8b-c71a-5d0f-9060-629831b9771b]，则造成的伤害提高100%，若自身拥有[effect:0a36a37f-975e-5f14-8500-aa8bf9c55bd4]，暴击率提高100%，暴击伤害提高50%，至多生效2…",
-          "dollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
-          "dollName": "Cecilia",
-          "skillId": "10820401",
-          "skillName": "握手言和",
-          "skillType": "Ultimate"
-        },
-        {
-          "kind": "vertebrae",
-          "relation": "mentions",
-          "snippet": "当射程内的敌方单位受到来自友方的精准伤害时，希丽雅获得1层[effect:297a3d81-39cd-5dc6-9545-18fca8d670cf]，持续2回合；若自身拥有[effect:bd8d5fd8-886f-5b6b-9324-4ad8d5400784]或[effect:f760543f-c665-5082-b2fb-d828cfe24f51]，消耗3点导染指数并对其进行1次[effect:40636efe-13a8-51e6-b891-46cea59d0e5c]，造成当前[effect:e382bc8b-c71a-5d0f-9060-629831b9771b]的技能效果，每个大…",
-          "dollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
-          "dollName": "Cecilia",
-          "level": 3,
-          "segment": 6
-        },
-        {
-          "kind": "vertebrae",
-          "relation": "mentions",
-          "snippet": "当射程内的敌方单位受到来自友方的精准伤害时，若自身拥有[effect:bd8d5fd8-886f-5b6b-9324-4ad8d5400784]或[effect:f760543f-c665-5082-b2fb-d828cfe24f51]，消耗3点导染指数并对其进行1次[effect:40636efe-13a8-51e6-b891-46cea59d0e5c]，造成当前[effect:e382bc8b-c71a-5d0f-9060-629831b9771b]的技能效果，每个大回合至多触发3次，[effect:40636efe-13a8-51e6-b891-46cea59d0e5c]后自身获得…",
-          "dollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
-          "dollName": "Cecilia",
-          "level": 2,
-          "segment": 4
-        },
-        {
-          "kind": "vertebrae",
-          "relation": "mentions",
-          "snippet": "选取周围半径8格内的1个敌方目标，对其造成160%攻击力的燃烧伤害，自身获得[effect:a45309b9-36e9-5091-85e8-c9b634da7086]。每进行1次普攻或[effect:40636efe-13a8-51e6-b891-46cea59d0e5c]，下次该技能的伤害系数提高50%。技能后若使用普攻[effect:e382bc8b-c71a-5d0f-9060-629831b9771b]，则造成的伤害提高100%，若自身拥有[effect:0a36a37f-975e-5f14-8500-aa8bf9c55bd4]，暴击率提高100%，暴击伤害提高50%，至多生效2…",
-          "dollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
-          "dollName": "Cecilia",
-          "level": 3,
-          "segment": 5
-        }
-      ]
-    },
-    {
-      "effectId": "dcc15dfb-0183-51dc-97f8-b66f8c84437c",
-      "effectName": "抚慰之语",
-      "effectTags": [],
-      "exclusiveDollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
-      "exclusiveDollName": "Cecilia",
-      "sources": [],
-      "interactions": [
-        {
-          "kind": "effect",
-          "relation": "mentions",
-          "snippet": "包含[effect:dcc15dfb-0183-51dc-97f8-b66f8c84437c]、[effect:465cd92b-3a70-560e-8162-5753e3aff7c4]、[effect:dd470e49-e6d7-5d21-b3a0-d9da8b72bd2b]。",
-          "effectId": "e382bc8b-c71a-5d0f-9060-629831b9771b",
-          "effectName": "抚慰之语",
-          "ownerDollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
-          "ownerDollName": "Cecilia"
-        }
-      ]
-    },
-    {
-      "effectId": "dd470e49-e6d7-5d21-b3a0-d9da8b72bd2b",
-      "effectName": "抚慰之语·精准",
-      "effectTags": [],
-      "exclusiveDollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
-      "exclusiveDollName": "Cecilia",
-      "sources": [],
-      "interactions": [
-        {
-          "kind": "effect",
-          "relation": "mentions",
-          "snippet": "包含[effect:dcc15dfb-0183-51dc-97f8-b66f8c84437c]、[effect:465cd92b-3a70-560e-8162-5753e3aff7c4]、[effect:dd470e49-e6d7-5d21-b3a0-d9da8b72bd2b]。",
-          "effectId": "e382bc8b-c71a-5d0f-9060-629831b9771b",
-          "effectName": "抚慰之语",
-          "ownerDollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
-          "ownerDollName": "Cecilia"
-        }
-      ]
-    },
-    {
-      "effectId": "8e44dbfa-24c4-502a-8454-5ed8ed19722a",
-      "effectName": "抚慰之语·精准",
-      "effectTags": [],
-      "exclusiveDollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
-      "exclusiveDollName": "Cecilia",
-      "sources": [],
-      "interactions": []
-    },
-    {
-      "effectId": "f760543f-c665-5082-b2fb-d828cfe24f51",
-      "effectName": "抚慰之语·精准",
-      "effectTags": [],
-      "exclusiveDollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
-      "exclusiveDollName": "Cecilia",
-      "sources": [],
-      "interactions": [
-        {
-          "kind": "skill",
-          "relation": "mentions",
-          "levels": [
-            1,
-            2,
-            3
-          ],
-          "snippet": "当射程内的敌方单位受到来自友方的精准伤害时，若自身拥有[effect:bd8d5fd8-886f-5b6b-9324-4ad8d5400784]或[effect:f760543f-c665-5082-b2fb-d828cfe24f51]，消耗3点导染指数并对其进行1次[effect:40636efe-13a8-51e6-b891-46cea59d0e5c]，造成当前[effect:e382bc8b-c71a-5d0f-9060-629831b9771b]的技能效果，每个大回合至多触发3次，[effect:40636efe-13a8-51e6-b891-46cea59d0e5c]后自身获得…",
-          "dollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
-          "dollName": "Cecilia",
-          "skillId": "10820801",
-          "skillName": "安全至上原则",
-          "skillType": "Passive"
-        },
-        {
-          "kind": "vertebrae",
-          "relation": "mentions",
-          "snippet": "当射程内的敌方单位受到来自友方的精准伤害时，希丽雅获得1层[effect:297a3d81-39cd-5dc6-9545-18fca8d670cf]，持续2回合；若自身拥有[effect:bd8d5fd8-886f-5b6b-9324-4ad8d5400784]或[effect:f760543f-c665-5082-b2fb-d828cfe24f51]，消耗3点导染指数并对其进行1次[effect:40636efe-13a8-51e6-b891-46cea59d0e5c]，造成当前[effect:e382bc8b-c71a-5d0f-9060-629831b9771b]的技能效果，每个大…",
-          "dollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
-          "dollName": "Cecilia",
-          "level": 3,
-          "segment": 6
-        },
-        {
-          "kind": "vertebrae",
-          "relation": "mentions",
-          "snippet": "当射程内的敌方单位受到来自友方的精准伤害时，若自身拥有[effect:bd8d5fd8-886f-5b6b-9324-4ad8d5400784]或[effect:f760543f-c665-5082-b2fb-d828cfe24f51]，消耗3点导染指数并对其进行1次[effect:40636efe-13a8-51e6-b891-46cea59d0e5c]，造成当前[effect:e382bc8b-c71a-5d0f-9060-629831b9771b]的技能效果，每个大回合至多触发3次，[effect:40636efe-13a8-51e6-b891-46cea59d0e5c]后自身获得…",
-          "dollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
-          "dollName": "Cecilia",
-          "level": 2,
-          "segment": 4
-        }
-      ]
-    },
-    {
-      "effectId": "a6230243-4142-5a2e-9d08-0d34d1023c06",
-      "effectName": "抚慰之语·精准",
-      "effectTags": [],
-      "exclusiveDollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
-      "exclusiveDollName": "Cecilia",
-      "sources": [],
-      "interactions": []
-    },
-    {
-      "effectId": "84d26544-c08e-524a-95b1-ec39ac41c0a1",
-      "effectName": "抚慰之语·精准",
-      "effectTags": [],
-      "exclusiveDollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
-      "exclusiveDollName": "Cecilia",
-      "sources": [],
-      "interactions": [
-        {
-          "kind": "skill",
-          "relation": "mentions",
-          "levels": [
-            1
-          ],
-          "snippet": "普攻抚慰之语改为[effect:84d26544-c08e-524a-95b1-ec39ac41c0a1]，持续1个大回合，获得[effect:a45309b9-36e9-5091-85e8-c9b634da7086]，并为友方人形施加[effect:ec24afec-5369-5ad2-9e48-50b8b94ab3ea]，持续2个大回合，[effect:ec24afec-5369-5ad2-9e48-50b8b94ab3ea]吸收量为50%施加者攻击力，至多不超过100%目标最大生命值，不可叠加。该技能或主动技能正向回应每个大回合至多使用1次。",
-          "dollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
-          "dollName": "Cecilia",
-          "skillId": "10820701",
-          "skillName": "脱敏战术",
-          "skillType": "Active"
-        }
-      ]
-    },
-    {
-      "effectId": "d83cd9ac-5d7b-54d1-b18d-c3676e8164d5",
-      "effectName": "抚慰之语·精准",
-      "effectTags": [],
-      "exclusiveDollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
-      "exclusiveDollName": "Cecilia",
-      "sources": [],
-      "interactions": [
-        {
-          "kind": "skill",
-          "relation": "mentions",
-          "levels": [
-            2
-          ],
-          "snippet": "普攻抚慰之语改为[effect:d83cd9ac-5d7b-54d1-b18d-c3676e8164d5]，持续1个大回合，获得[effect:a45309b9-36e9-5091-85e8-c9b634da7086]，并为友方人形施加[effect:ec24afec-5369-5ad2-9e48-50b8b94ab3ea]，持续2个大回合，[effect:ec24afec-5369-5ad2-9e48-50b8b94ab3ea]吸收量为50%施加者攻击力，至多不超过100%目标最大生命值，不可叠加。该技能或主动技能正向回应每个大回合至多使用1次。",
-          "dollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
-          "dollName": "Cecilia",
-          "skillId": "10820701",
-          "skillName": "脱敏战术",
-          "skillType": "Active"
-        },
-        {
-          "kind": "vertebrae",
-          "relation": "mentions",
-          "snippet": "普攻抚慰之语改为[effect:d83cd9ac-5d7b-54d1-b18d-c3676e8164d5]，持续1个大回合，获得[effect:a45309b9-36e9-5091-85e8-c9b634da7086]，并为友方人形施加[effect:ec24afec-5369-5ad2-9e48-50b8b94ab3ea]，持续2个大回合，[effect:ec24afec-5369-5ad2-9e48-50b8b94ab3ea]吸收量为50%施加者攻击力，至多不超过100%目标最大生命值，不可叠加。该技能或主动技能正向回应每个大回合至多使用1次。",
-          "dollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
-          "dollName": "Cecilia",
-          "level": 2,
-          "segment": 2
-        }
-      ]
-    },
-    {
-      "effectId": "465cd92b-3a70-560e-8162-5753e3aff7c4",
-      "effectName": "抚慰之语·范围",
-      "effectTags": [],
-      "exclusiveDollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
-      "exclusiveDollName": "Cecilia",
-      "sources": [],
-      "interactions": [
-        {
-          "kind": "effect",
-          "relation": "mentions",
-          "snippet": "包含[effect:dcc15dfb-0183-51dc-97f8-b66f8c84437c]、[effect:465cd92b-3a70-560e-8162-5753e3aff7c4]、[effect:dd470e49-e6d7-5d21-b3a0-d9da8b72bd2b]。",
-          "effectId": "e382bc8b-c71a-5d0f-9060-629831b9771b",
-          "effectName": "抚慰之语",
-          "ownerDollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
-          "ownerDollName": "Cecilia"
-        }
-      ]
-    },
-    {
-      "effectId": "0658cfe4-731a-53e7-98b6-a8335168e09e",
-      "effectName": "抚慰之语·范围",
-      "effectTags": [],
-      "exclusiveDollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
-      "exclusiveDollName": "Cecilia",
-      "sources": [],
-      "interactions": []
-    },
-    {
-      "effectId": "bd8d5fd8-886f-5b6b-9324-4ad8d5400784",
-      "effectName": "抚慰之语·范围",
-      "effectTags": [],
-      "exclusiveDollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
-      "exclusiveDollName": "Cecilia",
-      "sources": [],
-      "interactions": [
-        {
-          "kind": "skill",
-          "relation": "mentions",
-          "levels": [
-            1,
-            2,
-            3
-          ],
-          "snippet": "当射程内的敌方单位受到来自友方的精准伤害时，若自身拥有[effect:bd8d5fd8-886f-5b6b-9324-4ad8d5400784]或[effect:f760543f-c665-5082-b2fb-d828cfe24f51]，消耗3点导染指数并对其进行1次[effect:40636efe-13a8-51e6-b891-46cea59d0e5c]，造成当前[effect:e382bc8b-c71a-5d0f-9060-629831b9771b]的技能效果，每个大回合至多触发3次，[effect:40636efe-13a8-51e6-b891-46cea59d0e5c]后自身获得…",
-          "dollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
-          "dollName": "Cecilia",
-          "skillId": "10820801",
-          "skillName": "安全至上原则",
-          "skillType": "Passive"
-        },
-        {
-          "kind": "vertebrae",
-          "relation": "mentions",
-          "snippet": "当射程内的敌方单位受到来自友方的精准伤害时，希丽雅获得1层[effect:297a3d81-39cd-5dc6-9545-18fca8d670cf]，持续2回合；若自身拥有[effect:bd8d5fd8-886f-5b6b-9324-4ad8d5400784]或[effect:f760543f-c665-5082-b2fb-d828cfe24f51]，消耗3点导染指数并对其进行1次[effect:40636efe-13a8-51e6-b891-46cea59d0e5c]，造成当前[effect:e382bc8b-c71a-5d0f-9060-629831b9771b]的技能效果，每个大…",
-          "dollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
-          "dollName": "Cecilia",
-          "level": 3,
-          "segment": 6
-        },
-        {
-          "kind": "vertebrae",
-          "relation": "mentions",
-          "snippet": "当射程内的敌方单位受到来自友方的精准伤害时，若自身拥有[effect:bd8d5fd8-886f-5b6b-9324-4ad8d5400784]或[effect:f760543f-c665-5082-b2fb-d828cfe24f51]，消耗3点导染指数并对其进行1次[effect:40636efe-13a8-51e6-b891-46cea59d0e5c]，造成当前[effect:e382bc8b-c71a-5d0f-9060-629831b9771b]的技能效果，每个大回合至多触发3次，[effect:40636efe-13a8-51e6-b891-46cea59d0e5c]后自身获得…",
-          "dollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
-          "dollName": "Cecilia",
-          "level": 2,
-          "segment": 4
-        }
-      ]
-    },
-    {
-      "effectId": "186542cc-3032-5e95-963b-8b2e787c3589",
-      "effectName": "抚慰之语·范围",
-      "effectTags": [],
-      "exclusiveDollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
-      "exclusiveDollName": "Cecilia",
-      "sources": [],
-      "interactions": []
-    },
-    {
-      "effectId": "7407a85b-5dfe-5873-9f70-c562fff498ca",
-      "effectName": "抚慰之语·范围",
-      "effectTags": [],
-      "exclusiveDollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
-      "exclusiveDollName": "Cecilia",
-      "sources": [],
-      "interactions": [
-        {
-          "kind": "skill",
-          "relation": "mentions",
-          "levels": [
-            1
-          ],
-          "snippet": "普攻抚慰之语改为[effect:7407a85b-5dfe-5873-9f70-c562fff498ca]，持续1个大回合，获得[effect:a45309b9-36e9-5091-85e8-c9b634da7086]，并为友方人形施加[effect:ec24afec-5369-5ad2-9e48-50b8b94ab3ea]，持续2个大回合，[effect:ec24afec-5369-5ad2-9e48-50b8b94ab3ea]吸收量为50%施加者攻击力，至多不超过100%目标最大生命值，不可叠加。该技能或主动技能脱敏战术每个大回合至多使用1次。",
-          "dollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
-          "dollName": "Cecilia",
-          "skillId": "10820501",
-          "skillName": "正向回应",
-          "skillType": "Active"
-        }
-      ]
-    },
-    {
-      "effectId": "0b39b016-60dd-5374-ab0e-cb695a9e88bb",
-      "effectName": "抚慰之语·范围",
-      "effectTags": [],
-      "exclusiveDollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
-      "exclusiveDollName": "Cecilia",
-      "sources": [],
-      "interactions": [
-        {
-          "kind": "skill",
-          "relation": "mentions",
-          "levels": [
-            2
-          ],
-          "snippet": "普攻抚慰之语改为[effect:0b39b016-60dd-5374-ab0e-cb695a9e88bb]，持续1个大回合，获得[effect:a45309b9-36e9-5091-85e8-c9b634da7086]，并为友方人形施加[effect:ec24afec-5369-5ad2-9e48-50b8b94ab3ea]，持续2个大回合，[effect:ec24afec-5369-5ad2-9e48-50b8b94ab3ea]吸收量为50%施加者攻击力，至多不超过100%目标最大生命值，不可叠加。该技能或主动技能脱敏战术每个大回合至多使用1次。",
-          "dollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
-          "dollName": "Cecilia",
-          "skillId": "10820501",
-          "skillName": "正向回应",
-          "skillType": "Active"
-        },
-        {
-          "kind": "vertebrae",
-          "relation": "mentions",
-          "snippet": "普攻抚慰之语改为[effect:0b39b016-60dd-5374-ab0e-cb695a9e88bb]，持续1个大回合，获得[effect:a45309b9-36e9-5091-85e8-c9b634da7086]，并为友方人形施加[effect:ec24afec-5369-5ad2-9e48-50b8b94ab3ea]，持续2个大回合，[effect:ec24afec-5369-5ad2-9e48-50b8b94ab3ea]吸收量为50%施加者攻击力，至多不超过100%目标最大生命值，不可叠加。该技能或主动技能脱敏战术每个大回合至多使用1次。",
-          "dollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
-          "dollName": "Cecilia",
-          "level": 2,
-          "segment": 1
-        }
-      ]
-    },
-    {
-      "effectId": "a37ad66d-0f60-5111-b5a5-4f0f0469e8da",
-      "effectName": "气躁",
-      "effectTags": [],
-      "exclusiveDollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
-      "exclusiveDollName": "Cecilia",
-      "sources": [],
-      "interactions": [
-        {
-          "kind": "effect",
-          "relation": "mentions",
-          "snippet": "选取周围半径8格内的1个敌方目标，对其及其周围5×5格内的所有敌方目标造成100%攻击力的范围燃烧伤害，并对其施加[effect:08760998-f8d7-51e6-88df-d96ac2c34e68]和[effect:a37ad66d-0f60-5111-b5a5-4f0f0469e8da]，持续2回合，并产生[effect:8c88b0bb-2566-5017-8fa1-a761e7767164]地格，持续2回合。",
-          "effectId": "0658cfe4-731a-53e7-98b6-a8335168e09e",
-          "effectName": "抚慰之语·范围",
-          "ownerDollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
-          "ownerDollName": "Cecilia"
-        },
-        {
-          "kind": "effect",
-          "relation": "mentions",
-          "snippet": "选取周围半径8格内的1个敌方目标，对其及其周围5×5格内的所有敌方目标造成70%攻击力的范围燃烧伤害，并对其施加[effect:08760998-f8d7-51e6-88df-d96ac2c34e68]和[effect:a37ad66d-0f60-5111-b5a5-4f0f0469e8da]，持续2回合，并产生[effect:8c88b0bb-2566-5017-8fa1-a761e7767164]地格，持续2回合。",
-          "effectId": "465cd92b-3a70-560e-8162-5753e3aff7c4",
-          "effectName": "抚慰之语·范围",
-          "ownerDollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
-          "ownerDollName": "Cecilia"
-        },
-        {
-          "kind": "effect",
-          "relation": "mentions",
-          "snippet": "选取周围半径8格内的1个敌方目标，对其及其周围5×5格内的所有敌方目标造成70%攻击力的范围燃烧伤害，并对其施加[effect:08760998-f8d7-51e6-88df-d96ac2c34e68]和[effect:a37ad66d-0f60-5111-b5a5-4f0f0469e8da]，持续2回合，并产生[effect:8c88b0bb-2566-5017-8fa1-a761e7767164]地格，持续2回合。",
-          "effectId": "7407a85b-5dfe-5873-9f70-c562fff498ca",
-          "effectName": "抚慰之语·范围",
-          "ownerDollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
-          "ownerDollName": "Cecilia"
-        }
-      ]
-    },
-    {
-      "effectId": "35a0d4ec-a169-5548-8ed9-c3215fe4174d",
-      "effectName": "气躁",
-      "effectTags": [],
-      "exclusiveDollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
-      "exclusiveDollName": "Cecilia",
-      "sources": [],
-      "interactions": [
-        {
-          "kind": "effect",
-          "relation": "mentions",
-          "snippet": "选取周围半径8格内的1个敌方目标，对其及其周围5×5格内的所有敌方目标造成100%攻击力的范围燃烧伤害，并对其施加[effect:08760998-f8d7-51e6-88df-d96ac2c34e68]和[effect:35a0d4ec-a169-5548-8ed9-c3215fe4174d]，持续2回合，并产生[effect:8c88b0bb-2566-5017-8fa1-a761e7767164]地格，持续2回合。",
-          "effectId": "0b39b016-60dd-5374-ab0e-cb695a9e88bb",
-          "effectName": "抚慰之语·范围",
-          "ownerDollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
-          "ownerDollName": "Cecilia"
-        }
-      ]
-    },
-    {
-      "effectId": "ebe9dcd4-f7f7-5595-a5ef-5133167a5854",
-      "effectName": "自我暗示",
-      "effectTags": [],
-      "exclusiveDollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
-      "exclusiveDollName": "Cecilia",
-      "sources": [],
-      "interactions": [
-        {
-          "kind": "effect",
-          "relation": "mentions",
-          "snippet": "选取周围半径8格内的1个敌方目标，对其造成100%攻击力的燃烧伤害，并施加[effect:08760998-f8d7-51e6-88df-d96ac2c34e68]，持续2回合，自身获得[effect:ebe9dcd4-f7f7-5595-a5ef-5133167a5854]，持续3回合。",
-          "effectId": "84d26544-c08e-524a-95b1-ec39ac41c0a1",
-          "effectName": "抚慰之语·精准",
-          "ownerDollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
-          "ownerDollName": "Cecilia"
-        },
-        {
-          "kind": "effect",
-          "relation": "mentions",
-          "snippet": "选取周围半径8格内的1个敌方目标，对其造成100%攻击力的燃烧伤害，并施加[effect:08760998-f8d7-51e6-88df-d96ac2c34e68]，持续2回合，自身获得[effect:ebe9dcd4-f7f7-5595-a5ef-5133167a5854]，持续3回合。",
-          "effectId": "dd470e49-e6d7-5d21-b3a0-d9da8b72bd2b",
-          "effectName": "抚慰之语·精准",
-          "ownerDollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
-          "ownerDollName": "Cecilia"
-        },
-        {
-          "kind": "effect",
-          "relation": "mentions",
-          "snippet": "选取周围半径8格内的1个敌方目标，对其造成130%攻击力的燃烧伤害，施加[effect:08760998-f8d7-51e6-88df-d96ac2c34e68]，持续2回合，并在其周围半径2格内产生[effect:8c88b0bb-2566-5017-8fa1-a761e7767164]地格，持续2回合，自身获得[effect:ebe9dcd4-f7f7-5595-a5ef-5133167a5854]，持续3回合。",
-          "effectId": "8e44dbfa-24c4-502a-8454-5ed8ed19722a",
-          "effectName": "抚慰之语·精准",
-          "ownerDollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
-          "ownerDollName": "Cecilia"
-        }
-      ]
-    },
-    {
-      "effectId": "432b5774-3535-574f-852e-9e5a17daa280",
-      "effectName": "自我暗示",
-      "effectTags": [],
-      "exclusiveDollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
-      "exclusiveDollName": "Cecilia",
-      "sources": [],
-      "interactions": [
-        {
-          "kind": "effect",
-          "relation": "mentions",
-          "snippet": "选取周围半径8格内的1个敌方目标，对其造成130%攻击力的燃烧伤害，施加[effect:08760998-f8d7-51e6-88df-d96ac2c34e68]，持续2回合，并在其周围半径2格内产生[effect:8c88b0bb-2566-5017-8fa1-a761e7767164]地格，持续2回合，自身获得[effect:432b5774-3535-574f-852e-9e5a17daa280]，持续3回合。",
-          "effectId": "d83cd9ac-5d7b-54d1-b18d-c3676e8164d5",
-          "effectName": "抚慰之语·精准",
-          "ownerDollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
-          "ownerDollName": "Cecilia"
-        }
-      ]
     }
   ],
   "unresolvedRefs": [
@@ -73079,47 +73229,47 @@
     },
     {
       "effectId": "ec24afec-5369-5ad2-9e48-50b8b94ab3ea",
-      "foundIn": "Cecilia/正向回应:description"
+      "foundIn": "Cecilia/Positive Response:description"
     },
     {
       "effectId": "ec24afec-5369-5ad2-9e48-50b8b94ab3ea",
-      "foundIn": "Cecilia/正向回应:descriptionLevel2"
+      "foundIn": "Cecilia/Positive Response:descriptionLevel2"
     },
     {
       "effectId": "ec24afec-5369-5ad2-9e48-50b8b94ab3ea",
-      "foundIn": "Cecilia/脱敏战术:description"
+      "foundIn": "Cecilia/Desensitization Tactics:description"
     },
     {
       "effectId": "ec24afec-5369-5ad2-9e48-50b8b94ab3ea",
-      "foundIn": "Cecilia/脱敏战术:descriptionLevel2"
+      "foundIn": "Cecilia/Desensitization Tactics:descriptionLevel2"
     },
     {
       "effectId": "0a36a37f-975e-5f14-8500-aa8bf9c55bd4",
-      "foundIn": "Cecilia/握手言和:descriptionLevel3"
+      "foundIn": "Cecilia/Reconciliation:descriptionLevel3"
     },
     {
       "effectId": "ec24afec-5369-5ad2-9e48-50b8b94ab3ea",
-      "foundIn": "Cecilia/安全至上原则:description"
+      "foundIn": "Cecilia/Safety First Principle:description"
     },
     {
       "effectId": "0a36a37f-975e-5f14-8500-aa8bf9c55bd4",
-      "foundIn": "Cecilia/安全至上原则:description"
+      "foundIn": "Cecilia/Safety First Principle:description"
     },
     {
       "effectId": "ec24afec-5369-5ad2-9e48-50b8b94ab3ea",
-      "foundIn": "Cecilia/安全至上原则:descriptionLevel2"
+      "foundIn": "Cecilia/Safety First Principle:descriptionLevel2"
     },
     {
       "effectId": "0a36a37f-975e-5f14-8500-aa8bf9c55bd4",
-      "foundIn": "Cecilia/安全至上原则:descriptionLevel2"
+      "foundIn": "Cecilia/Safety First Principle:descriptionLevel2"
     },
     {
       "effectId": "ec24afec-5369-5ad2-9e48-50b8b94ab3ea",
-      "foundIn": "Cecilia/安全至上原则:descriptionLevel3"
+      "foundIn": "Cecilia/Safety First Principle:descriptionLevel3"
     },
     {
       "effectId": "0a36a37f-975e-5f14-8500-aa8bf9c55bd4",
-      "foundIn": "Cecilia/安全至上原则:descriptionLevel3"
+      "foundIn": "Cecilia/Safety First Principle:descriptionLevel3"
     },
     {
       "effectId": "ec24afec-5369-5ad2-9e48-50b8b94ab3ea",
@@ -73199,11 +73349,11 @@
     },
     {
       "effectId": "ec24afec-5369-5ad2-9e48-50b8b94ab3ea",
-      "foundIn": "key:固键·无害伪装"
+      "foundIn": "key:Fixed Key - Harmless Guise"
     },
     {
       "effectId": "0a36a37f-975e-5f14-8500-aa8bf9c55bd4",
-      "foundIn": "key:固键·致命洞察"
+      "foundIn": "key:Fixed Key - Lethal Insight"
     },
     {
       "effectId": "bd0e4d2f-e59f-518d-9c7d-8d28cbf7606f",

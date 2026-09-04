@@ -542,17 +542,17 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://refittingroom.app/weapons/g36c</loc>
+    <lastmod>2026-09-04</lastmod>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://refittingroom.app/weapons/g36k-ksk</loc>
     <lastmod>2026-09-04</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://refittingroom.app/weapons/general-liu-rifle</loc>
-    <lastmod>2026-09-04</lastmod>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://refittingroom.app/weapons/gewehr-36-compact</loc>
     <lastmod>2026-09-04</lastmod>
     <priority>0.6</priority>
   </url>
@@ -862,17 +862,17 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://refittingroom.app/weapons/retired-g36c</loc>
+    <lastmod>2026-09-04</lastmod>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://refittingroom.app/weapons/retired-g36k-ksk</loc>
     <lastmod>2026-09-04</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://refittingroom.app/weapons/retired-general-liu-rifle</loc>
-    <lastmod>2026-09-04</lastmod>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://refittingroom.app/weapons/retired-gewehr-36-compact</loc>
     <lastmod>2026-09-04</lastmod>
     <priority>0.6</priority>
   </url>
