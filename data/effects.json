@@ -1,5 +1,5 @@
 {
-  "syncedAt": "2026-08-31T10:36:42.498Z",
+  "syncedAt": "2026-09-04T15:36:45.440Z",
   "effects": [
     {
       "id": "dac5ebf1-6294-539b-8bcc-cfa76eeff40d",
@@ -376,7 +376,7 @@
       "effectDetails": "Attack is increased by <span style=\"color: rgb(242, 108, 28);\">10%</span> of the initial attack of all allied Dolls (excluding OTs-14 herself). Accumulates damage amount dealt by OTs-14 apart from that dealt by the extra basic attack <span style=\"color: rgb(52, 135, 224);\">Critical Blast</span>. Cannot be cleansed.",
       "effectTags": [],
       "dollId": "173fe1dd-74ee-5fbc-ae09-15704379df3e",
-      "regionTag": "cn",
+      "regionTag": "en",
       "preview": false
     },
     {
@@ -439,7 +439,7 @@
       "effectDetails": "The range of basic attack and active skill is increased by <span style=\"color: rgb(242, 108, 28);\">1 tile</span>. When damage is dealt, for <span style=\"color: rgb(242, 108, 28);\">each tile</span> between this unit and the target, damage dealt is increased by <span style=\"color: rgb(242, 108, 28);\">5%</span>, to a maximum increase of <span style=\"color: rgb(242, 108, 28);\">30%</span>. When dealing targeted damage to enemy targets <span style=\"color: rgb(242, 108, 28);\">beyond 5 tiles</span>, ignores cover damage reduction. Considered a buff, cannot be cleansed.",
       "effectTags": [],
       "dollId": "e3d25747-0dc5-5cef-9c7a-e12f06115e03",
-      "regionTag": "cn",
+      "regionTag": "en",
       "preview": false
     },
     {
@@ -1006,7 +1006,7 @@
       "effectDetails": "Gains [effect:748b5d62-d60e-5e67-8968-ce1654a309d7]. Cannot be cleansed.",
       "effectTags": [],
       "dollId": "e3d25747-0dc5-5cef-9c7a-e12f06115e03",
-      "regionTag": "cn",
+      "regionTag": "en",
       "preview": false
     },
     {
@@ -1375,7 +1375,7 @@
       "effectDetails": "Includes [effect:bc84c700-652f-57a3-9bfd-40a231cc7fae] and [effect:95471441-510a-55f2-87c2-ed6fe23b1295].",
       "effectTags": [],
       "dollId": "173fe1dd-74ee-5fbc-ae09-15704379df3e",
-      "regionTag": "cn",
+      "regionTag": "en",
       "preview": false
     },
     {
@@ -1537,7 +1537,7 @@
       "effectDetails": "Gains [effect:748b5d62-d60e-5e67-8968-ce1654a309d7]. Cannot be cleansed.",
       "effectTags": [],
       "dollId": "e3d25747-0dc5-5cef-9c7a-e12f06115e03",
-      "regionTag": "cn",
+      "regionTag": "en",
       "preview": false
     },
     {
@@ -1609,7 +1609,7 @@
       "effectDetails": "Cannot be selected by enemy basic attacks and active skills. Considered a buff, cannot be cleansed.",
       "effectTags": [],
       "dollId": "e3d25747-0dc5-5cef-9c7a-e12f06115e03",
-      "regionTag": "cn",
+      "regionTag": "en",
       "preview": false
     },
     {
@@ -2914,7 +2914,7 @@
       "effectDetails": "All allied units' critical damage (excluding OTs-14 herself) is increased by <span style=\"color: rgb(242, 108, 28);\">15%</span> of OTs-14's initial critical damage. Accumulates the damage amount dealt by all allied units (excluding OTs-14 herself). Cannot be cleansed.",
       "effectTags": [],
       "dollId": "173fe1dd-74ee-5fbc-ae09-15704379df3e",
-      "regionTag": "cn",
+      "regionTag": "en",
       "preview": false
     },
     {
@@ -3211,7 +3211,7 @@
       "effectDetails": "After dealing targeted damage, if the target is not dead, deals AoE <span style=\"color: rgb(134, 121, 232);\">Corrosion damage</span> equal to <span style=\"color: rgb(242, 108, 28);\">60%</span> of attack and deals <span style=\"color: rgb(242, 108, 28);\">1 point</span> of stability damage to all enemy units <span style=\"color: rgb(242, 108, 28);\">within 3 tiles</span> of the target. If this effect triggers outside of Nemesis: Gnosis' turn, this attack is considered a [effect:40636efe-13a8-51e6-b891-46cea59d0e5c]. Cannot be cleansed.",
       "effectTags": [],
       "dollId": "e3d25747-0dc5-5cef-9c7a-e12f06115e03",
-      "regionTag": "cn",
+      "regionTag": "en",
       "preview": false
     },
     {
@@ -3247,7 +3247,7 @@
       "effectDetails": "The damage multiplier of [effect:c49d03ac-6481-5383-91a4-79c174a3b7dd]'s [effect:40636efe-13a8-51e6-b891-46cea59d0e5c] is increased by <span style=\"color: rgb(242, 108, 28);\">30%</span>. When attacking elite or boss units, ignores <span style=\"color: rgb(242, 108, 28);\">30%</span> of the target's defense and critical damage is increased by <span style=\"color: rgb(242, 108, 28);\">35%</span>. Considered a buff, cannot be cleansed.",
       "effectTags": [],
       "dollId": "e3d25747-0dc5-5cef-9c7a-e12f06115e03",
-      "regionTag": "cn",
+      "regionTag": "en",
       "preview": false
     },
     {
@@ -3607,7 +3607,7 @@
       "effectDetails": "When taking an attack from an enemy unit, damage taken is reduced by <span style=\"color: rgb(242, 108, 28);\">80%</span>. Maximum of <span style=\"color: rgb(242, 108, 28);\">1 stack</span>. Considered a buff, cannot be cleansed.",
       "effectTags": [],
       "dollId": "e3d25747-0dc5-5cef-9c7a-e12f06115e03",
-      "regionTag": "cn",
+      "regionTag": "en",
       "preview": false
     },
     {
@@ -11320,7 +11320,7 @@
       "effectDetails": "When the majority of allied Dolls (excluding OTs-14 herself) are of the <span style=\"color: rgb(230, 113, 41);\">Burn</span> attribute, OTs-14 gains [effect:6f8db73b-6d46-5475-9fa5-084cbe10c4f1].\nWhen the majority of allied Dolls (excluding OTs-14 herself) are of the <span style=\"color: rgb(212, 174, 8);\">Electric</span> attribute, OTs-14 gains [effect:067cc38e-83fc-562f-a042-10424c49dba0]. \nWhen the majority of allied Dolls (excluding OTs-14 herself) are of the <span style=\"color: rgb(66, 204, 224);\">Freeze</span> attribute, OTs-14 gains [effect:aabda62c-99db-5dfd-b311-a8d7b6e3e3ba]. \nWhen the majority of allied Dolls (excluding OTs-14 herself) are of the <span style=\"color: rgb(134, 121, 232);\">Corrosion</span> attribute, OTs-14 gains [effect:70d7fa88-4b58-570b-b05e-a53cb92d5d61]. \nWhen the majority of allied Dolls (excluding OTs-14 herself) are of the <span style=\"color: rgb(44, 170, 219);\">Hydro</span> attribute, OTs-14 gains [effect:3f3d5b87-a80c-52d1-9ffe-6bd5252f87a9]. \nWhen the majority of allied Dolls (excluding OTs-14 herself) are of the Physical attribute or two or more attributes are tied, OTs-14 gains [effect:992b4ac4-b193-57f1-9cba-1b800c10419e].",
       "effectTags": [],
       "dollId": "173fe1dd-74ee-5fbc-ae09-15704379df3e",
-      "regionTag": "cn",
+      "regionTag": "en",
       "preview": false
     },
     {
@@ -11473,7 +11473,7 @@
       "effectDetails": "The active skill <span style=\"color: rgb(52, 135, 224);\">Total Suppression</span> additionally generates <span style=\"color: rgb(52, 135, 224);\">Incineration</span> tiles for <span style=\"color: rgb(242, 108, 28);\">2 turns</span>.\nAt the start of the battle, gains <span style=\"color: rgb(52, 135, 224);\">Thermal Conduction</span>. After using the active skill <span style=\"color: rgb(52, 135, 224);\">Total Suppression</span>, gains <span style=\"color: rgb(242, 108, 28);\">13 points</span> of <span style=\"color: rgb(52, 135, 224);\">Searing Flame</span>. When allied units gain <span style=\"color: rgb(52, 135, 224);\">Ember</span>, cleanses <span style=\"color: rgb(242, 108, 28);\">1</span> debuff from them.",
       "effectTags": [],
       "dollId": "173fe1dd-74ee-5fbc-ae09-15704379df3e",
-      "regionTag": "cn",
+      "regionTag": "en",
       "preview": false
     },
     {
@@ -11482,7 +11482,7 @@
       "effectDetails": "When OTs-14 is in the <span style=\"color: rgb(52, 135, 224);\">Demolition Order</span> state, her attack is increased by <span style=\"color: rgb(242, 108, 28);\">50%</span>. For every <span style=\"color: rgb(242, 108, 28);\">15%</span> of her initial critical damage, she ignores <span style=\"color: rgb(242, 108, 28);\">5%</span> of the target's defense.",
       "effectTags": [],
       "dollId": "173fe1dd-74ee-5fbc-ae09-15704379df3e",
-      "regionTag": "cn",
+      "regionTag": "en",
       "preview": false
     },
     {
@@ -12246,7 +12246,7 @@
       "effectName": "Fragile II",
       "effectDetails": "Increase targeted damage taken by <span style=\"color: rgb(242, 108, 28);\">20%</span>. This is considered a defense debuff.",
       "effectTags": [],
-      "dollId": null,
+      "dollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
       "regionTag": "en",
       "preview": false
     },
@@ -12436,7 +12436,7 @@
       "effectDetails": "The active skill <span style=\"color: rgb(52, 135, 224);\">Total Suppression</span> additionally generates <span style=\"color: rgb(52, 135, 224);\">Toxic Mist</span> tiles for <span style=\"color: rgb(242, 108, 28);\">2 turns</span>.\nWhen enemy units take damage, damage taken is increased by <span style=\"color: rgb(242, 108, 28);\">2%</span> for <span style=\"color: rgb(242, 108, 28);\">each</span> debuff they have. The active skill <span style=\"color: rgb(52, 135, 224);\">Total Suppression</span> additionally triggers all Corrosion debuff effects on all enemy units within its effective area.",
       "effectTags": [],
       "dollId": "173fe1dd-74ee-5fbc-ae09-15704379df3e",
-      "regionTag": "cn",
+      "regionTag": "en",
       "preview": false
     },
     {
@@ -15298,7 +15298,7 @@
       "effectDetails": "Cannot move, turn, or benefit from cover. Immune to control effects. When OTs-14 has <span style=\"color: rgb(52, 135, 224);\">Overload Pulses</span>, she can use the extra basic attack [effect:1a707fc0-c9f0-5f68-a1bd-2dc44c77d454].",
       "effectTags": [],
       "dollId": "173fe1dd-74ee-5fbc-ae09-15704379df3e",
-      "regionTag": "cn",
+      "regionTag": "en",
       "preview": false
     },
     {
@@ -15433,7 +15433,7 @@
       "effectDetails": "When OTs-14 is in the [effect:bc84c700-652f-57a3-9bfd-40a231cc7fae] state, she switches to the [effect:95471441-510a-55f2-87c2-ed6fe23b1295] state. When OTs-14 is in the [effect:95471441-510a-55f2-87c2-ed6fe23b1295] state, she switches to [effect:bc84c700-652f-57a3-9bfd-40a231cc7fae] state. Only <span style=\"color: rgb(242, 108, 28);\">1</span> of either [effect:bc84c700-652f-57a3-9bfd-40a231cc7fae] or [effect:95471441-510a-55f2-87c2-ed6fe23b1295] can be active at any one time.",
       "effectTags": [],
       "dollId": "173fe1dd-74ee-5fbc-ae09-15704379df3e",
-      "regionTag": "cn",
+      "regionTag": "en",
       "preview": false
     },
     {
@@ -15469,7 +15469,7 @@
       "effectDetails": "Cannot move, turn, or benefit from cover. Immune to control effects. When OTs-14 has <span style=\"color: rgb(52, 135, 224);\">Overload Pulses</span>, she can use the extra basic attack [effect:9d877226-7f53-5728-bc4e-36ef6bf4b2fe].",
       "effectTags": [],
       "dollId": "173fe1dd-74ee-5fbc-ae09-15704379df3e",
-      "regionTag": "cn",
+      "regionTag": "en",
       "preview": false
     },
     {
@@ -15478,7 +15478,7 @@
       "effectDetails": "Attack is increased by <span style=\"color: rgb(242, 108, 28);\">15%</span> of the initial attack of all allied Dolls (excluding OTs-14 herself). Accumulates damage amount dealt by OTs-14 apart from that dealt by the extra basic attack <span style=\"color: rgb(52, 135, 224);\">Critical Blast</span>. Cannot be cleansed.",
       "effectTags": [],
       "dollId": "173fe1dd-74ee-5fbc-ae09-15704379df3e",
-      "regionTag": "cn",
+      "regionTag": "en",
       "preview": false
     },
     {
@@ -15496,7 +15496,7 @@
       "effectDetails": "<span style=\"color: rgb(242, 108, 28);\">{&1074}</span> damage accumulated by [effect:a67011bd-71a9-5605-9ba1-80dc29faf530].",
       "effectTags": [],
       "dollId": "173fe1dd-74ee-5fbc-ae09-15704379df3e",
-      "regionTag": "cn",
+      "regionTag": "en",
       "preview": false
     },
     {
@@ -15505,7 +15505,7 @@
       "effectDetails": "Used for showing special effects",
       "effectTags": [],
       "dollId": "173fe1dd-74ee-5fbc-ae09-15704379df3e",
-      "regionTag": "cn",
+      "regionTag": "en",
       "preview": false
     },
     {
@@ -15514,7 +15514,7 @@
       "effectDetails": "Used for showing special effects",
       "effectTags": [],
       "dollId": "173fe1dd-74ee-5fbc-ae09-15704379df3e",
-      "regionTag": "cn",
+      "regionTag": "en",
       "preview": false
     },
     {
@@ -15523,7 +15523,7 @@
       "effectDetails": "Used for showing special effects",
       "effectTags": [],
       "dollId": "173fe1dd-74ee-5fbc-ae09-15704379df3e",
-      "regionTag": "cn",
+      "regionTag": "en",
       "preview": false
     },
     {
@@ -15532,7 +15532,7 @@
       "effectDetails": "Used for showing special effects",
       "effectTags": [],
       "dollId": "173fe1dd-74ee-5fbc-ae09-15704379df3e",
-      "regionTag": "cn",
+      "regionTag": "en",
       "preview": false
     },
     {
@@ -15541,7 +15541,7 @@
       "effectDetails": "Used for showing special effects",
       "effectTags": [],
       "dollId": "173fe1dd-74ee-5fbc-ae09-15704379df3e",
-      "regionTag": "cn",
+      "regionTag": "en",
       "preview": false
     },
     {
@@ -15550,7 +15550,7 @@
       "effectDetails": "Used for showing special effects",
       "effectTags": [],
       "dollId": "173fe1dd-74ee-5fbc-ae09-15704379df3e",
-      "regionTag": "cn",
+      "regionTag": "en",
       "preview": false
     },
     {
@@ -15559,7 +15559,7 @@
       "effectDetails": "When enemy units <span style=\"color: rgb(242, 108, 28);\">within 9 tiles</span> take targeted damage or AoE damage from allied units, performs <span style=\"color: rgb(242, 108, 28);\">1 instance</span> of [effect:40636efe-13a8-51e6-b891-46cea59d0e5c], dealing <span style=\"color: rgb(134, 121, 232);\">Corrosion damage</span> equal to <span style=\"color: rgb(242, 108, 28);\">60%</span> of attack and deals <span style=\"color: rgb(242, 108, 28);\">1 point</span> of stability damage, and recovers <span style=\"color: rgb(242, 108, 28);\">1 point</span> of Confectance Index. Can trigger up to <span style=\"color: rgb(242, 108, 28);\">2 times</span> per turn. Cannot be cleansed.",
       "effectTags": [],
       "dollId": "e3d25747-0dc5-5cef-9c7a-e12f06115e03",
-      "regionTag": "cn",
+      "regionTag": "en",
       "preview": false
     },
     {
@@ -15568,7 +15568,7 @@
       "effectDetails": "When enemy units <span style=\"color: rgb(242, 108, 28);\">within 9 tiles</span> take targeted damage or AoE damage from allied units, performs <span style=\"color: rgb(242, 108, 28);\">1 instance</span> of [effect:40636efe-13a8-51e6-b891-46cea59d0e5c], dealing <span style=\"color: rgb(134, 121, 232);\">Corrosion damage</span> equal to <span style=\"color: rgb(242, 108, 28);\">110%</span> of attack and deals <span style=\"color: rgb(242, 108, 28);\">1 point</span> of stability damage, and recovers <span style=\"color: rgb(242, 108, 28);\">2 points</span> of Confectance Index. Can trigger up to <span style=\"color: rgb(242, 108, 28);\">3 times</span> per turn. Cannot be cleansed.",
       "effectTags": [],
       "dollId": "e3d25747-0dc5-5cef-9c7a-e12f06115e03",
-      "regionTag": "cn",
+      "regionTag": "en",
       "preview": false
     },
     {
@@ -15577,7 +15577,7 @@
       "effectDetails": "Critical damage is increased by <span style=\"color: rgb(242, 108, 28);\">5%</span>, to a maximum increase of <span style=\"color: rgb(242, 108, 28);\">30%</span>. Removes all stacks after expending mobility. Considered a buff, cannot be cleansed.",
       "effectTags": [],
       "dollId": "e3d25747-0dc5-5cef-9c7a-e12f06115e03",
-      "regionTag": "cn",
+      "regionTag": "en",
       "preview": false
     },
     {
@@ -15586,7 +15586,7 @@
       "effectDetails": "Gains <span style=\"color: rgb(242, 108, 28);\">1 stack</span> of [effect:a850632b-783c-5192-918b-a592819bc79d]. If there are no allied units <span style=\"color: rgb(242, 108, 28);\">within 4 tiles</span>, damage dealt is increased by <span style=\"color: rgb(242, 108, 28);\">60%</span>. At the start of the turn, gains <span style=\"color: rgb(242, 108, 28);\">1 stack</span> of [effect:a850632b-783c-5192-918b-a592819bc79d]. Cannot be cleansed.",
       "effectTags": [],
       "dollId": "e3d25747-0dc5-5cef-9c7a-e12f06115e03",
-      "regionTag": "cn",
+      "regionTag": "en",
       "preview": false
     },
     {
@@ -15595,7 +15595,7 @@
       "effectDetails": "Applies [effect:8585f4b3-bb13-5ba4-ba2e-e5d69b3a87ba] to all allied RF Dolls. Cannot be cleansed.",
       "effectTags": [],
       "dollId": "e3d25747-0dc5-5cef-9c7a-e12f06115e03",
-      "regionTag": "cn",
+      "regionTag": "en",
       "preview": false
     },
     {
@@ -15604,7 +15604,7 @@
       "effectDetails": "Damage dealt by [effect:40636efe-13a8-51e6-b891-46cea59d0e5c] is increased by <span style=\"color: rgb(242, 108, 28);\">50%</span>. Before performing [effect:40636efe-13a8-51e6-b891-46cea59d0e5c], gains <span style=\"color: rgb(242, 108, 28);\">1 stack</span> of [effect:c312f81f-07ef-5ab7-8d11-8b28d1128a75]. Cannot be cleansed.",
       "effectTags": [],
       "dollId": "e3d25747-0dc5-5cef-9c7a-e12f06115e03",
-      "regionTag": "cn",
+      "regionTag": "en",
       "preview": false
     },
     {
@@ -15613,7 +15613,7 @@
       "effectDetails": "Critical damage is increased by <span style=\"color: rgb(242, 108, 28);\">5%</span>. Stackable. Considered a buff, cannot be cleansed.",
       "effectTags": [],
       "dollId": "e3d25747-0dc5-5cef-9c7a-e12f06115e03",
-      "regionTag": "cn",
+      "regionTag": "en",
       "preview": false
     },
     {
@@ -15622,7 +15622,7 @@
       "effectDetails": "When taking an attack from an enemy unit, negates that damage. Maximum of <span style=\"color: rgb(242, 108, 28);\">1 stack</span>. Considered a buff, cannot be cleansed.",
       "effectTags": [],
       "dollId": "e3d25747-0dc5-5cef-9c7a-e12f06115e03",
-      "regionTag": "cn",
+      "regionTag": "en",
       "preview": false
     },
     {
@@ -15631,7 +15631,7 @@
       "effectDetails": "Gains <span style=\"color: rgb(242, 108, 28);\">1 stack</span> of [effect:7bb422b6-4a7a-53d2-b3ab-609457a40db1]. If there are no allied units <span style=\"color: rgb(242, 108, 28);\">within 4 tiles</span>, damage dealt is increased by <span style=\"color: rgb(242, 108, 28);\">60%</span>. At the start of the turn, gains <span style=\"color: rgb(242, 108, 28);\">1 stack</span> of [effect:7bb422b6-4a7a-53d2-b3ab-609457a40db1]. Cannot be cleansed.",
       "effectTags": [],
       "dollId": "e3d25747-0dc5-5cef-9c7a-e12f06115e03",
-      "regionTag": "cn",
+      "regionTag": "en",
       "preview": false
     },
     {
@@ -15649,7 +15649,7 @@
       "effectDetails": "Damage dealt by [effect:40636efe-13a8-51e6-b891-46cea59d0e5c] is increased by <span style=\"color: rgb(242, 108, 28);\">50%</span>. Before performing [effect:40636efe-13a8-51e6-b891-46cea59d0e5c], gains <span style=\"color: rgb(242, 108, 28);\">1 stack</span> of [effect:cc2f9bc9-67e4-56e3-b876-6a297803b937]. Cannot be cleansed.",
       "effectTags": [],
       "dollId": "e3d25747-0dc5-5cef-9c7a-e12f06115e03",
-      "regionTag": "cn",
+      "regionTag": "en",
       "preview": false
     },
     {
@@ -15802,7 +15802,7 @@
       "effectDetails": "After dealing targeted damage, if the target is not dead, deals AoE <span style=\"color: rgb(134, 121, 232);\">Corrosion damage</span> equal to <span style=\"color: rgb(242, 108, 28);\">80%</span> of attack and <span style=\"color: rgb(242, 108, 28);\">1 point</span> of stability damage to all enemy units <span style=\"color: rgb(242, 108, 28);\">within 4 tiles</span> of the target. If this effect triggers outside of Nemesis: Gnosis' turn, this attack is considered a [effect:40636efe-13a8-51e6-b891-46cea59d0e5c]. Cannot be cleansed.",
       "effectTags": [],
       "dollId": "e3d25747-0dc5-5cef-9c7a-e12f06115e03",
-      "regionTag": "cn",
+      "regionTag": "en",
       "preview": false
     },
     {
@@ -15811,7 +15811,7 @@
       "effectDetails": "The damage multiplier of [effect:684f1e9f-6b4e-52ce-bf7a-419d7395faf3]'s [effect:40636efe-13a8-51e6-b891-46cea59d0e5c] is increased by <span style=\"color: rgb(242, 108, 28);\">40%</span>. When attacking elite or boss units, ignores <span style=\"color: rgb(242, 108, 28);\">35%</span> of the target's defense, critical damage is increased by <span style=\"color: rgb(242, 108, 28);\">40%</span> and damage dealt is increased by <span style=\"color: rgb(242, 108, 28);\">20%</span>. Considered a buff, cannot be cleansed.",
       "effectTags": [],
       "dollId": "e3d25747-0dc5-5cef-9c7a-e12f06115e03",
-      "regionTag": "cn",
+      "regionTag": "en",
       "preview": false
     },
     {
@@ -15820,7 +15820,7 @@
       "effectDetails": "The range of basic attack and active skill is increased by <span style=\"color: rgb(242, 108, 28);\">1 tile</span>. When damage is dealt, for <span style=\"color: rgb(242, 108, 28);\">each tile</span> between this unit and the target, damage dealt is increased by <span style=\"color: rgb(242, 108, 28);\">10%</span>, to a maximum increase of <span style=\"color: rgb(242, 108, 28);\">60%</span>. When dealing targeted damage to enemy targets, ignores cover damage reduction. Considered a buff, cannot be cleansed.",
       "effectTags": [],
       "dollId": "e3d25747-0dc5-5cef-9c7a-e12f06115e03",
-      "regionTag": "cn",
+      "regionTag": "en",
       "preview": false
     },
     {
@@ -15829,7 +15829,7 @@
       "effectDetails": "The damage multiplier of [effect:684f1e9f-6b4e-52ce-bf7a-419d7395faf3]'s [effect:40636efe-13a8-51e6-b891-46cea59d0e5c] is increased by <span style=\"color: rgb(242, 108, 28);\">30%</span>. When attacking elite or boss units, ignores <span style=\"color: rgb(242, 108, 28);\">30%</span> of the target's defense and critical damage is increased by <span style=\"color: rgb(242, 108, 28);\">35%</span>. Considered a buff, cannot be cleansed.",
       "effectTags": [],
       "dollId": "e3d25747-0dc5-5cef-9c7a-e12f06115e03",
-      "regionTag": "cn",
+      "regionTag": "en",
       "preview": false
     },
     {
@@ -18610,7 +18610,7 @@
       "effectDetails": "Mobility decreased by <span style=\"color: rgb(242, 108, 28);\">3 tiles</span>. Movement debuff.",
       "effectTags": [],
       "dollId": "173fe1dd-74ee-5fbc-ae09-15704379df3e",
-      "regionTag": "cn",
+      "regionTag": "en",
       "preview": false
     },
     {
@@ -19888,7 +19888,7 @@
       "effectDetails": "After dealing damage, applies [effect:fa1774c0-4bab-577f-a82e-6c86a39ea42b] to the target for <span style=\"color: rgb(242, 108, 28);\">1 turn</span>. Cannot be cleansed.",
       "effectTags": [],
       "dollId": "e3d25747-0dc5-5cef-9c7a-e12f06115e03",
-      "regionTag": "cn",
+      "regionTag": "en",
       "preview": false
     },
     {
@@ -20077,7 +20077,7 @@
       "effectDetails": "Cannot be selected by enemy basic attacks and active skills. Considered a buff, cannot be cleansed.",
       "effectTags": [],
       "dollId": "e3d25747-0dc5-5cef-9c7a-e12f06115e03",
-      "regionTag": "cn",
+      "regionTag": "en",
       "preview": false
     },
     {
@@ -21067,7 +21067,7 @@
       "effectDetails": "Cannot move, turn, or benefit from cover. Immune to control effects. When OTs-14 has <span style=\"color: rgb(52, 135, 224);\">Overload Pulses</span>, she can use the extra basic attack [effect:1a707fc0-c9f0-5f68-a1bd-2dc44c77d454]. <span style=\"color: rgb(242, 108, 28);\">Each time</span> [effect:1a707fc0-c9f0-5f68-a1bd-2dc44c77d454] was used in the current round, the damage multiplier of the next instance of [effect:1a707fc0-c9f0-5f68-a1bd-2dc44c77d454] is increased by <span style=\"color: rgb(242, 108, 28);\">50%</span>, while the fixed damage multiplier from expending <span style=\"color: rgb(52, 135, 224);\">Overload Pulses</span> is increased by <span style=\"color: rgb(242, 108, 28);\">10%</span>.",
       "effectTags": [],
       "dollId": "173fe1dd-74ee-5fbc-ae09-15704379df3e",
-      "regionTag": "cn",
+      "regionTag": "en",
       "preview": false
     },
     {
@@ -21112,7 +21112,7 @@
       "effectDetails": "All allied units' critical damage (excluding OTs-14 herself) is increased by <span style=\"color: rgb(242, 108, 28);\">10%</span> of OTs-14's initial critical damage. Accumulates the damage amount dealt by all allied units (excluding OTs-14 herself). Cannot be cleansed.",
       "effectTags": [],
       "dollId": "173fe1dd-74ee-5fbc-ae09-15704379df3e",
-      "regionTag": "cn",
+      "regionTag": "en",
       "preview": false
     },
     {
@@ -21445,7 +21445,7 @@
       "effectDetails": "After dealing damage, applies [effect:fa1774c0-4bab-577f-a82e-6c86a39ea42b] to the target for <span style=\"color: rgb(242, 108, 28);\">1 turn</span>. Cannot be cleansed.",
       "effectTags": [],
       "dollId": "e3d25747-0dc5-5cef-9c7a-e12f06115e03",
-      "regionTag": "cn",
+      "regionTag": "en",
       "preview": false
     },
     {
@@ -21463,7 +21463,7 @@
       "effectDetails": "Applies [effect:2ffc48dd-a557-5dcb-9797-d16d060883ef] to all allied RF Dolls. Cannot be cleansed.",
       "effectTags": [],
       "dollId": "e3d25747-0dc5-5cef-9c7a-e12f06115e03",
-      "regionTag": "cn",
+      "regionTag": "en",
       "preview": false
     },
     {
@@ -21570,7 +21570,7 @@
       "effectName": "Coverage Boost II",
       "effectDetails": "Increase AoE damage by <span style=\"color: rgb(242, 108, 28);\">20%</span>. This is considered a buff.",
       "effectTags": [],
-      "dollId": null,
+      "dollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
       "regionTag": "en",
       "preview": false
     },
@@ -26116,7 +26116,7 @@
       "effectDetails": "When enemy units take damage, damage taken is increased by <span style=\"color: rgb(242, 108, 28);\">2%</span> for <span style=\"color: rgb(242, 108, 28);\">each</span> debuff they have.",
       "effectTags": [],
       "dollId": "173fe1dd-74ee-5fbc-ae09-15704379df3e",
-      "regionTag": "cn",
+      "regionTag": "en",
       "preview": false
     },
     {
@@ -26125,7 +26125,7 @@
       "effectDetails": "For <span style=\"color: rgb(242, 108, 28);\">each</span> allied unit on the battlefield, damage dealt by all allied units is increased by <span style=\"color: rgb(242, 108, 28);\">2%</span>.",
       "effectTags": [],
       "dollId": "173fe1dd-74ee-5fbc-ae09-15704379df3e",
-      "regionTag": "cn",
+      "regionTag": "en",
       "preview": false
     },
     {
@@ -26134,7 +26134,7 @@
       "effectDetails": "When OTs-14 is in the <span style=\"color: rgb(52, 135, 224);\">Demolition Order</span> state, her attack is increased by <span style=\"color: rgb(242, 108, 28);\">30%</span>.",
       "effectTags": [],
       "dollId": "173fe1dd-74ee-5fbc-ae09-15704379df3e",
-      "regionTag": "cn",
+      "regionTag": "en",
       "preview": false
     },
     {
@@ -31390,7 +31390,7 @@
       "effectDetails": "Selects a tile <span style=\"color: rgb(242, 108, 28);\">within a 3-to-10-tile area in front</span>. Deals AoE <span style=\"color: rgb(229, 41, 85);\">Resonance Damage</span> equal to <span style=\"color: rgb(242, 108, 28);\">150%</span> of attack and deals <span style=\"color: rgb(242, 108, 28);\">2 points</span> of stability damage to all enemy targets <span style=\"color: rgb(242, 108, 28);\">within 3 tiles</span> of the target tile. Expends <span style=\"color: rgb(242, 108, 28);\">1 point</span> of [effect:a2250d7b-87ce-59e5-9164-96e38c6e0358] to deal additional fixed damage equal to <span style=\"color: rgb(242, 108, 28);\">10%</span> of the damage amount accumulated from that point of [effect:a2250d7b-87ce-59e5-9164-96e38c6e0358].",
       "effectTags": [],
       "dollId": "173fe1dd-74ee-5fbc-ae09-15704379df3e",
-      "regionTag": "cn",
+      "regionTag": "en",
       "preview": false
     },
     {
@@ -31471,7 +31471,7 @@
       "effectDetails": "The active skill <span style=\"color: rgb(52, 135, 224);\">Total Suppression</span> additionally generates <span style=\"color: rgb(52, 135, 224);\">Voltage</span> tiles for <span style=\"color: rgb(242, 108, 28);\">2 turns</span>.\nDamage dealt by allied units to targets in Stability Break is increased by <span style=\"color: rgb(242, 108, 28);\">15%</span>. When enemy units suffer Stability Break, all allied units recover <span style=\"color: rgb(242, 108, 28);\">1 point</span> of stability index.",
       "effectTags": [],
       "dollId": "173fe1dd-74ee-5fbc-ae09-15704379df3e",
-      "regionTag": "cn",
+      "regionTag": "en",
       "preview": false
     },
     {
@@ -31480,7 +31480,7 @@
       "effectDetails": "The active skill <span style=\"color: rgb(52, 135, 224);\">Total Suppression</span> additionally generates <span style=\"color: rgb(52, 135, 224);\">Frost</span> tiles for <span style=\"color: rgb(242, 108, 28);\">2 turns</span>.\nWhen allied units deal damage, their attack is increased by <span style=\"color: rgb(242, 108, 28);\">10%</span> of their shield value. If they have shield effects, damage dealt is increased by <span style=\"color: rgb(242, 108, 28);\">15%</span>.",
       "effectTags": [],
       "dollId": "173fe1dd-74ee-5fbc-ae09-15704379df3e",
-      "regionTag": "cn",
+      "regionTag": "en",
       "preview": false
     },
     {
@@ -31489,7 +31489,7 @@
       "effectDetails": "The active skill <span style=\"color: rgb(52, 135, 224);\">Total Suppression</span> additionally generates <span style=\"color: rgb(52, 135, 224);\">Tideway</span> tiles for <span style=\"color: rgb(242, 108, 28);\">2 turns</span>.\nFor <span style=\"color: rgb(242, 108, 28);\">each</span> allied unit on the battlefield, damage dealt by all allied units is increased by <span style=\"color: rgb(242, 108, 28);\">2%</span>, and the attack and Max HP of all allied <span style=\"color: rgb(52, 135, 224);\">physical summons</span> are increased by <span style=\"color: rgb(242, 108, 28);\">1%</span>.",
       "effectTags": [],
       "dollId": "173fe1dd-74ee-5fbc-ae09-15704379df3e",
-      "regionTag": "cn",
+      "regionTag": "en",
       "preview": false
     },
     {
@@ -33559,7 +33559,7 @@
       "effectDetails": "At the start of the battle, gains <span style=\"color: rgb(52, 135, 224);\">Thermal Conduction</span>. After using the active skill <span style=\"color: rgb(52, 135, 224);\">Total Suppression</span>, gains <span style=\"color: rgb(242, 108, 28);\">13 points</span> of <span style=\"color: rgb(52, 135, 224);\">Searing Flame</span>.",
       "effectTags": [],
       "dollId": "173fe1dd-74ee-5fbc-ae09-15704379df3e",
-      "regionTag": "cn",
+      "regionTag": "en",
       "preview": false
     },
     {
@@ -33568,7 +33568,7 @@
       "effectDetails": "When allied units deal damage, if they have shield effects, damage dealt is increased by <span style=\"color: rgb(242, 108, 28);\">15%</span>.",
       "effectTags": [],
       "dollId": "173fe1dd-74ee-5fbc-ae09-15704379df3e",
-      "regionTag": "cn",
+      "regionTag": "en",
       "preview": false
     },
     {
@@ -34936,7 +34936,7 @@
       "effectDetails": "Includes [effect:bc84c700-652f-57a3-9bfd-40a231cc7fae] and [effect:95471441-510a-55f2-87c2-ed6fe23b1295].",
       "effectTags": [],
       "dollId": "173fe1dd-74ee-5fbc-ae09-15704379df3e",
-      "regionTag": "cn",
+      "regionTag": "en",
       "preview": false
     },
     {
@@ -34945,7 +34945,7 @@
       "effectDetails": "OTs-14's exclusive resource.",
       "effectTags": [],
       "dollId": "173fe1dd-74ee-5fbc-ae09-15704379df3e",
-      "regionTag": "cn",
+      "regionTag": "en",
       "preview": false
     },
     {
@@ -34972,7 +34972,7 @@
       "effectDetails": "Selects a tile <span style=\"color: rgb(242, 108, 28);\">within a 3-to-10-tile area in front</span>. Deals AoE <span style=\"color: rgb(229, 41, 85);\">Resonance Damage</span> equal to <span style=\"color: rgb(242, 108, 28);\">200%</span> of attack and deals <span style=\"color: rgb(242, 108, 28);\">2 points</span> of stability damage to all enemy targets <span style=\"color: rgb(242, 108, 28);\">within 5 tiles</span> of the target tile. Expends <span style=\"color: rgb(242, 108, 28);\">1 point</span> of [effect:a2250d7b-87ce-59e5-9164-96e38c6e0358] to deal additional fixed damage equal to <span style=\"color: rgb(242, 108, 28);\">10%</span> of the damage amount accumulated from that point of [effect:a2250d7b-87ce-59e5-9164-96e38c6e0358].",
       "effectTags": [],
       "dollId": "173fe1dd-74ee-5fbc-ae09-15704379df3e",
-      "regionTag": "cn",
+      "regionTag": "en",
       "preview": false
     },
     {
@@ -35431,7 +35431,7 @@
       "effectDetails": "When the majority of allied Dolls (excluding OTs-14 herself) are of the <span style=\"color: rgb(230, 113, 41);\">Burn</span> attribute, OTs-14 gains [effect:e032aca8-f1da-5fe9-be16-da4075466b9c].\nWhen the majority of allied Dolls (excluding OTs-14 herself) are of the <span style=\"color: rgb(212, 174, 8);\">Electric</span> attribute, OTs-14 gains [effect:b0a88ef8-f2f5-5ff3-a6e2-fdc676264b7e]. \nWhen the majority of allied Dolls (excluding OTs-14 herself) are of the <span style=\"color: rgb(66, 204, 224);\">Freeze</span> attribute, OTs-14 gains [effect:aaac0027-6385-50a5-82db-373be0ca1bf8]. \nWhen the majority of allied Dolls (excluding OTs-14 herself) are of the <span style=\"color: rgb(134, 121, 232);\">Corrosion</span> attribute, OTs-14 gains [effect:e3976794-546f-5c90-bf8b-165b4c177d38]. \nWhen the majority of allied Dolls (excluding OTs-14 herself) are of the <span style=\"color: rgb(44, 170, 219);\">Hydro</span> attribute, OTs-14 gains [effect:265e8289-0b0d-570b-9595-5b2c4646f8c8]. \nWhen the majority of allied Dolls (excluding OTs-14 herself) are of the Physical attribute or two or more attributes are tied, OTs-14 gains [effect:5682d4fe-1750-52ef-ab67-45af973309db].",
       "effectTags": [],
       "dollId": "173fe1dd-74ee-5fbc-ae09-15704379df3e",
-      "regionTag": "cn",
+      "regionTag": "en",
       "preview": false
     },
     {
@@ -35440,7 +35440,7 @@
       "effectDetails": "Damage dealt by allied units to targets in Stability Break is increased by <span style=\"color: rgb(242, 108, 28);\">15%</span>.",
       "effectTags": [],
       "dollId": "173fe1dd-74ee-5fbc-ae09-15704379df3e",
-      "regionTag": "cn",
+      "regionTag": "en",
       "preview": false
     },
     {
@@ -36440,6 +36440,222 @@
       "effectTags": [],
       "dollId": null,
       "regionTag": "en",
+      "preview": false
+    },
+    {
+      "id": "80afe3ea-4031-52c1-bb11-bd2c705aa3d5",
+      "effectName": "守望",
+      "effectDetails": "希丽雅[effect:40636efe-13a8-51e6-b891-46cea59d0e5c]所需的导染指数不足时，可消耗该效果额外进行<span style=\"color: rgb(242, 108, 28);\">1次</span>[effect:40636efe-13a8-51e6-b891-46cea59d0e5c]。不可驱散。",
+      "effectTags": [],
+      "dollId": "fb12e551-6e4b-5554-a1a4-122b989dcd7a",
+      "regionTag": "cn",
+      "preview": false
+    },
+    {
+      "id": "51a33c71-f778-58ed-b706-be1ad1607381",
+      "effectName": "扭曲的情感",
+      "effectDetails": "受到<span style=\"color: rgb(134, 121, 232);\">酸蚀伤害</span>时，若持有者处于敌方酸蚀类地格，受到的伤害提高<span style=\"color: rgb(242, 108, 28);\">30%</span>，受到的暴击伤害提高<span style=\"color: rgb(242, 108, 28);\">15%</span>。酸蚀类防御减益不可驱散。",
+      "effectTags": [],
+      "dollId": "495bc361-0504-57f6-90cc-192ff68cd0e4",
+      "regionTag": "cn",
+      "preview": false
+    },
+    {
+      "id": "e382bc8b-c71a-5d0f-9060-629831b9771b",
+      "effectName": "抚慰之语",
+      "effectDetails": "包含[effect:dcc15dfb-0183-51dc-97f8-b66f8c84437c]、[effect:465cd92b-3a70-560e-8162-5753e3aff7c4]、[effect:dd470e49-e6d7-5d21-b3a0-d9da8b72bd2b]。",
+      "effectTags": [],
+      "dollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
+      "regionTag": "cn",
+      "preview": false
+    },
+    {
+      "id": "dcc15dfb-0183-51dc-97f8-b66f8c84437c",
+      "effectName": "抚慰之语",
+      "effectDetails": "Selects one enemy target within <span style=\"color: rgb(242, 108, 28);\">8 tiles</span> and deals Physical damage equal to <span style=\"color: rgb(242, 108, 28);\">80%</span> of attack to it.",
+      "effectTags": [],
+      "dollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
+      "regionTag": "cn",
+      "preview": false
+    },
+    {
+      "id": "465cd92b-3a70-560e-8162-5753e3aff7c4",
+      "effectName": "抚慰之语·范围",
+      "effectDetails": "选取<span style=\"color: rgb(242, 108, 28);\">周围半径8格内</span>的1个敌方目标，对其及其<span style=\"color: rgb(242, 108, 28);\">周围5×5格内</span>的所有敌方目标造成<span style=\"color: rgb(242, 108, 28);\">70%</span>攻击力的范围<span style=\"color: rgb(230, 113, 41);\">燃烧伤害</span>，并对其施加[effect:08760998-f8d7-51e6-88df-d96ac2c34e68]和[effect:a37ad66d-0f60-5111-b5a5-4f0f0469e8da]，持续<span style=\"color: rgb(242, 108, 28);\">2回合</span>，并产生[effect:8c88b0bb-2566-5017-8fa1-a761e7767164]地格，持续<span style=\"color: rgb(242, 108, 28);\">2回合</span>。",
+      "effectTags": [],
+      "dollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
+      "regionTag": "cn",
+      "preview": false
+    },
+    {
+      "id": "0658cfe4-731a-53e7-98b6-a8335168e09e",
+      "effectName": "抚慰之语·范围",
+      "effectDetails": "选取<span style=\"color: rgb(242, 108, 28);\">周围半径8格内</span>的1个敌方目标，对其及其<span style=\"color: rgb(242, 108, 28);\">周围5×5格内</span>的所有敌方目标造成<span style=\"color: rgb(242, 108, 28);\">100%</span>攻击力的范围<span style=\"color: rgb(230, 113, 41);\">燃烧伤害</span>，并对其施加[effect:08760998-f8d7-51e6-88df-d96ac2c34e68]和[effect:a37ad66d-0f60-5111-b5a5-4f0f0469e8da]，持续<span style=\"color: rgb(242, 108, 28);\">2回合</span>，并产生[effect:8c88b0bb-2566-5017-8fa1-a761e7767164]地格，持续<span style=\"color: rgb(242, 108, 28);\">2回合</span>。",
+      "effectTags": [],
+      "dollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
+      "regionTag": "cn",
+      "preview": false
+    },
+    {
+      "id": "dd470e49-e6d7-5d21-b3a0-d9da8b72bd2b",
+      "effectName": "抚慰之语·精准",
+      "effectDetails": "选取<span style=\"color: rgb(242, 108, 28);\">周围半径8格内</span>的1个敌方目标，对其造成<span style=\"color: rgb(242, 108, 28);\">100%</span>攻击力的<span style=\"color: rgb(230, 113, 41);\">燃烧伤害</span>，并施加[effect:08760998-f8d7-51e6-88df-d96ac2c34e68]，持续<span style=\"color: rgb(242, 108, 28);\">2回合</span>，自身获得[effect:ebe9dcd4-f7f7-5595-a5ef-5133167a5854]，持续<span style=\"color: rgb(242, 108, 28);\">3回合</span>。",
+      "effectTags": [],
+      "dollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
+      "regionTag": "cn",
+      "preview": false
+    },
+    {
+      "id": "8e44dbfa-24c4-502a-8454-5ed8ed19722a",
+      "effectName": "抚慰之语·精准",
+      "effectDetails": "选取<span style=\"color: rgb(242, 108, 28);\">周围半径8格内</span>的1个敌方目标，对其造成<span style=\"color: rgb(242, 108, 28);\">130%</span>攻击力的<span style=\"color: rgb(230, 113, 41);\">燃烧伤害</span>，施加[effect:08760998-f8d7-51e6-88df-d96ac2c34e68]，持续<span style=\"color: rgb(242, 108, 28);\">2回合</span>，并在其<span style=\"color: rgb(242, 108, 28);\">周围半径2格内</span>产生[effect:8c88b0bb-2566-5017-8fa1-a761e7767164]地格，持续<span style=\"color: rgb(242, 108, 28);\">2回合</span>，自身获得[effect:ebe9dcd4-f7f7-5595-a5ef-5133167a5854]，持续<span style=\"color: rgb(242, 108, 28);\">3回合</span>。",
+      "effectTags": [],
+      "dollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
+      "regionTag": "cn",
+      "preview": false
+    },
+    {
+      "id": "a37ad66d-0f60-5111-b5a5-4f0f0469e8da",
+      "effectName": "气躁",
+      "effectDetails": "受到来自希丽雅的伤害提高<span style=\"color: rgb(242, 108, 28);\">30%</span>。减益不可驱散。",
+      "effectTags": [],
+      "dollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
+      "regionTag": "cn",
+      "preview": false
+    },
+    {
+      "id": "ebe9dcd4-f7f7-5595-a5ef-5133167a5854",
+      "effectName": "自我暗示",
+      "effectDetails": "造成的<span style=\"color: rgb(230, 113, 41);\">燃烧伤害</span>提高<span style=\"color: rgb(242, 108, 28);\">15%</span>，暴击率提高<span style=\"color: rgb(242, 108, 28);\">25%</span>，暴击伤害提高<span style=\"color: rgb(242, 108, 28);\">25%</span>。友方单位（不包含自身）进行回合外攻击后，若造成<span style=\"color: rgb(230, 113, 41);\">燃烧伤害</span>，或使用普攻后，希丽雅恢复<span style=\"color: rgb(242, 108, 28);\">5%</span>最大生命值的生命值（满足多个条件时仅生效<span style=\"color: rgb(242, 108, 28);\">1次</span>）。燃烧类增益不可驱散。",
+      "effectTags": [],
+      "dollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
+      "regionTag": "cn",
+      "preview": false
+    },
+    {
+      "id": "35a0d4ec-a169-5548-8ed9-c3215fe4174d",
+      "effectName": "气躁",
+      "effectDetails": "受到来自希丽雅的伤害提高<span style=\"color: rgb(242, 108, 28);\">60%</span>。减益不可驱散。",
+      "effectTags": [],
+      "dollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
+      "regionTag": "cn",
+      "preview": false
+    },
+    {
+      "id": "432b5774-3535-574f-852e-9e5a17daa280",
+      "effectName": "自我暗示",
+      "effectDetails": "造成的<span style=\"color: rgb(230, 113, 41);\">燃烧伤害</span>提高<span style=\"color: rgb(242, 108, 28);\">30%</span>，暴击率提高<span style=\"color: rgb(242, 108, 28);\">50%</span>，暴击伤害提高<span style=\"color: rgb(242, 108, 28);\">50%</span>。友方单位（不包含自身）进行回合外攻击后，若造成<span style=\"color: rgb(230, 113, 41);\">燃烧伤害</span>，或使用普攻后，希丽雅恢复<span style=\"color: rgb(242, 108, 28);\">5%</span>最大生命值的生命值（满足多个条件时仅生效<span style=\"color: rgb(242, 108, 28);\">1次</span>）。燃烧类增益不可驱散。",
+      "effectTags": [],
+      "dollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
+      "regionTag": "cn",
+      "preview": false
+    },
+    {
+      "id": "bd8d5fd8-886f-5b6b-9324-4ad8d5400784",
+      "effectName": "抚慰之语·范围",
+      "effectDetails": "希丽雅专属标记，使普攻改为<span style=\"color: rgb(52, 135, 224);\">抚慰之语·范围</span>。",
+      "effectTags": [],
+      "dollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
+      "regionTag": "cn",
+      "preview": false
+    },
+    {
+      "id": "186542cc-3032-5e95-963b-8b2e787c3589",
+      "effectName": "抚慰之语·范围",
+      "effectDetails": "希丽雅专属标记，使普攻改为<span style=\"color: rgb(52, 135, 224);\">抚慰之语·范围</span>。",
+      "effectTags": [],
+      "dollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
+      "regionTag": "cn",
+      "preview": false
+    },
+    {
+      "id": "f760543f-c665-5082-b2fb-d828cfe24f51",
+      "effectName": "抚慰之语·精准",
+      "effectDetails": "希丽雅专属标记，使普攻改为<span style=\"color: rgb(52, 135, 224);\">抚慰之语·精准</span>。",
+      "effectTags": [],
+      "dollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
+      "regionTag": "cn",
+      "preview": false
+    },
+    {
+      "id": "a6230243-4142-5a2e-9d08-0d34d1023c06",
+      "effectName": "抚慰之语·精准",
+      "effectDetails": "希丽雅专属标记，使普攻改为<span style=\"color: rgb(52, 135, 224);\">抚慰之语·精准</span>。",
+      "effectTags": [],
+      "dollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
+      "regionTag": "cn",
+      "preview": false
+    },
+    {
+      "id": "297a3d81-39cd-5dc6-9545-18fca8d670cf",
+      "effectName": "悉心倾力",
+      "effectDetails": "暴击率提高<span style=\"color: rgb(242, 108, 28);\">4%</span>，攻击力提高<span style=\"color: rgb(242, 108, 28);\">4%</span>，至多叠加<span style=\"color: rgb(242, 108, 28);\">3层</span>。增益不可驱散。",
+      "effectTags": [],
+      "dollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
+      "regionTag": "cn",
+      "preview": false
+    },
+    {
+      "id": "1d7ab183-0421-5f1e-bf0c-a705ea229995",
+      "effectName": "共济调谐",
+      "effectDetails": "造成的回合外<span style=\"color: rgb(230, 113, 41);\">燃烧伤害</span>提高<span style=\"color: rgb(242, 108, 28);\">15%</span>。增益不可驱散。",
+      "effectTags": [],
+      "dollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
+      "regionTag": "cn",
+      "preview": false
+    },
+    {
+      "id": "ac1ade3b-9b98-5401-aac9-7e662582b00e",
+      "effectName": "共济调谐",
+      "effectDetails": "造成的回合外<span style=\"color: rgb(230, 113, 41);\">燃烧伤害</span>提高<span style=\"color: rgb(242, 108, 28);\">30%</span>，受到稳态伤害降低<span style=\"color: rgb(242, 108, 28);\">1点</span>。增益不可驱散。",
+      "effectTags": [],
+      "dollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
+      "regionTag": "cn",
+      "preview": false
+    },
+    {
+      "id": "873ed7e3-194e-5302-9d25-9ccbe8f2e06c",
+      "effectName": "悉心倾力",
+      "effectDetails": "暴击率提高<span style=\"color: rgb(242, 108, 28);\">4%</span>，攻击力提高<span style=\"color: rgb(242, 108, 28);\">4%</span>，至多叠加<span style=\"color: rgb(242, 108, 28);\">10层</span>。增益不可驱散。",
+      "effectTags": [],
+      "dollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
+      "regionTag": "cn",
+      "preview": false
+    },
+    {
+      "id": "7407a85b-5dfe-5873-9f70-c562fff498ca",
+      "effectName": "抚慰之语·范围",
+      "effectDetails": "选取<span style=\"color: rgb(242, 108, 28);\">周围半径8格内</span>的1个敌方目标，对其及其<span style=\"color: rgb(242, 108, 28);\">周围5×5格内</span>的所有敌方目标造成<span style=\"color: rgb(242, 108, 28);\">70%</span>攻击力的范围<span style=\"color: rgb(230, 113, 41);\">燃烧伤害</span>，并对其施加[effect:08760998-f8d7-51e6-88df-d96ac2c34e68]和[effect:a37ad66d-0f60-5111-b5a5-4f0f0469e8da]，持续<span style=\"color: rgb(242, 108, 28);\">2回合</span>，并产生[effect:8c88b0bb-2566-5017-8fa1-a761e7767164]地格，持续<span style=\"color: rgb(242, 108, 28);\">2回合</span>。",
+      "effectTags": [],
+      "dollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
+      "regionTag": "cn",
+      "preview": false
+    },
+    {
+      "id": "84d26544-c08e-524a-95b1-ec39ac41c0a1",
+      "effectName": "抚慰之语·精准",
+      "effectDetails": "选取<span style=\"color: rgb(242, 108, 28);\">周围半径8格内</span>的1个敌方目标，对其造成<span style=\"color: rgb(242, 108, 28);\">100%</span>攻击力的<span style=\"color: rgb(230, 113, 41);\">燃烧伤害</span>，并施加[effect:08760998-f8d7-51e6-88df-d96ac2c34e68]，持续<span style=\"color: rgb(242, 108, 28);\">2回合</span>，自身获得[effect:ebe9dcd4-f7f7-5595-a5ef-5133167a5854]，持续<span style=\"color: rgb(242, 108, 28);\">3回合</span>。",
+      "effectTags": [],
+      "dollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
+      "regionTag": "cn",
+      "preview": false
+    },
+    {
+      "id": "0b39b016-60dd-5374-ab0e-cb695a9e88bb",
+      "effectName": "抚慰之语·范围",
+      "effectDetails": "选取<span style=\"color: rgb(242, 108, 28);\">周围半径8格内</span>的1个敌方目标，对其及其<span style=\"color: rgb(242, 108, 28);\">周围5×5格内</span>的所有敌方目标造成<span style=\"color: rgb(242, 108, 28);\">100%</span>攻击力的范围<span style=\"color: rgb(230, 113, 41);\">燃烧伤害</span>，并对其施加[effect:08760998-f8d7-51e6-88df-d96ac2c34e68]和[effect:35a0d4ec-a169-5548-8ed9-c3215fe4174d]，持续<span style=\"color: rgb(242, 108, 28);\">2回合</span>，并产生[effect:8c88b0bb-2566-5017-8fa1-a761e7767164]地格，持续<span style=\"color: rgb(242, 108, 28);\">2回合</span>。",
+      "effectTags": [],
+      "dollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
+      "regionTag": "cn",
+      "preview": false
+    },
+    {
+      "id": "d83cd9ac-5d7b-54d1-b18d-c3676e8164d5",
+      "effectName": "抚慰之语·精准",
+      "effectDetails": "选取<span style=\"color: rgb(242, 108, 28);\">周围半径8格内</span>的1个敌方目标，对其造成<span style=\"color: rgb(242, 108, 28);\">130%</span>攻击力的<span style=\"color: rgb(230, 113, 41);\">燃烧伤害</span>，施加[effect:08760998-f8d7-51e6-88df-d96ac2c34e68]，持续<span style=\"color: rgb(242, 108, 28);\">2回合</span>，并在其<span style=\"color: rgb(242, 108, 28);\">周围半径2格内</span>产生[effect:8c88b0bb-2566-5017-8fa1-a761e7767164]地格，持续<span style=\"color: rgb(242, 108, 28);\">2回合</span>，自身获得[effect:432b5774-3535-574f-852e-9e5a17daa280]，持续<span style=\"color: rgb(242, 108, 28);\">3回合</span>。",
+      "effectTags": [],
+      "dollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
+      "regionTag": "cn",
       "preview": false
     }
   ]

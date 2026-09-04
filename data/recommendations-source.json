@@ -937,8 +937,8 @@
  },
  "leva": {
   "attachments": {
-   "mainSet": "Electric Boost",
-   "setEffect": "When dealing Electric damage, the damage is increased by 20%.",
+   "mainSet": "Close Assault",
+   "setEffect": "Damage dealt is increased by 12%. When dealing melee damage, damage is additionally increased by 24%.",
    "substats": "ATK% > ATK > CRIT% > CRIT DMG%"
   },
   "keys": {
@@ -1343,6 +1343,37 @@
    "Svarog"
   ]
  },
+ "mosin-nagant": {
+  "attachments": {
+   "mainSet": "Phase Strike",
+   "setEffect": "Deals 15% increased damage to targets with Phase Element debuffs.",
+   "substats": "ATK% > ATK > CRIT% > CRIT DMG%"
+  },
+  "keys": {
+   "alternatives": [],
+   "primary": [
+    "Fixed Key 1 - Security Patrol Squad",
+    "Fixed Key 2 - Preprepared Defenses",
+    "Fixed Key 6 - Mobile Patrol"
+   ]
+  },
+  "path": [
+   {
+    "note": "Converts Action Support to Electric damage, allowing it to benefit from Electric type buffs/debuffs like Negative Charge, Electro-Charge etc",
+    "step": "V4"
+   },
+   {
+    "note": "Greatly lowers the requirement for Mosin's Wise Support to activate in an Electric team",
+    "step": "V6"
+   }
+  ],
+  "sheetGid": "1262418199",
+  "weapons": [
+   "Samosek",
+   "Arcana",
+   "Bittersweet Caramel"
+  ]
+ },
  "nagant": {
   "attachments": {
    "mainSet": "Phase Strike",
@@ -1401,6 +1432,68 @@
    "Bittersweet Caramel"
   ]
  },
+ "nemesis-gnosis": {
+  "attachments": {
+   "mainSet": "Corrosion Boost",
+   "setEffect": "When dealing Corrosion damage, the damage is increased by 20%.",
+   "substats": "ATK% > ATK > CRIT% > CRIT DMG%"
+  },
+  "explanation": [
+   {
+    "refs": [],
+    "text": "Tip: Gnosis is a SSR upgrade to SR Nemesis. Gnosis has everything(lvl, remoulding, helix, excluding affection) reset to 1 and needs to level up like a separate unit. You can switch between Nemesis:Gnosis and Nemesis at any time. Gnosis does NOT apply Def Down."
+   },
+   {
+    "refs": [
+     "V0"
+    ],
+    "text": "Tip: Gnosis and Sybil's dupes can be obtained through:\n1. Gnosis V0 is free and obtainable via event.\n2. Special currency shop, you gain 450 per character event for free, dupe cost is 450->600->750->900->900->900 (4500 total). Sybil's are 600 (3600 total).\n3. Shop, montly gift pack, Gnosis dupe is 3000 collapse pieces/2200 URNC tokens, Sybil is 2000 pieces/1450 tokens\n4. Neural integration exchange shop, 5 pieces of Gnosis is 200 doritos, up to 6 purchases per month (1200 doritos montly equal to one dupe), one Sybil is 900 doritos\nIts up to you if you want to increase the gain of Gnosis dupes with pieces or doritos, her duper cost is lower than limited characters while her power is on par with them."
+   },
+   {
+    "refs": [
+     "V0",
+     "V1",
+     "V2"
+    ],
+    "text": "Tip: V0-V1 rotation: 24-3-repeat\nV2+ rotation: 24-4-repeat. On even turns make sure you ult BEFORE Nemesis shot her third Action Support so you will have CI on next turn"
+   },
+   {
+    "refs": [
+     "V3"
+    ],
+    "text": "Tip: Make sure Nemesis is within 4 tiles from allies when using Calamity Resonance to get First Prophecy: Resonance. Make sure Nemesis at least 6 tiles away from target to get maximum benefit from Stellar Insight. Remember that under V3 moving Nemesis will clear Focus stacks."
+   }
+  ],
+  "keys": {
+   "alternatives": [
+    "Fixed Key 4 -  Immune Bloodline",
+    "Fixed Key 6 - Blessing of Nirvana",
+    "Fixed Key 5 - Prophet’s Monologue"
+   ],
+   "primary": [
+    "Fixed Key 1 - Return Anchor"
+   ]
+  },
+  "path": [
+   {
+    "note": "Additional action support, big increase of damage",
+    "step": "V1"
+   },
+   {
+    "note": "Change of Nemesis rotation, good damage increase",
+    "step": "V2"
+   },
+   {
+    "note": "Focus no longer has limit, biggest upgrade in damage and 80% of Nemesis potential. This V is recommended to get faster",
+    "step": "V3"
+   }
+  ],
+  "weapons": [
+   "Sybil",
+   "Bittersweet Caramel",
+   "Night-Wayfaring Cardamom"
+  ]
+ },
  "nikketa": {
   "attachments": {
    "mainSet": "Hydro Boost",
@@ -1451,7 +1544,7 @@
      "V1",
      "V2"
     ],
-    "text": "TIP: OTs rotation depends on V's (skill count starts from Basic attack 1, Ultimate is 4):\nV0-V1: 32, 31, 32, 34 (second action after support), 31, 32, 34 (last action)\nV2+: Use Total Suppression on turns 1-3 → Support doll moves first and deal small damage in the fourth turn → OTs ults on turn 4 as second action, small damage done is converted into Overload Pulse and is discarded → Turn 4 and 5 damage accumulated into charge on turn 5 → OTs accumulate damage on turns 6 normally → OTs ults as last action on turn 7 \n32, 32, 32, 34 (second action after support), 32, 32, 34 (last action)"
+    "text": "TIP: OTs rotation depends on V's (skill count starts from Basic attack 1, Ultimate is 4):\nV0-V1: 32, 31, 32, 34 (After 1st ally/supports action with minimal damage), 31, 32, 34 (last action of turn 7)\nV2+: Use Total Suppression on turns 1-3 → Support doll moves first and deal small damage in the fourth turn → OTs ults on turn 4 as second action, small damage done is converted into Overload Pulse and is discarded → Turn 4 and 5 damage accumulated into charge on turn 5 → OTs accumulate damage on turns 6 normally → OTs ults as last action on turn 7 \n32, 32, 32, 34 (second action after support), 32, 32, 34 (last action)"
    },
    {
     "refs": [
