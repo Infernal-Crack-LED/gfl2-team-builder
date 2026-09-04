@@ -1,5 +1,5 @@
 {
-  "syncedAt": "2026-08-31T10:36:42.498Z",
+  "syncedAt": "2026-09-04T15:36:45.440Z",
   "dolls": [
     {
       "id": "4ce57d60-1840-5de8-b876-884458ff1aa7",
@@ -29289,7 +29289,7 @@
         "Dark Groza"
       ],
       "gunDataId": 1074,
-      "regionTag": "cn",
+      "regionTag": "en",
       "preview": false,
       "skills": [
         {
@@ -29301,7 +29301,7 @@
           "imageUrl": "/game-assets/skills/10740101-shooting-instinct.webp",
           "summonId": null,
           "ammoTypes": null,
-          "regionTag": "cn",
+          "regionTag": "en",
           "skillTags": [
             "Basic Attack",
             "Targeted"
@@ -29356,7 +29356,7 @@
           "imageUrl": "/game-assets/skills/10740501-total-suppression.webp",
           "summonId": null,
           "ammoTypes": [],
-          "regionTag": "cn",
+          "regionTag": "en",
           "skillTags": [
             "Active",
             "AoE"
@@ -29427,7 +29427,7 @@
           "imageUrl": "/game-assets/skills/10740701-perfect-adaptation.webp",
           "summonId": null,
           "ammoTypes": [],
-          "regionTag": "cn",
+          "regionTag": "en",
           "skillTags": [
             "Active"
           ],
@@ -29488,7 +29488,7 @@
           "imageUrl": "/game-assets/skills/10740401-sundering-demolition.webp",
           "summonId": null,
           "ammoTypes": null,
-          "regionTag": "cn",
+          "regionTag": "en",
           "skillTags": [
             "Ultimate"
           ],
@@ -29556,7 +29556,7 @@
           "imageUrl": "/game-assets/skills/10740801-boojum-effect.webp",
           "summonId": null,
           "ammoTypes": null,
-          "regionTag": "cn",
+          "regionTag": "en",
           "skillTags": [
             "Passive"
           ],
@@ -30288,7 +30288,7 @@
       "dollImages": [],
       "searchTags": [],
       "gunDataId": 1075,
-      "regionTag": "cn",
+      "regionTag": "en",
       "preview": false,
       "skills": [
         {
@@ -30302,7 +30302,7 @@
           "ammoTypes": [
             "Heavy Ammo"
           ],
-          "regionTag": "cn",
+          "regionTag": "en",
           "skillTags": [
             "Basic Attack",
             "Targeted"
@@ -30359,7 +30359,7 @@
           "ammoTypes": [
             "Heavy Ammo"
           ],
-          "regionTag": "cn",
+          "regionTag": "en",
           "skillTags": [
             "Active",
             "Targeted"
@@ -30424,7 +30424,7 @@
           "ammoTypes": [
             "Heavy Ammo"
           ],
-          "regionTag": "cn",
+          "regionTag": "en",
           "skillTags": [
             "Active",
             "Targeted"
@@ -30487,7 +30487,7 @@
           "imageUrl": "/game-assets/skills/10750401-reversal-destiny.webp",
           "summonId": null,
           "ammoTypes": null,
-          "regionTag": "cn",
+          "regionTag": "en",
           "skillTags": [
             "Ultimate",
             "AoE"
@@ -30550,7 +30550,7 @@
           "imageUrl": "/game-assets/skills/10750801-whispers-of-nirvana.webp",
           "summonId": null,
           "ammoTypes": [],
-          "regionTag": "cn",
+          "regionTag": "en",
           "skillTags": [
             "Passive"
           ],
@@ -33043,7 +33043,7 @@
         {
           "id": "10800701",
           "name": "Demolition Reckoning",
-          "phase": null,
+          "phase": "Physical",
           "dollId": "ac6fa408-f95c-57f2-a250-a264166efb29",
           "cooldown": 0,
           "imageUrl": "/game-assets/skills/10800701-unnamed.webp",
@@ -33054,7 +33054,7 @@
           "skillType": "Active",
           "rangeValue": 0,
           "description": "Selects 1 tile within a cross-shaped area of <span style=\"color: rgb(242, 108, 28);\">8 tiles</span> and launches a projectile at it, dealing AoE Physical damage equal to <span style=\"color: rgb(242, 108, 28);\">80%</span> of attack to all enemy targets within a <span style=\"color: rgb(242, 108, 28);\">3-tile radius</span> and applying [effect:29752bc3-2116-543a-aa37-c4cf524b2dcd] for <span style=\"color: rgb(242, 108, 28);\">2 turns</span>. If <span style=\"color: rgb(242, 108, 28);\">2 or more</span> targets are hit, or a boss unit is hit, gains <span style=\"color: rgb(242, 108, 28);\">6 tiles</span> of [effect:db2e3f49-9ae0-5c89-8052-9e929e94bbf6] and applies [effect:d16cd58c-7439-5815-a029-4eecb732ccd0] to the unit holding [effect:e1f0f3e7-6003-56c8-8987-baf16e4a6c10] for <span style=\"color: rgb(242, 108, 28);\">1 round</span>.",
-          "phaseLevel2": null,
+          "phaseLevel2": "Physical",
           "phaseLevel3": null,
           "phaseLevel4": null,
           "effectiveArea": 3,
@@ -33100,7 +33100,7 @@
         {
           "id": "10800401",
           "name": "Railgun Judgement",
-          "phase": null,
+          "phase": "Physical",
           "dollId": "ac6fa408-f95c-57f2-a250-a264166efb29",
           "cooldown": 1,
           "imageUrl": "/game-assets/skills/10800401-railgun-judgement.webp",
@@ -33115,8 +33115,8 @@
           "skillType": "Ultimate",
           "rangeValue": 1,
           "description": "Selects 1 direction, applies [effect:79ba584a-987d-5190-be02-9383e1973071] for <span style=\"color: rgb(242, 108, 28);\">2 rounds</span> and [effect:2512e71d-366d-56b0-b188-d9334710a0ec] for <span style=\"color: rgb(242, 108, 28);\">3 turns</span> to all enemy targets in a <span style=\"color: rgb(242, 108, 28);\">3×8-tile area ahead</span>, and deals AoE Physical damage equal to <span style=\"color: rgb(242, 108, 28);\">240%</span> of attack that ignores Cover. The attack ignores <span style=\"color: rgb(242, 108, 28);\">100%</span> of the target's defense.",
-          "phaseLevel2": null,
-          "phaseLevel3": null,
+          "phaseLevel2": "Physical",
+          "phaseLevel3": "Physical",
           "phaseLevel4": null,
           "effectiveArea": 0,
           "rangeImageUrl": "/game-assets/ranges/r1-as79-36x78.webp",
@@ -33174,7 +33174,7 @@
         {
           "id": "10800801",
           "name": "Bond Connextion",
-          "phase": null,
+          "phase": "Physical",
           "dollId": "ac6fa408-f95c-57f2-a250-a264166efb29",
           "cooldown": null,
           "imageUrl": "/game-assets/skills/10800801-bond-connextion.webp",
@@ -33187,8 +33187,8 @@
           "skillType": "Passive",
           "rangeValue": null,
           "description": "At the start of battle, selects 1 Physical allied Doll and applies [effect:e1f0f3e7-6003-56c8-8987-baf16e4a6c10] to them; when allied units deal ammo-less Physical damage, it carries the ammo type of their equipped weapon.\nAt the start of battle, casts [effect:ca3beaa0-be58-53ff-9ac4-c3c6057ca6e1]. At the end of the round after the Ultimate <span style=\"color: rgb(52, 135, 224);\">Railgun Judgement</span> is used, the unit holding [effect:e1f0f3e7-6003-56c8-8987-baf16e4a6c10] gains [effect:ca3beaa0-be58-53ff-9ac4-c3c6057ca6e1] with its attribute bonuses reduced by <span style=\"color: rgb(242, 108, 28);\">50%</span>, lasting <span style=\"color: rgb(242, 108, 28);\">1 round</span>.",
-          "phaseLevel2": null,
-          "phaseLevel3": null,
+          "phaseLevel2": "Physical",
+          "phaseLevel3": "Physical",
           "phaseLevel4": null,
           "effectiveArea": null,
           "rangeImageUrl": null,
@@ -33558,7 +33558,7 @@
           "skillType": "Active",
           "rangeValue": 6,
           "description": "Selects 1 tile within a <span style=\"color: rgb(242, 108, 28);\">6-tile radius</span> and lands on it, dealing <span style=\"color: rgb(66, 204, 224);\">Freeze damage</span> equal to <span style=\"color: rgb(242, 108, 28);\">100%</span> of attack to the nearest enemy target within a <span style=\"color: rgb(242, 108, 28);\">4-tile radius</span> and applying [effect:a37bf71e-7c05-5bfd-b870-47c84cea080a] for <span style=\"color: rgb(242, 108, 28);\">2 turns</span>. After the skill, applies [effect:b263f947-e762-5e80-89b0-0e22b29ae28d] and [effect:3385d18a-509b-5fc1-bab0-14540eadab37] to all enemy non-Boss units within a <span style=\"color: rgb(242, 108, 28);\">4-tile radius</span> around her for <span style=\"color: rgb(242, 108, 28);\">2 turns</span>, and gains [effect:a45309b9-36e9-5091-85e8-c9b634da7086].",
-          "phaseLevel2": null,
+          "phaseLevel2": "Freeze",
           "phaseLevel3": null,
           "phaseLevel4": null,
           "effectiveArea": 4,
@@ -33625,7 +33625,7 @@
           "skillType": "Ultimate",
           "rangeValue": 6,
           "description": "Selects 1 enemy target within a <span style=\"color: rgb(242, 108, 28);\">6-tile radius</span> and deals <span style=\"color: rgb(66, 204, 224);\">Freeze damage</span> equal to <span style=\"color: rgb(242, 108, 28);\">120%</span> of attack to it. Consumes all [effect:1dd1b085-0c7b-5eb3-b527-cc498defc82b]: when <span style=\"color: rgb(242, 108, 28);\">1 point</span> of [effect:1dd1b085-0c7b-5eb3-b527-cc498defc82b] is consumed, damage dealt is increased by <span style=\"color: rgb(242, 108, 28);\">20%</span>; when <span style=\"color: rgb(242, 108, 28);\">2 points</span> of [effect:1dd1b085-0c7b-5eb3-b527-cc498defc82b] are consumed, Crit DMG is increased by <span style=\"color: rgb(242, 108, 28);\">35%</span> and Stability damage dealt by <span style=\"color: rgb(242, 108, 28);\">4 points</span>; when <span style=\"color: rgb(242, 108, 28);\">3 points</span> of [effect:1dd1b085-0c7b-5eb3-b527-cc498defc82b] are consumed, the damage multiplier is increased by <span style=\"color: rgb(242, 108, 28);\">50%</span> and attack by <span style=\"color: rgb(242, 108, 28);\">10%</span>. If the target is killed, skills and effects that trigger on its death do not take effect. After the skill, switches to the [effect:40d2a59c-8b83-5360-9b18-cbb7a83526f8] state. At the end of the round, gains <span style=\"color: rgb(242, 108, 28);\">7 points</span> of [effect:1dd1b085-0c7b-5eb3-b527-cc498defc82b].",
-          "phaseLevel2": null,
+          "phaseLevel2": "Freeze",
           "phaseLevel3": null,
           "phaseLevel4": null,
           "effectiveArea": null,
@@ -34628,6 +34628,498 @@
       ],
       "bio": "A lively girl who doesn't seem to have much presence. She likes hanging out in groups, but always ends up copying others and dislikes being alone. She does livestreams with Kuro when she has nothing to do, where her realistic impressions of others and natural ditziness have won her the audience's love. She sometimes does incomprehensible things in her daily life, but she's actually really good at getting along well with others and is always considerate of their feelings. During battle, she's always at the head of the pack, muttering some kind of weird incantation as she slashes through the enemy.\n“Rush B! GO GO GO!\"",
       "slug": "mityl"
+    },
+    {
+      "id": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
+      "name": "Cecilia",
+      "class": "Sentinel",
+      "phase": "Burn",
+      "rarity": "Elite",
+      "ammoTypes": [
+        "Medium Ammo"
+      ],
+      "weaknessAmmo": "Heavy Ammo",
+      "weaknessPhase": "Freeze",
+      "weaponImprintType": "Assault Rifle",
+      "weaponImprint": {
+        "id": "9d4c8bd8-10a8-5fae-974c-93528bbd0fc3",
+        "name": "Snotra",
+        "trait": "孤羽归群",
+        "effect": "持有护盾时造成的伤害提高<span style=\"color: rgb(242, 108, 28);\">20%</span>，暴击伤害提高<span style=\"color: rgb(242, 108, 28);\">15%</span>，且行动支援造成<span style=\"color: rgb(230, 113, 41);\">燃烧伤害</span>后，自身获得<span style=\"color: rgb(242, 108, 28);\">3点</span>导染指数，每个大回合至多触发<span style=\"color: rgb(242, 108, 28);\">1次</span>。"
+      },
+      "avatarUrl": null,
+      "dollImages": [],
+      "searchTags": [],
+      "gunDataId": 1082,
+      "regionTag": "cn",
+      "preview": false,
+      "skills": [
+        {
+          "id": "10820101",
+          "name": "抚慰之语",
+          "phase": "Physical",
+          "dollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
+          "cooldown": 0,
+          "imageUrl": null,
+          "summonId": null,
+          "ammoTypes": null,
+          "regionTag": "cn",
+          "skillTags": [
+            "Basic Attack",
+            "Targeted"
+          ],
+          "skillType": "Basic Attack",
+          "rangeValue": 8,
+          "description": "Selects one enemy target within <span style=\"color: rgb(242, 108, 28);\">8 tiles</span> and deals Physical damage equal to <span style=\"color: rgb(242, 108, 28);\">80%</span> of attack to it.",
+          "phaseLevel2": null,
+          "phaseLevel3": null,
+          "phaseLevel4": null,
+          "effectiveArea": null,
+          "rangeImageUrl": null,
+          "cooldownLevel2": null,
+          "cooldownLevel3": null,
+          "cooldownLevel4": null,
+          "confectanceCost": 0,
+          "skillTagsLevel2": null,
+          "skillTagsLevel3": null,
+          "skillTagsLevel4": null,
+          "stabilityDamage": 3,
+          "rangeValueLevel2": null,
+          "rangeValueLevel3": null,
+          "rangeValueLevel4": null,
+          "descriptionLevel2": null,
+          "descriptionLevel3": null,
+          "descriptionLevel4": null,
+          "effectiveAreaLevel2": null,
+          "effectiveAreaLevel3": null,
+          "effectiveAreaLevel4": null,
+          "rangeImageUrlLevel2": null,
+          "rangeImageUrlLevel3": null,
+          "rangeImageUrlLevel4": null,
+          "confectanceCostLevel2": null,
+          "confectanceCostLevel3": null,
+          "confectanceCostLevel4": null,
+          "stabilityDamageLevel2": null,
+          "stabilityDamageLevel3": null,
+          "stabilityDamageLevel4": null,
+          "vertebraeUpgradeLevel2": null,
+          "vertebraeUpgradeLevel3": null,
+          "vertebraeUpgradeLevel4": null,
+          "vertebraeUpgradeIdLevel2": null,
+          "vertebraeUpgradeIdLevel3": null,
+          "vertebraeUpgradeIdLevel4": null
+        },
+        {
+          "id": "10820501",
+          "name": "正向回应",
+          "phase": null,
+          "dollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
+          "cooldown": 0,
+          "imageUrl": null,
+          "summonId": null,
+          "ammoTypes": null,
+          "regionTag": "cn",
+          "skillTags": [
+            "Active",
+            "Buff"
+          ],
+          "skillType": "Active",
+          "rangeValue": null,
+          "description": "普攻<span style=\"color: rgb(52, 135, 224);\">抚慰之语</span>改为[effect:7407a85b-5dfe-5873-9f70-c562fff498ca]，持续<span style=\"color: rgb(242, 108, 28);\">1个大回合</span>，获得[effect:a45309b9-36e9-5091-85e8-c9b634da7086]，并为友方人形施加[effect:ec24afec-5369-5ad2-9e48-50b8b94ab3ea]，持续<span style=\"color: rgb(242, 108, 28);\">2个大回合</span>，[effect:ec24afec-5369-5ad2-9e48-50b8b94ab3ea]吸收量为<span style=\"color: rgb(242, 108, 28);\">50%</span>施加者攻击力，至多不超过<span style=\"color: rgb(242, 108, 28);\">100%</span>目标最大生命值，不可叠加。该技能或主动技能<span style=\"color: rgb(52, 135, 224);\">脱敏战术</span>每个大回合至多使用<span style=\"color: rgb(242, 108, 28);\">1次</span>。",
+          "phaseLevel2": null,
+          "phaseLevel3": null,
+          "phaseLevel4": null,
+          "effectiveArea": null,
+          "rangeImageUrl": null,
+          "cooldownLevel2": 0,
+          "cooldownLevel3": null,
+          "cooldownLevel4": null,
+          "confectanceCost": 0,
+          "skillTagsLevel2": [
+            "Active",
+            "Buff"
+          ],
+          "skillTagsLevel3": null,
+          "skillTagsLevel4": null,
+          "stabilityDamage": null,
+          "rangeValueLevel2": null,
+          "rangeValueLevel3": null,
+          "rangeValueLevel4": null,
+          "descriptionLevel2": "普攻<span style=\"color: rgb(52, 135, 224);\">抚慰之语</span>改为[effect:0b39b016-60dd-5374-ab0e-cb695a9e88bb]，持续<span style=\"color: rgb(242, 108, 28);\">1个大回合</span>，获得[effect:a45309b9-36e9-5091-85e8-c9b634da7086]，并为友方人形施加[effect:ec24afec-5369-5ad2-9e48-50b8b94ab3ea]，持续<span style=\"color: rgb(242, 108, 28);\">2个大回合</span>，[effect:ec24afec-5369-5ad2-9e48-50b8b94ab3ea]吸收量为<span style=\"color: rgb(242, 108, 28);\">50%</span>施加者攻击力，至多不超过<span style=\"color: rgb(242, 108, 28);\">100%</span>目标最大生命值，不可叠加。该技能或主动技能<span style=\"color: rgb(52, 135, 224);\">脱敏战术</span>每个大回合至多使用<span style=\"color: rgb(242, 108, 28);\">1次</span>。",
+          "descriptionLevel3": null,
+          "descriptionLevel4": null,
+          "effectiveAreaLevel2": null,
+          "effectiveAreaLevel3": null,
+          "effectiveAreaLevel4": null,
+          "rangeImageUrlLevel2": null,
+          "rangeImageUrlLevel3": null,
+          "rangeImageUrlLevel4": null,
+          "confectanceCostLevel2": 0,
+          "confectanceCostLevel3": null,
+          "confectanceCostLevel4": null,
+          "stabilityDamageLevel2": null,
+          "stabilityDamageLevel3": null,
+          "stabilityDamageLevel4": null,
+          "vertebraeUpgradeLevel2": {
+            "id": "108202",
+            "ownerId": "1082",
+            "segment": 1,
+            "vertebraeName": "Level 1"
+          },
+          "vertebraeUpgradeLevel3": null,
+          "vertebraeUpgradeLevel4": null,
+          "vertebraeUpgradeIdLevel2": "108202",
+          "vertebraeUpgradeIdLevel3": null,
+          "vertebraeUpgradeIdLevel4": null
+        },
+        {
+          "id": "10820701",
+          "name": "脱敏战术",
+          "phase": null,
+          "dollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
+          "cooldown": 0,
+          "imageUrl": null,
+          "summonId": null,
+          "ammoTypes": null,
+          "regionTag": "cn",
+          "skillTags": [
+            "Active",
+            "Buff"
+          ],
+          "skillType": "Active",
+          "rangeValue": null,
+          "description": "普攻<span style=\"color: rgb(52, 135, 224);\">抚慰之语</span>改为[effect:84d26544-c08e-524a-95b1-ec39ac41c0a1]，持续<span style=\"color: rgb(242, 108, 28);\">1个大回合</span>，获得[effect:a45309b9-36e9-5091-85e8-c9b634da7086]，并为友方人形施加[effect:ec24afec-5369-5ad2-9e48-50b8b94ab3ea]，持续<span style=\"color: rgb(242, 108, 28);\">2个大回合</span>，[effect:ec24afec-5369-5ad2-9e48-50b8b94ab3ea]吸收量为<span style=\"color: rgb(242, 108, 28);\">50%</span>施加者攻击力，至多不超过<span style=\"color: rgb(242, 108, 28);\">100%</span>目标最大生命值，不可叠加。该技能或主动技能<span style=\"color: rgb(52, 135, 224);\">正向回应</span>每个大回合至多使用<span style=\"color: rgb(242, 108, 28);\">1次</span>。",
+          "phaseLevel2": null,
+          "phaseLevel3": null,
+          "phaseLevel4": null,
+          "effectiveArea": null,
+          "rangeImageUrl": null,
+          "cooldownLevel2": 0,
+          "cooldownLevel3": null,
+          "cooldownLevel4": null,
+          "confectanceCost": 0,
+          "skillTagsLevel2": [
+            "Active",
+            "Buff"
+          ],
+          "skillTagsLevel3": null,
+          "skillTagsLevel4": null,
+          "stabilityDamage": null,
+          "rangeValueLevel2": null,
+          "rangeValueLevel3": null,
+          "rangeValueLevel4": null,
+          "descriptionLevel2": "普攻<span style=\"color: rgb(52, 135, 224);\">抚慰之语</span>改为[effect:d83cd9ac-5d7b-54d1-b18d-c3676e8164d5]，持续<span style=\"color: rgb(242, 108, 28);\">1个大回合</span>，获得[effect:a45309b9-36e9-5091-85e8-c9b634da7086]，并为友方人形施加[effect:ec24afec-5369-5ad2-9e48-50b8b94ab3ea]，持续<span style=\"color: rgb(242, 108, 28);\">2个大回合</span>，[effect:ec24afec-5369-5ad2-9e48-50b8b94ab3ea]吸收量为<span style=\"color: rgb(242, 108, 28);\">50%</span>施加者攻击力，至多不超过<span style=\"color: rgb(242, 108, 28);\">100%</span>目标最大生命值，不可叠加。该技能或主动技能<span style=\"color: rgb(52, 135, 224);\">正向回应</span>每个大回合至多使用<span style=\"color: rgb(242, 108, 28);\">1次</span>。",
+          "descriptionLevel3": null,
+          "descriptionLevel4": null,
+          "effectiveAreaLevel2": null,
+          "effectiveAreaLevel3": null,
+          "effectiveAreaLevel4": null,
+          "rangeImageUrlLevel2": null,
+          "rangeImageUrlLevel3": null,
+          "rangeImageUrlLevel4": null,
+          "confectanceCostLevel2": 0,
+          "confectanceCostLevel3": null,
+          "confectanceCostLevel4": null,
+          "stabilityDamageLevel2": null,
+          "stabilityDamageLevel3": null,
+          "stabilityDamageLevel4": null,
+          "vertebraeUpgradeLevel2": {
+            "id": "108203",
+            "ownerId": "1082",
+            "segment": 2,
+            "vertebraeName": "Level 2"
+          },
+          "vertebraeUpgradeLevel3": null,
+          "vertebraeUpgradeLevel4": null,
+          "vertebraeUpgradeIdLevel2": "108203",
+          "vertebraeUpgradeIdLevel3": null,
+          "vertebraeUpgradeIdLevel4": null
+        },
+        {
+          "id": "10820401",
+          "name": "握手言和",
+          "phase": "Burn",
+          "dollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
+          "cooldown": 2,
+          "imageUrl": null,
+          "summonId": null,
+          "ammoTypes": null,
+          "regionTag": "cn",
+          "skillTags": [
+            "Ultimate",
+            "Targeted"
+          ],
+          "skillType": "Ultimate",
+          "rangeValue": 8,
+          "description": "选取<span style=\"color: rgb(242, 108, 28);\">周围半径8格内</span>的1个敌方目标，对其造成<span style=\"color: rgb(242, 108, 28);\">130%</span>攻击力的<span style=\"color: rgb(230, 113, 41);\">燃烧伤害</span>，自身获得[effect:a45309b9-36e9-5091-85e8-c9b634da7086]。每进行<span style=\"color: rgb(242, 108, 28);\">1次</span>普攻或[effect:40636efe-13a8-51e6-b891-46cea59d0e5c]，下次该技能的伤害系数提高<span style=\"color: rgb(242, 108, 28);\">25%</span>。",
+          "phaseLevel2": "Burn",
+          "phaseLevel3": "Burn",
+          "phaseLevel4": null,
+          "effectiveArea": null,
+          "rangeImageUrl": null,
+          "cooldownLevel2": 1,
+          "cooldownLevel3": 1,
+          "cooldownLevel4": null,
+          "confectanceCost": 0,
+          "skillTagsLevel2": [
+            "Ultimate",
+            "Targeted",
+            "Debuff"
+          ],
+          "skillTagsLevel3": [
+            "Ultimate",
+            "Targeted",
+            "Debuff"
+          ],
+          "skillTagsLevel4": null,
+          "stabilityDamage": 5,
+          "rangeValueLevel2": 8,
+          "rangeValueLevel3": 8,
+          "rangeValueLevel4": null,
+          "descriptionLevel2": "选取<span style=\"color: rgb(242, 108, 28);\">周围半径8格内</span>的1个敌方目标，对其造成<span style=\"color: rgb(242, 108, 28);\">160%</span>攻击力的<span style=\"color: rgb(230, 113, 41);\">燃烧伤害</span>，自身获得[effect:a45309b9-36e9-5091-85e8-c9b634da7086]。每进行<span style=\"color: rgb(242, 108, 28);\">1次</span>普攻或[effect:40636efe-13a8-51e6-b891-46cea59d0e5c]，下次该技能的伤害系数提高<span style=\"color: rgb(242, 108, 28);\">50%</span>。技能前对目标施加[effect:2d867c4c-347f-5f79-8686-c1576e07ee6c]，持续<span style=\"color: rgb(242, 108, 28);\">2回合</span>。",
+          "descriptionLevel3": "选取<span style=\"color: rgb(242, 108, 28);\">周围半径8格内</span>的1个敌方目标，对其造成<span style=\"color: rgb(242, 108, 28);\">160%</span>攻击力的<span style=\"color: rgb(230, 113, 41);\">燃烧伤害</span>，自身获得[effect:a45309b9-36e9-5091-85e8-c9b634da7086]。每进行<span style=\"color: rgb(242, 108, 28);\">1次</span>普攻或[effect:40636efe-13a8-51e6-b891-46cea59d0e5c]，下次该技能的伤害系数提高<span style=\"color: rgb(242, 108, 28);\">50%</span>。技能后若使用普攻[effect:e382bc8b-c71a-5d0f-9060-629831b9771b]，则造成的伤害提高<span style=\"color: rgb(242, 108, 28);\">100%</span>，若自身拥有[effect:0a36a37f-975e-5f14-8500-aa8bf9c55bd4]，暴击率提高<span style=\"color: rgb(242, 108, 28);\">100%</span>，暴击伤害提高<span style=\"color: rgb(242, 108, 28);\">50%</span>，至多生效<span style=\"color: rgb(242, 108, 28);\">2次</span>。技能前对目标施加[effect:2d867c4c-347f-5f79-8686-c1576e07ee6c]，持续<span style=\"color: rgb(242, 108, 28);\">2回合</span>。",
+          "descriptionLevel4": null,
+          "effectiveAreaLevel2": null,
+          "effectiveAreaLevel3": null,
+          "effectiveAreaLevel4": null,
+          "rangeImageUrlLevel2": null,
+          "rangeImageUrlLevel3": null,
+          "rangeImageUrlLevel4": null,
+          "confectanceCostLevel2": 0,
+          "confectanceCostLevel3": 0,
+          "confectanceCostLevel4": null,
+          "stabilityDamageLevel2": 5,
+          "stabilityDamageLevel3": 5,
+          "stabilityDamageLevel4": null,
+          "vertebraeUpgradeLevel2": {
+            "id": "108204",
+            "ownerId": "1082",
+            "segment": 3,
+            "vertebraeName": "Level 3"
+          },
+          "vertebraeUpgradeLevel3": {
+            "id": "108206",
+            "ownerId": "1082",
+            "segment": 5,
+            "vertebraeName": "Level 5"
+          },
+          "vertebraeUpgradeLevel4": null,
+          "vertebraeUpgradeIdLevel2": "108204",
+          "vertebraeUpgradeIdLevel3": "108206",
+          "vertebraeUpgradeIdLevel4": null
+        },
+        {
+          "id": "10820801",
+          "name": "安全至上原则",
+          "phase": null,
+          "dollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
+          "cooldown": null,
+          "imageUrl": null,
+          "summonId": null,
+          "ammoTypes": null,
+          "regionTag": "cn",
+          "skillTags": [],
+          "skillType": "Passive",
+          "rangeValue": null,
+          "description": "战斗开始时获得[effect:4aa87190-49a8-5e26-8af5-3b1dca46721b]。普攻或[effect:40636efe-13a8-51e6-b891-46cea59d0e5c]造成范围伤害时，获得<span style=\"color: rgb(242, 108, 28);\">6点</span>[effect:8aefaf6b-1b5f-5c42-9f00-67357c3d8612]；普攻或[effect:40636efe-13a8-51e6-b891-46cea59d0e5c]造成精准伤害时，获得<span style=\"color: rgb(242, 108, 28);\">3点</span>[effect:8aefaf6b-1b5f-5c42-9f00-67357c3d8612]。\n自身获得[effect:ec24afec-5369-5ad2-9e48-50b8b94ab3ea]时转化为等量的[effect:0a36a37f-975e-5f14-8500-aa8bf9c55bd4]，持续<span style=\"color: rgb(242, 108, 28);\">2个大回合</span>。\n当射程内的敌方单位受到来自友方的精准伤害时，若自身拥有[effect:bd8d5fd8-886f-5b6b-9324-4ad8d5400784]或[effect:f760543f-c665-5082-b2fb-d828cfe24f51]，消耗<span style=\"color: rgb(242, 108, 28);\">3点</span>导染指数并对其进行<span style=\"color: rgb(242, 108, 28);\">1次</span>[effect:40636efe-13a8-51e6-b891-46cea59d0e5c]，造成当前[effect:e382bc8b-c71a-5d0f-9060-629831b9771b]的技能效果，每个大回合至多触发<span style=\"color: rgb(242, 108, 28);\">3次</span>，[effect:40636efe-13a8-51e6-b891-46cea59d0e5c]后自身获得<span style=\"color: rgb(242, 108, 28);\">1层</span>持续<span style=\"color: rgb(242, 108, 28);\">2回合</span>的[effect:297a3d81-39cd-5dc6-9545-18fca8d670cf]和持续<span style=\"color: rgb(242, 108, 28);\">2个大回合</span>的[effect:ec24afec-5369-5ad2-9e48-50b8b94ab3ea]，[effect:ec24afec-5369-5ad2-9e48-50b8b94ab3ea]吸收量为<span style=\"color: rgb(242, 108, 28);\">50%</span>施加者攻击力，至多不超过<span style=\"color: rgb(242, 108, 28);\">100%</span>目标最大生命值，不可叠加；并为其他友方单位施加[effect:1d7ab183-0421-5f1e-bf0c-a705ea229995]，持续<span style=\"color: rgb(242, 108, 28);\">2回合</span>。\n每进行<span style=\"color: rgb(242, 108, 28);\">1次</span>[effect:40636efe-13a8-51e6-b891-46cea59d0e5c]，下个大回合开始时，自身获得<span style=\"color: rgb(242, 108, 28);\">3点</span>导染指数。\n桑朵莱希在场时，其造成的伤害和治疗提高<span style=\"color: rgb(242, 108, 28);\">100%</span>，希丽雅普攻与[effect:40636efe-13a8-51e6-b891-46cea59d0e5c]伤害系数提高<span style=\"color: rgb(242, 108, 28);\">30%</span>，且可以获得桑朵莱希施加的[effect:80afe3ea-4031-52c1-bb11-bd2c705aa3d5]。",
+          "phaseLevel2": null,
+          "phaseLevel3": null,
+          "phaseLevel4": null,
+          "effectiveArea": null,
+          "rangeImageUrl": null,
+          "cooldownLevel2": null,
+          "cooldownLevel3": null,
+          "cooldownLevel4": null,
+          "confectanceCost": null,
+          "skillTagsLevel2": [],
+          "skillTagsLevel3": [],
+          "skillTagsLevel4": null,
+          "stabilityDamage": null,
+          "rangeValueLevel2": null,
+          "rangeValueLevel3": null,
+          "rangeValueLevel4": null,
+          "descriptionLevel2": "战斗开始时获得[effect:4aa87190-49a8-5e26-8af5-3b1dca46721b]。普攻或[effect:40636efe-13a8-51e6-b891-46cea59d0e5c]造成范围伤害时，获得<span style=\"color: rgb(242, 108, 28);\">6点</span>[effect:8aefaf6b-1b5f-5c42-9f00-67357c3d8612]；普攻或[effect:40636efe-13a8-51e6-b891-46cea59d0e5c]造成精准伤害时，获得<span style=\"color: rgb(242, 108, 28);\">3点</span>[effect:8aefaf6b-1b5f-5c42-9f00-67357c3d8612]。\n自身获得[effect:ec24afec-5369-5ad2-9e48-50b8b94ab3ea]时转化为等量的[effect:0a36a37f-975e-5f14-8500-aa8bf9c55bd4]，持续<span style=\"color: rgb(242, 108, 28);\">2个大回合</span>。\n当射程内的敌方单位受到来自友方的精准伤害时，若自身拥有[effect:bd8d5fd8-886f-5b6b-9324-4ad8d5400784]或[effect:f760543f-c665-5082-b2fb-d828cfe24f51]，消耗<span style=\"color: rgb(242, 108, 28);\">3点</span>导染指数并对其进行<span style=\"color: rgb(242, 108, 28);\">1次</span>[effect:40636efe-13a8-51e6-b891-46cea59d0e5c]，造成当前[effect:e382bc8b-c71a-5d0f-9060-629831b9771b]的技能效果，每个大回合至多触发<span style=\"color: rgb(242, 108, 28);\">3次</span>，[effect:40636efe-13a8-51e6-b891-46cea59d0e5c]后自身获得<span style=\"color: rgb(242, 108, 28);\">1层</span>持续<span style=\"color: rgb(242, 108, 28);\">2回合</span>的[effect:297a3d81-39cd-5dc6-9545-18fca8d670cf]和持续<span style=\"color: rgb(242, 108, 28);\">2个大回合</span>的[effect:ec24afec-5369-5ad2-9e48-50b8b94ab3ea]，[effect:ec24afec-5369-5ad2-9e48-50b8b94ab3ea]吸收量为<span style=\"color: rgb(242, 108, 28);\">50%</span>施加者攻击力，至多不超过<span style=\"color: rgb(242, 108, 28);\">100%</span>目标最大生命值，不可叠加；并为其他友方单位施加[effect:1d7ab183-0421-5f1e-bf0c-a705ea229995]，持续<span style=\"color: rgb(242, 108, 28);\">2回合</span>。\n[effect:40636efe-13a8-51e6-b891-46cea59d0e5c]造成的伤害提高<span style=\"color: rgb(242, 108, 28);\">40%</span>且稳态伤害提高<span style=\"color: rgb(242, 108, 28);\">2点</span>。每进行<span style=\"color: rgb(242, 108, 28);\">1次</span>[effect:40636efe-13a8-51e6-b891-46cea59d0e5c]，下个大回合开始时，自身获得<span style=\"color: rgb(242, 108, 28);\">3点</span>导染指数。\n桑朵莱希在场时，其造成的伤害和治疗提高<span style=\"color: rgb(242, 108, 28);\">100%</span>，希丽雅普攻与[effect:40636efe-13a8-51e6-b891-46cea59d0e5c]伤害系数提高<span style=\"color: rgb(242, 108, 28);\">30%</span>，且可以获得桑朵莱希施加的[effect:80afe3ea-4031-52c1-bb11-bd2c705aa3d5]。",
+          "descriptionLevel3": "战斗开始时获得[effect:4aa87190-49a8-5e26-8af5-3b1dca46721b]。普攻或[effect:40636efe-13a8-51e6-b891-46cea59d0e5c]造成范围伤害时，获得<span style=\"color: rgb(242, 108, 28);\">6点</span>[effect:8aefaf6b-1b5f-5c42-9f00-67357c3d8612]；普攻或[effect:40636efe-13a8-51e6-b891-46cea59d0e5c]造成精准伤害时，获得<span style=\"color: rgb(242, 108, 28);\">3点</span>[effect:8aefaf6b-1b5f-5c42-9f00-67357c3d8612]。\n自身获得[effect:ec24afec-5369-5ad2-9e48-50b8b94ab3ea]时转化为等量的[effect:0a36a37f-975e-5f14-8500-aa8bf9c55bd4]，持续<span style=\"color: rgb(242, 108, 28);\">2个大回合</span>。\n当射程内的敌方单位受到来自友方的精准伤害时，希丽雅获得<span style=\"color: rgb(242, 108, 28);\">1层</span>[effect:297a3d81-39cd-5dc6-9545-18fca8d670cf]，持续<span style=\"color: rgb(242, 108, 28);\">2回合</span>；若自身拥有[effect:bd8d5fd8-886f-5b6b-9324-4ad8d5400784]或[effect:f760543f-c665-5082-b2fb-d828cfe24f51]，消耗<span style=\"color: rgb(242, 108, 28);\">3点</span>导染指数并对其进行<span style=\"color: rgb(242, 108, 28);\">1次</span>[effect:40636efe-13a8-51e6-b891-46cea59d0e5c]，造成当前[effect:e382bc8b-c71a-5d0f-9060-629831b9771b]的技能效果，每个大回合至多触发<span style=\"color: rgb(242, 108, 28);\">3次</span>，[effect:40636efe-13a8-51e6-b891-46cea59d0e5c]后自身获得<span style=\"color: rgb(242, 108, 28);\">1层</span>持续<span style=\"color: rgb(242, 108, 28);\">2回合</span>的[effect:297a3d81-39cd-5dc6-9545-18fca8d670cf]和持续<span style=\"color: rgb(242, 108, 28);\">2个大回合</span>的[effect:ec24afec-5369-5ad2-9e48-50b8b94ab3ea]，[effect:ec24afec-5369-5ad2-9e48-50b8b94ab3ea]吸收量为<span style=\"color: rgb(242, 108, 28);\">50%</span>施加者攻击力，至多不超过<span style=\"color: rgb(242, 108, 28);\">100%</span>目标最大生命值，不可叠加；并为其他友方单位施加[effect:1d7ab183-0421-5f1e-bf0c-a705ea229995]，持续<span style=\"color: rgb(242, 108, 28);\">2回合</span>。\n[effect:40636efe-13a8-51e6-b891-46cea59d0e5c]造成的伤害提高<span style=\"color: rgb(242, 108, 28);\">40%</span>且稳态伤害提高<span style=\"color: rgb(242, 108, 28);\">2点</span>。每进行<span style=\"color: rgb(242, 108, 28);\">1次</span>[effect:40636efe-13a8-51e6-b891-46cea59d0e5c]，下个大回合开始时，自身获得<span style=\"color: rgb(242, 108, 28);\">3点</span>导染指数。\n若自身的暴击率大于<span style=\"color: rgb(242, 108, 28);\">100%</span>，额外拥有的暴击率转化为相同的普攻伤害系数。\n桑朵莱希在场时，其造成的伤害和治疗提高<span style=\"color: rgb(242, 108, 28);\">100%</span>，希丽雅普攻与[effect:40636efe-13a8-51e6-b891-46cea59d0e5c]伤害系数提高<span style=\"color: rgb(242, 108, 28);\">30%</span>，且可以获得桑朵莱希施加的[effect:80afe3ea-4031-52c1-bb11-bd2c705aa3d5]。",
+          "descriptionLevel4": null,
+          "effectiveAreaLevel2": null,
+          "effectiveAreaLevel3": null,
+          "effectiveAreaLevel4": null,
+          "rangeImageUrlLevel2": null,
+          "rangeImageUrlLevel3": null,
+          "rangeImageUrlLevel4": null,
+          "confectanceCostLevel2": null,
+          "confectanceCostLevel3": null,
+          "confectanceCostLevel4": null,
+          "stabilityDamageLevel2": null,
+          "stabilityDamageLevel3": null,
+          "stabilityDamageLevel4": null,
+          "vertebraeUpgradeLevel2": {
+            "id": "108205",
+            "ownerId": "1082",
+            "segment": 4,
+            "vertebraeName": "Level 4"
+          },
+          "vertebraeUpgradeLevel3": {
+            "id": "108207",
+            "ownerId": "1082",
+            "segment": 6,
+            "vertebraeName": "Level 6"
+          },
+          "vertebraeUpgradeLevel4": null,
+          "vertebraeUpgradeIdLevel2": "108205",
+          "vertebraeUpgradeIdLevel3": "108207",
+          "vertebraeUpgradeIdLevel4": null
+        }
+      ],
+      "vertebrae": [
+        {
+          "id": "108202",
+          "level": 2,
+          "effect": "普攻<span style=\"color: rgb(52, 135, 224);\">抚慰之语</span>改为[effect:0b39b016-60dd-5374-ab0e-cb695a9e88bb]，持续<span style=\"color: rgb(242, 108, 28);\">1个大回合</span>，获得[effect:a45309b9-36e9-5091-85e8-c9b634da7086]，并为友方人形施加[effect:ec24afec-5369-5ad2-9e48-50b8b94ab3ea]，持续<span style=\"color: rgb(242, 108, 28);\">2个大回合</span>，[effect:ec24afec-5369-5ad2-9e48-50b8b94ab3ea]吸收量为<span style=\"color: rgb(242, 108, 28);\">50%</span>施加者攻击力，至多不超过<span style=\"color: rgb(242, 108, 28);\">100%</span>目标最大生命值，不可叠加。该技能或主动技能<span style=\"color: rgb(52, 135, 224);\">脱敏战术</span>每个大回合至多使用<span style=\"color: rgb(242, 108, 28);\">1次</span>。",
+          "segment": 1,
+          "imageUrl": null,
+          "skillsLevel2": [],
+          "skillsLevel3": [],
+          "summonsLevel2": [],
+          "summonsLevel3": [],
+          "vertebraeName": "正向回应 Lv.2"
+        },
+        {
+          "id": "108203",
+          "level": 2,
+          "effect": "普攻<span style=\"color: rgb(52, 135, 224);\">抚慰之语</span>改为[effect:d83cd9ac-5d7b-54d1-b18d-c3676e8164d5]，持续<span style=\"color: rgb(242, 108, 28);\">1个大回合</span>，获得[effect:a45309b9-36e9-5091-85e8-c9b634da7086]，并为友方人形施加[effect:ec24afec-5369-5ad2-9e48-50b8b94ab3ea]，持续<span style=\"color: rgb(242, 108, 28);\">2个大回合</span>，[effect:ec24afec-5369-5ad2-9e48-50b8b94ab3ea]吸收量为<span style=\"color: rgb(242, 108, 28);\">50%</span>施加者攻击力，至多不超过<span style=\"color: rgb(242, 108, 28);\">100%</span>目标最大生命值，不可叠加。该技能或主动技能<span style=\"color: rgb(52, 135, 224);\">正向回应</span>每个大回合至多使用<span style=\"color: rgb(242, 108, 28);\">1次</span>。",
+          "segment": 2,
+          "imageUrl": null,
+          "skillsLevel2": [],
+          "skillsLevel3": [],
+          "summonsLevel2": [],
+          "summonsLevel3": [],
+          "vertebraeName": "脱敏战术 Lv.2"
+        },
+        {
+          "id": "108204",
+          "level": 2,
+          "effect": "选取<span style=\"color: rgb(242, 108, 28);\">周围半径8格内</span>的1个敌方目标，对其造成<span style=\"color: rgb(242, 108, 28);\">160%</span>攻击力的<span style=\"color: rgb(230, 113, 41);\">燃烧伤害</span>，自身获得[effect:a45309b9-36e9-5091-85e8-c9b634da7086]。每进行<span style=\"color: rgb(242, 108, 28);\">1次</span>普攻或[effect:40636efe-13a8-51e6-b891-46cea59d0e5c]，下次该技能的伤害系数提高<span style=\"color: rgb(242, 108, 28);\">50%</span>。技能前对目标施加[effect:2d867c4c-347f-5f79-8686-c1576e07ee6c]，持续<span style=\"color: rgb(242, 108, 28);\">2回合</span>。",
+          "segment": 3,
+          "imageUrl": null,
+          "skillsLevel2": [],
+          "skillsLevel3": [],
+          "summonsLevel2": [],
+          "summonsLevel3": [],
+          "vertebraeName": "握手言和 Lv.2"
+        },
+        {
+          "id": "108205",
+          "level": 2,
+          "effect": "战斗开始时获得[effect:4aa87190-49a8-5e26-8af5-3b1dca46721b]。普攻或[effect:40636efe-13a8-51e6-b891-46cea59d0e5c]造成范围伤害时，获得<span style=\"color: rgb(242, 108, 28);\">6点</span>[effect:8aefaf6b-1b5f-5c42-9f00-67357c3d8612]；普攻或[effect:40636efe-13a8-51e6-b891-46cea59d0e5c]造成精准伤害时，获得<span style=\"color: rgb(242, 108, 28);\">3点</span>[effect:8aefaf6b-1b5f-5c42-9f00-67357c3d8612]。\n自身获得[effect:ec24afec-5369-5ad2-9e48-50b8b94ab3ea]时转化为等量的[effect:0a36a37f-975e-5f14-8500-aa8bf9c55bd4]，持续<span style=\"color: rgb(242, 108, 28);\">2个大回合</span>。\n当射程内的敌方单位受到来自友方的精准伤害时，若自身拥有[effect:bd8d5fd8-886f-5b6b-9324-4ad8d5400784]或[effect:f760543f-c665-5082-b2fb-d828cfe24f51]，消耗<span style=\"color: rgb(242, 108, 28);\">3点</span>导染指数并对其进行<span style=\"color: rgb(242, 108, 28);\">1次</span>[effect:40636efe-13a8-51e6-b891-46cea59d0e5c]，造成当前[effect:e382bc8b-c71a-5d0f-9060-629831b9771b]的技能效果，每个大回合至多触发<span style=\"color: rgb(242, 108, 28);\">3次</span>，[effect:40636efe-13a8-51e6-b891-46cea59d0e5c]后自身获得<span style=\"color: rgb(242, 108, 28);\">1层</span>持续<span style=\"color: rgb(242, 108, 28);\">2回合</span>的[effect:297a3d81-39cd-5dc6-9545-18fca8d670cf]和持续<span style=\"color: rgb(242, 108, 28);\">2个大回合</span>的[effect:ec24afec-5369-5ad2-9e48-50b8b94ab3ea]，[effect:ec24afec-5369-5ad2-9e48-50b8b94ab3ea]吸收量为<span style=\"color: rgb(242, 108, 28);\">50%</span>施加者攻击力，至多不超过<span style=\"color: rgb(242, 108, 28);\">100%</span>目标最大生命值，不可叠加；并为其他友方单位施加[effect:1d7ab183-0421-5f1e-bf0c-a705ea229995]，持续<span style=\"color: rgb(242, 108, 28);\">2回合</span>。\n[effect:40636efe-13a8-51e6-b891-46cea59d0e5c]造成的伤害提高<span style=\"color: rgb(242, 108, 28);\">40%</span>且稳态伤害提高<span style=\"color: rgb(242, 108, 28);\">2点</span>。每进行<span style=\"color: rgb(242, 108, 28);\">1次</span>[effect:40636efe-13a8-51e6-b891-46cea59d0e5c]，下个大回合开始时，自身获得<span style=\"color: rgb(242, 108, 28);\">3点</span>导染指数。\n桑朵莱希在场时，其造成的伤害和治疗提高<span style=\"color: rgb(242, 108, 28);\">100%</span>，希丽雅普攻与[effect:40636efe-13a8-51e6-b891-46cea59d0e5c]伤害系数提高<span style=\"color: rgb(242, 108, 28);\">30%</span>，且可以获得桑朵莱希施加的[effect:80afe3ea-4031-52c1-bb11-bd2c705aa3d5]。",
+          "segment": 4,
+          "imageUrl": null,
+          "skillsLevel2": [],
+          "skillsLevel3": [],
+          "summonsLevel2": [],
+          "summonsLevel3": [],
+          "vertebraeName": "安全至上原则 Lv.2"
+        },
+        {
+          "id": "108206",
+          "level": 3,
+          "effect": "选取<span style=\"color: rgb(242, 108, 28);\">周围半径8格内</span>的1个敌方目标，对其造成<span style=\"color: rgb(242, 108, 28);\">160%</span>攻击力的<span style=\"color: rgb(230, 113, 41);\">燃烧伤害</span>，自身获得[effect:a45309b9-36e9-5091-85e8-c9b634da7086]。每进行<span style=\"color: rgb(242, 108, 28);\">1次</span>普攻或[effect:40636efe-13a8-51e6-b891-46cea59d0e5c]，下次该技能的伤害系数提高<span style=\"color: rgb(242, 108, 28);\">50%</span>。技能后若使用普攻[effect:e382bc8b-c71a-5d0f-9060-629831b9771b]，则造成的伤害提高<span style=\"color: rgb(242, 108, 28);\">100%</span>，若自身拥有[effect:0a36a37f-975e-5f14-8500-aa8bf9c55bd4]，暴击率提高<span style=\"color: rgb(242, 108, 28);\">100%</span>，暴击伤害提高<span style=\"color: rgb(242, 108, 28);\">50%</span>，至多生效<span style=\"color: rgb(242, 108, 28);\">2次</span>。技能前对目标施加[effect:2d867c4c-347f-5f79-8686-c1576e07ee6c]，持续<span style=\"color: rgb(242, 108, 28);\">2回合</span>。",
+          "segment": 5,
+          "imageUrl": null,
+          "skillsLevel2": [],
+          "skillsLevel3": [],
+          "summonsLevel2": [],
+          "summonsLevel3": [],
+          "vertebraeName": "握手言和 Lv.3"
+        },
+        {
+          "id": "108207",
+          "level": 3,
+          "effect": "战斗开始时获得[effect:4aa87190-49a8-5e26-8af5-3b1dca46721b]。普攻或[effect:40636efe-13a8-51e6-b891-46cea59d0e5c]造成范围伤害时，获得<span style=\"color: rgb(242, 108, 28);\">6点</span>[effect:8aefaf6b-1b5f-5c42-9f00-67357c3d8612]；普攻或[effect:40636efe-13a8-51e6-b891-46cea59d0e5c]造成精准伤害时，获得<span style=\"color: rgb(242, 108, 28);\">3点</span>[effect:8aefaf6b-1b5f-5c42-9f00-67357c3d8612]。\n自身获得[effect:ec24afec-5369-5ad2-9e48-50b8b94ab3ea]时转化为等量的[effect:0a36a37f-975e-5f14-8500-aa8bf9c55bd4]，持续<span style=\"color: rgb(242, 108, 28);\">2个大回合</span>。\n当射程内的敌方单位受到来自友方的精准伤害时，希丽雅获得<span style=\"color: rgb(242, 108, 28);\">1层</span>[effect:297a3d81-39cd-5dc6-9545-18fca8d670cf]，持续<span style=\"color: rgb(242, 108, 28);\">2回合</span>；若自身拥有[effect:bd8d5fd8-886f-5b6b-9324-4ad8d5400784]或[effect:f760543f-c665-5082-b2fb-d828cfe24f51]，消耗<span style=\"color: rgb(242, 108, 28);\">3点</span>导染指数并对其进行<span style=\"color: rgb(242, 108, 28);\">1次</span>[effect:40636efe-13a8-51e6-b891-46cea59d0e5c]，造成当前[effect:e382bc8b-c71a-5d0f-9060-629831b9771b]的技能效果，每个大回合至多触发<span style=\"color: rgb(242, 108, 28);\">3次</span>，[effect:40636efe-13a8-51e6-b891-46cea59d0e5c]后自身获得<span style=\"color: rgb(242, 108, 28);\">1层</span>持续<span style=\"color: rgb(242, 108, 28);\">2回合</span>的[effect:297a3d81-39cd-5dc6-9545-18fca8d670cf]和持续<span style=\"color: rgb(242, 108, 28);\">2个大回合</span>的[effect:ec24afec-5369-5ad2-9e48-50b8b94ab3ea]，[effect:ec24afec-5369-5ad2-9e48-50b8b94ab3ea]吸收量为<span style=\"color: rgb(242, 108, 28);\">50%</span>施加者攻击力，至多不超过<span style=\"color: rgb(242, 108, 28);\">100%</span>目标最大生命值，不可叠加；并为其他友方单位施加[effect:1d7ab183-0421-5f1e-bf0c-a705ea229995]，持续<span style=\"color: rgb(242, 108, 28);\">2回合</span>。\n[effect:40636efe-13a8-51e6-b891-46cea59d0e5c]造成的伤害提高<span style=\"color: rgb(242, 108, 28);\">40%</span>且稳态伤害提高<span style=\"color: rgb(242, 108, 28);\">2点</span>。每进行<span style=\"color: rgb(242, 108, 28);\">1次</span>[effect:40636efe-13a8-51e6-b891-46cea59d0e5c]，下个大回合开始时，自身获得<span style=\"color: rgb(242, 108, 28);\">3点</span>导染指数。\n若自身的暴击率大于<span style=\"color: rgb(242, 108, 28);\">100%</span>，额外拥有的暴击率转化为相同的普攻伤害系数。\n桑朵莱希在场时，其造成的伤害和治疗提高<span style=\"color: rgb(242, 108, 28);\">100%</span>，希丽雅普攻与[effect:40636efe-13a8-51e6-b891-46cea59d0e5c]伤害系数提高<span style=\"color: rgb(242, 108, 28);\">30%</span>，且可以获得桑朵莱希施加的[effect:80afe3ea-4031-52c1-bb11-bd2c705aa3d5]。",
+          "segment": 6,
+          "imageUrl": null,
+          "skillsLevel2": [],
+          "skillsLevel3": [],
+          "summonsLevel2": [],
+          "summonsLevel3": [],
+          "vertebraeName": "安全至上原则 Lv.3"
+        }
+      ],
+      "remoldingPattern": {
+        "dollCore": "火力核心·希丽雅",
+        "coreSlots": {
+          "bulwark": 0,
+          "support": 0,
+          "sentinel": 4,
+          "vanguard": 2
+        },
+        "imagoforms": [
+          {
+            "id": "10065",
+            "stage": "Embryo",
+            "effect": "Damage dealt by <span style=\"color: rgb(52, 135, 224);\">Support Attacks</span> is increased by <span style=\"color: rgb(242, 108, 28);\">5%</span>.",
+            "coreLevel": 1,
+            "sentinelFactors": 5,
+            "vanguardFactors": 2
+          },
+          {
+            "id": "20065",
+            "stage": "Seedling",
+            "effect": "Physical and phase damage taken is reduced by <span style=\"color: rgb(242, 108, 28);\">5%</span>.",
+            "coreLevel": 10,
+            "sentinelFactors": 8,
+            "vanguardFactors": 3
+          },
+          {
+            "id": "30065",
+            "stage": "Sprout",
+            "effect": "<span style=\"color: rgb(230, 113, 41);\">Burn damage</span> dealt is increased by <span style=\"color: rgb(242, 108, 28);\">5%</span>.",
+            "coreLevel": 20,
+            "bulwarkFactors": 1,
+            "sentinelFactors": 9,
+            "vanguardFactors": 4
+          },
+          {
+            "id": "40065",
+            "stage": "Shoot",
+            "effect": "Damage dealt to enemy targets in Stability Break is increased by <span style=\"color: rgb(242, 108, 28);\">10%</span>.",
+            "coreLevel": 30,
+            "bulwarkFactors": 2,
+            "sentinelFactors": 11,
+            "vanguardFactors": 6
+          },
+          {
+            "id": "50065",
+            "stage": "Bud",
+            "effect": "Attack is increased by <span style=\"color: rgb(242, 108, 28);\">8%</span>.",
+            "coreLevel": 45,
+            "bulwarkFactors": 2,
+            "sentinelFactors": 15,
+            "vanguardFactors": 7
+          },
+          {
+            "id": "60065",
+            "stage": "Blossom",
+            "effect": "Damage dealt against enemy units that are <span style=\"color: rgb(242, 108, 28);\">more than 5 tiles</span> away is increased by <span style=\"color: rgb(242, 108, 28);\">12%</span>.",
+            "coreLevel": 60,
+            "bulwarkFactors": 3,
+            "sentinelFactors": 18,
+            "vanguardFactors": 8
+          }
+        ],
+        "statBoosts": {
+          "60": {
+            "hp": 679,
+            "atk": 245,
+            "def": 231
+          }
+        }
+      },
+      "movement": null,
+      "stabilityGauge": 9,
+      "summons": [],
+      "bio": "温柔亲切的战术人形，因性情仁厚憨实而深得同伴信任。比起战斗，似乎更擅长担任知心妹妹的角色，倾听与开解众人的苦恼。离开格里芬之后的多年独自历练，使她彻底发挥出了自身的优势，让言辞与慧眼成为了她独一无二的武器。为了支援身陷危机的指挥官，她不惜一切代价，以谈判专家的名义踏上了前途渺茫的旅程。希丽雅相信，变得更加成熟与坚韧的自己，一定能从混沌的局势中抓住那一线重逢的希望。",
+      "slug": "cecilia"
     }
   ]
 }

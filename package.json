@@ -41,6 +41,7 @@
     "import:recs": "tsx src/bin/import-recommendations.ts",
     "import:gunsmoke": "tsx src/bin/import-gunsmoke.ts",
     "seed:datamine": "tsx src/bin/seed-from-datamine.ts",
+    "export:datamine": "tsx src/bin/export-datamine.ts",
     "purge:dandegate": "tsx src/bin/purge-dandegate.ts",
     "demo:sheet": "tsx src/bin/demo-sheet.ts",
     "migrate:profiles": "tsx src/bin/migrate-profiles.ts",

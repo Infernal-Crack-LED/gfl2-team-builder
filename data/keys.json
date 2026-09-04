@@ -1,5 +1,5 @@
 {
-  "syncedAt": "2026-08-31T10:36:42.498Z",
+  "syncedAt": "2026-09-04T15:36:45.440Z",
   "keys": [
     {
       "id": "3863b815-9fdc-5ce3-ae32-a2a6cda53e2a",
@@ -2043,7 +2043,7 @@
       "materials": null,
       "dollId": "173fe1dd-74ee-5fbc-ae09-15704379df3e",
       "imageUrl": "/game-assets/keys/10740902-self-recognition.webp",
-      "regionTag": "cn",
+      "regionTag": "en",
       "searchTags": []
     },
     {
@@ -2059,7 +2059,7 @@
       "materials": null,
       "dollId": "173fe1dd-74ee-5fbc-ae09-15704379df3e",
       "imageUrl": "/game-assets/keys/10740906-destructive-desire.webp",
-      "regionTag": "cn",
+      "regionTag": "en",
       "searchTags": []
     },
     {
@@ -2799,7 +2799,7 @@
       "materials": null,
       "dollId": "e3d25747-0dc5-5cef-9c7a-e12f06115e03",
       "imageUrl": "/game-assets/keys/10750901-homeward-anchor.webp",
-      "regionTag": "cn",
+      "regionTag": "en",
       "searchTags": []
     },
     {
@@ -9912,7 +9912,7 @@
       "materials": null,
       "dollId": "173fe1dd-74ee-5fbc-ae09-15704379df3e",
       "imageUrl": "/game-assets/keys/10740901-plunderers-pace.webp",
-      "regionTag": "cn",
+      "regionTag": "en",
       "searchTags": []
     },
     {
@@ -9928,7 +9928,7 @@
       "materials": null,
       "dollId": "173fe1dd-74ee-5fbc-ae09-15704379df3e",
       "imageUrl": "/game-assets/keys/10740903-single-minded-obsession.webp",
-      "regionTag": "cn",
+      "regionTag": "en",
       "searchTags": []
     },
     {
@@ -9944,7 +9944,7 @@
       "materials": null,
       "dollId": "173fe1dd-74ee-5fbc-ae09-15704379df3e",
       "imageUrl": "/game-assets/keys/10740904-perfect-plan.webp",
-      "regionTag": "cn",
+      "regionTag": "en",
       "searchTags": []
     },
     {
@@ -9960,7 +9960,7 @@
       "materials": null,
       "dollId": "173fe1dd-74ee-5fbc-ae09-15704379df3e",
       "imageUrl": "/game-assets/keys/10740905-at-all-costs.webp",
-      "regionTag": "cn",
+      "regionTag": "en",
       "searchTags": []
     },
     {
@@ -9981,7 +9981,7 @@
       "materials": null,
       "dollId": "173fe1dd-74ee-5fbc-ae09-15704379df3e",
       "imageUrl": "/game-assets/keys/10740907-source-of-pride.webp",
-      "regionTag": "cn",
+      "regionTag": "en",
       "searchTags": []
     },
     {
@@ -9997,7 +9997,7 @@
       "materials": null,
       "dollId": "e3d25747-0dc5-5cef-9c7a-e12f06115e03",
       "imageUrl": "/game-assets/keys/10750902-wise-decision.webp",
-      "regionTag": "cn",
+      "regionTag": "en",
       "searchTags": []
     },
     {
@@ -10013,7 +10013,7 @@
       "materials": null,
       "dollId": "e3d25747-0dc5-5cef-9c7a-e12f06115e03",
       "imageUrl": "/game-assets/keys/10750903-drifters-instinct.webp",
-      "regionTag": "cn",
+      "regionTag": "en",
       "searchTags": []
     },
     {
@@ -10029,7 +10029,7 @@
       "materials": null,
       "dollId": "e3d25747-0dc5-5cef-9c7a-e12f06115e03",
       "imageUrl": "/game-assets/keys/10750904-immunosome-bloodline.webp",
-      "regionTag": "cn",
+      "regionTag": "en",
       "searchTags": []
     },
     {
@@ -10045,7 +10045,7 @@
       "materials": null,
       "dollId": "e3d25747-0dc5-5cef-9c7a-e12f06115e03",
       "imageUrl": "/game-assets/keys/10750905-prescient-confession.webp",
-      "regionTag": "cn",
+      "regionTag": "en",
       "searchTags": []
     },
     {
@@ -10061,7 +10061,7 @@
       "materials": null,
       "dollId": "e3d25747-0dc5-5cef-9c7a-e12f06115e03",
       "imageUrl": "/game-assets/keys/10750906-blessing-of-nirvana.webp",
-      "regionTag": "cn",
+      "regionTag": "en",
       "searchTags": []
     },
     {
@@ -10082,7 +10082,7 @@
       "materials": null,
       "dollId": "e3d25747-0dc5-5cef-9c7a-e12f06115e03",
       "imageUrl": "/game-assets/keys/10750907-will-to-revengeance.webp",
-      "regionTag": "cn",
+      "regionTag": "en",
       "searchTags": []
     },
     {
@@ -10461,7 +10461,7 @@
       "displaySlot": 2,
       "unlockLevel": 20,
       "attributes": null,
-      "effect": "Before an active attack, dispels <span style=\"color: rgb(242, 108, 28);\">1</span> buff from the target.",
+      "effect": "Before making an active attack, cleanses <span style=\"color: rgb(242, 108, 28);\">1</span> buff on the target.",
       "materials": null,
       "dollId": "3e50f95f-8f3d-5586-8b02-48b31d5d4d2e",
       "imageUrl": "/game-assets/keys/10810902-predators-intimidation.webp",
@@ -10550,6 +10550,155 @@
       "materials": null,
       "dollId": "3e50f95f-8f3d-5586-8b02-48b31d5d4d2e",
       "imageUrl": "/game-assets/keys/10810907-an-actors-work-on-herself.webp",
+      "regionTag": "cn",
+      "searchTags": []
+    },
+    {
+      "id": "15d0c19f-ed4f-5f90-bf3d-85069c6aaac2",
+      "keyTitle": "Expansion Key - Will To Protect",
+      "displayTitle": "Will To Protect",
+      "keyType": "Expansion Key",
+      "level": 9,
+      "displaySlot": null,
+      "unlockLevel": null,
+      "attributes": null,
+      "effect": "自身攻击力提高<span style=\"color: rgb(242, 108, 28);\">30%</span>，暴击率提高<span style=\"color: rgb(242, 108, 28);\">30%</span>。\n主动技能<span style=\"color: rgb(52, 135, 224);\">方糖特饮</span>后获得[effect:a45309b9-36e9-5091-85e8-c9b634da7086]。若制胜技能<span style=\"color: rgb(52, 135, 224);\">午后茶歇</span>对友方人形造成过量治疗，则对其施加[effect:ec24afec-5369-5ad2-9e48-50b8b94ab3ea]，持续<span style=\"color: rgb(242, 108, 28);\">2个大回合</span>，[effect:ec24afec-5369-5ad2-9e48-50b8b94ab3ea]吸收量为<span style=\"color: rgb(242, 108, 28);\">50%</span>施加者攻击力，至多不超过<span style=\"color: rgb(242, 108, 28);\">100%</span>目标最大生命值。\n当射程内的敌方单位受到来自友方的精准伤害时，进行[effect:40636efe-13a8-51e6-b891-46cea59d0e5c]造成的伤害改为<span style=\"color: rgb(230, 113, 41);\">燃烧伤害</span>，自身额外获得<span style=\"color: rgb(242, 108, 28);\">1点</span>导染指数，并为友方人形施加[effect:ec24afec-5369-5ad2-9e48-50b8b94ab3ea]，持续<span style=\"color: rgb(242, 108, 28);\">2个大回合</span>。\n使用主动技能、进行[effect:40636efe-13a8-51e6-b891-46cea59d0e5c]或[effect:57c18669-1d21-5905-9558-62ec61a4f7a5]后，对<span style=\"color: rgb(242, 108, 28);\">周围半径7格内</span>的所有敌方单位造成<span style=\"color: rgb(242, 108, 28);\">150%</span>攻击力的<span style=\"color: rgb(230, 113, 41);\">燃烧伤害</span>，若命中目标数量多于<span style=\"color: rgb(242, 108, 28);\">3个</span>，则造成<span style=\"color: rgb(242, 108, 28);\">75%</span>攻击力的<span style=\"color: rgb(230, 113, 41);\">燃烧伤害</span>。\n希丽雅在场时，其普攻后桑朵莱希进行<span style=\"color: rgb(242, 108, 28);\">1次</span>[effect:57c18669-1d21-5905-9558-62ec61a4f7a5]，若其普攻造成精准伤害，则[effect:57c18669-1d21-5905-9558-62ec61a4f7a5]对目标造成<span style=\"color: rgb(242, 108, 28);\">150%</span>攻击力的<span style=\"color: rgb(230, 113, 41);\">燃烧伤害</span>；若其普攻造成范围伤害，则[effect:57c18669-1d21-5905-9558-62ec61a4f7a5]对目标及其<span style=\"color: rgb(242, 108, 28);\">周围5×5格内</span>的所有敌方目标造成<span style=\"color: rgb(242, 108, 28);\">150%</span>攻击力的范围<span style=\"color: rgb(230, 113, 41);\">燃烧伤害</span>；自身获得<span style=\"color: rgb(242, 108, 28);\">1点</span>导染指数，并对希丽雅施加[effect:80afe3ea-4031-52c1-bb11-bd2c705aa3d5]，每个大回合至多触发<span style=\"color: rgb(242, 108, 28);\">1次</span>。",
+      "materials": null,
+      "dollId": "fb12e551-6e4b-5554-a1a4-122b989dcd7a",
+      "imageUrl": null,
+      "regionTag": "cn",
+      "searchTags": []
+    },
+    {
+      "id": "04d88ed8-16a1-56e8-b251-7955524638f4",
+      "keyTitle": "跃键·备受宠爱的猫咪",
+      "displayTitle": "备受宠爱的猫咪",
+      "keyType": "Expansion Key",
+      "level": 8,
+      "displaySlot": null,
+      "unlockLevel": null,
+      "attributes": null,
+      "effect": "主动技能<span style=\"color: rgb(52, 135, 224);\">地雷系少女</span>后对目标施加[effect:51a33c71-f778-58ed-b706-be1ad1607381]，持续<span style=\"color: rgb(242, 108, 28);\">2回合</span>。贝丝蒂处于友方酸蚀类地格并造成<span style=\"color: rgb(134, 121, 232);\">酸蚀伤害</span>时，每有<span style=\"color: rgb(242, 108, 28);\">1级</span>地格等级，攻击力提高<span style=\"color: rgb(242, 108, 28);\">10%</span>。",
+      "materials": null,
+      "dollId": "495bc361-0504-57f6-90cc-192ff68cd0e4",
+      "imageUrl": null,
+      "regionTag": "cn",
+      "searchTags": []
+    },
+    {
+      "id": "130d9e46-a890-5afe-a055-c77b0aeb9abd",
+      "keyTitle": "固键·情绪稳定",
+      "displayTitle": "情绪稳定",
+      "keyType": "Fixed Key",
+      "level": 1,
+      "displaySlot": 1,
+      "unlockLevel": 20,
+      "attributes": null,
+      "effect": "At the start of the battle, gains <span style=\"color: rgb(242, 108, 28);\">3 points</span> of Confectance Index.",
+      "materials": null,
+      "dollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
+      "imageUrl": null,
+      "regionTag": "cn",
+      "searchTags": []
+    },
+    {
+      "id": "443db15b-f945-5350-b2cb-571e74abece8",
+      "keyTitle": "固键·亲和魅力",
+      "displayTitle": "亲和魅力",
+      "keyType": "Fixed Key",
+      "level": 2,
+      "displaySlot": 2,
+      "unlockLevel": 20,
+      "attributes": null,
+      "effect": "普攻前，驱散敌方目标<span style=\"color: rgb(242, 108, 28);\">1个</span>增益效果。",
+      "materials": null,
+      "dollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
+      "imageUrl": null,
+      "regionTag": "cn",
+      "searchTags": []
+    },
+    {
+      "id": "4ca43dcf-0bc2-5721-be62-663d836cdea2",
+      "keyTitle": "固键·轻盈转身",
+      "displayTitle": "轻盈转身",
+      "keyType": "Fixed Key",
+      "level": 3,
+      "displaySlot": 3,
+      "unlockLevel": 30,
+      "attributes": null,
+      "effect": "主动使用普攻[effect:e382bc8b-c71a-5d0f-9060-629831b9771b]后，获得<span style=\"color: rgb(242, 108, 28);\">4格</span>[effect:dae390d1-89f4-5748-b100-08fc2ce4199e]并驱散自身<span style=\"color: rgb(242, 108, 28);\">1个</span>减益效果。",
+      "materials": null,
+      "dollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
+      "imageUrl": null,
+      "regionTag": "cn",
+      "searchTags": []
+    },
+    {
+      "id": "cbc793ca-4911-5cfd-b7d5-1289532ed035",
+      "keyTitle": "固键·无害伪装",
+      "displayTitle": "无害伪装",
+      "keyType": "Fixed Key",
+      "level": 4,
+      "displaySlot": 4,
+      "unlockLevel": 30,
+      "attributes": null,
+      "effect": "行动结束后获得[effect:ec24afec-5369-5ad2-9e48-50b8b94ab3ea]，持续<span style=\"color: rgb(242, 108, 28);\">2个大回合</span>。[effect:ec24afec-5369-5ad2-9e48-50b8b94ab3ea]吸收量为<span style=\"color: rgb(242, 108, 28);\">50%</span>施加者攻击力，至多不超过<span style=\"color: rgb(242, 108, 28);\">100%</span>目标最大生命值。",
+      "materials": null,
+      "dollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
+      "imageUrl": null,
+      "regionTag": "cn",
+      "searchTags": []
+    },
+    {
+      "id": "9a02fc11-0161-565f-a6f7-9ab422e73209",
+      "keyTitle": "固键·致命洞察",
+      "displayTitle": "致命洞察",
+      "keyType": "Fixed Key",
+      "level": 5,
+      "displaySlot": 5,
+      "unlockLevel": 40,
+      "attributes": null,
+      "effect": "持有[effect:0a36a37f-975e-5f14-8500-aa8bf9c55bd4]时，自身造成的回合外<span style=\"color: rgb(230, 113, 41);\">燃烧伤害</span>提高<span style=\"color: rgb(242, 108, 28);\">15%</span>。",
+      "materials": null,
+      "dollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
+      "imageUrl": null,
+      "regionTag": "cn",
+      "searchTags": []
+    },
+    {
+      "id": "570e57c2-7f8e-572e-88cc-886f242ffc75",
+      "keyTitle": "固键·自我激励",
+      "displayTitle": "自我激励",
+      "keyType": "Fixed Key",
+      "level": 6,
+      "displaySlot": 6,
+      "unlockLevel": 40,
+      "attributes": null,
+      "effect": "造成范围伤害前，获得[effect:f7e971d4-1d81-5d2a-bf62-10d57fd52202]，持续<span style=\"color: rgb(242, 108, 28);\">2回合</span>；造成精准伤害前，获得[effect:ddb471c9-56a9-50f7-905e-f34013fbff4d]，持续<span style=\"color: rgb(242, 108, 28);\">2回合</span>。",
+      "materials": null,
+      "dollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
+      "imageUrl": null,
+      "regionTag": "cn",
+      "searchTags": []
+    },
+    {
+      "id": "b9b42d5b-e06e-515c-9652-566509518a9c",
+      "keyTitle": "共键·不止善解人意",
+      "displayTitle": "不止善解人意",
+      "keyType": "Common Key",
+      "level": 7,
+      "displaySlot": null,
+      "unlockLevel": null,
+      "attributes": [
+        {
+          "name": "Attack Boost",
+          "value": "5%"
+        }
+      ],
+      "effect": "持有护盾时造成的<span style=\"color: rgb(230, 113, 41);\">燃烧伤害</span>提高<span style=\"color: rgb(242, 108, 28);\">10%</span>。",
+      "materials": null,
+      "dollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
+      "imageUrl": null,
       "regionTag": "cn",
       "searchTags": []
     }

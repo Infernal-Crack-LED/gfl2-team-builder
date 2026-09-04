@@ -1,5 +1,5 @@
 {
-  "syncedAt": "2026-08-31T10:36:42.498Z",
+  "syncedAt": "2026-09-04T15:36:45.440Z",
   "weapons": [
     {
       "id": "b14e4a3b-d9ba-5726-9c0c-86fbea675548",
@@ -4905,7 +4905,7 @@
       },
       "retiredCounterpart": null,
       "gunWeaponDataId": 10741,
-      "regionTag": "cn",
+      "regionTag": "en",
       "preview": false,
       "slug": "retired-groza-3"
     },
@@ -4935,7 +4935,7 @@
         "slug": "retired-groza-3"
       },
       "gunWeaponDataId": 10742,
-      "regionTag": "cn",
+      "regionTag": "en",
       "preview": false,
       "slug": "groza-3"
     },
@@ -4965,7 +4965,7 @@
         "slug": "retired-groza-3"
       },
       "gunWeaponDataId": 10743,
-      "regionTag": "cn",
+      "regionTag": "en",
       "preview": false,
       "slug": "capitoline"
     },
@@ -4987,7 +4987,7 @@
       "standardCounterpart": null,
       "retiredCounterpart": null,
       "gunWeaponDataId": 10753,
-      "regionTag": "cn",
+      "regionTag": "en",
       "preview": false,
       "slug": "sibyl"
     },
@@ -5466,6 +5466,96 @@
       "regionTag": "en",
       "preview": false,
       "slug": "maids-rules"
+    },
+    {
+      "id": "68125df0-3723-5e4e-94e7-8a57588aa2d9",
+      "name": "Retired Gewehr 36-Compact",
+      "rarity": "Retired",
+      "weaponType": "Assault Rifle",
+      "primaryAttribute": "Attack",
+      "primaryAttributeStat": 188,
+      "secondaryAttribute": null,
+      "secondaryAttributeStat": null,
+      "trait": "Fire Armament",
+      "effect": "Increase damage by <span style=\"color: rgb(242, 108, 28);\">1%</span>.",
+      "imprintDollId": null,
+      "imprintDescription": null,
+      "imageUrl": null,
+      "eliteCounterpart": {
+        "id": "9d4c8bd8-10a8-5fae-974c-93528bbd0fc3",
+        "name": "Snotra",
+        "slug": "unnamed"
+      },
+      "standardCounterpart": {
+        "id": "89beedc0-1fe2-584c-8e2f-f8feb89075d3",
+        "name": "Gewehr 36-Compact",
+        "slug": "36"
+      },
+      "retiredCounterpart": null,
+      "gunWeaponDataId": 10821,
+      "regionTag": "cn",
+      "preview": false,
+      "slug": "retired-gewehr-36-compact"
+    },
+    {
+      "id": "89beedc0-1fe2-584c-8e2f-f8feb89075d3",
+      "name": "Gewehr 36-Compact",
+      "rarity": "Standard",
+      "weaponType": "Assault Rifle",
+      "primaryAttribute": "Attack",
+      "primaryAttributeStat": 272,
+      "secondaryAttribute": null,
+      "secondaryAttributeStat": null,
+      "trait": "慰藉",
+      "effect": "持有护盾时造成的伤害提高<span style=\"color: rgb(242, 108, 28);\">10%</span>。",
+      "imprintDollId": null,
+      "imprintDescription": null,
+      "imageUrl": null,
+      "eliteCounterpart": {
+        "id": "9d4c8bd8-10a8-5fae-974c-93528bbd0fc3",
+        "name": "Snotra",
+        "slug": "unnamed"
+      },
+      "standardCounterpart": null,
+      "retiredCounterpart": {
+        "id": "68125df0-3723-5e4e-94e7-8a57588aa2d9",
+        "name": "Retired Gewehr 36-Compact",
+        "slug": "36"
+      },
+      "gunWeaponDataId": 10822,
+      "regionTag": "cn",
+      "preview": false,
+      "slug": "gewehr-36-compact"
+    },
+    {
+      "id": "9d4c8bd8-10a8-5fae-974c-93528bbd0fc3",
+      "name": "Snotra",
+      "rarity": "Elite",
+      "weaponType": "Assault Rifle",
+      "primaryAttribute": "Attack",
+      "primaryAttributeStat": 383,
+      "secondaryAttribute": "Attack Boost",
+      "secondaryAttributeStat": "15%",
+      "trait": "孤羽归群",
+      "effect": "持有护盾时造成的伤害提高<span style=\"color: rgb(242, 108, 28);\">20%</span>，暴击伤害提高<span style=\"color: rgb(242, 108, 28);\">15%</span>，且行动支援造成<span style=\"color: rgb(230, 113, 41);\">燃烧伤害</span>后，自身获得<span style=\"color: rgb(242, 108, 28);\">3点</span>导染指数，每个大回合至多触发<span style=\"color: rgb(242, 108, 28);\">1次</span>。",
+      "imprintDollId": "518bbc4a-24ff-59cd-99d1-e8c8c8127651",
+      "imprintDescription": "对拥有燃烧类减益的目标造成伤害提高2.5%，对帕拉蒂斯造成的伤害提高2.5%。",
+      "imageUrl": null,
+      "eliteCounterpart": null,
+      "standardCounterpart": {
+        "id": "89beedc0-1fe2-584c-8e2f-f8feb89075d3",
+        "name": "Gewehr 36-Compact",
+        "slug": "36"
+      },
+      "retiredCounterpart": {
+        "id": "68125df0-3723-5e4e-94e7-8a57588aa2d9",
+        "name": "Retired Gewehr 36-Compact",
+        "slug": "36"
+      },
+      "gunWeaponDataId": 10823,
+      "regionTag": "cn",
+      "preview": false,
+      "slug": "snotra"
     }
   ]
 }
