@@ -46,6 +46,16 @@ The author is whoever wrote the code — normally you, the driver.
 1. **Gate order.** Run the cheap local gates first — `npm test`, `npm run typecheck`,
    `npm run lint` green, and `npm run smoke:ui` for a front-end diff. Do not spend a cross-family
    dispatch on code that fails locally.
+
+   For a diff that touches `data/*.json`, `web/public/game-assets/` or the datamine pipeline behind
+   them, `npm test` already covers the two content invariants via
+   `src/sync/dataInvariants.test.ts` — **no Chinese anywhere in the committed data** (the site is
+   English-only; where Global has no official text the datamine registry supplies ours) and **every
+   doll, weapon, key and skill has art whose file is on disk, named after the record**. A character
+   present in the game files ALWAYS has art, so a gap there is a stale asset index, never absent
+   art. Both failures are silent, so say in `## CONTEXT` that these ran — a reviewer cannot
+   otherwise tell the difference between "checked" and "renders fine".
+
 2. **Build the packet** at `scratchpad/code-review/<date>-<topic>/review-packet.md`:
    - the FULL role body of `.claude/agents/code-review.md` (minus its frontmatter), then
    - `## INTENT` — 2–4 sentences: what the change does and why, in plain terms,

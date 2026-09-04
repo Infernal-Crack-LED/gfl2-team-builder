@@ -59,6 +59,42 @@ quietly. Never edit, never commit, never run anything that mutates state.
    renderers — a change to its shape or `BUILD_VERSION` invalidates saved builds and every hosted
    share image, so treat one as a BLOCKER unless the intent says otherwise.
 
+5. **CONTENT INVARIANTS — check these on ANY diff that touches `data/*.json`,
+   `web/public/game-assets/`, or the datamine pipeline that generates them.** Both failures below
+   are SILENT: the data is well-formed, the tests pass, the page renders. Nothing surfaces them
+   except looking. Both are maintainer rulings (2026-09-04) and both are BLOCKERs.
+
+   - **No Chinese reaches the site. Ever.** The audience is English-speaking. Where Global ships no
+     official English yet, the datamine's registry (`gfl2dm/translations*.py`) supplies our own —
+     a CJK string in any user-visible field is a bug, never "just untranslated data". Verify, do
+     not eyeball:
+
+     ```bash
+     grep -lP '[\x{4e00}-\x{9fff}]' data/*.json     # must print NOTHING
+     ```
+
+     A record newly added or renamed by the diff is the likely carrier. If you find CJK, the fix is
+     an entry in the datamine registry keyed on the EXACT emitted string, not a patch to the app.
+     Note the corollary for a diff that ADDS a translation: the English must read like the game's,
+     whose vocabulary is recoverable from Global records carrying both languages ("targeted
+     damage", "AoE damage", "Support Action", "cannot be cleansed") — not invented afresh.
+
+   - **Every doll, weapon, key and skill has art, and the file exists.** If a character is in the
+     game files then their art is in the bundles — always. So a null `avatarUrl` / `imageUrl`, or a
+     URL pointing at a file that is not on disk, NEVER means "the game doesn't have it". It means
+     the asset pipeline was not re-run: `assets decrypt` and `assets scan` both skip on bundle NAME,
+     and a game patch rewrites bundles under their existing names, so a resumed pass can silently
+     describe the previous version. Current state is 65/65 dolls, 190/190 weapons, 599/599 keys,
+     333/333 skills — there are no legitimate exceptions, so any gap is a finding.
+
+     ```bash
+     npx vitest run src/sync/dataInvariants.test.ts   # both invariants, asserted
+     ```
+
+     Watch specifically for art filenames containing `unnamed` or a bare number: those come from
+     slugging a name that is still Chinese, and two such records can COLLIDE on one file and
+     overwrite each other's art (it happened to Cecilia's two G36 variants).
+
 ## What you RETURN
 
 Return ONLY a single JSON object (no markdown fences, no prose around it). Findings ranked
