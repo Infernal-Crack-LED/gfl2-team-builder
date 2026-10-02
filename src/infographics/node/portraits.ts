@@ -20,7 +20,9 @@ import { PORTRAIT_CROP_TOP } from '../core/canvas2d.js';
 
 const PORTRAIT_PX = 512; // decoded edge length (drawn down to 440/64)
 const ART_PX = 256; // longest edge for uncropped art (drawn down to ~52)
-const CACHE_MAX = 256;
+// Each portrait entry is ~1 MB of raw RGBA held for the process lifetime, so
+// this bounds steady-state RAM. A card needs at most a team's worth at once.
+const CACHE_MAX = 32;
 
 /**
  * How a source image is fitted at decode time. `portrait` square-crops for the
