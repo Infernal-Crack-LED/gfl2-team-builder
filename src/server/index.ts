@@ -5,7 +5,16 @@
  */
 import 'dotenv/config';
 import { serve } from '@hono/node-server';
+import sharp from 'sharp';
 import { createServer, sweepExpiredAnonShares } from './app.js';
+
+// Railway bills reserved RAM, and sharp's defaults are tuned for throughput:
+// one libvips thread per *host* core (containers see the whole machine) and an
+// operation cache. Share-image renders are rare and their PNGs are already
+// cached on disk, so neither buys anything here — they only pin memory.
+// Pair with MALLOC_ARENA_MAX=2 on the service to curb glibc fragmentation.
+sharp.concurrency(1);
+sharp.cache(false);
 
 const port = Number(process.env.PORT ?? 4173);
 
